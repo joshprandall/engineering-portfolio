@@ -1,0 +1,9 @@
+{
+  "name": "engineering-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Responsive static engineering portfolio with accessible interaction patterns and automated validation.",
+  "scripts": {
+    "test": "node tests/site.test.mjs"
+  }
+}

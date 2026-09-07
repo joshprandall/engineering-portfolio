@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en" id="top">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Engineering projects by Joshua Randall across infrastructure, automation, web engineering, coursework, and advanced-computing study.">
+  <meta name="color-scheme" content="dark light">
+  <meta name="theme-color" content="#101416">
+  <title>Engineering Projects | Joshua Randall</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <a class="brand" href="index.html" aria-label="Joshua Randall home">JR<span>Joshua Randall<small>Systems. Software. Possibility.</small></span></a>
+  <nav id="primary-nav" aria-label="Primary">
+    <a href="index.html#expertise">Expertise</a>
+    <a href="index.html#experience">Experience</a>
+    <a href="projects.html" aria-current="page">Projects</a>
+    <a href="index.html#direction">Direction</a>
+  </nav>
+  <div class="tools">
+    <button id="search-open" aria-label="Search portfolio">⌕ <span>Search</span><kbd>/</kbd></button>
+    <button id="theme" aria-label="Switch color theme">◐</button>
+    <button id="menu" aria-expanded="false" aria-controls="primary-nav" aria-label="Toggle navigation">☰</button>
+  </div>
+</header>
+
+<main id="main">
+  <section class="wrap projects-hero">
+    <p class="eyebrow">THE WORK / THE QUESTIONS / WHAT COMES NEXT</p>
+    <h1>Engineering,<br><em>in practice.</em></h1>
+    <p class="lead">Coursework, working software, a public portfolio, and a deliberate path toward advanced systems.</p>
+  </section>
+
+  <section class="wrap" id="project-list">
+    <div class="filter-bar" aria-label="Filter projects">
+      <button class="active" data-filter="all" aria-pressed="true">All work</button>
+      <button data-filter="completed" aria-pressed="false">Completed work</button>
+      <button data-filter="interactive" aria-pressed="false">Interactive</button>
+      <button data-filter="planned" aria-pressed="false">Planned studies</button>
+      <span id="filter-count" aria-live="polite">8 projects</span>
+    </div>
+
+    <div class="project-grid">
+      <article class="project-card" data-category="completed">
+        <span class="project-number">06 / PYTHON AUTOMATION</span>
+        <h2>Recovery Readiness<br>Auditor</h2>
+        <p>An offline inventory check for backup age, restore-test cadence, recovery targets, and operational ownership.</p>
+        <div class="card-bottom"><span class="status">Published v1.0.0 · CI passing</span><a href="https://github.com/joshprandall/recovery-readiness-auditor" target="_blank" rel="noopener noreferrer">Inspect the project ↗</a></div>
+      </article>
+
+      <article class="project-card" data-category="completed">
+        <span class="project-number">07 / INFRASTRUCTURE ANALYSIS</span>
+        <h2>Infrastructure Dependency<br>Analyzer</h2>
+        <p>Trace declared service dependencies to expose downstream business impact, recovery-target conflicts, and circular prerequisites.</p>
+        <div class="card-bottom"><span class="status">Public repository · CI passing</span><a href="https://github.com/joshprandall/infrastructure-dependency-analyzer" target="_blank" rel="noopener noreferrer">Inspect the project ↗</a></div>
+      </article>
+
+      <article class="project-card" data-category="completed">
+        <span class="project-number">08 / POWERSHELL AUTOMATION</span>
+        <h2>Employee Lifecycle<br>Toolkit</h2>
+        <p>A PowerShell planner for onboarding, role changes, and offboarding with policy gates, projected state, and audit records.</p>
+        <div class="card-bottom"><span class="status">Public repository · CI passing</span><a href="https://github.com/joshprandall/employee-lifecycle-toolkit" target="_blank" rel="noopener noreferrer">Inspect the project ↗</a></div>
+      </article>
+
+      <article class="project-card" data-category="completed">
+        <span class="project-number">01 / COURSEWORK</span>
+        <h2>Providing Energy<br>from Fusion</h2>
+        <p>Team presentation on feasibility, risk, and the engineering decisions behind future energy systems.</p>
+        <div class="card-bottom"><span class="status">Completed presentation</span><a href="https://web.engr.oregonstate.edu/~randjosh/projects.html#fusion" target="_blank" rel="noopener noreferrer">Watch ↗</a></div>
+      </article>
+
+      <article class="project-card" data-category="completed interactive">
+        <span class="project-number">02 / WEB ENGINEERING</span>
+        <h2>Engineering<br>Portfolio</h2>
+        <p>A responsive, accessible home for professional experience, engineering coursework, and technical exploration.</p>
+        <div class="card-bottom"><span class="status">Working website</span><a href="https://web.engr.oregonstate.edu/~randjosh/" target="_blank" rel="noopener noreferrer">Explore ↗</a></div>
+      </article>
+
+      <article class="project-card" data-category="interactive">
+        <span class="project-number">03 / LEARNING INTERACTIVE</span>
+        <h2>One qubit.<br>Two outcomes.</h2>
+        <p>Explore how a state’s angle changes its measurement probabilities in the computational basis.</p>
+        <div class="card-bottom"><span class="status">Educational demo</span><a href="https://web.engr.oregonstate.edu/~randjosh/projects.html#quantum" target="_blank" rel="noopener noreferrer">Try it ↗</a></div>
+      </article>
+
+      <article class="project-card" data-category="planned">
+        <span class="project-number">04 / PLANNED STUDY</span>
+        <h2>Cloud &amp; Systems<br>Lab Notebook</h2>
+        <p>A planned collection of reproducible infrastructure, identity, automation, and recovery exercises.</p>
+        <div class="card-bottom"><span class="status">Planned</span><span>Direction ↗</span></div>
+      </article>
+
+      <article class="project-card" data-category="planned">
+        <span class="project-number">05 / PLANNED STUDY</span>
+        <h2>Advanced<br>Computing</h2>
+        <p>A study direction spanning linear algebra, quantum circuits, simulation, and high-performance computing.</p>
+        <div class="card-bottom"><span class="status">Planned</span><span>Direction ↗</span></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="wrap section">
+    <div class="section-heading">
+      <div><p class="eyebrow">WEB ENGINEERING / DESIGN DECISIONS</p><h2>The portfolio is also a project.</h2></div>
+      <a class="button primary" href="https://web.engr.oregonstate.edu/~randjosh/" target="_blank" rel="noopener noreferrer">Open live portfolio ↗</a>
+    </div>
+    <div class="credential-grid">
+      <article><h3>Responsive by default</h3><p>Grid and flex layouts collapse deliberately across wide, tablet, and phone viewports without a build framework.</p></article>
+      <article><h3>Accessibility considered</h3><p>Semantic landmarks, skip navigation, visible focus, keyboard-operable controls, native dialogs, descriptive labels, and reduced-motion support.</p></article>
+      <article><h3>Progressive enhancement</h3><p>Core content remains readable without JavaScript; scripting adds theme, search, filtering, tabs, copy feedback, and the animated systems map.</p></article>
+    </div>
+  </section>
+</main>
+
+<section class="contact wrap" id="connect">
+  <div><p class="eyebrow">LET’S BUILD SOMETHING THAT MATTERS</p><h2>Good systems start<br>with a conversation.</h2><p>Infrastructure, engineering, technical leadership, and the next challenging problem.</p></div>
+  <div class="contact-actions"><a class="button primary" href="mailto:randall.joshua@gmail.com">Get in touch ↗</a><button class="button" id="copy-email">Copy email address</button><a href="https://github.com/joshprandall" target="_blank" rel="noopener noreferrer">GitHub ↗</a></div>
+</section>
+
+<footer class="wrap"><span>© 2026 Joshua Randall · Albany, Oregon</span><div><a href="#top">Back to top ↑</a></div></footer>
+
+<dialog id="search-dialog" aria-labelledby="search-title">
+  <div class="dialog-head"><h2 id="search-title">Explore the portfolio</h2><button data-close aria-label="Close search">✕</button></div>
+  <label for="search-input">Search skills, experience, and projects</label>
+  <input id="search-input" type="search" placeholder="Try Azure, leadership, or automation…" autocomplete="off">
+  <div id="search-results"></div>
+  <p class="muted">Escape to close · Tab to navigate results</p>
+</dialog>
+
+<div id="toast" role="status" aria-live="polite"></div>
+<script src="app.js" defer></script>
+</body>
+</html>
