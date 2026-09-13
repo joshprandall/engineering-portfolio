@@ -42,6 +42,7 @@
     ["Identity & security", "Active Directory Entra Intune MFA Conditional Access", "index.html#expertise"],
     ["Automation", "PowerShell Python Bash SQL Git CI", "index.html#expertise"],
     ["Experience", "infrastructure systems field engineering consulting leadership", "index.html#experience"],
+    ["Defeat the Evil Wizard", "Godot GDScript action RPG platformer game development 15 champions multidirectional combat exploration puzzles bosses portals", "projects.html#evil-wizard"],
     ["Recovery Readiness Auditor", "backup disaster recovery RPO RTO Python", "projects.html"],
     ["Infrastructure Dependency Analyzer", "dependencies graph business impact Python", "projects.html"],
     ["Employee Lifecycle Toolkit", "PowerShell onboarding offboarding identity", "projects.html"],
