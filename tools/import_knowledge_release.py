@@ -27,7 +27,6 @@ def add_once(text: str, anchor: str, insertion: str) -> str:
 
 
 def patch_page(name: str, text: str, old_projects: str) -> str:
-    # Fix only known double-decoding artifacts; keep every file UTF-8.
     for wrong, right in {'Â·': '·', 'â†—': '↗', 'â†’': '→', 'â€“': '–', 'â€”': '—', 'â€™': '’'}.items():
         text = text.replace(wrong, right)
     if name not in ('index.html', 'projects.html'):
@@ -42,8 +41,7 @@ def patch_page(name: str, text: str, old_projects: str) -> str:
     else:
         saved = GAME_ARTICLE.search(old_projects)
         if saved and not GAME_ARTICLE.search(text):
-            game = saved.group(0)
-            text = text.replace('<div class="project-grid">', '<div class="project-grid">' + game, 1)
+            text = text.replace('<div class="project-grid">', '<div class="project-grid">' + saved.group(0), 1)
         cards = len(re.findall(r'<article class="project-card"', text))
         text = re.sub(r'(<span id="filter-count"[^>]*>)\d+ projects', rf'\g<1>{cards} projects', text, count=1)
     return text
@@ -52,7 +50,8 @@ def patch_page(name: str, text: str, old_projects: str) -> str:
 def import_release(path: Path) -> dict:
     if not path.is_file():
         raise FileNotFoundError(path)
-    old_projects = (ROOT / 'projects.html').read_text(encoding='utf-8') if (ROOT/'projects.html').exists() else ''
+    live_projects = ROOT / 'release-upload' / 'live-projects.html'
+    old_projects = live_projects.read_text(encoding='utf-8') if live_projects.exists() else ((ROOT / 'projects.html').read_text(encoding='utf-8') if (ROOT/'projects.html').exists() else '')
     with zipfile.ZipFile(path) as archive:
         if archive.testzip() is not None:
             raise ValueError('ZIP checksum failed')
@@ -83,6 +82,10 @@ def import_release(path: Path) -> dict:
         if verification.get('count') != 8000 or len(verification.get('records', verification.get('objects', []))) != 8000:
             raise ValueError('Verification JSON does not have 8000 entries')
         json.loads(entries['deep-learning/index.json'])
+        if live_projects.exists():
+            if not GAME_ARTICLE.search(old_projects) or 'id="quantum"' not in old_projects or 'learn.html' not in old_projects:
+                raise ValueError('Live projects file lacks game, qubit, or learning link; refusing regression')
+            entries['projects.html'] = old_projects.encode('utf-8')
         for name in ('index.html','projects.html'):
             entries[name] = patch_page(name, entries[name].decode('utf-8'), old_projects).encode('utf-8')
         for name in ('index.html','projects.html'):
