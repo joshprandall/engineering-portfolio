@@ -1,59 +1,47 @@
-/* Portfolio integration: repair the shared menu and restore the original qubit demo. */
+/* Shared navigation fallback and explicit unavailable-image states. */
 (() => {
-  const nav = document.querySelector('header nav[aria-label="Primary"]');
-  const menu = document.querySelector('#menu');
-  if (nav && menu) {
-    nav.id ||= 'primary-nav';
-    menu.setAttribute('aria-controls', nav.id);
-    // Load this script before app.js: only toggle if app.js did not handle the click.
-    menu.addEventListener('click', () => {
-      const before = nav.classList.contains('open');
-      queueMicrotask(() => {
-        if (nav.classList.contains('open') === before) {
-          nav.classList.toggle('open');
-          menu.setAttribute('aria-expanded', String(nav.classList.contains('open')));
-        }
-      });
-    });
-    nav.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
-      nav.classList.remove('open');
-      menu.setAttribute('aria-expanded', 'false');
-    }));
-    document.addEventListener('keydown', event => {
-      if (event.key === 'Escape' && nav.classList.contains('open')) {
-        nav.classList.remove('open'); menu.setAttribute('aria-expanded', 'false'); menu.focus();
+  const nav=document.querySelector('header nav#primary-nav');
+  const menu=document.getElementById('menu');
+  if(nav&&menu){
+    menu.setAttribute('aria-controls',nav.id);
+    // Capture once on document so a separately loaded app.js cannot double-toggle.
+    document.addEventListener('click',event=>{
+      if(!menu.contains(event.target))return;
+      event.stopPropagation();
+      const opened=nav.classList.toggle('open');
+      menu.setAttribute('aria-expanded',String(opened));
+      menu.setAttribute('aria-label',opened?'Close navigation':'Open navigation');
+    },true);
+    nav.addEventListener('click',event=>{
+      if(event.target.closest('a')){
+        nav.classList.remove('open');menu.setAttribute('aria-expanded','false');
+        menu.setAttribute('aria-label','Open navigation');
       }
     });
-    window.addEventListener('resize', () => {
-      if (window.innerWidth > 900) {
-        nav.classList.remove('open'); menu.setAttribute('aria-expanded', 'false');
+    document.addEventListener('keydown',event=>{
+      if(event.key==='Escape'&&nav.classList.contains('open')){
+        nav.classList.remove('open');menu.setAttribute('aria-expanded','false');menu.focus();
       }
     });
+    window.addEventListener('resize',()=>{
+      if(innerWidth>900){nav.classList.remove('open');menu.setAttribute('aria-expanded','false');}
+    });
   }
-  const slider = document.getElementById('theta');
-  if (!slider) return;
-  const element = id => document.getElementById(id);
-  function render() {
-    const theta = Number(slider.value);
-    if (!Number.isFinite(theta)) return;
-    const p0 = Math.cos(theta * Math.PI / 360) ** 2;
-    const p1 = 1 - p0;
-    element('angle').textContent = `${theta}°`;
-    element('p0').textContent = `${(100*p0).toFixed(1)}%`;
-    element('p1').textContent = `${(100*p1).toFixed(1)}%`;
-    element('bar0').style.width = `${100*p0}%`;
-    element('bar1').style.width = `${100*p1}%`;
-    element('state-description').textContent = theta===0 ? 'Certain outcome |0⟩ in this basis.' : theta===180 ? 'Certain outcome |1⟩ in this basis.' : theta===90 ? 'Equal probabilities for the two measurement outcomes.' : 'The angle changes the computational-basis measurement probabilities.';
-  }
-  slider.addEventListener('input',render);
-  document.querySelectorAll('[data-angle]').forEach(button => button.addEventListener('click', () => {
-    slider.value = button.dataset.angle; render();
-  }));
-  element('measure')?.addEventListener('click', () => {
-    const p0 = Math.cos(Number(slider.value) * Math.PI / 360) ** 2;
-    let zeros = 0;
-    for (let i=0; i<100; i++) if (Math.random() < p0) zeros++;
-    element('sample-result').textContent = `100 simulated measurements: |0⟩ ${zeros}, |1⟩ ${100-zeros}. Results vary by sampling.`;
+  const fallbacks={
+    'portrait.jpg':'JR',
+    'osu-logo.png':'Oregon State University',
+    'quantum2.jpg':'Advanced computing · systems, physics and quantum engineering'
+  };
+  document.querySelectorAll('img[src^="assets/"]').forEach(img=>{
+    const name=img.getAttribute('src').split('/').pop();
+    if(!fallbacks[name])return;
+    const replace=()=>{
+      if(!img.isConnected)return;
+      const element=document.createElement('div');element.className='image-fallback';
+      element.setAttribute('role','img');element.setAttribute('aria-label',img.alt||fallbacks[name]);
+      element.textContent=fallbacks[name];img.replaceWith(element);
+    };
+    img.addEventListener('error',replace,{once:true});
+    if(img.complete&&img.naturalWidth===0)replace();
   });
-  render();
 })();
