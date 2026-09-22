@@ -1,0 +1,22 @@
+/* Focused mobile overrides: preserve existing portfolio and learning styles. */
+html, body { max-width:100%; overflow-x:clip; }
+.project-card { min-width:0; }
+.project-card .card-bottom { flex-wrap:wrap; align-items:flex-start; gap:12px 18px; }
+.project-card .card-bottom .status { min-width:0; overflow-wrap:anywhere; }
+.project-card .card-bottom a { display:inline-flex; align-items:center; min-height:44px; white-space:normal; overflow-wrap:normal; text-decoration:none; }
+#quantum .qubit-layout, #quantum .qubit-layout > * { min-width:0; }
+#quantum input[type="range"] { max-width:100%; }
+@media(max-width:900px) {
+  header.site-header { position:sticky; top:0; z-index:100; min-width:0; }
+  header.site-header nav#primary-nav { display:none; position:absolute; left:0; right:0; top:100%; flex-direction:column; gap:4px; max-height:calc(100dvh - 80px); overflow-y:auto; overscroll-behavior:contain; background:var(--bg,#101416); border-bottom:1px solid var(--line,#344044); padding:12px 20px 20px; }
+  header.site-header nav#primary-nav.open { display:flex; }
+  header.site-header nav#primary-nav a { display:flex; align-items:center; min-height:48px; padding:8px 12px; }
+  header.site-header #menu { display:inline-flex; align-items:center; justify-content:center; min-width:44px; min-height:44px; }
+  .project-grid { grid-template-columns:minmax(0,1fr); }
+}
+@media(max-width:560px) {
+  .project-card .card-bottom { display:grid; grid-template-columns:minmax(0,1fr); }
+  .project-card .card-bottom a { width:100%; border:1px solid var(--line,#344044); border-radius:6px; padding:10px 14px; min-height:48px; }
+  .filter-bar { max-width:100%; overflow-x:auto; }
+  #quantum .qubit-layout { display:grid; grid-template-columns:minmax(0,1fr); }
+}

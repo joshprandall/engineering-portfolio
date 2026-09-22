@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="en" id="top">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Joshua Randall's interactive technical knowledge library: systems, cloud, software, cybersecurity, leadership, mathematics, physics, HPC, and quantum computing.">
+  <meta name="color-scheme" content="dark light">
+  <meta name="theme-color" content="#0f1214">
+  <title>Technical Glossary | Joshua Randall</title>
+  <link rel="stylesheet" href="knowledge.css">
+</head>
+<body data-library-page="glossary">
+<a class="skip" href="#main">Skip to content</a>
+<div class="ambient" aria-hidden="true"><span></span><span></span><span></span></div>
+<header class="site-header">
+  <a class="brand" href="index.html" aria-label="Joshua Randall home">
+    <strong>JR</strong><span>Joshua Randall<small>Systems. Software. Possibility.</small></span>
+  </a>
+  <nav aria-label="Primary">
+    <a href="index.html#expertise">Expertise</a>
+    <a href="index.html#experience">Experience</a>
+    <a href="projects.html">Projects</a>
+    <a href="learn.html" aria-current="page">Learn</a>
+  </nav>
+  <div class="header-tools">
+    <button id="sound-mode" class="icon-button" type="button" aria-label="Sound mode: educational" title="Sound mode">◖))</button>
+    <button id="motion-mode" class="icon-button" type="button" aria-label="Pause animation" title="Pause animation">◫</button>
+    <button id="theme-mode" class="icon-button" type="button" aria-label="Switch color theme" title="Theme">◐</button>
+    <button id="mobile-menu" class="icon-button menu-button" type="button" aria-expanded="false" aria-label="Toggle navigation">☰</button>
+  </div>
+</header>
+
+<main id="main">
+  <div id="library-view">
+    <section class="hero shell">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="signal"></span> KNOWLEDGE SYSTEM / VERIFIED + INTERACTIVE + MASTERY RELEASE</p>
+        <h1>Learn the system.<br><em>Not just the syntax.</em></h1>
+        <p class="hero-lead">A source-verified technical library built to help curious people move from first principles to practical engineering—through explanations, evidence, diagrams, interactive models, guided paths, labs, active recall, quizzes, animation, and optional audio.</p>
+        <div class="hero-actions">
+          <a class="button primary" href="learn-browse.html">Start learning <span>↗</span></a>
+          <button class="button" id="surprise-me">Surprise me <span>↗</span></button>
+        </div>
+        <p class="philosophy">Read it. See it. Hear it. Prove it. Practice it. Build it. Break it. Fix it. <strong>Understand it.</strong></p>
+      </div>
+      <div class="constellation-panel" aria-label="Interactive knowledge map preview">
+        <div class="panel-top"><span>CONNECTED KNOWLEDGE</span><span id="constellation-count">07 DOMAINS</span></div>
+        <canvas id="constellation" width="700" height="500" aria-hidden="true"></canvas>
+        <div class="constellation-copy">
+          <p class="eyebrow">THE IDEA</p>
+          <h2>Everything connects.</h2>
+          <p>Networking touches security. Mathematics powers physics. Architecture shapes HPC. The library makes those relationships visible.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="stat-band" aria-label="Library statistics">
+      <div class="shell stats">
+        <div><strong id="published-count">—</strong><span>Published learning objects</span></div>
+        <div><strong id="atlas-count">—</strong><span>Mapped future topics</span></div>
+        <div><strong id="path-count">—</strong><span>Guided learning paths</span></div>
+        <div><strong id="glossary-count">—</strong><span>Glossary terms</span></div>
+        <div><strong id="verified-count">—</strong><span>Source-verified objects</span></div>
+      </div>
+    </section>
+
+    <nav class="learn-page-nav shell" aria-label="Knowledge Library sections">
+      <a href="learn.html" data-learn-page="home">Home</a>
+      <a href="learn-browse.html" data-learn-page="browse">Browse & Search</a>
+      <a href="learn-paths.html" data-learn-page="paths">Learning Paths</a>
+      <a href="learn-practice.html" data-learn-page="practice">Practice</a>
+      <a href="learn-mastery.html" data-learn-page="mastery">Mastery</a>
+      <a href="learn-labs.html" data-learn-page="labs">Interactive Labs</a>
+      <a href="learn-glossary.html" data-learn-page="glossary">Glossary</a>
+      <a href="learn-map.html" data-learn-page="map">Knowledge Map</a>
+      <a href="learn-verify.html" data-learn-page="verify">Verification</a>
+    </nav>
+    <section class="shell learn-page-intro" id="learn-page-intro" hidden>
+      <p class="eyebrow" id="learn-page-kicker">KNOWLEDGE LIBRARY</p>
+      <h1 id="learn-page-title">Browse</h1>
+      <p id="learn-page-copy"></p>
+    </section>
+
+    <section class="verification-strip" id="verification-standard" aria-labelledby="verification-title">
+      <div class="shell verification-inner">
+        <div class="verification-mark" aria-hidden="true">✓</div>
+        <div>
+          <p class="eyebrow">SOURCE VERIFICATION GATE</p>
+          <h2 id="verification-title">Every published lesson carries evidence.</h2>
+          <p>Published learning objects are checked against standards, official vendor/project documentation, NIST/CISA/OWASP material, or university/open-textbook sources appropriate to the claim. Version-sensitive material is labeled so learners know when to re-check current documentation.</p>
+        </div>
+        <div class="verification-actions">
+          <strong id="verification-ratio">—</strong>
+          <span>verified as of <b id="verification-date">—</b></span>
+          <a class="text-button" href="learn-verify.html">How verification works ↗</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="resume-strip" id="continue-learning" hidden>
+      <div class="shell resume-inner">
+        <div><p class="eyebrow">CONTINUE LEARNING</p><h2 id="continue-title">Pick up where you left off.</h2><p id="continue-copy">Your recent lesson is stored only in this browser.</p></div>
+        <div class="resume-actions"><button class="button primary" id="continue-button" type="button">Continue lesson ↗</button><button class="text-button" id="clear-history" type="button">Clear recent</button></div>
+      </div>
+    </section>
+
+    <section class="shell section" id="domains">
+      <div class="section-heading">
+        <div><p class="eyebrow">01 / CHOOSE A DOMAIN</p><h2>Start where your curiosity is.</h2></div>
+        <p>Every domain grows independently while sharing one search system, one learning model, and one knowledge graph.</p>
+      </div>
+      <div class="domain-grid" id="domain-grid"></div>
+    </section>
+
+    <section class="curriculum section" id="curriculum">
+      <div class="shell">
+        <div class="section-heading">
+          <div><p class="eyebrow">02 / TABLE OF CONTENTS</p><h2>See the curriculum before you dive in.</h2></div>
+          <p>Browse by domain and category. Published counts update from the knowledge database, so lesson 5,001 works exactly like lesson 101.</p>
+        </div>
+        <div class="curriculum-layout">
+          <div class="curriculum-tabs" id="curriculum-tabs" role="tablist" aria-label="Knowledge domains"></div>
+          <div class="curriculum-panel" id="curriculum-panel"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="discover section" id="discover">
+      <div class="shell">
+        <div class="section-heading discover-heading">
+          <div><p class="eyebrow">03 / SMART SEARCH</p><h2>Find what you need—or what you didn't know you needed.</h2></div>
+          <button class="text-button" id="clear-filters">Reset filters</button>
+        </div>
+        <div class="search-stage">
+          <label class="search-box" for="knowledge-search">
+            <span aria-hidden="true">⌕</span>
+            <input id="knowledge-search" type="search" autocomplete="off" placeholder="Search DNS, qubits, leadership, derivatives, APIs…" aria-describedby="search-help">
+            <kbd>/</kbd>
+          </label>
+          <p id="search-help" class="sr-only">Search titles, summaries, tags, categories, and lesson text. Press slash to focus search.</p>
+          <div class="filters" aria-label="Filter lessons">
+            <label>Domain<select id="domain-filter"><option value="all">All domains</option></select></label>
+            <label>Level<select id="level-filter"><option value="all">All levels</option><option>Foundation</option><option>Intermediate</option><option>Advanced</option></select></label>
+            <label>Type<select id="type-filter"><option value="all">All types</option><option>Lesson</option><option>Quick Concept</option><option>Lab</option></select></label>
+            <label class="check-label"><input type="checkbox" id="saved-filter"> Saved only</label>
+          </div>
+        </div>
+        <div class="results-meta"><span id="result-count" aria-live="polite">Loading…</span><span id="active-context">All knowledge</span></div>
+        <div class="search-extras" id="search-extras" hidden></div>
+        <div class="lesson-grid" id="lesson-grid"></div>
+        <button class="button load-more" id="load-more" type="button">Show more</button>
+      </div>
+    </section>
+
+    <section class="practice section" id="practice">
+      <div class="shell">
+        <div class="section-heading">
+          <div><p class="eyebrow">04 / PRACTICE + RETENTION</p><h2>Retrieval beats rereading.</h2></div>
+          <p>Use active recall and glossary flashcards to retrieve knowledge from memory. Your practice history stays in this browser.</p>
+        </div>
+        <div class="practice-grid">
+          <article class="practice-card challenge-card" id="recall-card">
+            <div class="practice-card-top"><span class="practice-icon">?</span><div><p class="eyebrow">ACTIVE RECALL</p><h3>Quick Challenge</h3></div></div>
+            <div id="recall-stage" aria-live="polite"></div>
+            <div class="practice-actions"><button class="button primary" id="recall-next" type="button">New challenge ↻</button><button class="text-button" id="recall-open" type="button" hidden>Open lesson ↗</button></div>
+          </article>
+          <article class="practice-card flashcard-card">
+            <div class="practice-card-top"><span class="practice-icon">Aa</span><div><p class="eyebrow">FLASHCARDS</p><h3>Technical Vocabulary</h3></div></div>
+            <div class="flashcard" id="flashcard-stage" tabindex="0" aria-live="polite"><span class="flash-domain">Ready</span><strong>Reveal a concept from the glossary.</strong><p>Try to define it before revealing the answer.</p></div>
+            <div class="practice-actions"><button class="button primary" id="flash-reveal" type="button">Reveal answer</button><button class="button" id="flash-again" type="button" hidden>Again</button><button class="button" id="flash-got" type="button" hidden>Got it ✓</button></div>
+          </article>
+          <article class="practice-card retention-card">
+            <div class="practice-card-top"><span class="practice-icon">↺</span><div><p class="eyebrow">YOUR RETENTION</p><h3>Practice history</h3></div></div>
+            <div class="retention-metrics"><div><strong id="recall-accuracy">—</strong><span>Recall accuracy</span></div><div><strong id="recall-attempts">0</strong><span>Questions answered</span></div><div><strong id="flash-mastered">0</strong><span>Terms marked got it</span></div></div>
+            <p class="muted">A wrong answer is useful evidence: it identifies what to revisit. Practice is stored locally; no account is required.</p>
+            <button class="text-button" id="review-weak" type="button">Review a missed concept ↗</button>
+          </article>
+          <article class="practice-card sprint-card" id="sprint-card">
+            <div class="practice-card-top"><span class="practice-icon">5×</span><div><p class="eyebrow">RETRIEVAL SPRINT</p><h3>Daily Five</h3></div></div>
+            <div id="sprint-stage" aria-live="polite"><p class="muted">Five source-verified questions across the library.</p></div>
+            <div class="practice-actions"><button class="button primary" id="sprint-start" type="button">Start five-question sprint</button></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="mastery section" id="mastery">
+      <div class="shell">
+        <div class="section-heading">
+          <div><p class="eyebrow">05 / MASTERY DASHBOARD</p><h2>Turn activity into a learning signal.</h2></div>
+          <p>Progress is calculated only from this browser: completed lessons, recall attempts, saved items, and glossary practice. No account or upload is required.</p>
+        </div>
+        <div class="mastery-grid" id="mastery-grid"></div>
+        <div class="mastery-actions">
+          <article class="mastery-card"><p class="eyebrow">WEAKEST RECALL</p><h3>Review what is actually slipping.</h3><div id="mastery-weak"></div></article>
+          <article class="mastery-card"><p class="eyebrow">NEXT BEST ACTION</p><h3>Keep momentum without searching.</h3><div id="mastery-next"></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="labs section" id="labs">
+      <div class="shell">
+        <div class="section-heading">
+          <div><p class="eyebrow">05 / INTERACTIVE LABS</p><h2>Change a variable. Break the model. See why.</h2></div>
+          <p>Launch hands-on models across networking, Kubernetes, computing, cybersecurity, mathematics, physics, and quantum concepts.</p>
+        </div>
+        <div class="lab-toolbar"><span id="lab-count">—</span><div class="lab-filter-tools"><label>Domain <select id="lab-domain"><option value="all">All domains</option></select></label><label>Level <select id="lab-level"><option value="all">All levels</option><option>Foundation</option><option>Intermediate</option><option>Advanced</option></select></label><button class="button" id="random-lab" type="button">Surprise lab ↗</button><button class="text-button" id="toggle-labs" type="button">Show all labs</button></div></div>
+        <div class="lab-grid" id="lab-grid"></div>
+      </div>
+    </section>
+
+    <section class="shell section" id="paths">
+      <div class="section-heading">
+        <div><p class="eyebrow">06 / GUIDED PATHS</p><h2>Don't know what comes next? Follow a path.</h2></div>
+        <p>Curated sequences create progression through prerequisites instead of leaving learners alone with a giant index.</p>
+      </div>
+      <div class="path-grid" id="path-grid"></div>
+    </section>
+
+    <section class="connections section" id="connections">
+      <div class="shell">
+        <div class="section-heading">
+          <div><p class="eyebrow">07 / HOW EVERYTHING CONNECTS</p><h2>Knowledge is a graph, not a stack of pages.</h2></div>
+          <p>Select a domain to reveal cross-domain relationships, then jump directly into the lessons that form those bridges.</p>
+        </div>
+        <div class="graph-layout">
+          <div class="graph-panel"><canvas id="knowledge-graph" width="900" height="560" aria-label="Interactive map showing relationships among knowledge domains"></canvas></div>
+          <aside class="graph-detail" id="graph-detail"><p class="eyebrow">SELECT A DOMAIN</p><h3>Everything connects.</h3><p>Click a node in the map or use the buttons below.</p><div id="graph-buttons" class="graph-buttons"></div></aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="atlas section" id="atlas">
+      <div class="shell">
+        <div class="section-heading">
+          <div><p class="eyebrow">08 / KNOWLEDGE ATLAS</p><h2>The map is much larger than the published library.</h2></div>
+          <p>The atlas exposes the curriculum roadmap without pretending unfinished topics are already published.</p>
+        </div>
+        <div class="atlas-grid" id="atlas-grid"></div>
+      </div>
+    </section>
+
+    <section class="glossary section" id="glossary">
+      <div class="shell">
+        <div class="section-heading">
+          <div><p class="eyebrow">09 / TECHNICAL GLOSSARY</p><h2>When the vocabulary is the barrier, remove the barrier.</h2></div>
+          <p>Search definitions, jump to the strongest related lesson, or browse alphabetically.</p>
+        </div>
+        <label class="glossary-search" for="glossary-search"><span>⌕</span><input id="glossary-search" type="search" autocomplete="off" placeholder="Search API, NUMA, RTO, qubit…"><kbd>G</kbd></label>
+        <div class="glossary-letters" id="glossary-letters" aria-label="Glossary alphabet"></div>
+        <div class="glossary-grid" id="glossary-grid"></div>
+      </div>
+    </section>
+
+    <section class="evidence-guide section" id="evidence-guide">
+      <div class="shell">
+        <div class="section-heading">
+          <div><p class="eyebrow">10 / EVIDENCE + ACCURACY</p><h2>Trust should be inspectable.</h2></div>
+          <p>Every published object exposes its evidence inside the lesson. The verification manifest shipped with this release provides an auditable index of lesson IDs, review status, claim type, and sources.</p>
+        </div>
+        <div class="evidence-steps">
+          <article><span>01</span><h3>Start with authoritative material</h3><p>Prefer standards bodies, official project/vendor documentation, NIST/CISA/OWASP guidance, and university/open textbooks appropriate to the subject.</p></article>
+          <article><span>02</span><h3>Cross-check the lesson claim</h3><p>The explanation, example, takeaway, and quiz are checked against the cited evidence before the object receives a verified status.</p></article>
+          <article><span>03</span><h3>Label moving targets</h3><p>Version-sensitive technologies are explicitly marked. Learners can open the current source rather than treating a dated procedure as timeless.</p></article>
+          <article><span>04</span><h3>Make proof one click away</h3><p>Use the Verify this lesson button on any lesson to jump directly to its evidence and official source links.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="shell section principles">
+      <div class="section-heading">
+        <div><p class="eyebrow">11 / LEARNING STANDARD</p><h2>Built to teach, not to inflate a page count.</h2></div>
+      </div>
+      <div class="principle-grid">
+        <article><span>01</span><h3>First principles</h3><p>New concepts are connected to what the learner already knows, with prerequisites visible rather than hidden.</p></article>
+        <article><span>02</span><h3>Multiple modalities</h3><p>Text, diagrams, interactive models, optional narration, sound, examples, and labs reinforce the same idea in different ways.</p></article>
+        <article><span>03</span><h3>Evidence over theater</h3><p>Version-sensitive material points learners toward primary documentation. Roadmap topics are clearly labeled as roadmap topics.</p></article>
+        <article><span>04</span><h3>Accessibility first</h3><p>Keyboard navigation, reduced motion, silent defaults for nonessential sound, readable contrast, and text equivalents are part of the design.</p></article>
+      </div>
+    </section>
+  </div>
+
+  <section id="lesson-view" class="lesson-view" hidden aria-live="polite">
+    <div class="lesson-progress" aria-hidden="true"><span id="reading-progress"></span></div>
+    <div class="shell lesson-shell">
+      <div class="lesson-topbar">
+        <button class="back-button" id="back-library" type="button">← Knowledge Library</button>
+        <div class="lesson-progress-tools">
+          <span><b id="progress-label">Not completed</b><small>Learning progress</small></span>
+          <button class="button small" id="complete-lesson" type="button">Mark complete</button>
+        </div>
+      </div>
+      <article class="lesson-article" id="lesson-article"></article>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer shell">
+  <div><strong>Joshua Randall / Knowledge Library</strong><p>Practical computing knowledge from infrastructure fundamentals to advanced computing.</p></div>
+  <div class="footer-links"><a href="index.html">Home</a><a href="projects.html">Projects</a><a href="#top">Back to top ↑</a></div>
+  <small>Educational material is maintained as part of this knowledge project. Version-sensitive procedures should be checked against current vendor or standards documentation.</small>
+</footer>
+
+<div id="toast" role="status" aria-live="polite"></div>
+<script src="knowledge-data.js"></script>
+<script src="knowledge.js" defer></script>
+</body>
+</html>

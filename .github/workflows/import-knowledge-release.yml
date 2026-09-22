@@ -1,0 +1,36 @@
+name: Import Knowledge Platform v1.1
+on:
+  push:
+    branches: [site-v1-1-knowledge-sync]
+    paths:
+      - 'release-upload/*.zip'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Validate and import the exact release ZIP
+        run: |
+          test -f release-upload/Joshua_Randall_Knowledge_Platform_v1.1.0_DEEP_LEARNING_EDITION.zip
+          python3 tools/import_knowledge_release.py release-upload/Joshua_Randall_Knowledge_Platform_v1.1.0_DEEP_LEARNING_EDITION.zip
+      - name: Check JavaScript syntax and site regression tests
+        run: |
+          node --check app.js
+          node --check knowledge.js
+          node --check knowledge-data.js
+          node --check site-resilience.js
+          node tests/site.test.mjs
+      - name: Commit validated website files to release branch
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          if ! git diff --cached --quiet; then
+            git commit -m 'Import complete Knowledge Platform v1.1.0 with responsive and qubit repairs'
+            git push origin HEAD:site-v1-1-knowledge-sync
+          fi

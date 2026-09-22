@@ -1,0 +1,84 @@
+name: Integrate verified 3D Battle Chess
+
+on:
+  push:
+    branches: [site-v1-1-knowledge-sync]
+    paths: [.github/workflows/import-verified-battle-chess.yml]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  integrate:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/checkout@v4
+        with:
+          repository: joshprandall/3d-battle-chess
+          ref: b88b32afb25e6074889a1aadd0df535515b4a784
+          path: .chess-source
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate original game's rules and source commit
+        run: |
+          test "$(git -C .chess-source rev-parse HEAD)" = b88b32afb25e6074889a1aadd0df535515b4a784
+          cd .chess-source && npm test
+      - name: Integrate complete game and repair portfolio links
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import shutil
+          src=Path('.chess-source');dst=Path('games/3d-battle-chess');dst.mkdir(parents=True,exist_ok=True)
+          for name in ('index.html','styles.css','battle.js','engine.js','README.md','CREDITS.md','DEPLOYMENT.md'):
+              shutil.copy2(src/name,dst/name)
+          def edit(file,pairs):
+              p=Path(file);s=p.read_text(encoding='utf-8')
+              for old,new in pairs:
+                  if old not in s:raise RuntimeError(f'{file}: missing expected target: {old[:90]}')
+                  s=s.replace(old,new)
+              p.write_text(s,encoding='utf-8')
+          edit('projects.html',[
+              ('Crown &amp; Ash — 3D Battle Chess','3D Battle Chess'),
+              ('Seven themed sets, legal chess, animated captures, local saves, and an accessible tactical fallback.','Five themed sets, legal chess, animated captures, local two-player or computer-opponent play, and accessible move controls.'),
+              ('Explore the work below. Each project opens on its own page in a new tab.','Explore the work below through dedicated project pages and interactive labs.')
+          ])
+          edit('project-battle-chess.html',[
+              ('Crown &amp; Ash — 3D Battle Chess','3D Battle Chess'),
+              ('Crown and Ash 3D Battle Chess','3D Battle Chess'),
+              ('games/battle-chess/','games/3d-battle-chess/'),
+              ('https://github.com/joshprandall/engineering-portfolio/tree/release/complete-project-portfolio/project-sources/battle-chess','https://github.com/joshprandall/3d-battle-chess'),
+              ('project-sources/battle-chess/README.md','https://github.com/joshprandall/3d-battle-chess/blob/main/README.md'),
+              ('project-sources/battle-chess/VALIDATION.md','https://github.com/joshprandall/3d-battle-chess/tree/main/tests'),
+              ('A local two-player chess game with themed 3D armies, legal move enforcement, tactical fallback controls, and animated captures.','A browser-based 3D chess game with five themed sets, local two-player or computer-opponent play, legal move enforcement, and animated captures.'),
+              ('Seven themed sets, legal chess rules, castling, en passant, promotion, local saves, JSON match export/import, camera controls, capture choreography, optional sound, reduced motion, and an accessible tactical board when WebGL is unavailable.','Five selectable procedural sets, standard chess rules, local two-player or computer-opponent play, orbit and zoom controls, animated captures, sound, responsive touch controls, coordinate-based move input, move history, and undo.'),
+              ('This is a playable local two-player release. It does not claim online matchmaking, accounts, a computer opponent, or a backend.','This local browser game supports two players or a compact computer opponent. It does not claim online matchmaking, accounts, or a backend. The 3D renderer loads pinned Three.js modules from jsDelivr and requires internet access.')
+          ])
+          for file in ('project-mind.html','agent-workbench.html'):
+              edit(file,[('project-sources/mind-agent-workbench/README.md','https://github.com/joshprandall/engineering-portfolio/blob/site-v1-1-knowledge-sync/agent-workbench.mjs')])
+          edit('tests/site.test.mjs',[
+              ('games/battle-chess/index.html','games/3d-battle-chess/index.html'),
+              ('games/battle-chess/arena.js','games/3d-battle-chess/battle.js'),
+              ("'games/3d-battle-chess/battle.js']) execFileSync", "'games/3d-battle-chess/battle.js','games/3d-battle-chess/engine.js']) execFileSync")
+          ])
+          edit('DEPLOYMENT.md',[('`games/battle-chess/`','`games/3d-battle-chess/`')])
+          Path('games/3d-battle-chess/SOURCE_COMMIT.txt').write_text('Source: https://github.com/joshprandall/3d-battle-chess\nPinned source commit: b88b32afb25e6074889a1aadd0df535515b4a784\nHistorical games/battle-chess/ is incomplete and should not be deployed.\n',encoding='utf-8')
+          print('Verified game imported, project and documentation links repaired, original experiment preserved.')
+          PY
+      - name: Validate combined portfolio
+        run: npm test
+      - name: Commit source and site files (not workflow files)
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add games/3d-battle-chess projects.html project-battle-chess.html project-mind.html agent-workbench.html tests/site.test.mjs DEPLOYMENT.md
+          git diff --cached --quiet && { echo 'Already integrated'; exit 0; }
+          git commit -m 'Integrate complete 3D Battle Chess and repair portfolio resource links'
+          git push origin HEAD:site-v1-1-knowledge-sync
