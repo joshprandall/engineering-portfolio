@@ -47,8 +47,10 @@ for (const file of htmlFiles) {
 
 const projects = fs.readFileSync(path.join(root, "projects.html"), "utf8");
 const cards = [...projects.matchAll(/<article class=["']project-card["'][^>]*data-category=["']([^"']+)["']/g)];
-assert.equal(cards.length, 8, "projects.html: expected 8 project cards");
-assert.match(projects, /id=["']filter-count["'][^>]*>8 projects</i, "projects.html: filter count must start at 8 projects");
+assert.ok(cards.length > 0, "projects.html: no project cards found");
+const countLabel = projects.match(/id=["']filter-count["'][^>]*>\s*(\d+) projects?\s*</i);
+assert.ok(countLabel, "projects.html: missing numeric project count");
+assert.equal(Number(countLabel[1]), cards.length, "projects.html: visible project count does not match project cards");
 assert.ok(cards.some(m => m[1].includes("interactive")), "projects.html: no interactive projects");
 assert.ok(cards.some(m => m[1].includes("planned")), "projects.html: no planned projects");
 assert.ok(cards.some(m => m[1].includes("completed")), "projects.html: no completed projects");
