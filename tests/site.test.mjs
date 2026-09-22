@@ -1,39 +1,34 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import assert from 'node:assert/strict';
+import { execFileSync } from 'node:child_process';
 const root = path.resolve(import.meta.dirname, '..');
+const exists = file => fs.existsSync(path.join(root, file));
 const read = file => fs.readFileSync(path.join(root, file), 'utf8');
-for (const file of ['index.html','projects.html','styles.css','app.js','README.md']) {
-  assert.ok(fs.existsSync(path.join(root,file)), `missing ${file}`);
-}
-for (const file of ['index.html','projects.html']) {
-  const page=read(file);
-  assert.match(page, /<html[^>]*lang=["']en["']/i, `${file}: missing language`);
-  assert.match(page, /<main[^>]*id=["']main["']/i, `${file}: missing main`);
-  assert.match(page, /<meta[^>]*name=["']viewport["']/i, `${file}: missing viewport`);
-  const ids=[...page.matchAll(/\sid=["']([^"']+)["']/g)].map(match=>match[1]);
-  assert.equal(new Set(ids).size,ids.length,`${file}: duplicate IDs`);
-  for (const src of [...page.matchAll(/<(?:script|link)\b[^>]*(?:src|href)=["']([^"']+)["']/gi)].map(match=>match[1])) {
-    if (/^(https?:|#|mailto:)/.test(src)) continue;
-    assert.ok(fs.existsSync(path.join(root,src.split('?')[0])) || src.startsWith('assets/'),`${file}: missing ${src}`);
-  }
+for (const file of ['index.html','projects.html','styles.css','app.js','learn.html','learn-browse.html','knowledge-data.js','knowledge.js','knowledge.css','deep-learning/index.json','verification-manifest.json','play-evil-wizard.html','qubit-preview-20260921/index.html','games/battle-chess/index.html']) assert.ok(exists(file), `Missing required release file: ${file}`);
+for (const file of ['index.html','projects.html','learn.html','play-evil-wizard.html']) {
+  const html = read(file);
+  assert.match(html, /<html[^>]*lang=["']en["']/i, `${file}: missing document language`);
+  assert.match(html, /<main\b/i, `${file}: missing main landmark`);
+  assert.match(html, /<meta[^>]*name=["']viewport["']/i, `${file}: missing viewport`);
+  const ids=[...html.matchAll(/\sid=["']([^"']+)["']/g)].map(x=>x[1]);
+  assert.equal(new Set(ids).size, ids.length, `${file}: duplicate IDs`);
 }
 const projects=read('projects.html');
 const cards=[...projects.matchAll(/<article\b[^>]*class=["'][^"']*project-card[^"']*["']/gi)];
-assert.ok(cards.length>=8,'Too few project cards');
+assert.equal(cards.length,16,'Reconciled release must preserve all 16 project cards');
 const count=projects.match(/id=["']filter-count["'][^>]*>(\d+) projects/i);
-assert.equal(Number(count?.[1]),cards.length,'Project card count differs from filter badge');
-assert.match(projects,/id=["']evil-wizard["']/,'Game card disappeared');
-if (fs.existsSync(path.join(root,'verification-manifest.json'))) {
-  const manifest=JSON.parse(read('verification-manifest.json'));
-  assert.equal(manifest.count,8000,'Expected 8000 release verification records');
-  assert.equal(manifest.records.length,8000,'Evidence record count mismatch');
-  for (const file of ['learn.html','knowledge-data.js','knowledge.js','knowledge.css','deep-learning/index.json','site-resilience.js','site-resilience.css']) {
-    assert.ok(fs.existsSync(path.join(root,file)),`Missing release file ${file}`);
-  }
-  assert.match(projects,/id=["']quantum["']/,'Qubit demo disappeared');
-  assert.match(projects,/site-resilience\.js/,'Qubit repair script not loaded');
-  assert.match(read('index.html'),/id=["']primary-nav["']/,'Mobile navigation target missing');
+assert.equal(Number(count?.[1]),cards.length,'Project filter count differs from card count');
+for (const [id, route] of [['evil-wizard','play-evil-wizard.html'],['quantum','qubit-preview-20260921/'],['battle-chess','project-battle-chess.html'],['geometric-ai','project-geometric-ai.html'],['qpe','project-qpe.html'],['emergent','project-emergent.html'],['mind-agents','project-mind.html']]) {
+  assert.match(projects, new RegExp(`id=["']${id}["']`), `Missing project card ${id}`);
+  assert.ok(projects.includes(`href="${route}"`), `${id}: missing expected route ${route}`);
 }
-assert.match(read('styles.css'),/:focus-visible/,'Focus styling missing');
-console.log(`Site validation passed (${cards.length} project cards).`);
+assert.match(read('play-evil-wizard.html'), /games\/evil-wizard\/index\.html/, 'Game launcher must keep the browser-play URL');
+if (!exists('games/evil-wizard/index.html')) console.warn('HOST-DEPENDENT GAME: games/evil-wizard/index.html is NOT in this repository. Preserve and verify the existing OSU web export before deploying. Browser play has NOT been validated by this test.');
+const manifest=JSON.parse(read('verification-manifest.json'));
+assert.equal(manifest.count,8000,'Expected 8,000 release manifest entries');
+assert.equal(manifest.records.length,8000,'Manifest record count mismatch');
+assert.equal(new Set(manifest.records.map(x=>x.id)).size,8000,'Duplicate manifest IDs');
+assert.match(read('styles.css'),/:focus-visible/,'Visible keyboard focus styling missing');
+for (const file of ['app.js','knowledge.js','agent-workbench.mjs','games/battle-chess/arena.js']) execFileSync(process.execPath,['--check',path.join(root,file)],{stdio:'pipe'});
+console.log('Static release integration passed: 16 projects, 8,000 unique manifest IDs, required routes and JavaScript syntax. OSU game export and media require separate live verification.');

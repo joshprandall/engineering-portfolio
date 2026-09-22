@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en" id="top">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Interactive single-qubit measurement model exploring how state angle changes computational-basis probabilities.">
+  <meta name="color-scheme" content="dark light">
+  <meta name="theme-color" content="#101416">
+  <title>One qubit. Two outcomes.</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <a class="brand" href="#top">One qubit. <span>Two outcomes.</span></a>
+  <nav aria-label="Page">
+    <a href="#model">Model</a>
+    <a href="#experiment">Experiment</a>
+    <a href="#limits">Limits</a>
+    <a href="https://github.com/joshprandall/one-qubit-two-outcomes" target="_blank" rel="noopener noreferrer">Source ↗</a>
+  </nav>
+</header>
+<div role="navigation" aria-label="Portfolio navigation" style="position:sticky;top:82px;z-index:29;display:flex;gap:12px;flex-wrap:wrap;padding:6px 16px;background:#1d2528;border-bottom:1px solid #374246">
+<a href="../index.html" style="color:#ffa56f;text-decoration:none;padding:7px 8px">← Main website</a>
+<a href="../projects.html" style="color:#f2f0e9;text-decoration:none;padding:7px 8px">All projects ↗</a>
+</div>
+<main id="main">
+  <section class="hero wrap">
+    <div>
+      <p class="eyebrow">LEARNING INTERACTIVE / SINGLE-QUBIT STATE</p>
+      <h1>One qubit.<br><em>Two outcomes.</em></h1>
+      <p class="lead">Move a state along one meridian of the Bloch sphere and watch its computational-basis measurement probabilities change.</p>
+      <div class="callout">
+        <strong>State model</strong>
+        <code>|ψ⟩ = cos(θ/2)|0⟩ + sin(θ/2)|1⟩</code>
+        <span>Relative phase is fixed at zero.</span>
+      </div>
+    </div>
+
+    <div class="state-visual" aria-label="Bloch-sphere meridian visualization">
+      <div class="sphere">
+        <div class="equator"></div>
+        <div class="axis"></div>
+        <div class="north">|0⟩</div>
+        <div class="south">|1⟩</div>
+        <div class="state-arrow" id="state-arrow" aria-hidden="true"></div>
+        <div class="center" aria-hidden="true"></div>
+      </div>
+      <div class="visual-caption">
+        <span>θ = <output id="angle-output">90°</output></span>
+        <span>φ = 0°</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap section" id="model">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">01 / STATE</p>
+        <h2>Angle becomes amplitude.</h2>
+      </div>
+      <p>For this restricted single-qubit model, the amplitudes are real and the relative phase is held at zero.</p>
+    </div>
+
+    <div class="model-grid">
+      <div class="controls">
+        <label for="theta">
+          State angle θ
+          <strong><output id="theta-value">90°</output></strong>
+        </label>
+        <input id="theta" type="range" min="0" max="180" step="1" value="90">
+
+        <div class="presets" aria-label="State presets">
+          <button data-angle="0">|0⟩</button>
+          <button data-angle="90">Equal superposition</button>
+          <button data-angle="180">|1⟩</button>
+        </div>
+
+        <dl class="state-values">
+          <div><dt>Amplitude α</dt><dd id="alpha">0.7071</dd></div>
+          <div><dt>Amplitude β</dt><dd id="beta">0.7071</dd></div>
+          <div><dt>Normalization</dt><dd id="normalization">1.0000</dd></div>
+        </dl>
+      </div>
+
+      <div class="probability-panel">
+        <div class="probability-row">
+          <div><span>Outcome |0⟩</span><strong id="p0">50.0%</strong></div>
+          <div class="track"><div id="bar0" style="width:50%"></div></div>
+          <small>P(0) = cos²(θ/2)</small>
+        </div>
+
+        <div class="probability-row">
+          <div><span>Outcome |1⟩</span><strong id="p1">50.0%</strong></div>
+          <div class="track second"><div id="bar1" style="width:50%"></div></div>
+          <small>P(1) = sin²(θ/2)</small>
+        </div>
+
+        <p id="state-description" class="description">Equal probabilities for the two computational-basis outcomes.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section experiment" id="experiment">
+    <div class="wrap">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">02 / MEASUREMENT</p>
+          <h2>Probability is not a prediction.</h2>
+        </div>
+        <p>Sample repeated measurements from the current state. Individual runs vary, while larger samples tend to approach the model probabilities.</p>
+      </div>
+
+      <div class="experiment-grid">
+        <div class="experiment-controls">
+          <label for="shots">Number of measurements</label>
+          <select id="shots">
+            <option value="10">10</option>
+            <option value="100" selected>100</option>
+            <option value="1000">1,000</option>
+            <option value="10000">10,000</option>
+          </select>
+          <button class="primary" id="measure">Sample measurements</button>
+          <button id="reset-results">Clear results</button>
+        </div>
+
+        <div class="results" aria-live="polite">
+          <div><span>|0⟩ count</span><strong id="count0">—</strong></div>
+          <div><span>|1⟩ count</span><strong id="count1">—</strong></div>
+          <div><span>Observed |0⟩</span><strong id="observed0">—</strong></div>
+          <div><span>Observed |1⟩</span><strong id="observed1">—</strong></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap section" id="limits">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">03 / BOUNDARIES</p>
+        <h2>What this model does—and does not—show.</h2>
+      </div>
+    </div>
+
+    <div class="limits-grid">
+      <article>
+        <h3>It does show</h3>
+        <ul>
+          <li>A normalized pure state restricted to real amplitudes.</li>
+          <li>How θ changes α and β.</li>
+          <li>Computational-basis probabilities from the Born rule.</li>
+          <li>Random sampling from those probabilities.</li>
+        </ul>
+      </article>
+      <article>
+        <h3>It does not show</h3>
+        <ul>
+          <li>Arbitrary relative phase.</li>
+          <li>Multi-qubit entanglement.</li>
+          <li>Noise, decoherence, gates, or hardware calibration.</li>
+          <li>A connection to a quantum processor.</li>
+        </ul>
+      </article>
+    </div>
+
+    <p class="footnote">This is a classical browser simulation for learning and visualization. It is not a quantum-hardware emulator.</p>
+  </section>
+</main>
+
+<footer class="wrap">
+  <span>© 2026 Joshua Randall</span>
+  <a href="https://web.engr.oregonstate.edu/~randjosh/" target="_blank" rel="noopener noreferrer">Engineering portfolio ↗</a>
+  <a href="#top">Back to top ↑</a>
+</footer>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>

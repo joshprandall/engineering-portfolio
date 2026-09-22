@@ -1,90 +1,61 @@
-# Engineering Portfolio
+# Joshua Randall engineering portfolio
 
 [![Site validation](https://github.com/joshprandall/engineering-portfolio/actions/workflows/validate.yml/badge.svg)](https://github.com/joshprandall/engineering-portfolio/actions/workflows/validate.yml)
 
-A responsive static portfolio for professional experience, engineering coursework, technical projects, and long-term systems work.
+This repository is the final static portfolio release for Joshua Randall. It combines the current portfolio layout with the project work that belongs in the portfolio: systems engineering, automation, knowledge tools, interactive computing labs, agent workflow design, browser games, and the supporting source notes.
 
-**Live site:** https://web.engr.oregonstate.edu/~randjosh/
+Live portfolio target: https://web.engr.oregonstate.edu/~randjosh/
 
-## What this project demonstrates
+## Included project work
 
-- Semantic, responsive HTML without a frontend framework.
-- Shared CSS with deliberate wide, tablet, and phone layouts.
-- Progressive enhancement with plain JavaScript.
-- Keyboard-accessible navigation, tabs, search, filtering, dialogs, and controls.
-- Dark/light theme persistence using local browser storage.
-- Reduced-motion support.
-- Canvas-based decorative systems visualization that is excluded from the accessibility tree.
-- A project filter that keeps its visible result count synchronized.
-- Automated repository checks in GitHub Actions.
+- Recovery Readiness Auditor
+- Infrastructure Dependency Analyzer
+- Employee Lifecycle Toolkit
+- Asset Inventory Reconciler
+- Kubernetes Operations Lab
+- Engineering Portfolio site and accessibility validation workflow
+- One qubit. Two outcomes.
+- Cloud & Systems Knowledge Library, including the advanced-computing learning track
+- Geometry & Physics Lab: curvature, diffusion, Bayesian inference, and research provenance
+- Quantum Phase Estimation browser lab
+- Emergent Systems Explorer: seeded graph dynamics and Kuramoto oscillators
+- Project MIND Agent Workbench: deterministic planning, evidence, verification, and dry-run execution
+- Crown & Ash — 3D Battle Chess
+- Defeat the Evil Wizard browser build and source link
+- Providing Energy from Fusion coursework presentation
 
-## Design approach
+The release keeps research claims scoped to what the included experiments actually demonstrate. Recorded numerical outputs are labeled as recorded outputs, illustrative noise is labeled as an illustrative model, and the agent workbench is local and deterministic.
 
-The portfolio is intentionally static. There is no application server, database, build pipeline, API key, or runtime dependency for the site itself.
+## Working routes
 
-Content is available as normal HTML before JavaScript runs. JavaScript enhances navigation, theme handling, search, technical-discipline tabs, project filtering, copy feedback, and the animated systems map.
+- `index.html` — portfolio home
+- `projects.html` — searchable/filterable project catalog
+- `learn.html` and `learn-*.html` — knowledge library and learning views
+- `geometric-lab/` — standalone geometry and physics lab
+- `project-qpe.html` — phase-estimation experiment
+- `project-emergent.html` — seeded network explorer
+- `agent-workbench.html` — Project MIND workflow lab
+- `project-battle-chess.html` — playable chess route
+- `play-evil-wizard.html` — playable action-game route
+- `qubit-preview-20260921/` — single-qubit interactive
 
-The visual system uses a restrained dark/light palette, strong typographic hierarchy, simple borders, and an orange accent to keep professional content readable while giving engineering work a recognizable identity.
-
-## Accessibility
-
-The source includes:
-
-- A skip link to the main content.
-- Semantic `header`, `nav`, `main`, `section`, and `footer` landmarks.
-- Visible `:focus-visible` treatment.
-- Native `dialog` for search.
-- ARIA state on the mobile menu, tabs, project filters, and animation control.
-- Keyboard navigation for the expertise tab set.
-- `prefers-reduced-motion` support.
-- Decorative canvas content marked `aria-hidden="true"`.
-- Descriptive external-link labels and `rel="noopener noreferrer"` on new-tab links.
-
-Automated checks are useful, but they are not a substitute for keyboard, screen-reader, responsive-layout, and browser testing.
-
-## Validation
-
-Run locally:
+## Local validation
 
 ```sh
-node tests/site.test.mjs
+npm test
+node --check app.js
+node --check agent-workbench.mjs
+node --check labs/qpe.mjs
+node --check labs/emergent.mjs
 ```
 
-The validation script checks:
+The static test checks required files, duplicate IDs, local references, skip links, landmarks, safe external links, project-card metadata, and the visible project count. Browser smoke tests cover the responsive home/project routes and the interactive geometry, phase-estimation, network, agent, chess, and qubit experiences.
 
-- Required source files.
-- Duplicate element IDs.
-- Local stylesheet/script references.
-- Skip-link targets.
-- Main landmarks and page language.
-- New-tab link safety.
-- Project filter metadata and visible project count.
-- Core accessibility hooks.
-
-GitHub Actions runs the same validation on pushes and pull requests.
-
-## Project structure
-
-```text
-engineering-portfolio/
-├── .github/
-│   └── workflows/
-│       └── validate.yml
-├── tests/
-│   └── site.test.mjs
-├── app.js
-├── index.html
-├── projects.html
-├── package.json
-├── styles.css
-└── README.md
-```
+The standalone project sources are kept under `project-sources/` so each interactive project has a readable source trail and validation notes. The small browser demos in `demos/` are the portfolio-facing examples for the asset and dependency projects.
 
 ## Run locally
 
-No installation is required. Open `index.html` directly in a browser, or serve the folder with any static HTTP server.
-
-For example, if Python is available:
+No package installation is required for the static portfolio. Serve this directory from its repository root so module scripts, data files, and the standalone games resolve correctly:
 
 ```sh
 python -m http.server 8000
@@ -94,8 +65,8 @@ Then open `http://localhost:8000`.
 
 ## Deployment
 
-The live version is deployed as a static site through Oregon State University's Engineering web hosting. This repository is structured so the same HTML, CSS, and JavaScript can also be hosted on any ordinary static web host.
+This is a plain static site. Copy the repository contents to the web root while preserving directory names and files. The expected OSU Engineering layout is documented in [DEPLOYMENT.md](DEPLOYMENT.md). Do not open individual HTML files from a file browser when validating the learning library or interactive labs; use a local HTTP server or the hosted web root.
 
 ## Boundaries
 
-This repository is a public portfolio artifact. It does not contain private employer systems, customer data, credentials, infrastructure secrets, or production configuration.
+The repository contains public portfolio material only. It does not contain credentials, private employer systems, customer data, infrastructure secrets, or production configuration.
