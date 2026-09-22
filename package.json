@@ -4,6 +4,6 @@
   "private": true,
   "description": "Responsive static engineering portfolio with accessible interaction patterns and automated validation.",
   "scripts": {
-    "test": "node tests/site.test.mjs"
+    "test": "python3 -m py_compile tools/repair-osu-portfolio.py && node tests/site.test.mjs"
   }
 }
