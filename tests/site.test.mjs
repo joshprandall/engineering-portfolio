@@ -5,7 +5,7 @@ import { execFileSync } from 'node:child_process';
 const root = path.resolve(import.meta.dirname, '..');
 const exists = file => fs.existsSync(path.join(root, file));
 const read = file => fs.readFileSync(path.join(root, file), 'utf8');
-for (const file of ['index.html','projects.html','styles.css','app.js','learn.html','learn-browse.html','knowledge-data.js','knowledge.js','knowledge.css','deep-learning/index.json','verification-manifest.json','play-evil-wizard.html','qubit-preview-20260921/index.html','games/battle-chess/index.html']) assert.ok(exists(file), `Missing required release file: ${file}`);
+for (const file of ['index.html','projects.html','styles.css','app.js','learn.html','learn-browse.html','knowledge-data.js','knowledge.js','knowledge.css','deep-learning/index.json','verification-manifest.json','play-evil-wizard.html','qubit-preview-20260921/index.html','games/3d-battle-chess/index.html']) assert.ok(exists(file), `Missing required release file: ${file}`);
 for (const file of ['index.html','projects.html','learn.html','play-evil-wizard.html']) {
   const html = read(file);
   assert.match(html, /<html[^>]*lang=["']en["']/i, `${file}: missing document language`);
@@ -30,5 +30,5 @@ assert.equal(manifest.count,8000,'Expected 8,000 release manifest entries');
 assert.equal(manifest.records.length,8000,'Manifest record count mismatch');
 assert.equal(new Set(manifest.records.map(x=>x.id)).size,8000,'Duplicate manifest IDs');
 assert.match(read('styles.css'),/:focus-visible/,'Visible keyboard focus styling missing');
-for (const file of ['app.js','knowledge.js','agent-workbench.mjs','games/battle-chess/arena.js']) execFileSync(process.execPath,['--check',path.join(root,file)],{stdio:'pipe'});
+for (const file of ['app.js','knowledge.js','agent-workbench.mjs','games/3d-battle-chess/battle.js','games/3d-battle-chess/engine.js']) execFileSync(process.execPath,['--check',path.join(root,file)],{stdio:'pipe'});
 console.log('Static release integration passed: 16 projects, 8,000 unique manifest IDs, required routes and JavaScript syntax. OSU game export and media require separate live verification.');
