@@ -1,0 +1,15 @@
+TEST SCOPE: Archived Joshua Randall Knowledge Platform v1.1.0 HTML and baseline shared styles, with the two append-only CSS patches. The CURRENT live OSU server source is not verified. Browser rendering used Chromium with JavaScript disabled to confirm navigation is not dependent on scripts. No OSU deployment was performed.
+
+320px index.html JS=off: PASS (Projects visible, nav fallback)
+320px projects.html JS=off: PASS (Projects visible, nav fallback)
+320px learn.html JS=off: PASS (Projects visible, nav fallback)
+390px index.html JS=off: PASS (Projects visible, nav fallback)
+390px projects.html JS=off: PASS (Projects visible, nav fallback)
+390px learn.html JS=off: PASS (Projects visible, nav fallback)
+768px index.html JS=off: PASS (Projects visible, nav fallback)
+768px projects.html JS=off: PASS (Projects visible, nav fallback)
+768px learn.html JS=off: PASS (Projects visible, nav fallback)
+
+Additional assertions: Projects link is a 44px-or-larger touch target and initially visible; no page-level horizontal overflow; study row stays inside viewport; graphic is 300px or shorter; both CSS files parse without errors; archived app.js passes Node syntax check.
+
+LIMITATIONS: The browser was not pointed at the live OSU site. These are static responsive-layout tests, not end-to-end testing of games, lesson data, quantum applications, or deployment.
