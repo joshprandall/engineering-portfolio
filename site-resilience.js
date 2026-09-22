@@ -1,4 +1,4 @@
-/* Shared navigation fallback and explicit unavailable-image states. */
+/* Shared navigation fallback, project-card navigation and explicit unavailable-image states. */
 (() => {
   const nav=document.querySelector('header nav#primary-nav');
   const menu=document.getElementById('menu');
@@ -27,6 +27,25 @@
       if(innerWidth>900){nav.classList.remove('open');menu.setAttribute('aria-expanded','false');}
     });
   }
+  // Mobile layouts keep Play/Source links independently tappable. The rest of
+  // each card still opens its dedicated project page, including by keyboard.
+  const projectTarget=card=>card.querySelector('a.vnext-card-link')||card.querySelector('a.tile-open');
+  document.querySelectorAll('.project-card').forEach(card=>{
+    card.tabIndex=0;
+    card.setAttribute('aria-label',(card.querySelector('h2,h3')?.textContent||'Project').trim()+': press Enter for project details');
+  });
+  document.addEventListener('click',event=>{
+    if(event.defaultPrevented||event.button!==0||window.getSelection()?.toString())return;
+    const card=event.target.closest?.('.project-card');
+    if(!card||event.target.closest('a,button,input,select,textarea,summary,[role="button"]'))return;
+    const target=projectTarget(card);
+    if(target){event.preventDefault();window.location.assign(target.href);}
+  });
+  document.addEventListener('keydown',event=>{
+    if(event.key!=='Enter'||!event.target.matches?.('.project-card'))return;
+    const target=projectTarget(event.target);
+    if(target){event.preventDefault();window.location.assign(target.href);}
+  });
   const fallbacks={
     'portrait.jpg':'JR',
     'osu-logo.png':'Oregon State University',
