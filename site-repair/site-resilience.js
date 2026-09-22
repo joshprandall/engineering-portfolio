@@ -5,6 +5,16 @@
   if (nav && menu) {
     nav.id ||= 'primary-nav';
     menu.setAttribute('aria-controls', nav.id);
+    // Load this script before app.js: only toggle if app.js did not handle the click.
+    menu.addEventListener('click', () => {
+      const before = nav.classList.contains('open');
+      queueMicrotask(() => {
+        if (nav.classList.contains('open') === before) {
+          nav.classList.toggle('open');
+          menu.setAttribute('aria-expanded', String(nav.classList.contains('open')));
+        }
+      });
+    });
     nav.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
       nav.classList.remove('open');
       menu.setAttribute('aria-expanded', 'false');
