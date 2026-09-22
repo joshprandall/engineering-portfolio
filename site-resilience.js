@@ -37,11 +37,16 @@
     if(!fallbacks[name])return;
     const replace=()=>{
       if(!img.isConnected)return;
+      if(!img.dataset.remoteAttempted){
+        img.dataset.remoteAttempted='1';
+        img.src='https://raw.githubusercontent.com/joshprandall/engineering-portfolio/main/assets/'+name;
+        return;
+      }
       const element=document.createElement('div');element.className='image-fallback';
       element.setAttribute('role','img');element.setAttribute('aria-label',img.alt||fallbacks[name]);
       element.textContent=fallbacks[name];img.replaceWith(element);
     };
-    img.addEventListener('error',replace,{once:true});
+    img.addEventListener('error',replace);
     if(img.complete&&img.naturalWidth===0)replace();
   });
 })();
