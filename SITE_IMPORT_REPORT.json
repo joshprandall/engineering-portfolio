@@ -1,0 +1,10 @@
+{
+  "verified_objects": 8000,
+  "imported_files": 94,
+  "protected_files": [
+    "app.js",
+    "styles.css",
+    "assets/"
+  ],
+  "game_card_preserved": true
+}
