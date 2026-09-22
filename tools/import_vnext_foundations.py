@@ -4,9 +4,9 @@ from pathlib import Path
 from zipfile import ZipFile
 from hashlib import sha256
 from html.parser import HTMLParser
-import json, re, sys
+import json, sys
 
-EXPECTED_SHA256 = '2bd34256e86b9d5c1ea4ec54d756809bd014b4fb8a3517f8c3a5622d0470575b'
+EXPECTED_SHA256 = '23ea365a6a1cd446ac490ac5d1f129103d07e60878d12bcdbce5775c9b4deef7'
 FILES = set('''assets/quantum-lab-reference.jpg
 index.html
 knowledge.js
@@ -79,11 +79,11 @@ def main(path):
     for page in detail:
         scan=Scan();scan.feed(page.read_text('utf8'))
         if scan.navs!=1:raise RuntimeError('Missing project navigation: '+page.name)
-    for name in ('index.html','projects.html','learn-paths.html'):
-        if 'portfolio-next.js' not in (root/name).read_text('utf8') and name!='learn-paths.html':raise RuntimeError('Interactive module missing: '+name)
+    for name in ('index.html','projects.html'):
+        if 'portfolio-next.js' not in (root/name).read_text('utf8'):raise RuntimeError('Interactive module missing: '+name)
     print('Validated vNext import: 29 pinned files, 16 project cards, 15 project-*.html pages plus Evil Wizard, eight authored capstones, existing lesson IDs preserved.')
 
 if __name__=='__main__':
     try:main(sys.argv[1])
-    except (IndexError,Exception) as error:
+    except Exception as error:
         print('STOP:',error,file=sys.stderr);sys.exit(1)
