@@ -1,0 +1,22 @@
+JOSH — MOBILE WEBSITE REPAIR (STAGED, NON-DESTRUCTIVE)
+
+What this is:
+Two additive CSS patches that give your homepage, Projects page and Knowledge Library permanent, tap-sized mobile navigation. The homepage patch also fixes the OSU education row spilling past the screen and reduces the oversized advanced-computing image. This does not modify your games, quantum simulator, lesson data, or scripts. It does not reinstall or replace your website.
+
+IMPORTANT: The archived Knowledge Platform v1.1.0 source closely matches the screenshots, but I cannot compare this archive to the CURRENT files on your OSU server. The GitHub engineering-portfolio repository is an older/different website. NEVER copy that GitHub repository or a whole archived public_html folder over your current site to apply this repair.
+
+For now: a direct Projects URL is https://web.engr.oregonstate.edu/~randjosh/projects.html and the Knowledge Library URL is https://web.engr.oregonstate.edu/~randjosh/learn.html . These follow the archived site's paths; live availability could not be verified remotely.
+
+WHEN YOU ARE AT YOUR PC:
+1. Connect to your OSU engineering files using your usual method. Your documented web folder is \\stak.engr.oregonstate.edu\users\randjosh\public_html . If your connection uses a different location, use that actual public_html directory.
+2. Copy the *entire current public_html directory* to a dated folder on your PC. Keep it untouched. Also copy the two current CSS files to styles.css.before-mobile-fix and knowledge.css.before-mobile-fix on your PC.
+3. Open the CURRENT public_html/styles.css with a plain-text code editor. Copy every line from APPEND_TO_styles.css and paste it AT THE VERY END of styles.css. Save. Do not replace styles.css with an older archive copy.
+4. Open CURRENT public_html/knowledge.css. Copy every line from APPEND_TO_knowledge.css and paste it AT THE VERY END of knowledge.css. Save. Do not replace knowledge.css with an older archive copy. If you do not have knowledge.css, stop and send me a directory listing before proceeding.
+5. On your phone, reload the homepage and Projects / Knowledge Library. If you see the old appearance, use a private browsing tab or clear the website cache. Expect a horizontal row with Projects and Learn FIRST directly under your site header. You do NOT need to tap a hamburger button. Verify the education row wraps and the graphic stays short.
+6. Check all current pages and interactive apps. This is an additive stylesheet change only; it does not modify lesson, game, or quantum logic.
+7. If anything worsens, put the saved original styles.css and knowledge.css back. That is the rollback; do not delete lesson or game folders.
+
+WHAT I STILL NEED TO FINISH A PERMANENT, EXACT REPAIR:
+The CURRENT live public_html/index.html, projects.html, styles.css, app.js, knowledge.css and knowledge.js files (or a ZIP of your current public_html directory excluding personal data / giant video files). Upload them here or commit them to a private repo. I can then repair the menu logic, verify every link, and prepare a precise update that keeps all the current site features. Never share server passwords or authentication secrets.
+
+Mobile-browser and source checks for the archived version are included in CHECK_RESULTS.txt. They do not certify the live OSU server.
