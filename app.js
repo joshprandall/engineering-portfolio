@@ -42,11 +42,11 @@
     ["Identity & security", "Active Directory Entra Intune MFA Conditional Access", "index.html#expertise"],
     ["Automation", "PowerShell Python Bash SQL Git CI", "index.html#expertise"],
     ["Experience", "infrastructure systems field engineering consulting leadership", "index.html#experience"],
-    ["Defeat the Evil Wizard", "Godot GDScript action RPG platformer game development 15 champions multidirectional combat exploration puzzles bosses portals", "projects.html#evil-wizard"],
-    ["Recovery Readiness Auditor", "backup disaster recovery RPO RTO Python", "projects.html"],
-    ["Infrastructure Dependency Analyzer", "dependencies graph business impact Python", "projects.html"],
-    ["Employee Lifecycle Toolkit", "PowerShell onboarding offboarding identity", "projects.html"],
-    ["One qubit. Two outcomes.", "quantum qubit probability measurement", "projects.html"]
+    ["Defeat the Evil Wizard", "Godot GDScript action RPG platformer game development 15 champions multidirectional combat exploration puzzles bosses portals", "play-evil-wizard.html"],
+    ["Recovery Readiness Auditor", "backup disaster recovery RPO RTO Python", "project-recovery.html"],
+    ["Infrastructure Dependency Analyzer", "dependencies graph business impact Python", "project-dependency.html"],
+    ["Employee Lifecycle Toolkit", "PowerShell onboarding offboarding identity", "project-lifecycle.html"],
+    ["One qubit. Two outcomes.", "quantum qubit probability measurement", "qubit-preview-20260921/"]
   ];
 
   const theme = $("#theme");
@@ -58,12 +58,29 @@
     localStorage.setItem("portfolio-theme", next);
   });
 
-  const nav = $("#primary-nav");
+  const nav = $("#primary-nav") || $("header nav");
   const menu = $("#menu");
-  menu?.addEventListener("click", () => {
-    const open = nav.classList.toggle("open");
-    menu.setAttribute("aria-expanded", String(open));
-  });
+  if (menu && nav) {
+    const closeMenu = () => {
+      nav.classList.remove("open");
+      menu.setAttribute("aria-expanded", "false");
+      menu.setAttribute("aria-label", "Open navigation");
+    };
+    menu.addEventListener("click", () => {
+      const open = nav.classList.toggle("open");
+      menu.setAttribute("aria-expanded", String(open));
+      menu.setAttribute("aria-label", open ? "Close navigation" : "Open navigation");
+    });
+    nav.addEventListener("click", event => {
+      if (event.target.closest("a")) closeMenu();
+    });
+    document.addEventListener("keydown", event => {
+      if (event.key === "Escape") closeMenu();
+    });
+    window.addEventListener("resize", () => {
+      if (window.innerWidth > 800) closeMenu();
+    });
+  }
 
   $$(".layer-controls button").forEach((button) => {
     button.addEventListener("click", () => {
@@ -182,6 +199,24 @@
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     }
     resize();
+    canvas.style.cursor = 'pointer';
+    canvas.tabIndex = 0;
+    canvas.setAttribute('role', 'button');
+    canvas.setAttribute('aria-label', 'Explore connected systems: select a node, or press Enter for the next layer');
+    let activeLayer = 0;
+    canvas.addEventListener('pointerdown', event => {
+      const rect = canvas.getBoundingClientRect();
+      const x = event.clientX - rect.left, y = event.clientY - rect.top;
+      const closest = nodes.map((n,i) => ({i,d:Math.hypot(n.x*rect.width-x,n.y*rect.height-y)})).sort((a,b)=>a.d-b.d)[0];
+      activeLayer = closest.i % 5;
+      document.querySelectorAll('.layer-controls button')[activeLayer]?.click();
+    });
+    canvas.addEventListener('keydown', event => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault(); activeLayer = (activeLayer+1)%5;
+        document.querySelectorAll('.layer-controls button')[activeLayer]?.click();
+      }
+    });
     addEventListener("resize", resize);
     function draw() {
       const w = canvas.clientWidth, h = canvas.clientHeight;
