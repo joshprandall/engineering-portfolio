@@ -1,0 +1,32 @@
+name: Import vNext foundation release
+on:
+  push:
+    branches: [site-vnext-foundations-20260922]
+    paths:
+      - 'release-upload/Joshua_Randall_Portfolio_vNext_Foundations_RC_20260922.zip'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Validate exact ZIP and import reviewed website files
+        run: |
+          python3 tools/import_vnext_foundations.py release-upload/Joshua_Randall_Portfolio_vNext_Foundations_RC_20260922.zip
+      - name: Test scripts and reconciled site rules
+        run: |
+          for file in app.js knowledge.js portfolio-next.js learning-next.js learning-capstones.js site-resilience.js games/3d-battle-chess/engine.js games/3d-battle-chess/boot.js games/3d-battle-chess/fallback-board.js; do node --check "$file"; done
+          node tests/site.test.mjs
+      - name: Commit imported release to the review branch
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- index.html projects.html learn-paths.html learn-capstones.html learning-next.js learning-next.css learning-capstones.js learning-capstones.css learning-capstones.json portfolio-next.js portfolio-next.css knowledge.js project-*.html assets/quantum-lab-reference.jpg NEXT-RELEASE-NOTES.md
+          if ! git diff --cached --quiet; then
+            git commit -m 'Import verified vNext foundation labs and portfolio navigation'
+            git push origin HEAD:site-vnext-foundations-20260922
+          fi
