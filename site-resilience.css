@@ -47,3 +47,52 @@ header{isolation:isolate}header nav#primary-nav{min-width:0}
  .demo-frame-note{display:block;font-size:.9rem;color:var(--muted);margin-block:10px}
 }
 @media(min-width:561px){.demo-frame-note{display:none}}
+
+/* JR unified mobile project links */
+@media (max-width:800px) {
+  #project-list .project-grid {
+    grid-template-columns:minmax(0,1fr)!important;
+  }
+  #project-list .project-card {
+    min-width:0!important;
+    max-width:100%!important;
+    box-sizing:border-box!important;
+  }
+  #project-list .project-card .card-bottom {
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr)!important;
+    width:100%!important;
+    min-width:0!important;
+    gap:6px!important;
+  }
+  #project-list .project-card .card-bottom > * {
+    grid-column:1;
+    width:100%!important;
+    min-width:0!important;
+    max-width:100%!important;
+    box-sizing:border-box!important;
+  }
+  #project-list .project-card .card-bottom > a {
+    position:relative!important;
+    inset:auto!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:flex-start!important;
+    min-height:44px!important;
+    margin:0!important;
+    padding:8px 0!important;
+    border:0!important;
+    border-radius:0!important;
+    background:transparent!important;
+    box-shadow:none!important;
+    white-space:normal!important;
+    overflow-wrap:anywhere!important;
+    color:var(--accent)!important;
+    text-decoration:underline!important;
+    text-underline-offset:3px!important;
+  }
+  #project-list .project-card .vnext-card-link::after {
+    content:none!important;
+    display:none!important;
+  }
+}
