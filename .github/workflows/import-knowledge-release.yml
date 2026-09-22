@@ -18,12 +18,13 @@ jobs:
         run: |
           test -f release-upload/Joshua_Randall_Knowledge_Platform_v1.1.0_DEEP_LEARNING_EDITION.zip
           python3 tools/import_knowledge_release.py release-upload/Joshua_Randall_Knowledge_Platform_v1.1.0_DEEP_LEARNING_EDITION.zip
-      - name: Check JavaScript syntax
+      - name: Check JavaScript syntax and site regression tests
         run: |
           node --check app.js
           node --check knowledge.js
           node --check knowledge-data.js
           node --check site-resilience.js
+          node tests/site.test.mjs
       - name: Commit validated website files to release branch
         run: |
           git config user.name 'github-actions[bot]'
