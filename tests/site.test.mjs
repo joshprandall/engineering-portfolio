@@ -47,10 +47,12 @@ for (const file of htmlFiles) {
 
 const projects = fs.readFileSync(path.join(root, "projects.html"), "utf8");
 const cards = [...projects.matchAll(/<article class=["']project-card["'][^>]*data-category=["']([^"']+)["']/g)];
-assert.equal(cards.length, 8, "projects.html: expected 8 project cards");
-assert.match(projects, /id=["']filter-count["'][^>]*>8 projects</i, "projects.html: filter count must start at 8 projects");
+assert.ok(cards.length >= 8, "projects.html: expected at least 8 project cards");
+const countMatch = projects.match(/id=["']filter-count["'][^>]*>(\d+) projects/i);
+assert.ok(countMatch, "projects.html: missing project count");
+assert.equal(Number(countMatch[1]), cards.length, "projects.html: filter count must match project cards");
 assert.ok(cards.some(m => m[1].includes("interactive")), "projects.html: no interactive projects");
-assert.ok(cards.some(m => m[1].includes("planned")), "projects.html: no planned projects");
+assert.ok(cards.some(m => m[1].includes("knowledge")), "projects.html: no knowledge projects");
 assert.ok(cards.some(m => m[1].includes("completed")), "projects.html: no completed projects");
 
 const js = fs.readFileSync(path.join(root, "app.js"), "utf8");
