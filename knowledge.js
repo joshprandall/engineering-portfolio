@@ -227,7 +227,7 @@
     $('#path-grid').innerHTML=D.paths.map(p=>{
       const done=p.lesson_ids.filter(id=>completed.has(id)).length;
       const pct=Math.round(done/p.lesson_ids.length*100);
-      return `<article class="path-card"><div><p class="eyebrow">${esc(domainMap.get(p.domain).name)} / ${esc(p.level)}</p><h3>${esc(p.title)}</h3><p>${esc(p.description)}</p>
+      return `<article class="path-card"><div><p class="eyebrow">${esc(domainMap.get(p.domain).name)} / ${esc(p.level||p.difficulty||'Mixed')}</p><h3>${esc(p.title)}</h3><p>${esc(p.description||p.summary||'An ordered sequence of learning objects and practice.')}</p>
         <div class="path-steps" aria-label="${done} of ${p.lesson_ids.length} complete">${p.lesson_ids.map(id=>`<span class="${completed.has(id)?'done':''}"></span>`).join('')}</div>
         <button class="text-button" data-path="${esc(p.id)}">${done?'Continue':'Start'} path ↗</button></div><div class="path-count">${pct}%<small>${p.lesson_ids.length} lessons</small></div></article>`;
     }).join('');
