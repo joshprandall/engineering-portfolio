@@ -90,13 +90,23 @@
       menu.setAttribute("aria-expanded", "false");
       menu.setAttribute("aria-label", "Open navigation");
     };
-    menu.addEventListener("click", () => {
+    menu.setAttribute("aria-controls", nav.id || "primary-nav");
+    menu.setAttribute("aria-expanded", String(nav.classList.contains("open")));
+    // Own the hamburger click in capture phase so older fallback scripts cannot
+    // double-toggle the same menu on mobile.
+    document.addEventListener("click", event => {
+      if (!menu.contains(event.target)) return;
+      event.stopPropagation();
       const open = nav.classList.toggle("open");
       menu.setAttribute("aria-expanded", String(open));
       menu.setAttribute("aria-label", open ? "Close navigation" : "Open navigation");
-    });
+    }, true);
     nav.addEventListener("click", event => {
       if (event.target.closest("a")) closeMenu();
+    });
+    document.addEventListener("click", event => {
+      if (window.innerWidth <= 900 && nav.classList.contains("open") &&
+          !nav.contains(event.target) && !menu.contains(event.target)) closeMenu();
     });
     document.addEventListener("keydown", event => {
       if (event.key === "Escape") closeMenu();
