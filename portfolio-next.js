@@ -54,7 +54,7 @@
   function enhanceProjectNavigation(){
     // Project detail pages use the global header only. Remove any stale pager
     // left in older markup so Previous / All / Next navigation cannot return.
-    $('.vnext-project-nav').forEach(nav=>nav.remove());
+    document.querySelectorAll('.vnext-project-nav').forEach(nav=>nav.remove());
   }
 
   function restoreEducation(){
