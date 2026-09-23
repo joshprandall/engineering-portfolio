@@ -1,3 +1,4 @@
 Source: https://github.com/joshprandall/3d-battle-chess
-Pinned source commit: b88b32afb25e6074889a1aadd0df535515b4a784
+Pinned source commit: ed14050047cee8f11004c7a78c49136800342dd3
+Validated source branch content: setup-first immersive launch with rules, v8, and browser suites passing.
 Historical games/battle-chess/ is incomplete and should not be deployed.
