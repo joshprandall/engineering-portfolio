@@ -1,6 +1,6 @@
 (() => {
   const $ = (s, root = document) => root.querySelector(s);
-  const $ = (s, root = document) => [...root.querySelectorAll(s)];
+  const $$ = (s, root = document) => [...root.querySelectorAll(s)];
   const experiencePath = location.pathname.toLowerCase();
   const protectedExperience = /\/games\//.test(experiencePath) || /geometric-lab/.test(experiencePath) || /project-geometric-ai\.html$/.test(experiencePath) || /project-battle-chess\.html$/.test(experiencePath) || /play-evil-wizard\.html$/.test(experiencePath);
   if (!protectedExperience) {
