@@ -4,11 +4,11 @@
   const experiencePath = location.pathname.toLowerCase();
   const protectedExperience = /\/games\//.test(experiencePath) || /geometric-lab/.test(experiencePath) || /project-geometric-ai\.html$/.test(experiencePath) || /project-battle-chess\.html$/.test(experiencePath) || /play-evil-wizard\.html$/.test(experiencePath);
   if (!protectedExperience) {
-    if (!document.querySelector('link[href="handheld-experience.css"]')) {
-      const handheldStyle=document.createElement('link');handheldStyle.rel='stylesheet';handheldStyle.href='handheld-experience.css';document.head.append(handheldStyle);
+    if (!document.querySelector('link[href^="handheld-experience.css"]')) {
+      const handheldStyle=document.createElement('link');handheldStyle.rel='stylesheet';handheldStyle.href='handheld-experience.css?v=20260923j';document.head.append(handheldStyle);
     }
-    if (!document.querySelector('script[src="handheld-experience.js"]')) {
-      const handheldScript=document.createElement('script');handheldScript.src='handheld-experience.js';handheldScript.defer=true;document.body.append(handheldScript);
+    if (!document.querySelector('script[src^="handheld-experience.js"]')) {
+      const handheldScript=document.createElement('script');handheldScript.src='handheld-experience.js?v=20260923j';handheldScript.defer=true;document.body.append(handheldScript);
     }
   }
 
