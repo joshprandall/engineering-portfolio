@@ -101,7 +101,7 @@
     const scene=$('.vnext-cosmos-scene',stage);
     const canvas=$('.vnext-cosmos-canvas',stage);
     const worlds=$('.vnext-cosmos-worlds',stage);
-    const core=$('.vnext-cosmos-core',stage);
+    const coreEl=$('.vnext-cosmos-core',stage);
     const ctx=canvas.getContext('2d',{alpha:true});
     const orbit=[
       {rx:.22,ry:.105,speed:.24,phase:-2.15,size:58,kind:'architect'},
@@ -216,7 +216,7 @@
         ctx.save();ctx.strokeStyle=i===selected?'rgba(255,190,145,.34)':'rgba(94,183,215,.16)';ctx.lineWidth=i===selected?1.5:1;
         ctx.beginPath();ctx.ellipse(cx,cy,width*r.rx,height*r.ry,0,0,Math.PI*2);ctx.stroke();ctx.restore();
       });
-      core.style.transform=`translate(calc(-50% + ${parallaxX*10}px), calc(-50% + ${parallaxY*6}px))`;
+      coreEl.style.transform=`translate(calc(-50% + ${parallaxX*10}px), calc(-50% + ${parallaxY*6}px))`;
 
       positions.forEach((_,i)=>Object.assign(positions[i],worldPosition(i,t)));
 
@@ -235,9 +235,9 @@
         ctx.fillStyle=i===selected?'#ffd0ad':'#81e5f4';ctx.shadowColor=ctx.fillStyle;ctx.shadowBlur=10;ctx.beginPath();ctx.arc(px,py,i===selected?2.7:1.8,0,Math.PI*2);ctx.fill();ctx.restore();
       });
 
-      const core=ctx.createRadialGradient(cx-8,cy-10,2,cx,cy,54);
-      core.addColorStop(0,'#fff9df');core.addColorStop(.14,'#ffd99c');core.addColorStop(.42,'rgba(255,169,82,.48)');core.addColorStop(1,'rgba(255,140,60,0)');
-      ctx.fillStyle=core;ctx.beginPath();ctx.arc(cx,cy,54,0,Math.PI*2);ctx.fill();
+      const coreGlow=ctx.createRadialGradient(cx-8,cy-10,2,cx,cy,54);
+      coreGlow.addColorStop(0,'#fff9df');coreGlow.addColorStop(.14,'#ffd99c');coreGlow.addColorStop(.42,'rgba(255,169,82,.48)');coreGlow.addColorStop(1,'rgba(255,140,60,0)');
+      ctx.fillStyle=coreGlow;ctx.beginPath();ctx.arc(cx,cy,54,0,Math.PI*2);ctx.fill();
 
       $$('.vnext-world',worlds).forEach((el,i)=>{
         const p=positions[i],o=orbit[i],base=Math.min(o.size,width<480?44:o.size);
