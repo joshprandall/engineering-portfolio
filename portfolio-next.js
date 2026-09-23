@@ -52,17 +52,9 @@
   }
 
   function enhanceProjectNavigation(){
-    const nav=$('.vnext-project-nav');if(!nav)return;
-    const links=$$('a[href]',nav);if(links.length<3)return;
-    const clean=s=>(s||'').replace(/[←→↗]/g,'').replace(/\s+/g,' ').trim();
-    const previous=links[0];
-    const all=links.find(a=>/projects\.html(?:$|[#?])/.test(a.getAttribute('href')||''))||links[1];
-    const next=links[links.length-1];
-    previous.dataset.projectNav='previous';all.dataset.projectNav='all';next.dataset.projectNav='next';
-    previous.textContent=`← Previous · ${clean(previous.textContent)}`;
-    all.textContent='All Projects';
-    next.textContent=`Next · ${clean(next.textContent)} →`;
-    [previous,all,next].forEach(a=>{a.removeAttribute('target');a.removeAttribute('rel');});
+    // Project detail pages use the global header only. Remove any stale pager
+    // left in older markup so Previous / All / Next navigation cannot return.
+    $('.vnext-project-nav').forEach(nav=>nav.remove());
   }
 
   function restoreEducation(){
