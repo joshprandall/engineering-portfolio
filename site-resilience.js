@@ -1,5 +1,8 @@
 /* Shared navigation fallback, project-card navigation and explicit unavailable-image states. */
 (() => {
+  const markProjectShell=()=>{if(/\/(?:project-[^/]+|play-evil-wizard)\.html$/i.test(location.pathname))document.body?.classList.add('project-shell');};
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',markProjectShell,{once:true});else markProjectShell();
+
   // Shared primary navigation owner for every standard portfolio page.
   const installNavigation=()=>{
     const nav=document.querySelector('header nav#primary-nav');
@@ -41,7 +44,7 @@
     nav.addEventListener('click',event=>{if(event.target.closest('a'))close();});
     document.addEventListener('click',event=>{
       if(games?.open&&!games.contains(event.target))games.removeAttribute('open');
-      if(innerWidth<=900&&nav.classList.contains('open')&&!nav.contains(event.target)&&!menu.contains(event.target))close();
+      if((innerWidth<=900||document.body?.classList.contains('project-shell'))&&nav.classList.contains('open')&&!nav.contains(event.target)&&!menu.contains(event.target))close();
     });
     document.addEventListener('keydown',event=>{if(event.key==='Escape')close();});
     window.addEventListener('resize',()=>{if(innerWidth>900)close();});
