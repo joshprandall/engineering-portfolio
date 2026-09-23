@@ -12,7 +12,7 @@ import tempfile
 import urllib.request
 
 # Exact website commit validated by CI and visual-QA before this deployment utility update.
-WEB_COMMIT = "a0c56523469c8728fb8471308977445ad6d646b5"
+WEB_COMMIT = "be4929fac8f8428d23e62cb19c839291a6af7ce1"
 ARCHIVE_URL = f"https://github.com/joshprandall/engineering-portfolio/archive/{WEB_COMMIT}.zip"
 PUBLIC_URL = "https://web.engr.oregonstate.edu/~randjosh/"
 
@@ -28,10 +28,7 @@ WEB_DIRS = (
 )
 
 # These root pages and complete trees are deliberately left untouched on OSU.
-PROTECTED_ROOT_FILES = {
-    "project-battle-chess.html",
-    "project-geometric-ai.html",
-}
+PROTECTED_ROOT_FILES = set()
 PROTECTED_REQUIRED = (
     "project-battle-chess.html",
     "project-geometric-ai.html",
@@ -168,7 +165,7 @@ def main():
 
     print("Science website build:", WEB_COMMIT)
     print("Live root:", site)
-    print("Protected trees: Battle Chess, Evil Wizard, Geometry & Physics Lab")
+    print("Protected trees: Battle Chess game, Evil Wizard game, Geometry & Physics Lab")
     print("Creating full backup:", backup)
     with tarfile.open(partial, "w:gz") as archive:
         archive.add(site, arcname="public_html", recursive=True)
