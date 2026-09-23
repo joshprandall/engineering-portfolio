@@ -249,6 +249,12 @@
       const link=document.createElement('a');link.href='project-battle-chess.html';link.textContent='3D Chess';nav.append(link);
     }
   }
-  function init(){strengthenNavigation();enhanceProjectCards();enhanceProjectNavigation();restoreEducation();interactiveSystems();entanglementArtwork();}
+  function loadSiteEnhancements(){
+    const path=location.pathname.toLowerCase();
+    if(/\/games\//.test(path)||/geometric-lab/.test(path)||/project-geometric-ai\.html$/.test(path)||/project-battle-chess\.html$/.test(path)||/play-evil-wizard\.html$/.test(path))return;
+    ['handheld-experience.css','science-experiments.css'].forEach(href=>{if(!document.querySelector('link[href="'+href+'"]')){const l=document.createElement('link');l.rel='stylesheet';l.href=href;document.head.append(l);}});
+    ['handheld-experience.js','science-experiments.js'].forEach(src=>{if(!document.querySelector('script[src="'+src+'"]')){const s=document.createElement('script');s.src=src;s.defer=true;document.body.append(s);}});
+  }
+  function init(){loadSiteEnhancements();strengthenNavigation();enhanceProjectCards();enhanceProjectNavigation();restoreEducation();interactiveSystems();entanglementArtwork();}
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
 })();
