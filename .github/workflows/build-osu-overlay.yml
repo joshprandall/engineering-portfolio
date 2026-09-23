@@ -39,10 +39,7 @@ jobs:
           from zipfile import ZipFile, ZIP_DEFLATED
 
           root = Path('.')
-          protected_root = {
-              'project-battle-chess.html',
-              'project-geometric-ai.html',
-          }
+          protected_root = set()
           top = sorted(
               p for p in root.iterdir()
               if p.is_file()
@@ -56,8 +53,8 @@ jobs:
           instructions = (root/'DEPLOYMENT.md').read_text(encoding='utf-8')
           instructions += (
               '\nIMPORTANT: This science-safe overlay intentionally excludes all game trees, '
-              'the Geometric AI/Geometry & Physics Lab tree, their dedicated project pages, '
-              'the OSU-only Evil Wizard game export, and the fusion video. Merge it into the existing '
+              'the Geometric AI/Geometry & Physics Lab tree, the OSU-only Evil Wizard game export, '
+              'and the fusion video. Project wrapper pages remain deployable. Merge it into the existing '
               'public_html; never delete the existing public_html directory or protected trees.\n'
           )
 
