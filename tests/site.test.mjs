@@ -42,7 +42,8 @@ assert.match(vnext,/vnext-cosmos-worlds/,'Selectable capability worlds missing')
 assert.match(vnext,/const coreEl=.*vnext-cosmos-core/,'Cosmos core DOM reference must remain distinct from canvas gradients');
 assert.doesNotMatch(vnext,/const core=ctx\.createRadialGradient/,'Cosmos renderer must not shadow the core DOM reference');
 assert.match(read('portfolio-next.css'),/vnext-cosmos-scene/,'Solar-system presentation styles missing');
-assert.match(vnext,/enhanceProjectNavigation/,'Project detail navigation enhancer missing');
+assert.match(vnext,/enhanceProjectNavigation/,'Project pager cleanup missing');
+assert.match(vnext,/vnext-project-nav'\)\.forEach\(nav=>nav\.remove\(\)\)/,'Stale project pagers must be removed by the shared experience layer');
 assert.match(vnext,/target='_blank'/,'Project-card pop-out behavior missing');
 
 const primaryTiles=[...projects.matchAll(/<a\b[^>]*class=["'][^"']*tile-open[^"']*["'][^>]*>/gi)].map(x=>x[0]);
@@ -53,9 +54,9 @@ const detailPages=fs.readdirSync(root).filter(x=>/^project-.*\.html$/.test(x));
 assert.ok(detailPages.length>=15,'Expected dedicated project pages for the catalog');
 for (const file of detailPages) {
   const html=read(file);
-  assert.match(html,/vnext-project-nav/,`${file}: missing Previous / All / Next project navigation`);
+  assert.doesNotMatch(html,/vnext-project-nav/,`${file}: redundant Previous / All / Next project navigation must not return`);
 }
-assert.match(read('play-evil-wizard.html'),/vnext-project-nav/,'Evil Wizard project page must have Previous / All / Next navigation');
+assert.doesNotMatch(read('play-evil-wizard.html'),/vnext-project-nav/,'Evil Wizard wrapper must use only the shared header navigation');
 
 const knowledge=read('knowledge.js');
 assert.match(knowledge,/standaloneExperienceURL/,'Standalone lab URL helper missing');
