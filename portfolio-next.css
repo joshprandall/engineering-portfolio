@@ -31,7 +31,7 @@
 .vnext-project-nav a:focus-visible,.vnext-project-nav a:hover{border-color:var(--accent);text-decoration:underline}
 .vnext-qubit-frame{width:100%;min-height:740px;border:1px solid var(--line);border-radius:10px;background:#111b20}
 .vnext-frame-note{font-size:.86rem;color:var(--muted)}
-@media(max-width:700px){.vnext-project-nav a{flex:1 1 130px;justify-content:center;text-align:center}.vnext-qubit-frame{display:none}}
+@media(max-width:700px){.vnext-project-nav a{flex:1 1 130px;justify-content:center;text-align:center}.vnext-qubit-frame{display:block;min-height:980px}}
 
 .vnext-osu{background:#fff;color:#d44a20}.vnext-osu img{max-width:92%;max-height:80%;object-fit:contain}
 
@@ -49,7 +49,8 @@
 .vnext-sys-detail:focus{outline:none}
 .vnext-sys-detail h2{max-width:28ch}
 .vnext-sys-detail>p{max-width:62ch}
-.vnext-project-nav{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 94%,transparent);backdrop-filter:blur(14px)}
+.vnext-project-nav{position:sticky;top:92px;z-index:20;background:color-mix(in srgb,var(--bg) 94%,transparent);backdrop-filter:blur(14px)}
+@media(max-width:900px){.vnext-project-nav{top:76px}}
 .vnext-project-nav a[data-project-nav="all"]{font-weight:800;border-color:var(--accent)}
 body:has(.vnext-project-nav) main{min-height:calc(100dvh - 150px)}
 .project-card{cursor:pointer}
@@ -61,5 +62,5 @@ body:has(.vnext-project-nav) main{min-height:calc(100dvh - 150px)}
   .vnext-system-tabs button:last-child{grid-column:1/-1}
   .vnext-sys-svg{max-height:260px}
   .vnext-sys-detail{min-height:260px}
-  .vnext-project-nav{top:0;padding-inline:10px}
+  .vnext-project-nav{top:76px;padding-inline:10px}
 }
