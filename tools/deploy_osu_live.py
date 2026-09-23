@@ -31,7 +31,6 @@ WEB_DIRS = (
 PROTECTED_ROOT_FILES = {
     "project-battle-chess.html",
     "project-geometric-ai.html",
-    "play-evil-wizard.html",
 }
 PROTECTED_REQUIRED = (
     "project-battle-chess.html",
