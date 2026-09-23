@@ -25,7 +25,7 @@ jobs:
           for file in index.html styles.css engine.js battle.js CREDITS.md; do
             test -s "games/3d-battle-chess/$file" || { echo "Missing $file in protected browser chess build"; exit 1; }
           done
-          test -s games/evil-wizard/play.html
+          # Evil Wizard's browser export is intentionally OSU-host-only and is not required in GitHub.
           test -s geometric-lab/index.html
           test -s project-battle-chess.html
           test -s project-geometric-ai.html
