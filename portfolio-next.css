@@ -73,6 +73,7 @@ body:has(.vnext-project-nav) main{min-height:calc(100dvh - 150px)}
 .vnext-cosmos .vnext-system-tabs button{position:relative;min-height:42px;padding:8px 5px;background:#081721cc;border-color:#274552;color:#bfd9df;overflow:hidden}
 .vnext-cosmos .vnext-system-tabs button::after{content:"";position:absolute;inset:auto 9px 5px;height:1px;background:linear-gradient(90deg,transparent,#69d6e7,transparent);opacity:.12}
 .vnext-cosmos .vnext-system-tabs button[aria-selected="true"]{background:linear-gradient(180deg,#ffd2b4,#efa979);border-color:#ffd8be;color:#17100c;box-shadow:0 0 22px #ffb47d40}
+.vnext-cosmos .vnext-tab-dot{width:7px;height:7px;flex:0 0 7px!important;border-radius:50%;background:currentColor;box-shadow:0 0 10px currentColor;opacity:.8}
 .vnext-cosmos-scene{position:relative;height:clamp(410px,43vw,535px);min-height:410px;overflow:hidden;isolation:isolate;background:#02070b}
 .vnext-cosmos-scene::before{content:"";position:absolute;inset:0;z-index:3;pointer-events:none;background:radial-gradient(circle at 50% 45%,transparent 35%,#02070b22 70%,#02070bba 100%),linear-gradient(180deg,#0000 60%,#02070b80)}
 .vnext-cosmos-scene::after{content:"";position:absolute;inset:0;z-index:4;pointer-events:none;opacity:.12;background:repeating-linear-gradient(180deg,#fff0 0 3px,#a9edff18 4px)}
