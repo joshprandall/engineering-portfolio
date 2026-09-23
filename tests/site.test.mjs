@@ -43,7 +43,7 @@ assert.match(vnext,/const coreEl=.*vnext-cosmos-core/,'Cosmos core DOM reference
 assert.doesNotMatch(vnext,/const core=ctx\.createRadialGradient/,'Cosmos renderer must not shadow the core DOM reference');
 assert.match(read('portfolio-next.css'),/vnext-cosmos-scene/,'Solar-system presentation styles missing');
 assert.match(vnext,/enhanceProjectNavigation/,'Project pager cleanup missing');
-assert.match(vnext,/\$\$\('\.vnext-project-nav'\)\.forEach\(nav=>nav\.remove\(\)\)/,'Stale project pagers must be removed by the shared experience layer');
+assert.match(vnext,/document\.querySelectorAll\('\.vnext-project-nav'\)\.forEach\(nav=>nav\.remove\(\)\)/,'Stale project pagers must be removed by the shared experience layer');
 assert.match(vnext,/target='_blank'/,'Project-card pop-out behavior missing');
 
 const primaryTiles=[...projects.matchAll(/<a\b[^>]*class=["'][^"']*tile-open[^"']*["'][^>]*>/gi)].map(x=>x[0]);
