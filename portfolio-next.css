@@ -146,13 +146,3 @@ html[data-theme="light"] .vnext-cosmos .vnext-world.selected strong{color:#ffd8b
   .vnext-cosmos-scene{isolation:isolate}
   .vnext-cosmos-core{filter:drop-shadow(0 0 10px #ffbd76) drop-shadow(0 0 24px #f079387f)}
 }
-
-
-/* September 23 orbital label overlay: keep every capability name readable above moving worlds. */
-.vnext-cosmos-labels{position:absolute;inset:0;z-index:80;pointer-events:none;overflow:hidden}
-.vnext-cosmos-label{position:absolute;left:0;top:0;transform:translate(-50%,-50%);max-width:104px;padding:4px 7px;border:1px solid #65c8d65c;border-radius:999px;background:#02070be8;color:#eefbff;font:800 .66rem/1 system-ui;letter-spacing:.07em;text-align:center;text-shadow:0 2px 7px #000,0 0 12px #000;white-space:nowrap;box-shadow:0 4px 14px #0007;backdrop-filter:blur(6px);transition:color .16s,border-color .16s,background .16s,box-shadow .16s}
-.vnext-cosmos-label.selected{color:#ffd8bf;border-color:#ffd0ad9a;background:#24150ef2;box-shadow:0 5px 18px #0008,0 0 16px #ffbd8c30}
-.vnext-cosmos-worlds .vnext-world>strong{visibility:hidden}
-@media(max-width:520px){
-  .vnext-cosmos-label{max-width:82px;padding:3px 5px;font-size:.55rem;letter-spacing:.05em}
-}
