@@ -84,6 +84,25 @@
 
   const nav = $("#primary-nav") || $("header nav");
   const menu = $("#menu");
+
+  // Group portfolio games under one intentional navigation category.
+  if (nav && !nav.querySelector(".nav-games")) {
+    nav.querySelectorAll('a[href="project-battle-chess.html"]').forEach(link => link.remove());
+    const games = document.createElement("details");
+    games.className = "nav-games";
+    games.innerHTML = `
+      <summary>Game Development</summary>
+      <div class="nav-games-menu">
+        <a href="project-battle-chess.html">3D Battle Chess</a>
+        <a href="play-evil-wizard.html">Defeat the Evil Wizard</a>
+      </div>`;
+    nav.append(games);
+
+    document.addEventListener("click", event => {
+      if (!games.contains(event.target)) games.removeAttribute("open");
+    });
+  }
+
   if (menu && nav) {
     const closeMenu = () => {
       nav.classList.remove("open");
@@ -108,7 +127,10 @@
           !nav.contains(event.target) && !menu.contains(event.target)) closeMenu();
     });
     document.addEventListener("keydown", event => {
-      if (event.key === "Escape") closeMenu();
+      if (event.key === "Escape") {
+        closeMenu();
+        nav.querySelector(".nav-games")?.removeAttribute("open");
+      }
     });
     window.addEventListener("resize", () => {
       if (window.innerWidth > 900) closeMenu();
