@@ -1,32 +1,35 @@
 /* Shared navigation fallback, project-card navigation and explicit unavailable-image states. */
 (() => {
-  const nav=document.querySelector('header nav#primary-nav');
-  const menu=document.getElementById('menu');
-  if(nav&&menu){
-    menu.setAttribute('aria-controls',nav.id);
-    // Capture once on document so a separately loaded app.js cannot double-toggle.
-    document.addEventListener('click',event=>{
-      if(!menu.contains(event.target))return;
+  // Navigation is a fallback only. app.js owns the menu on normal portfolio pages.
+  // Delaying installation until DOMContentLoaded prevents two handlers from toggling
+  // the same hamburger open and closed in a single tap.
+  const installNavigationFallback=()=>{
+    const nav=document.querySelector('header nav#primary-nav');
+    const menu=document.getElementById('menu');
+    if(!nav||!menu||menu.dataset.navOwner)return;
+    menu.dataset.navOwner='resilience';
+    const close=()=>{
+      nav.classList.remove('open');
+      menu.setAttribute('aria-expanded','false');
+      menu.setAttribute('aria-label','Open navigation');
+    };
+    menu.addEventListener('click',event=>{
+      event.preventDefault();
       event.stopPropagation();
       const opened=nav.classList.toggle('open');
       menu.setAttribute('aria-expanded',String(opened));
       menu.setAttribute('aria-label',opened?'Close navigation':'Open navigation');
-    },true);
-    nav.addEventListener('click',event=>{
-      if(event.target.closest('a')){
-        nav.classList.remove('open');menu.setAttribute('aria-expanded','false');
-        menu.setAttribute('aria-label','Open navigation');
-      }
     });
-    document.addEventListener('keydown',event=>{
-      if(event.key==='Escape'&&nav.classList.contains('open')){
-        nav.classList.remove('open');menu.setAttribute('aria-expanded','false');menu.focus();
-      }
+    nav.addEventListener('click',event=>{if(event.target.closest('a'))close();});
+    document.addEventListener('click',event=>{
+      if(innerWidth<=900&&nav.classList.contains('open')&&!nav.contains(event.target)&&!menu.contains(event.target))close();
     });
-    window.addEventListener('resize',()=>{
-      if(innerWidth>900){nav.classList.remove('open');menu.setAttribute('aria-expanded','false');}
-    });
-  }
+    document.addEventListener('keydown',event=>{if(event.key==='Escape')close();});
+    window.addEventListener('resize',()=>{if(innerWidth>900)close();});
+  };
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',installNavigationFallback,{once:true});
+  else setTimeout(installNavigationFallback,0);
+
   // Mobile layouts keep Play/Source links independently tappable. The rest of
   // each card still opens its dedicated project page, including by keyboard.
   const projectTarget=card=>card.querySelector('a.vnext-card-link')||card.querySelector('a.tile-open');
