@@ -34,3 +34,32 @@
 @media(max-width:700px){.vnext-project-nav a{flex:1 1 130px;justify-content:center;text-align:center}.vnext-qubit-frame{display:none}}
 
 .vnext-osu{background:#fff;color:#d44a20}.vnext-osu img{max-width:92%;max-height:80%;object-fit:contain}
+
+
+/* September interaction refinement: one text label = one node, dedicated full-screen project pages. */
+.vnext-system-tabs button{display:flex;align-items:center;justify-content:center;gap:7px;transition:background .18s,border-color .18s,transform .18s,box-shadow .18s}
+.vnext-system-tabs button:hover{border-color:#6fc9d7;transform:translateY(-1px)}
+.vnext-tab-dot{width:8px;height:8px;border-radius:50%;background:#4c8190;box-shadow:0 0 0 3px #4c819022;transition:background .18s,box-shadow .18s,transform .18s}
+.vnext-system-tabs button[aria-selected="true"] .vnext-tab-dot{background:#142129;box-shadow:0 0 0 4px #14212922;transform:scale(1.2)}
+.vnext-node{outline:none}.vnext-node-orb{transition:r .2s,fill .2s,stroke .2s,filter .2s}
+.vnext-node.selected .vnext-node-orb{fill:#f5bd95;stroke:#fff0e5;filter:drop-shadow(0 0 14px #f5bd95cc);r:25}
+.vnext-node.selected .vnext-node-label{fill:#ffd6bd;font-weight:800}
+.vnext-node[aria-pressed="false"] .vnext-node-orb{opacity:.8}
+.vnext-sys-detail{min-height:220px}
+.vnext-sys-detail:focus{outline:none}
+.vnext-sys-detail h2{max-width:28ch}
+.vnext-sys-detail>p{max-width:62ch}
+.vnext-project-nav{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 94%,transparent);backdrop-filter:blur(14px)}
+.vnext-project-nav a[data-project-nav="all"]{font-weight:800;border-color:var(--accent)}
+body:has(.vnext-project-nav) main{min-height:calc(100dvh - 150px)}
+.project-card{cursor:pointer}
+.project-card:hover{transform:translateY(-2px)}
+.project-card .vnext-card-link{font-weight:700}
+.project-card .vnext-card-link::after{cursor:pointer}
+@media(max-width:700px){
+  .vnext-system-tabs{grid-template-columns:1fr 1fr}
+  .vnext-system-tabs button:last-child{grid-column:1/-1}
+  .vnext-sys-svg{max-height:260px}
+  .vnext-sys-detail{min-height:260px}
+  .vnext-project-nav{top:0;padding-inline:10px}
+}

@@ -29,6 +29,34 @@ const manifest=JSON.parse(read('verification-manifest.json'));
 assert.equal(manifest.count,8000,'Expected 8,000 release manifest entries');
 assert.equal(manifest.records.length,8000,'Manifest record count mismatch');
 assert.equal(new Set(manifest.records.map(x=>x.id)).size,8000,'Duplicate manifest IDs');
+
+const vnext=read('portfolio-next.js');
+assert.equal((vnext.match(/name:'(?:Architect|Build|Secure|Automate|Evolve)'/g)||[]).length,5,'Connected Systems must expose exactly five capability models');
+for (const name of ['Architect','Build','Secure','Automate','Evolve']) {
+  assert.match(vnext,new RegExp(`data-capability|\\${name}`),'Capability selector implementation missing');
+}
+assert.match(vnext,/Five linked capability nodes/,'Connected Systems five-node SVG missing');
+assert.match(vnext,/enhanceProjectNavigation/,'Project detail navigation enhancer missing');
+assert.match(vnext,/target='_blank'/,'Project-card pop-out behavior missing');
+
+const primaryTiles=[...projects.matchAll(/<a\b[^>]*class=["'][^"']*tile-open[^"']*["'][^>]*>/gi)].map(x=>x[0]);
+assert.equal(primaryTiles.length,16,'Every project card must have one primary tile link');
+for (const tile of primaryTiles) assert.match(tile,/target=["']_blank["']/i,'Every primary project tile must open its dedicated page in a new tab');
+
+const detailPages=fs.readdirSync(root).filter(x=>/^project-.*\.html$/.test(x));
+assert.ok(detailPages.length>=15,'Expected dedicated project pages for the catalog');
+for (const file of detailPages) {
+  const html=read(file);
+  assert.match(html,/vnext-project-nav/,`${file}: missing Previous / All / Next project navigation`);
+}
+assert.match(read('play-evil-wizard.html'),/vnext-project-nav/,'Evil Wizard project page must have Previous / All / Next navigation');
+
+const knowledge=read('knowledge.js');
+assert.match(knowledge,/standaloneExperienceURL/,'Standalone lab URL helper missing');
+assert.match(knowledge,/standalone-experience-nav/,'Standalone lab Previous / All / Next navigation missing');
+assert.match(knowledge,/lab-tile-link/,'Interactive lab tiles must launch dedicated experience pages');
+assert.match(knowledge,/window\.open\(standaloneExperienceURL/,'Interactive learning objects must pop out into their own page');
+
 assert.match(read('styles.css'),/:focus-visible/,'Visible keyboard focus styling missing');
-for (const file of ['app.js','knowledge.js','agent-workbench.mjs','games/3d-battle-chess/battle.js','games/3d-battle-chess/engine.js']) execFileSync(process.execPath,['--check',path.join(root,file)],{stdio:'pipe'});
+for (const file of ['app.js','portfolio-next.js','knowledge.js','agent-workbench.mjs','games/3d-battle-chess/battle.js','games/3d-battle-chess/engine.js']) execFileSync(process.execPath,['--check',path.join(root,file)],{stdio:'pipe'});
 console.log('Static release integration passed: 16 projects, 8,000 unique manifest IDs, required routes and JavaScript syntax. OSU game export and media require separate live verification.');

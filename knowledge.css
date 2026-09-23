@@ -128,3 +128,23 @@ body[data-library-page]:not([data-library-page="home"]) #library-view>.hero,body
 @media(max-width:360px){.lesson-page-tabs button{font-size:.7rem;padding-inline:3px}}
 .provenance-box{margin:18px 0;border:1px solid color-mix(in srgb,var(--accent) 45%,var(--line));border-radius:13px;background:var(--accent-soft);padding:16px}.provenance-box h3{font-family:var(--serif);font-weight:400;margin:.3rem 0}.source-reading-guide{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin:10px 0 20px}.source-reading-guide article{display:grid;grid-template-columns:32px minmax(0,1fr);gap:8px;border:1px solid var(--line);background:var(--panel);border-radius:11px;padding:12px}.source-reading-guide article>span{grid-row:1/3;width:27px;height:27px;display:grid;place-items:center;border-radius:50%;background:var(--accent-soft);color:var(--accent);font-weight:800}.source-reading-guide p{font-size:.8rem!important;margin:.2rem 0 0!important}
 @media(max-width:620px){.source-reading-guide{grid-template-columns:1fr}}
+
+
+/* Dedicated experience pages: catalog tiles launch full-screen labs in their own tab. */
+.lab-tile-link{display:block;color:inherit;text-decoration:none;cursor:pointer;transition:transform .16s,border-color .16s,box-shadow .16s}
+.lab-tile-link:hover,.lab-tile-link:focus-visible{transform:translateY(-2px);border-color:var(--accent);box-shadow:0 18px 45px rgba(0,0,0,.18);outline:none}
+.lab-tile-link .text-button{pointer-events:none}
+.lesson-card.standalone-tile{cursor:pointer}
+.lesson-card.standalone-tile:hover,.lesson-card.standalone-tile:focus-visible{border-color:var(--accent);outline:2px solid color-mix(in srgb,var(--accent) 50%,transparent);outline-offset:2px}
+body.standalone-experience{overflow-x:hidden}
+body.standalone-experience>.site-header,body.standalone-experience>footer.site-footer,body.standalone-experience>.ambient{display:none!important}
+body.standalone-experience main{min-height:100dvh}
+body.standalone-experience #lesson-view{display:block!important;min-height:100dvh;padding-top:0}
+body.standalone-experience .lesson-shell{width:min(1500px,calc(100% - 28px));max-width:none;padding-top:12px}
+body.standalone-experience .lesson-topbar{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--bg) 94%,transparent);backdrop-filter:blur(14px);padding-block:10px}
+.standalone-experience-nav{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:10px;align-items:stretch;margin:0 0 24px;padding:10px 0 16px;border-bottom:1px solid var(--line)}
+.standalone-experience-nav a{display:flex;align-items:center;min-height:48px;padding:9px 12px;border:1px solid var(--line);border-radius:9px;color:var(--accent);text-decoration:none;font-size:.84rem;line-height:1.3}
+.standalone-experience-nav a:last-child{justify-content:flex-end;text-align:right}
+.standalone-experience-nav .all-experiences{justify-content:center;text-align:center;font-weight:800;border-color:var(--accent)}
+.standalone-experience-nav a:hover,.standalone-experience-nav a:focus-visible{border-color:var(--accent);text-decoration:underline;outline:none}
+@media(max-width:700px){.standalone-experience-nav{grid-template-columns:1fr}.standalone-experience-nav a,.standalone-experience-nav a:last-child{justify-content:center;text-align:center}.standalone-experience-nav .all-experiences{order:-1}body.standalone-experience .lesson-shell{width:min(100% - 18px,1500px)}}
