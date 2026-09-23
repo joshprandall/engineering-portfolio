@@ -175,12 +175,18 @@
     const onlySaved=$('#saved-filter').checked;
     return D.lessons.map(l=>({l,score:lessonScore(l,q)})).filter(x => x.score>0 && (dom==='all'||x.l.domain===dom) && (lvl==='all'||x.l.difficulty===lvl) && (typ==='all'||x.l.kind===typ) && (!onlySaved||saved.has(x.l.id))).sort((a,b)=>q?b.score-a.score:0).map(x=>x.l);
   }
+  function standaloneExperienceURL(l,view='lab'){
+    const u=new URL('learn-labs.html',location.href);
+    u.searchParams.set('lesson',l.id);u.searchParams.set('view',view);u.searchParams.set('standalone','1');
+    return u.href;
+  }
+  function isInteractiveExperience(l){return Boolean(l.interactive)||l.kind==='Lab';}
   function lessonCard(l){
-    const d=domainMap.get(l.domain), isSaved=saved.has(l.id), isDone=completed.has(l.id);
-    return `<article class="lesson-card${isDone?' completed':''}" tabindex="0" role="button" data-lesson="${esc(l.id)}" aria-label="Open ${esc(l.title)}">
+    const d=domainMap.get(l.domain), isSaved=saved.has(l.id), isDone=completed.has(l.id), pop=isInteractiveExperience(l);
+    return `<article class="lesson-card${isDone?' completed':''}${pop?' standalone-tile':''}" tabindex="0" role="link" data-lesson="${esc(l.id)}" data-popout="${pop?'1':'0'}" aria-label="${pop?'Open interactive experience in a new tab: ':'Open '}${esc(l.title)}">
       <div class="topline"><span class="kind">${esc(l.kind)}</span><span>·</span><span>${esc(d.name)}</span><span class="verified-mini" title="Evidence links are available inside this lesson">✓ Verified</span></div>
       <h3>${esc(l.title)}</h3><p>${esc(l.summary)}</p>
-      <div class="bottomline"><span>${esc(l.difficulty)} · ${l.minutes} min</span><button class="save-mini${isSaved?' saved':''}" type="button" data-save="${esc(l.id)}" aria-label="${isSaved?'Remove from saved':'Save lesson'}">${isSaved?'♥':'♡'}</button></div>
+      <div class="bottomline"><span>${esc(l.difficulty)} · ${l.minutes} min${pop?' · opens full screen':''}</span><button class="save-mini${isSaved?' saved':''}" type="button" data-save="${esc(l.id)}" aria-label="${isSaved?'Remove from saved':'Save lesson'}">${isSaved?'♥':'♡'}</button></div>
     </article>`;
   }
   function renderLessons(){
@@ -192,7 +198,7 @@
     $('#load-more').hidden=displayLimit>=all.length;
     renderSearchExtras(); bindLessonCards();
   }
-  function renderSearchExtras(){
+  function renderSearchExtras(){function renderSearchExtras(){
     const q=$('#knowledge-search').value.trim(), box=$('#search-extras');
     if(!box||!q){if(box)box.hidden=true;return}
     const glossary=(D.glossary||[]).filter(g=>textMatchesQuery(`${g.term} ${g.definition}`,q)).slice(0,5);
@@ -209,7 +215,12 @@
   }
   function bindLessonCards(){
     $$('.lesson-card[data-lesson]').forEach(card=>{
-      const go=()=>openLesson(card.dataset.lesson);
+      const go=()=>{
+        const l=lessonMap.get(card.dataset.lesson);if(!l)return;
+        if(card.dataset.popout==='1'){
+          window.open(standaloneExperienceURL(l,'lab'),'_blank','noopener,noreferrer');
+        }else openLesson(l.id);
+      };
       card.addEventListener('click',e=>{if(!e.target.closest('[data-save]'))go()});
       card.addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&!e.target.closest('[data-save]')){e.preventDefault();go()}});
     });
@@ -217,7 +228,7 @@
       e.stopPropagation(); toggleSaved(b.dataset.save); renderLessons();
     }));
   }
-  function toggleSaved(id){
+  function toggleSaved(id){function toggleSaved(id){
     if(saved.has(id)){saved.delete(id);toast('Removed from saved lessons')} else {saved.add(id);toast('Saved for later');ping(620)}
     saveSet(STORAGE.saved,saved);
     if(currentLesson===id) renderLessonRail(lessonMap.get(id));
@@ -360,13 +371,27 @@
     if(view==='review')return reviewHTML(l,g);
     return evidenceSection(l);
   }
+  function standaloneExperienceNav(l){
+    const all=D.lessons.filter(x=>isInteractiveExperience(x));
+    const i=all.findIndex(x=>x.id===l.id);
+    if(i<0)return '';
+    const prev=all[(i-1+all.length)%all.length],next=all[(i+1)%all.length];
+    const href=x=>esc(standaloneExperienceURL(x,'lab'));
+    return `<nav class="standalone-experience-nav" aria-label="Interactive experience navigation">
+      <a href="${href(prev)}">← Previous · ${esc(prev.title)}</a>
+      <a class="all-experiences" href="learn-labs.html">All Labs</a>
+      <a href="${href(next)}">Next · ${esc(next.title)} →</a>
+    </nav>`;
+  }
   function openLesson(id,push=true){
     const l=lessonMap.get(id); if(!l)return;
+    const standalone=new URL(location.href).searchParams.get('standalone')==='1';
+    document.body.classList.toggle('standalone-experience',standalone);
     stopSpeech(); currentLesson=id; lessonViewName=lessonViewFromURL(); localStorage.setItem(STORAGE.recent,id); renderContinue(); const initialView=lessonViewName; ensureDeepLearning(l).then(()=>{if(currentLesson===id&&lessonViewName===initialView){const host=$('#lesson-page-content');if(host){host.innerHTML=lessonPageHTML(l,initialView);bindLessonPage(l);if(initialView==='lab')mountInteractive(l.interactive,l)}}});
     $('#library-view').hidden=true; $('#lesson-view').hidden=false; document.body.classList.add('reading'); $('#lesson-view').classList.toggle('focus-reading',focusReading);
     if(push){const u=new URL(location.href);u.searchParams.set('lesson',id);u.searchParams.set('view','overview');u.searchParams.delete('domain');history.pushState({lesson:id},'',u);lessonViewName='overview'}
     const d=domainMap.get(l.domain);
-    $('#lesson-article').innerHTML=`
+    $('#lesson-article').innerHTML=`${standalone?standaloneExperienceNav(l):''}
       <div class="breadcrumbs"><button data-home-lesson>Knowledge Library</button><span>/</span><button data-domain-lesson="${esc(l.domain)}">${esc(d.name)}</button><span>/</span><span>${esc(l.category)}</span></div>
       <div class="lesson-kicker"><span>${esc(l.kind)}</span><span>·</span><span>${esc(l.category)}</span></div>
       <h1 class="lesson-title">${esc(l.title)}</h1><p class="lesson-summary">${esc(l.summary)}</p>
@@ -403,7 +428,7 @@
     $('#lesson-page-content').innerHTML=lessonPageHTML(l,view); bindLessonPage(l); mountInteractive(view==='lab'?l.interactive:null,l); window.scrollTo({top:Math.max(0,$('.lesson-page-tabs').getBoundingClientRect().top+scrollY-95),behavior:motionPaused?'auto':'smooth'}); updateReadingProgress();
   }
   function closeLesson(push=true){
-    stopSpeech(); currentLesson=null; $('#lesson-view').hidden=true; $('#library-view').hidden=false; document.body.classList.remove('reading');
+    stopSpeech(); currentLesson=null; $('#lesson-view').hidden=true; $('#library-view').hidden=false; document.body.classList.remove('reading','standalone-experience');
     if(push){const u=new URL(location.href);u.searchParams.delete('lesson');u.searchParams.delete('view');history.pushState({},'',u)}
     renderLessons(); renderPaths(); renderKnowledgeGraph(); applyLibraryPage(); window.scrollTo({top:0,behavior:'auto'});
   }
@@ -427,7 +452,11 @@
     saveSet(STORAGE.complete,completed); renderLessonDashboard(l); renderPaths(); const b=$('[data-complete-here]');if(b)b.textContent=completed.has(l.id)?'✓ Completed':'Mark this lesson complete';
   }
   function bindLessonUI(l){
-    $('#back-library').onclick=()=>closeLesson(); $$('[data-home-lesson]').forEach(b=>b.onclick=()=>closeLesson());
+    const standalone=new URL(location.href).searchParams.get('standalone')==='1';
+    const back=$('#back-library');
+    if(standalone){back.textContent='← All Labs';back.onclick=()=>{location.href='learn-labs.html'};}
+    else back.onclick=()=>closeLesson();
+    $('[data-home-lesson]').forEach(b=>b.onclick=()=>{if(standalone)location.href='learn-labs.html';else closeLesson();});
     $$('[data-domain-lesson]').forEach(b=>b.onclick=()=>{const dom=b.dataset.domainLesson;location.href=`learn-browse.html?domain=${encodeURIComponent(dom)}`});
     const rate=$('#narration-rate'); rate.value=localStorage.getItem(STORAGE.narrationRate)||'0.95'; rate.onchange=()=>{localStorage.setItem(STORAGE.narrationRate,rate.value);toast(`Narration ${rate.options[rate.selectedIndex].text}`)};
     $('#listen-full').onclick=()=>speakLesson(l,false); $('#listen-summary').onclick=()=>speakLesson(l,true); $('#stop-audio').onclick=stopSpeech;
@@ -797,16 +826,20 @@
   function renderFlashcard(){const all=D.glossary||[],g=all[flashIndex%Math.max(1,all.length)],stage=$('#flashcard-stage');if(!g||!stage)return;stage.innerHTML=`<span class="flash-domain">${esc(domainMap.get(g.domain)?.name||g.domain)}</span><strong>${esc(g.term)}</strong><p>${flashRevealed?esc(g.definition):'Define this term from memory, then reveal the answer.'}</p>`;$('#flash-reveal').hidden=flashRevealed;$('#flash-again').hidden=!flashRevealed;$('#flash-got').hidden=!flashRevealed}
   function markFlash(status){const g=(D.glossary||[])[flashIndex%(D.glossary||[]).length];if(!g)return;flashState[g.term]=status;saveFlash();renderRetentionStats();nextFlashcard()}
   function renderLabGallery(){
-    const grid=$('#lab-grid');if(!grid)return;let labs=D.lessons.filter(l=>l.interactive||l.kind==='Lab');
+    const grid=$('#lab-grid');if(!grid)return;let labs=D.lessons.filter(l=>isInteractiveExperience(l));
     if(labDomain!=='all')labs=labs.filter(l=>l.domain===labDomain);if(labDifficulty!=='all')labs=labs.filter(l=>l.difficulty===labDifficulty);
     const visible=labs.slice(0,labLimit);const count=$('#lab-count');if(count)count.textContent=`${labs.length} matching interactive learning object${labs.length===1?'':'s'} · showing ${Math.min(labLimit,labs.length)}`;
-    grid.innerHTML=visible.map(l=>`<article class="lab-card"><div class="lab-visual" aria-hidden="true"><span>${esc(domainMap.get(l.domain)?.icon||'◇')}</span><i></i><i></i><i></i></div><p class="eyebrow">${esc(domainMap.get(l.domain)?.name||l.domain)} / ${esc(l.kind)}</p><h3>${esc(l.title)}</h3><p>${esc(l.summary)}</p><div><span>${esc(l.difficulty)} · ${l.minutes} min</span><button class="text-button" data-launch-lab="${esc(l.id)}">Launch ${l.interactive?'model':'lab'} ↗</button></div></article>`).join('')||'<article class="lab-card"><h3>No labs match these filters.</h3><p>Change the domain or difficulty to see more.</p></article>';
-    $$('[data-launch-lab]',grid).forEach(b=>b.onclick=()=>openLesson(b.dataset.launchLab));const tog=$('#toggle-labs');if(tog){tog.hidden=labLimit>=labs.length;tog.textContent='Show 12 more labs';}
+    grid.innerHTML=visible.map(l=>`<a class="lab-card lab-tile-link" href="${esc(standaloneExperienceURL(l,'lab'))}" target="_blank" rel="noopener noreferrer" aria-label="Open ${esc(l.title)} in a full-screen lab page">
+      <div class="lab-visual" aria-hidden="true"><span>${esc(domainMap.get(l.domain)?.icon||'◇')}</span><i></i><i></i><i></i></div>
+      <p class="eyebrow">${esc(domainMap.get(l.domain)?.name||l.domain)} / ${esc(l.kind)}</p><h3>${esc(l.title)}</h3><p>${esc(l.summary)}</p>
+      <div><span>${esc(l.difficulty)} · ${l.minutes} min</span><span class="text-button">Launch ${l.interactive?'model':'lab'} ↗</span></div>
+    </a>`).join('')||'<article class="lab-card"><h3>No labs match these filters.</h3><p>Change the domain or difficulty to see more.</p></article>';
+    const tog=$('#toggle-labs');if(tog){tog.hidden=labLimit>=labs.length;tog.textContent='Show 12 more labs';}
   }
-  function renderLabFilters(){const d=$('#lab-domain');if(d&&d.options.length===1)d.insertAdjacentHTML('beforeend',D.domains.map(x=>`<option value="${esc(x.id)}">${esc(x.name)}</option>`).join(''));if(d)d.value=labDomain;const lv=$('#lab-level');if(lv)lv.value=labDifficulty}
+  function renderLabFilters(){function renderLabFilters(){const d=$('#lab-domain');if(d&&d.options.length===1)d.insertAdjacentHTML('beforeend',D.domains.map(x=>`<option value="${esc(x.id)}">${esc(x.name)}</option>`).join(''));if(d)d.value=labDomain;const lv=$('#lab-level');if(lv)lv.value=labDifficulty}
   function startSprint(){const pool=D.lessons.filter(l=>l.quiz);const shuffled=[...pool].sort(()=>Math.random()-.5).slice(0,5);sprintState={items:shuffled,index:0,score:0,answered:false};renderSprint()}
   function renderSprint(){const stage=$('#sprint-stage');if(!stage)return;if(!sprintState){stage.innerHTML='<p class="muted">Five source-verified recall questions. No timer, no penalty—just retrieval practice.</p>';return}if(sprintState.index>=sprintState.items.length){stage.innerHTML=`<div class="sprint-finish"><strong>${sprintState.score} / ${sprintState.items.length}</strong><p>${sprintState.score===5?'Perfect retrieval.':sprintState.score>=4?'Strong recall. Revisit the one that missed.':'Useful signal. Review the missed concepts, then try again later.'}</p><button class="button primary" type="button" data-sprint-again>Run another five</button></div>`;$('[data-sprint-again]',stage).onclick=startSprint;return}const l=sprintState.items[sprintState.index],q=l.quiz;stage.innerHTML=`<p class="challenge-domain">Question ${sprintState.index+1} / ${sprintState.items.length} · ${esc(domainMap.get(l.domain)?.name||l.domain)}</p><h4>${esc(q.q)}</h4><div class="recall-options">${q.options.map((o,i)=>`<button type="button" data-sprint-option="${i}">${esc(o)}</button>`).join('')}</div><p class="recall-feedback muted" data-sprint-feedback>Retrieve first. Then choose.</p>`;$$('[data-sprint-option]',stage).forEach(b=>b.onclick=()=>{if(sprintState.answered)return;sprintState.answered=true;const i=+b.dataset.sprintOption,ok=i===q.answer;if(ok)sprintState.score++;recordRecall(l.id,ok);$$('[data-sprint-option]',stage).forEach(x=>x.disabled=true);b.classList.add(ok?'correct':'wrong');const c=$(`[data-sprint-option="${q.answer}"]`,stage);if(c)c.classList.add('correct');$('[data-sprint-feedback]',stage).innerHTML=`${ok?'Correct.':'Not yet.'} ${esc(q.explanation||l.takeaway)} <button class="text-button" type="button" data-sprint-next>${sprintState.index===4?'Finish':'Next question →'}</button>`;$('[data-sprint-next]',stage).onclick=()=>{sprintState.index++;sprintState.answered=false;renderSprint()};ping(ok?720:230)});}
-  function initPractice(){renderRetentionStats();newRecallChallenge();renderFlashcard();renderLabFilters();renderLabGallery();renderSprint();const rn=$('#recall-next');if(rn)rn.onclick=()=>newRecallChallenge();const ro=$('#recall-open');if(ro)ro.onclick=()=>recallLessonId&&openLesson(recallLessonId);const fr=$('#flash-reveal');if(fr)fr.onclick=()=>{flashRevealed=true;renderFlashcard()};const fa=$('#flash-again');if(fa)fa.onclick=()=>markFlash('again');const fg=$('#flash-got');if(fg)fg.onclick=()=>markFlash('got');const fs=$('#flashcard-stage');if(fs)fs.onclick=()=>{if(!flashRevealed){flashRevealed=true;renderFlashcard()}};const rw=$('#review-weak');if(rw)rw.onclick=()=>newRecallChallenge(true);const tl=$('#toggle-labs');if(tl)tl.onclick=()=>{labLimit+=12;renderLabGallery()};const ld=$('#lab-domain');if(ld)ld.onchange=()=>{labDomain=ld.value;labLimit=12;renderLabGallery()};const ll=$('#lab-level');if(ll)ll.onchange=()=>{labDifficulty=ll.value;labLimit=12;renderLabGallery()};const lr=$('#random-lab');if(lr)lr.onclick=()=>{let pool=D.lessons.filter(l=>(l.interactive||l.kind==='Lab')&&(labDomain==='all'||l.domain===labDomain)&&(labDifficulty==='all'||l.difficulty===labDifficulty));if(pool.length)openLesson(pool[Math.floor(Math.random()*pool.length)].id)};const ss=$('#sprint-start');if(ss)ss.onclick=startSprint;}
+  function initPractice(){renderRetentionStats();newRecallChallenge();renderFlashcard();renderLabFilters();renderLabGallery();renderSprint();const rn=$('#recall-next');if(rn)rn.onclick=()=>newRecallChallenge();const ro=$('#recall-open');if(ro)ro.onclick=()=>recallLessonId&&openLesson(recallLessonId);const fr=$('#flash-reveal');if(fr)fr.onclick=()=>{flashRevealed=true;renderFlashcard()};const fa=$('#flash-again');if(fa)fa.onclick=()=>markFlash('again');const fg=$('#flash-got');if(fg)fg.onclick=()=>markFlash('got');const fs=$('#flashcard-stage');if(fs)fs.onclick=()=>{if(!flashRevealed){flashRevealed=true;renderFlashcard()}};const rw=$('#review-weak');if(rw)rw.onclick=()=>newRecallChallenge(true);const tl=$('#toggle-labs');if(tl)tl.onclick=()=>{labLimit+=12;renderLabGallery()};const ld=$('#lab-domain');if(ld)ld.onchange=()=>{labDomain=ld.value;labLimit=12;renderLabGallery()};const ll=$('#lab-level');if(ll)ll.onchange=()=>{labDifficulty=ll.value;labLimit=12;renderLabGallery()};const lr=$('#random-lab');if(lr)lr.onclick=()=>{let pool=D.lessons.filter(l=>(l.interactive||l.kind==='Lab')&&(labDomain==='all'||l.domain===labDomain)&&(labDifficulty==='all'||l.difficulty===labDifficulty));if(pool.length){const pick=pool[Math.floor(Math.random()*pool.length)];window.open(standaloneExperienceURL(pick,'lab'),'_blank','noopener,noreferrer')}};const ss=$('#sprint-start');if(ss)ss.onclick=startSprint;}
 
   function renderMastery(){
     const grid=$('#mastery-grid'); if(!grid)return;
