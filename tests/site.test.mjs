@@ -68,13 +68,22 @@ assert.doesNotMatch(portfolioNext,/const core=ctx\.createRadialGradient/,'Solar 
 assert.match(portfolioNext,/const coreGlow=ctx\.createRadialGradient/,'Solar core glow should use a non-shadowing variable');
 assert.match(read('portfolio-next.css'),/\.vnext-cosmos \.vnext-tab-dot\{[^}]*flex:0 0 7px!important/,'Solar tab dots must not stretch under generic tab span flex rules');
 const handheldCss=read('handheld-experience.css');
-assert.match(handheldCss,/\.hx-phone-dock\{[^}]*background:rgba\(12,18,22,\.94\)/,'Phone dock must use theme-independent dark chrome');
-assert.match(handheldCss,/\.hx-action\{[^}]*background:transparent!important/,'Handheld action buttons must not inherit light theme button chrome');
+const handheldJs=read('handheld-experience.js');
+assert.doesNotMatch(handheldCss,/\.hx-phone-dock\{position:fixed/,'Floating phone navigation must not return');
+assert.doesNotMatch(handheldCss,/\.hx-tablet-rail\{position:fixed/,'Floating tablet navigation must not return');
+assert.match(handheldJs,/removeLegacyFloatingNavigation/,'Handheld layer must actively remove stale floating navigation');
 assert.match(read('styles.css'),/:focus-visible/,'Visible keyboard focus styling missing');
-assert.match(read('app.js'),/Game Development/,'Primary navigation must include the Game Development category');
-assert.match(read('app.js'),/project-battle-chess\.html/,'Game Development navigation must include 3D Battle Chess');
-assert.match(read('app.js'),/play-evil-wizard\.html/,'Game Development navigation must include Defeat the Evil Wizard');
+const resilience=read('site-resilience.js');
+assert.match(resilience,/Game Development/,'Primary navigation must include the Game Development category');
+assert.match(resilience,/project-battle-chess\.html/,'Game Development navigation must include 3D Battle Chess');
+assert.match(resilience,/play-evil-wizard\.html/,'Game Development navigation must include Defeat the Evil Wizard');
+assert.match(resilience,/menu\.onclick=/,'Shared header must have a single explicit hamburger owner');
+assert.doesNotMatch(read('app.js'),/menu\.addEventListener\("click"/,'app.js must not register a competing hamburger handler');
 assert.match(read('site-resilience.css'),/\.nav-games-menu/,'Game Development submenu styling is missing');
+assert.match(read('knowledge.js'),/closePrimaryNav/,'Knowledge Library must use robust top navigation close behavior');
+assert.match(read('knowledge.js'),/Game Development/,'Knowledge Library top navigation must include Game Development');
+assert.match(read('play-evil-wizard.html'),/id="primary-nav"/,'Evil Wizard wrapper must use the shared top navigation');
+assert.match(read('play-evil-wizard.html'),/site-resilience\.js\?v=20260923j/,'Evil Wizard wrapper must load the current shared navigation');
 assert.ok(!projects.includes('id="roadmap"'),'Removed projects roadmap must not return');
 const handheld=read('handheld-experience.js'),science=read('science-experiments.js');
 for(const protectedStem of ['project-geometric-ai','project-battle-chess','play-evil-wizard']) assert.ok(handheld.includes(protectedStem),`Protected route ${protectedStem} must be excluded from handheld enhancements`);
@@ -82,12 +91,14 @@ assert.match(science,/geometric-ai\|battle-chess\|play-evil-wizard/,'Science exp
 assert.match(read('knowledge.js'),/handheld-experience\.js/,'Learning platform must load the device-specific handheld layer');
 const overlayWorkflow=read('.github/workflows/build-osu-overlay.yml');
 assert.match(overlayWorkflow,/forbidden_prefixes=\('games\/',\s*'geometric-lab\/'\)/,'OSU overlay must forbid game and Geometric AI trees');
-assert.match(overlayWorkflow,/protected_root\s*=\s*\{[\s\S]*project-battle-chess\.html[\s\S]*project-geometric-ai\.html[\s\S]*play-evil-wizard\.html/,'OSU overlay must omit protected root pages');
+assert.match(overlayWorkflow,/protected_root\s*=\s*\{[\s\S]*project-battle-chess\.html[\s\S]*project-geometric-ai\.html/,'OSU overlay must omit protected game and Geometric AI project wrappers');
+assert.doesNotMatch(overlayWorkflow,/protected_root\s*=\s*\{[\s\S]*play-evil-wizard\.html/,'Evil Wizard wrapper must be deployable for shared navigation fixes');
 const deployScript=read('tools/deploy_osu_live.py');
-assert.match(deployScript,/WEB_COMMIT = "a050aef10c3ebd07c16cbc187b3d2740bb4c631d"/,'OSU deploy must remain pinned to the visually validated science release');
+assert.match(deployScript,/WEB_COMMIT = "a0c56523469c8728fb8471308977445ad6d646b5"/,'OSU deploy must remain pinned to the validated navigation-stability release');
 const webDirs=deployScript.match(/WEB_DIRS = \(([\s\S]*?)\)\n\n/)?.[1]||'';
 assert.ok(!/games\/|geometric-lab|project-sources/.test(webDirs),'OSU deploy WEB_DIRS must not overwrite protected or repository-only trees');
-assert.match(deployScript,/PROTECTED_ROOT_FILES = \{[\s\S]*project-battle-chess\.html[\s\S]*project-geometric-ai\.html[\s\S]*play-evil-wizard\.html/,'OSU deploy must skip protected root pages');
+assert.match(deployScript,/PROTECTED_ROOT_FILES = \{[\s\S]*project-battle-chess\.html[\s\S]*project-geometric-ai\.html/,'OSU deploy must skip protected game and Geometric AI project wrappers');
+assert.doesNotMatch(deployScript,/PROTECTED_ROOT_FILES = \{[\s\S]*play-evil-wizard\.html/,'OSU deploy must allow the Evil Wizard wrapper navigation shell to update');
 
 for (const file of ['app.js','portfolio-next.js','handheld-experience.js','science-experiments.js','knowledge.js','agent-workbench.mjs','labs/qpe.mjs','labs/emergent.mjs','qubit-preview-20260921/app.js','qubit-preview-20260921/qubit.js','games/3d-battle-chess/battle.js','games/3d-battle-chess/engine.js']) execFileSync(process.execPath,['--check',path.join(root,file)],{stdio:'pipe'});
 
