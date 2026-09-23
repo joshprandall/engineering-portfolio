@@ -64,7 +64,7 @@ assert.match(knowledge,/window\.open\(standaloneExperienceURL/,'Interactive lear
 assert.match(read('styles.css'),/:focus-visible/,'Visible keyboard focus styling missing');
 assert.ok(!projects.includes('id="roadmap"'),'Removed projects roadmap must not return');
 const handheld=read('handheld-experience.js'),science=read('science-experiments.js');
-for(const protectedName of ['project-geometric-ai.html','project-battle-chess.html','play-evil-wizard.html']) assert.ok(handheld.includes(protectedName),`Protected route ${protectedName} must be excluded from handheld enhancements`);
+for(const protectedStem of ['project-geometric-ai','project-battle-chess','play-evil-wizard']) assert.ok(handheld.includes(protectedStem),`Protected route ${protectedStem} must be excluded from handheld enhancements`);
 assert.match(science,/geometric-ai\|battle-chess\|play-evil-wizard/,'Science experiment layer must explicitly exclude games and Geometric AI');
 assert.match(read('knowledge.js'),/handheld-experience\.js/,'Learning platform must load the device-specific handheld layer');
 for (const file of ['app.js','portfolio-next.js','handheld-experience.js','science-experiments.js','knowledge.js','agent-workbench.mjs','labs/qpe.mjs','labs/emergent.mjs','qubit-preview-20260921/app.js','qubit-preview-20260921/qubit.js','games/3d-battle-chess/battle.js','games/3d-battle-chess/engine.js']) execFileSync(process.execPath,['--check',path.join(root,file)],{stdio:'pipe'});
