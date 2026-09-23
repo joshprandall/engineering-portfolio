@@ -198,7 +198,7 @@
     $('#load-more').hidden=displayLimit>=all.length;
     renderSearchExtras(); bindLessonCards();
   }
-  function renderSearchExtras(){function renderSearchExtras(){
+  function renderSearchExtras(){
     const q=$('#knowledge-search').value.trim(), box=$('#search-extras');
     if(!box||!q){if(box)box.hidden=true;return}
     const glossary=(D.glossary||[]).filter(g=>textMatchesQuery(`${g.term} ${g.definition}`,q)).slice(0,5);
@@ -228,7 +228,7 @@
       e.stopPropagation(); toggleSaved(b.dataset.save); renderLessons();
     }));
   }
-  function toggleSaved(id){function toggleSaved(id){
+  function toggleSaved(id){
     if(saved.has(id)){saved.delete(id);toast('Removed from saved lessons')} else {saved.add(id);toast('Saved for later');ping(620)}
     saveSet(STORAGE.saved,saved);
     if(currentLesson===id) renderLessonRail(lessonMap.get(id));
@@ -836,7 +836,7 @@
     </a>`).join('')||'<article class="lab-card"><h3>No labs match these filters.</h3><p>Change the domain or difficulty to see more.</p></article>';
     const tog=$('#toggle-labs');if(tog){tog.hidden=labLimit>=labs.length;tog.textContent='Show 12 more labs';}
   }
-  function renderLabFilters(){function renderLabFilters(){const d=$('#lab-domain');if(d&&d.options.length===1)d.insertAdjacentHTML('beforeend',D.domains.map(x=>`<option value="${esc(x.id)}">${esc(x.name)}</option>`).join(''));if(d)d.value=labDomain;const lv=$('#lab-level');if(lv)lv.value=labDifficulty}
+  function renderLabFilters(){const d=$('#lab-domain');if(d&&d.options.length===1)d.insertAdjacentHTML('beforeend',D.domains.map(x=>`<option value="${esc(x.id)}">${esc(x.name)}</option>`).join(''));if(d)d.value=labDomain;const lv=$('#lab-level');if(lv)lv.value=labDifficulty}
   function startSprint(){const pool=D.lessons.filter(l=>l.quiz);const shuffled=[...pool].sort(()=>Math.random()-.5).slice(0,5);sprintState={items:shuffled,index:0,score:0,answered:false};renderSprint()}
   function renderSprint(){const stage=$('#sprint-stage');if(!stage)return;if(!sprintState){stage.innerHTML='<p class="muted">Five source-verified recall questions. No timer, no penalty—just retrieval practice.</p>';return}if(sprintState.index>=sprintState.items.length){stage.innerHTML=`<div class="sprint-finish"><strong>${sprintState.score} / ${sprintState.items.length}</strong><p>${sprintState.score===5?'Perfect retrieval.':sprintState.score>=4?'Strong recall. Revisit the one that missed.':'Useful signal. Review the missed concepts, then try again later.'}</p><button class="button primary" type="button" data-sprint-again>Run another five</button></div>`;$('[data-sprint-again]',stage).onclick=startSprint;return}const l=sprintState.items[sprintState.index],q=l.quiz;stage.innerHTML=`<p class="challenge-domain">Question ${sprintState.index+1} / ${sprintState.items.length} · ${esc(domainMap.get(l.domain)?.name||l.domain)}</p><h4>${esc(q.q)}</h4><div class="recall-options">${q.options.map((o,i)=>`<button type="button" data-sprint-option="${i}">${esc(o)}</button>`).join('')}</div><p class="recall-feedback muted" data-sprint-feedback>Retrieve first. Then choose.</p>`;$$('[data-sprint-option]',stage).forEach(b=>b.onclick=()=>{if(sprintState.answered)return;sprintState.answered=true;const i=+b.dataset.sprintOption,ok=i===q.answer;if(ok)sprintState.score++;recordRecall(l.id,ok);$$('[data-sprint-option]',stage).forEach(x=>x.disabled=true);b.classList.add(ok?'correct':'wrong');const c=$(`[data-sprint-option="${q.answer}"]`,stage);if(c)c.classList.add('correct');$('[data-sprint-feedback]',stage).innerHTML=`${ok?'Correct.':'Not yet.'} ${esc(q.explanation||l.takeaway)} <button class="text-button" type="button" data-sprint-next>${sprintState.index===4?'Finish':'Next question →'}</button>`;$('[data-sprint-next]',stage).onclick=()=>{sprintState.index++;sprintState.answered=false;renderSprint()};ping(ok?720:230)});}
   function initPractice(){renderRetentionStats();newRecallChallenge();renderFlashcard();renderLabFilters();renderLabGallery();renderSprint();const rn=$('#recall-next');if(rn)rn.onclick=()=>newRecallChallenge();const ro=$('#recall-open');if(ro)ro.onclick=()=>recallLessonId&&openLesson(recallLessonId);const fr=$('#flash-reveal');if(fr)fr.onclick=()=>{flashRevealed=true;renderFlashcard()};const fa=$('#flash-again');if(fa)fa.onclick=()=>markFlash('again');const fg=$('#flash-got');if(fg)fg.onclick=()=>markFlash('got');const fs=$('#flashcard-stage');if(fs)fs.onclick=()=>{if(!flashRevealed){flashRevealed=true;renderFlashcard()}};const rw=$('#review-weak');if(rw)rw.onclick=()=>newRecallChallenge(true);const tl=$('#toggle-labs');if(tl)tl.onclick=()=>{labLimit+=12;renderLabGallery()};const ld=$('#lab-domain');if(ld)ld.onchange=()=>{labDomain=ld.value;labLimit=12;renderLabGallery()};const ll=$('#lab-level');if(ll)ll.onchange=()=>{labDifficulty=ll.value;labLimit=12;renderLabGallery()};const lr=$('#random-lab');if(lr)lr.onclick=()=>{let pool=D.lessons.filter(l=>(l.interactive||l.kind==='Lab')&&(labDomain==='all'||l.domain===labDomain)&&(labDifficulty==='all'||l.difficulty===labDifficulty));if(pool.length){const pick=pool[Math.floor(Math.random()*pool.length)];window.open(standaloneExperienceURL(pick,'lab'),'_blank','noopener,noreferrer')}};const ss=$('#sprint-start');if(ss)ss.onclick=startSprint;}
