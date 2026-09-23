@@ -10,6 +10,10 @@
   --accent:#ffa56f;
   --accent-2:#8cc9ff;
   --wrap:min(1240px,calc(100% - 48px));
+  --surface:var(--panel);
+  --surface2:var(--panel-2);
+  --ink:var(--text);
+  --blue:var(--accent-2);
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -108,3 +112,8 @@ footer a{text-decoration:none}
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{scroll-behavior:auto!important;transition:none!important;animation:none!important}
 }
+
+.experiment-controls input[type=number]{background:var(--bg);border:1px solid var(--line);padding:12px;color:var(--text);min-height:44px}
+.convergence-chart{display:block;width:100%;height:240px;margin-top:22px;border:1px solid var(--line);background:#0b1216;border-radius:10px}
+.results{grid-template-columns:repeat(2,minmax(0,1fr))}
+@media(max-width:560px){.convergence-chart{height:220px}.site-header{height:68px}.site-header+.portfolio-nav{top:68px}}
