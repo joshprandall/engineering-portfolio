@@ -65,7 +65,7 @@
     [previous,all,next].forEach(a=>{a.removeAttribute('target');a.removeAttribute('rel');});
   }
 
-  function restoreEducation()function restoreEducation(){
+  function restoreEducation(){
     const section=$('#direction'); if(!section)return;
     const existing=$('.study',section);if(!existing)return;
     const education=document.createElement('div');education.className='vnext-education';
@@ -121,7 +121,7 @@
     select(0,false);
   }
 
-  function entanglementArtwork()function entanglementArtwork(){
+  function entanglementArtwork(){
     const old=$('.direction-image');if(!old)return;
     const frame=document.createElement('div');frame.className='vnext-quantum';
     frame.innerHTML=`<div class="vnext-quantum-head"><span>QUANTUM ENGINEERING / INTERACTIVE MODEL</span><span class="vnext-quantum-tag">TWO-QUBIT BELL PAIR</span></div>
