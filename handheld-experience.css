@@ -9,8 +9,8 @@
   .hx-handheld .project-detail-actions .button{justify-content:center;text-align:center;min-height:50px}
 }
 @media(max-width:720px){
-  html[data-experience="phone"]{scroll-padding-bottom:92px}
-  html[data-experience="phone"] body{padding-bottom:calc(82px + env(safe-area-inset-bottom))}
+  html[data-experience="phone"]{scroll-padding-top:72px}
+  html[data-experience="phone"] body{padding-bottom:0}
   html[data-experience="phone"] header{min-height:68px;padding:10px 14px;background:color-mix(in srgb,var(--bg) 91%,transparent);backdrop-filter:blur(18px)}
   html[data-experience="phone"] .brand{font-size:1.5rem}html[data-experience="phone"] .brand>span{font-size:.78rem}html[data-experience="phone"] .brand small{display:none}
   html[data-experience="phone"] .wrap{width:calc(100% - 28px)}
@@ -31,17 +31,15 @@
   html[data-experience="phone"] .vnext-project-nav{top:68px;display:grid;grid-template-columns:1fr 1fr;gap:7px;padding:8px 14px}
   html[data-experience="phone"] .vnext-project-nav a{min-height:42px;font-size:.73rem;padding:5px 8px}html[data-experience="phone"] .vnext-project-nav a[data-project-nav="all"]{grid-column:1/-1;grid-row:1}
   html[data-experience="phone"] .project-detail-actions{grid-template-columns:1fr}
-  .hx-phone-dock{position:fixed;left:10px;right:10px;bottom:calc(8px + env(safe-area-inset-bottom));z-index:999;display:grid;grid-template-columns:repeat(5,1fr);gap:4px;padding:6px;border:1px solid #34464e;border-radius:18px;background:rgba(12,18,22,.94);color:#b9c6ca;box-shadow:0 14px 45px #0009;backdrop-filter:blur(20px) saturate(1.3)}
-  .hx-phone-dock[hidden]{display:none}.hx-action{min-width:0;min-height:52px!important;border:0!important;border-radius:12px!important;padding:4px!important;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;background:transparent!important;box-shadow:none!important;color:#aebbc0!important;font-size:1.15rem}.hx-action small{font-size:.58rem;letter-spacing:.04em;color:inherit!important}.hx-action:hover,.hx-action:focus-visible{background:#1a252a!important;color:#f4a575!important;transform:none!important}
-  html[data-experience="phone"] .contact{padding-bottom:100px}
+  .hx-phone-dock,.hx-tablet-rail{display:none!important}
+  html[data-experience="phone"] .contact{padding-bottom:60px}
 }
 @media(min-width:721px) and (max-width:1024px){
-  html[data-experience="tablet"] body{padding-left:76px}
+  html[data-experience="tablet"] body{padding-left:0}
   html[data-experience="tablet"] .wrap{width:min(1100px,calc(100% - 48px))}
   html[data-experience="tablet"] .hero{grid-template-columns:1fr;min-height:0}
   html[data-experience="tablet"] .project-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
   html[data-experience="tablet"] .project-card{border-radius:16px;min-height:300px}
   html[data-experience="tablet"] .vnext-project-nav{top:76px}
-  .hx-tablet-rail{position:fixed;left:10px;top:50%;transform:translateY(-50%);z-index:998;width:58px;display:grid;gap:6px;padding:6px;border:1px solid #34464e;border-radius:18px;background:rgba(12,18,22,.94);color:#b9c6ca;backdrop-filter:blur(18px);box-shadow:0 20px 45px #0006}
-  .hx-tablet-rail[hidden]{display:none}.hx-tablet-rail .hx-action{min-height:54px;border-radius:12px}.hx-tablet-rail .hx-action small{font-size:.52rem}
+  .hx-tablet-rail{display:none!important}
 }
