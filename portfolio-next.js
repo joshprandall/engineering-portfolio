@@ -7,49 +7,65 @@
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   const safeText = text => document.createTextNode(text);
   const modes = [
-    {name:'Architect', heading:'Design the whole system.', description:'Translate needs into a system that can be built, operated, secured and improved.', bullets:['Map dependencies and failure domains','Make interfaces and ownership explicit','Choose evidence-based trade-offs'], cta:'Explore infrastructure architecture', url:'project-dependency.html', labels:['Requirements','Compute','Network','Storage','Observability','People'], edges:[[0,1],[0,2],[1,3],[2,3],[3,4],[4,5],[5,0]]},
-    {name:'Build', heading:'Turn the design into working systems.', description:'Implement, integrate and test the smallest complete unit before scaling it.', bullets:['Provision infrastructure and services','Validate deployment and recovery','Document repeatable handoffs'], cta:'Explore the engineering projects', url:'projects.html#project-list', labels:['Source','CI','Build','Test','Deploy','Observe'],edges:[[0,1],[1,2],[2,3],[3,4],[4,5],[5,0],[3,1]]},
-    {name:'Secure', heading:'Make trust visible and testable.', description:'Use identity, least privilege, hardening and evidence to make system boundaries explicit.', bullets:['Model identity and access','Reduce exposed attack paths','Verify controls and recovery'], cta:'Explore security learning', url:'learn-browse.html?domain=cyber',labels:['Identity','MFA','Policy','Endpoint','Audit','Recovery'],edges:[[0,1],[1,2],[2,3],[3,4],[4,5],[5,0],[0,3]]},
-    {name:'Automate', heading:'Make the dependable path repeatable.', description:'Use scripts, tests and observable feedback to remove toil without losing human oversight.', bullets:['Define inputs and checks','Run reviewed automation','Measure outcomes and handle errors'], cta:'Explore the automation projects', url:'project-lifecycle.html', labels:['Trigger','Validate','Plan','Approve','Execute','Verify'],edges:[[0,1],[1,2],[2,3],[3,4],[4,5],[5,0],[5,2]]},
-    {name:'Evolve', heading:'Learn, measure, improve.', description:'Connect practical systems engineering with HPC, computer architecture and quantum engineering study.', bullets:['Investigate hard questions','Test models against evidence','Turn learning into a reproducible lab'], cta:'Explore advanced computing', url:'learn-browse.html?domain=advanced',labels:['Question','Model','Measure','Analyze','Explain','Improve'],edges:[[0,1],[1,2],[2,3],[3,4],[4,5],[5,0],[1,4]]}
+    {name:'Architect',heading:'Architect resilient systems before they become expensive problems.',description:'Translate requirements into a coherent design by mapping dependencies, boundaries, ownership, failure modes and recovery before implementation begins.',bullets:['Map dependencies and failure domains','Define interfaces, ownership and recovery','Make trade-offs explicit and reviewable'],cta:'Explore infrastructure architecture',url:'project-dependency.html'},
+    {name:'Build',heading:'Build the smallest complete system, then scale what works.',description:'Turn architecture into tested working systems by integrating infrastructure, software and automation in reproducible increments with clear validation.',bullets:['Implement from a defined design','Test behavior before scaling','Document repeatable deployment and handoff'],cta:'Explore engineering projects',url:'projects.html#project-list'},
+    {name:'Secure',heading:'Make trust explicit, limited and verifiable.',description:'Use identity, least privilege, hardening, observability and recovery controls so access and risk can be inspected instead of merely assumed.',bullets:['Model identity and authorization','Reduce unnecessary exposure','Verify controls, evidence and recovery'],cta:'Explore security learning',url:'learn-browse.html?domain=cyber'},
+    {name:'Automate',heading:'Turn repeatable work into reviewable systems.',description:'Replace fragile manual steps with scripts, tests, approvals, telemetry and safe failure handling while keeping humans responsible for consequential decisions.',bullets:['Define inputs, checks and failure states','Automate reviewed repeatable work','Measure results and preserve auditability'],cta:'Explore automation engineering',url:'project-lifecycle.html'},
+    {name:'Evolve',heading:'Use evidence to improve what comes next.',description:'Connect operational learning with HPC, computer architecture, AI and quantum engineering by turning questions into measurable experiments and reusable knowledge.',bullets:['Ask precise technical questions','Test models against evidence','Convert learning into reproducible labs'],cta:'Explore advanced computing',url:'project-advanced-computing.html'}
   ];
 
   function enhanceProjectCards() {
     $$('.project-card').forEach(card => {
-      const title = $('h2, h3',card)?.textContent.trim() || 'project';
+      const title = $('h2, h3',card)?.textContent.replace(/\s+/g,' ').trim() || 'project';
       const links=$$('a[href]',card);
       if (!links.length) return;
-      // A card is a genuine link via a stretched, semantic primary anchor; other links stay above it.
       let primary=links.find(a=>a.classList.contains('tile-open'))||links[0];
       const isChess=card.id==='battle-chess', isQubit=card.id==='quantum';
       if(isChess) primary.href='project-battle-chess.html';
       if(isQubit) primary.href='project-qubit.html';
+
       primary.classList.add('vnext-card-link');
-      primary.removeAttribute('target'); primary.removeAttribute('rel');
-      primary.setAttribute('aria-label',`Open ${title} project details`);
+      primary.target='_blank';
+      primary.rel='noopener noreferrer';
+      primary.setAttribute('aria-label',`Open ${title} project page in a new tab`);
+
       links.filter(a=>a!==primary).forEach(a=>{
         a.classList.add('vnext-secondary-link');
-        if(a.href.startsWith('https://github.com/')){a.target='_blank';a.rel='noopener noreferrer';}
+        const text=(a.textContent||'').toLowerCase();
+        const href=a.getAttribute('href')||'';
+        if(/^https?:/.test(href) || /play|demo|interactive|lab|source|github/.test(text)){
+          a.target='_blank';a.rel='noopener noreferrer';
+        }
       });
+
       if(isChess && !links.some(a=>a.getAttribute('href')==='games/3d-battle-chess/index.html')){
-        const link=document.createElement('a');link.className='vnext-secondary-link';link.href='games/3d-battle-chess/index.html';link.textContent='Play game ↗';
+        const link=document.createElement('a');link.className='vnext-secondary-link';link.href='games/3d-battle-chess/index.html';link.target='_blank';link.rel='noopener noreferrer';link.textContent='Play game ↗';
         $('.card-bottom',card)?.append(link);
       }
       if(isQubit && !links.some(a=>a.getAttribute('href')==='qubit-preview-20260921/')){
-        const link=document.createElement('a');link.className='vnext-secondary-link';link.href='qubit-preview-20260921/';link.textContent='Open interactive lab ↗';
+        const link=document.createElement('a');link.className='vnext-secondary-link';link.href='qubit-preview-20260921/';link.target='_blank';link.rel='noopener noreferrer';link.textContent='Open interactive lab ↗';
         $('.card-bottom',card)?.append(link);
       }
     });
-    // Keep the project catalog concise. An embedded exercise is linked from its own project page.
     const embedded=$('#quantum');
-    if(embedded && !embedded.classList.contains('project-card')) {
-      const detail = document.createElement('p');detail.className='vnext-embedded-note';
-      detail.innerHTML='<a class="button" href="project-qubit.html">Explore the single-qubit model and its lesson ↗</a>';
-      embedded.replaceWith(detail);
-    }
+    if(embedded && !embedded.classList.contains('project-card')) embedded.remove();
   }
 
-  function restoreEducation(){
+  function enhanceProjectNavigation(){
+    const nav=$('.vnext-project-nav');if(!nav)return;
+    const links=$$('a[href]',nav);if(links.length<3)return;
+    const clean=s=>(s||'').replace(/[←→↗]/g,'').replace(/\s+/g,' ').trim();
+    const previous=links[0];
+    const all=links.find(a=>/projects\.html(?:$|[#?])/.test(a.getAttribute('href')||''))||links[1];
+    const next=links[links.length-1];
+    previous.dataset.projectNav='previous';all.dataset.projectNav='all';next.dataset.projectNav='next';
+    previous.textContent=`← Previous · ${clean(previous.textContent)}`;
+    all.textContent='All Projects';
+    next.textContent=`Next · ${clean(next.textContent)} →`;
+    [previous,all,next].forEach(a=>{a.removeAttribute('target');a.removeAttribute('rel');});
+  }
+
+  function restoreEducation()function restoreEducation(){
     const section=$('#direction'); if(!section)return;
     const existing=$('.study',section);if(!existing)return;
     const education=document.createElement('div');education.className='vnext-education';
@@ -64,47 +80,48 @@
 
   function interactiveSystems(){
     const old=$('.system-visual');if(!old)return;
-    const stage=document.createElement('section');stage.className='vnext-system';stage.setAttribute('aria-label','Interactive systems architecture map');
-    stage.innerHTML=`<div class="vnext-sys-top"><span>CONNECTED SYSTEMS / EXPLORE A CAPABILITY</span><span id="vnext-count">01 / 05</span></div>
-      <div class="vnext-system-tabs" role="tablist" aria-label="Choose a systems capability"></div>
-      <svg viewBox="0 0 560 340" class="vnext-sys-svg" role="img" aria-label="Architect system network with six connected nodes" preserveAspectRatio="xMidYMid meet"><defs><filter id="vnext-glow"><feGaussianBlur stdDeviation="4"/></filter></defs><g class="vnext-edges"></g><g class="vnext-nodes"></g></svg>
-      <div class="vnext-sys-detail" id="vnext-detail" role="tabpanel" tabindex="0"><div class="vnext-sys-meta">SELECT A CAPABILITY · INTERACTIVE NODE MAP</div><h2 id="vnext-title"></h2><p id="vnext-copy"></p><ul id="vnext-bullets"></ul><a class="vnext-cta" id="vnext-link"></a><p class="vnext-node-note" id="vnext-node-note" aria-live="polite">Select a node to inspect its role.</p></div>`;
+    const stage=document.createElement('section');stage.className='vnext-system';stage.setAttribute('aria-label','Interactive connected-systems capability map');
+    stage.innerHTML=`<div class="vnext-sys-top"><span>CONNECTED SYSTEMS / SELECT A CAPABILITY</span><span id="vnext-count">01 / 05</span></div>
+      <div class="vnext-system-tabs" role="tablist" aria-label="Connected systems capabilities"></div>
+      <svg viewBox="0 0 560 320" class="vnext-sys-svg" role="img" aria-label="Five linked capability nodes" preserveAspectRatio="xMidYMid meet"><g class="vnext-edges"></g><g class="vnext-nodes"></g></svg>
+      <div class="vnext-sys-detail" id="vnext-detail" role="tabpanel" tabindex="0"><div class="vnext-sys-meta">SELECT TEXT OR NODE · BOTH STAY SYNCHRONIZED</div><h2 id="vnext-title"></h2><p id="vnext-copy"></p><ul id="vnext-bullets"></ul><a class="vnext-cta" id="vnext-link"></a></div>`;
     old.replaceWith(stage);
-    const t=$('.vnext-system-tabs',stage), edges=$('.vnext-edges',stage),nodes=$('.vnext-nodes',stage);
-    const svgNS='http://www.w3.org/2000/svg';
-    const pts=[[280,40],[440,115],[435,255],[280,303],[125,255],[120,115]];
+
+    const tabs=$('.vnext-system-tabs',stage),edges=$('.vnext-edges',stage),nodes=$('.vnext-nodes',stage),svgNS='http://www.w3.org/2000/svg';
+    const pts=[[280,48],[445,145],[382,280],[178,280],[115,145]],edgePairs=[[0,1],[1,2],[2,3],[3,4],[4,0],[0,2],[0,3]];
+    const el=(tag,attrs={})=>{const x=document.createElementNS(svgNS,tag);Object.entries(attrs).forEach(([k,v])=>x.setAttribute(k,v));return x;};
+
     modes.forEach((mode,i)=>{
-      const b=document.createElement('button');b.type='button';b.setAttribute('role','tab');b.textContent=mode.name;b.id=`vnext-tab-${i}`;b.setAttribute('aria-controls','vnext-detail');
-      b.onclick=()=>select(i);b.addEventListener('keydown',e=>{
-        if(!['ArrowRight','ArrowLeft','Home','End'].includes(e.key))return;
-        e.preventDefault();const n=e.key==='Home'?0:e.key==='End'?modes.length-1:(i+(e.key==='ArrowRight'?1:-1)+modes.length)%modes.length;
-        select(n);t.children[n].focus();
-      });t.append(b);
+      const b=document.createElement('button');b.type='button';b.setAttribute('role','tab');b.id=`vnext-tab-${i}`;b.setAttribute('aria-controls','vnext-detail');
+      b.innerHTML=`<span class="vnext-tab-dot" aria-hidden="true"></span><span>${mode.name}</span>`;
+      b.addEventListener('click',()=>select(i,true));
+      b.addEventListener('keydown',e=>{if(!['ArrowRight','ArrowLeft','Home','End'].includes(e.key))return;e.preventDefault();const n=e.key==='Home'?0:e.key==='End'?modes.length-1:(i+(e.key==='ArrowRight'?1:-1)+modes.length)%modes.length;select(n,true);tabs.children[n].focus();});
+      tabs.append(b);
     });
-    function el(tag,attrs){const x=document.createElementNS(svgNS,tag);Object.entries(attrs).forEach(([k,v])=>x.setAttribute(k,v));return x;}
-    function select(i){
+
+    edgePairs.forEach(([a,b],j)=>edges.append(el('path',{d:`M${pts[a][0]} ${pts[a][1]} L${pts[b][0]} ${pts[b][1]}`,class:'vnext-edge',style:`--delay:${j*.12}s`})));
+    modes.forEach((mode,i)=>{
+      const [x,y]=pts[i],g=el('g',{class:'vnext-node',role:'button',tabindex:'0','data-capability':String(i),'aria-label':`Select ${mode.name}`});
+      g.append(el('circle',{cx:x,cy:y,r:35,class:'vnext-node-hit'}),el('circle',{cx:x,cy:y,r:19,class:'vnext-node-orb'}));
+      const label=el('text',{x,y:y+48,'text-anchor':'middle',class:'vnext-node-label'});label.textContent=mode.name;g.append(label);
+      const activate=()=>select(i,true);g.addEventListener('click',activate);g.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();activate();}});nodes.append(g);
+    });
+
+    function select(i,focusDetail=false){
       const mode=modes[i];stage.dataset.mode=mode.name.toLowerCase();
-      [...t.children].forEach((b,j)=>{b.setAttribute('aria-selected',String(j===i));b.tabIndex=j===i?0:-1});
-      $('#vnext-count',stage).textContent=`0${i+1} / 05`;$('#vnext-title',stage).textContent=mode.heading;$('#vnext-copy',stage).textContent=mode.description;
-      $('#vnext-bullets',stage).replaceChildren(...mode.bullets.map(s=>{const li=document.createElement('li');li.textContent=s;return li}));
+      [...tabs.children].forEach((b,j)=>{const on=j===i;b.setAttribute('aria-selected',String(on));b.tabIndex=on?0:-1;b.classList.toggle('selected',on);});
+      $$('.vnext-node',nodes).forEach((n,j)=>{const on=j===i;n.classList.toggle('selected',on);n.setAttribute('aria-pressed',String(on));});
+      $('#vnext-count',stage).textContent=`0${i+1} / 05`;
+      $('#vnext-title',stage).textContent=mode.heading;$('#vnext-copy',stage).textContent=mode.description;
+      $('#vnext-bullets',stage).replaceChildren(...mode.bullets.map(s=>{const li=document.createElement('li');li.textContent=s;return li;}));
       const link=$('#vnext-link',stage);link.href=mode.url;link.textContent=mode.cta+' ↗';
-      edges.replaceChildren();nodes.replaceChildren();$('#vnext-node-note',stage).textContent='Select a node to inspect its role.';
-      mode.edges.forEach(([a,b],j)=>{
-        edges.append(el('path',{d:`M${pts[a][0]} ${pts[a][1]} Q280 ${170+(j%3-1)*38} ${pts[b][0]} ${pts[b][1]}`,class:'vnext-edge',style:`--delay:${j*.13}s` }));
-      });
-      mode.labels.forEach((label,j)=>{
-        const [x,y]=pts[j],g=el('g',{class:'vnext-node',role:'button',tabindex:'0','aria-label':`Inspect ${label} node`});
-        g.append(el('circle',{cx:x,cy:y,r:30,class:'vnext-node-hit'}),el('circle',{cx:x,cy:y,r:17,class:'vnext-node-orb'}));
-        const txt=el('text',{x,y:y+48,'text-anchor':'middle',class:'vnext-node-label'});txt.textContent=label;g.append(txt);
-        const activate=()=>{$$('.vnext-node',nodes).forEach(n=>n.classList.remove('selected'));g.classList.add('selected');$('#vnext-node-note',stage).textContent=`${label} · ${mode.name}: ${mode.bullets[j%mode.bullets.length]}.`};
-        g.addEventListener('click',activate);g.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();activate()}});nodes.append(g);
-      });
-      $('.vnext-sys-svg',stage).setAttribute('aria-label',`${mode.name}: ${mode.labels.join(', ')}; ${mode.edges.length} system links.`);
+      $('.vnext-sys-svg',stage).setAttribute('aria-label',`${mode.name} selected. Five connected capability nodes: ${modes.map(x=>x.name).join(', ')}.`);
+      if(focusDetail) $('#vnext-detail',stage)?.focus({preventScroll:true});
     }
-    select(0);
+    select(0,false);
   }
 
-  function entanglementArtwork(){
+  function entanglementArtwork()function entanglementArtwork(){
     const old=$('.direction-image');if(!old)return;
     const frame=document.createElement('div');frame.className='vnext-quantum';
     frame.innerHTML=`<div class="vnext-quantum-head"><span>QUANTUM ENGINEERING / INTERACTIVE MODEL</span><span class="vnext-quantum-tag">TWO-QUBIT BELL PAIR</span></div>
@@ -165,6 +182,6 @@
       const link=document.createElement('a');link.href='project-battle-chess.html';link.textContent='3D Chess';nav.append(link);
     }
   }
-  function init(){strengthenNavigation();enhanceProjectCards();restoreEducation();interactiveSystems();entanglementArtwork();}
+  function init(){strengthenNavigation();enhanceProjectCards();enhanceProjectNavigation();restoreEducation();interactiveSystems();entanglementArtwork();}
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
 })();
