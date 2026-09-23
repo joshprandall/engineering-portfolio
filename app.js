@@ -1,6 +1,16 @@
 (() => {
   const $ = (s, root = document) => root.querySelector(s);
-  const $$ = (s, root = document) => [...root.querySelectorAll(s)];
+  const $ = (s, root = document) => [...root.querySelectorAll(s)];
+  const experiencePath = location.pathname.toLowerCase();
+  const protectedExperience = /\/games\//.test(experiencePath) || /geometric-lab/.test(experiencePath) || /project-geometric-ai\.html$/.test(experiencePath) || /project-battle-chess\.html$/.test(experiencePath) || /play-evil-wizard\.html$/.test(experiencePath);
+  if (!protectedExperience) {
+    if (!document.querySelector('link[href="handheld-experience.css"]')) {
+      const handheldStyle=document.createElement('link');handheldStyle.rel='stylesheet';handheldStyle.href='handheld-experience.css';document.head.append(handheldStyle);
+    }
+    if (!document.querySelector('script[src="handheld-experience.js"]')) {
+      const handheldScript=document.createElement('script');handheldScript.src='handheld-experience.js';handheldScript.defer=true;document.body.append(handheldScript);
+    }
+  }
 
   const layers = [
     ["Infrastructure", "Compute, storage, networks, and the foundations of dependable operations."],
