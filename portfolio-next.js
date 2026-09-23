@@ -79,46 +79,113 @@
   }
 
   function interactiveSystems(){
-    const old=$('.system-visual');if(!old)return;
-    const stage=document.createElement('section');stage.className='vnext-system';stage.setAttribute('aria-label','Interactive connected-systems capability map');
-    stage.innerHTML=`<div class="vnext-sys-top"><span>CONNECTED SYSTEMS / SELECT A CAPABILITY</span><span id="vnext-count">01 / 05</span></div>
-      <div class="vnext-system-tabs" role="tablist" aria-label="Connected systems capabilities"></div>
-      <svg viewBox="0 0 560 320" class="vnext-sys-svg" role="img" aria-label="Five linked capability nodes" preserveAspectRatio="xMidYMid meet"><g class="vnext-edges"></g><g class="vnext-nodes"></g></svg>
-      <div class="vnext-sys-detail" id="vnext-detail" role="tabpanel" tabindex="0"><div class="vnext-sys-meta">SELECT TEXT OR NODE · BOTH STAY SYNCHRONIZED</div><h2 id="vnext-title"></h2><p id="vnext-copy"></p><ul id="vnext-bullets"></ul><a class="vnext-cta" id="vnext-link"></a></div>`;
+    const old=$('.system-visual'); if(!old)return;
+    const stage=document.createElement('section');
+    stage.className='vnext-system vnext-solar-system';
+    stage.setAttribute('aria-label','Interactive connected-systems solar system');
+    stage.innerHTML=`<div class="vnext-sys-top"><span>CONNECTED SYSTEMS / EXPLORE A CAPABILITY WORLD</span><span id="vnext-count">01 / 05</span></div>
+      <div class="vnext-space-scene">
+        <canvas class="vnext-space-canvas" aria-hidden="true"></canvas>
+        <div class="vnext-system-core" aria-hidden="true"><span>JR</span><small>SYSTEMS CORE</small></div>
+        <div class="vnext-world-layer"></div>
+        <div class="vnext-space-caption">SELECT A WORLD · ORBITS AND LINKS ARE LIVE</div>
+      </div>
+      <div class="vnext-system-tabs" role="tablist" aria-label="Connected systems capability worlds"></div>
+      <div class="vnext-sys-detail" id="vnext-detail" role="tabpanel" tabindex="0">
+        <div class="vnext-sys-meta">ACTIVE WORLD / <span id="vnext-world-name">ARCHITECT</span></div>
+        <h2 id="vnext-title"></h2><p id="vnext-copy"></p><ul id="vnext-bullets"></ul><a class="vnext-cta" id="vnext-link"></a>
+      </div>`;
     old.replaceWith(stage);
 
-    const tabs=$('.vnext-system-tabs',stage),edges=$('.vnext-edges',stage),nodes=$('.vnext-nodes',stage),svgNS='http://www.w3.org/2000/svg';
-    const pts=[[280,48],[445,145],[382,280],[178,280],[115,145]],edgePairs=[[0,1],[1,2],[2,3],[3,4],[4,0],[0,2],[0,3]];
-    const el=(tag,attrs={})=>{const x=document.createElementNS(svgNS,tag);Object.entries(attrs).forEach(([k,v])=>x.setAttribute(k,v));return x;};
+    const scene=$('.vnext-space-scene',stage);
+    const canvas=$('.vnext-space-canvas',stage), ctx=canvas.getContext('2d');
+    const layer=$('.vnext-world-layer',stage), tabs=$('.vnext-system-tabs',stage);
+    const worlds=[
+      {radius:.22,squash:.34,speed:.000030,phase:4.05,size:48,planet:'architect'},
+      {radius:.31,squash:.27,speed:.000023,phase:5.62,size:42,planet:'build'},
+      {radius:.40,squash:.31,speed:.000019,phase:.62,size:45,planet:'secure'},
+      {radius:.49,squash:.23,speed:.000015,phase:2.62,size:43,planet:'automate'},
+      {radius:.58,squash:.29,speed:.000012,phase:1.55,size:50,planet:'evolve'}
+    ];
+    const stars=Array.from({length:180},(_,i)=>({
+      x:((i*73)%181)/181,y:((i*109+31)%191)/191,
+      r:i%17===0?1.8:i%5===0?1.15:.65,a:.25+((i*37)%70)/100
+    }));
+    let selected=0,last=performance.now(),px=0,py=0,targetX=0,targetY=0,raf=0;
+    const planetButtons=[];
 
-    modes.forEach((mode,i)=>{
+    function makeTab(mode,i){
       const b=document.createElement('button');b.type='button';b.setAttribute('role','tab');b.id=`vnext-tab-${i}`;b.setAttribute('aria-controls','vnext-detail');
       b.innerHTML=`<span class="vnext-tab-dot" aria-hidden="true"></span><span>${mode.name}</span>`;
       b.addEventListener('click',()=>select(i,true));
       b.addEventListener('keydown',e=>{if(!['ArrowRight','ArrowLeft','Home','End'].includes(e.key))return;e.preventDefault();const n=e.key==='Home'?0:e.key==='End'?modes.length-1:(i+(e.key==='ArrowRight'?1:-1)+modes.length)%modes.length;select(n,true);tabs.children[n].focus();});
       tabs.append(b);
-    });
-
-    edgePairs.forEach(([a,b],j)=>edges.append(el('path',{d:`M${pts[a][0]} ${pts[a][1]} L${pts[b][0]} ${pts[b][1]}`,class:'vnext-edge',style:`--delay:${j*.12}s`})));
+    }
+    modes.forEach(makeTab);
     modes.forEach((mode,i)=>{
-      const [x,y]=pts[i],g=el('g',{class:'vnext-node',role:'button',tabindex:'0','data-capability':String(i),'aria-label':`Select ${mode.name}`});
-      g.append(el('circle',{cx:x,cy:y,r:35,class:'vnext-node-hit'}),el('circle',{cx:x,cy:y,r:19,class:'vnext-node-orb'}));
-      const label=el('text',{x,y:y+48,'text-anchor':'middle',class:'vnext-node-label'});label.textContent=mode.name;g.append(label);
-      const activate=()=>select(i,true);g.addEventListener('click',activate);g.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();activate();}});nodes.append(g);
+      const b=document.createElement('button'); b.type='button'; b.className=`vnext-world vnext-world-${worlds[i].planet}`; b.dataset.capability=String(i);
+      b.setAttribute('aria-label',`Select ${mode.name} capability world`);
+      b.innerHTML=`<span class="vnext-planet" aria-hidden="true"><i></i></span><strong>${mode.name}</strong>`;
+      b.addEventListener('click',()=>select(i,true));
+      b.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='ArrowLeft'){e.preventDefault();const n=(i+(e.key==='ArrowRight'?1:-1)+modes.length)%modes.length;select(n,false);planetButtons[n].focus();}});
+      layer.append(b);planetButtons.push(b);
     });
 
     function select(i,focusDetail=false){
-      const mode=modes[i];stage.dataset.mode=mode.name.toLowerCase();
+      selected=i;const mode=modes[i];stage.dataset.mode=mode.name.toLowerCase();
       [...tabs.children].forEach((b,j)=>{const on=j===i;b.setAttribute('aria-selected',String(on));b.tabIndex=on?0:-1;b.classList.toggle('selected',on);});
-      $$('.vnext-node',nodes).forEach((n,j)=>{const on=j===i;n.classList.toggle('selected',on);n.setAttribute('aria-pressed',String(on));});
-      $('#vnext-count',stage).textContent=`0${i+1} / 05`;
-      $('#vnext-title',stage).textContent=mode.heading;$('#vnext-copy',stage).textContent=mode.description;
+      planetButtons.forEach((b,j)=>{const on=j===i;b.classList.toggle('selected',on);b.setAttribute('aria-pressed',String(on));});
+      $('#vnext-count',stage).textContent=`0${i+1} / 05`; $('#vnext-world-name',stage).textContent=mode.name.toUpperCase();
+      $('#vnext-title',stage).textContent=mode.heading; $('#vnext-copy',stage).textContent=mode.description;
       $('#vnext-bullets',stage).replaceChildren(...mode.bullets.map(s=>{const li=document.createElement('li');li.textContent=s;return li;}));
       const link=$('#vnext-link',stage);link.href=mode.url;link.textContent=mode.cta+' ↗';
-      $('.vnext-sys-svg',stage).setAttribute('aria-label',`${mode.name} selected. Five connected capability nodes: ${modes.map(x=>x.name).join(', ')}.`);
       if(focusDetail) $('#vnext-detail',stage)?.focus({preventScroll:true});
     }
-    select(0,false);
+
+    function resize(){
+      const r=scene.getBoundingClientRect(),d=Math.min(devicePixelRatio||1,2);
+      canvas.width=Math.max(2,Math.floor(r.width*d));canvas.height=Math.max(2,Math.floor(r.height*d));
+      canvas.style.width=r.width+'px';canvas.style.height=r.height+'px';ctx.setTransform(d,0,0,d,0,0);
+    }
+    const ro=new ResizeObserver(resize);ro.observe(scene);resize();
+    scene.addEventListener('pointermove',e=>{const r=scene.getBoundingClientRect();targetX=((e.clientX-r.left)/r.width-.5)*18;targetY=((e.clientY-r.top)/r.height-.5)*12;});
+    scene.addEventListener('pointerleave',()=>{targetX=0;targetY=0;});
+
+    function orbitPoint(w,h,index,time){
+      const spec=worlds[index],running=!reduced.matches&&document.body.dataset.motion!=='paused';
+      const t=spec.phase+(running?time*spec.speed:0);
+      const depth=(Math.sin(t)+1)/2,rx=w*spec.radius*.72,ry=h*spec.squash;
+      return {x:w*.5+Math.cos(t)*rx+px*(.25+depth*.4),y:h*.47+Math.sin(t)*ry+py*(.18+depth*.25),depth,scale:.74+depth*.36,t};
+    }
+    function glow(x,y,r,color,alpha=.16){
+      const g=ctx.createRadialGradient(x,y,0,x,y,r);g.addColorStop(0,color.replace('ALPHA',alpha));g.addColorStop(1,color.replace('ALPHA','0'));ctx.fillStyle=g;ctx.fillRect(x-r,y-r,r*2,r*2);
+    }
+    function draw(time){
+      if(!scene.isConnected){cancelAnimationFrame(raf);return}
+      const r=scene.getBoundingClientRect(),w=r.width,h=r.height;if(w<2||h<2){raf=requestAnimationFrame(draw);return}
+      const dt=Math.min(50,time-last);last=time;px+=(targetX-px)*Math.min(1,dt*.006);py+=(targetY-py)*Math.min(1,dt*.006);
+      ctx.clearRect(0,0,w,h);
+      const bg=ctx.createLinearGradient(0,0,w,h);bg.addColorStop(0,'#02070c');bg.addColorStop(.48,'#071722');bg.addColorStop(1,'#02050a');ctx.fillStyle=bg;ctx.fillRect(0,0,w,h);
+      glow(w*.18+px*.4,h*.22+py*.3,Math.min(w,h)*.42,'rgba(15,115,175,ALPHA)',.15);
+      glow(w*.82-px*.25,h*.3-py*.2,Math.min(w,h)*.36,'rgba(111,45,150,ALPHA)',.12);
+      glow(w*.54,h*.88,Math.min(w,h)*.30,'rgba(206,104,39,ALPHA)',.08);
+      stars.forEach((s,i)=>{const twinkle=.62+.38*Math.sin(time*.001+(i%11));ctx.fillStyle=`rgba(205,235,250,${Math.max(.08,s.a*twinkle)})`;ctx.beginPath();ctx.arc(s.x*w+px*(s.r*.08),s.y*h+py*(s.r*.08),s.r,0,Math.PI*2);ctx.fill();});
+
+      const cx=w*.5+px*.1,cy=h*.47+py*.08;
+      worlds.forEach((spec,i)=>{ctx.save();ctx.strokeStyle=i===selected?'rgba(244,165,117,.30)':'rgba(117,191,221,.13)';ctx.lineWidth=i===selected?1.4:.8;ctx.setLineDash(i===selected?[6,9]:[]);ctx.beginPath();ctx.ellipse(cx,cy,w*spec.radius*.72,h*spec.squash,0,0,Math.PI*2);ctx.stroke();ctx.restore();});
+      const pts=worlds.map((_,i)=>orbitPoint(w,h,i,time));
+      pts.forEach((p,i)=>{
+        const active=i===selected;const g=ctx.createLinearGradient(cx,cy,p.x,p.y);g.addColorStop(0,active?'rgba(255,196,148,.92)':'rgba(96,204,232,.18)');g.addColorStop(1,active?'rgba(255,211,181,.58)':'rgba(96,204,232,.38)');
+        ctx.strokeStyle=g;ctx.lineWidth=active?2.1:1;ctx.setLineDash(active?[8,7]:[3,9]);ctx.lineDashOffset=-time*.018;ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(p.x,p.y);ctx.stroke();
+        const q=((time*.00018+i*.17)%1);ctx.fillStyle=active?'#ffd4b8':'#8ee8f4';ctx.shadowColor=ctx.fillStyle;ctx.shadowBlur=9;ctx.beginPath();ctx.arc(cx+(p.x-cx)*q,cy+(p.y-cy)*q,active?2.2:1.4,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;
+      });
+      [[0,2],[1,3],[2,4]].forEach(([a,b])=>{ctx.strokeStyle='rgba(92,195,224,.12)';ctx.lineWidth=.8;ctx.setLineDash([2,8]);ctx.beginPath();ctx.moveTo(pts[a].x,pts[a].y);ctx.lineTo(pts[b].x,pts[b].y);ctx.stroke();});
+      ctx.setLineDash([]);
+      const core=ctx.createRadialGradient(cx-5,cy-7,2,cx,cy,42);core.addColorStop(0,'#fffbea');core.addColorStop(.2,'#ffd39a');core.addColorStop(.52,'#f49b56');core.addColorStop(1,'rgba(244,155,86,0)');ctx.fillStyle=core;ctx.beginPath();ctx.arc(cx,cy,42,0,Math.PI*2);ctx.fill();
+      pts.forEach((p,i)=>{const b=planetButtons[i];b.style.left=`${p.x}px`;b.style.top=`${p.y}px`;b.style.zIndex=String(20+Math.round(p.depth*20));b.style.setProperty('--world-scale',p.scale.toFixed(3));b.style.setProperty('--world-depth',p.depth.toFixed(3));});
+      raf=requestAnimationFrame(draw);
+    }
+    select(0,false);raf=requestAnimationFrame(draw);
   }
 
   function entanglementArtwork(){
