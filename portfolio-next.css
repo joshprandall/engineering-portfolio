@@ -83,7 +83,7 @@ body:has(.vnext-project-nav) main{min-height:calc(100dvh - 150px)}
 .vnext-cosmos-core span{font:900 1.22rem/1 system-ui;letter-spacing:-.05em}.vnext-cosmos-core small{font:800 .48rem/1.2 system-ui;letter-spacing:.08em;margin-top:4px}
 .vnext-cosmos-worlds{position:absolute;inset:0;z-index:10;pointer-events:none}
 .vnext-world{--world-size:52px;position:absolute;left:0;top:0;width:104px;min-height:108px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:0;border:0;background:none;color:#eaf6f8;pointer-events:auto;transform-origin:center;transition:filter .18s ease,opacity .18s ease;will-change:transform;outline:none}
-.vnext-world strong{font:800 .68rem/1 system-ui;letter-spacing:.08em;text-shadow:0 2px 6px #000,0 0 10px #000;white-space:nowrap}
+.vnext-world strong{position:relative;z-index:2;display:block;max-width:104px;padding:4px 7px;border:1px solid #65c8d642;border-radius:999px;background:#02070bc7;color:#eaf6f8;font:800 .68rem/1 system-ui;letter-spacing:.08em;text-align:center;text-shadow:0 2px 7px #000,0 0 12px #000;white-space:nowrap;box-shadow:0 4px 14px #0005;backdrop-filter:blur(5px)}
 .vnext-world small{font:700 .52rem/1 system-ui;color:#9dbbc3;letter-spacing:.12em}
 .vnext-planet{position:relative;width:var(--world-size);height:var(--world-size);display:block;border-radius:50%;box-shadow:inset -13px -11px 22px #0009,inset 8px 7px 16px #fff2,0 0 10px #5ad7eb44;transition:transform .18s ease,box-shadow .18s ease,filter .18s ease}
 .vnext-planet::after{content:"";position:absolute;inset:8% 12%;border-radius:50%;background:linear-gradient(155deg,#fff2,#0000 42%,#0004 100%);mix-blend-mode:screen}
@@ -96,7 +96,7 @@ body:has(.vnext-project-nav) main{min-height:calc(100dvh - 150px)}
 .vnext-world-evolve .vnext-planet{background:radial-gradient(circle at 32% 27%,#fff4ca 0 5%,#f2c35d 24%,#ad7525 58%,#563613 82%)}
 .vnext-world-secure .vnext-planet-ring,.vnext-world-automate .vnext-planet-ring,.vnext-world-evolve .vnext-planet-ring{opacity:.78}
 .vnext-world.selected{filter:brightness(1.1)}.vnext-world.selected .vnext-planet{transform:scale(1.15);box-shadow:inset -13px -11px 22px #0008,inset 8px 7px 16px #fff3,0 0 0 3px #ffd5b5,0 0 20px #ffc393,0 0 48px #ff9d626e}
-.vnext-world.selected strong{color:#ffd8bf}.vnext-world:hover .vnext-planet{transform:scale(1.12);filter:brightness(1.12)}
+.vnext-world.selected strong{color:#ffd8bf;border-color:#ffd0ad7a;background:#24150edb;box-shadow:0 5px 18px #0007,0 0 14px #ffbd8c24}.vnext-world:hover .vnext-planet{transform:scale(1.12);filter:brightness(1.12)}
 .vnext-world:focus-visible .vnext-planet{outline:3px solid #fff0df;outline-offset:7px}
 .vnext-cosmos-hint{position:absolute;z-index:22;left:18px;bottom:15px;font:700 .56rem/1 system-ui;letter-spacing:.12em;color:#a5c9d0;text-shadow:0 1px 4px #000}
 .vnext-cosmos .vnext-sys-detail{border-top:1px solid #29434d;padding:19px 21px 22px;background:linear-gradient(145deg,#0b1a22,#071117);min-height:225px}
@@ -117,8 +117,8 @@ body:has(.vnext-project-nav) main{min-height:calc(100dvh - 150px)}
   .vnext-cosmos .vnext-system-tabs{grid-template-columns:1fr 1fr;padding:8px}
   .vnext-cosmos .vnext-system-tabs button:last-child{grid-column:1/-1}
   .vnext-cosmos-scene{height:390px;min-height:390px}
-  .vnext-cosmos-core{width:64px;height:64px}.vnext-cosmos-core span{font-size:1rem}.vnext-cosmos-core small{font-size:.4rem}
-  .vnext-world{width:80px;min-height:88px}.vnext-world strong{font-size:.56rem}.vnext-world small{display:none}
+  .vnext-cosmos-core{width:58px;height:58px}.vnext-cosmos-core::before{inset:-12px}.vnext-cosmos-core span{font-size:.92rem}.vnext-cosmos-core small{font-size:.38rem}
+  .vnext-world{width:82px;min-height:90px}.vnext-world strong{max-width:80px;padding:3px 5px;font-size:.56rem;letter-spacing:.055em}.vnext-world small{display:none}
   .vnext-cosmos-hint{left:12px;bottom:10px;font-size:.48rem;letter-spacing:.07em}
   .vnext-cosmos .vnext-sys-detail{padding:16px}
 }
@@ -136,3 +136,13 @@ html[data-theme="light"] .vnext-cosmos .vnext-sys-detail p{color:#c6d4d7}
 html[data-theme="light"] .vnext-cosmos .vnext-sys-detail ul{color:#e7e8e4}
 html[data-theme="light"] .vnext-cosmos .vnext-sys-meta{color:#f4b78f}
 html[data-theme="light"] .vnext-cosmos .vnext-cta{color:#ffd1b3}
+
+
+/* September 23 mobile orbital legibility refinement. */
+.vnext-cosmos .vnext-world{opacity:1}
+html[data-theme="light"] .vnext-cosmos .vnext-world strong{color:#eefbff;background:#02070bd9;border-color:#73dbea5c}
+html[data-theme="light"] .vnext-cosmos .vnext-world.selected strong{color:#ffd8bf;background:#24150ee8;border-color:#ffd0ad85}
+@media(max-width:520px){
+  .vnext-cosmos-scene{isolation:isolate}
+  .vnext-cosmos-core{filter:drop-shadow(0 0 10px #ffbd76) drop-shadow(0 0 24px #f079387f)}
+}
