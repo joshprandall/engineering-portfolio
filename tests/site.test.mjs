@@ -63,6 +63,13 @@ assert.match(knowledge,/standalone-experience-nav/,'Standalone lab Previous / Al
 assert.match(knowledge,/lab-tile-link/,'Interactive lab tiles must launch dedicated experience pages');
 assert.match(knowledge,/window\.open\(standaloneExperienceURL/,'Interactive learning objects must pop out into their own page');
 
+const portfolioNext=read('portfolio-next.js');
+assert.doesNotMatch(portfolioNext,/const core=ctx\.createRadialGradient/,'Solar renderer must not shadow the DOM core element');
+assert.match(portfolioNext,/const coreGlow=ctx\.createRadialGradient/,'Solar core glow should use a non-shadowing variable');
+assert.match(read('portfolio-next.css'),/\.vnext-cosmos \.vnext-tab-dot\{[^}]*flex:0 0 7px!important/,'Solar tab dots must not stretch under generic tab span flex rules');
+const handheldCss=read('handheld-experience.css');
+assert.match(handheldCss,/\.hx-phone-dock\{[^}]*background:rgba\(12,18,22,\.94\)/,'Phone dock must use theme-independent dark chrome');
+assert.match(handheldCss,/\.hx-action\{[^}]*background:transparent!important/,'Handheld action buttons must not inherit light theme button chrome');
 assert.match(read('styles.css'),/:focus-visible/,'Visible keyboard focus styling missing');
 assert.ok(!projects.includes('id="roadmap"'),'Removed projects roadmap must not return');
 const handheld=read('handheld-experience.js'),science=read('science-experiments.js');
