@@ -1,6 +1,15 @@
 /* Responsive and accessible corrections, September 2026. Add after styles.css. */
 html,body{max-width:100%;overflow-x:clip}
 header{isolation:isolate}header nav#primary-nav{min-width:0}
+.nav-games{position:relative;font-size:.9rem}
+.nav-games summary{display:flex;align-items:center;gap:7px;min-height:44px;cursor:pointer;list-style:none;white-space:nowrap;color:var(--ink);user-select:none}
+.nav-games summary::-webkit-details-marker{display:none}
+.nav-games summary::after{content:"⌄";font-size:.82rem;color:var(--muted);transition:transform .18s ease}
+.nav-games[open] summary::after{transform:rotate(180deg)}
+.nav-games-menu{position:absolute;top:calc(100% + 10px);right:0;z-index:130;min-width:230px;padding:8px;background:var(--bg);border:1px solid var(--line);box-shadow:0 18px 38px #0007}
+.nav-games-menu a{display:flex;align-items:center;min-height:44px;padding:9px 12px;border-bottom:1px solid var(--line);white-space:nowrap}
+.nav-games-menu a:last-child{border-bottom:0}
+.nav-games-menu a:hover,.nav-games-menu a:focus-visible{background:var(--surface);color:var(--accent)}
 .tools button{width:44px;min-width:44px;height:44px;display:inline-flex;align-items:center;justify-content:center;font-size:1.2rem;line-height:1}
 .tools #search-open{min-width:44px}.brand{min-width:0}.brand>span{min-width:0}
 .project-card{min-width:0}.project-card .card-bottom{flex-wrap:wrap;align-items:flex-start;gap:12px 16px}
@@ -18,6 +27,11 @@ header{isolation:isolate}header nav#primary-nav{min-width:0}
  header nav#primary-nav{display:none;position:absolute;top:100%;left:0;right:0;z-index:100;background:var(--bg);padding:12px 20px 20px;border-bottom:1px solid var(--line);box-shadow:0 16px 30px #0005;max-height:calc(100dvh - 76px);overflow-y:auto;overscroll-behavior:contain;flex-direction:column;align-items:stretch;gap:0}
  header nav#primary-nav.open{display:flex}
  header nav#primary-nav a{display:flex;align-items:center;width:100%;min-height:48px;padding:10px 12px;border-bottom:1px solid var(--line)}
+ header nav#primary-nav .nav-games{width:100%;border-bottom:1px solid var(--line)}
+ header nav#primary-nav .nav-games summary{width:100%;min-height:54px;padding:10px 12px;font-size:1rem;justify-content:space-between}
+ header nav#primary-nav .nav-games-menu{position:static;min-width:0;width:100%;padding:0 0 8px 18px;border:0;box-shadow:none;background:transparent}
+ header nav#primary-nav .nav-games-menu a{min-height:46px;padding:8px 12px;font-size:.94rem;border-bottom:0;color:var(--muted)}
+ header nav#primary-nav .nav-games-menu a::before{content:"↳";margin-right:10px;color:var(--accent)}
  #menu{display:inline-flex;align-items:center;justify-content:center;min-width:44px;min-height:44px}
  .project-grid{grid-template-columns:minmax(0,1fr)}
  .study{min-width:0;gap:16px;flex-wrap:wrap}.study>div{min-width:0;flex:1 1 180px}.study strong{display:block;overflow-wrap:anywhere}
