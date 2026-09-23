@@ -42,7 +42,6 @@ jobs:
           protected_root = {
               'project-battle-chess.html',
               'project-geometric-ai.html',
-              'play-evil-wizard.html',
           }
           top = sorted(
               p for p in root.iterdir()
@@ -58,7 +57,7 @@ jobs:
           instructions += (
               '\nIMPORTANT: This science-safe overlay intentionally excludes all game trees, '
               'the Geometric AI/Geometry & Physics Lab tree, their dedicated project pages, '
-              'the OSU-only Evil Wizard export, and the fusion video. Merge it into the existing '
+              'the OSU-only Evil Wizard game export, and the fusion video. Merge it into the existing '
               'public_html; never delete the existing public_html directory or protected trees.\n'
           )
 
