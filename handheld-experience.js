@@ -10,6 +10,15 @@
   function activateExisting(selector){
     const el=$(selector); if(el){ el.click(); return true; } return false;
   }
+  function focusSearch(){
+    if(activateExisting('#search-open'))return true;
+    const field=$('input[type="search"],#library-search,#search-input');
+    if(field){field.focus();field.scrollIntoView({block:'center',behavior:'smooth'});return true}
+    return false;
+  }
+  function openMenu(){
+    return activateExisting('#menu')||activateExisting('#mobile-menu')||activateExisting('.menu-button');
+  }
   function jump(href){ location.href=href; }
   function currentRoot(){ return /\/qubit-preview-/.test(path) ? '../' : ''; }
   function button(label, icon, action){
@@ -25,8 +34,8 @@
       button('Home','⌂',()=>jump(root+'index.html')),
       button('Projects','◈',()=>jump(root+'projects.html')),
       button('Learn','◎',()=>jump(root+'learn.html')),
-      button('Search','⌕',()=>{ if(!activateExisting('#search-open')) jump(root+'projects.html'); }),
-      button('Menu','☰',()=>{ if(!activateExisting('#menu')) window.scrollTo({top:0,behavior:'smooth'}); })
+      button('Search','⌕',()=>{ if(!focusSearch()) jump(root+'projects.html'); }),
+      button('Menu','☰',()=>{ if(!openMenu()) window.scrollTo({top:0,behavior:'smooth'}); })
     );
     document.body.append(nav);
   }
@@ -38,7 +47,7 @@
       button('Home','⌂',()=>jump(root+'index.html')),
       button('Projects','◈',()=>jump(root+'projects.html')),
       button('Learn','◎',()=>jump(root+'learn.html')),
-      button('Search','⌕',()=>activateExisting('#search-open'))
+      button('Search','⌕',()=>focusSearch())
     );
     document.body.append(rail);
   }
