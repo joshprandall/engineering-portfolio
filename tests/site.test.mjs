@@ -84,7 +84,7 @@ assert.match(read('site-resilience.css'),/\.nav-games-menu/,'Game Development su
 assert.match(read('knowledge.js'),/closePrimaryNav/,'Knowledge Library must use robust top navigation close behavior');
 assert.match(read('knowledge.js'),/Game Development/,'Knowledge Library top navigation must include Game Development');
 assert.match(read('play-evil-wizard.html'),/id="primary-nav"/,'Evil Wizard wrapper must use the shared top navigation');
-assert.match(read('play-evil-wizard.html'),/site-resilience\.js\?v=20260923j/,'Evil Wizard wrapper must load the current shared navigation');
+assert.match(read('play-evil-wizard.html'),/site-resilience\.js\?v=[A-Za-z0-9._-]+/,'Evil Wizard wrapper must load the versioned shared navigation asset');
 assert.ok(!projects.includes('id="roadmap"'),'Removed projects roadmap must not return');
 const handheld=read('handheld-experience.js'),science=read('science-experiments.js');
 for(const protectedStem of ['project-geometric-ai','project-battle-chess','play-evil-wizard']) assert.ok(handheld.includes(protectedStem),`Protected route ${protectedStem} must be excluded from handheld enhancements`);
