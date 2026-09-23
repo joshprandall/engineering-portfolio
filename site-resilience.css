@@ -96,3 +96,6 @@ header{isolation:isolate}header nav#primary-nav{min-width:0}
     display:none!important;
   }
 }
+
+/* handheld-only project actions */
+#project-list .project-card .card-bottom > a.handheld-only[hidden]{display:none!important}

@@ -46,6 +46,17 @@
     const target=projectTarget(event.target);
     if(target){event.preventDefault();window.location.assign(target.href);}
   });
+
+  // Device-specific project actions: handheld links are only exposed on phones/tablets.
+  const isHandheldDevice=()=>{
+    const ua=navigator.userAgent||'';
+    const explicit=/Android|iPhone|iPad|iPod|Mobile|Tablet/i.test(ua);
+    const ipadDesktopUA=navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1;
+    const coarseTouch=navigator.maxTouchPoints>0&&matchMedia('(pointer: coarse)').matches&&Math.min(screen.width,screen.height)<=1024;
+    return explicit||ipadDesktopUA||coarseTouch;
+  };
+  document.querySelectorAll('.handheld-only').forEach(link=>{link.hidden=!isHandheldDevice();});
+
   const fallbacks={
     'portrait.jpg':'JR',
     'osu-logo.png':'Oregon State University',
