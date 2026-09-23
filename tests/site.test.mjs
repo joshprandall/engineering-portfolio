@@ -19,7 +19,7 @@ const cards=[...projects.matchAll(/<article\b[^>]*class=["'][^"']*project-card[^
 assert.equal(cards.length,16,'Reconciled release must preserve all 16 project cards');
 const count=projects.match(/id=["']filter-count["'][^>]*>(\d+) projects/i);
 assert.equal(Number(count?.[1]),cards.length,'Project filter count differs from card count');
-for (const [id, route] of [['evil-wizard','play-evil-wizard.html'],['quantum','qubit-preview-20260921/'],['battle-chess','project-battle-chess.html'],['geometric-ai','project-geometric-ai.html'],['qpe','project-qpe.html'],['emergent','project-emergent.html'],['mind-agents','project-mind.html']]) {
+for (const [id, route] of [['evil-wizard','games/evil-wizard/play.html'],['quantum','qubit-preview-20260921/'],['battle-chess','project-battle-chess.html'],['geometric-ai','project-geometric-ai.html'],['qpe','project-qpe.html'],['emergent','project-emergent.html'],['mind-agents','project-mind.html']]) {
   assert.match(projects, new RegExp(`id=["']${id}["']`), `Missing project card ${id}`);
   assert.ok(projects.includes(`href="${route}"`), `${id}: missing expected route ${route}`);
 }
