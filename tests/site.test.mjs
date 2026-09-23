@@ -24,8 +24,8 @@ for (const [id, route] of [['evil-wizard','games/evil-wizard/play.html'],['quant
   assert.match(projects, new RegExp(`id=["']${id}["']`), `Missing project card ${id}`);
   assert.ok(projects.includes(`href="${route}"`), `${id}: missing expected route ${route}`);
 }
-assert.match(read('play-evil-wizard.html'), /games\/evil-wizard\/index\.html/, 'Game launcher must keep the browser-play URL');
-if (!exists('games/evil-wizard/index.html')) console.warn('HOST-DEPENDENT GAME: games/evil-wizard/index.html is NOT in this repository. Preserve and verify the existing OSU web export before deploying. Browser play has NOT been validated by this test.');
+assert.match(read('play-evil-wizard.html'), /games\/evil-wizard\/play\.html/, 'Game launcher must keep the adaptive browser-play URL');
+if (!exists('games/evil-wizard/play.html')) console.warn('HOST-DEPENDENT GAME: the adaptive Evil Wizard browser build is intentionally preserved outside this portfolio tree; verify the existing OSU-hosted build before deployment.');
 const manifest=JSON.parse(read('verification-manifest.json'));
 assert.equal(manifest.count,8000,'Expected 8,000 release manifest entries');
 assert.equal(manifest.records.length,8000,'Manifest record count mismatch');
