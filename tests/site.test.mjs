@@ -60,6 +60,9 @@ const evilWrapper=read('play-evil-wizard.html');
 assert.doesNotMatch(evilWrapper,/vnext-project-nav/,'Evil Wizard wrapper must use only the shared header navigation');
 assert.doesNotMatch(evilWrapper,/<iframe\b[^>]*games\/evil-wizard\/play\.html/i,'Evil Wizard project page must not embed the playable game');
 assert.match(evilWrapper,/class="game-launch"[^>]*href="games\/evil-wizard\/play\.html"/,'Evil Wizard project page must launch the dedicated game from a clickable cover');
+const chessWrapper=read('project-battle-chess.html');
+assert.doesNotMatch(chessWrapper,/<iframe\b[^>]*games\/3d-battle-chess/i,'Battle Chess project page must not embed the playable game');
+assert.match(chessWrapper,/class="battle-launch"[^>]*href="games\/3d-battle-chess\//,'Battle Chess project page must launch the dedicated game from a clickable cover');
 
 const knowledge=read('knowledge.js');
 assert.match(knowledge,/standaloneExperienceURL/,'Standalone lab URL helper missing');
@@ -101,7 +104,7 @@ assert.match(overlayWorkflow,/forbidden_prefixes=\('games\/',\s*'geometric-lab\/
 assert.match(overlayWorkflow,/protected_root\s*=\s*set\(\)/,'OSU overlay must allow project wrapper HTML to receive navigation fixes');
 assert.match(overlayWorkflow,/forbidden_prefixes=\('games\/',\s*'geometric-lab\/'\)/,'OSU overlay must continue protecting actual game and Geometry Lab trees');
 const deployScript=read('tools/deploy_osu_live.py');
-assert.match(deployScript,/WEB_COMMIT = "d27e885a93743c9214a5ca4718c428cef5caec56"/,'OSU deploy must remain pinned to the validated green website release');
+assert.match(deployScript,/WEB_COMMIT = "92523bdf55be058616a6fb8a7e03cc58bdbdb6f1"/,'OSU deploy must remain pinned to the validated green website release');
 const webDirs=deployScript.match(/WEB_DIRS = \(([\s\S]*?)\)\n\n/)?.[1]||'';
 assert.ok(!/games\/|geometric-lab|project-sources/.test(webDirs),'OSU deploy WEB_DIRS must not overwrite protected or repository-only trees');
 assert.match(deployScript,/PROTECTED_ROOT_FILES = set\(\)/,'OSU deploy must allow project wrapper HTML updates');
