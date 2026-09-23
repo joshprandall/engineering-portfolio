@@ -95,6 +95,14 @@ assert.match(read('knowledge.js'),/Game Development/,'Knowledge Library top navi
 assert.match(read('play-evil-wizard.html'),/id="primary-nav"/,'Evil Wizard wrapper must use the shared top navigation');
 assert.match(read('play-evil-wizard.html'),/site-resilience\.js\?v=[A-Za-z0-9._-]+/,'Evil Wizard wrapper must load the versioned shared navigation asset');
 assert.ok(!projects.includes('id="roadmap"'),'Removed projects roadmap must not return');
+const battleIndex=read('games/3d-battle-chess/index.html'),battleRuntime=read('games/3d-battle-chess/battle.js');
+assert.match(battleIndex,/id="setupScreen"/,'Battle Chess must open on a dedicated setup screen');
+assert.match(battleIndex,/id="startGameBtn"/,'Battle Chess setup must provide an explicit Start Game action');
+assert.match(battleIndex,/id="rotateGate"/,'Battle Chess must provide a handheld landscape-orientation gate');
+assert.doesNotMatch(battleIndex,/class="site-nav"|backToProjects|backToHome/,'Battle Chess must not restore redundant portfolio navigation inside the game');
+assert.match(battleRuntime,/function launchFromSetup\(\)/,'Battle Chess must launch gameplay from setup');
+assert.match(battleRuntime,/void enterFullscreen\(\)/,'Battle Chess Start must request immersive fullscreen');
+assert.match(battleRuntime,/needsLandscape/,'Battle Chess must enforce landscape play on handheld devices');
 const handheld=read('handheld-experience.js'),science=read('science-experiments.js');
 for(const protectedStem of ['project-geometric-ai','project-battle-chess','play-evil-wizard']) assert.ok(handheld.includes(protectedStem),`Protected route ${protectedStem} must be excluded from handheld enhancements`);
 assert.match(science,/geometric-ai\|battle-chess\|play-evil-wizard/,'Science experiment layer must explicitly exclude games and Geometric AI');
