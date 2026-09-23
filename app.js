@@ -82,62 +82,7 @@
     try { localStorage.setItem(themeKey, next); } catch {}
   });
 
-  const nav = $("#primary-nav") || $("header nav");
-  const menu = $("#menu");
-
-  // Group portfolio games under one intentional navigation category.
-  if (nav && !nav.querySelector(".nav-games")) {
-    nav.querySelectorAll('a[href="project-battle-chess.html"]').forEach(link => link.remove());
-    const games = document.createElement("details");
-    games.className = "nav-games";
-    games.innerHTML = `
-      <summary>Game Development</summary>
-      <div class="nav-games-menu">
-        <a href="project-battle-chess.html">3D Battle Chess</a>
-        <a href="play-evil-wizard.html">Defeat the Evil Wizard</a>
-      </div>`;
-    nav.append(games);
-
-    document.addEventListener("click", event => {
-      if (!games.contains(event.target)) games.removeAttribute("open");
-    });
-  }
-
-  if (menu && nav) {
-    const closeMenu = () => {
-      nav.classList.remove("open");
-      nav.querySelector(".nav-games")?.removeAttribute("open");
-      menu.setAttribute("aria-expanded", "false");
-      menu.setAttribute("aria-label", "Open navigation");
-    };
-    menu.dataset.navOwner = "app";
-    menu.setAttribute("aria-controls", nav.id || "primary-nav");
-    menu.setAttribute("aria-expanded", String(nav.classList.contains("open")));
-    menu.addEventListener("click", event => {
-      event.preventDefault();
-      event.stopPropagation();
-      const open = nav.classList.toggle("open");
-      if (!open) nav.querySelector(".nav-games")?.removeAttribute("open");
-      menu.setAttribute("aria-expanded", String(open));
-      menu.setAttribute("aria-label", open ? "Close navigation" : "Open navigation");
-    });
-    nav.addEventListener("click", event => {
-      if (event.target.closest("a")) closeMenu();
-    });
-    document.addEventListener("click", event => {
-      if (window.innerWidth <= 900 && nav.classList.contains("open") &&
-          !nav.contains(event.target) && !menu.contains(event.target)) closeMenu();
-    });
-    document.addEventListener("keydown", event => {
-      if (event.key === "Escape") {
-        closeMenu();
-        nav.querySelector(".nav-games")?.removeAttribute("open");
-      }
-    });
-    window.addEventListener("resize", () => {
-      if (window.innerWidth > 900) closeMenu();
-    });
-  }
+  // Navigation is owned by site-resilience.js so every standard page uses one handler.
 
   $$(".layer-controls button").forEach((button) => {
     button.addEventListener("click", () => {
