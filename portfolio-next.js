@@ -267,7 +267,11 @@
     });
     scene.addEventListener('pointerleave',()=>{targetX=0;targetY=0});
     reduced.addEventListener?.('change',()=>draw());
-    new ResizeObserver(resize).observe(scene);
+    if(typeof ResizeObserver!=='undefined'){
+      new ResizeObserver(resize).observe(scene);
+    }else{
+      addEventListener('resize',resize,{passive:true});
+    }
     select(0,false);resize();raf=requestAnimationFrame(frame);
   }
 
@@ -311,7 +315,10 @@
       ctx.fillStyle='#ddae82';ctx.font=`${Math.max(10,Math.min(w*.021,12))}px system-ui`;ctx.fillText('JOINT STATE · Φ⁺',mid[0],mid[1]-60);
       ctx.restore();
     }
-    const resize=()=>{size();draw()};new ResizeObserver(resize).observe(canvas);resize();
+    const resize=()=>{size();draw()};
+    if(typeof ResizeObserver!=='undefined') new ResizeObserver(resize).observe(canvas);
+    else addEventListener('resize',resize,{passive:true});
+    resize();
     function tick(){if(!canvas.isConnected)return;if(running && !document.hidden){step+=.012;draw()}requestAnimationFrame(tick)}
     requestAnimationFrame(tick);
     reduced.addEventListener?.('change',e=>{running=!e.matches;draw()});
@@ -339,6 +346,12 @@
     if(!document.querySelector('link[href="science-experiments.css"]')){const l=document.createElement('link');l.rel='stylesheet';l.href='science-experiments.css';document.head.append(l);}
     if(!document.querySelector('script[src="science-experiments.js"]')){const s=document.createElement('script');s.src='science-experiments.js';s.defer=true;document.body.append(s);}
   }
-  function init(){loadScienceExperiments();strengthenNavigation();enhanceProjectCards();enhanceProjectNavigation();restoreEducation();interactiveSystems();entanglementArtwork();}
+  function init(){
+    const steps=[loadScienceExperiments,strengthenNavigation,enhanceProjectCards,enhanceProjectNavigation,restoreEducation,interactiveSystems,entanglementArtwork];
+    steps.forEach(step=>{
+      try{step();}
+      catch(error){console.error('[portfolio enhancement]',step.name,error);}
+    });
+  }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
 })();
