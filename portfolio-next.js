@@ -89,7 +89,6 @@
         <canvas class="vnext-cosmos-canvas" role="img" aria-label="Five linked capability nodes orbiting a central systems core"></canvas>
         <div class="vnext-cosmos-core" aria-hidden="true"><span>JR</span><small>SYSTEMS CORE</small></div>
         <div class="vnext-cosmos-worlds"></div>
-        <div class="vnext-cosmos-labels" aria-hidden="true"></div>
         <div class="vnext-cosmos-hint">SELECT A WORLD · CONNECTIONS MOVE WITH THE SYSTEM</div>
       </div>
       <div class="vnext-sys-detail" id="vnext-detail" role="tabpanel" tabindex="0">
@@ -102,7 +101,6 @@
     const scene=$('.vnext-cosmos-scene',stage);
     const canvas=$('.vnext-cosmos-canvas',stage);
     const worlds=$('.vnext-cosmos-worlds',stage);
-    const labelLayer=$('.vnext-cosmos-labels',stage);
     const coreEl=$('.vnext-cosmos-core',stage);
     const ctx=canvas.getContext('2d',{alpha:true});
     const orbit=[
@@ -137,19 +135,12 @@
       world.addEventListener('click',()=>select(i,true));
       world.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();select(i,true);}});
       worlds.append(world);
-
-      const label=document.createElement('span');
-      label.className='vnext-cosmos-label';
-      label.dataset.capability=String(i);
-      label.textContent=mode.name;
-      labelLayer.append(label);
     });
 
     function select(i,focusDetail=false){
       selected=i;const mode=modes[i];stage.dataset.mode=mode.name.toLowerCase();
       [...tabs.children].forEach((b,j)=>{const on=j===i;b.setAttribute('aria-selected',String(on));b.tabIndex=on?0:-1;b.classList.toggle('selected',on);});
-      $('.vnext-world',worlds).forEach((n,j)=>{const on=j===i;n.classList.toggle('selected',on);n.setAttribute('aria-pressed',String(on));});
-      $('.vnext-cosmos-label',labelLayer).forEach((n,j)=>n.classList.toggle('selected',j===i));
+      $$('.vnext-world',worlds).forEach((n,j)=>{const on=j===i;n.classList.toggle('selected',on);n.setAttribute('aria-pressed',String(on));});
       $('#vnext-count',stage).textContent=`0${i+1} / 05`;
       $('.vnext-sys-meta',stage).textContent=`ACTIVE CAPABILITY / ${mode.name.toUpperCase()}`;
       $('#vnext-title',stage).textContent=mode.heading;
@@ -251,27 +242,13 @@
       coreGlow.addColorStop(0,'#fff9df');coreGlow.addColorStop(.14,'#ffd99c');coreGlow.addColorStop(.42,'rgba(255,169,82,.48)');coreGlow.addColorStop(1,'rgba(255,140,60,0)');
       ctx.fillStyle=coreGlow;ctx.beginPath();ctx.arc(cx,cy,54,0,Math.PI*2);ctx.fill();
 
-      const labelPositions=[];
-      $('.vnext-world',worlds).forEach((el,i)=>{
+      $$('.vnext-world',worlds).forEach((el,i)=>{
         const p=positions[i],o=orbit[i],base=Math.min(o.size,width<480?44:o.size);
         el.style.setProperty('--world-size',`${base}px`);
         const depthScale=.80+p.depth*.28;
         el.style.transform=`translate3d(${p.x}px,${p.y}px,0) translate(-50%,-50%) scale(${depthScale})`;
         el.style.zIndex=String(20+Math.round(p.depth*30)+(i===selected?40:0));
         el.style.opacity=String(i===selected?1:(.86+p.depth*.14));
-
-        let lx=p.x,ly=p.y+(base*depthScale*.54)+12;
-        const pad=width<520?43:55;
-        lx=Math.max(pad,Math.min(width-pad,lx));
-        ly=Math.max(22,Math.min(height-24,ly));
-        for(const prior of labelPositions){
-          const dx=lx-prior.x,dy=ly-prior.y;
-          if(Math.abs(dx)<72 && Math.abs(dy)<19) ly+=dy>=0?19:-19;
-        }
-        ly=Math.max(22,Math.min(height-24,ly));
-        labelPositions.push({x:lx,y:ly});
-        const label=labelLayer.children[i];
-        if(label) label.style.transform=`translate3d(${lx}px,${ly}px,0) translate(-50%,-50%)`;
       });
     }
 
