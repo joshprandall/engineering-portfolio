@@ -12,7 +12,7 @@ import tempfile
 import urllib.request
 
 # Exact website commit validated by CI and visual-QA before this deployment utility update.
-WEB_COMMIT = "55625f4e1f47a77ad6b2290b7b17e07bd4f2831a"
+WEB_COMMIT = "b2112406346d7101d17d56901df3c06bc1026a08"
 ARCHIVE_URL = f"https://github.com/joshprandall/engineering-portfolio/archive/{WEB_COMMIT}.zip"
 PUBLIC_URL = "https://web.engr.oregonstate.edu/~randjosh/"
 
