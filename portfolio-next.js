@@ -101,6 +101,7 @@
     const scene=$('.vnext-cosmos-scene',stage);
     const canvas=$('.vnext-cosmos-canvas',stage);
     const worlds=$('.vnext-cosmos-worlds',stage);
+    const core=$('.vnext-cosmos-core',stage);
     const ctx=canvas.getContext('2d',{alpha:true});
     const orbit=[
       {rx:.22,ry:.105,speed:.24,phase:-2.15,size:58,kind:'architect'},
@@ -160,16 +161,23 @@
       draw();
     }
 
+    function orbitRadius(o){
+      return {
+        rx:width<520?Math.min(o.rx,.43):o.rx,
+        ry:width<520?Math.min(o.ry,.23):o.ry
+      };
+    }
+
     function worldPosition(i,time){
-      const o=orbit[i];
+      const o=orbit[i],r=orbitRadius(o);
       const motion=reduced.matches?0:time*o.speed;
       const a=o.phase+motion;
       const cx=width*.5+parallaxX*10;
       const cy=height*.45+parallaxY*6;
       const depth=(Math.sin(a)+1)/2;
       return {
-        x:cx+Math.cos(a)*width*o.rx,
-        y:cy+Math.sin(a)*height*o.ry,
+        x:cx+Math.cos(a)*width*r.rx,
+        y:cy+Math.sin(a)*height*r.ry,
         depth,
         scale:.72+depth*.38
       };
@@ -204,9 +212,11 @@
 
       const cx=width*.5+parallaxX*10,cy=height*.45+parallaxY*6;
       orbit.forEach((o,i)=>{
+        const r=orbitRadius(o);
         ctx.save();ctx.strokeStyle=i===selected?'rgba(255,190,145,.34)':'rgba(94,183,215,.16)';ctx.lineWidth=i===selected?1.5:1;
-        ctx.beginPath();ctx.ellipse(cx,cy,width*o.rx,height*o.ry,0,0,Math.PI*2);ctx.stroke();ctx.restore();
+        ctx.beginPath();ctx.ellipse(cx,cy,width*r.rx,height*r.ry,0,0,Math.PI*2);ctx.stroke();ctx.restore();
       });
+      core.style.transform=`translate(calc(-50% + ${parallaxX*10}px), calc(-50% + ${parallaxY*6}px))`;
 
       positions.forEach((_,i)=>Object.assign(positions[i],worldPosition(i,t)));
 
