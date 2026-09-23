@@ -2,6 +2,8 @@
   'use strict';
   const D = window.JR_KNOWLEDGE;
   if (!D) return;
+  if(!document.querySelector('link[href="handheld-experience.css"]')){const l=document.createElement('link');l.rel='stylesheet';l.href='handheld-experience.css';document.head.append(l);}
+  if(!document.querySelector('script[src="handheld-experience.js"]')){const s=document.createElement('script');s.src='handheld-experience.js';s.defer=true;document.body.append(s);}
 
   const $ = (s, r=document) => r.querySelector(s);
   const $$ = (s, r=document) => [...r.querySelectorAll(s)];
