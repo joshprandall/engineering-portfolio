@@ -5,7 +5,7 @@ import argparse, datetime, os, re, sys, tarfile, tempfile, urllib.request
 
 REPO='https://raw.githubusercontent.com/joshprandall/engineering-portfolio/main/'
 SHARED=('site-resilience.css','site-resilience.js')
-GAME=('games/3d-battle-chess/boot.js','games/3d-battle-chess/fallback-board.js','games/3d-battle-chess/fallback.css','games/3d-battle-chess/index.html')
+GAME=('games/3d-battle-chess/boot.js','games/3d-battle-chess/fallback-board.js','games/3d-battle-chess/fallback.css')
 
 def replace_once(s,old,new,file):
     if old in s:return s.replace(old,new)
@@ -41,7 +41,7 @@ def adapt(name,s):
         if not match:
             if 'Play 3D Battle Chess' not in s:raise RuntimeError('projects.html: chess card not found')
         else:
-            card='''<article class="project-card" data-category="interactive" id="battle-chess"><span class="project-number">GAME DEVELOPMENT / BROWSER CHESS</span><h2>3D Battle Chess</h2><p>Five selectable procedural piece sets, standard chess rules, animated captures, and a local computer opponent. The graphics use WebGL; a playable 2D board is available when 3D cannot load.</p><div class="card-bottom"><span class="status">Playable browser build · locally simulated chess</span><a class="tile-open" href="games/3d-battle-chess/index.html">Play 3D Battle Chess</a><a class="tile-secondary" href="project-battle-chess.html">Project details</a><a class="tile-secondary" href="https://github.com/joshprandall/3d-battle-chess" rel="noopener noreferrer" target="_blank">Game source</a></div></article>'''
+            card='''<article class="project-card" data-category="interactive" id="battle-chess"><span class="project-number">GAME DEVELOPMENT / BROWSER CHESS</span><h2>3D Battle Chess</h2><p>Five selectable procedural piece sets, standard chess rules, animated captures, and a local computer opponent. The graphics use WebGL; a playable 2D board is available when 3D cannot load.</p><div class="card-bottom"><span class="status">Playable browser build · locally simulated chess</span><a class="tile-open" href="games/3d-battle-chess/index.html">Play 3D Battle Chess</a><a class="tile-secondary" href="project-battle-chess.html">Project details</a><a class="tile-secondary" href="https://github.com/joshprandall/3d-battle-chess" rel="noopener noreferrer" target="_blank">Game source</a><a class="tile-secondary" href="games/3d-battle-chess/index.html?handheld=1">Play handheld</a></div></article>'''
             s=s[:match.start()]+s[match.end():]
             qpat=r'(<article class="project-card"[^>]* id="quantum">.*?</article>)'
             qm=re.search(qpat,s,flags=re.S)
