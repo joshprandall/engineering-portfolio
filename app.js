@@ -60,12 +60,26 @@
   ];
 
   const theme = $("#theme");
-  const savedTheme = localStorage.getItem("portfolio-theme");
-  if (savedTheme) document.documentElement.dataset.theme = savedTheme;
+  const themeKey = "portfolio-theme";
+  const themeMigrationKey = "portfolio-theme-default-20260923";
+  let savedTheme = "dark";
+  try {
+    const stored = localStorage.getItem(themeKey);
+    if (!localStorage.getItem(themeMigrationKey)) {
+      localStorage.setItem(themeKey, "dark");
+      localStorage.setItem(themeMigrationKey, "1");
+      savedTheme = "dark";
+    } else if (stored === "light" || stored === "dark") {
+      savedTheme = stored;
+    }
+  } catch {}
+  document.documentElement.dataset.theme = savedTheme;
+  theme?.setAttribute("aria-pressed", String(savedTheme === "light"));
   theme?.addEventListener("click", () => {
     const next = document.documentElement.dataset.theme === "light" ? "dark" : "light";
     document.documentElement.dataset.theme = next;
-    localStorage.setItem("portfolio-theme", next);
+    theme.setAttribute("aria-pressed", String(next === "light"));
+    try { localStorage.setItem(themeKey, next); } catch {}
   });
 
   const nav = $("#primary-nav") || $("header nav");
