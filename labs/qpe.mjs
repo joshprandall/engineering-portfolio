@@ -29,5 +29,7 @@ function run(){
   $('#qpe-result').textContent=`Dominant ${best.bits} → ${best.phase.toFixed(6)} · target φ ${phi.toFixed(6)} · grid resolution ${resolution.toFixed(6)} · sample mean ${mean.toFixed(6)} · RMSE ${rmse.toFixed(6)}.`;
   $('#qpe-rows').innerHTML=rows.map(x=>`<tr${x===best?' class="is-dominant"':''}><td>${x.bits}</td><td>${x.phase.toFixed(6)}</td><td>${x.ideal.toFixed(6)}</td><td>${x.mixed.toFixed(6)}</td><td>${x.count}</td></tr>`).join('');window.__qpe={phi,bits,mix,shots,seed,resolution,nearest,mean,rmse,rows};return window.__qpe;
 }
-$('#qpe-controls').addEventListener('submit',e=>{e.preventDefault();run()});$('#qpe-export').addEventListener('click',()=>{const b=new Blob([JSON.stringify(window.__qpe||run(),null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='qpe-experiment.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)});addEventListener('resize',()=>window.__qpe&&draw(window.__qpe.rows,window.__qpe.nearest));run();
+if (typeof document !== 'undefined') {
+  $('#qpe-controls').addEventListener('submit',e=>{e.preventDefault();run()});$('#qpe-export').addEventListener('click',()=>{const b=new Blob([JSON.stringify(window.__qpe||run(),null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='qpe-experiment.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)});addEventListener('resize',()=>window.__qpe&&draw(window.__qpe.rows,window.__qpe.nearest));run();
+}
 export {distribution,sample};
