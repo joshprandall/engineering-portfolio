@@ -76,6 +76,15 @@ const handheld=read('handheld-experience.js'),science=read('science-experiments.
 for(const protectedStem of ['project-geometric-ai','project-battle-chess','play-evil-wizard']) assert.ok(handheld.includes(protectedStem),`Protected route ${protectedStem} must be excluded from handheld enhancements`);
 assert.match(science,/geometric-ai\|battle-chess\|play-evil-wizard/,'Science experiment layer must explicitly exclude games and Geometric AI');
 assert.match(read('knowledge.js'),/handheld-experience\.js/,'Learning platform must load the device-specific handheld layer');
+const overlayWorkflow=read('.github/workflows/build-osu-overlay.yml');
+assert.match(overlayWorkflow,/forbidden_prefixes=\('games\/',\s*'geometric-lab\/'\)/,'OSU overlay must forbid game and Geometric AI trees');
+assert.match(overlayWorkflow,/protected_root\s*=\s*\{[\s\S]*project-battle-chess\.html[\s\S]*project-geometric-ai\.html[\s\S]*play-evil-wizard\.html/,'OSU overlay must omit protected root pages');
+const deployScript=read('tools/deploy_osu_live.py');
+assert.match(deployScript,/WEB_COMMIT = "55625f4e1f47a77ad6b2290b7b17e07bd4f2831a"/,'OSU deploy must remain pinned to the visually validated science release');
+const webDirs=deployScript.match(/WEB_DIRS = \(([\s\S]*?)\)\n\n/)?.[1]||'';
+assert.ok(!/games\/|geometric-lab|project-sources/.test(webDirs),'OSU deploy WEB_DIRS must not overwrite protected or repository-only trees');
+assert.match(deployScript,/PROTECTED_ROOT_FILES = \{[\s\S]*project-battle-chess\.html[\s\S]*project-geometric-ai\.html[\s\S]*play-evil-wizard\.html/,'OSU deploy must skip protected root pages');
+
 for (const file of ['app.js','portfolio-next.js','handheld-experience.js','science-experiments.js','knowledge.js','agent-workbench.mjs','labs/qpe.mjs','labs/emergent.mjs','qubit-preview-20260921/app.js','qubit-preview-20260921/qubit.js','games/3d-battle-chess/battle.js','games/3d-battle-chess/engine.js']) execFileSync(process.execPath,['--check',path.join(root,file)],{stdio:'pipe'});
 
 const q=await import(pathToFileURL(path.join(root,'qubit-preview-20260921/qubit.js')).href+'?test='+Date.now());
