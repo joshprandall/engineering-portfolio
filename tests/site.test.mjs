@@ -39,6 +39,8 @@ for (const name of ['Architect','Build','Secure','Automate','Evolve']) {
 assert.match(vnext,/Interactive Connected Systems solar-system model/,'Connected Systems solar-system model missing');
 assert.match(vnext,/vnext-cosmos-canvas/,'Solar-system canvas missing');
 assert.match(vnext,/vnext-cosmos-worlds/,'Selectable capability worlds missing');
+assert.match(vnext,/const coreEl=.*vnext-cosmos-core/,'Cosmos core DOM reference must remain distinct from canvas gradients');
+assert.doesNotMatch(vnext,/const core=ctx\.createRadialGradient/,'Cosmos renderer must not shadow the core DOM reference');
 assert.match(read('portfolio-next.css'),/vnext-cosmos-scene/,'Solar-system presentation styles missing');
 assert.match(vnext,/enhanceProjectNavigation/,'Project detail navigation enhancer missing');
 assert.match(vnext,/target='_blank'/,'Project-card pop-out behavior missing');
