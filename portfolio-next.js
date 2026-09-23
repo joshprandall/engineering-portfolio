@@ -162,10 +162,13 @@
     }
 
     function orbitRadius(o){
-      return {
-        rx:width<520?Math.min(o.rx,.43):o.rx,
-        ry:width<520?Math.min(o.ry,.23):o.ry
-      };
+      if(width<520){
+        const i=orbit.indexOf(o);
+        const mobileRx=[.28,.32,.355,.385,.415];
+        const mobileRy=[.12,.15,.18,.21,.235];
+        return {rx:mobileRx[i]??Math.min(o.rx,.415),ry:mobileRy[i]??Math.min(o.ry,.235)};
+      }
+      return {rx:o.rx,ry:o.ry};
     }
 
     function worldPosition(i,time){
@@ -242,9 +245,10 @@
       $$('.vnext-world',worlds).forEach((el,i)=>{
         const p=positions[i],o=orbit[i],base=Math.min(o.size,width<480?44:o.size);
         el.style.setProperty('--world-size',`${base}px`);
-        el.style.transform=`translate3d(${p.x}px,${p.y}px,0) translate(-50%,-50%) scale(${p.scale})`;
+        const depthScale=.80+p.depth*.28;
+        el.style.transform=`translate3d(${p.x}px,${p.y}px,0) translate(-50%,-50%) scale(${depthScale})`;
         el.style.zIndex=String(20+Math.round(p.depth*30)+(i===selected?40:0));
-        el.style.opacity=String(.72+p.depth*.28);
+        el.style.opacity=String(i===selected?1:(.86+p.depth*.14));
       });
     }
 
