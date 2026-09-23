@@ -90,17 +90,16 @@
       menu.setAttribute("aria-expanded", "false");
       menu.setAttribute("aria-label", "Open navigation");
     };
+    menu.dataset.navOwner = "app";
     menu.setAttribute("aria-controls", nav.id || "primary-nav");
     menu.setAttribute("aria-expanded", String(nav.classList.contains("open")));
-    // Own the hamburger click in capture phase so older fallback scripts cannot
-    // double-toggle the same menu on mobile.
-    document.addEventListener("click", event => {
-      if (!menu.contains(event.target)) return;
+    menu.addEventListener("click", event => {
+      event.preventDefault();
       event.stopPropagation();
       const open = nav.classList.toggle("open");
       menu.setAttribute("aria-expanded", String(open));
       menu.setAttribute("aria-label", open ? "Close navigation" : "Open navigation");
-    }, true);
+    });
     nav.addEventListener("click", event => {
       if (event.target.closest("a")) closeMenu();
     });
@@ -125,7 +124,7 @@
       });
       $("#layer-title").textContent = layers[i][0];
       $("#layer-copy").textContent = layers[i][1];
-      $("#layer-count").textContent = `${String(i + 1).padStart(2, "0")} / 05`;
+      if ($("#layer-count")) $("#layer-count").textContent = `${String(i + 1).padStart(2, "0")} / 05`;
     });
   });
 
