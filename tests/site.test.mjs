@@ -91,14 +91,18 @@ assert.match(science,/geometric-ai\|battle-chess\|play-evil-wizard/,'Science exp
 assert.match(read('knowledge.js'),/handheld-experience\.js/,'Learning platform must load the device-specific handheld layer');
 const overlayWorkflow=read('.github/workflows/build-osu-overlay.yml');
 assert.match(overlayWorkflow,/forbidden_prefixes=\('games\/',\s*'geometric-lab\/'\)/,'OSU overlay must forbid game and Geometric AI trees');
-assert.match(overlayWorkflow,/protected_root\s*=\s*\{[\s\S]*project-battle-chess\.html[\s\S]*project-geometric-ai\.html/,'OSU overlay must omit protected game and Geometric AI project wrappers');
-assert.doesNotMatch(overlayWorkflow,/protected_root\s*=\s*\{[\s\S]*play-evil-wizard\.html/,'Evil Wizard wrapper must be deployable for shared navigation fixes');
+const protectedOverlayBlock=overlayWorkflow.match(/protected_root\s*=\s*\{([\s\S]*?)\}/)?.[1]||'';
+assert.match(protectedOverlayBlock,/project-battle-chess\.html/,'OSU overlay must protect the Battle Chess project wrapper');
+assert.match(protectedOverlayBlock,/project-geometric-ai\.html/,'OSU overlay must protect the Geometric AI project wrapper');
+assert.doesNotMatch(protectedOverlayBlock,/play-evil-wizard\.html/,'Evil Wizard wrapper must be deployable for shared navigation fixes');
 const deployScript=read('tools/deploy_osu_live.py');
 assert.match(deployScript,/WEB_COMMIT = "a0c56523469c8728fb8471308977445ad6d646b5"/,'OSU deploy must remain pinned to the validated navigation-stability release');
 const webDirs=deployScript.match(/WEB_DIRS = \(([\s\S]*?)\)\n\n/)?.[1]||'';
 assert.ok(!/games\/|geometric-lab|project-sources/.test(webDirs),'OSU deploy WEB_DIRS must not overwrite protected or repository-only trees');
-assert.match(deployScript,/PROTECTED_ROOT_FILES = \{[\s\S]*project-battle-chess\.html[\s\S]*project-geometric-ai\.html/,'OSU deploy must skip protected game and Geometric AI project wrappers');
-assert.doesNotMatch(deployScript,/PROTECTED_ROOT_FILES = \{[\s\S]*play-evil-wizard\.html/,'OSU deploy must allow the Evil Wizard wrapper navigation shell to update');
+const protectedRootBlock=deployScript.match(/PROTECTED_ROOT_FILES = \{([\s\S]*?)\}/)?.[1]||'';
+assert.match(protectedRootBlock,/project-battle-chess\.html/,'OSU deploy must protect the Battle Chess project wrapper');
+assert.match(protectedRootBlock,/project-geometric-ai\.html/,'OSU deploy must protect the Geometric AI project wrapper');
+assert.doesNotMatch(protectedRootBlock,/play-evil-wizard\.html/,'OSU deploy must allow the Evil Wizard wrapper navigation shell to update');
 
 for (const file of ['app.js','portfolio-next.js','handheld-experience.js','science-experiments.js','knowledge.js','agent-workbench.mjs','labs/qpe.mjs','labs/emergent.mjs','qubit-preview-20260921/app.js','qubit-preview-20260921/qubit.js','games/3d-battle-chess/battle.js','games/3d-battle-chess/engine.js']) execFileSync(process.execPath,['--check',path.join(root,file)],{stdio:'pipe'});
 
