@@ -1,76 +1,8 @@
-import { stateFromAngle, describeState, sampleMeasurements } from "./qubit.js";
-
-const $ = (selector) => document.querySelector(selector);
-const theta = $("#theta");
-const thetaValue = $("#theta-value");
-const angleOutput = $("#angle-output");
-const arrow = $("#state-arrow");
-const alpha = $("#alpha");
-const beta = $("#beta");
-const normalization = $("#normalization");
-const p0 = $("#p0");
-const p1 = $("#p1");
-const bar0 = $("#bar0");
-const bar1 = $("#bar1");
-const description = $("#state-description");
-const shots = $("#shots");
-const count0 = $("#count0");
-const count1 = $("#count1");
-const observed0 = $("#observed0");
-const observed1 = $("#observed1");
-
-function percent(value) {
-  return `${(value * 100).toFixed(1)}%`;
-}
-
-function clearResults() {
-  count0.textContent = "—";
-  count1.textContent = "—";
-  observed0.textContent = "—";
-  observed1.textContent = "—";
-}
-
-function render() {
-  const angle = Number(theta.value);
-  const state = stateFromAngle(angle);
-
-  thetaValue.textContent = `${angle}°`;
-  angleOutput.textContent = `${angle}°`;
-  alpha.textContent = state.alpha.toFixed(4);
-  beta.textContent = state.beta.toFixed(4);
-  normalization.textContent = state.normalization.toFixed(4);
-  p0.textContent = percent(state.p0);
-  p1.textContent = percent(state.p1);
-  bar0.style.width = percent(state.p0);
-  bar1.style.width = percent(state.p1);
-  description.textContent = describeState(angle);
-
-  // Bloch polar angle: 0° points north and 180° points south.
-  arrow.style.transform = `translate(-50%,-100%) rotate(${angle}deg)`;
-  clearResults();
-}
-
-theta.addEventListener("input", render);
-
-document.querySelectorAll("[data-angle]").forEach((button) => {
-  button.addEventListener("click", () => {
-    theta.value = button.dataset.angle;
-    render();
-    theta.focus();
-  });
-});
-
-$("#measure").addEventListener("click", () => {
-  const state = stateFromAngle(Number(theta.value));
-  const total = Number(shots.value);
-  const result = sampleMeasurements(state.p0, total);
-
-  count0.textContent = result.count0.toLocaleString();
-  count1.textContent = result.count1.toLocaleString();
-  observed0.textContent = percent(result.count0 / result.shots);
-  observed1.textContent = percent(result.count1 / result.shots);
-});
-
-$("#reset-results").addEventListener("click", clearResults);
-
-render();
+import { stateFromAngle, describeState, sampleMeasurements, seededRng } from './qubit.js';
+const $=s=>document.querySelector(s),theta=$('#theta'),thetaValue=$('#theta-value'),angleOutput=$('#angle-output'),arrow=$('#state-arrow'),alpha=$('#alpha'),beta=$('#beta'),normalization=$('#normalization'),p0=$('#p0'),p1=$('#p1'),bar0=$('#bar0'),bar1=$('#bar1'),description=$('#state-description'),shots=$('#shots'),seed=$('#sample-seed'),count0=$('#count0'),count1=$('#count1'),observed0=$('#observed0'),observed1=$('#observed1'),delta=$('#sample-delta'),sigma=$('#sample-sigma'),chart=$('#convergence-chart');
+const percent=v=>`${(v*100).toFixed(1)}%`;
+function clearResults(){[count0,count1,observed0,observed1,delta,sigma].forEach(x=>{if(x)x.textContent='—'});const ctx=chart?.getContext('2d');if(ctx)ctx.clearRect(0,0,chart.width,chart.height)}
+function render(){const angle=Number(theta.value),state=stateFromAngle(angle);thetaValue.textContent=`${angle}°`;angleOutput.textContent=`${angle}°`;alpha.textContent=state.alpha.toFixed(4);beta.textContent=state.beta.toFixed(4);normalization.textContent=state.normalization.toFixed(4);p0.textContent=percent(state.p0);p1.textContent=percent(state.p1);bar0.style.width=percent(state.p0);bar1.style.width=percent(state.p1);description.textContent=describeState(angle);arrow.style.transform=`translate(-50%,-100%) rotate(${angle}deg)`;clearResults()}
+function measure(){const state=stateFromAngle(Number(theta.value)),total=Number(shots.value),rng=seededRng(Number(seed.value)||1),result=sampleMeasurements(state.p0,total,rng),obs=result.count0/result.shots,se=Math.sqrt(state.p0*(1-state.p0)/result.shots);count0.textContent=result.count0.toLocaleString();count1.textContent=result.count1.toLocaleString();observed0.textContent=percent(obs);observed1.textContent=percent(result.count1/result.shots);delta.textContent=((obs-state.p0)*100).toFixed(2)+' pp';sigma.textContent=(se*100).toFixed(2)+' pp'}
+function convergence(){const state=stateFromAngle(Number(theta.value)),sizes=[10,30,100,300,1000,3000,10000],values=sizes.map((n,i)=>{const r=sampleMeasurements(state.p0,n,seededRng((Number(seed.value)||1)+i));return r.count0/n}),ctx=chart.getContext('2d'),d=Math.min(devicePixelRatio||1,2),w=Math.max(280,chart.clientWidth),h=240;chart.width=w*d;chart.height=h*d;ctx.setTransform(d,0,0,d,0,0);ctx.clearRect(0,0,w,h);ctx.strokeStyle='#354044';ctx.strokeRect(36,15,w-48,h-48);const y=v=>15+(1-v)*(h-48),x=i=>36+i*(w-48)/(sizes.length-1);ctx.strokeStyle='#f4a575';ctx.setLineDash([5,5]);ctx.beginPath();ctx.moveTo(36,y(state.p0));ctx.lineTo(w-12,y(state.p0));ctx.stroke();ctx.setLineDash([]);ctx.strokeStyle='#8cc8d1';ctx.lineWidth=2;ctx.beginPath();values.forEach((v,i)=>i?ctx.lineTo(x(i),y(v)):ctx.moveTo(x(i),y(v)));ctx.stroke();values.forEach((v,i)=>{ctx.fillStyle='#8cc8d1';ctx.beginPath();ctx.arc(x(i),y(v),4,0,Math.PI*2);ctx.fill();ctx.fillStyle='#a7b1b3';ctx.font='10px sans-serif';ctx.fillText(String(sizes[i]),x(i)-8,h-15)});ctx.fillStyle='#a7b1b3';ctx.font='11px sans-serif';ctx.fillText('Observed P(0) vs shots · orange = expected',38,12)}
+theta.addEventListener('input',render);document.querySelectorAll('[data-angle]').forEach(button=>button.addEventListener('click',()=>{theta.value=button.dataset.angle;render();theta.focus()}));$('#measure').addEventListener('click',measure);$('#reset-results').addEventListener('click',clearResults);$('#run-convergence').addEventListener('click',convergence);render();
