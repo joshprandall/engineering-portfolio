@@ -80,7 +80,7 @@ const overlayWorkflow=read('.github/workflows/build-osu-overlay.yml');
 assert.match(overlayWorkflow,/forbidden_prefixes=\('games\/',\s*'geometric-lab\/'\)/,'OSU overlay must forbid game and Geometric AI trees');
 assert.match(overlayWorkflow,/protected_root\s*=\s*\{[\s\S]*project-battle-chess\.html[\s\S]*project-geometric-ai\.html[\s\S]*play-evil-wizard\.html/,'OSU overlay must omit protected root pages');
 const deployScript=read('tools/deploy_osu_live.py');
-assert.match(deployScript,/WEB_COMMIT = "55625f4e1f47a77ad6b2290b7b17e07bd4f2831a"/,'OSU deploy must remain pinned to the visually validated science release');
+assert.match(deployScript,/WEB_COMMIT = "b2112406346d7101d17d56901df3c06bc1026a08"/,'OSU deploy must remain pinned to the visually validated science release');
 const webDirs=deployScript.match(/WEB_DIRS = \(([\s\S]*?)\)\n\n/)?.[1]||'';
 assert.ok(!/games\/|geometric-lab|project-sources/.test(webDirs),'OSU deploy WEB_DIRS must not overwrite protected or repository-only trees');
 assert.match(deployScript,/PROTECTED_ROOT_FILES = \{[\s\S]*project-battle-chess\.html[\s\S]*project-geometric-ai\.html[\s\S]*play-evil-wizard\.html/,'OSU deploy must skip protected root pages');
