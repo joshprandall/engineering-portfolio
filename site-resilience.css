@@ -98,4 +98,4 @@ header{isolation:isolate}header nav#primary-nav{min-width:0}
 }
 
 /* handheld-only project actions */
-.handheld-only[hidden]{display:none!important}
+#project-list .project-card .card-bottom > a.handheld-only[hidden]{display:none!important}
