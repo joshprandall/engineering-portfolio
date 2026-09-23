@@ -2,10 +2,11 @@ import fs from 'node:fs';
 import path from 'node:path';
 import assert from 'node:assert/strict';
 import { execFileSync } from 'node:child_process';
+import { pathToFileURL } from 'node:url';
 const root = path.resolve(import.meta.dirname, '..');
 const exists = file => fs.existsSync(path.join(root, file));
 const read = file => fs.readFileSync(path.join(root, file), 'utf8');
-for (const file of ['index.html','projects.html','styles.css','app.js','learn.html','learn-browse.html','knowledge-data.js','knowledge.js','knowledge.css','deep-learning/index.json','verification-manifest.json','play-evil-wizard.html','qubit-preview-20260921/index.html','games/3d-battle-chess/index.html']) assert.ok(exists(file), `Missing required release file: ${file}`);
+for (const file of ['index.html','projects.html','styles.css','app.js','portfolio-next.js','portfolio-next.css','handheld-experience.js','handheld-experience.css','science-experiments.js','science-experiments.css','learn.html','learn-browse.html','knowledge-data.js','knowledge.js','knowledge.css','deep-learning/index.json','verification-manifest.json','play-evil-wizard.html','qubit-preview-20260921/index.html','games/3d-battle-chess/index.html']) assert.ok(exists(file), `Missing required release file: ${file}`);
 for (const file of ['index.html','projects.html','learn.html','play-evil-wizard.html']) {
   const html = read(file);
   assert.match(html, /<html[^>]*lang=["']en["']/i, `${file}: missing document language`);
@@ -35,7 +36,10 @@ assert.equal((vnext.match(/name:'(?:Architect|Build|Secure|Automate|Evolve)'/g)|
 for (const name of ['Architect','Build','Secure','Automate','Evolve']) {
   assert.match(vnext,new RegExp(`data-capability|\\${name}`),'Capability selector implementation missing');
 }
-assert.match(vnext,/Five linked capability nodes/,'Connected Systems five-node SVG missing');
+assert.match(vnext,/Interactive Connected Systems solar-system model/,'Connected Systems solar-system model missing');
+assert.match(vnext,/vnext-cosmos-canvas/,'Solar-system canvas missing');
+assert.match(vnext,/vnext-cosmos-worlds/,'Selectable capability worlds missing');
+assert.match(read('portfolio-next.css'),/vnext-cosmos-scene/,'Solar-system presentation styles missing');
 assert.match(vnext,/enhanceProjectNavigation/,'Project detail navigation enhancer missing');
 assert.match(vnext,/target='_blank'/,'Project-card pop-out behavior missing');
 
@@ -58,5 +62,33 @@ assert.match(knowledge,/lab-tile-link/,'Interactive lab tiles must launch dedica
 assert.match(knowledge,/window\.open\(standaloneExperienceURL/,'Interactive learning objects must pop out into their own page');
 
 assert.match(read('styles.css'),/:focus-visible/,'Visible keyboard focus styling missing');
-for (const file of ['app.js','portfolio-next.js','knowledge.js','agent-workbench.mjs','games/3d-battle-chess/battle.js','games/3d-battle-chess/engine.js']) execFileSync(process.execPath,['--check',path.join(root,file)],{stdio:'pipe'});
-console.log('Static release integration passed: 16 projects, 8,000 unique manifest IDs, required routes and JavaScript syntax. OSU game export and media require separate live verification.');
+assert.ok(!projects.includes('id="roadmap"'),'Removed projects roadmap must not return');
+const handheld=read('handheld-experience.js'),science=read('science-experiments.js');
+for(const protectedStem of ['project-geometric-ai','project-battle-chess','play-evil-wizard']) assert.ok(handheld.includes(protectedStem),`Protected route ${protectedStem} must be excluded from handheld enhancements`);
+assert.match(science,/geometric-ai\|battle-chess\|play-evil-wizard/,'Science experiment layer must explicitly exclude games and Geometric AI');
+assert.match(read('knowledge.js'),/handheld-experience\.js/,'Learning platform must load the device-specific handheld layer');
+for (const file of ['app.js','portfolio-next.js','handheld-experience.js','science-experiments.js','knowledge.js','agent-workbench.mjs','labs/qpe.mjs','labs/emergent.mjs','qubit-preview-20260921/app.js','qubit-preview-20260921/qubit.js','games/3d-battle-chess/battle.js','games/3d-battle-chess/engine.js']) execFileSync(process.execPath,['--check',path.join(root,file)],{stdio:'pipe'});
+
+const q=await import(pathToFileURL(path.join(root,'qubit-preview-20260921/qubit.js')).href+'?test='+Date.now());
+const plus=q.stateFromAngles(90,0),minus=q.stateFromAngles(90,180),plusI=q.stateFromAngles(90,90),north=q.stateFromAngles(0,123);
+assert.ok(Math.abs(q.measurementProbabilities(plus,'X').p0-1)<1e-12,'|+> must be deterministic in X');
+assert.ok(Math.abs(q.measurementProbabilities(minus,'X').p0)<1e-12,'|-> must be deterministic in X');
+assert.ok(Math.abs(q.measurementProbabilities(plusI,'Y').p0-1)<1e-12,'|+i> must be deterministic in Y');
+assert.ok(Math.abs(q.measurementProbabilities(north,'Z').p0-1)<1e-12,'|0> must be deterministic in Z');
+assert.ok(Math.abs(plus.normalization-1)<1e-12,'Qubit normalization drift');
+
+const qpe=await import(pathToFileURL(path.join(root,'labs/qpe.mjs')).href+'?test='+Date.now());
+const exact=qpe.distribution(.125,3,0),peak=exact.reduce((a,b)=>b.ideal>a.ideal?b:a);
+assert.equal(peak.bits,'001','QPE exact 1/8 phase should peak at 001');
+assert.ok(Math.abs(exact.reduce((s,x)=>s+x.mixed,0)-1)<1e-10,'QPE distribution must normalize');
+
+const emergent=await import(pathToFileURL(path.join(root,'labs/emergent.mjs')).href+'?test='+Date.now());
+const eg=emergent.create(12,.2,42),r0=emergent.order(eg);emergent.advance(eg,10,1.2);
+assert.equal(eg.step,10,'Emergent model step counter mismatch');
+assert.ok(r0>=0&&r0<=1&&emergent.order(eg)>=0&&emergent.order(eg)<=1,'Kuramoto order parameter must remain in [0,1]');
+
+const mind=await import(pathToFileURL(path.join(root,'agent-workbench.mjs')).href+'?test='+Date.now());
+const mr=mind.run('Repair a test regression',{evidence:['Reproduction steps','CI test output','Rollback review']});
+assert.ok(mr.requiresApproval,'MIND workbench must preserve human approval boundary');
+assert.ok(mr.evidenceCoverage>0,'MIND evidence coverage should respond to evidence');
+console.log('Science-experiment release validation passed: 16 projects, 8,000 manifest records, orbital systems scene, deterministic science math and protected experience exclusions.');

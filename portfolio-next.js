@@ -328,6 +328,13 @@
       const link=document.createElement('a');link.href='project-battle-chess.html';link.textContent='3D Chess';nav.append(link);
     }
   }
-  function init(){strengthenNavigation();enhanceProjectCards();enhanceProjectNavigation();restoreEducation();interactiveSystems();entanglementArtwork();}
+  function loadScienceExperiments(){
+    const page=(location.pathname.split('/').pop()||'index.html').toLowerCase();
+    const enabled=new Set(['project-recovery.html','project-dependency.html','project-lifecycle.html','project-fusion.html','project-portfolio.html','project-qubit.html','project-learning-library.html','project-advanced-computing.html','project-asset-inventory.html','project-kubernetes-lab.html','project-qpe.html','project-emergent.html','project-mind.html']);
+    if(!enabled.has(page))return;
+    if(!document.querySelector('link[href="science-experiments.css"]')){const l=document.createElement('link');l.rel='stylesheet';l.href='science-experiments.css';document.head.append(l);}
+    if(!document.querySelector('script[src="science-experiments.js"]')){const s=document.createElement('script');s.src='science-experiments.js';s.defer=true;document.body.append(s);}
+  }
+  function init(){loadScienceExperiments();strengthenNavigation();enhanceProjectCards();enhanceProjectNavigation();restoreEducation();interactiveSystems();entanglementArtwork();}
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
 })();

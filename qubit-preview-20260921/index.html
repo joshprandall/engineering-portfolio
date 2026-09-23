@@ -8,6 +8,7 @@
   <meta name="theme-color" content="#101416">
   <title>One qubit. Two outcomes.</title>
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="../handheld-experience.css">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -30,11 +31,11 @@
     <div>
       <p class="eyebrow">LEARNING INTERACTIVE / SINGLE-QUBIT STATE</p>
       <h1>One qubit.<br><em>Two outcomes.</em></h1>
-      <p class="lead">Move a state along one meridian of the Bloch sphere and watch its computational-basis measurement probabilities change.</p>
+      <p class="lead">Set polar angle θ and relative phase φ, then measure the same pure qubit in the Z, X, or Y basis.</p>
       <div class="callout">
         <strong>State model</strong>
-        <code>|ψ⟩ = cos(θ/2)|0⟩ + sin(θ/2)|1⟩</code>
-        <span>Relative phase is fixed at zero.</span>
+        <code>|ψ⟩ = cos(θ/2)|0⟩ + e<sup>iφ</sup> sin(θ/2)|1⟩</code>
+        <span>θ and φ determine a general pure single-qubit state.</span>
       </div>
     </div>
 
@@ -49,7 +50,7 @@
       </div>
       <div class="visual-caption">
         <span>θ = <output id="angle-output">90°</output></span>
-        <span>φ = 0°</span>
+        <span>φ = <output id="phase-output">0°</output></span>
       </div>
     </div>
   </section>
@@ -60,7 +61,7 @@
         <p class="eyebrow">01 / STATE</p>
         <h2>Angle becomes amplitude.</h2>
       </div>
-      <p>For this restricted single-qubit model, the amplitudes are real and the relative phase is held at zero.</p>
+      <p>A pure single-qubit state is defined by polar angle θ and relative phase φ. The selected measurement basis changes which component of the Bloch vector becomes observable.</p>
     </div>
 
     <div class="model-grid">
@@ -71,30 +72,50 @@
         </label>
         <input id="theta" type="range" min="0" max="180" step="1" value="90">
 
+        <label for="phi">
+          Relative phase φ
+          <strong><output id="phi-value">0°</output></strong>
+        </label>
+        <input id="phi" type="range" min="0" max="360" step="1" value="0">
+
+        <label for="basis">
+          Measurement basis
+          <select id="basis">
+            <option value="Z" selected>Z · computational</option>
+            <option value="X">X · |+⟩ / |−⟩</option>
+            <option value="Y">Y · |+i⟩ / |−i⟩</option>
+          </select>
+        </label>
+
         <div class="presets" aria-label="State presets">
-          <button data-angle="0">|0⟩</button>
-          <button data-angle="90">Equal superposition</button>
-          <button data-angle="180">|1⟩</button>
+          <button data-angle="0" data-phase="0">|0⟩</button>
+          <button data-angle="90" data-phase="0">|+⟩</button>
+          <button data-angle="90" data-phase="180">|−⟩</button>
+          <button data-angle="90" data-phase="90">|+i⟩</button>
+          <button data-angle="180" data-phase="0">|1⟩</button>
         </div>
 
         <dl class="state-values">
           <div><dt>Amplitude α</dt><dd id="alpha">0.7071</dd></div>
           <div><dt>Amplitude β</dt><dd id="beta">0.7071</dd></div>
           <div><dt>Normalization</dt><dd id="normalization">1.0000</dd></div>
+          <div><dt>Bloch x</dt><dd id="bloch-x">1.0000</dd></div>
+          <div><dt>Bloch y</dt><dd id="bloch-y">0.0000</dd></div>
+          <div><dt>Bloch z</dt><dd id="bloch-z">0.0000</dd></div>
         </dl>
       </div>
 
       <div class="probability-panel">
         <div class="probability-row">
-          <div><span>Outcome |0⟩</span><strong id="p0">50.0%</strong></div>
+          <div><span id="outcome0-label">Outcome |0⟩</span><strong id="p0">50.0%</strong></div>
           <div class="track"><div id="bar0" style="width:50%"></div></div>
-          <small>P(0) = cos²(θ/2)</small>
+          <small id="formula0">P(0) = (1 + z) / 2</small>
         </div>
 
         <div class="probability-row">
-          <div><span>Outcome |1⟩</span><strong id="p1">50.0%</strong></div>
+          <div><span id="outcome1-label">Outcome |1⟩</span><strong id="p1">50.0%</strong></div>
           <div class="track second"><div id="bar1" style="width:50%"></div></div>
-          <small>P(1) = sin²(θ/2)</small>
+          <small id="formula1">P(1) = (1 − z) / 2</small>
         </div>
 
         <p id="state-description" class="description">Equal probabilities for the two computational-basis outcomes.</p>
@@ -121,7 +142,10 @@
             <option value="1000">1,000</option>
             <option value="10000">10,000</option>
           </select>
+          <label for="sample-seed">Random seed</label>
+          <input id="sample-seed" type="number" min="1" max="2147483647" value="42">
           <button class="primary" id="measure">Sample measurements</button>
+          <button id="run-convergence">Run convergence series</button>
           <button id="reset-results">Clear results</button>
         </div>
 
@@ -130,7 +154,10 @@
           <div><span>|1⟩ count</span><strong id="count1">—</strong></div>
           <div><span>Observed |0⟩</span><strong id="observed0">—</strong></div>
           <div><span>Observed |1⟩</span><strong id="observed1">—</strong></div>
+          <div><span>Observed − expected P(0)</span><strong id="sample-delta">—</strong></div>
+          <div><span>Ideal sampling σ</span><strong id="sample-sigma">—</strong></div>
         </div>
+        <canvas id="convergence-chart" class="convergence-chart" width="900" height="240" aria-label="Convergence of observed probability toward expected probability as shot count increases"></canvas>
       </div>
     </div>
   </section>
@@ -147,16 +174,16 @@
       <article>
         <h3>It does show</h3>
         <ul>
-          <li>A normalized pure state restricted to real amplitudes.</li>
-          <li>How θ changes α and β.</li>
-          <li>Computational-basis probabilities from the Born rule.</li>
+          <li>A normalized pure single-qubit state with arbitrary relative phase.</li>
+          <li>How θ and φ map to Bloch-vector coordinates.</li>
+          <li>Z, X, and Y basis probabilities from the Born rule.</li>
           <li>Random sampling from those probabilities.</li>
         </ul>
       </article>
       <article>
         <h3>It does not show</h3>
         <ul>
-          <li>Arbitrary relative phase.</li>
+          <li>Mixed states or density-matrix dynamics.</li>
           <li>Multi-qubit entanglement.</li>
           <li>Noise, decoherence, gates, or hardware calibration.</li>
           <li>A connection to a quantum processor.</li>
@@ -174,6 +201,7 @@
   <a href="#top">Back to top ↑</a>
 </footer>
 
+<script defer src="../handheld-experience.js"></script>
 <script type="module" src="app.js"></script>
 </body>
 </html>
