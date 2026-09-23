@@ -891,7 +891,41 @@
     $('#sound-mode').onclick=()=>{soundMode=soundMode==='off'?'educational':soundMode==='educational'?'full':'off';localStorage.setItem(STORAGE.sound,soundMode);updateSoundButton();toast(`Sound: ${soundMode}`);if(soundMode!=='off')ping(590)};
     $('#motion-mode').onclick=()=>{motionPaused=!motionPaused;document.body.classList.toggle('motion-paused',motionPaused);localStorage.setItem(STORAGE.motion,motionPaused?'paused':'active');$('#motion-mode').textContent=motionPaused?'▶':'◫';$('#motion-mode').setAttribute('aria-label',motionPaused?'Resume animation':'Pause animation');toast(motionPaused?'Animation paused':'Animation resumed')};
     $('#theme-mode').onclick=()=>{const next=document.documentElement.dataset.theme==='light'?'dark':'light';document.documentElement.dataset.theme=next;localStorage.setItem(STORAGE.theme,next);renderKnowledgeGraph();toast(`${next[0].toUpperCase()+next.slice(1)} theme`)};
-    $('#mobile-menu').onclick=()=>{const nav=$('.site-header nav'),open=nav.classList.toggle('open');$('#mobile-menu').setAttribute('aria-expanded',String(open))};
+    const primaryNav=$('.site-header nav'),mobileMenu=$('#mobile-menu');
+    if(primaryNav&&mobileMenu){
+      primaryNav.id=primaryNav.id||'primary-nav';
+      mobileMenu.setAttribute('aria-controls',primaryNav.id);
+
+      if(!primaryNav.querySelector('a[href="index.html#direction"]')){
+        const direction=document.createElement('a');direction.href='index.html#direction';direction.textContent='Direction';primaryNav.append(direction);
+      }
+      if(!primaryNav.querySelector('.nav-games')){
+        const games=document.createElement('details');games.className='nav-games';
+        games.innerHTML='<summary>Game Development</summary><div class="nav-games-menu"><a href="project-battle-chess.html">3D Battle Chess</a><a href="play-evil-wizard.html">Defeat the Evil Wizard</a></div>';
+        primaryNav.append(games);
+      }
+      const closePrimaryNav=()=>{
+        primaryNav.classList.remove('open');
+        primaryNav.querySelector('.nav-games')?.removeAttribute('open');
+        mobileMenu.setAttribute('aria-expanded','false');
+        mobileMenu.setAttribute('aria-label','Open navigation');
+      };
+      mobileMenu.onclick=e=>{
+        e.preventDefault();e.stopPropagation();
+        const open=primaryNav.classList.toggle('open');
+        if(!open)primaryNav.querySelector('.nav-games')?.removeAttribute('open');
+        mobileMenu.setAttribute('aria-expanded',String(open));
+        mobileMenu.setAttribute('aria-label',open?'Close navigation':'Open navigation');
+      };
+      primaryNav.addEventListener('click',e=>{if(e.target.closest('a'))closePrimaryNav()});
+      document.addEventListener('click',e=>{
+        const games=primaryNav.querySelector('.nav-games');
+        if(games?.open&&!games.contains(e.target))games.removeAttribute('open');
+        if(innerWidth<=820&&primaryNav.classList.contains('open')&&!primaryNav.contains(e.target)&&!mobileMenu.contains(e.target))closePrimaryNav();
+      });
+      document.addEventListener('keydown',e=>{if(e.key==='Escape')closePrimaryNav()});
+      addEventListener('resize',()=>{if(innerWidth>820)closePrimaryNav()});
+    }
     document.addEventListener('keydown',e=>{const typing=/INPUT|TEXTAREA|SELECT/.test(document.activeElement?.tagName);if((e.key==='/'||(e.key.toLowerCase()==='k'&&(e.ctrlKey||e.metaKey)))&&!typing){e.preventDefault();if(currentLesson)closeLesson();setTimeout(()=>$('#knowledge-search').focus(),0)}if(e.key==='Escape'&&currentLesson)closeLesson();if((e.key==='r'||e.key==='R')&&!typing&&!currentLesson)randomLesson();if((e.key==='g'||e.key==='G')&&!typing&&!currentLesson){e.preventDefault();$('#glossary').scrollIntoView({behavior:motionPaused?'auto':'smooth'});setTimeout(()=>$('#glossary-search').focus(),250)}});
     window.addEventListener('scroll',()=>requestAnimationFrame(updateReadingProgress),{passive:true});
     let graphResize;window.addEventListener('resize',()=>{clearTimeout(graphResize);graphResize=setTimeout(renderKnowledgeGraph,120)});
