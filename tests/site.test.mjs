@@ -39,7 +39,7 @@ assert.match(vnext,/Five linked capability nodes/,'Connected Systems five-node S
 assert.match(vnext,/enhanceProjectNavigation/,'Project detail navigation enhancer missing');
 assert.match(vnext,/target='_blank'/,'Project-card pop-out behavior missing');
 
-const primaryTiles=[...projects.matchAll(/<a\\b[^>]*class=["'][^"']*tile-open[^"']*["'][^>]*>/gi)].map(x=>x[0]);
+const primaryTiles=[...projects.matchAll(/<a\b[^>]*class=["'][^"']*tile-open[^"']*["'][^>]*>/gi)].map(x=>x[0]);
 assert.equal(primaryTiles.length,16,'Every project card must have one primary tile link');
 for (const tile of primaryTiles) assert.match(tile,/target=["']_blank["']/i,'Every primary project tile must open its dedicated page in a new tab');
 
