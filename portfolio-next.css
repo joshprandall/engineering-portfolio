@@ -123,3 +123,16 @@ body:has(.vnext-project-nav) main{min-height:calc(100dvh - 150px)}
   .vnext-cosmos .vnext-sys-detail{padding:16px}
 }
 @media(prefers-reduced-motion:reduce){.vnext-world,.vnext-planet{transition:none!important}}
+
+
+/* Light-theme contrast guard for the dark Connected Systems science scene. */
+html[data-theme="light"] .vnext-system,
+html[data-theme="light"] .vnext-cosmos{color:#f3f6f7;background:#03080d}
+html[data-theme="light"] .vnext-cosmos .vnext-sys-top,
+html[data-theme="light"] .vnext-cosmos .vnext-system-tabs{background:#050c12;color:#a8c9ce}
+html[data-theme="light"] .vnext-cosmos .vnext-sys-detail{background:linear-gradient(145deg,#0b1a22,#071117);color:#f3f6f7;border-top-color:#29434d}
+html[data-theme="light"] .vnext-cosmos .vnext-sys-detail h2{color:#f3f6f7}
+html[data-theme="light"] .vnext-cosmos .vnext-sys-detail p{color:#c6d4d7}
+html[data-theme="light"] .vnext-cosmos .vnext-sys-detail ul{color:#e7e8e4}
+html[data-theme="light"] .vnext-cosmos .vnext-sys-meta{color:#f4b78f}
+html[data-theme="light"] .vnext-cosmos .vnext-cta{color:#ffd1b3}
