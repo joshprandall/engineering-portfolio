@@ -106,6 +106,7 @@
   if (menu && nav) {
     const closeMenu = () => {
       nav.classList.remove("open");
+      nav.querySelector(".nav-games")?.removeAttribute("open");
       menu.setAttribute("aria-expanded", "false");
       menu.setAttribute("aria-label", "Open navigation");
     };
@@ -116,6 +117,7 @@
       event.preventDefault();
       event.stopPropagation();
       const open = nav.classList.toggle("open");
+      if (!open) nav.querySelector(".nav-games")?.removeAttribute("open");
       menu.setAttribute("aria-expanded", String(open));
       menu.setAttribute("aria-label", open ? "Close navigation" : "Open navigation");
     });
