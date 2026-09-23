@@ -8,6 +8,7 @@
   <meta name="theme-color" content="#101416">
   <title>One qubit. Two outcomes.</title>
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="../handheld-experience.css">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -121,7 +122,10 @@
             <option value="1000">1,000</option>
             <option value="10000">10,000</option>
           </select>
+          <label for="sample-seed">Random seed</label>
+          <input id="sample-seed" type="number" min="1" max="2147483647" value="42">
           <button class="primary" id="measure">Sample measurements</button>
+          <button id="run-convergence">Run convergence series</button>
           <button id="reset-results">Clear results</button>
         </div>
 
@@ -130,7 +134,10 @@
           <div><span>|1⟩ count</span><strong id="count1">—</strong></div>
           <div><span>Observed |0⟩</span><strong id="observed0">—</strong></div>
           <div><span>Observed |1⟩</span><strong id="observed1">—</strong></div>
+          <div><span>Observed − expected P(0)</span><strong id="sample-delta">—</strong></div>
+          <div><span>Ideal sampling σ</span><strong id="sample-sigma">—</strong></div>
         </div>
+        <canvas id="convergence-chart" class="convergence-chart" width="900" height="240" aria-label="Convergence of observed probability toward expected probability as shot count increases"></canvas>
       </div>
     </div>
   </section>
@@ -174,6 +181,7 @@
   <a href="#top">Back to top ↑</a>
 </footer>
 
+<script defer src="../handheld-experience.js"></script>
 <script type="module" src="app.js"></script>
 </body>
 </html>
