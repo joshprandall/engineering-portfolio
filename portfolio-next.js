@@ -333,11 +333,10 @@
     };
   }
   function strengthenNavigation(){
-    if(!$('#primary-nav'))return;
-    const nav=$('#primary-nav');
-    if(!nav.querySelector('a[href="project-battle-chess.html"]')){
-      const link=document.createElement('a');link.href='project-battle-chess.html';link.textContent='3D Chess';nav.append(link);
-    }
+    const nav=$('#primary-nav');if(!nav)return;
+    // app.js owns the Game Development submenu. Remove any legacy standalone
+    // Battle Chess link left by an older cached enhancement.
+    nav.querySelectorAll(':scope > a[href="project-battle-chess.html"]').forEach(link=>link.remove());
   }
   function loadScienceExperiments(){
     const page=(location.pathname.split('/').pop()||'index.html').toLowerCase();
