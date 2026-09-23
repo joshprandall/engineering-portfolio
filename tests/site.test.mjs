@@ -43,7 +43,7 @@ const primaryTiles=[...projects.matchAll(/<a\b[^>]*class=["'][^"']*tile-open[^"'
 assert.equal(primaryTiles.length,16,'Every project card must have one primary tile link');
 for (const tile of primaryTiles) assert.match(tile,/target=["']_blank["']/i,'Every primary project tile must open its dedicated page in a new tab');
 
-const detailPages=fs.readdirSync(root).filter(x=>/^project-.*\\.html$/.test(x));
+const detailPages=fs.readdirSync(root).filter(x=>/^project-.*\.html$/.test(x));
 assert.ok(detailPages.length>=15,'Expected dedicated project pages for the catalog');
 for (const file of detailPages) {
   const html=read(file);
