@@ -235,9 +235,9 @@
         ctx.fillStyle=i===selected?'#ffd0ad':'#81e5f4';ctx.shadowColor=ctx.fillStyle;ctx.shadowBlur=10;ctx.beginPath();ctx.arc(px,py,i===selected?2.7:1.8,0,Math.PI*2);ctx.fill();ctx.restore();
       });
 
-      const core=ctx.createRadialGradient(cx-8,cy-10,2,cx,cy,54);
-      core.addColorStop(0,'#fff9df');core.addColorStop(.14,'#ffd99c');core.addColorStop(.42,'rgba(255,169,82,.48)');core.addColorStop(1,'rgba(255,140,60,0)');
-      ctx.fillStyle=core;ctx.beginPath();ctx.arc(cx,cy,54,0,Math.PI*2);ctx.fill();
+      const coreGlow=ctx.createRadialGradient(cx-8,cy-10,2,cx,cy,54);
+      coreGlow.addColorStop(0,'#fff9df');coreGlow.addColorStop(.14,'#ffd99c');coreGlow.addColorStop(.42,'rgba(255,169,82,.48)');coreGlow.addColorStop(1,'rgba(255,140,60,0)');
+      ctx.fillStyle=coreGlow;ctx.beginPath();ctx.arc(cx,cy,54,0,Math.PI*2);ctx.fill();
 
       $$('.vnext-world',worlds).forEach((el,i)=>{
         const p=positions[i],o=orbit[i],base=Math.min(o.size,width<480?44:o.size);
