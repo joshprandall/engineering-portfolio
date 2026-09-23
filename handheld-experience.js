@@ -37,6 +37,8 @@
       button('Search','⌕',()=>{ if(!focusSearch()) jump(root+'projects.html'); }),
       button('Menu','☰',()=>{ if(!openMenu()) window.scrollTo({top:0,behavior:'smooth'}); })
     );
+    const active=/\/(?:learn|knowledge)/.test(path)?2:/\/(?:projects?|project-|qubit-preview-)/.test(path)?1:0;
+    nav.children[active]?.setAttribute('aria-current','page');
     document.body.append(nav);
   }
   function buildTabletRail(){
@@ -49,6 +51,8 @@
       button('Learn','◎',()=>jump(root+'learn.html')),
       button('Search','⌕',()=>focusSearch())
     );
+    const active=/\/(?:learn|knowledge)/.test(path)?2:/\/(?:projects?|project-|qubit-preview-)/.test(path)?1:0;
+    rail.children[active]?.setAttribute('aria-current','page');
     document.body.append(rail);
   }
   function markCards(){
