@@ -45,7 +45,7 @@
   function scorePath(p){
     let score=0;const text=`${p.title} ${p.description||p.summary||''}`.toLowerCase();
     if(p.domain===planDomain)score+=80;
-    const desired=desiredPathLevel8);const level=String(p.level||p.difficulty||'');
+    const desired=desiredPathLevel();const level=String(p.level||p.difficulty||'');
     if(level.includes(desired))score+=32;
     if(start==='new'&&level.includes('Foundation'))score+=22;
     if(start==='some'&&(level.includes('Foundation')||level.includes('Intermediate')))score+=15;
