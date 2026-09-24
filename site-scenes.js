@@ -305,6 +305,32 @@
       return audio;
     }
 
+    function darkMusicAllowed() {
+      return theme === 'dark' && !ambientMuted && !audioSuppressed &&
+        !ambientLockedByPage && !lessonIsOpen() && !document.hidden;
+    }
+
+    function syncDarkThemeMusic() {
+      const audio = ensureDarkTrackElement();
+      if (!darkMusicAllowed()) {
+        saveDarkTrackTime();
+        try { audio.pause(); } catch (_) {}
+        if (darkLicensedAudio === audio) darkLicensedAudio = null;
+        return false;
+      }
+
+      darkLicensedAudio = audio;
+      audio.loop = true;
+      audio.muted = false;
+      audio.volume = .24;
+
+      try {
+        const attempt = audio.play();
+        if (attempt?.catch) attempt.catch(() => {});
+      } catch (_) {}
+      return true;
+    }
+
     function stopNatureAmbience() {
       clearTimeout(birdReplayTimer);
       birdReplayTimer = 0;
@@ -349,26 +375,10 @@
       stopRecordedAmbience();
       if (!ambientAllowed() || !audioUnlocked) return false;
 
-      if (theme === 'dark') {
-        stopNatureAmbience();
-        const audio = ensureDarkTrackElement();
-        darkLicensedAudio = audio;
-        audio.loop = true;
-        audio.volume = .24;
-        audio.muted = false;
-        try {
-          await audio.play();
-          return !audio.paused;
-        } catch (_) {
-          // Safari may reject audible autoplay until the next user gesture.
-          // Keep the preloaded element alive so that gesture can resume it
-          // instantly instead of creating/downloading a new track.
-          return false;
-        }
-      }
+      // Dark mode has its own dedicated native audio player.
+      if (theme !== 'light') return false;
 
       // Nature recordings are strictly light-mode only.
-      if (theme !== 'light') return false;
       stopDarkAmbience();
       const scene = LIGHT_SCENES[activeSceneIndex];
       const src = scene && REAL_NATURE_AUDIO[scene.id];
@@ -540,70 +550,62 @@
 
     function refreshAmbientAudio(force=false) {
       updateAudioButton();
+
+      if (theme === 'dark') {
+        stopNatureAmbience();
+        syncVideoAmbience();
+        ambientSignature = 'dark';
+        syncDarkThemeMusic();
+        return;
+      }
+
+      // Light mode remains on the existing, working nature-audio path.
+      stopDarkAmbience();
       syncVideoAmbience();
 
       if (!ambientAllowed()) {
         if (ambientNodes.length) stopAmbientNodes();
-        stopRecordedAmbience();
+        stopNatureAmbience();
         return;
       }
       if (!audioUnlocked) return;
 
       const wanted = desiredAmbientSignature();
-      const recordedPlaying = Boolean(
-        (recordedAmbience && !recordedAmbience.paused) ||
-        (darkLicensedAudio && !darkLicensedAudio.paused)
-      );
+      const recordedPlaying = Boolean(recordedAmbience && !recordedAmbience.paused);
       if (!force && ambientSignature === wanted && recordedPlaying) {
         syncVideoAmbience();
         return;
       }
 
       stopAmbientNodes();
-      stopRecordedAmbience();
+      stopNatureAmbience();
       if (!ambientAllowed()) return;
 
-      syncVideoAmbience();
       ambientSignature = wanted;
-
-      if (theme === 'dark') stopNatureAmbience();
-      else stopDarkAmbience();
-
-      startRecordedAmbience().then(started => {
-        if (started || !ambientAllowed()) return;
-
-        // If no licensed dark track is installed, keep dark mode silent rather
-        // than substituting a fake copy of a film theme. Nature modes rely on
-        // real recordings and are retried by the watchdog if playback fails.
-        if (theme === 'dark') return;
-      }).catch(() => {});
-
-      // Real recordings are controlled directly through HTMLAudioElement volume.
+      startRecordedAmbience().catch(() => {});
     }
 
     function unlockAmbientFromGesture() {
-      if (!ambientAllowed()) return;
-      if (audioUnlocked && (
-        (recordedAmbience && !recordedAmbience.paused) ||
-        (darkLicensedAudio && !darkLicensedAudio.paused)
-      )) return;
-
+      if (ambientMuted || audioSuppressed || ambientLockedByPage || lessonIsOpen()) return;
       audioUnlocked = true;
-      try { ensureAmbientContext(); } catch (_) {}
 
       if (theme === 'dark') {
+        // Keep play() directly inside the user-gesture call stack for iOS.
         const audio = ensureDarkTrackElement();
         darkLicensedAudio = audio;
+        audio.loop = true;
         audio.muted = false;
         audio.volume = .24;
-        audio.play().then(() => {
-          ambientSignature = 'dark';
-          updateAudioButton();
-        }).catch(() => {
-          refreshAmbientAudio(true);
-        });
+        try {
+          const attempt = audio.play();
+          if (attempt?.catch) attempt.catch(() => {});
+        } catch (_) {}
+        ambientSignature = 'dark';
+        updateAudioButton();
         return;
       }
+
+      try { ensureAmbientContext(); } catch (_) {}
       refreshAmbientAudio(true);
     }
 
@@ -627,9 +629,24 @@
         if (birdAudio) birdAudio.muted = ambientMuted;
         if (!ambientMuted) {
           audioUnlocked = true;
-          try { ensureAmbientContext(); } catch (_) {}
-          refreshAmbientAudio(true);
+          if (theme === 'dark') {
+            const audio = ensureDarkTrackElement();
+            darkLicensedAudio = audio;
+            audio.loop = true;
+            audio.muted = false;
+            audio.volume = .24;
+            try {
+              const attempt = audio.play();
+              if (attempt?.catch) attempt.catch(() => {});
+            } catch (_) {}
+            ambientSignature = 'dark';
+            updateAudioButton();
+          } else {
+            try { ensureAmbientContext(); } catch (_) {}
+            refreshAmbientAudio(true);
+          }
         } else {
+          stopDarkAmbience();
           refreshAmbientAudio(true);
         }
       });
@@ -975,11 +992,13 @@
     document.addEventListener('keydown', unlockAmbientFromGesture);
 
     ambientWatchdog = setInterval(() => {
+      if (theme === 'dark') {
+        if (darkMusicAllowed()) syncDarkThemeMusic();
+        else stopDarkAmbience();
+        return;
+      }
       if (!ambientAllowed() || !audioUnlocked) return;
-      const recordedPlaying = Boolean(
-        (recordedAmbience && !recordedAmbience.paused) ||
-        (darkLicensedAudio && !darkLicensedAudio.paused)
-      );
+      const recordedPlaying = Boolean(recordedAmbience && !recordedAmbience.paused);
       if (!recordedPlaying || ambientSignature !== desiredAmbientSignature()) refreshAmbientAudio(true);
       else syncVideoAmbience();
     }, 2500);
