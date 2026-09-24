@@ -1066,3 +1066,154 @@ body[data-library-page="home"]{
   -webkit-text-stroke:0 transparent!important;
   -webkit-font-smoothing:auto;
 }
+
+/* 2026-09-24 glass system v11 — translucent tiles across labs, learning, projects, and game showcases. */
+.living-scenes :is(
+  .project-card,
+  .home-project,
+  .education-cards article,
+  .portrait-card,
+  .game-notes article,
+  .game-launch,
+  .battle-launch,
+  .app-panel,
+  .science-console,
+  .science-output,
+  .agent-metric,
+  #agent-tasks li,
+  .domain-card,
+  .lesson-card,
+  .practice-card,
+  .mastery-card,
+  .lab-card,
+  .path-card,
+  .atlas-card,
+  .glossary-card,
+  .analogy-card,
+  .hands-on-card,
+  .sidebar-card,
+  .starter-card,
+  .rail-card,
+  .standalone-tile,
+  .verification-box,
+  .provenance-box,
+  .curriculum-panel,
+  .graph-panel,
+  .graph-detail,
+  .guide-card,
+  .note-card,
+  .probability-panel,
+  .experiment-controls,
+  .results,
+  .callout
+){
+  background:linear-gradient(145deg,rgba(7,13,16,.16),rgba(7,13,16,.08))!important;
+  border-color:rgba(176,214,222,.28)!important;
+  border-radius:18px!important;
+  box-shadow:0 14px 36px rgba(0,0,0,.11)!important;
+  -webkit-backdrop-filter:blur(3px) saturate(.94)!important;
+  backdrop-filter:blur(3px) saturate(.94)!important;
+}
+
+:root[data-theme="light"] .living-scenes :is(
+  .project-card,
+  .home-project,
+  .education-cards article,
+  .portrait-card,
+  .game-notes article,
+  .game-launch,
+  .battle-launch,
+  .app-panel,
+  .science-console,
+  .science-output,
+  .agent-metric,
+  #agent-tasks li,
+  .domain-card,
+  .lesson-card,
+  .practice-card,
+  .mastery-card,
+  .lab-card,
+  .path-card,
+  .atlas-card,
+  .glossary-card,
+  .analogy-card,
+  .hands-on-card,
+  .sidebar-card,
+  .starter-card,
+  .rail-card,
+  .standalone-tile,
+  .verification-box,
+  .provenance-box,
+  .curriculum-panel,
+  .graph-panel,
+  .graph-detail,
+  .guide-card,
+  .note-card,
+  .probability-panel,
+  .experiment-controls,
+  .results,
+  .callout
+){
+  background:linear-gradient(145deg,rgba(248,251,246,.16),rgba(248,251,246,.08))!important;
+  border-color:rgba(28,72,51,.28)!important;
+  box-shadow:0 14px 34px rgba(28,47,36,.09)!important;
+}
+
+/* Lab shells and their internal cards use the same glass rule instead of opaque panel variables. */
+.living-scenes .lab-workspace .lab-grid,
+.living-scenes #lab .lab-grid,
+body.living-scenes[data-library-page="labs"] .lab-card,
+.living-scenes .controls,
+.living-scenes .stage{
+  background:rgba(7,13,16,.12)!important;
+  background-image:none!important;
+  border-color:rgba(176,214,222,.28)!important;
+  border-radius:18px!important;
+  -webkit-backdrop-filter:blur(3px) saturate(.94)!important;
+  backdrop-filter:blur(3px) saturate(.94)!important;
+}
+.living-scenes .lab-workspace form,
+.living-scenes #lab form,
+body.living-scenes[data-library-page="labs"] .lab-visual{
+  background:rgba(7,13,16,.08)!important;
+  background-image:none!important;
+  -webkit-backdrop-filter:blur(2px) saturate(.96)!important;
+  backdrop-filter:blur(2px) saturate(.96)!important;
+}
+:root[data-theme="light"] .living-scenes .lab-workspace .lab-grid,
+:root[data-theme="light"] .living-scenes #lab .lab-grid,
+:root[data-theme="light"] body.living-scenes[data-library-page="labs"] .lab-card,
+:root[data-theme="light"] .living-scenes .controls,
+:root[data-theme="light"] .living-scenes .stage{
+  background:rgba(248,251,246,.12)!important;
+  border-color:rgba(28,72,51,.28)!important;
+}
+:root[data-theme="light"] .living-scenes .lab-workspace form,
+:root[data-theme="light"] .living-scenes #lab form,
+:root[data-theme="light"] body.living-scenes[data-library-page="labs"] .lab-visual{
+  background:rgba(248,251,246,.08)!important;
+}
+
+/* Nested tile surfaces stay lighter still so glass does not stack into an opaque block. */
+.living-scenes :is(
+  .science-paths span,
+  .science-check-list>div,
+  .science-pods span,
+  .retention-metrics>div,
+  .state-values>div
+){
+  background:rgba(7,13,16,.07)!important;
+  border-color:rgba(176,214,222,.24)!important;
+  -webkit-backdrop-filter:blur(2px)!important;
+  backdrop-filter:blur(2px)!important;
+}
+:root[data-theme="light"] .living-scenes :is(
+  .science-paths span,
+  .science-check-list>div,
+  .science-pods span,
+  .retention-metrics>div,
+  .state-values>div
+){
+  background:rgba(248,251,246,.07)!important;
+  border-color:rgba(28,72,51,.24)!important;
+}
