@@ -512,11 +512,17 @@
   filter:none!important;
 }
 .credential-logo-mit{
-  background:#a31f34!important;
-  color:#fff!important;
-  border:1px solid rgba(0,0,0,.14)!important;
-  font:900 1.18rem/1 Arial,Helvetica,sans-serif!important;
-  letter-spacing:-.06em!important;
+  background:#fff!important;
+  border:1px solid rgba(0,0,0,.12)!important;
+}
+.credential-logo-mit img{
+  display:block!important;
+  width:72px!important;
+  height:auto!important;
+  max-height:34px!important;
+  object-fit:contain!important;
+  opacity:1!important;
+  filter:none!important;
 }
 @media(max-width:600px){
   .home-page .hero>.about-imagery{
@@ -536,6 +542,10 @@
     width:60px!important;
     max-height:28px!important;
   }
+  .credential-logo-mit img{
+    width:60px!important;
+    max-height:30px!important;
+  }
   .portrait-card-copy .credential-text{
     font-size:.62rem!important;
     line-height:1.42!important;
@@ -552,5 +562,6 @@
     height:36px!important;
   }
   .credential-logo-osu img{width:55px!important}
+  .credential-logo-mit img{width:55px!important}
   .portrait-card-copy .credential-text{font-size:.585rem!important}
 }
