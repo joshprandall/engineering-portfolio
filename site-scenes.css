@@ -601,3 +601,24 @@ body.living-scenes[data-library-page="home"] .domain-card:hover{
       linear-gradient(180deg,rgba(7,25,16,.13),rgba(250,252,248,.09) 38%,rgba(7,25,16,.14))!important
   }
 }
+
+
+/* Finish the learning-home card rhythm: no full-width divider bars. */
+body.living-scenes[data-library-page="home"] .resume-strip{
+  border:0!important;
+  background:transparent!important;
+  padding:18px 0
+}
+body.living-scenes[data-library-page="home"] .resume-inner{
+  min-height:0;
+  border:1px solid rgba(176,214,222,.20);
+  border-radius:18px;
+  padding:24px;
+  background:rgba(7,12,15,.16);
+  -webkit-backdrop-filter:blur(4px);
+  backdrop-filter:blur(4px)
+}
+:root[data-theme=light] body.living-scenes[data-library-page="home"] .resume-inner{
+  background:rgba(244,249,242,.34);
+  border-color:rgba(24,72,49,.28)
+}
