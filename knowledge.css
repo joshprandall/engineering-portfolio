@@ -217,3 +217,32 @@ body[data-library-page="home"] .domain-card{min-height:280px}
   body[data-library-page="home"] .stats{align-items:stretch}
   body[data-library-page="home"] .stats>div{min-height:118px}
 }
+
+
+/* 2026-09-24 learning navigation cleanup. */
+body[data-library-page] .learn-page-nav{
+  border-bottom:0!important;
+  gap:8px;
+  padding:14px 0 20px;
+  scroll-padding-inline:14px
+}
+body[data-library-page] .learn-page-nav a{
+  border:1px solid color-mix(in srgb,var(--line) 78%,transparent);
+  border-radius:12px;
+  background:color-mix(in srgb,var(--panel) 34%,transparent);
+  padding:9px 12px
+}
+body[data-library-page] .learn-page-nav a[aria-current="page"]{
+  border-color:var(--accent);
+  background:color-mix(in srgb,var(--accent-soft) 72%,transparent)
+}
+:root[data-theme=light] body[data-library-page] .learn-page-nav a{
+  color:#10281d;
+  background:rgba(244,249,242,.26);
+  border-color:rgba(24,72,49,.24)
+}
+:root[data-theme=light] body[data-library-page] .learn-page-nav a[aria-current="page"]{
+  color:#06150d;
+  background:rgba(231,176,137,.38);
+  border-color:#9c4b25
+}
