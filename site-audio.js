@@ -13,7 +13,8 @@
 
   const SOURCES = Object.freeze({
     // John Bartmann — “Interstellar Space” (CC0/public-domain dedication).
-    dark: 'https://files.freemusicarchive.org/storage-freemusicarchive-org/music/ccCommunity/John_Bartmann/Public_Domain_Soundtrack_Music_Album_One/John_Bartmann_-_12_-_Interstellar_Space.mp3',
+    dark: 'https://web.engr.oregonstate.edu/~randjosh/assets/audio/dark-theme-user.mp3?v=20260924-user-recording',
+    darkFallback: 'https://files.freemusicarchive.org/storage-freemusicarchive-org/music/ccCommunity/John_Bartmann/Public_Domain_Soundtrack_Music_Album_One/John_Bartmann_-_12_-_Interstellar_Space.mp3',
 
     // Existing light-mode field recordings.
     river: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Sanna%20river%20rapids.ogg',
@@ -42,6 +43,7 @@
   let currentKey = '';
   let unlocked = false;
   let switching = false;
+  let darkFallbackActive = false;
 
   // Remove stale legacy players if a cached older script left one behind.
   document.querySelectorAll('#jr-site-audio, #jr-site-audio-beach-a, #jr-site-audio-beach-b, #jr-dark-theme-music').forEach(node => {
@@ -321,6 +323,7 @@
     stop();
 
     currentKey = nextKey;
+    if (nextKey === 'dark') darkFallbackActive = false;
     audio.loop = true;
     audio.muted = false;
     audio.volume = cappedVolume(nextKey);
@@ -441,6 +444,17 @@
   });
 
   audio.addEventListener('error', () => {
+    if (currentKey === 'dark' && !darkFallbackActive && audio.currentSrc !== SOURCES.darkFallback) {
+      darkFallbackActive = true;
+      audio.src = SOURCES.darkFallback;
+      audio.loop = true;
+      audio.volume = cappedVolume('dark');
+      try {
+        const result = audio.play();
+        if (result?.catch) result.catch(() => {});
+      } catch (_) {}
+      return;
+    }
     console.error('JR site audio failed:', currentKey, audio.currentSrc, audio.error);
   });
 
