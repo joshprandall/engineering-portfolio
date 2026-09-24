@@ -79,7 +79,7 @@
       <div class="vnext-system-tabs" role="tablist" aria-label="Connected systems capabilities"></div>
       <div class="vnext-cosmos-scene" aria-label="Animated solar-system capability scene">
         <canvas class="vnext-cosmos-canvas" role="img" aria-label="Five linked capability nodes orbiting a central systems core"></canvas>
-        <div class="vnext-cosmos-core" aria-hidden="true"><span>JR</span><small>SYSTEMS CORE</small></div>
+        <div class="vnext-cosmos-core" aria-hidden="true"></div>
         <div class="vnext-cosmos-worlds"></div>
         <div class="vnext-cosmos-hint">SELECT A WORLD · CONNECTIONS MOVE WITH THE SYSTEM</div>
       </div>
