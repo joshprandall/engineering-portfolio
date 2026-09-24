@@ -17,7 +17,7 @@
     window.__JR_SITE_AUDIO_LOADING__ = true;
     const script = document.createElement('script');
     script.id = 'jr-site-audio-controller';
-    script.src = new URL('site-audio.js?v=20260924-unified-v14', SITE_BASE).href;
+    script.src = new URL('site-audio.js?v=20260924-unified-v15', SITE_BASE).href;
     script.async = false;
     script.onload = () => {
       window.__JR_SITE_AUDIO_LOADING__ = false;
