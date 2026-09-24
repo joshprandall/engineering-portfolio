@@ -422,17 +422,38 @@
 .quantum-section-home{padding-top:42px!important}
 .quantum-home-grid{align-items:start}
 .quantum-stage{
-  background:rgba(245,248,244,.10)!important;
-  border:1px solid rgba(61,103,91,.24)!important;
+  background:rgba(6,12,16,.24)!important;
+  border:1px solid rgba(159,205,216,.26)!important;
   border-radius:20px!important;
-  box-shadow:none!important;
-  -webkit-backdrop-filter:blur(4px) saturate(.92)!important;
-  backdrop-filter:blur(4px) saturate(.92)!important;
+  box-shadow:0 18px 46px rgba(0,0,0,.16)!important;
+  -webkit-backdrop-filter:blur(6px) saturate(.90)!important;
+  backdrop-filter:blur(6px) saturate(.90)!important;
   overflow:hidden
 }
 :root[data-theme="dark"] .quantum-stage{
-  background:rgba(6,12,16,.18)!important;
-  border-color:rgba(159,205,216,.22)!important
+  background:rgba(6,12,16,.24)!important;
+  border-color:rgba(159,205,216,.26)!important
+}
+:root[data-theme="light"] .quantum-stage{
+  background:rgba(5,16,21,.74)!important;
+  border-color:rgba(111,203,219,.52)!important;
+  box-shadow:0 18px 46px rgba(5,18,21,.30)!important;
+  -webkit-backdrop-filter:blur(10px) brightness(.58) saturate(.88)!important;
+  backdrop-filter:blur(10px) brightness(.58) saturate(.88)!important;
+  color:#f2fbfc!important
+}
+:root[data-theme="light"] .quantum-stage .quantum-stage-label,
+:root[data-theme="light"] .quantum-stage .quantum-controls label,
+:root[data-theme="light"] .quantum-stage .bell-bars>div,
+:root[data-theme="light"] .quantum-stage #bell-result{
+  color:#d9f3f6!important;
+  text-shadow:none!important
+}
+:root[data-theme="light"] .quantum-stage .quantum-stage-label button{
+  color:#d9f3f6!important;
+  background:rgba(8,27,34,.54)!important;
+  border-color:rgba(111,203,219,.48)!important;
+  text-shadow:none!important
 }
 #quantum-cube{background:transparent!important}
 @media(max-width:600px){
