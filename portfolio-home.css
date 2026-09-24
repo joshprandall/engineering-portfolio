@@ -168,14 +168,14 @@
 @media(prefers-reduced-motion:reduce){.home-project{transition:none}.home-project:hover{transform:none}}
 /* September 23 academic profile refinement */
 .about-imagery{
-  padding-bottom:112px;
+  padding-bottom:176px;
 }
 .portrait-photo{
   position:absolute;
   left:50%;
   top:39%;
   z-index:3;
-  width:clamp(168px,35%,214px);
+  width:clamp(178px,37%,224px);
   aspect-ratio:1;
   transform:translate(-50%,-50%);
   padding:7px;
@@ -204,7 +204,7 @@
 .portrait-card{
   left:50%;
   right:auto;
-  bottom:-76px;
+  bottom:18px;
   z-index:4;
   width:min(calc(100% - 56px),560px);
   transform:translateX(-50%);
@@ -213,7 +213,7 @@
   text-align:center;
   border-radius:12px;
   background:color-mix(in srgb,var(--surface) 96%,transparent);
-  box-shadow:0 20px 48px #0007,0 0 0 1px #ffffff08 inset;
+  box-shadow:0 18px 42px #0006,0 0 0 1px #ffffff08 inset;
   backdrop-filter:blur(14px);
 }
 .portrait-card-copy{
@@ -239,15 +239,15 @@
   margin-top:4px;
 }
 @media(max-width:900px){
-  .about-imagery{padding-bottom:104px}
+  .about-imagery{padding-bottom:168px}
   .portrait-photo{
-    top:36%;
-    width:162px;
+    top:37%;
+    width:174px;
   }
   .portrait-card{
     left:50%;
     right:auto;
-    bottom:-70px;
+    bottom:16px;
     width:min(calc(100% - 38px),510px);
     transform:translateX(-50%);
     padding:15px 18px 16px;
@@ -255,21 +255,21 @@
 }
 @media(max-width:600px){
   .about-imagery{
-    padding-bottom:118px;
+    padding-bottom:176px;
   }
   .systems-photo{
     height:360px;
     object-position:center 42%;
   }
   .portrait-photo{
-    top:34%;
-    width:148px;
+    top:35%;
+    width:168px;
     padding:6px;
   }
   .portrait-card{
     left:50%;
     right:auto;
-    bottom:-88px;
+    bottom:14px;
     width:min(calc(100% - 22px),470px);
     transform:translateX(-50%);
     padding:13px 14px 14px;
@@ -278,22 +278,22 @@
     font-size:1rem;
   }
   .portrait-card-copy span{
-    font-size:.59rem;
+    font-size:.60rem;
     line-height:1.46;
     margin-top:5px;
   }
   .about-copy{
-    padding-top:4px;
+    padding-top:10px;
   }
 }
 @media(max-width:390px){
-  .about-imagery{padding-bottom:126px}
-  .portrait-photo{width:142px}
+  .about-imagery{padding-bottom:182px}
+  .portrait-photo{width:162px}
   .portrait-card{
-    bottom:-94px;
+    bottom:12px;
     width:calc(100% - 18px);
     padding-inline:12px;
   }
-  .portrait-card-copy span{font-size:.57rem}
+  .portrait-card-copy span{font-size:.585rem}
 }
 
