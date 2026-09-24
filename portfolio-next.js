@@ -189,10 +189,8 @@
     function draw(){
       if(!width||!height)return;
       ctx.clearRect(0,0,width,height);
-      const bg=ctx.createRadialGradient(width*.46,height*.42,12,width*.5,height*.48,width*.72);
-      bg.addColorStop(0,'#0b2535');bg.addColorStop(.38,'#07131e');bg.addColorStop(1,'#02060b');
-      ctx.fillStyle=bg;ctx.fillRect(0,0,width,height);
-
+      // The global living scene is the background. Keep this canvas transparent so
+      // planets, orbit lines, stars and subtle nebula light float directly above it.
       const nebula=ctx.createRadialGradient(width*.18+parallaxX*18,height*.22+parallaxY*10,0,width*.18,height*.22,width*.34);
       nebula.addColorStop(0,'rgba(30,130,190,.23)');nebula.addColorStop(1,'rgba(0,0,0,0)');
       ctx.fillStyle=nebula;ctx.fillRect(0,0,width,height);
