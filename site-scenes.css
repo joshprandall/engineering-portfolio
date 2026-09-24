@@ -693,3 +693,10 @@ body.living-scenes[data-library-page="labs"] .lab-card{border-radius:18px!import
 .living-scenes .vnext-cosmos .vnext-sys-detail{
   background:transparent!important;border:0!important;border-radius:0!important;box-shadow:none!important
 }
+
+
+/* Mobile learning stats stay compact: two rounded cards per row, final metric spans both. */
+@media(max-width:520px){
+  body.living-scenes[data-library-page="home"] .stats{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  body.living-scenes[data-library-page="home"] .stats>div:last-child{grid-column:1/-1!important}
+}
