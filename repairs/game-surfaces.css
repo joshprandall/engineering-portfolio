@@ -31,3 +31,10 @@ body:has(#game-shell) #menu{background:linear-gradient(145deg,#0e1b2bb8,#132c32a
 body:has(#game-shell) .menu-rail{background:var(--game-glass)!important;color:var(--game-ink);border-radius:12px}
 body:has(#game-shell) :is(.field label,.field>span,.lede,.inline,.mapping-row span,.panel h2,.guide-text){color:var(--game-ink)!important;text-shadow:none!important;font-size:1rem}
 body:has(#game-shell) :is(.field select,.mapping-row select,.guide-text,.device){color:var(--game-ink)!important;background:var(--game-glass)!important;border-radius:10px}
+/* Keep the full board above the fold in phone landscape. */
+.jr-playing #jr-game-shell main{grid-template-rows:auto}
+.jr-playing #jr-game-shell .stage{height:calc(100dvh - 125px);min-height:240px!important}
+.jr-playing[data-chess-view=2d] #jr-game-shell .stage{height:auto;min-height:0!important;display:flex;flex-direction:column;align-items:center}
+.jr-playing[data-chess-view=2d] .jr-board2d{width:min(100%,calc(100dvh - 165px))}
+.jr-playing[data-chess-view=2d] #jr-game-shell .hud{position:static;flex-wrap:wrap;justify-content:center;margin:8px 0 0}
+#jr-game-shell #boardMode{min-width:52px}

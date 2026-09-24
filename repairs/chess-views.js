@@ -1,6 +1,8 @@
 /* View adapter for the existing OSU chess engine. Both views share one game. */
 export function installViews({scene,game,chooseSquare,selection,legalMoves}) {
   const button=document.getElementById('boardMode');
+  // Keep the view switch visible beside the menu, not inside a board-covering popover.
+  document.getElementById('menuBtn').before(button);
   const board=document.createElement('div');
   board.id='jr-board2d'; board.className='jr-board2d'; board.hidden=true;
   board.setAttribute('role','group'); board.setAttribute('aria-label','Two-dimensional chessboard');
@@ -33,7 +35,7 @@ export function installViews({scene,game,chooseSquare,selection,legalMoves}) {
     document.body.dataset.chessView=mode;render();
     if(mode==='3d')window.dispatchEvent(new Event('resize'));
   }
-  button.onclick=()=>setView(mode==='3d'?'2d':'3d');
+  button.onclick=()=>{setView(mode==='3d'?'2d':'3d');document.getElementById('controls').classList.remove('open');document.getElementById('menuBtn').setAttribute('aria-expanded','false')};
   const flip=document.getElementById('flip'),originalFlip=flip.onclick;
   flip.onclick=e=>{originalFlip?.call(flip,e);flipped=!flipped;render()};
   document.addEventListener('jr-chess-view',e=>setView(e.detail));

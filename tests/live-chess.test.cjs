@@ -10,7 +10,8 @@ module.exports=async({browser,base,output,failures})=>{
  assert.equal(await page.locator('#jr-setup-view option[value="3d"]').isDisabled(),false,'Self-hosted Three starts the real live renderer');
  await page.locator('#jr-setup-mode').selectOption('local');
  await page.locator('#jr-start-game').click();
- await page.locator('#scene canvas').waitFor({state:'visible'});
+  await page.locator('#scene canvas').waitFor({state:'visible'});
+ if(output)await page.screenshot({path:path.join(output,'chess-live-start-landscape.png')});
  if(!await page.locator('#boardMode').isVisible())await page.locator('#menuBtn').click();
  await page.locator('#boardMode').click();
  assert.equal(await page.locator('#boardMode').innerText(),'3D');
@@ -24,7 +25,9 @@ module.exports=async({browser,base,output,failures})=>{
  if(output)await page.screenshot({path:path.join(output,'chess-live-3d-landscape.png')});
  await page.locator('#boardMode').click();
  assert(await page.getByRole('button',{name:'e4: white pawn',exact:true}).isVisible(),'Move survives 2D → 3D → 2D');
+ if(!await page.locator('#undo').isVisible())await page.locator('#menuBtn').click();
  await page.locator('#undo').click();
+ if(await page.locator('#controls').evaluate(el=>el.classList.contains('open')))await page.locator('#menuBtn').click();
  assert(await page.getByRole('button',{name:'e2: white pawn',exact:true}).isVisible(),'Undo operates on the shared engine');
  assert.equal(await page.locator('#log li').count(),0);
  if(output)await page.screenshot({path:path.join(output,'chess-live-2d-landscape.png')});
