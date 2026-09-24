@@ -53,8 +53,8 @@ function generate(shape='torus',n=1200,scale=1,noise=0,seed=42){
         Habs=1/scale;
         w=4*Math.PI*scale*scale/n;
       }else{
-        const v=2*Math.PI*((i*.618033988749895)%1);
-        const u=2*Math.PI*(i+.5)/n;
+        const u=2*Math.PI*((i*.618033988749895)%1);
+        const v=2*Math.PI*(i+.5)/n;
         p=[(R+r*Math.cos(v))*Math.cos(u),r*Math.sin(v),(R+r*Math.cos(v))*Math.sin(u)];
         no=[Math.cos(v)*Math.cos(u),Math.sin(v),Math.cos(v)*Math.sin(u)];
         const kMeridian=1/r;
