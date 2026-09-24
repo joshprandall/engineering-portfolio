@@ -72,7 +72,8 @@
   }
 
   function allowed() {
-    return !muted() &&
+    return !LOCAL_TEST_HOST &&
+      !muted() &&
       !suppressed &&
       !lessonOpen() &&
       !document.hidden;
