@@ -1,5 +1,10 @@
 /* Keep the learning brand aligned with its adjacent header text. */
-body[data-library-page] .site-header .brand strong,
+body[data-library-page] .site-header .brand strong {
+  color: #f4a575 !important;
+}
+:root[data-theme="light"] body[data-library-page] .site-header .brand strong {
+  color: #06150d !important;
+}
 body[data-library-page] .site-header .brand span {
   color: var(--ink, var(--text)) !important;
 }
