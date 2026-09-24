@@ -219,7 +219,8 @@
     }
 
     function ambientAllowed() {
-      return !ambientMuted && !audioSuppressed && !ambientLockedByPage && !lessonIsOpen() && !document.hidden;
+      // v12: all actual playback is owned by site-audio.js.
+      return false;
     }
 
     function updateAudioButton() {
@@ -642,13 +643,14 @@
       }
       if (dayCredit) {
         const audioCredit = scene.id === 'forest-waterfall'
-          ? ' · Waterfall audio by Benzband · CC BY-SA 3.0'
+          ? ' · Waterfall field audio · CC0'
           : scene.id === 'birds-water'
-            ? ' · Ocean audio CC0 · shorebirds public domain (USFWS)'
-            : ' · River audio CC0';
+            ? ' · Ocean waves + seagulls · CC0'
+            : ' · Flowing creek/river audio · CC0';
         dayCredit.textContent = 'Video by ' + scene.creator + ' · Pexels License · real nature footage' + audioCredit + '.';
       }
       if (!mediaDisabled) dayFallback.style.backgroundImage = 'url("' + scene.poster + '")';
+      document.dispatchEvent(new CustomEvent('portfolio:scene', { detail: { id: scene.id } }));
     }
 
     function resize() {
