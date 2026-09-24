@@ -573,7 +573,12 @@
         dayLink.textContent = scene.label;
       }
       if (dayCredit) {
-        dayCredit.textContent = 'Video by ' + scene.creator + ' · Pexels License · real nature footage.';
+        const audioCredit = scene.id === 'forest-waterfall'
+          ? ' · Waterfall audio by Benzband · CC BY-SA 3.0'
+          : scene.id === 'birds-water'
+            ? ' · Ocean audio CC0 · shorebirds public domain (USFWS)'
+            : ' · River audio CC0';
+        dayCredit.textContent = 'Video by ' + scene.creator + ' · Pexels License · real nature footage' + audioCredit + '.';
       }
       if (!mediaDisabled) dayFallback.style.backgroundImage = 'url("' + scene.poster + '")';
     }
