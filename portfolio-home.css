@@ -67,7 +67,7 @@
 .education-cards article{padding:24px;border:1px solid var(--line);border-radius:9px;background:var(--surface)}
 .school-top{display:flex;align-items:center;gap:12px;margin-bottom:25px}
 .school-top .eyebrow{font-size:.53rem;letter-spacing:.08em;margin:0}
-.school-monogram{display:grid;place-items:center;min-width:45px;height:45px;border-radius:7px;font-size:.78rem;font-weight:800}
+.school-monogram{display:grid;place-items:center;min-width:45px;height:45px;border-radius:7px;font-size:.78rem;font-weight:800}.school-monogram.school-logo{width:72px;min-width:72px;height:54px;padding:8px;background:rgba(255,255,255,.96);overflow:hidden}.school-monogram.school-logo img{display:block;width:100%;height:100%;object-fit:contain}.osu-mark.school-logo,.mit-mark.school-logo{background:rgba(255,255,255,.96)}
 .osu-mark{color:#ffb889;background:#652b16}
 .mit-mark{color:#ffbdc9;background:#611d2c}
 .foundation-mark{color:#94e3ed;background:#203d47;font-size:1.5rem}
