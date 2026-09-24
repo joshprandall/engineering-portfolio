@@ -23,13 +23,13 @@
   });
 
   // Website-side hard ceiling. Device volume may further attenuate this, but
-  // this player itself can never exceed 15%.
-  const MAX_BACKGROUND_VOLUME = 0.15;
+  // this player itself can never exceed 10%.
+  const MAX_BACKGROUND_VOLUME = 0.10;
   const VOLUME = Object.freeze({
-    dark: 0.15,
-    river: 0.15,
-    waterfall: 0.15,
-    beach: 0.15
+    dark: 0.10,
+    river: 0.10,
+    waterfall: 0.10,
+    beach: 0.10
   });
 
   let sceneId = 'forest-river';
