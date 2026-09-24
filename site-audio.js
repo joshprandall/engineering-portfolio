@@ -1,44 +1,49 @@
 (() => {
   'use strict';
 
-  if (window.__JR_SITE_AUDIO_V13__) return;
-  window.__JR_SITE_AUDIO_V13__ = true;
-
-  const scriptUrl = new URL(document.currentScript?.src || location.href, location.href);
-  const base = new URL('./', scriptUrl);
+  // Unified site ambience controller. This is the ONLY script that may create
+  // or play background ambience/music.
+  if (window.__JR_SITE_AUDIO_V14__) return;
+  window.__JR_SITE_AUDIO_V14__ = true;
 
   const MUTE_KEY = 'jr-site-ambient-muted-v2';
   const DARK_TIME_KEY = 'jr-dark-theme-time-v1';
   const PROJECT_RE = /(?:^|\/)(?:project-[^/]+\.html|play-evil-wizard\.html|agent-workbench\.html|games\/|geometric-lab\/|qubit-preview-20260921\/|deep-learning\/)/i;
 
-  const SOURCES = {
-    dark: new URL('assets/audio/dark-theme.mp3', base).href,
-    river: new URL('assets/audio/river.mp3', base).href,
-    waterfall: new URL('assets/audio/waterfall.mp3', base).href,
-    beach: new URL('assets/audio/beach.mp3', base).href
-  };
+  const SOURCES = Object.freeze({
+    // John Bartmann — “Interstellar Space” (CC0/public-domain dedication).
+    dark: 'https://files.freemusicarchive.org/storage-freemusicarchive-org/music/ccCommunity/John_Bartmann/Public_Domain_Soundtrack_Music_Album_One/John_Bartmann_-_12_-_Interstellar_Space.mp3',
 
-  // Hard ceiling for all background ambience/music. This caps the website's
-  // own media gain at 15% even when the visitor's device volume is at 100%.
-  const MAX_BACKGROUND_VOLUME = .15;
-  const VOLUME = {
-    dark: .15,
-    river: .15,
-    waterfall: .15,
-    beach: .15
-  };
+    // Existing light-mode field recordings.
+    river: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Sanna%20river%20rapids.ogg',
+    waterfall: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Water%20fall.ogg',
+    // Shorebirds with waves audible; one track prevents overlap/bleed.
+    beach: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Cape%20May%20Shorebirds%20closer.ogg'
+  });
 
-  function cappedVolume(key) {
-    return Math.min(MAX_BACKGROUND_VOLUME, Math.max(0, Number(VOLUME[key] ?? MAX_BACKGROUND_VOLUME)));
-  }
+  // Website-side hard ceiling. Device volume may further attenuate this, but
+  // this player itself can never exceed 15%.
+  const MAX_BACKGROUND_VOLUME = 0.15;
+  const VOLUME = Object.freeze({
+    dark: 0.15,
+    river: 0.15,
+    waterfall: 0.15,
+    beach: 0.15
+  });
 
   let sceneId = 'forest-river';
   let suppressed = PROJECT_RE.test(location.pathname);
   let currentKey = '';
   let unlocked = false;
+  let switching = false;
 
-  // ONE audio element for the entire site. This is deliberate: iPhone/Safari
-  // is far more reliable after a single element has been unlocked by a tap.
+  // Remove stale legacy players if a cached older script left one behind.
+  document.querySelectorAll('#jr-site-audio, #jr-dark-theme-music').forEach(node => {
+    try { node.pause(); } catch (_) {}
+    try { node.remove(); } catch (_) {}
+  });
+  try { window.DarkThemeMusic?.pause?.(); } catch (_) {}
+
   const audio = document.createElement('audio');
   audio.id = 'jr-site-audio';
   audio.preload = 'auto';
@@ -47,10 +52,13 @@
   audio.setAttribute('playsinline', '');
   audio.setAttribute('aria-hidden', 'true');
   audio.style.display = 'none';
+  audio.volume = MAX_BACKGROUND_VOLUME;
   (document.body || document.documentElement).appendChild(audio);
 
   function theme() {
-    return window.PortfolioTheme?.getTheme?.() || document.documentElement.dataset.theme || 'dark';
+    return window.PortfolioTheme?.getTheme?.() ||
+      document.documentElement.dataset.theme ||
+      'dark';
   }
 
   function muted() {
@@ -64,14 +72,32 @@
   }
 
   function allowed() {
-    return !muted() && !suppressed && !lessonOpen() && !document.hidden;
+    return !muted() &&
+      !suppressed &&
+      !lessonOpen() &&
+      !document.hidden;
+  }
+
+  function desiredKey() {
+    if (!allowed()) return '';
+    if (theme() === 'dark') return 'dark';
+    if (sceneId === 'forest-waterfall') return 'waterfall';
+    if (sceneId === 'birds-water') return 'beach';
+    return 'river';
+  }
+
+  function cappedVolume(key) {
+    const requested = Number(VOLUME[key] ?? MAX_BACKGROUND_VOLUME);
+    return Math.min(MAX_BACKGROUND_VOLUME, Math.max(0, requested));
   }
 
   function saveDarkTime() {
     if (currentKey !== 'dark') return;
     try {
       const value = Number(audio.currentTime || 0);
-      if (Number.isFinite(value) && value >= 0) localStorage.setItem(DARK_TIME_KEY, String(value));
+      if (Number.isFinite(value) && value >= 0) {
+        localStorage.setItem(DARK_TIME_KEY, String(value));
+      }
     } catch (_) {}
   }
 
@@ -85,30 +111,26 @@
     } catch (_) {}
   }
 
-  function desiredKey() {
-    if (!allowed()) return '';
-    if (theme() === 'dark') return 'dark';
-    if (sceneId === 'forest-waterfall') return 'waterfall';
-    if (sceneId === 'birds-water') return 'beach';
-    return 'river';
-  }
-
-  function hardStop() {
+  function stop() {
     saveDarkTime();
     try { audio.pause(); } catch (_) {}
   }
 
-  function switchSource(nextKey) {
+  function applySource(nextKey) {
     if (!nextKey) {
-      hardStop();
+      stop();
       currentKey = '';
       return;
     }
 
-    if (currentKey === nextKey && audio.src === SOURCES[nextKey]) return;
+    if (currentKey === nextKey && audio.src === SOURCES[nextKey]) {
+      audio.volume = cappedVolume(nextKey);
+      return;
+    }
 
-    // Hard cut first. No old scene is allowed to continue under a new visual.
-    hardStop();
+    switching = true;
+    stop();
+
     currentKey = nextKey;
     audio.loop = true;
     audio.muted = false;
@@ -120,73 +142,76 @@
       else {
         try { audio.currentTime = 0; } catch (_) {}
       }
+      switching = false;
     };
 
-    try { audio.load(); } catch (_) {}
+    try { audio.load(); } catch (_) { switching = false; }
   }
 
-  function attemptPlay() {
+  function playDesired() {
     const key = desiredKey();
     if (!key) {
-      hardStop();
+      stop();
       currentKey = '';
       return;
     }
 
-    switchSource(key);
+    applySource(key);
     audio.loop = true;
     audio.muted = false;
     audio.volume = cappedVolume(key);
 
     try {
-      const p = audio.play();
-      if (p?.catch) p.catch(() => {});
+      const result = audio.play();
+      if (result?.catch) result.catch(() => {});
     } catch (_) {}
   }
 
-  function sync(force=false) {
+  function sync(force = false) {
     const key = desiredKey();
 
     if (!key) {
-      hardStop();
+      stop();
       currentKey = '';
       return;
     }
 
-    if (force || currentKey !== key) {
-      switchSource(key);
+    if (force || currentKey !== key) applySource(key);
+
+    if (!switching && (audio.paused || audio.ended)) {
+      playDesired();
     }
-
-    // If the same source is already playing, do nothing. Otherwise retry.
-    if (audio.paused || audio.ended) attemptPlay();
   }
 
-  function userGesture() {
+  function unlockAndPlay() {
     unlocked = true;
-    attemptPlay();
+    playDesired();
   }
 
-  // First best-effort attempt. Safari may wait for a tap.
+  // Best effort immediately. Browsers with autoplay restrictions will resume
+  // on the first real interaction and then reuse this same player.
   sync(true);
 
-  // The first real gesture unlocks this ONE media element. After that, scene
-  // changes reuse the same element rather than trying to unlock new players.
-  document.addEventListener('pointerdown', userGesture, {passive:true, capture:true});
-  document.addEventListener('touchstart', userGesture, {passive:true, capture:true});
-  document.addEventListener('keydown', userGesture, {capture:true});
+  document.addEventListener('pointerdown', unlockAndPlay, { passive: true, capture: true });
+  document.addEventListener('touchstart', unlockAndPlay, { passive: true, capture: true });
+  document.addEventListener('keydown', unlockAndPlay, { capture: true });
+
+  // Bubble phase intentionally runs after the Day/Night or Mute button changes
+  // its state, so the controller sees the final state from that interaction.
   document.addEventListener('click', () => {
     unlocked = true;
-    // Bubble phase sees the post-click theme/mute state.
     sync(true);
   });
 
   document.addEventListener('portfolio:theme', () => sync(true));
+
   document.addEventListener('portfolio:scene', event => {
     const next = event.detail?.id;
     if (!next || next === sceneId) return;
     sceneId = next;
     sync(true);
   });
+
   document.addEventListener('portfolio:ambient-suppression', event => {
     suppressed = Boolean(event.detail?.active);
     sync(true);
@@ -196,50 +221,66 @@
   addEventListener('pageshow', () => sync(true));
   addEventListener('pagehide', () => {
     saveDarkTime();
-    hardStop();
+    stop();
+  });
+
+  // Keep different tabs/windows in sync with the global mute preference.
+  addEventListener('storage', event => {
+    if (event.key === MUTE_KEY) sync(true);
   });
 
   audio.addEventListener('ended', () => {
-    if (desiredKey() === currentKey) {
-      try {
-        audio.currentTime = 0;
-        audio.play().catch(() => {});
-      } catch (_) {}
-    }
+    if (desiredKey() !== currentKey) return;
+    try {
+      audio.currentTime = 0;
+      audio.play().catch(() => {});
+    } catch (_) {}
   });
 
   audio.addEventListener('error', () => {
     console.error('JR site audio failed:', currentKey, audio.currentSrc, audio.error);
   });
 
-  // Enforce the 15% ceiling even if another script tries to raise the player.
+  // Enforce the ceiling even if another script or browser control changes it.
   audio.addEventListener('volumechange', () => {
     if (audio.volume > MAX_BACKGROUND_VOLUME) {
       audio.volume = MAX_BACKGROUND_VOLUME;
     }
   });
 
+  // Recovery watchdog: one player, one desired source, no cross-theme bleed.
   setInterval(() => {
     const key = desiredKey();
+
     if (!key) {
-      if (!audio.paused) hardStop();
+      if (!audio.paused) stop();
       return;
     }
+
     if (key !== currentKey) {
       sync(true);
       return;
     }
-    if (unlocked && audio.paused) attemptPlay();
+
+    if (audio.volume > MAX_BACKGROUND_VOLUME) {
+      audio.volume = MAX_BACKGROUND_VOLUME;
+    }
+
+    if (unlocked && audio.paused && !switching) {
+      playDesired();
+    }
   }, 2000);
 
   window.SiteAudio = Object.freeze({
     sync,
-    stop: hardStop,
-    get key(){ return currentKey; },
-    get scene(){ return sceneId; },
-    get theme(){ return theme(); },
-    get muted(){ return muted(); },
-    get maxVolume(){ return MAX_BACKGROUND_VOLUME; },
-    get element(){ return audio; }
+    stop,
+    play: playDesired,
+    get key() { return currentKey; },
+    get scene() { return sceneId; },
+    get theme() { return theme(); },
+    get muted() { return muted(); },
+    get suppressed() { return suppressed; },
+    get maxVolume() { return MAX_BACKGROUND_VOLUME; },
+    get element() { return audio; }
   });
 })();
