@@ -9,8 +9,8 @@
   if (!D) return;
   if(!document.querySelector('link[href^="handheld-experience.css"]')){const l=document.createElement('link');l.rel='stylesheet';l.href='handheld-experience.css?v=20260924-release';document.head.append(l);}
   if(!document.querySelector('script[src^="handheld-experience.js"]')){const s=document.createElement('script');s.src='handheld-experience.js?v=20260924-release';s.defer=true;document.body.append(s);}
-  if(!document.querySelector('link[href^="learning-depth.css"]')){const l=document.createElement('link');l.rel='stylesheet';l.href='learning-depth.css?v=20260924-release';document.head.append(l);}
-  if(!document.querySelector('script[src^="learning-depth.js"]')){const s=document.createElement('script');s.src='learning-depth.js?v=20260924-release';s.defer=true;document.body.append(s);}
+  if(!document.querySelector('link[href^="learning-depth.css"]')){const l=document.createElement('link');l.rel='stylesheet';l.href='learning-depth.css?v=20260924-glass-v4';document.head.append(l);}
+  if(!document.querySelector('script[src^="learning-depth.js"]')){const s=document.createElement('script');s.src='learning-depth.js?v=20260924-glass-v4';s.defer=true;document.body.append(s);}
 
   const $ = (s, r=document) => r.querySelector(s);
   const $$ = (s, r=document) => [...r.querySelectorAll(s)];
