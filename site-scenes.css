@@ -622,3 +622,74 @@ body.living-scenes[data-library-page="home"] .resume-inner{
   background:rgba(244,249,242,.34);
   border-color:rgba(24,72,49,.28)
 }
+
+
+/* Glass system v4 — visible background through every landing/listing tile. */
+.living-scenes .home-project,
+.living-scenes .project-card,
+.living-scenes .education-cards article{
+  background:rgba(7,13,16,.16)!important;
+  background-image:none!important;
+  border:1px solid rgba(176,214,222,.28)!important;
+  border-radius:20px!important;
+  box-shadow:0 14px 36px rgba(0,0,0,.12)!important;
+  -webkit-backdrop-filter:blur(5px) saturate(.9)!important;
+  backdrop-filter:blur(5px) saturate(.9)!important
+}
+:root[data-theme="light"] .living-scenes .home-project,
+:root[data-theme="light"] .living-scenes .project-card,
+:root[data-theme="light"] .living-scenes .education-cards article{
+  background:rgba(248,251,246,.16)!important;
+  background-image:none!important;
+  border-color:rgba(32,78,59,.26)!important;
+  box-shadow:0 14px 34px rgba(28,47,36,.09)!important
+}
+.living-scenes .home-project:hover,.living-scenes .project-card:hover{background:rgba(7,13,16,.25)!important}
+:root[data-theme="light"] .living-scenes .home-project:hover,
+:root[data-theme="light"] .living-scenes .project-card:hover{background:rgba(248,251,246,.25)!important}
+
+/* Knowledge landing/listing grids are cards, not spreadsheet cells. Labs remain solid. */
+body.living-scenes[data-library-page="home"] .stats,
+body.living-scenes[data-library-page="home"] .domain-grid,
+body.living-scenes[data-library-page="home"] .principle-grid{
+  border:0!important;gap:14px!important
+}
+body.living-scenes[data-library-page="home"] .stats>div,
+body.living-scenes[data-library-page="home"] .domain-card,
+body.living-scenes[data-library-page="home"] .principle-grid>article{
+  border:1px solid rgba(176,214,222,.25)!important;
+  border-radius:18px!important;
+  background:rgba(7,13,16,.15)!important;
+  background-image:none!important;
+  box-shadow:0 12px 30px rgba(0,0,0,.09)!important;
+  -webkit-backdrop-filter:blur(5px) saturate(.9)!important;
+  backdrop-filter:blur(5px) saturate(.9)!important;
+  overflow:hidden
+}
+:root[data-theme="light"] body.living-scenes[data-library-page="home"] .stats>div,
+:root[data-theme="light"] body.living-scenes[data-library-page="home"] .domain-card,
+:root[data-theme="light"] body.living-scenes[data-library-page="home"] .principle-grid>article{
+  background:rgba(248,251,246,.15)!important;
+  border-color:rgba(32,78,59,.24)!important
+}
+body.living-scenes[data-library-page="home"] .stats>div{min-height:118px}
+body.living-scenes[data-library-page="home"] .domain-card:before{opacity:.48}
+body.living-scenes[data-library-page="labs"] .lab-card,
+body.living-scenes[data-library-page="labs"] .lab-visual{
+  background:var(--panel)!important;
+  -webkit-backdrop-filter:none!important;backdrop-filter:none!important
+}
+body.living-scenes[data-library-page="labs"] .lab-card{border-radius:18px!important}
+
+/* Safety net: even if an older cached solar DOM is briefly present, its chrome never appears. */
+.living-scenes .vnext-cosmos,
+.living-scenes .vnext-cosmos-scene,
+.living-scenes .knowledge-solar-slot .vnext-cosmos{
+  background:transparent!important;border:0!important;border-radius:0!important;box-shadow:none!important
+}
+.living-scenes .vnext-cosmos .vnext-sys-top,
+.living-scenes .vnext-cosmos .vnext-system-tabs,
+.living-scenes .vnext-cosmos-hint{display:none!important}
+.living-scenes .vnext-cosmos .vnext-sys-detail{
+  background:transparent!important;border:0!important;border-radius:0!important;box-shadow:none!important
+}
