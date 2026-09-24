@@ -99,6 +99,8 @@
     let activeVideo = videoA;
     let standbyVideo = videoB;
     let activeSceneIndex = 0;
+    let mediaReady = false;
+    let mediaTimer = 0;
     let lightLoaded = false;
     let transitionBusy = false;
     let rotationElapsed = 0;
@@ -135,7 +137,7 @@
       if (dayCredit) {
         dayCredit.textContent = 'Video by ' + scene.creator + ' · Pexels License · real nature footage.';
       }
-      dayFallback.style.backgroundImage = 'url("' + scene.poster + '")';
+      if (mediaReady) dayFallback.style.backgroundImage = 'url("' + scene.poster + '")';
     }
 
     function resize() {
@@ -199,7 +201,7 @@
 
     function loadInitialLightScene() {
       updateDayCredit();
-      if (lightLoaded || saveData) return;
+      if (!mediaReady || lightLoaded || saveData) return;
       lightLoaded = true;
       configureVideo(activeVideo, LIGHT_SCENES[activeSceneIndex]);
       activeVideo.classList.add('is-active');
@@ -401,8 +403,9 @@
       backdrop.dataset.sceneTheme = theme;
 
       if (theme === 'light') {
-        loadInitialLightScene();
-        if (motionAllowed()) playSafely(activeVideo);
+        updateDayCredit();
+        if (mediaReady) loadInitialLightScene();
+        if (mediaReady && motionAllowed()) playSafely(activeVideo);
         else pauseVideos();
       } else {
         pauseVideos();
@@ -418,6 +421,21 @@
 
     resize();
     refresh();
+
+    function releaseMedia() {
+      clearTimeout(mediaTimer);
+      mediaTimer = setTimeout(() => {
+        mediaReady = true;
+        updateDayCredit();
+        if (theme === 'light') {
+          loadInitialLightScene();
+          if (motionAllowed()) playSafely(activeVideo);
+        }
+      }, 1200);
+    }
+
+    if (document.readyState === 'complete') releaseMedia();
+    else addEventListener('load', releaseMedia, { once: true });
 
     document.addEventListener('portfolio:theme', refresh);
     document.addEventListener('portfolio:motion', refresh);
@@ -435,6 +453,7 @@
     addEventListener('resize', resize, { passive: true });
     addEventListener('pagehide', () => {
       pauseVideos();
+      clearTimeout(mediaTimer);
       cancelAnimationFrame(raf);
       raf = 0;
     });
