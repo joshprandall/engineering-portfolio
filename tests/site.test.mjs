@@ -162,5 +162,5 @@ console.log('Science-experiment release validation passed: 16 projects, 8,000 ma
 
 const home=read('index.html');
 assert.doesNotMatch(home,/id="fusion"|Depth across the stack|Grounded in experience/,'Replaced homepage sections must not return');
-for(const asset of ['portfolio-home.css','quantum-cube.js','assets/joshua-randall-headshot.jpg','assets/systems-lab.jpg','assets/quantum-field-notes.jpg']) assert.ok(home.includes(asset)&&exists(asset),`Homepage asset missing: ${asset}`);
+for(const asset of ['portfolio-home.css','quantum-cube.js','assets/joshua-randall-cutout.svg','assets/systems-lab.jpg','assets/quantum-field-notes.jpg']) assert.ok(home.includes(asset)&&exists(asset),`Homepage asset missing: ${asset}`);\nassert.ok(exists('assets/joshua-randall-headshot.jpg'),'Original headshot must remain available as the source for the cutout');\nassert.match(read('assets/joshua-randall-cutout.svg'),/joshua-randall-headshot\.jpg/,'Portrait cutout must derive from the local headshot asset');
 assert.match(read('styles.css'),/assets\/fonts\/fonts.css/,'Main typography must work without an external font request');
