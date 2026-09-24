@@ -251,3 +251,58 @@ html[data-theme="light"] body[data-library-page="home"] .vnext-world strong{
   color:#f5fbf8!important;
   text-shadow:0 2px 7px #000,0 0 14px #000!important
 }
+
+
+/* Floating Connected Systems v4 — planets/orbits only; no panel chrome. */
+.vnext-system.vnext-cosmos,
+html[data-theme="light"] .vnext-system.vnext-cosmos,
+html[data-theme="dark"] .vnext-system.vnext-cosmos{
+  width:100%!important;max-width:none!important;padding:0!important;margin:0!important;
+  border:0!important;border-radius:0!important;background:transparent!important;
+  box-shadow:none!important;overflow:visible!important;color:var(--ink,var(--text))!important
+}
+.vnext-cosmos-scene,
+html[data-theme="light"] .vnext-cosmos-scene,
+html[data-theme="dark"] .vnext-cosmos-scene{
+  height:clamp(330px,42vw,500px)!important;min-height:330px!important;
+  border:0!important;border-radius:0!important;background:transparent!important;
+  box-shadow:none!important;overflow:visible!important
+}
+.vnext-cosmos-scene::before,.vnext-cosmos-scene::after{display:none!important}
+.vnext-cosmos .vnext-sys-top,.vnext-cosmos .vnext-system-tabs,.vnext-cosmos-hint{display:none!important}
+.vnext-world{background:transparent!important;border:0!important;box-shadow:none!important}
+.vnext-world strong,
+html[data-theme="light"] .vnext-cosmos .vnext-world strong,
+html[data-theme="dark"] .vnext-cosmos .vnext-world strong{
+  display:block!important;padding:4px 0!important;border:0!important;border-radius:0!important;
+  background:transparent!important;box-shadow:none!important;backdrop-filter:none!important;
+  color:var(--ink,var(--text))!important;font-size:.68rem!important;
+  text-shadow:0 1px 2px rgba(255,255,255,.72),0 2px 8px rgba(0,0,0,.32)!important
+}
+html[data-theme="dark"] .vnext-cosmos .vnext-world strong{
+  color:#f3f7f8!important;text-shadow:0 2px 9px #000,0 0 12px #000!important
+}
+.vnext-cosmos .vnext-sys-detail,
+html[data-theme="light"] .vnext-cosmos .vnext-sys-detail,
+html[data-theme="dark"] .vnext-cosmos .vnext-sys-detail{
+  min-height:0!important;margin-top:10px!important;padding:8px 2px 0!important;
+  border:0!important;border-radius:0!important;background:transparent!important;
+  box-shadow:none!important;color:var(--ink,var(--text))!important
+}
+.vnext-cosmos .vnext-sys-meta{color:var(--accent)!important}
+.vnext-cosmos .vnext-sys-detail h2,
+.vnext-cosmos .vnext-sys-detail p,
+.vnext-cosmos .vnext-cta{
+  color:var(--ink,var(--text))!important;
+  text-shadow:0 1px 2px rgba(255,255,255,.74),0 2px 10px rgba(0,0,0,.24)!important
+}
+html[data-theme="dark"] .vnext-cosmos .vnext-sys-detail h2,
+html[data-theme="dark"] .vnext-cosmos .vnext-sys-detail p,
+html[data-theme="dark"] .vnext-cosmos .vnext-cta{
+  color:#f3f7f8!important;text-shadow:0 2px 10px #000!important
+}
+.vnext-cosmos .vnext-cta{display:inline-block;margin-top:4px;font-weight:800;text-decoration-thickness:1px}
+@media(max-width:600px){
+  .vnext-cosmos-scene{height:300px!important;min-height:300px!important}
+  .vnext-cosmos .vnext-sys-detail{padding-inline:0!important}
+}
