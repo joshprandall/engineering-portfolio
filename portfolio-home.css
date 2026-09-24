@@ -1,0 +1,168 @@
+/* Homepage composition. Shared project and game styles remain independently scoped. */
+.home-page{--home-cyan:#8cc8d1;background:var(--bg)}
+.home-page .wrap{width:min(1320px,calc(100% - 96px))}
+.home-page .hero{grid-template-columns:minmax(0,.92fr) minmax(0,1.12fr);gap:60px;padding-block:72px;min-height:0;align-items:center}
+.home-page .hero h1{font-size:clamp(2.65rem,3.85vw,3.75rem);line-height:1.1;letter-spacing:-.055em}
+.home-page .hero-intro{font-size:1.08rem;line-height:1.75;max-width:47ch}
+.home-page .eyebrow{font-size:.67rem;letter-spacing:.15em;line-height:1.7;margin-bottom:18px}
+.home-page .hero .eyebrow{font-size:.63rem;letter-spacing:.1em}
+.status-dot{display:inline-block;width:6px;height:6px;margin-right:7px;border-radius:50%;background:var(--blue);box-shadow:0 0 14px var(--blue)}
+.home-page .button{border-radius:7px;min-height:48px;font-size:.84rem;padding:12px 18px;gap:18px}
+.home-page .hero-note{gap:14px;font-size:.7rem;margin-top:22px}
+.home-page .hero-note span+span{padding-left:14px}
+.home-page .vnext-cosmos{border-radius:14px;max-width:none;align-self:center;box-shadow:0 20px 65px #0004}
+.home-page .vnext-cosmos-scene{height:350px;min-height:350px}
+.home-page .vnext-cosmos .vnext-system-tabs{grid-template-columns:repeat(5,minmax(0,1fr));padding:10px;gap:5px;border-right:0}
+.home-page .vnext-cosmos .vnext-system-tabs button{font-size:.69rem;padding:9px 3px;min-height:42px;border-radius:5px;gap:4px;text-align:center}
+.home-page .vnext-cosmos .vnext-system-tabs button:last-child{grid-column:auto}
+.home-page .vnext-cosmos .vnext-system-tabs button span:not(.vnext-tab-dot){font-size:inherit;flex:0 1 auto}
+.home-page .vnext-cosmos .vnext-tab-dot{display:none}
+.home-page .vnext-cosmos .vnext-sys-top{font-size:.59rem;padding:14px 16px}
+.home-page .vnext-cosmos .vnext-sys-detail{padding:19px 22px;min-height:174px}
+.home-page .vnext-detail-grid{display:block}
+.home-page .vnext-detail-grid>div:last-child ul{display:none}
+.home-page .vnext-cosmos .vnext-sys-detail h2{font-size:1.2rem;line-height:1.24;letter-spacing:-.03em;max-width:38ch;margin-top:8px}
+.home-page .vnext-cosmos .vnext-sys-detail p{font-size:.78rem;line-height:1.65}
+.home-page .vnext-cosmos .vnext-cta{font-size:.75rem;min-height:36px;padding-block:5px}
+.home-page .vnext-sys-meta{font-size:.56rem;letter-spacing:.13em}
+.home-page .vnext-world{min-height:68px;width:68px}
+.home-page .vnext-world strong{display:none}
+.home-page .vnext-world small{display:none}
+.home-page .vnext-cosmos-hint{font-size:.45rem;letter-spacing:.1em}
+.home-page .vnext-cosmos-core{width:66px;height:66px}
+.home-page .vnext-cosmos-core span{font-size:.93rem}
+.home-page .vnext-cosmos-core small{font-size:.37rem}
+.home-section{padding-block:76px;border-top:1px solid var(--line)}
+.home-page h2{font-size:clamp(1.9rem,3.05vw,3rem);line-height:1.13;letter-spacing:-.045em}
+.home-page .section-heading{margin-bottom:32px;align-items:flex-end}
+.home-page .section-heading>p{max-width:36ch;margin-bottom:0;font-size:.9rem;line-height:1.75}
+.home-page .text-link{font-size:.83rem;margin-top:0;min-height:36px;line-height:1.7}
+.home-projects{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.home-project{padding:26px;display:flex;flex-direction:column;min-width:0;min-height:285px;border:1px solid var(--line);border-radius:10px;background:linear-gradient(145deg,var(--surface),var(--bg));transition:border-color .18s,transform .18s}
+.home-project:hover{border-color:var(--blue);transform:translateY(-4px);color:var(--ink)}
+.project-glyph{display:block;font:500 2.6rem/1.2 Georgia,serif;color:var(--blue);height:57px;margin-bottom:18px}
+.geometry-glyph{color:var(--accent)}
+.home-project .eyebrow{font-size:.58rem;letter-spacing:.12em;margin-bottom:13px}
+.home-project h3{font-size:1.38rem;line-height:1.23;letter-spacing:-.035em;max-width:21ch}
+.home-project p{font-size:.84rem;line-height:1.7;margin-bottom:25px}
+.project-open{border-top:1px solid var(--line);padding-top:16px;display:flex;justify-content:space-between;gap:10px;margin-top:auto;font-size:.77rem;color:var(--accent)}
+.about-story{display:grid;grid-template-columns:minmax(0,.86fr) minmax(0,1.14fr);gap:70px;align-items:center}
+.about-imagery{position:relative;align-self:start;margin-top:6px;padding-bottom:54px}
+.systems-photo{display:block;object-fit:cover;width:100%;height:590px;border-radius:10px;filter:brightness(.75);border:1px solid var(--line)}
+.portrait-card{position:absolute;bottom:0;left:24px;right:24px;padding:14px;display:flex;align-items:center;gap:18px;border:1px solid var(--line);border-radius:10px;background:var(--surface);box-shadow:0 15px 40px #0004}
+.portrait-card img{display:block;width:120px;height:120px;object-fit:cover;border-radius:6px;flex:none}
+.portrait-card strong{display:block;font-size:1.05rem;line-height:1.35}
+.portrait-card span{display:block;font-size:.68rem;color:var(--muted);line-height:1.6;margin-top:7px}
+.about-copy .lead{font-size:1.08rem;color:var(--ink);line-height:1.7;max-width:42ch}
+.about-copy>p:not(.eyebrow):not(.lead){font-size:.9rem;line-height:1.85}
+.capability-list{margin-top:30px;border-top:1px solid var(--line);scroll-margin-top:100px}
+.capability-list details{border-bottom:1px solid var(--line)}
+.capability-list summary{min-height:56px;list-style:none;display:flex;gap:17px;align-items:center;cursor:pointer;font-size:.85rem;font-weight:600}
+.capability-list summary::-webkit-details-marker,.credentials-detail summary::-webkit-details-marker{display:none}
+.capability-list summary>span:first-child{color:var(--accent);font-size:.65rem;font-weight:400}
+.detail-plus{margin-left:auto;color:var(--blue);font-size:1.2rem;font-weight:400}
+.capability-list details[open] .detail-plus{transform:rotate(45deg)}
+.capability-list details p{font-size:.84rem;line-height:1.7;padding:0 22px 14px 31px;margin:0}
+.education-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
+.education-cards article{padding:24px;border:1px solid var(--line);border-radius:9px;background:var(--surface)}
+.school-top{display:flex;align-items:center;gap:12px;margin-bottom:25px}
+.school-top .eyebrow{font-size:.53rem;letter-spacing:.08em;margin:0}
+.school-monogram{display:grid;place-items:center;min-width:45px;height:45px;border-radius:7px;font-size:.78rem;font-weight:800}
+.osu-mark{color:#ffb889;background:#652b16}
+.mit-mark{color:#ffbdc9;background:#611d2c}
+.foundation-mark{color:#94e3ed;background:#203d47;font-size:1.5rem}
+.education-cards h3{font-size:1.13rem;line-height:1.3}
+.education-cards p{font-size:.84rem;line-height:1.8}
+.education-cards .education-focus{font-size:.71rem;color:var(--blue);margin-bottom:0}
+.credentials-detail{border-block:1px solid var(--line);margin-top:24px;margin-bottom:21px}
+.credentials-detail summary{list-style:none;display:flex;justify-content:space-between;align-items:center;gap:20px;font-size:.86rem;min-height:62px;cursor:pointer}
+.credentials-detail summary>span{color:var(--accent);font-size:1.3rem}
+.credentials-content{display:grid;grid-template-columns:1fr 1fr;gap:30px;padding-block:12px}
+.credentials-content p{font-size:.83rem;line-height:1.9}
+.quantum-banner{border:1px solid #315362;border-radius:12px;overflow:hidden;position:relative;margin-bottom:42px}
+.quantum-banner img{display:block;width:100%;height:auto;max-height:425px;object-fit:cover;object-position:50% 40%}
+.quantum-home-grid{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1fr);gap:66px;align-items:center}
+.quantum-intro>p{font-size:.94rem;line-height:1.8;max-width:46ch}
+.quantum-intro .quantum-formula{font:1.3rem/1.6 Georgia,serif;color:var(--blue);margin-block:24px}
+.quantum-intro .quantum-note{font-size:.77rem;color:var(--muted);line-height:1.8}
+.quantum-intro .actions{gap:24px}
+.quantum-stage{background:#08131c;border:1px solid #315362;border-radius:12px;overflow:hidden;color:#edf7fa;min-width:0}
+.quantum-stage-label{padding:13px 17px;border-bottom:1px solid #213744;display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:.56rem;letter-spacing:.13em;color:#9fbac4}
+.quantum-stage-label button{font-size:.66rem;color:#afdce4;letter-spacing:0;min-height:32px;border:1px solid #315362;border-radius:5px;padding-inline:10px}
+#quantum-cube{display:block;width:100%;height:280px;touch-action:pan-y}
+.quantum-controls{padding:17px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;border-top:1px solid #213744}
+.quantum-controls label{grid-column:1/-1;font-size:.65rem;color:#9fbac4}
+.quantum-controls select{border:1px solid #395462;border-radius:6px;color:#edf7fa;background:#142430;min-width:0;width:100%;min-height:44px;padding:8px;font:inherit;font-size:.75rem}
+.home-page .quantum-controls .button{font-size:.7rem;background:#f4b58a;color:#151b1e;border-color:#f4b58a;padding-inline:12px;min-height:44px}
+.bell-bars{display:grid;grid-template-columns:1fr 1fr;gap:10px 16px;padding:2px 17px 14px}
+.bell-bars>div{display:grid;grid-template-columns:20px 1fr 40px;gap:8px;align-items:center;font:12px/1.5 ui-monospace,monospace;color:#bcd5de}
+.bell-bars i{height:5px;border-radius:5px;background:linear-gradient(to right,#8ddbe5 var(--p),#203743 var(--p))}
+.bell-bars output{text-align:right;font-size:10px}
+#bell-result{margin:0;border-top:1px solid #213744;padding:12px 17px;font-size:.68rem;line-height:1.75;color:#a7c4cf;min-height:62px}
+.home-page .contact{padding-block:66px;gap:60px}
+.home-page .contact h2{font-size:clamp(2rem,3vw,3rem)}
+.home-page .contact p{font-size:.87rem}
+.home-page footer{font-size:.7rem}
+.home-page footer small{display:none}
+.home-page .system-visual{padding:30px;height:auto;min-height:300px}
+@media(min-width:901px) and (max-width:1190px){
+ .home-page .hero{gap:28px;grid-template-columns:1fr 1.1fr}
+ .home-page .hero h1{font-size:3rem}
+ .about-story{gap:38px}.portrait-card img{width:90px;height:100px}.portrait-card{left:14px;right:14px;gap:12px}
+ .quantum-home-grid{gap:30px}.school-top{flex-wrap:wrap}
+}
+@media(max-width:900px){
+ .home-page .wrap{width:calc(100% - 44px)}
+ .home-page .hero{grid-template-columns:1fr;gap:34px;padding-block:46px}
+ .home-page .hero-copy{max-width:660px}.home-page .hero h1{font-size:clamp(2.65rem,7.5vw,4rem)}
+ .home-page .vnext-cosmos-scene{height:370px;min-height:370px}
+ .home-page .vnext-cosmos .vnext-sys-detail{min-height:0}
+ .home-section{padding-block:52px}
+ .about-story{grid-template-columns:1fr;gap:40px}.about-imagery{max-width:620px;width:100%;margin-inline:auto}.systems-photo{height:350px;object-position:center 40%}
+ .portrait-card{max-width:390px;left:22px;right:22px}.portrait-card img{width:96px;height:96px}
+ .home-projects{gap:12px}.home-project{padding:21px 17px}.home-project h3{font-size:1.2rem}.home-project p{font-size:.78rem}.project-open{font-size:.7rem}
+ .education-cards{gap:12px}.education-cards article{padding:20px 16px}.school-top{flex-wrap:wrap}
+ .quantum-home-grid{grid-template-columns:1fr;gap:24px}.quantum-banner{margin-bottom:30px}.quantum-intro>p{max-width:62ch}
+ .quantum-stage{max-width:720px;width:100%;margin-inline:auto}
+ #quantum-cube{height:310px}
+ .home-page .contact{gap:30px}
+}
+@media(max-width:600px){
+ .home-page .wrap{width:calc(100% - 36px)}
+ .home-page .hero{padding-block:36px;gap:28px}
+ .home-page .hero h1{font-size:clamp(2.45rem,10vw,3.6rem);line-height:1.08;margin-bottom:22px}
+ .home-page .hero-intro{font-size:.94rem;line-height:1.8}
+ .home-page .hero .eyebrow{font-size:.51rem;letter-spacing:.07em}
+ .home-page .actions{margin-block:24px;gap:10px}.home-page .hero .button{font-size:.75rem;padding-inline:14px;gap:12px}
+ .home-page .hero-note{font-size:.61rem;gap:10px;flex-wrap:nowrap}.home-page .hero-note span+span{padding-left:10px}
+ .home-page .vnext-cosmos-scene{height:280px;min-height:280px}
+ .home-page .vnext-cosmos .vnext-sys-top{font-size:.5rem;letter-spacing:.06em;padding:12px}
+ .home-page .vnext-cosmos .vnext-system-tabs{padding:8px;gap:4px}
+ .home-page .vnext-cosmos .vnext-system-tabs button{font-size:.58rem;padding:8px 2px}
+ .home-page .vnext-cosmos .vnext-sys-detail{padding:16px}.home-page .vnext-cosmos .vnext-sys-detail h2{font-size:1.09rem}
+ .home-page .vnext-cosmos .vnext-sys-detail p{font-size:.74rem}
+ .home-page .vnext-cosmos .vnext-cta{font-size:.72rem}
+ .home-page .vnext-cosmos-core{width:54px;height:54px}.home-page .vnext-cosmos-core::before{inset:-9px}
+ .home-section{padding-block:40px}
+ .home-page .section-heading{display:block;margin-bottom:25px}.home-page .section-heading>p{margin-top:18px;max-width:42ch;font-size:.84rem}
+ .home-page .section-heading .text-link{margin-top:17px}
+ .home-page h2{font-size:2rem}.home-page .eyebrow{font-size:.59rem}
+ .home-projects{grid-template-columns:1fr;gap:13px}
+ .home-project{position:relative;min-height:0;padding:23px 22px 20px}
+ .home-project .project-glyph{position:absolute;right:22px;top:24px;font-size:2rem;height:auto;margin:0;opacity:.8}
+ .home-project .eyebrow{font-size:.53rem;margin-right:48px;margin-bottom:16px}
+ .home-project h3{font-size:1.3rem;max-width:22ch;margin-right:24px}
+ .home-project p{max-width:38ch;font-size:.82rem;margin-bottom:17px}.project-open{font-size:.75rem;padding-top:13px}
+ .about-story{gap:30px}.systems-photo{height:330px}.portrait-card{left:14px;right:14px;padding:12px;gap:14px}.portrait-card strong{font-size:.94rem}.portrait-card span{font-size:.62rem}
+ .about-copy .lead{font-size:.98rem}.about-copy>p:not(.eyebrow):not(.lead){font-size:.86rem}.capability-list{margin-top:25px}
+ .education-cards{grid-template-columns:1fr;gap:14px}.education-cards article{padding:22px}.school-top{flex-wrap:nowrap;margin-bottom:17px}.school-top .eyebrow{font-size:.58rem}
+ .education-cards h3{font-size:1.2rem}.education-cards p{font-size:.83rem}.credentials-detail summary{font-size:.79rem}
+ .credentials-content{grid-template-columns:1fr;gap:6px}.credentials-content p{font-size:.77rem}
+ .quantum-banner{border-radius:8px;margin-bottom:27px}.quantum-banner img{max-height:none;object-fit:contain}
+ .quantum-intro>p{font-size:.86rem}.quantum-intro .quantum-formula{font-size:1.17rem}.quantum-intro .quantum-note{font-size:.74rem}
+ #quantum-cube{height:240px}.quantum-controls{grid-template-columns:1fr;padding:14px}.quantum-controls label{font-size:.67rem}.quantum-controls select{font-size:.78rem}
+ .home-page .quantum-controls .button{justify-content:center;font-size:.78rem}.bell-bars{padding-inline:14px;gap:10px}
+ .home-page .contact{display:block;padding-block:44px}.home-page .contact-actions{margin-top:28px;min-width:0;gap:12px}.home-page .contact h2{font-size:2rem}
+ .home-page footer{padding-block:24px;gap:14px}.home-page footer div{gap:24px}
+}
+@media(prefers-reduced-motion:reduce){.home-project{transition:none}.home-project:hover{transform:none}}

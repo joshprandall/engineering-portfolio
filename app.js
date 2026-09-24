@@ -3,12 +3,12 @@
   const $$ = (s, root = document) => [...root.querySelectorAll(s)];
   const experiencePath = location.pathname.toLowerCase();
   const protectedExperience = /\/games\//.test(experiencePath) || /geometric-lab/.test(experiencePath) || /project-geometric-ai\.html$/.test(experiencePath) || /project-battle-chess\.html$/.test(experiencePath) || /play-evil-wizard\.html$/.test(experiencePath);
-  if (!protectedExperience) {
+  if (!protectedExperience && !document.body.classList.contains("no-handheld")) {
     if (!document.querySelector('link[href^="handheld-experience.css"]')) {
-      const handheldStyle=document.createElement('link');handheldStyle.rel='stylesheet';handheldStyle.href='handheld-experience.css?v=20260923j';document.head.append(handheldStyle);
+      const handheldStyle=document.createElement('link');handheldStyle.rel='stylesheet';handheldStyle.href='handheld-experience.css?v=20260924-release';document.head.append(handheldStyle);
     }
     if (!document.querySelector('script[src^="handheld-experience.js"]')) {
-      const handheldScript=document.createElement('script');handheldScript.src='handheld-experience.js?v=20260923j';handheldScript.defer=true;document.body.append(handheldScript);
+      const handheldScript=document.createElement('script');handheldScript.src='handheld-experience.js?v=20260924-release';handheldScript.defer=true;document.body.append(handheldScript);
     }
   }
 
@@ -51,6 +51,9 @@
     ["Infrastructure & cloud", "Azure Windows Linux VMware networking storage", "index.html#expertise"],
     ["Identity & security", "Active Directory Entra Intune MFA Conditional Access", "index.html#expertise"],
     ["Automation", "PowerShell Python Bash SQL Git CI", "index.html#expertise"],
+    ["Fusion energy", "OSU engineering systems feasibility team presentation", "project-fusion.html"],
+    ["Quantum phase estimation", "quantum algorithm QPE phase probability", "project-qpe.html"],
+    ["Knowledge Library", "learning paths lessons research mathematics physics computing", "learn.html"],
     ["Experience", "infrastructure systems field engineering consulting leadership", "index.html#experience"],
     ["Defeat the Evil Wizard", "Godot GDScript action RPG platformer game development 15 champions multidirectional combat exploration puzzles bosses portals", "play-evil-wizard.html"],
     ["Recovery Readiness Auditor", "backup disaster recovery RPO RTO Python", "project-recovery.html"],
@@ -97,7 +100,7 @@
     });
   });
 
-  const tabs = $$('[role="tab"]');
+  const tabs = $$('#expertise [role="tab"]');
   function setTab(i) {
     tabs.forEach((tab, n) => {
       tab.setAttribute("aria-selected", String(n === i));
@@ -126,11 +129,17 @@
   const searchResults = $("#search-results");
   function showSearch() {
     if (!searchDialog) return;
-    searchDialog.showModal();
+    if (!searchDialog.open) searchDialog.showModal();
+    searchInput?.dispatchEvent(new Event("input"));
     setTimeout(() => searchInput?.focus(), 0);
   }
   $("#search-open")?.addEventListener("click", showSearch);
   document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && searchDialog?.open) {
+      event.preventDefault();
+      searchDialog.close();
+      return;
+    }
     if (event.key === "/" && !/input|textarea/i.test(document.activeElement?.tagName || "")) {
       event.preventDefault();
       showSearch();
@@ -182,7 +191,9 @@
   $("#motion")?.addEventListener("click", (event) => {
     animationPaused = !animationPaused;
     event.currentTarget.setAttribute("aria-pressed", String(animationPaused));
-    event.currentTarget.textContent = animationPaused ? "Resume animation" : "Pause animation";
+    event.currentTarget.textContent = animationPaused ? "Resume animations" : "Pause animations";
+    document.body.dataset.motion = animationPaused ? "paused" : "running";
+    document.dispatchEvent(new CustomEvent("portfolio:motion"));
   });
 
   const canvas = $("#network");
@@ -246,7 +257,7 @@
           if (n.y < .02 || n.y > .98) n.dy *= -1;
         }
       });
-      requestAnimationFrame(draw);
+      if (canvas.isConnected) requestAnimationFrame(draw);
     }
     draw();
   }

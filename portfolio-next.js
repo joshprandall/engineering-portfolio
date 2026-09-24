@@ -95,6 +95,8 @@
     const worlds=$('.vnext-cosmos-worlds',stage);
     const coreEl=$('.vnext-cosmos-core',stage);
     const ctx=canvas.getContext('2d',{alpha:true});
+    if(!ctx)return;
+    const worldEls=[];
     const orbit=[
       {rx:.22,ry:.105,speed:.24,phase:-2.15,size:58,kind:'architect'},
       {rx:.31,ry:.145,speed:.18,phase:-.35,size:52,kind:'build'},
@@ -123,10 +125,12 @@
       world.className=`vnext-world vnext-world-${orbit[i].kind}`;
       world.dataset.capability=String(i);
       world.setAttribute('aria-label',`Select ${mode.name}`);
+      world.title=mode.name;
       world.innerHTML=`<span class="vnext-planet" aria-hidden="true"><span class="vnext-planet-shine"></span><span class="vnext-planet-ring"></span></span><strong>${mode.name}</strong><small>0${i+1}</small>`;
       world.addEventListener('click',()=>select(i,true));
       world.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();select(i,true);}});
       worlds.append(world);
+      worldEls.push(world);
     });
 
     function select(i,focusDetail=false){
@@ -140,7 +144,7 @@
       $('#vnext-bullets',stage).replaceChildren(...mode.bullets.map(s=>{const li=document.createElement('li');li.textContent=s;return li;}));
       const link=$('#vnext-link',stage);link.href=mode.url;link.textContent=mode.cta+' ↗';
       canvas.setAttribute('aria-label',`${mode.name} selected. Five linked capability nodes orbit a central systems core.`);
-      if(focusDetail) $('#vnext-detail',stage)?.focus({preventScroll:true});
+      // Preserve focus on the selected control for keyboard and repeated selection.
     }
 
     function resize(){
@@ -160,7 +164,7 @@
         const mobileRy=[.12,.15,.18,.21,.235];
         return {rx:mobileRx[i]??Math.min(o.rx,.415),ry:mobileRy[i]??Math.min(o.ry,.235)};
       }
-      return {rx:o.rx,ry:o.ry};
+      return {rx:Math.min(o.rx,.40),ry:o.ry};
     }
 
     function worldPosition(i,time){
@@ -234,7 +238,7 @@
       coreGlow.addColorStop(0,'#fff9df');coreGlow.addColorStop(.14,'#ffd99c');coreGlow.addColorStop(.42,'rgba(255,169,82,.48)');coreGlow.addColorStop(1,'rgba(255,140,60,0)');
       ctx.fillStyle=coreGlow;ctx.beginPath();ctx.arc(cx,cy,54,0,Math.PI*2);ctx.fill();
 
-      $$('.vnext-world',worlds).forEach((el,i)=>{
+      worldEls.forEach((el,i)=>{
         const p=positions[i],o=orbit[i],base=Math.min(o.size,width<480?44:o.size);
         el.style.setProperty('--world-size',`${base}px`);
         const depthScale=.80+p.depth*.28;
@@ -246,8 +250,9 @@
 
     function frame(now){
       if(!stage.isConnected)return;
+      if(document.hidden){last=now;raf=requestAnimationFrame(frame);return;}
       const dt=Math.min(40,now-last||16);last=now;
-      if(!reduced.matches && !document.hidden)t+=dt/1000;
+      if(!reduced.matches && document.body.dataset.motion!=='paused')t+=dt/1000;
       parallaxX+=(targetX-parallaxX)*.045;parallaxY+=(targetY-parallaxY)*.045;
       draw();raf=requestAnimationFrame(frame);
     }
@@ -267,66 +272,9 @@
     select(0,false);resize();raf=requestAnimationFrame(frame);
   }
 
-  function entanglementArtwork(){
-    const old=$('.direction-image');if(!old)return;
-    const frame=document.createElement('div');frame.className='vnext-quantum';
-    frame.innerHTML=`<div class="vnext-quantum-head"><span>QUANTUM ENGINEERING / INTERACTIVE MODEL</span><span class="vnext-quantum-tag">TWO-QUBIT BELL PAIR</span></div>
-      <canvas id="vnext-quantum-canvas" role="img" aria-label="Animated conceptual photonic laboratory with two linked qubit states"></canvas>
-      <div class="vnext-quantum-floor"><div class="vnext-ket">|Φ⁺⟩ = (|00⟩ + |11⟩) / √2</div><p>Entanglement is a property of a <em>joint</em> quantum state. The beams are an artistic visualization, not a literal connection between particles.</p>
-        <div class="vnext-measures"><label for="vnext-basis">Measurement bases</label><select id="vnext-basis"><option value="ZZ">Z / Z</option><option value="XX">X / X</option><option value="ZX">Z / X</option><option value="YY">Y / Y</option></select><button id="vnext-measure" type="button">Simulate 1,000 measurements</button></div>
-        <p id="vnext-measure-result" role="status" aria-live="polite">In the same Z basis, the two ideal outcomes are perfectly correlated: 00 or 11.</p></div>`;
-    old.replaceWith(frame);
-    const canvas=$('#vnext-quantum-canvas',frame),ctx=canvas.getContext('2d');
-    let step=0, running=!reduced.matches, pulse=0;
-    const photo=new Image();photo.decoding='async';photo.src='assets/quantum-lab-reference.jpg';photo.onload=()=>draw();
-    function size(){const rect=canvas.getBoundingClientRect(),d=Math.min(window.devicePixelRatio||1,2);canvas.width=Math.max(2,Math.floor(rect.width*d));canvas.height=Math.max(2,Math.floor(rect.height*d));ctx.setTransform(d,0,0,d,0,0);return [rect.width,rect.height]}
-    function beam(a,b,t,w=2){const g=ctx.createLinearGradient(a[0],a[1],b[0],b[1]);g.addColorStop(0,'#047c9b');g.addColorStop(.5,'#91f4ff');g.addColorStop(1,'#2fb8e2');ctx.strokeStyle=g;ctx.shadowColor='#44e0ff';ctx.shadowBlur=19+w*3;ctx.lineWidth=w;ctx.beginPath();ctx.moveTo(...a);ctx.lineTo(...b);ctx.stroke();ctx.shadowBlur=0;
-      for(let i=0;i<4;i++){const q=((t*.24+i*.25)%1);ctx.fillStyle='#a6f8ff';ctx.beginPath();ctx.arc(a[0]+(b[0]-a[0])*q,a[1]+(b[1]-a[1])*q,1.2,0,Math.PI*2);ctx.fill()}}
-    function box(x,y,r){ctx.save();ctx.translate(x,y);ctx.strokeStyle='#87def0';ctx.lineWidth=1.3;ctx.shadowColor='#45d9ff';ctx.shadowBlur=10;
-      for(let k=0;k<2;k++){let a=k*r*.26;ctx.strokeRect(-r/2+a,-r/2-a,r,r)}
-      ctx.beginPath();[[-r/2,-r/2],[r/2,-r/2],[r/2,r/2],[-r/2,r/2]].forEach(([px,py],i)=>{if(i===0)ctx.moveTo(px,py);ctx.lineTo(px+r*.26,py-r*.26)});ctx.stroke();ctx.restore()}
-    function node(x,y,r,t){ctx.save();let g=ctx.createRadialGradient(x-r*.3,y-r*.3,1,x,y,r*1.4);g.addColorStop(0,'#effcff');g.addColorStop(.2,'#36d9fd');g.addColorStop(1,'#00324b00');ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,r*1.4,0,Math.PI*2);ctx.fill();
-      ctx.strokeStyle='#86e8ff9a';ctx.lineWidth=1.1;
-      for(let n=0;n<3;n++){ctx.beginPath();ctx.ellipse(x,y,r*.95,r*(.27+n*.13),t*.35+n*Math.PI/3,0,Math.PI*2);ctx.stroke()}
-      ctx.fillStyle='#dcfbff';ctx.beginPath();ctx.arc(x,y,r*.2,0,Math.PI*2);ctx.fill();ctx.restore()}
-    function draw(){const w=canvas.clientWidth,h=canvas.clientHeight;if(w<1||h<1)return;
-      ctx.clearRect(0,0,w,h);const bg=ctx.createLinearGradient(0,0,w,h);bg.addColorStop(0,'#030c14');bg.addColorStop(.54,'#142a36');bg.addColorStop(1,'#040d13');ctx.fillStyle=bg;ctx.fillRect(0,0,w,h);
-      if(photo.complete && photo.naturalWidth){const scale=Math.max(w/photo.width,h/photo.height),pw=photo.width*scale,ph=photo.height*scale;ctx.drawImage(photo,(w-pw)/2,(h-ph)/2,pw,ph);ctx.fillStyle='#020b16a3';ctx.fillRect(0,0,w,h);}
-      // Photonic bench grid and perspective optical hardware, inspired by the supplied lab references.
-      ctx.save();ctx.strokeStyle='#547b8970';ctx.lineWidth=.8;
-      if(!(photo.complete&&photo.naturalWidth)){
-      const horizon=h*.69;for(let i=-8;i<=8;i++){ctx.beginPath();ctx.moveTo(w*.5+i*w*.035,horizon);ctx.lineTo(w*.5+i*w*.22,h);ctx.stroke()}
-      for(let j=0;j<8;j++){const z=(j/8)**1.75;const y=horizon+(h-horizon)*z;ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(w,y);ctx.stroke()}
-      }
-      const a=[w*.23,h*.46],b=[w*.77,h*.46],mid=[w*.5,h*.48];
-      if(!(photo.complete&&photo.naturalWidth))[[a[0]-46,a[1]-45],[b[0]+46,b[1]-45]].forEach(([x,y])=>{ctx.fillStyle='#16242c';ctx.strokeStyle='#6c8894';ctx.lineWidth=2;ctx.fillRect(x-19,y-10,38,85);ctx.strokeRect(x-19,y-10,38,85);ctx.fillStyle='#335462';ctx.fillRect(x-8,y-25,16,21)});
-      beam(a,mid,step,2.3);beam(mid,b,step,2.3);
-      ctx.strokeStyle='#38d9ff6b';ctx.lineWidth=1.3;ctx.beginPath();for(let i=0;i<=110;i++){const u=i/110,x=a[0]+(b[0]-a[0])*u,y=a[1]+Math.sin(u*7*Math.PI-step*1.1)*Math.sin(Math.PI*u)*14;if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y)}ctx.stroke();
-      if(!(photo.complete&&photo.naturalWidth))box(...mid,Math.min(w*.15,66));node(a[0],a[1],Math.min(w*.077,33),step);node(b[0],b[1],Math.min(w*.077,33),-step);
-      ctx.font=`${Math.max(11,Math.min(w*.024,15))}px system-ui`;ctx.fillStyle='#d8f7ff';ctx.textAlign='center';ctx.fillText('QUBIT A',a[0],a[1]+68);ctx.fillText('QUBIT B',b[0],b[1]+68);
-      ctx.fillStyle='#ddae82';ctx.font=`${Math.max(10,Math.min(w*.021,12))}px system-ui`;ctx.fillText('JOINT STATE · Φ⁺',mid[0],mid[1]-60);
-      ctx.restore();
-    }
-    const resize=()=>{size();draw()};
-    if(typeof ResizeObserver!=='undefined') new ResizeObserver(resize).observe(canvas);
-    else addEventListener('resize',resize,{passive:true});
-    resize();
-    function tick(){if(!canvas.isConnected)return;if(running && !document.hidden){step+=.012;draw()}requestAnimationFrame(tick)}
-    requestAnimationFrame(tick);
-    reduced.addEventListener?.('change',e=>{running=!e.matches;draw()});
-    $('#vnext-basis',frame).onchange=()=>{$('#vnext-measure-result',frame).textContent='Select “Simulate 1,000 measurements” to compare joint outcomes for this basis.'};
-    $('#vnext-measure',frame).onclick=()=>{
-      const basis=$('#vnext-basis',frame).value;const counts={'00':0,'01':0,'10':0,'11':0};
-      for(let i=0;i<1000;i++){let a=Math.random()<.5?0:1,b;
-        b=basis==='ZZ'||basis==='XX'?a:basis==='YY'?1-a:(Math.random()<.5?0:1);counts[`${a}${b}`]++}
-      const character=basis==='ZZ'||basis==='XX'?'ideal perfect correlation':basis==='YY'?'ideal perfect anti-correlation':'independent results in different bases';
-      $('#vnext-measure-result',frame).textContent=`${basis}: ${character}. 00 ${counts['00']}, 01 ${counts['01']}, 10 ${counts['10']}, 11 ${counts['11']} (illustrative random sampling, not real hardware).`;
-      pulse+=1;step+=pulse*.08;draw();
-    };
-  }
   function strengthenNavigation(){
     const nav=$('#primary-nav');if(!nav)return;
-    // app.js owns the Game Development submenu. Remove any legacy standalone
+    // site-resilience.js owns the Game Development submenu. Remove any legacy standalone
     // Battle Chess link left by an older cached enhancement.
     nav.querySelectorAll(':scope > a[href="project-battle-chess.html"]').forEach(link=>link.remove());
   }
@@ -334,11 +282,11 @@
     const page=(location.pathname.split('/').pop()||'index.html').toLowerCase();
     const enabled=new Set(['project-recovery.html','project-dependency.html','project-lifecycle.html','project-fusion.html','project-portfolio.html','project-qubit.html','project-learning-library.html','project-advanced-computing.html','project-asset-inventory.html','project-kubernetes-lab.html','project-qpe.html','project-emergent.html','project-mind.html']);
     if(!enabled.has(page))return;
-    if(!document.querySelector('link[href="science-experiments.css"]')){const l=document.createElement('link');l.rel='stylesheet';l.href='science-experiments.css';document.head.append(l);}
-    if(!document.querySelector('script[src="science-experiments.js"]')){const s=document.createElement('script');s.src='science-experiments.js';s.defer=true;document.body.append(s);}
+    if(!document.querySelector('link[href="science-experiments.css?v=20260924-release"]')){const l=document.createElement('link');l.rel='stylesheet';l.href='science-experiments.css?v=20260924-release';document.head.append(l);}
+    if(!document.querySelector('script[src="science-experiments.js?v=20260924-release"]')){const s=document.createElement('script');s.src='science-experiments.js?v=20260924-release';s.defer=true;document.body.append(s);}
   }
   function init(){
-    const steps=[loadScienceExperiments,strengthenNavigation,enhanceProjectCards,enhanceProjectNavigation,restoreEducation,interactiveSystems,entanglementArtwork];
+    const steps=[loadScienceExperiments,strengthenNavigation,enhanceProjectCards,enhanceProjectNavigation,restoreEducation,interactiveSystems];
     steps.forEach(step=>{
       try{step();}
       catch(error){console.error('[portfolio enhancement]',step.name,error);}

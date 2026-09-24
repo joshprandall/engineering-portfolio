@@ -19,6 +19,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - run: npm ci
       - name: Validate reconciled website
         run: npm test
       - name: Verify protected experiences remain complete in source
@@ -47,7 +48,7 @@ jobs:
               and p.suffix.lower() in {'.html','.css','.js','.mjs'}
               and p.name not in protected_root
           )
-          include = top + [root/'verification-manifest.json']
+          include = top + [root/'verification-manifest.json',root/'learning-capstones.json']
           for folder in ('deep-learning','labs','qubit-preview-20260921','assets'):
               include.extend(p for p in (root/folder).rglob('*') if p.is_file())
 
@@ -71,7 +72,10 @@ jobs:
                   'index.html','projects.html','portfolio-next.js','portfolio-next.css',
                   'handheld-experience.js','handheld-experience.css',
                   'science-experiments.js','science-experiments.css',
-                  'knowledge.js','labs/qpe.mjs','labs/emergent.mjs',
+                  'knowledge.js','learning-depth.js','learning-depth.css','learning-capstones.json',
+                  'portfolio-home.css','quantum-cube.js','assets/fonts/fonts.css',
+                  'assets/joshua-randall-headshot.jpg','assets/systems-lab.jpg','assets/quantum-field-notes.jpg',
+                  'agent-workbench.js','labs/qpe.js','labs/emergent.js',
                   'qubit-preview-20260921/index.html',
                   'qubit-preview-20260921/app.js',
                   'qubit-preview-20260921/qubit.js',
@@ -95,6 +99,12 @@ jobs:
           path: Joshua_Randall_OSU_Science_Safe_Overlay.zip
           if-no-files-found: error
           retention-days: 30
+      - name: Exercise responsive navigation and interactive projects
+        shell: bash
+        run: |
+          CHROME=$(command -v google-chrome || command -v chromium || command -v chromium-browser || true)
+          if [ -z "$CHROME" ]; then npx playwright install --with-deps chromium; fi
+          PORTFOLIO_BROWSER_EXECUTABLE="$CHROME" PORTFOLIO_QA_DIR=visual-qa npm run test:browser
       - name: Capture optional desktop and phone-sized screenshots
         shell: bash
         run: |
