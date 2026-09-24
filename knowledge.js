@@ -396,8 +396,12 @@
       <a href="${href(next)}">Next · ${esc(next.title)} →</a>
     </nav>`;
   }
+  function setAmbientSuppressed(active){
+    document.dispatchEvent(new CustomEvent('portfolio:ambient-suppression',{detail:{active:Boolean(active),reason:'lesson'}}));
+  }
   function openLesson(id,push=true){
     const l=lessonMap.get(id); if(!l)return;
+    setAmbientSuppressed(true);
     const standalone=new URL(location.href).searchParams.get('standalone')==='1';
     document.body.classList.toggle('standalone-experience',standalone);
     stopSpeech(); currentLesson=id; lessonViewName=lessonViewFromURL(); preferences.setItem(STORAGE.recent,id); renderContinue(); const initialView=lessonViewName; ensureDeepLearning(l).then(()=>{if(currentLesson===id&&lessonViewName===initialView){const host=$('#lesson-page-content');if(host){host.innerHTML=lessonPageHTML(l,initialView);bindLessonPage(l);if(initialView==='lab')mountInteractive(l.interactive,l)}}});
@@ -409,7 +413,7 @@
       <div class="lesson-kicker"><span>${esc(l.kind)}</span><span>·</span><span>${esc(l.category)}</span></div>
       <h1 class="lesson-title">${esc(l.title)}</h1><p class="lesson-summary">${esc(l.summary)}</p>
       <div class="lesson-meta-row"><span class="pill verified-pill">✓ Source-verified</span><span class="pill deep-pill">◆ Deep learning</span><span class="pill">${esc(l.difficulty)}</span><span class="pill">${l.minutes} min core</span><span class="pill">Reviewed ${esc(l.verification?.reviewed||D.lastReviewed)}</span>${l.versionSensitive?'<span class="pill version-pill">↻ Version-sensitive</span>':''}${l.interactive?'<span class="pill">Interactive</span>':''}</div>
-      <div class="lesson-actions"><button class="button primary" id="listen-full">▶ Listen</button><button class="button" id="listen-summary">◖)) Summary</button><button class="button" id="stop-audio" hidden>■ Stop</button><button class="button" id="save-current">${saved.has(l.id)?'♥ Saved':'♡ Save'}</button><button class="button" id="focus-reading">${focusReading?'Exit focus':'Focus reading'}</button><button class="button" id="share-current">Share ↗</button><label class="voice-control">Voice <select id="narration-voice" aria-label="Narration voice"><option value="">Best available</option></select></label><label class="narration-rate">Speed <select id="narration-rate" aria-label="Narration speed"><option value="0.85">0.85×</option><option value="0.95">0.95×</option><option value="1">1×</option><option value="1.15">1.15×</option><option value="1.35">1.35×</option><option value="1.6">1.6×</option><option value="2">2×</option></select></label><button class="text-button" id="preview-voice" type="button">Preview voice</button><span class="audio-state" id="audio-state">Audio starts only when you ask for it.</span></div>
+      <div class="lesson-actions"><button class="button primary" id="listen-full">▶ Listen</button><button class="button" id="listen-summary">◖)) Summary</button><button class="button" id="stop-audio" hidden>■ Stop</button><button class="button" id="save-current">${saved.has(l.id)?'♥ Saved':'♡ Save'}</button><button class="button" id="focus-reading">${focusReading?'Exit focus':'Focus reading'}</button><button class="button" id="share-current">Share ↗</button><label class="voice-control">Voice <select id="narration-voice" aria-label="Narration voice"><option value="">Best natural voice</option></select></label><label class="narration-rate">Speed <select id="narration-rate" aria-label="Narration speed"><option value="0.85">0.85×</option><option value="0.95">0.95×</option><option value="1">1×</option><option value="1.15">1.15×</option><option value="1.35">1.35×</option><option value="1.6">1.6×</option><option value="2">2×</option></select></label><button class="text-button" id="preview-voice" type="button">Preview voice</button><span class="audio-state" id="audio-state">Audio starts only when you ask for it.</span></div>
       ${lessonTabs()}
       <div class="lesson-dashboard" id="lesson-dashboard"></div>
       <div class="lesson-body lesson-page-content" id="lesson-page-content">${lessonPageHTML(l,lessonViewName)}</div>`;
@@ -441,7 +445,7 @@
     $('#lesson-page-content').innerHTML=lessonPageHTML(l,view); bindLessonPage(l); mountInteractive(view==='lab'?l.interactive:null,l); window.scrollTo({top:Math.max(0,$('.lesson-page-tabs').getBoundingClientRect().top+scrollY-95),behavior:motionPaused?'auto':'smooth'}); updateReadingProgress();
   }
   function closeLesson(push=true){
-    stopSpeech(); currentLesson=null; $('#lesson-view').hidden=true; $('#library-view').hidden=false; document.body.classList.remove('reading','standalone-experience');
+    stopSpeech(); currentLesson=null; $('#lesson-view').hidden=true; $('#library-view').hidden=false; document.body.classList.remove('reading','standalone-experience'); setAmbientSuppressed(false);
     if(push){const u=new URL(location.href);u.searchParams.delete('lesson');u.searchParams.delete('view');history.pushState({},'',u)}
     renderLessons(); renderPaths(); renderKnowledgeGraph(); applyLibraryPage(); window.scrollTo({top:0,behavior:'auto'});
   }
@@ -492,21 +496,37 @@
   }
   function voiceScore(v){
     const n=(v.name||'').toLowerCase(), lang=(v.lang||'').toLowerCase(), user=(navigator.language||'en-us').toLowerCase();let s=0;
-    if(lang===user)s+=90;else if(lang.startsWith(user.split('-')[0]))s+=50;
-    if(/natural|neural|premium|enhanced|online/.test(n))s+=140;
-    if(/ava|aria|jenny|andrew|brian|emma|sonia|ryan|samantha|daniel|serena|zira|david|google us english/.test(n))s+=60;
-    if(/microsoft|google|apple/.test(n))s+=25;
-    if(v.localService===false)s+=18;
-    if(/compact|espeak|festival/.test(n))s-=80;
-    if(v.default)s+=12;return s;
+    if(lang===user)s+=100;else if(lang.startsWith(user.split('-')[0]))s+=58;
+    // Prefer modern, natural-sounding system voices. Names vary by OS, so
+    // quality markers matter more than any single vendor or person.
+    if(/natural|neural|premium|enhanced|siri/.test(n))s+=220;
+    if(/ava|aria|jenny|emma|sonia|samantha|serena|karen|moira|tessa|allison|victoria|zoe|nicky/.test(n))s+=92;
+    if(/andrew|brian|ryan|daniel|david|aaron|alex|tom|gordon|jamie/.test(n))s+=84;
+    if(/microsoft|google|apple/.test(n))s+=34;
+    if(v.default)s+=18;
+    if(/compact|espeak|festival|robot|whisper/.test(n))s-=240;
+    return s;
   }
   function refreshVoices(){if(!('speechSynthesis'in window))return;availableVoices=speechSynthesis.getVoices().slice().sort((a,b)=>voiceScore(b)-voiceScore(a));populateVoiceSelect()}
-  function populateVoiceSelect(){const sel=$('#narration-voice');if(!sel)return;const savedVoice=preferences.getItem(STORAGE.narrationVoice)||'';sel.innerHTML='<option value="">Best available</option>'+availableVoices.filter(v=>(v.lang||'').toLowerCase().startsWith('en')).map(v=>`<option value="${esc(v.name)}">${esc(v.name)} · ${esc(v.lang)}</option>`).join('');sel.value=[...sel.options].some(o=>o.value===savedVoice)?savedVoice:'';sel.onchange=()=>{preferences.setItem(STORAGE.narrationVoice,sel.value);toast(sel.value?`Voice: ${sel.value}`:'Using best available voice')}}
-  function preferredVoice(){const chosen=preferences.getItem(STORAGE.narrationVoice);return availableVoices.find(v=>v.name===chosen)||availableVoices[0]||null}
+  function populateVoiceSelect(){
+    const sel=$('#narration-voice');if(!sel)return;
+    const savedVoice=preferences.getItem(STORAGE.narrationVoice)||'';
+    const english=availableVoices.filter(v=>(v.lang||'').toLowerCase().startsWith('en'));
+    const natural=english.filter(v=>voiceScore(v)>=120);
+    const choices=(natural.length?natural:english).slice(0,12);
+    sel.innerHTML='<option value="">Best natural voice</option>'+choices.map(v=>`<option value="${esc(v.name)}">${esc(v.name)} · ${esc(v.lang)}</option>`).join('');
+    sel.value=[...sel.options].some(o=>o.value===savedVoice)?savedVoice:'';
+    sel.onchange=()=>{preferences.setItem(STORAGE.narrationVoice,sel.value);toast(sel.value?`Voice: ${sel.value}`:'Using the best natural voice available on this device')}
+  }
+  function preferredVoice(){
+    const chosen=preferences.getItem(STORAGE.narrationVoice);
+    const english=availableVoices.filter(v=>(v.lang||'').toLowerCase().startsWith('en'));
+    return availableVoices.find(v=>v.name===chosen)||english[0]||availableVoices[0]||null
+  }
   function speechChunks(text,max=185){const parts=String(text).match(/[^.!?]+[.!?]+|[^.!?]+$/g)||[text];const out=[];let buf='';for(const p0 of parts){const p=p0.trim();if(!p)continue;if((buf+' '+p).length>max&&buf){out.push(buf);buf=p}else buf=(buf+' '+p).trim()}if(buf)out.push(buf);return out}
   function speakQueue(chunks,label='Narrating this lesson…'){
     if(!('speechSynthesis'in window)){toast('This browser does not expose speech synthesis.');return}stopSpeech(false);speechQueue=chunks;speechQueueIndex=0;speechState='speaking';const state=$('#audio-state');if(state)state.textContent=label;const stop=$('#stop-audio');if(stop)stop.hidden=false;
-    const next=()=>{if(speechState!=='speaking'||speechQueueIndex>=speechQueue.length){stopSpeech(false);if(state)state.textContent='Narration complete.';return}const u=new SpeechSynthesisUtterance(speechQueue[speechQueueIndex++]);currentUtterance=u;u.voice=preferredVoice();u.lang=u.voice?.lang||navigator.language||'en-US';u.rate=Number(preferences.getItem(STORAGE.narrationRate)||0.95);u.pitch=.97;u.volume=1;u.onend=()=>setTimeout(next,155);u.onerror=()=>stopSpeech(false);speechSynthesis.speak(u)};next()
+    const next=()=>{if(speechState!=='speaking'||speechQueueIndex>=speechQueue.length){stopSpeech(false);if(state)state.textContent='Narration complete.';return}const u=new SpeechSynthesisUtterance(speechQueue[speechQueueIndex++]);currentUtterance=u;u.voice=preferredVoice();u.lang=u.voice?.lang||navigator.language||'en-US';u.rate=Number(preferences.getItem(STORAGE.narrationRate)||0.95);u.pitch=.96;u.volume=.96;u.onend=()=>setTimeout(next,155);u.onerror=()=>stopSpeech(false);speechSynthesis.speak(u)};next()
   }
   function speakLesson(l,summary){refreshVoices();speakQueue(speechChunks(speechText(l,summary)),summary?'Playing a concise summary…':'Narrating this lesson…')}
   function previewNarrationVoice(){refreshVoices();speakQueue(['This is the selected narration voice. Clear explanations should sound natural, calm, and easy to follow.'],'Previewing voice…')}
