@@ -52,7 +52,7 @@ function controls(){
  $('mode-title').textContent='Evolve geometry by curvature';
  const extinction=state.flowR0*state.flowR0/4,maxTime=Math.max(.01,.99*extinction);state.flowTime=Math.min(state.flowTime,maxTime);
  $('control-body').innerHTML=range('flow-radius','Initial sphere radius',.6,2.2,.1,state.flowR0)+range('flow-time','Flow time',0,maxTime,Math.max(.002,maxTime/150),state.flowTime)+'<div class="button-row"><button id="flow-play" class="primary">'+(playing?'Pause':'Play')+'</button><button id="flow-restart">Restart</button></div><p class="small">Exact spherical mean-curvature flow reference: R(t)² = R₀² − 4t, up to the extinction time R₀²/4 under the stated convention.</p>';
- $('flow-radius').oninput=()=>{state.flowR0=Number($('flow-radius').value);state.flowTime=0;controls();updateFlow()};
+ $('flow-radius').oninput=()=>{state.flowR0=Number($('flow-radius').value);$('flow-radius-value').textContent=state.flowR0;state.flowTime=0;const extinction=state.flowR0*state.flowR0/4,maxTime=Math.max(.01,.99*extinction);$('flow-time').max=maxTime;$('flow-time').step=Math.max(.002,maxTime/150);$('flow-time').value=0;$('flow-time-value').textContent='0';updateFlow()};
  $('flow-time').oninput=()=>{state.flowTime=Number($('flow-time').value);$('flow-time-value').textContent=fmt(state.flowTime,3);updateFlow()};
  $('flow-play').onclick=()=>{playing=!playing;$('flow-play').textContent=playing?'Pause':'Play'};
  $('flow-restart').onclick=()=>{playing=false;state.flowTime=0;controls();updateFlow()};
