@@ -114,6 +114,7 @@ assert.match(learningDepth,/Doctoral \/ Research/,'Mastery ladder must include a
 for(const stage of ['Orientation','Foundations','Core','Applied','Undergraduate','Advanced','Graduate bridge','Doctoral / Research']) assert.ok(learningDepth.includes(stage),`Mastery ladder missing ${stage}`);
 assert.match(learningDepth,/Existing lessons keep their verified Foundation, Intermediate, or Advanced difficulty/,'Mastery layer must preserve verified difficulty labels');
 assert.match(learningDepth,/Build my learning route/,'Mastery layer must provide a route planner');
+assert.match(learningDepth,/dataset\.libraryPage\|\|'home'\)!=='home'/,'Full mastery landing section must be scoped to the Learn home page');
 assert.match(read('knowledge.js'),/Research bridge/,'Lesson learning modes must include Research Bridge');
 assert.match(read('knowledge.js'),/graduate-style reading habits/,'Research Bridge must explain its academic-depth boundary');
 assert.match(learningNext,/vnext-path-band/,'Learning paths must expose verified path-band filtering');
