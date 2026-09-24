@@ -7,7 +7,7 @@ module.exports = async ({ browser, base, output, failures }) => {
   const context = await browser.newContext({ viewport: { width: 1440, height: 1000 } });
   const page = await context.newPage();
   page.setDefaultTimeout(8000);
-  page.on('pageerror', e => failures.push('Appearance: ' + e.message));
+  page.on('pageerror', e => failures.push('Appearance: ' + (e.stack || e.message)));
   page.on('response', r => { if (r.url().startsWith(base) && r.status() >= 400 && !/games\/evil-wizard/.test(r.url())) failures.push('Appearance HTTP: ' + r.url()); });
   const theme = () => page.locator('html').getAttribute('data-theme');
   const open = async route => { await page.goto(base + '/' + route, { waitUntil: 'networkidle' }); };
