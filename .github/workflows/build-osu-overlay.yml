@@ -131,6 +131,18 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: always()
         with:
+          name: joshua-randall-review-previews
+          path: |
+            visual-qa/installed-home-*.png
+            visual-qa/installed-portrait-*.png
+            visual-qa/installed-learning-*.png
+            visual-qa/chess-live-2d-landscape.png
+            visual-qa/chess-live-3d-landscape.png
+          if-no-files-found: ignore
+          retention-days: 30
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
           name: joshua-randall-site-visual-qa
           path: visual-qa/
           if-no-files-found: ignore
