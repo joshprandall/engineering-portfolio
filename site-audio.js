@@ -1,8 +1,8 @@
 (() => {
   'use strict';
 
-  if (window.__JR_SITE_AUDIO_V12__) return;
-  window.__JR_SITE_AUDIO_V12__ = true;
+  if (window.__JR_SITE_AUDIO_V13__) return;
+  window.__JR_SITE_AUDIO_V13__ = true;
 
   const scriptUrl = new URL(document.currentScript?.src || location.href, location.href);
   const base = new URL('./', scriptUrl);
@@ -15,172 +15,162 @@
     dark: new URL('assets/audio/dark-theme.mp3', base).href,
     river: new URL('assets/audio/river.mp3', base).href,
     waterfall: new URL('assets/audio/waterfall.mp3', base).href,
-    beach: new URL('assets/audio/beach-waves.mp3', base).href,
-    birds: new URL('assets/audio/beach-birds.mp3', base).href
+    beach: new URL('assets/audio/beach.mp3', base).href
   };
 
   const VOLUME = {
-    dark: .24,
-    river: .24,
-    waterfall: .25,
-    beach: .20,
-    birds: .16
+    dark: .26,
+    river: .26,
+    waterfall: .27,
+    beach: .28
   };
 
   let sceneId = 'forest-river';
   let suppressed = PROJECT_RE.test(location.pathname);
-  let generation = 0;
+  let currentKey = '';
   let unlocked = false;
-  let activeSignature = '';
 
-  const tracks = Object.fromEntries(Object.entries(SOURCES).map(([key, src]) => {
-    const audio = document.createElement('audio');
-    audio.id = 'jr-audio-' + key;
-    audio.src = src;
-    audio.preload = key === 'dark' ? 'auto' : 'metadata';
-    audio.loop = true;
-    audio.playsInline = true;
-    audio.setAttribute('playsinline', '');
-    audio.setAttribute('aria-hidden', 'true');
-    audio.style.display = 'none';
-    audio.volume = VOLUME[key];
-    (document.body || document.documentElement).appendChild(audio);
-    try { audio.load(); } catch (_) {}
-    return audio;
-  }));
+  // ONE audio element for the entire site. This is deliberate: iPhone/Safari
+  // is far more reliable after a single element has been unlocked by a tap.
+  const audio = document.createElement('audio');
+  audio.id = 'jr-site-audio';
+  audio.preload = 'auto';
+  audio.loop = true;
+  audio.playsInline = true;
+  audio.setAttribute('playsinline', '');
+  audio.setAttribute('aria-hidden', 'true');
+  audio.style.display = 'none';
+  (document.body || document.documentElement).appendChild(audio);
 
-  const theme = () => window.PortfolioTheme?.getTheme?.() || document.documentElement.dataset.theme || 'dark';
+  function theme() {
+    return window.PortfolioTheme?.getTheme?.() || document.documentElement.dataset.theme || 'dark';
+  }
 
-  const muted = () => {
+  function muted() {
     try { return localStorage.getItem(MUTE_KEY) === '1'; }
     catch (_) { return false; }
-  };
+  }
 
-  const lessonOpen = () => {
+  function lessonOpen() {
     const view = document.getElementById('lesson-view');
     return Boolean(view && !view.hidden);
-  };
+  }
 
-  const allowed = () => !muted() && !suppressed && !lessonOpen() && !document.hidden;
+  function allowed() {
+    return !muted() && !suppressed && !lessonOpen() && !document.hidden;
+  }
 
   function saveDarkTime() {
+    if (currentKey !== 'dark') return;
     try {
-      const value = Number(tracks.dark.currentTime || 0);
+      const value = Number(audio.currentTime || 0);
       if (Number.isFinite(value) && value >= 0) localStorage.setItem(DARK_TIME_KEY, String(value));
     } catch (_) {}
   }
 
-  tracks.dark.addEventListener('loadedmetadata', () => {
+  function restoreDarkTime() {
+    if (currentKey !== 'dark') return;
     try {
       const saved = Number(localStorage.getItem(DARK_TIME_KEY) || 0);
       if (!Number.isFinite(saved) || saved < 0) return;
-      const duration = Number(tracks.dark.duration || 0);
-      tracks.dark.currentTime = duration > 0 ? saved % duration : saved;
+      const duration = Number(audio.duration || 0);
+      audio.currentTime = duration > 0 ? saved % duration : saved;
     } catch (_) {}
-  }, { once: true });
-  tracks.dark.addEventListener('timeupdate', saveDarkTime);
+  }
 
-  function pauseTrack(key, reset=false) {
-    const audio = tracks[key];
-    if (!audio) return;
-    if (key === 'dark') saveDarkTime();
+  function desiredKey() {
+    if (!allowed()) return '';
+    if (theme() === 'dark') return 'dark';
+    if (sceneId === 'forest-waterfall') return 'waterfall';
+    if (sceneId === 'birds-water') return 'beach';
+    return 'river';
+  }
+
+  function hardStop() {
+    saveDarkTime();
     try { audio.pause(); } catch (_) {}
+  }
+
+  function switchSource(nextKey) {
+    if (!nextKey) {
+      hardStop();
+      currentKey = '';
+      return;
+    }
+
+    if (currentKey === nextKey && audio.src === SOURCES[nextKey]) return;
+
+    // Hard cut first. No old scene is allowed to continue under a new visual.
+    hardStop();
+    currentKey = nextKey;
+    audio.loop = true;
     audio.muted = false;
-    if (reset && key !== 'dark') {
-      try { audio.currentTime = 0; } catch (_) {}
-    }
+    audio.volume = VOLUME[nextKey];
+    audio.src = SOURCES[nextKey];
+
+    audio.onloadedmetadata = () => {
+      if (currentKey === 'dark') restoreDarkTime();
+      else {
+        try { audio.currentTime = 0; } catch (_) {}
+      }
+    };
+
+    try { audio.load(); } catch (_) {}
   }
 
-  function hardStopAll({resetNature=true}={}) {
-    generation++;
-    pauseTrack('dark', false);
-    pauseTrack('river', resetNature);
-    pauseTrack('waterfall', resetNature);
-    pauseTrack('beach', resetNature);
-    pauseTrack('birds', resetNature);
-    activeSignature = '';
-  }
-
-  function desired() {
-    if (!allowed()) return {signature:'silent', keys:[]};
-
-    if (theme() === 'dark') {
-      return {signature:'dark', keys:['dark']};
+  function attemptPlay() {
+    const key = desiredKey();
+    if (!key) {
+      hardStop();
+      currentKey = '';
+      return;
     }
 
-    if (sceneId === 'forest-waterfall') {
-      return {signature:'light:waterfall', keys:['waterfall']};
-    }
-    if (sceneId === 'birds-water') {
-      return {signature:'light:beach', keys:['beach','birds']};
-    }
-    return {signature:'light:river', keys:['river']};
-  }
-
-  function desiredIsPlaying(keys) {
-    return keys.length > 0 && keys.every(key => {
-      const audio = tracks[key];
-      return audio && !audio.paused && !audio.ended && !audio.muted;
-    });
-  }
-
-  function startKey(key, token) {
-    const audio = tracks[key];
-    if (!audio) return;
+    switchSource(key);
     audio.loop = true;
     audio.muted = false;
     audio.volume = VOLUME[key];
 
     try {
       const p = audio.play();
-      if (p?.then) {
-        p.then(() => {
-          if (token !== generation) pauseTrack(key, key !== 'dark');
-        }).catch(() => {});
-      }
+      if (p?.catch) p.catch(() => {});
     } catch (_) {}
   }
 
   function sync(force=false) {
-    const target = desired();
+    const key = desiredKey();
 
-    if (!target.keys.length) {
-      hardStopAll();
+    if (!key) {
+      hardStop();
+      currentKey = '';
       return;
     }
 
-    if (!force && activeSignature === target.signature && desiredIsPlaying(target.keys)) {
-      return;
+    if (force || currentKey !== key) {
+      switchSource(key);
     }
 
-    // Critical invariant: stop every source BEFORE starting the new scene.
-    // This prevents river/waterfall/beach/dark audio from ever bleeding across.
-    hardStopAll();
-    const token = generation;
-    activeSignature = target.signature;
-
-    // Browsers may reject audible playback until user interaction. We still
-    // attempt immediately, then every real user gesture retries this exact target.
-    target.keys.forEach(key => startKey(key, token));
+    // If the same source is already playing, do nothing. Otherwise retry.
+    if (audio.paused || audio.ended) attemptPlay();
   }
 
-  function userGestureSync() {
+  function userGesture() {
     unlocked = true;
-    sync(false);
+    attemptPlay();
   }
 
-  // First attempt.
+  // First best-effort attempt. Safari may wait for a tap.
   sync(true);
 
-  // A real user gesture is the reliable iPhone/Safari audio unlock point.
-  document.addEventListener('pointerdown', userGestureSync, {passive:true, capture:true});
-  document.addEventListener('touchstart', userGestureSync, {passive:true, capture:true});
-  document.addEventListener('keydown', userGestureSync, {capture:true});
+  // The first real gesture unlocks this ONE media element. After that, scene
+  // changes reuse the same element rather than trying to unlock new players.
+  document.addEventListener('pointerdown', userGesture, {passive:true, capture:true});
+  document.addEventListener('touchstart', userGesture, {passive:true, capture:true});
+  document.addEventListener('keydown', userGesture, {capture:true});
   document.addEventListener('click', () => {
     unlocked = true;
-    // Bubble phase runs after the theme/mute button's own click handler, so the
-    // controller sees the NEW theme/mute state and starts the correct source.
-    sync(false);
+    // Bubble phase sees the post-click theme/mute state.
+    sync(true);
   });
 
   document.addEventListener('portfolio:theme', () => sync(true));
@@ -199,27 +189,42 @@
   addEventListener('pageshow', () => sync(true));
   addEventListener('pagehide', () => {
     saveDarkTime();
-    hardStopAll({resetNature:false});
+    hardStop();
   });
 
-  // If the browser suspends a track unexpectedly, restore only the CURRENT
-  // desired scene. This never starts audio from an old background.
+  audio.addEventListener('ended', () => {
+    if (desiredKey() === currentKey) {
+      try {
+        audio.currentTime = 0;
+        audio.play().catch(() => {});
+      } catch (_) {}
+    }
+  });
+
+  audio.addEventListener('error', () => {
+    console.error('JR site audio failed:', currentKey, audio.currentSrc, audio.error);
+  });
+
   setInterval(() => {
-    const target = desired();
-    if (!target.keys.length) {
-      if (activeSignature) hardStopAll();
+    const key = desiredKey();
+    if (!key) {
+      if (!audio.paused) hardStop();
       return;
     }
-    if (unlocked && (!desiredIsPlaying(target.keys) || activeSignature !== target.signature)) {
+    if (key !== currentKey) {
       sync(true);
+      return;
     }
-  }, 2500);
+    if (unlocked && audio.paused) attemptPlay();
+  }, 2000);
 
   window.SiteAudio = Object.freeze({
     sync,
-    stopAll: hardStopAll,
+    stop: hardStop,
+    get key(){ return currentKey; },
     get scene(){ return sceneId; },
     get theme(){ return theme(); },
-    get muted(){ return muted(); }
+    get muted(){ return muted(); },
+    get element(){ return audio; }
   });
 })();
