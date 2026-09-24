@@ -48,7 +48,7 @@
     'forest-waterfall': 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Water%20fall.ogg'
   };
   const BEACH_BIRDS_AUDIO = 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Cape%20May%20Shorebirds%20closer.ogg';
-  const DARK_LICENSED_TRACK = new URL('assets/audio/dark-theme.ogg', SITE_BASE).href;
+  const DARK_LICENSED_TRACK = new URL('assets/audio/dark-theme.mp3', SITE_BASE).href;
   const DARK_TRACK_TIME_KEY = 'jr-dark-theme-time-v1';
   const PROJECT_AUDIO_RE = /(?:^|\/)(?:project-[^/]+\.html|play-evil-wizard\.html|agent-workbench\.html|games\/|geometric-lab\/|qubit-preview-20260921\/|deep-learning\/)/i;
 
@@ -188,7 +188,7 @@
 
     // Audio state. Light mode uses real field recordings matched to each scene.
     // Dark mode uses Kevin MacLeod's CC0 'Alien Spaceship Atmosphere', stored
-    // locally as assets/audio/dark-theme.ogg for reliable looping.
+    // locally as MP3 for reliable iPhone/Safari playback and looping.
     let ambientCtx = null;
     let ambientMaster = null;
     let ambientNodes = [];
@@ -513,18 +513,7 @@
         stopRecordedAmbience();
         return;
       }
-      if (!audioUnlocked || !ambientCtx || !ambientMaster) return;
-
-      if (ambientCtx.state === 'suspended') {
-        try {
-          const resumed = ambientCtx.resume();
-          if (resumed?.then) resumed.then(() => {
-            if (ambientCtx?.state === 'running' && ambientAllowed()) refreshAmbientAudio(true);
-          }).catch(() => {});
-        } catch (_) {}
-        return;
-      }
-      if (ambientCtx.state !== 'running') return;
+      if (!audioUnlocked) return;
 
       const wanted = desiredAmbientSignature();
       const recordedPlaying = Boolean(
@@ -552,22 +541,21 @@
         if (theme === 'dark') return;
       }).catch(() => {});
 
-      try {
-        ambientMaster.gain.cancelScheduledValues(ambientCtx.currentTime);
-        ambientMaster.gain.setValueAtTime(0, ambientCtx.currentTime);
-      } catch (_) {}
+      // Real recordings are controlled directly through HTMLAudioElement volume.
     }
 
     function unlockAmbientFromGesture() {
       if (!ambientAllowed()) return;
-      if (audioUnlocked && ambientCtx?.state === 'running' && ambientNodes.length) return;
-      if (!ensureAmbientContext()) return;
-      if (ambientCtx?.state === 'running') refreshAmbientAudio(!ambientNodes.length);
-      else {
-        try {
-          ambientCtx?.resume?.().then(() => refreshAmbientAudio(!ambientNodes.length)).catch(() => {});
-        } catch (_) {}
-      }
+      if (audioUnlocked && (
+        (recordedAmbience && !recordedAmbience.paused) ||
+        (darkLicensedAudio && !darkLicensedAudio.paused)
+      )) return;
+
+      audioUnlocked = true;
+      // Direct <audio> playback is the primary path. Resume WebAudio only as a
+      // best-effort fallback for older synthetic effects elsewhere.
+      try { ensureAmbientContext(); } catch (_) {}
+      refreshAmbientAudio(true);
     }
 
     updateAudioButton();
@@ -576,7 +564,8 @@
     // iPhone/Safari the context may remain suspended until the next user tap;
     // the gesture handlers below then resume the same persistent loop.
     if (!ambientMuted && !ambientLockedByPage && !lessonIsOpen()) {
-      if (ensureAmbientContext()) refreshAmbientAudio();
+      audioUnlocked = true;
+      refreshAmbientAudio();
     }
 
     if (audioButton) {
@@ -584,7 +573,8 @@
         ambientMuted = !ambientMuted;
         storeAmbientMuted();
         if (!ambientMuted) {
-          ensureAmbientContext();
+          audioUnlocked = true;
+          try { ensureAmbientContext(); } catch (_) {}
           refreshAmbientAudio(true);
         } else {
           refreshAmbientAudio(true);
@@ -932,15 +922,13 @@
     document.addEventListener('keydown', unlockAmbientFromGesture);
 
     ambientWatchdog = setInterval(() => {
-      if (!ambientAllowed() || !audioUnlocked || !ambientCtx) return;
-      if (ambientCtx.state === 'running') {
-        const recordedPlaying = Boolean(
-          (recordedAmbience && !recordedAmbience.paused) ||
-          (darkLicensedAudio && !darkLicensedAudio.paused)
-        );
-        if (!recordedPlaying || ambientSignature !== desiredAmbientSignature()) refreshAmbientAudio(true);
-        else syncVideoAmbience();
-      }
+      if (!ambientAllowed() || !audioUnlocked) return;
+      const recordedPlaying = Boolean(
+        (recordedAmbience && !recordedAmbience.paused) ||
+        (darkLicensedAudio && !darkLicensedAudio.paused)
+      );
+      if (!recordedPlaying || ambientSignature !== desiredAmbientSignature()) refreshAmbientAudio(true);
+      else syncVideoAmbience();
     }, 2500);
     document.addEventListener('portfolio:ambient-suppression', event => {
       audioSuppressed = Boolean(event.detail && event.detail.active);
