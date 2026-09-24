@@ -73,7 +73,7 @@ async function run(){
    const lightAlpha=Number((lightCardBg.match(/rgba?\([^,]+,[^,]+,[^,]+(?:,\s*([\d.]+))?\)/)||[])[1]||1);
    assert(lightAlpha>=.15&&lightAlpha<=.60,`Light project tiles stay translucent, got ${lightCardBg}`);
    const lightInk=await page.locator('#hero-title').evaluate(el=>getComputedStyle(el).color);
-   const lightRgb=(lightInk.match(/\\d+/g)||[]).slice(0,3).map(Number);
+   const lightRgb=(lightInk.match(/\d+/g)||[]).slice(0,3).map(Number);
    assert(lightRgb.length===3&&Math.max(...lightRgb)<80,`Light-mode hero text stays decisively dark, got ${lightInk}`);
    if(output&&name==='phone'){await page.screenshot({animations:'disabled',path:path.join(output,'home-phone-light.png'),fullPage:true});}
    await page.locator('#theme').click();
