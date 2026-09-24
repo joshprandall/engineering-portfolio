@@ -39,6 +39,8 @@
 
     const appearance = window.PortfolioTheme;
     const saveData = Boolean(navigator.connection && navigator.connection.saveData);
+    const localTestHost = location.hostname === '127.0.0.1' || location.hostname === 'localhost';
+    const mediaDisabled = saveData || localTestHost;
 
     document.body.classList.add('living-scenes');
 
@@ -137,7 +139,7 @@
       if (dayCredit) {
         dayCredit.textContent = 'Video by ' + scene.creator + ' · Pexels License · real nature footage.';
       }
-      if (mediaReady) dayFallback.style.backgroundImage = 'url("' + scene.poster + '")';
+      if (mediaReady && !mediaDisabled) dayFallback.style.backgroundImage = 'url("' + scene.poster + '")';
     }
 
     function resize() {
@@ -148,8 +150,8 @@
       canvas.height = Math.max(1, Math.round(height * dpr));
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-      const starCount = saveData ? 30 : width < 700 ? 55 : 110;
-      const dustCount = saveData ? 10 : width < 700 ? 20 : 42;
+      const starCount = mediaDisabled ? 30 : width < 700 ? 55 : 110;
+      const dustCount = mediaDisabled ? 10 : width < 700 ? 20 : 42;
 
       stars = Array.from({ length: starCount }, () => ({
         x: random(),
@@ -180,12 +182,12 @@
       video.muted = true;
       video.playsInline = true;
       video.loop = true;
-      video.preload = saveData ? 'none' : 'metadata';
+      video.preload = mediaDisabled ? 'none' : 'metadata';
       video.load();
     }
 
     async function playSafely(video) {
-      if (!video || theme !== 'light' || !motionAllowed() || saveData) return false;
+      if (!video || theme !== 'light' || !motionAllowed() || mediaDisabled) return false;
       try {
         await video.play();
         return true;
@@ -201,7 +203,7 @@
 
     function loadInitialLightScene() {
       updateDayCredit();
-      if (!mediaReady || lightLoaded || saveData) return;
+      if (!mediaReady || lightLoaded || mediaDisabled) return;
       lightLoaded = true;
       configureVideo(activeVideo, LIGHT_SCENES[activeSceneIndex]);
       activeVideo.classList.add('is-active');
@@ -238,7 +240,7 @@
     }
 
     async function rotateLightScene() {
-      if (transitionBusy || saveData || theme !== 'light' || !motionAllowed() || LIGHT_SCENES.length < 2) return;
+      if (transitionBusy || mediaDisabled || theme !== 'light' || !motionAllowed() || LIGHT_SCENES.length < 2) return;
       transitionBusy = true;
 
       const nextIndex = (activeSceneIndex + 1) % LIGHT_SCENES.length;
@@ -379,7 +381,7 @@
       raf = 0;
       if (document.hidden || !motionAllowed()) return;
 
-      const interval = width < 700 || saveData ? 1000 / 18 : 1000 / 28;
+      const interval = width < 700 || mediaDisabled ? 1000 / 18 : 1000 / 28;
       if (now - lastFrame >= interval) {
         const dt = Math.min((now - lastFrame) / 1000 || .035, .12);
         lastFrame = now;
