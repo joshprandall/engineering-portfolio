@@ -281,3 +281,108 @@ button.appearance-toggle:focus-visible{outline:3px solid var(--blue,var(--accent
   font-weight:650;
   text-decoration-color:rgba(9,45,38,.62)
 }
+
+
+/* Astra continuation — adaptive glass tiles, solid destinations, and artwork hierarchy.
+   This is CSS-only: the existing background loading and animation pipeline is intentionally unchanged. */
+.living-scenes .project-card,
+.living-scenes .home-project,
+.living-scenes .education-cards article,
+.living-scenes .portrait-card{
+  border-radius:8px;
+  background:rgba(11,17,20,.50);
+  border-color:rgba(183,215,221,.22);
+  -webkit-backdrop-filter:blur(9px) brightness(.72) saturate(.92);
+  backdrop-filter:blur(9px) brightness(.72) saturate(.92)
+}
+.living-scenes .home-project:hover,
+.living-scenes .project-card:hover{
+  background:rgba(14,22,25,.61)
+}
+:root[data-theme=light] .living-scenes .project-card,
+:root[data-theme=light] .living-scenes .home-project,
+:root[data-theme=light] .living-scenes .education-cards article,
+:root[data-theme=light] .living-scenes .portrait-card{
+  background:rgba(247,251,245,.38);
+  border-color:rgba(31,75,57,.24);
+  -webkit-backdrop-filter:blur(9px) brightness(1.07) saturate(.92);
+  backdrop-filter:blur(9px) brightness(1.07) saturate(.92)
+}
+:root[data-theme=light] .living-scenes .home-project:hover,
+:root[data-theme=light] .living-scenes .project-card:hover{
+  background:rgba(247,251,245,.54)
+}
+
+/* Main-page artwork lets the living environment remain visible; the portrait stays nearly opaque. */
+.living-scenes .systems-photo{opacity:.46}
+.living-scenes .direction-image img{opacity:.54}
+.living-scenes .portrait-photo{opacity:.98}
+:root[data-theme=light] .living-scenes .systems-photo{opacity:.43;filter:brightness(.78) saturate(.9) contrast(.96)}
+:root[data-theme=light] .living-scenes .direction-image img{opacity:.50}
+:root[data-theme=light] .living-scenes .portrait-photo{opacity:1}
+
+/* The learning landing page is glass. Labs and opened learning experiences remain solid. */
+body.living-scenes[data-library-page="home"] .constellation-panel,
+body.living-scenes[data-library-page="home"] .domain-card,
+body.living-scenes[data-library-page="home"] .verification-strip,
+body.living-scenes[data-library-page="home"] .resume-strip{
+  background:rgba(13,19,22,.53);
+  border-color:var(--scene-border);
+  border-radius:8px;
+  -webkit-backdrop-filter:blur(10px) brightness(.74) saturate(.92);
+  backdrop-filter:blur(10px) brightness(.74) saturate(.92)
+}
+:root[data-theme=light] body.living-scenes[data-library-page="home"] .constellation-panel,
+:root[data-theme=light] body.living-scenes[data-library-page="home"] .domain-card,
+:root[data-theme=light] body.living-scenes[data-library-page="home"] .verification-strip,
+:root[data-theme=light] body.living-scenes[data-library-page="home"] .resume-strip{
+  background:rgba(248,251,246,.40);
+  border-color:rgba(36,83,63,.23);
+  -webkit-backdrop-filter:blur(10px) brightness(1.08) saturate(.90);
+  backdrop-filter:blur(10px) brightness(1.08) saturate(.90)
+}
+body.living-scenes[data-library-page="labs"] .lab-card,
+body.living-scenes[data-library-page="labs"] .lab-visual,
+body.living-scenes.reading #lesson-view,
+body.living-scenes.standalone-experience #lesson-view{
+  background:var(--bg);
+  -webkit-backdrop-filter:none;
+  backdrop-filter:none
+}
+body.living-scenes[data-library-page="labs"] .lab-card{
+  background:var(--panel);
+  border-color:var(--line)
+}
+body.living-scenes[data-library-page="labs"] .lab-visual{background:var(--bg2)}
+
+/* A clicked project opens into a fully opaque reading/work surface. */
+.living-scenes .project-detail{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:8px;
+  padding-inline:clamp(22px,4vw,52px)
+}
+.living-scenes .project-detail .app-panel,
+.living-scenes .project-detail .probabilities,
+.living-scenes .project-detail .demo-frame{
+  background:var(--surface)
+}
+
+/* Light mode keeps genuinely dark type over variable landscape footage. */
+:root[data-theme=light] .living-scenes .project-card,
+:root[data-theme=light] .living-scenes .home-project,
+:root[data-theme=light] .living-scenes .education-cards article,
+:root[data-theme=light] body.living-scenes[data-library-page="home"] .domain-card{
+  color:#040907
+}
+:root[data-theme=light] .living-scenes .project-card p,
+:root[data-theme=light] .living-scenes .home-project p,
+:root[data-theme=light] .living-scenes .education-cards article p,
+:root[data-theme=light] body.living-scenes[data-library-page="home"] .domain-card p{
+  color:#08140f!important;
+  text-shadow:0 1px 0 rgba(255,255,255,.76),0 0 6px rgba(255,255,255,.38)
+}
+
+@media(max-width:700px){
+  .living-scenes .project-detail{padding-inline:20px}
+}

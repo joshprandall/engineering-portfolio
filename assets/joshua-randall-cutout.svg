@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="90 0 1074 1075" role="img" aria-labelledby="title desc">
+  <title id="title">Joshua Randall portrait cutout</title>
+  <desc id="desc">Head-and-shoulders portrait with the original white studio background removed.</desc>
+  <defs>
+    <filter id="remove-white" x="-8%" y="-8%" width="116%" height="116%" color-interpolation-filters="sRGB">
+      <feColorMatrix type="matrix" values="
+        1 0 0 0 0
+        0 1 0 0 0
+        0 0 1 0 0
+        -0.2126 -0.7152 -0.0722 0 1"/>
+      <feComponentTransfer>
+        <feFuncA type="linear" slope="6" intercept="-0.15"/>
+      </feComponentTransfer>
+    </filter>
+  </defs>
+  <image href="joshua-randall-headshot.jpg" x="0" y="0" width="1254" height="1254" preserveAspectRatio="xMidYMin meet" filter="url(#remove-white)"/>
+</svg>
