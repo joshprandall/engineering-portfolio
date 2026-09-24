@@ -107,7 +107,7 @@
           '<small class="scene-day-credit">Pexels License · real wind, water, birds, and landscape motion.</small>' +
         '</p>' +
       '</div>' +
-      '<button data-scene-audio type="button" aria-pressed="false">Mute ambience</button>';
+      '<button data-scene-audio type="button" aria-pressed="false">Mute</button>';
 
     // Motion is intentionally always on. Reuse the existing footer motion
     // control as the global mute button so it stays in exactly the same place.
@@ -210,7 +210,7 @@
       audioButton.title = ambientLockedByPage
         ? 'Background ambience pauses automatically while using projects'
         : (ambientMuted ? 'Unmute ambience' : 'Mute ambience');
-      audioButton.textContent = ambientMuted ? 'Unmute ambience' : 'Mute ambience';
+      audioButton.textContent = ambientMuted ? 'Unmute' : 'Mute';
     }
 
     function ensureAmbientContext() {
