@@ -15,6 +15,16 @@ Replace both occurrences of `SHA` with the tested commit. The script rejects bra
 
 The deployment creates a full backup outside the web root, installs supporting assets before page HTML, verifies the installed bytes, checks public URLs and JavaScript content types, and restores the previous files if installation or verification fails. Newly introduced files are removed during rollback. Retain the printed backup path.
 
+## Full Geometry Lab deployment
+
+The normal portfolio deploy intentionally preserves most of `geometric-lab/`. When a tested release changes Geometry Lab calculation modules, deploy that lab separately with the dedicated exact-commit tool:
+
+```bash
+curl -fsS https://raw.githubusercontent.com/joshprandall/engineering-portfolio/SHA/tools/deploy_geometry_lab.py -o "$HOME/deploy-geometry-lab.py" && python3 "$HOME/deploy-geometry-lab.py" --commit SHA
+```
+
+Replace both occurrences of `SHA` with the same tested 40-character commit. The tool rejects branch names, backs up the existing `~/public_html/geometric-lab` tree, installs only files from the repository's Geometry Lab directory, verifies installed bytes, performs public HTTP checks, and rolls the lab back on failure. It does not modify games or other website directories.
+
 ## Preserved content
 
 This website release preserves these existing host paths byte for byte:
