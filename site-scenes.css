@@ -87,7 +87,7 @@ body.living-scenes{position:relative;isolation:isolate;min-height:100vh;backgrou
   filter:saturate(1.16) contrast(1.04) brightness(.75);
   will-change:opacity,transform
 }
-.scene-video.is-active{opacity:1}
+.scene-video.is-active{opacity:1;animation:scene-earth-camera 20s ease-in-out infinite alternate}
 .scene-day-wrap::after{
   content:'';
   position:absolute;
@@ -109,7 +109,7 @@ body.living-scenes{position:relative;isolation:isolate;min-height:100vh;backgrou
     radial-gradient(circle at 82% 77%,rgba(81,145,163,.04),transparent 30%);
   mix-blend-mode:screen;
   pointer-events:none;
-  animation:scene-atmosphere-drift 32s ease-in-out infinite alternate
+  animation:scene-atmosphere-drift 18s ease-in-out infinite alternate
 }
 :root[data-theme=light] .scene-atmosphere{
   background:
@@ -130,8 +130,12 @@ body.living-scenes{position:relative;isolation:isolate;min-height:100vh;backgrou
     linear-gradient(180deg,rgba(24,41,34,.08),rgba(246,249,242,.01) 54%,rgba(22,40,31,.10))
 }
 @keyframes scene-atmosphere-drift{
-  from{transform:translate3d(-1.2%,-.7%,0) scale(1.02)}
-  to{transform:translate3d(1.4%,.9%,0) scale(1.045)}
+  from{transform:translate3d(-1.8%,-1%,0) scale(1.025)}
+  to{transform:translate3d(2%,1.25%,0) scale(1.06)}
+}
+@keyframes scene-earth-camera{
+  from{transform:translate3d(-.8%,-.35%,0) scale(1.025)}
+  to{transform:translate3d(.9%,.45%,0) scale(1.055)}
 }
 
 /* Let the living background read through the existing interface without sacrificing contrast. */
@@ -159,13 +163,14 @@ body.living-scenes{position:relative;isolation:isolate;min-height:100vh;backgrou
 }
 @media(prefers-reduced-motion:reduce){
   .scene-image,.scene-night-depth,.scene-night-glow,.scene-atmosphere,.scene-video{will-change:auto}
-  .scene-atmosphere{animation:none}
+  .scene-atmosphere,.scene-video{animation:none}
   .scene-video{transition:none}
 }
 :root[data-scene-motion=paused] .scene-image,
 :root[data-scene-motion=paused] .scene-night-depth,
 :root[data-scene-motion=paused] .scene-night-glow,
-:root[data-scene-motion=paused] .scene-atmosphere{will-change:auto;animation-play-state:paused!important}
+:root[data-scene-motion=paused] .scene-atmosphere,
+:root[data-scene-motion=paused] .scene-video{will-change:auto;animation-play-state:paused!important}
 @media print{.scene-backdrop,.scene-options,.appearance-toggle{display:none!important}.living-scenes{background:white!important;color:black!important}}
 
 /* The two labels describe the active appearance; the accessible name describes the action. */
