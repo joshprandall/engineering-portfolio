@@ -146,3 +146,74 @@ html[data-theme="light"] .vnext-cosmos .vnext-world.selected strong{color:#ffd8b
   .vnext-cosmos-scene{isolation:isolate}
   .vnext-cosmos-core{filter:drop-shadow(0 0 10px #ffbd76) drop-shadow(0 0 24px #f079387f)}
 }
+
+
+/* 2026-09-24 floating solar composition — no containing tile, no top control strip. */
+.home-page .vnext-cosmos,
+body[data-library-page="home"] .vnext-cosmos{
+  max-width:none!important;
+  width:100%!important;
+  padding:0!important;
+  gap:0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  overflow:visible!important
+}
+.home-page .vnext-cosmos .vnext-sys-top,
+.home-page .vnext-cosmos .vnext-system-tabs,
+body[data-library-page="home"] .vnext-cosmos .vnext-sys-top,
+body[data-library-page="home"] .vnext-cosmos .vnext-system-tabs{
+  display:none!important
+}
+.home-page .vnext-cosmos-scene,
+body[data-library-page="home"] .vnext-cosmos-scene{
+  background:transparent!important;
+  border:0!important;
+  overflow:visible!important
+}
+.home-page .vnext-cosmos-scene::before,
+.home-page .vnext-cosmos-scene::after,
+body[data-library-page="home"] .vnext-cosmos-scene::before,
+body[data-library-page="home"] .vnext-cosmos-scene::after{
+  display:none!important
+}
+.home-page .vnext-cosmos-hint,
+body[data-library-page="home"] .vnext-cosmos-hint{display:none!important}
+.home-page .vnext-world strong,
+body[data-library-page="home"] .vnext-world strong{
+  display:block!important;
+  padding:3px 0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  -webkit-backdrop-filter:none!important;
+  backdrop-filter:none!important;
+  color:#eef8fb!important;
+  text-shadow:0 2px 8px #000,0 0 14px #000!important
+}
+.home-page .vnext-cosmos .vnext-sys-detail,
+body[data-library-page="home"] .vnext-cosmos .vnext-sys-detail{
+  margin-top:10px!important;
+  padding:14px 4px 0!important;
+  min-height:0!important;
+  border:0!important;
+  background:transparent!important;
+  box-shadow:none!important
+}
+.home-page .vnext-cosmos .vnext-sys-detail h2,
+.home-page .vnext-cosmos .vnext-sys-detail p,
+body[data-library-page="home"] .vnext-cosmos .vnext-sys-detail h2,
+body[data-library-page="home"] .vnext-cosmos .vnext-sys-detail p{
+  text-shadow:0 2px 12px rgba(0,0,0,.85)
+}
+.home-page .vnext-detail-grid,
+body[data-library-page="home"] .vnext-detail-grid{display:block!important}
+.home-page .vnext-detail-grid>div:last-child ul,
+body[data-library-page="home"] .vnext-detail-grid>div:last-child ul{display:none!important}
+@media(max-width:600px){
+  .home-page .vnext-cosmos-scene,
+  body[data-library-page="home"] .vnext-cosmos-scene{height:300px!important;min-height:300px!important}
+}
