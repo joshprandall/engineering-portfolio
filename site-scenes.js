@@ -181,6 +181,8 @@
     let ambientNodes = [];
     let ambientTimer = 0;
     let birdTimer = 0;
+    let ambientWatchdog = 0;
+    let ambientSignature = '';
     let audioUnlocked = false;
     let audioSuppressed = false;
     let ambientMuted = (() => {
@@ -247,6 +249,7 @@
       clearTimeout(birdTimer);
       ambientTimer = 0;
       birdTimer = 0;
+      ambientSignature = '';
       const nodes = ambientNodes.splice(0);
       nodes.forEach(node => {
         try { if (typeof node.stop === 'function') node.stop(); } catch (_) {}
@@ -380,27 +383,65 @@
       });
     }
 
-    function refreshAmbientAudio() {
+    function desiredAmbientSignature() {
+      if (theme === 'dark') return 'dark';
+      const scene = LIGHT_SCENES[activeSceneIndex];
+      return 'light:' + (scene?.id || 'default');
+    }
+
+    function refreshAmbientAudio(force=false) {
       updateAudioButton();
       syncVideoAmbience();
+
+      if (!ambientAllowed()) {
+        if (ambientNodes.length) stopAmbientNodes();
+        return;
+      }
       if (!audioUnlocked || !ambientCtx || !ambientMaster) return;
+
+      if (ambientCtx.state === 'suspended') {
+        try {
+          const resumed = ambientCtx.resume();
+          if (resumed?.then) resumed.then(() => {
+            if (ambientCtx?.state === 'running' && ambientAllowed()) refreshAmbientAudio(true);
+          }).catch(() => {});
+        } catch (_) {}
+        return;
+      }
+      if (ambientCtx.state !== 'running') return;
+
+      const wanted = desiredAmbientSignature();
+      if (!force && ambientSignature === wanted && ambientNodes.length) {
+        syncVideoAmbience();
+        return;
+      }
+
       stopAmbientNodes();
       if (!ambientAllowed()) return;
-      if (ambientCtx.state === 'suspended') ambientCtx.resume();
+
       syncVideoAmbience();
       if (theme === 'dark') startDarkAmbience();
       else startLightAmbience();
+      ambientSignature = wanted;
+
       const target = theme === 'dark' ? .96 : .98;
       try {
         ambientMaster.gain.cancelScheduledValues(ambientCtx.currentTime);
         ambientMaster.gain.setValueAtTime(.0001, ambientCtx.currentTime);
-        ambientMaster.gain.exponentialRampToValueAtTime(target, ambientCtx.currentTime + 1.4);
+        ambientMaster.gain.exponentialRampToValueAtTime(target, ambientCtx.currentTime + .9);
       } catch (_) {}
     }
 
     function unlockAmbientFromGesture() {
       if (!ambientAllowed()) return;
-      if (ensureAmbientContext()) refreshAmbientAudio();
+      if (audioUnlocked && ambientCtx?.state === 'running' && ambientNodes.length) return;
+      if (!ensureAmbientContext()) return;
+      if (ambientCtx?.state === 'running') refreshAmbientAudio(!ambientNodes.length);
+      else {
+        try {
+          ambientCtx?.resume?.().then(() => refreshAmbientAudio(!ambientNodes.length)).catch(() => {});
+        } catch (_) {}
+      }
     }
 
     updateAudioButton();
@@ -408,8 +449,12 @@
       audioButton.addEventListener('click', () => {
         ambientMuted = !ambientMuted;
         storeAmbientMuted();
-        if (!ambientMuted) ensureAmbientContext();
-        refreshAmbientAudio();
+        if (!ambientMuted) {
+          ensureAmbientContext();
+          refreshAmbientAudio(true);
+        } else {
+          refreshAmbientAudio(true);
+        }
       });
     }
 
@@ -554,7 +599,7 @@
       standbyVideo = oldVideo;
       activeSceneIndex = nextIndex;
       updateDayCredit();
-      refreshAmbientAudio();
+      refreshAmbientAudio(true);
 
       setTimeout(() => {
         standbyVideo.pause();
@@ -741,9 +786,19 @@
     document.addEventListener('pointerdown', retryLightPlayback, { passive: true });
     document.addEventListener('touchstart', retryLightPlayback, { passive: true });
     document.addEventListener('keydown', retryLightPlayback);
+    // iOS/Safari requires a user gesture before background audio may start.
+    // After the first successful unlock, ordinary taps no longer restart the loop.
     document.addEventListener('pointerdown', unlockAmbientFromGesture, { passive: true });
     document.addEventListener('touchstart', unlockAmbientFromGesture, { passive: true });
     document.addEventListener('keydown', unlockAmbientFromGesture);
+
+    ambientWatchdog = setInterval(() => {
+      if (!ambientAllowed() || !audioUnlocked || !ambientCtx) return;
+      if (ambientCtx.state === 'running') {
+        if (!ambientNodes.length || ambientSignature !== desiredAmbientSignature()) refreshAmbientAudio(true);
+        else syncVideoAmbience();
+      }
+    }, 2500);
     document.addEventListener('portfolio:ambient-suppression', event => {
       audioSuppressed = Boolean(event.detail && event.detail.active);
       refreshAmbientAudio();
@@ -767,6 +822,7 @@
     addEventListener('pagehide', () => {
       pauseVideos();
       stopAmbientNodes();
+      clearInterval(ambientWatchdog);
       clearTimeout(mediaTimer);
       cancelAnimationFrame(raf);
       raf = 0;
