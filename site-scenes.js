@@ -274,6 +274,7 @@
     async function rotateLightScene() {
       if (transitionBusy || !canPlay() || time < nextAttempt) return;
       transitionBusy = true;
+      updateContrast(true);
       const incoming = standbyVideo;
       const outgoing = activeVideo;
       const nextIndex = (activeSceneIndex + 1) % LIGHT_SCENES.length;
@@ -303,6 +304,7 @@
         outgoing.classList.remove('is-active');
         transitionBusy = false;
         backdrop.dataset.playback = activeVideo.paused ? 'paused' : 'playing';
+        updateContrast();
         if (canPlay()) warmNextScene();
       }, 1500);
     }
@@ -449,6 +451,7 @@
     let contrastNodes = [];
     let lastContrast = 0;
     let contrastTimer = 0;
+    let contrastSafeUntil = performance.now() + 1500;
     const copySelector = '.hero-copy,.about-copy,.section-heading,.portrait-caption,.quantum-intro,.projects-hero,.contact>div,.vnext-sys-detail,.scene-options>div,footer.wrap,.site-footer,.vnext-sys-top,.learn-page-intro,.education-section>.text-link,.depth-heading>div:first-child,.game-project>.eyebrow,.game-project>h1,.game-project>.lead';
     const glassSelector = '.home-project,.project-card,.education-cards article,.domain-card,.principle-grid article,.home-spotlight,.stats>div,.verification-inner,.resume-inner,.learn-page-nav,.credentials-detail,.depth-coverage,.depth-ladder button,.depth-planner,.depth-integrity,.research-bridge,.battle-launch,.game-launch,.game-notes article';
     function collectSurfaces() {
@@ -483,6 +486,8 @@
         sampleCanvas.width = 64; // clear the tainted backing store before the next sample
         sampleContext = sampleCanvas.getContext('2d', { willReadFrequently: true });
       }
+      // While two scenes overlap, protect text against either scene's extremes.
+      if (transitionBusy || performance.now() < contrastSafeUntil) sampled = false;
       backdrop.dataset.contrast = sampled ? 'sampled' : 'conservative';
       for (const el of contrastNodes) {
         const rect = el.getBoundingClientRect();
@@ -534,7 +539,9 @@
     function refresh() {
       cancelAnimationFrame(raf);
       raf = 0;
-      theme = appearance.getTheme();
+      const nextTheme = appearance.getTheme();
+      if (theme !== nextTheme) contrastSafeUntil = performance.now() + 1500;
+      theme = nextTheme;
       backdrop.dataset.sceneTheme = theme;
       if (canPlay()) loadInitialLightScene();
       else { pauseVideos(); backdrop.dataset.playback = 'paused'; }

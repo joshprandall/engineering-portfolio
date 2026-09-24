@@ -53,8 +53,8 @@ module.exports = async ({browser,base,output,failures}) => {
   await page.goto(base+'/index.html',{waitUntil:'networkidle'});
   if(await page.locator('html').getAttribute('data-theme')!=='dark') await page.locator('[data-theme-toggle]').click();
   await page.locator('.home-project').first().scrollIntoViewIfNeeded();
-  await page.waitForTimeout(1000);
-  opacities.push(alpha(await css('.home-project','backgroundColor')));
+  for (const settleMs of [120,1800]) {
+  await page.waitForTimeout(settleMs);
   const contrast=await page.locator('.home-project').first().evaluate((card,brightness)=>{
    const numbers=s=>s.match(/[\d.]+/g).map(Number);
    const fg=numbers(getComputedStyle(card.querySelector('p')).color);
@@ -64,7 +64,9 @@ module.exports = async ({browser,base,output,failures}) => {
    const lum=rgb=>rgb.map(v=>{v/=255;return v<=.04045?v/12.92:((v+.055)/1.055)**2.4}).reduce((a,v,i)=>a+v*[.2126,.7152,.0722][i],0);
    return (lum(fg)+.05)/(lum(composite)+.05);
   },brightness);
-  assert(contrast>=4.5,'Body text contrast over '+brightness+' scenery: '+contrast);
+  assert(contrast>=4.5,'Body text contrast over '+brightness+' scenery during/after theme change: '+contrast);
+  }
+  opacities.push(alpha(await css('.home-project','backgroundColor')));
  }
  assert(opacities[0]>opacities[1],'Brighter night scenery dynamically strengthens glass');
  await context.unroute('**/assets/scenes/webb-cosmic-cliffs.webp');

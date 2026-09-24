@@ -41,7 +41,7 @@ body.living-scenes{position:relative;isolation:isolate;min-height:100vh;backgrou
 :root[data-scene-surface=glass] .living-scenes :is(.home-project,.project-card,.education-cards article,.domain-card,.principle-grid article,.home-spotlight,.stats>div,.verification-inner,.resume-inner,.learn-page-nav,.glass-surface){
  background:var(--scene-surface)!important;border:1px solid var(--scene-border)!important;border-radius:var(--scene-radius)!important;
  box-shadow:var(--scene-shadow);backdrop-filter:blur(14px) saturate(1.12);-webkit-backdrop-filter:blur(14px) saturate(1.12);
- color:var(--ink);transition:background-color 1.2s ease,border-color .2s,box-shadow .2s,color 1.2s ease
+ color:var(--ink);transition:border-color .2s,box-shadow .2s
 }
 :root[data-scene-surface=glass] .living-scenes :is(.home-project,.project-card,.domain-card):hover{background:rgba(var(--glass-rgb),calc(var(--glass-alpha) + .06));border-color:var(--blue)}
 .living-scenes p{color:var(--muted)}
