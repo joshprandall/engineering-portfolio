@@ -36,8 +36,9 @@ async function run(){
     assert.equal(await world.getAttribute('aria-pressed'),'true');
     assert.match(await page.locator('.vnext-sys-meta').innerText(),new RegExp(label,'i'));
    }
-   assert.equal(await page.locator('.vnext-system-tabs').isVisible(),false,'Top solar capability buttons stay hidden');
-   assert.equal(await page.locator('.vnext-sys-top').isVisible(),false,'Solar top status strip stays hidden');
+   assert.equal(await page.locator('.vnext-system-tabs').count(),0,'Top solar capability buttons are removed');
+   assert.equal(await page.locator('.vnext-sys-top').count(),0,'Solar top status strip is removed');
+   assert.equal(await page.locator('.vnext-cosmos-hint').count(),0,'Solar hint container is removed');
    if(await page.locator('#menu').isVisible()){
     for(let n=0;n<3;n++){
      await page.locator('#menu').click();assert.equal(await page.locator('#menu').getAttribute('aria-expanded'),'true');assert(await page.locator('#primary-nav').isVisible());
@@ -63,7 +64,7 @@ async function run(){
    for(const img of await page.locator('main img:visible').all()){await img.scrollIntoViewIfNeeded();await img.evaluate(im=>im.decode());}
    const portrait=page.locator('.portrait-photo img');assert(await portrait.isVisible(),'Portrait is visible over systems artwork');
    const pb=await portrait.boundingBox(),ab=await page.locator('.about-imagery').boundingBox();assert(pb&&ab&&pb.x>=ab.x-2&&pb.x+pb.width<=ab.x+ab.width+2,'Portrait stays inside systems composition');
-   assert.equal(await page.locator('.quantum-banner').isVisible(),false,'Quantum banner artwork is removed from the homepage');
+   assert.equal(await page.locator('.quantum-banner').count(),0,'Quantum banner artwork is removed from the homepage DOM');
    assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true,`${name}: no horizontal overflow`);
    await page.evaluate(()=>scrollTo({top:0,behavior:'instant'}));
    if(output){await page.screenshot({animations:'disabled',path:path.join(output,`home-${name}.png`),fullPage:true});if(await page.locator('#menu').isVisible()){await page.locator('#menu').click();await page.screenshot({animations:'disabled',path:path.join(output,`menu-${name}.png`)});await page.locator('#menu').click();}}
