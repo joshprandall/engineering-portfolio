@@ -107,6 +107,18 @@ const handheld=read('handheld-experience.js'),science=read('science-experiments.
 for(const protectedStem of ['project-geometric-ai','project-battle-chess','play-evil-wizard']) assert.ok(handheld.includes(protectedStem),`Protected route ${protectedStem} must be excluded from handheld enhancements`);
 assert.match(science,/geometric-ai\|battle-chess\|play-evil-wizard/,'Science experiment layer must explicitly exclude games and Geometric AI');
 assert.match(read('knowledge.js'),/handheld-experience\.js/,'Learning platform must load the device-specific handheld layer');
+const learningDepth=read('learning-depth.js'),learningDepthCss=read('learning-depth.css'),learningNext=read('learning-next.js');
+assert.match(read('knowledge.js'),/learning-depth\.js/,'Knowledge Platform must load the progressive mastery layer');
+assert.match(read('knowledge.js'),/learning-depth\.css/,'Knowledge Platform must load progressive mastery styling');
+assert.match(learningDepth,/Doctoral \/ Research/,'Mastery ladder must include a doctoral/research target');
+for(const stage of ['Orientation','Foundations','Core','Applied','Undergraduate','Advanced','Graduate bridge','Doctoral / Research']) assert.ok(learningDepth.includes(stage),`Mastery ladder missing ${stage}`);
+assert.match(learningDepth,/Existing lessons keep their verified Foundation, Intermediate, or Advanced difficulty/,'Mastery layer must preserve verified difficulty labels');
+assert.match(learningDepth,/Build my learning route/,'Mastery layer must provide a route planner');
+assert.match(read('knowledge.js'),/Research bridge/,'Lesson learning modes must include Research Bridge');
+assert.match(read('knowledge.js'),/graduate-style reading habits/,'Research Bridge must explain its academic-depth boundary');
+assert.match(learningNext,/vnext-path-band/,'Learning paths must expose verified path-band filtering');
+assert.match(learningNext,/jr-knowledge-depth-target-v1/,'Learning paths must respect the selected mastery target');
+assert.match(learningDepthCss,/\.depth-ladder/,'Progressive mastery ladder styling missing');
 const overlayWorkflow=read('.github/workflows/build-osu-overlay.yml');
 assert.match(overlayWorkflow,/forbidden_prefixes=\('games\/',\s*'geometric-lab\/'\)/,'OSU overlay must forbid game and Geometric AI trees');
 assert.match(overlayWorkflow,/protected_root\s*=\s*set\(\)/,'OSU overlay must allow project wrapper HTML to receive navigation fixes');
@@ -118,7 +130,7 @@ assert.ok(!/games\/|geometric-lab|project-sources/.test(webDirs),'OSU deploy WEB
 assert.match(deployScript,/PROTECTED_ROOT_FILES = set\(\)/,'OSU deploy must allow project wrapper HTML updates');
 
 
-for (const file of ['app.js','portfolio-next.js','handheld-experience.js','science-experiments.js','knowledge.js','agent-workbench.mjs','labs/qpe.mjs','labs/emergent.mjs','qubit-preview-20260921/app.js','qubit-preview-20260921/qubit.js','games/3d-battle-chess/battle.js','games/3d-battle-chess/engine.js']) execFileSync(process.execPath,['--check',path.join(root,file)],{stdio:'pipe'});
+for (const file of ['app.js','portfolio-next.js','handheld-experience.js','science-experiments.js','knowledge.js','learning-depth.js','learning-next.js','agent-workbench.mjs','labs/qpe.mjs','labs/emergent.mjs','qubit-preview-20260921/app.js','qubit-preview-20260921/qubit.js','games/3d-battle-chess/battle.js','games/3d-battle-chess/engine.js']) execFileSync(process.execPath,['--check',path.join(root,file)],{stdio:'pipe'});
 
 const q=await import(pathToFileURL(path.join(root,'qubit-preview-20260921/qubit.js')).href+'?test='+Date.now());
 const plus=q.stateFromAngles(90,0),minus=q.stateFromAngles(90,180),plusI=q.stateFromAngles(90,90),north=q.stateFromAngles(0,123);
