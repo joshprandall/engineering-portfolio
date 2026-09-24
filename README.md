@@ -6,6 +6,12 @@ This repository is the final static portfolio release for Joshua Randall. It com
 
 Live portfolio target: https://web.engr.oregonstate.edu/~randjosh/
 
+## Shared appearance
+
+`site-theme.js` loads synchronously before page styles and owns the `jr-site-theme` and `jr-site-motion` preferences. It migrates the old portfolio, learning, and geometry choices, synchronizes open tabs and restored pages, and falls back to session storage when persistent storage is unavailable. New pages should load this bootstrap, then `site-scenes.css` and the deferred `site-scenes.js`; use a `button[data-theme-toggle]` rather than registering a page-specific theme handler.
+
+Night uses the credited Webb Cosmic Cliffs image with restrained star motion. Day uses an original mountain valley with drifting clouds, wind, flowing water, and occasional varied bird flights. The backgrounds respect reduced motion, pause when the page is hidden, and expose a remembered Pause motion control. Image provenance is in `assets/scenes/CREDITS.md`. No background audio or video is loaded.
+
 ## Included project work
 
 - Recovery Readiness Auditor

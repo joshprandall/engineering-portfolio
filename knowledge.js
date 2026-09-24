@@ -1,5 +1,10 @@
 (() => {
   'use strict';
+  const preferences = {
+    getItem(key) { try { return localStorage.getItem(key); } catch { try { return sessionStorage.getItem(key); } catch { return null; } } },
+    setItem(key, value) { try { localStorage.setItem(key, value); } catch { try { sessionStorage.setItem(key, value); } catch {} } },
+    removeItem(key) { try { localStorage.removeItem(key); } catch { try { sessionStorage.removeItem(key); } catch {} } }
+  };
   const D = window.JR_KNOWLEDGE;
   if (!D) return;
   if(!document.querySelector('link[href^="handheld-experience.css"]')){const l=document.createElement('link');l.rel='stylesheet';l.href='handheld-experience.css?v=20260924-release';document.head.append(l);}
@@ -19,8 +24,8 @@
     recall:'jr-knowledge-recall-v1', flashcards:'jr-knowledge-flashcards-v1',
     learnerMode:'jr-knowledge-learner-mode-v1', videoPins:'jr-knowledge-video-pins-v1', reviewPlan:'jr-knowledge-review-plan-v1', teachback:'jr-knowledge-teachback-v1'
   };
-  const loadSet = key => { try { return new Set(JSON.parse(localStorage.getItem(key)||'[]')); } catch { return new Set(); } };
-  const saveSet = (key, set) => localStorage.setItem(key, JSON.stringify([...set]));
+  const loadSet = key => { try { return new Set(JSON.parse(preferences.getItem(key)||'[]')); } catch { return new Set(); } };
+  const saveSet = (key, set) => preferences.setItem(key, JSON.stringify([...set]));
 
   let saved = loadSet(STORAGE.saved);
   let completed = loadSet(STORAGE.complete);
@@ -33,19 +38,19 @@
   let availableVoices = [];
   let lessonViewName = 'overview';
   let audioCtx = null;
-  let soundMode = localStorage.getItem(STORAGE.sound) || 'off';
-  let motionPaused = localStorage.getItem(STORAGE.motion) === 'paused';
+  let soundMode = preferences.getItem(STORAGE.sound) || 'off';
+  let motionPaused = window.PortfolioTheme?.isPaused() || false;
   let curriculumDomain = 'cloud';
   let glossaryLetter = 'all';
   let graphSelection = 'cloud';
-  let focusReading = localStorage.getItem(STORAGE.focus) === 'on';
-  let learnerMode = localStorage.getItem(STORAGE.learnerMode) || 'general';
-  let videoPins = (()=>{try{return JSON.parse(localStorage.getItem(STORAGE.videoPins)||'{}')}catch{return {}}})();
-  let reviewPlan = (()=>{try{return JSON.parse(localStorage.getItem(STORAGE.reviewPlan)||'{}')}catch{return {}}})();
-  let teachbackState = (()=>{try{return JSON.parse(localStorage.getItem(STORAGE.teachback)||'{}')}catch{return {}}})();
+  let focusReading = preferences.getItem(STORAGE.focus) === 'on';
+  let learnerMode = preferences.getItem(STORAGE.learnerMode) || 'general';
+  let videoPins = (()=>{try{return JSON.parse(preferences.getItem(STORAGE.videoPins)||'{}')}catch{return {}}})();
+  let reviewPlan = (()=>{try{return JSON.parse(preferences.getItem(STORAGE.reviewPlan)||'{}')}catch{return {}}})();
+  let teachbackState = (()=>{try{return JSON.parse(preferences.getItem(STORAGE.teachback)||'{}')}catch{return {}}})();
   const deepLessonCache = new Map(), deepChunkLoads = new Map();
-  let recallState = (()=>{try{return JSON.parse(localStorage.getItem(STORAGE.recall)||'{}')}catch{return {}}})();
-  let flashState = (()=>{try{return JSON.parse(localStorage.getItem(STORAGE.flashcards)||'{}')}catch{return {}}})();
+  let recallState = (()=>{try{return JSON.parse(preferences.getItem(STORAGE.recall)||'{}')}catch{return {}}})();
+  let flashState = (()=>{try{return JSON.parse(preferences.getItem(STORAGE.flashcards)||'{}')}catch{return {}}})();
   let recallLessonId = null, flashIndex = 0, flashRevealed = false, labLimit = 12, labDomain='all', labDifficulty='all', sprintState=null;
 
   function toast(msg){
@@ -75,8 +80,6 @@
   }
 
   function initPrefs(){
-    const theme = localStorage.getItem(STORAGE.theme) || 'dark';
-    document.documentElement.dataset.theme = theme;
     document.body.classList.toggle('motion-paused',motionPaused);
     updateSoundButton();
     $('#motion-mode').textContent = motionPaused ? '▶' : '◫';
@@ -117,13 +120,13 @@
   }
 
   function renderContinue(){
-    const id=localStorage.getItem(STORAGE.recent), l=lessonMap.get(id), box=$('#continue-learning');
+    const id=preferences.getItem(STORAGE.recent), l=lessonMap.get(id), box=$('#continue-learning');
     if(!l){box.hidden=true;return}
     const d=domainMap.get(l.domain); box.hidden=false;
     $('#continue-title').textContent=l.title;
     $('#continue-copy').textContent=`${d.name} · ${l.category} · ${l.minutes} min · stored only in this browser.`;
     $('#continue-button').onclick=()=>openLesson(l.id);
-    $('#clear-history').onclick=()=>{localStorage.removeItem(STORAGE.recent);box.hidden=true;toast('Recent lesson cleared')};
+    $('#clear-history').onclick=()=>{preferences.removeItem(STORAGE.recent);box.hidden=true;toast('Recent lesson cleared')};
   }
 
   function renderCurriculum(){
@@ -397,7 +400,7 @@
     const l=lessonMap.get(id); if(!l)return;
     const standalone=new URL(location.href).searchParams.get('standalone')==='1';
     document.body.classList.toggle('standalone-experience',standalone);
-    stopSpeech(); currentLesson=id; lessonViewName=lessonViewFromURL(); localStorage.setItem(STORAGE.recent,id); renderContinue(); const initialView=lessonViewName; ensureDeepLearning(l).then(()=>{if(currentLesson===id&&lessonViewName===initialView){const host=$('#lesson-page-content');if(host){host.innerHTML=lessonPageHTML(l,initialView);bindLessonPage(l);if(initialView==='lab')mountInteractive(l.interactive,l)}}});
+    stopSpeech(); currentLesson=id; lessonViewName=lessonViewFromURL(); preferences.setItem(STORAGE.recent,id); renderContinue(); const initialView=lessonViewName; ensureDeepLearning(l).then(()=>{if(currentLesson===id&&lessonViewName===initialView){const host=$('#lesson-page-content');if(host){host.innerHTML=lessonPageHTML(l,initialView);bindLessonPage(l);if(initialView==='lab')mountInteractive(l.interactive,l)}}});
     $('#library-view').hidden=true; $('#lesson-view').hidden=false; document.body.classList.add('reading'); $('#lesson-view').classList.toggle('focus-reading',focusReading);
     if(push){const u=new URL(location.href);u.searchParams.set('lesson',id);u.searchParams.set('view','overview');u.searchParams.delete('domain');history.pushState({lesson:id},'',u);lessonViewName='overview'}
     const d=domainMap.get(l.domain);
@@ -422,13 +425,13 @@
     const done=$('[data-complete-here]'); if(done)done.onclick=()=>toggleLessonComplete(l);
     if(l.quiz){$$('.quiz-options button').forEach(b=>b.onclick=()=>answerQuiz(l,Number(b.dataset.option)))}
     $$('[data-visual-node]').forEach((b,i)=>b.onclick=()=>{const g=deepGuide(l), refs=(l.references||[]).map(r=>r[0]).slice(0,3).join(' · ')||'See Evidence', nodes=[['Verified claim',g.verifiedBoundary],['Why it matters',l.why],['Worked example',l.example],['Watch for',l.misconception||'Do not extend the conclusion beyond the evidence.'],['Remember',l.takeaway],['Evidence',refs]],d=$('[data-visual-detail]');if(d){d.querySelector('h3').textContent=nodes[i][0];d.querySelector('p').textContent=nodes[i][1];$$('[data-visual-node]').forEach(x=>x.classList.remove('selected'));b.classList.add('selected');ping(480+i*25,.04,.01)}});
-    const pin=$('[data-pin-video]');if(pin)pin.onclick=()=>{const input=$('[data-video-url]'),status=$('[data-video-status]'),id=parseYouTubeId(input?.value||'');if(!id){status.textContent='I could not find a YouTube video ID in that value.';return}videoPins[l.id]={id,title:'Pinned lesson video',channel:'YouTube'};localStorage.setItem(STORAGE.videoPins,JSON.stringify(videoPins));status.textContent='Pinned in this browser.';$('#lesson-page-content').innerHTML=lessonPageHTML(l,'video');bindLessonPage(l);toast('Video pinned for this lesson')};
-    const clear=$('[data-clear-video]');if(clear)clear.onclick=()=>{delete videoPins[l.id];localStorage.setItem(STORAGE.videoPins,JSON.stringify(videoPins));$('#lesson-page-content').innerHTML=lessonPageHTML(l,'video');bindLessonPage(l);toast('Foundation video restored')};
-    const saveTeach=$('[data-save-teachback]');if(saveTeach)saveTeach.onclick=()=>{teachbackState[l.id]=$('[data-teachback-text]')?.value||'';localStorage.setItem(STORAGE.teachback,JSON.stringify(teachbackState));toast('Teach-back saved in this browser')};
+    const pin=$('[data-pin-video]');if(pin)pin.onclick=()=>{const input=$('[data-video-url]'),status=$('[data-video-status]'),id=parseYouTubeId(input?.value||'');if(!id){status.textContent='I could not find a YouTube video ID in that value.';return}videoPins[l.id]={id,title:'Pinned lesson video',channel:'YouTube'};preferences.setItem(STORAGE.videoPins,JSON.stringify(videoPins));status.textContent='Pinned in this browser.';$('#lesson-page-content').innerHTML=lessonPageHTML(l,'video');bindLessonPage(l);toast('Video pinned for this lesson')};
+    const clear=$('[data-clear-video]');if(clear)clear.onclick=()=>{delete videoPins[l.id];preferences.setItem(STORAGE.videoPins,JSON.stringify(videoPins));$('#lesson-page-content').innerHTML=lessonPageHTML(l,'video');bindLessonPage(l);toast('Foundation video restored')};
+    const saveTeach=$('[data-save-teachback]');if(saveTeach)saveTeach.onclick=()=>{teachbackState[l.id]=$('[data-teachback-text]')?.value||'';preferences.setItem(STORAGE.teachback,JSON.stringify(teachbackState));toast('Teach-back saved in this browser')};
     const rubric=$('[data-show-rubric]');if(rubric)rubric.onclick=()=>{const r=$('[data-teachback-rubric]');r.hidden=!r.hidden;rubric.textContent=r.hidden?'Show self-check rubric':'Hide self-check rubric'};
     const conf=$('[data-confidence]');if(conf)conf.oninput=()=>{$('[data-confidence-out]').textContent=`${conf.value} / 5`};
-    $$('[data-review-days]').forEach(b=>b.onclick=()=>{const days=Number(b.dataset.reviewDays)||1,d=new Date();d.setDate(d.getDate()+days);const iso=d.toISOString().slice(0,10);reviewPlan[l.id]={date:iso,days,created:new Date().toISOString()};localStorage.setItem(STORAGE.reviewPlan,JSON.stringify(reviewPlan));const out=$('[data-review-due]');if(out)out.textContent=`Revisit planned for ${d.toLocaleDateString()}.`;toast('Local revisit date saved')});
-    const mode=$('#learner-mode');if(mode)mode.onchange=()=>{learnerMode=mode.value;localStorage.setItem(STORAGE.learnerMode,learnerMode);$('#lesson-page-content').innerHTML=lessonPageHTML(l,lessonViewName);bindLessonPage(l);if(lessonViewName==='lab')mountInteractive(l.interactive,l);toast(`Learning mode: ${audienceLabel()}`)};
+    $$('[data-review-days]').forEach(b=>b.onclick=()=>{const days=Number(b.dataset.reviewDays)||1,d=new Date();d.setDate(d.getDate()+days);const iso=d.toISOString().slice(0,10);reviewPlan[l.id]={date:iso,days,created:new Date().toISOString()};preferences.setItem(STORAGE.reviewPlan,JSON.stringify(reviewPlan));const out=$('[data-review-due]');if(out)out.textContent=`Revisit planned for ${d.toLocaleDateString()}.`;toast('Local revisit date saved')});
+    const mode=$('#learner-mode');if(mode)mode.onchange=()=>{learnerMode=mode.value;preferences.setItem(STORAGE.learnerMode,learnerMode);$('#lesson-page-content').innerHTML=lessonPageHTML(l,lessonViewName);bindLessonPage(l);if(lessonViewName==='lab')mountInteractive(l.interactive,l);toast(`Learning mode: ${audienceLabel()}`)};
   }
   function switchLessonView(l,view,push=true){
     if(!LESSON_VIEWS.some(x=>x[0]===view))view='overview'; stopSpeech(); lessonViewName=view;
@@ -468,13 +471,13 @@
     else back.onclick=()=>closeLesson();
     $$('[data-home-lesson]').forEach(b=>b.onclick=()=>{if(standalone)location.href='learn-labs.html';else closeLesson();});
     $$('[data-domain-lesson]').forEach(b=>b.onclick=()=>{const dom=b.dataset.domainLesson;location.href=`learn-browse.html?domain=${encodeURIComponent(dom)}`});
-    const rate=$('#narration-rate'); rate.value=localStorage.getItem(STORAGE.narrationRate)||'0.95'; rate.onchange=()=>{localStorage.setItem(STORAGE.narrationRate,rate.value);toast(`Narration ${rate.options[rate.selectedIndex].text}`)};
+    const rate=$('#narration-rate'); rate.value=preferences.getItem(STORAGE.narrationRate)||'0.95'; rate.onchange=()=>{preferences.setItem(STORAGE.narrationRate,rate.value);toast(`Narration ${rate.options[rate.selectedIndex].text}`)};
     $('#listen-full').onclick=()=>speakLesson(l,false); $('#listen-summary').onclick=()=>speakLesson(l,true); $('#stop-audio').onclick=stopSpeech;
     $('#save-current').onclick=()=>{toggleSaved(l.id);$('#save-current').textContent=saved.has(l.id)?'♥ Saved':'♡ Save'};
-    $('#focus-reading').onclick=()=>{focusReading=!focusReading;localStorage.setItem(STORAGE.focus,focusReading?'on':'off');$('#lesson-view').classList.toggle('focus-reading',focusReading);$('#focus-reading').textContent=focusReading?'Exit focus':'Focus reading';toast(focusReading?'Focus reading on':'Focus reading off')};
+    $('#focus-reading').onclick=()=>{focusReading=!focusReading;preferences.setItem(STORAGE.focus,focusReading?'on':'off');$('#lesson-view').classList.toggle('focus-reading',focusReading);$('#focus-reading').textContent=focusReading?'Exit focus':'Focus reading';toast(focusReading?'Focus reading on':'Focus reading off')};
     $('#share-current').onclick=async()=>{try{await navigator.clipboard.writeText(location.href);toast('Lesson link copied')}catch{toast('Copy the address from your browser')}};
     $('#complete-lesson').onclick=()=>toggleLessonComplete(l); $('#preview-voice').onclick=previewNarrationVoice;
-    const mode=$('#learner-mode');if(mode)mode.onchange=()=>{learnerMode=mode.value;localStorage.setItem(STORAGE.learnerMode,learnerMode);$('#lesson-page-content').innerHTML=lessonPageHTML(l,lessonViewName);bindLessonPage(l);if(lessonViewName==='lab')mountInteractive(l.interactive,l);toast(`Learning mode: ${audienceLabel()}`)};
+    const mode=$('#learner-mode');if(mode)mode.onchange=()=>{learnerMode=mode.value;preferences.setItem(STORAGE.learnerMode,learnerMode);$('#lesson-page-content').innerHTML=lessonPageHTML(l,lessonViewName);bindLessonPage(l);if(lessonViewName==='lab')mountInteractive(l.interactive,l);toast(`Learning mode: ${audienceLabel()}`)};
   }
   function renderQuiz(l){return `<div class="quiz"><h3>${esc(l.quiz.q)}</h3><div class="quiz-options">${l.quiz.options.map((o,i)=>`<button type="button" data-option="${i}">${String.fromCharCode(65+i)}. ${esc(o)}</button>`).join('')}</div><div class="quiz-feedback" id="quiz-feedback"></div></div>`}
   function answerQuiz(l,i){
@@ -498,12 +501,12 @@
     if(v.default)s+=12;return s;
   }
   function refreshVoices(){if(!('speechSynthesis'in window))return;availableVoices=speechSynthesis.getVoices().slice().sort((a,b)=>voiceScore(b)-voiceScore(a));populateVoiceSelect()}
-  function populateVoiceSelect(){const sel=$('#narration-voice');if(!sel)return;const savedVoice=localStorage.getItem(STORAGE.narrationVoice)||'';sel.innerHTML='<option value="">Best available</option>'+availableVoices.filter(v=>(v.lang||'').toLowerCase().startsWith('en')).map(v=>`<option value="${esc(v.name)}">${esc(v.name)} · ${esc(v.lang)}</option>`).join('');sel.value=[...sel.options].some(o=>o.value===savedVoice)?savedVoice:'';sel.onchange=()=>{localStorage.setItem(STORAGE.narrationVoice,sel.value);toast(sel.value?`Voice: ${sel.value}`:'Using best available voice')}}
-  function preferredVoice(){const chosen=localStorage.getItem(STORAGE.narrationVoice);return availableVoices.find(v=>v.name===chosen)||availableVoices[0]||null}
+  function populateVoiceSelect(){const sel=$('#narration-voice');if(!sel)return;const savedVoice=preferences.getItem(STORAGE.narrationVoice)||'';sel.innerHTML='<option value="">Best available</option>'+availableVoices.filter(v=>(v.lang||'').toLowerCase().startsWith('en')).map(v=>`<option value="${esc(v.name)}">${esc(v.name)} · ${esc(v.lang)}</option>`).join('');sel.value=[...sel.options].some(o=>o.value===savedVoice)?savedVoice:'';sel.onchange=()=>{preferences.setItem(STORAGE.narrationVoice,sel.value);toast(sel.value?`Voice: ${sel.value}`:'Using best available voice')}}
+  function preferredVoice(){const chosen=preferences.getItem(STORAGE.narrationVoice);return availableVoices.find(v=>v.name===chosen)||availableVoices[0]||null}
   function speechChunks(text,max=185){const parts=String(text).match(/[^.!?]+[.!?]+|[^.!?]+$/g)||[text];const out=[];let buf='';for(const p0 of parts){const p=p0.trim();if(!p)continue;if((buf+' '+p).length>max&&buf){out.push(buf);buf=p}else buf=(buf+' '+p).trim()}if(buf)out.push(buf);return out}
   function speakQueue(chunks,label='Narrating this lesson…'){
     if(!('speechSynthesis'in window)){toast('This browser does not expose speech synthesis.');return}stopSpeech(false);speechQueue=chunks;speechQueueIndex=0;speechState='speaking';const state=$('#audio-state');if(state)state.textContent=label;const stop=$('#stop-audio');if(stop)stop.hidden=false;
-    const next=()=>{if(speechState!=='speaking'||speechQueueIndex>=speechQueue.length){stopSpeech(false);if(state)state.textContent='Narration complete.';return}const u=new SpeechSynthesisUtterance(speechQueue[speechQueueIndex++]);currentUtterance=u;u.voice=preferredVoice();u.lang=u.voice?.lang||navigator.language||'en-US';u.rate=Number(localStorage.getItem(STORAGE.narrationRate)||0.95);u.pitch=.97;u.volume=1;u.onend=()=>setTimeout(next,155);u.onerror=()=>stopSpeech(false);speechSynthesis.speak(u)};next()
+    const next=()=>{if(speechState!=='speaking'||speechQueueIndex>=speechQueue.length){stopSpeech(false);if(state)state.textContent='Narration complete.';return}const u=new SpeechSynthesisUtterance(speechQueue[speechQueueIndex++]);currentUtterance=u;u.voice=preferredVoice();u.lang=u.voice?.lang||navigator.language||'en-US';u.rate=Number(preferences.getItem(STORAGE.narrationRate)||0.95);u.pitch=.97;u.volume=1;u.onend=()=>setTimeout(next,155);u.onerror=()=>stopSpeech(false);speechSynthesis.speak(u)};next()
   }
   function speakLesson(l,summary){refreshVoices();speakQueue(speechChunks(speechText(l,summary)),summary?'Playing a concise summary…':'Narrating this lesson…')}
   function previewNarrationVoice(){refreshVoices();speakQueue(['This is the selected narration voice. Clear explanations should sound natural, calm, and easy to follow.'],'Previewing voice…')}
@@ -827,8 +830,8 @@
     }
   }
 
-  function saveRecall(){try{localStorage.setItem(STORAGE.recall,JSON.stringify(recallState))}catch{}}
-  function saveFlash(){try{localStorage.setItem(STORAGE.flashcards,JSON.stringify(flashState))}catch{}}
+  function saveRecall(){try{preferences.setItem(STORAGE.recall,JSON.stringify(recallState))}catch{}}
+  function saveFlash(){try{preferences.setItem(STORAGE.flashcards,JSON.stringify(flashState))}catch{}}
   function recordRecall(id,correct){const r=recallState[id]||{correct:0,total:0,last:0};r.total++;if(correct)r.correct++;r.last=Date.now();recallState[id]=r;saveRecall();renderRetentionStats()}
   function renderRetentionStats(){const vals=Object.values(recallState),attempts=vals.reduce((a,r)=>a+(r.total||0),0),correct=vals.reduce((a,r)=>a+(r.correct||0),0),mastered=Object.values(flashState).filter(x=>x==='got').length;const a=$('#recall-attempts'),acc=$('#recall-accuracy'),fm=$('#flash-mastered');if(a)a.textContent=attempts;if(acc)acc.textContent=attempts?Math.round(correct/attempts*100)+'%':'—';if(fm)fm.textContent=mastered}
   function newRecallChallenge(preferWeak=false){const pool=D.lessons.filter(l=>l.quiz);if(!pool.length)return;let candidates=pool;if(preferWeak){const weak=pool.filter(l=>recallState[l.id]?.total&&recallState[l.id].correct/recallState[l.id].total<.75);if(weak.length)candidates=weak}const l=candidates[Math.floor(Math.random()*candidates.length)];recallLessonId=l.id;const q=l.quiz,stage=$('#recall-stage');if(!stage)return;stage.innerHTML=`<p class="challenge-domain">${esc(domainMap.get(l.domain)?.name||l.domain)} · ${esc(l.category)}</p><h4>${esc(q.q)}</h4><div class="recall-options">${q.options.map((o,i)=>`<button type="button" data-recall-option="${i}">${esc(o)}</button>`).join('')}</div><p class="recall-feedback muted" data-recall-feedback>Answer from memory before opening the lesson.</p>`;$$('[data-recall-option]',stage).forEach(b=>b.onclick=()=>{const i=+b.dataset.recallOption,correct=i===q.answer;$$('[data-recall-option]',stage).forEach(x=>x.disabled=true);b.classList.add(correct?'correct':'wrong');const cb=$(`[data-recall-option="${q.answer}"]`,stage);if(cb)cb.classList.add('correct');$('[data-recall-feedback]',stage).textContent=(correct?'Correct. ':'Not yet. ')+(q.explain||l.takeaway);recordRecall(l.id,correct);ping(correct?720:240,.1,.025);$('#recall-open').hidden=false});$('#recall-open').hidden=true}
@@ -862,7 +865,7 @@
     grid.innerHTML=rows.map(r=>`<article class="mastery-domain"><div class="mastery-domain-head"><span>${esc(r.d.icon)}</span><div><p class="eyebrow">${esc(r.d.name)}</p><h3>${r.done} / ${r.total} completed</h3></div></div><div class="mastery-bar"><i style="width:${r.pct}%"></i></div><div class="mastery-metrics"><span><strong>${r.pct}%</strong> completion</span><span><strong>${r.recall===null?'—':r.recall+'%'}</strong> recall</span><span><strong>${r.attempts}</strong> attempts</span></div><a class="text-button" href="learn-browse.html?domain=${encodeURIComponent(r.d.id)}">Study ${esc(r.d.name)} ↗</a></article>`).join('');
     const weak=D.lessons.filter(l=>recallState[l.id]?.total).map(l=>({l,r:recallState[l.id],rate:recallState[l.id].correct/recallState[l.id].total})).sort((a,b)=>a.rate-b.rate||b.r.total-a.r.total).slice(0,5);
     const weakBox=$('#mastery-weak'); if(weakBox)weakBox.innerHTML=weak.length?`<div class="mastery-list">${weak.map(x=>`<button type="button" data-master-lesson="${esc(x.l.id)}"><span>${esc(x.l.title)}</span><strong>${Math.round(x.rate*100)}%</strong></button>`).join('')}</div>`:'<p class="muted">Answer some recall questions first. Missed answers will appear here so review is evidence-driven.</p>';
-    const nextBox=$('#mastery-next'); if(nextBox){const unfinished=D.lessons.filter(l=>!completed.has(l.id));const recent=localStorage.getItem(STORAGE.recent);const pick=(recent&&lessonMap.get(recent)&&!completed.has(recent))?lessonMap.get(recent):unfinished[Math.floor(Math.random()*Math.max(1,unfinished.length))];nextBox.innerHTML=pick?`<p>${esc(pick.summary)}</p><button class="button primary" type="button" data-master-lesson="${esc(pick.id)}">Continue with ${esc(pick.title)} ↗</button>`:'<p>You have completed every published object in this browser. That is an extraordinary amount of study.</p>'}
+    const nextBox=$('#mastery-next'); if(nextBox){const unfinished=D.lessons.filter(l=>!completed.has(l.id));const recent=preferences.getItem(STORAGE.recent);const pick=(recent&&lessonMap.get(recent)&&!completed.has(recent))?lessonMap.get(recent):unfinished[Math.floor(Math.random()*Math.max(1,unfinished.length))];nextBox.innerHTML=pick?`<p>${esc(pick.summary)}</p><button class="button primary" type="button" data-master-lesson="${esc(pick.id)}">Continue with ${esc(pick.title)} ↗</button>`:'<p>You have completed every published object in this browser. That is an extraordinary amount of study.</p>'}
     $$('[data-master-lesson]').forEach(b=>b.onclick=()=>openLesson(b.dataset.masterLesson));
   }
 
@@ -896,9 +899,9 @@
     $('#glossary-search').addEventListener('input',()=>{glossaryLetter='all';renderGlossary()});
     $('#load-more').onclick=()=>{displayLimit+=18;renderLessons()};$('#clear-filters').onclick=clearFilters;$('#surprise-me').onclick=randomLesson;
     $$('[data-scroll]').forEach(b=>b.onclick=()=>$(b.dataset.scroll).scrollIntoView({behavior:motionPaused?'auto':'smooth'}));
-    $('#sound-mode').onclick=()=>{soundMode=soundMode==='off'?'educational':soundMode==='educational'?'full':'off';localStorage.setItem(STORAGE.sound,soundMode);updateSoundButton();toast(`Sound: ${soundMode}`);if(soundMode!=='off')ping(590)};
-    $('#motion-mode').onclick=()=>{motionPaused=!motionPaused;document.body.classList.toggle('motion-paused',motionPaused);localStorage.setItem(STORAGE.motion,motionPaused?'paused':'active');$('#motion-mode').textContent=motionPaused?'▶':'◫';$('#motion-mode').setAttribute('aria-label',motionPaused?'Resume animation':'Pause animation');toast(motionPaused?'Animation paused':'Animation resumed')};
-    $('#theme-mode').onclick=()=>{const next=document.documentElement.dataset.theme==='light'?'dark':'light';document.documentElement.dataset.theme=next;localStorage.setItem(STORAGE.theme,next);renderKnowledgeGraph();toast(`${next[0].toUpperCase()+next.slice(1)} theme`)};
+    $('#sound-mode').onclick=()=>{soundMode=soundMode==='off'?'educational':soundMode==='educational'?'full':'off';preferences.setItem(STORAGE.sound,soundMode);updateSoundButton();toast(`Sound: ${soundMode}`);if(soundMode!=='off')ping(590)};
+    document.addEventListener('portfolio:motion',()=>{motionPaused=window.PortfolioTheme?.isPaused()||false;});
+    document.addEventListener('portfolio:theme',()=>renderKnowledgeGraph());
     const primaryNav=$('.site-header nav'),mobileMenu=$('#mobile-menu');
     if(primaryNav&&mobileMenu){
       primaryNav.id=primaryNav.id||'primary-nav';

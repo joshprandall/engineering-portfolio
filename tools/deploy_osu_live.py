@@ -9,12 +9,15 @@ PUBLIC_URL = 'https://web.engr.oregonstate.edu/~randjosh/'
 WEB_DIRS = ('assets', 'deep-learning', 'labs', 'qubit-preview-20260921')
 PROTECTED_ROOT_FILES = set()
 PROTECTED_PREFIXES = ('games/', 'geometric-lab/')
+THEME_SHELL_FILES = ('geometric-lab/index.html', 'geometric-lab/app.js')
 PRESERVE_IF_PRESENT = ('assets/fusion-presentation.mp4',)
 PROTECTED_REQUIRED = tuple(PROTECTED_ROOT_FILES) + (
     'games/3d-battle-chess/index.html', 'games/evil-wizard/index.html',
     'games/evil-wizard/play.html', 'geometric-lab/index.html',
 )
-REQUIRED = (
+REQUIRED = THEME_SHELL_FILES + (
+    'site-theme.js', 'site-scenes.js', 'site-scenes.css',
+    'assets/scenes/webb-cosmic-cliffs.webp', 'assets/scenes/mountain-valley.svg',
     'index.html', 'projects.html', 'app.js', 'styles.css', 'site-resilience.js',
     'site-resilience.css', 'portfolio-next.js', 'portfolio-next.css', 'portfolio-home.css',
     'quantum-cube.js', 'handheld-experience.js', 'handheld-experience.css',
@@ -28,7 +31,7 @@ REQUIRED = (
 )
 
 def protected(name):
-    return name in PROTECTED_ROOT_FILES or name in PRESERVE_IF_PRESENT or name.startswith(PROTECTED_PREFIXES)
+    return name in PROTECTED_ROOT_FILES or name in PRESERVE_IF_PRESENT or (name.startswith(PROTECTED_PREFIXES) and name not in THEME_SHELL_FILES)
 
 def digest(file):
     h = hashlib.sha256()
@@ -41,6 +44,7 @@ def release_files(source):
     files = [p for p in source.iterdir() if p.is_file() and
              (p.suffix in {'.html','.css','.js','.mjs'} or p.name in
               {'verification-manifest.json','learning-capstones.json','README_KNOWLEDGE_PLATFORM.txt'})]
+    files.extend(source/name for name in THEME_SHELL_FILES)
     for directory in WEB_DIRS:
         files.extend(p for p in (source/directory).rglob('*') if p.is_file())
     return sorted(p for p in files if not protected(p.relative_to(source).as_posix()))
@@ -67,7 +71,14 @@ def safe_extract(archive, destination):
     archive.extractall(destination)
 
 def copy_file(source, target):
+    new_dirs = []
+    parent = target.parent
+    while not parent.exists():
+        new_dirs.append(parent)
+        parent = parent.parent
     target.parent.mkdir(parents=True, exist_ok=True)
+    for directory in new_dirs:
+        directory.chmod(0o755)
     temp = target.with_name('.'+target.name+'.deploying')
     try:
         shutil.copyfile(source, temp)
@@ -128,11 +139,13 @@ def deploy(source, site, verify_public=None):
                     (site/name).unlink()
             print('Verification failed. Previous files restored.',flush=True)
             raise
-    print(f'Installed and verified {len(files)} files. Games, Geometry Lab and fusion video are unchanged.',flush=True)
+    print(f'Installed and verified {len(files)} files. Games, Geometry Lab calculation modules and fusion video are unchanged; the lab theme shell is updated.',flush=True)
     return backup
 
 def http_smoke(commit):
-    checks = [('index.html','quantum-cube.js'),('projects.html','3D Battle Chess'),
+    checks = [('site-theme.js','jr-site-theme'),('site-scenes.js','Cosmic Cliffs'),
+              ('site-scenes.css','mountain-valley.svg'),('geometric-lab/index.html','site-theme.js'),
+              ('geometric-lab/app.js','PortfolioTheme'),('index.html','quantum-cube.js'),('projects.html','3D Battle Chess'),
               ('portfolio-home.css','.home-page'),('quantum-cube.js','Bell-state'),
               ('labs/qpe.js','function distribution'),('labs/emergent.js','function create'),
               ('agent-workbench.js','requiresApproval'),('handheld-experience.js','removeLegacyFloatingNavigation'),

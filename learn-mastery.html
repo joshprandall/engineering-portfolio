@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en" id="top">
 <head>
+<script src="site-theme.js?v=20260924-scenes"></script>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="description" content="Joshua Randall's interactive technical knowledge library: systems, cloud, software, cybersecurity, leadership, mathematics, physics, HPC, and quantum computing.">
@@ -8,6 +9,8 @@
   <meta name="theme-color" content="#0f1214">
   <title>Practice | Joshua Randall</title>
   <link rel="stylesheet" href="knowledge.css?v=20260924-release">
+<link rel="stylesheet" href="site-scenes.css?v=20260924-scenes"/>
+<script defer src="site-scenes.js?v=20260924-scenes"></script>
 </head>
 <body data-library-page="mastery">
 <a class="skip" href="#main">Skip to content</a>
@@ -24,8 +27,8 @@
   </nav>
   <div class="header-tools">
     <button id="sound-mode" class="icon-button" type="button" aria-label="Sound mode: educational" title="Sound mode">◖))</button>
-    <button id="motion-mode" class="icon-button" type="button" aria-label="Pause animation" title="Pause animation">◫</button>
-    <button id="theme-mode" class="icon-button" type="button" aria-label="Switch color theme" title="Theme">◐</button>
+    <button id="motion-mode" data-scene-motion class="icon-button" type="button" aria-label="Pause animation" title="Pause animation">◫</button>
+    <button id="theme-mode" data-theme-toggle class="icon-button" type="button" aria-label="Switch color theme" title="Theme">◐</button>
     <button id="mobile-menu" class="icon-button menu-button" type="button" aria-expanded="false" aria-label="Toggle navigation">☰</button>
   </div>
 </header>
@@ -304,6 +307,6 @@
 
 <div id="toast" role="status" aria-live="polite"></div>
 <script src="knowledge-data.js"></script>
-<script src="knowledge.js?v=20260924-release" defer></script>
+<script src="knowledge.js?v=20260924-scenes" defer></script>
 </body>
 </html>

@@ -42,21 +42,22 @@ jobs:
 
           root = Path('.')
           protected_root = set()
+          theme_shell = {'geometric-lab/index.html', 'geometric-lab/app.js'}
           top = sorted(
               p for p in root.iterdir()
               if p.is_file()
               and p.suffix.lower() in {'.html','.css','.js','.mjs'}
               and p.name not in protected_root
           )
-          include = top + [root/'verification-manifest.json',root/'learning-capstones.json']
+          include = top + [root/'verification-manifest.json',root/'learning-capstones.json'] + [root/name for name in theme_shell]
           for folder in ('deep-learning','labs','qubit-preview-20260921','assets'):
               include.extend(p for p in (root/folder).rglob('*') if p.is_file())
 
           instructions = (root/'DEPLOYMENT.md').read_text(encoding='utf-8')
           instructions += (
               '\nIMPORTANT: This science-safe overlay intentionally excludes all game trees, '
-              'the Geometric AI/Geometry & Physics Lab tree, the OSU-only Evil Wizard game export, '
-              'and the fusion video. Project wrapper pages remain deployable. Merge it into the existing '
+              'the Geometry Lab calculation modules, the OSU-only Evil Wizard game export, '
+              'and the fusion video. Only the Geometry Lab index.html and app.js shell are included for shared appearance. Merge it into the existing '
               'public_html; never delete the existing public_html directory or protected trees.\n'
           )
 
@@ -68,7 +69,9 @@ jobs:
 
           with ZipFile(output) as archive:
               names=set(archive.namelist())
-              required={
+              required=theme_shell | {
+                  'site-theme.js','site-scenes.js','site-scenes.css',
+                  'assets/scenes/webb-cosmic-cliffs.webp','assets/scenes/mountain-valley.svg',
                   'index.html','projects.html','portfolio-next.js','portfolio-next.css',
                   'handheld-experience.js','handheld-experience.css',
                   'science-experiments.js','science-experiments.css',
@@ -87,11 +90,11 @@ jobs:
               forbidden_exact=protected_root | {'assets/fusion-presentation.mp4'}
               forbidden=sorted(
                   n for n in names
-                  if n.startswith(forbidden_prefixes) or n in forbidden_exact
+                  if (n.startswith(forbidden_prefixes) and n not in theme_shell) or n in forbidden_exact
               )
               if forbidden:
                   raise SystemExit('Overlay unexpectedly contains protected files: '+', '.join(forbidden))
-          print(f'Science-safe overlay packaged: {len(set(include))} website files; games and Geometric AI are protected by omission.')
+          print(f'Science-safe overlay packaged: {len(set(include))} website files; games and Geometry Lab calculation modules are protected by omission.')
           PY
       - uses: actions/upload-artifact@v4
         with:

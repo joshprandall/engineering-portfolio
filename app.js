@@ -62,28 +62,7 @@
     ["One qubit. Two outcomes.", "quantum qubit probability measurement", "qubit-preview-20260921/"]
   ];
 
-  const theme = $("#theme");
-  const themeKey = "portfolio-theme";
-  const themeMigrationKey = "portfolio-theme-default-20260923";
-  let savedTheme = "dark";
-  try {
-    const stored = localStorage.getItem(themeKey);
-    if (!localStorage.getItem(themeMigrationKey)) {
-      localStorage.setItem(themeKey, "dark");
-      localStorage.setItem(themeMigrationKey, "1");
-      savedTheme = "dark";
-    } else if (stored === "light" || stored === "dark") {
-      savedTheme = stored;
-    }
-  } catch {}
-  document.documentElement.dataset.theme = savedTheme;
-  theme?.setAttribute("aria-pressed", String(savedTheme === "light"));
-  theme?.addEventListener("click", () => {
-    const next = document.documentElement.dataset.theme === "light" ? "dark" : "light";
-    document.documentElement.dataset.theme = next;
-    theme.setAttribute("aria-pressed", String(next === "light"));
-    try { localStorage.setItem(themeKey, next); } catch {}
-  });
+  // site-theme.js owns theme and motion preferences across all pages.
 
   // Navigation is owned by site-resilience.js so every standard page uses one handler.
 
@@ -187,13 +166,9 @@
     }
   });
 
-  let animationPaused = false;
-  $("#motion")?.addEventListener("click", (event) => {
-    animationPaused = !animationPaused;
-    event.currentTarget.setAttribute("aria-pressed", String(animationPaused));
-    event.currentTarget.textContent = animationPaused ? "Resume animations" : "Pause animations";
-    document.body.dataset.motion = animationPaused ? "paused" : "running";
-    document.dispatchEvent(new CustomEvent("portfolio:motion"));
+  let animationPaused = window.PortfolioTheme?.isPaused() || false;
+  document.addEventListener('portfolio:motion', () => {
+    animationPaused = window.PortfolioTheme?.isPaused() || false;
   });
 
   const canvas = $("#network");
