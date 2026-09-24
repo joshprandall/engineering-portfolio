@@ -3,3 +3,5 @@ __pycache__/
 *.pyc
 visual-qa/
 Joshua_Randall_OSU_Science_Safe_Overlay.zip
+
+/tests/run-live-site/

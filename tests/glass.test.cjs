@@ -32,9 +32,9 @@ module.exports = async ({browser,base,output,failures}) => {
   await page.locator('.portrait-cutout').evaluate(im=>im.decode());
   if(output) await page.screenshot({path:path.join(output,`glass-portrait-${mode}.png`)});
   await page.goto(base+'/learn.html',{waitUntil:'networkidle'});
-  await page.locator('.domain-card').first().scrollIntoViewIfNeeded();
+  await page.locator('.depth-planner').scrollIntoViewIfNeeded();
   await page.waitForTimeout(1000);
-  assert(alpha(await css('.domain-card','backgroundColor'))<.95,'Learning landing tiles are glass');
+  assert(alpha(await css('.depth-planner','backgroundColor'))<.95,'Learning landing tiles are glass');
   if(output) await page.screenshot({path:path.join(output,`glass-learning-${mode}.png`)});
   await page.goto(base+'/learn-labs.html',{waitUntil:'networkidle'});
   assert.equal(await page.locator('html').getAttribute('data-scene-surface'),'solid');

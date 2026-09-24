@@ -197,3 +197,23 @@ body[data-library-page=home] .stats{gap:14px;border:0!important}
 body[data-library-page=home] .stats>div{padding:18px;min-width:0}
 body.living-scenes :is(td,th){font-size:.9rem;line-height:1.65}
 @media(max-width:520px){body[data-library-page=home] .stats{grid-template-columns:repeat(2,minmax(0,1fr))!important}body[data-library-page=home] .stats>div:last-child{grid-column:1/-1}}
+
+/* Readable controls must shrink within their phone column, not enlarge the page. */
+body.living-scenes .filters{grid-template-columns:repeat(2,minmax(0,1fr))}
+body.living-scenes :is(.filters label,.depth-controls label,.search-box,.search-box input){min-width:0;max-width:100%}
+body.living-scenes .filters select{min-width:0;max-width:100%;flex:1;width:0}
+body.living-scenes .search-box{grid-template-columns:auto minmax(0,1fr) auto}
+@media(max-width:520px){body.living-scenes .filters{grid-template-columns:minmax(0,1fr)}}
+/* Consistent mobile header; auxiliary learning sound/motion controls live below. */
+@media(max-width:800px){body[data-library-page] .site-header{height:76px;min-height:76px;padding:0 18px;gap:10px}body[data-library-page] .header-tools{margin-left:auto;gap:4px}body[data-library-page] .brand{gap:9px;min-width:0}body[data-library-page] .brand strong{font-size:1.65rem}body[data-library-page] .brand span{font-size:.83rem;font-weight:750}body[data-library-page] .brand small{display:none}body[data-library-page] .header-tools :is(#sound-toggle,#motion-toggle){display:none}}
+
+/* Game launch pages are galleries; the opened games own their playing surface. */
+:root[data-scene-surface=glass] .living-scenes .project-detail{background:transparent!important;border:0!important;box-shadow:none!important}
+:root[data-scene-surface=glass] .living-scenes :is(.battle-launch,.game-launch){border-radius:12px!important;background:var(--scene-surface)!important;box-shadow:var(--scene-shadow);border:1px solid var(--scene-border)}
+:root[data-scene-surface=glass] .living-scenes :is(.battle-launch-copy,.game-cover-copy){color:var(--ink);background:transparent!important;backdrop-filter:none}
+:root[data-scene-surface=glass] .living-scenes :is(.battle-launch-copy,.game-cover-copy) :is(p,strong){color:var(--ink)!important;text-shadow:none!important}
+:root[data-scene-surface=glass] .living-scenes .battle-board{opacity:.44}
+:root[data-scene-surface=glass] .living-scenes .game-launch::before{background:none!important}
+:root[data-scene-surface=glass] .living-scenes .game-launch::after{background:none!important}
+:root[data-scene-surface=glass] .living-scenes .game-cover-art{opacity:.38;z-index:0}
+@media(max-width:520px){:root[data-scene-surface=glass] .living-scenes .game-launch::before{aspect-ratio:1/1.1}}

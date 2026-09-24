@@ -10,7 +10,7 @@
   if(!document.querySelector('link[href^="handheld-experience.css"]')){const l=document.createElement('link');l.rel='stylesheet';l.href='handheld-experience.css?v=20260924-release';document.head.append(l);}
   if(!document.querySelector('script[src^="handheld-experience.js"]')){const s=document.createElement('script');s.src='handheld-experience.js?v=20260924-release';s.defer=true;document.body.append(s);}
   if(!document.querySelector('link[href^="learning-depth.css"]')){const l=document.createElement('link');l.rel='stylesheet';l.href='learning-depth.css?v=20260924-glass-v4';document.head.append(l);}
-  if(!document.querySelector('script[src^="learning-depth.js"]')){const s=document.createElement('script');s.src='learning-depth.js?v=20260924-glass-v4';s.defer=true;document.body.append(s);}
+  if(!document.querySelector('script[src^="learning-depth.js"]')){const s=document.createElement('script');s.src='learning-depth.js?v=20260924-clean-home-v1';s.defer=true;document.body.append(s);}
 
   const $ = (s, r=document) => r.querySelector(s);
   const $$ = (s, r=document) => [...r.querySelectorAll(s)];
@@ -871,11 +871,15 @@
 
   function applyLibraryPage(){
     const page=document.body.dataset.libraryPage||'home';
-    const map={home:['verification-standard','continue-learning','domains'],browse:['curriculum','discover','atlas'],paths:['paths'],practice:['practice'],mastery:['mastery'],labs:['labs'],glossary:['glossary'],map:['connections'],verify:['verification-standard','evidence-guide']};
+    const map={home:[],browse:['curriculum','discover','atlas'],paths:['paths'],practice:['practice'],mastery:['mastery'],labs:['labs'],glossary:['glossary'],map:['connections'],verify:['verification-standard','evidence-guide']};
     const labels={browse:['02 / BROWSE + SEARCH','Browse the knowledge library.','Use the curriculum, filters, search, and roadmap without scrolling past every other learning tool.'],paths:['03 / GUIDED LEARNING','Follow a path.','Curated sequences connect prerequisites and show exactly what to learn next.'],practice:['04 / ACTIVE RECALL','Practice for retention.','Quizzes and flashcards make you retrieve knowledge instead of merely rereading it.'],mastery:['05 / MASTERY','See what is sticking.','Use completion and recall history stored in this browser to choose what to review next.'],labs:['05 / INTERACTIVE LABS','Learn by changing the system.','Launch interactive models and guided labs across systems, security, HPC, mathematics, physics, Kubernetes, and quantum computing.'],glossary:['06 / GLOSSARY','Remove the vocabulary barrier.','Search technical terms and jump straight into the strongest related lesson.'],map:['07 / KNOWLEDGE MAP','See how everything connects.','Explore cross-domain relationships without searching through a long document.'],verify:['08 / EVIDENCE','Verify the claim yourself.','Every published object links directly to the standards, official documentation, government guidance, primary paper, or academic source used to support it.']};
     const all=['verification-standard','continue-learning','domains','curriculum','discover','practice','mastery','labs','paths','connections','atlas','glossary','evidence-guide'];
     all.forEach(id=>{const el=$('#'+id);if(el)el.hidden=!(map[page]||map.home).includes(id)});
-    const hero=$('#library-view > .hero'),stats=$('.stat-band'),intro=$('#learn-page-intro');if(hero)hero.hidden=page!=='home';if(stats)stats.hidden=page!=='home';
+    const hero=$('#library-view > .hero'),stats=$('.stat-band'),intro=$('#learn-page-intro');
+    if(hero)hero.hidden=page!=='home';
+    if(stats){stats.hidden=true;stats.style.display='none';}
+    const principles=$('.principles');
+    if(principles){principles.hidden=true;principles.style.display='none';}
     if(intro){intro.hidden=page==='home';if(page!=='home'){const x=labels[page]||labels.browse;$('#learn-page-kicker').textContent=x[0];$('#learn-page-title').textContent=x[1];$('#learn-page-copy').textContent=x[2]}}
     $$('[data-learn-page]').forEach(a=>{if(a.dataset.learnPage===page)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});
   }

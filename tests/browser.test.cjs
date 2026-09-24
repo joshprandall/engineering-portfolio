@@ -19,13 +19,14 @@ async function run(){
  const base=`http://127.0.0.1:${server.address().port}`;
  const args=['--no-sandbox','--disable-dev-shm-usage'];
  if(process.env.PORTFOLIO_BROWSER_SINGLE_PROCESS==='1')args.push('--no-zygote','--single-process','--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader');
- else args.push('--disable-gpu');
+ else args.push('--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader');
  const browser=await chromium.launch({headless:true,executablePath:process.env.PORTFOLIO_BROWSER_EXECUTABLE||undefined,args});
  try{
   const page=await browser.newPage();page.setDefaultTimeout(8000);page.setDefaultNavigationTimeout(15000);
   page.on('pageerror',e=>failures.push(`Runtime: ${e.message}`));
   page.on('response',r=>{if(r.url().startsWith(base)&&r.status()>=400&&!/games\/evil-wizard/.test(r.url()))failures.push(`HTTP ${r.status()}: ${r.url()}`);});
   if(output)fs.mkdirSync(output,{recursive:true});
+  await require('./live-chess.test.cjs')({browser,base,output,failures});
   await require('./appearance.test.cjs')({browser,base,output,failures});
   await require('./glass.test.cjs')({browser,base,output,failures});
   for(const [name,width,height] of [['phone',390,844],['small-phone',320,740],['tablet',820,1180],['desktop',1440,1000]]){
@@ -119,8 +120,8 @@ async function run(){
   }
   // Exercise the new mastery route and a complete lesson, not just their headings.
   await page.goto(base+'/learn.html',{waitUntil:'networkidle'});
-  assert.equal(await page.locator('[data-depth-stage]').count(),8);
-  await page.locator('[data-depth-stage="research"]').click();assert.equal(await page.locator('[data-depth-stage="research"]').getAttribute('aria-pressed'),'true');
+  assert.equal(await page.locator('[data-depth-stage]').count(),0,'Removed stage cards stay removed');
+  await page.locator('[data-depth-target-select]').selectOption('research');
   await page.locator('[data-build-route]').click();await page.waitForURL('**/learn-paths.html?**');
   assert.equal(await page.locator('#learning-depth').count(),0,'Full ladder stays on Learn home');
   assert.match(await page.locator('#depth-context').innerText(),/Doctoral \/ Research/);

@@ -27,3 +27,9 @@
 .card-bottom{display:flex;align-items:flex-start;flex-wrap:wrap;gap:12px}.card-bottom .status{width:100%}.project-card[hidden]{display:none}.project-card{min-width:0}.project-card a{min-height:44px;display:inline-flex;align-items:center}.project-grid{align-items:stretch}
 .project-detail-actions{display:flex;gap:14px;flex-wrap:wrap;margin-block:24px}pre{overflow:auto;max-width:100%}.demo-frame{width:100%;height:750px;border:1px solid var(--line);border-radius:8px}
 @media(max-width:700px){.tools{gap:2px}.tools #search-open{width:44px}.tools #search-open span,.tools kbd{display:none}.study{flex-wrap:wrap}.study img{width:100px}.study>div{flex-basis:180px}.direction-image span{font-size:.7rem;letter-spacing:.09em}.brand{min-width:0}.brand>span{font-size:.8rem}.brand small{display:none}.card-bottom{gap:8px}}
+
+
+/* Readability scale v9 — slightly larger text across the public site. */
+html{font-size:17px}
+body{font-size:1rem}
+@media(max-width:520px){html{font-size:17px}}
