@@ -53,6 +53,7 @@ module.exports = async ({ browser, base, output, failures }) => {
     assert.equal(await page.locator('#site-scene').count(), 1, route + ': one shared backdrop');
     if (!await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)) {
       layoutProblems.push(route);
+      if(output)await page.screenshot({path:path.join(output,'overflow-'+route.replaceAll('/','-')+'.png'),fullPage:true});
       console.log('Overflow', route, await page.evaluate(() => [...document.querySelectorAll('main *')].map(e => ({tag:e.tagName,id:e.id,cls:e.className,width:Math.round(e.getBoundingClientRect().width)})).filter(e => e.width > innerWidth).slice(0,10)));
     }
     await toggle(); assert.equal(await theme(), 'dark', route + ': no competing toggle listener');

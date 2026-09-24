@@ -1,0 +1,86 @@
+const assert=require('node:assert/strict');
+const path=require('node:path');
+module.exports=async({browser,base,output,failures})=>{
+ const context=await browser.newContext({viewport:{width:844,height:390},isMobile:true,hasTouch:true});
+ context.setDefaultTimeout(10000);
+ const page=await context.newPage();page.setDefaultTimeout(10000);
+ page.on('pageerror',e=>failures.push('Live chess: '+e.message));
+ async function waitForBoardPaint(){
+  await page.waitForFunction(()=>{const c=document.querySelector('#scene canvas');return c&&c.width>100&&c.height>100});
+  for(let attempt=0;attempt<12;attempt++){
+   const png=await page.locator('#scene').screenshot();
+   const colors=await page.evaluate(async data=>{const im=new Image();im.src='data:image/png;base64,'+data;await im.decode();const c=document.createElement('canvas');c.width=64;c.height=48;const x=c.getContext('2d');x.drawImage(im,0,0,64,48);const p=x.getImageData(0,0,64,48).data,s=new Set();for(let i=0;i<p.length;i+=4)s.add(p[i]+','+p[i+1]+','+p[i+2]);return s.size},png.toString('base64'));
+   if(colors>80)return;
+   await page.waitForTimeout(200);
+  }
+  throw new Error('3D canvas is visible but the board has not rendered');
+ }
+ const url=base+'/tests/run-live-site/games/3d-battle-chess/index.html';
+ await page.goto(url,{waitUntil:'networkidle'});
+ await page.locator('#jr-start-game').waitFor({state:'visible'});
+ assert.equal(await page.locator('#jr-setup-view option[value="3d"]').evaluate(el=>el.disabled),false,'Self-hosted Three starts the real live renderer');
+ await page.locator('#jr-setup-mode').selectOption('local');
+ await page.locator('#jr-start-game').click();
+  await page.locator('#scene canvas').waitFor({state:'visible'});
+ await waitForBoardPaint();
+ if(output)await page.screenshot({path:path.join(output,'chess-live-start-landscape.png')});
+ if(!await page.locator('#boardMode').isVisible())await page.locator('#menuBtn').click();
+ await page.locator('#boardMode').click();
+ assert.equal(await page.locator('#boardMode').innerText(),'3D');
+ await page.getByRole('button',{name:'e2: white pawn',exact:true}).click();
+ await page.getByRole('button',{name:'e4: empty',exact:true}).click();
+ await page.getByRole('button',{name:'e4: white pawn',exact:true}).waitFor({state:'visible'});
+ assert.match(await page.locator('#turn').innerText(),/Black/);
+ await page.locator('#boardMode').click();
+ assert(await page.locator('#scene canvas').isVisible(),'Return to 3D');
+ await waitForBoardPaint();
+ assert.equal(await page.locator('#boardMode').innerText(),'2D');
+ if(output)await page.screenshot({path:path.join(output,'chess-live-3d-landscape.png')});
+ await page.locator('#boardMode').click();
+ assert(await page.getByRole('button',{name:'e4: white pawn',exact:true}).isVisible(),'Move survives 2D → 3D → 2D');
+ if(!await page.locator('#undo').isVisible())await page.locator('#menuBtn').click();
+ await page.locator('#undo').click();
+ if(await page.locator('#controls').evaluate(el=>el.classList.contains('open')))await page.locator('#menuBtn').click();
+ assert(await page.getByRole('button',{name:'e2: white pawn',exact:true}).isVisible(),'Undo operates on the shared engine');
+ assert.equal(await page.locator('#log li').count(),0);
+ if(output)await page.screenshot({path:path.join(output,'chess-live-2d-landscape.png')});
+ await context.close();
+ const fallback=await browser.newContext({viewport:{width:844,height:390}});
+ fallback.setDefaultTimeout(10000);
+ await fallback.route('**/vendor/three.module.min.js',route=>route.abort());
+ const safe=await fallback.newPage();await safe.goto(url,{waitUntil:'networkidle'});
+ await safe.locator('#jr-start-game').waitFor({state:'visible'});
+ assert(await safe.locator('#jr-setup-view option[value="3d"]').evaluate(el=>el.disabled),await safe.locator('#jr-game-setup').innerText());
+ await safe.locator('#jr-start-game').click();
+ assert.match(await safe.locator('#boardMode').innerText(),/unavailable/);
+ assert.equal(await safe.locator('#scene button').count(),64,'A working 2D board remains available when graphics cannot start');
+ await fallback.close();console.log('PASS live chess: self-hosted 3D, phone controls, two-way views, shared moves, undo, graphics fallback');
+ const site=await browser.newContext({viewport:{width:390,height:844}});
+ site.setDefaultTimeout(10000);
+ const preview=await site.newPage();preview.on('pageerror',e=>failures.push('Installed live page: '+e.message));
+ const alpha=c=>c.startsWith('rgba')?Number(c.match(/[\d.]+/g)[3]):1;
+ for(const theme of ['light','dark']){
+  console.log('Checking installed live pages: '+theme);
+  await preview.goto(base+'/tests/run-live-site/index.html',{waitUntil:'networkidle'});
+  await preview.evaluate(t=>PortfolioTheme.setTheme(t),theme);
+  await preview.waitForTimeout(1600);
+  assert(await preview.locator('.portrait-caption').isVisible(),'Existing live portrait is rebuilt in place');
+  if(output)await preview.screenshot({path:path.join(output,'installed-home-'+theme+'.png')});
+  await preview.locator('.portrait-caption').scrollIntoViewIfNeeded();
+  await preview.locator('.about-imagery img').evaluateAll(images=>Promise.all(images.map(im=>im.decode())));
+  console.log('PASS installed live portrait: '+theme);
+  if(output)await preview.locator('.about-imagery').screenshot({path:path.join(output,'installed-portrait-'+theme+'.png')});
+  await preview.goto(base+'/tests/run-live-site/projects.html',{waitUntil:'networkidle'});
+  assert.equal(await preview.locator('html').getAttribute('data-theme'),theme);
+  await preview.locator('#battle-chess').scrollIntoViewIfNeeded();
+  await preview.waitForTimeout(1000);
+  assert(alpha(await preview.locator('#battle-chess').evaluate(e=>getComputedStyle(e).backgroundColor))<.95,'Actual live game tile remains translucent');
+  console.log('PASS installed live game tiles: '+theme);
+  await preview.goto(base+'/tests/run-live-site/learn.html',{waitUntil:'networkidle'});
+  await preview.locator('.depth-planner').scrollIntoViewIfNeeded();
+  assert(await preview.locator('[data-build-route]').isVisible(),'The repaired live Learning page initializes');
+  assert.equal(await preview.locator('.vnext-sys-detail p').evaluate(e=>getComputedStyle(e).textShadow),'none');
+  if(output)await preview.screenshot({path:path.join(output,'installed-learning-'+theme+'.png')});
+ }
+ await site.close();console.log('PASS live pages: installed Home, portrait, game tiles, Learning and shared appearance');
+};

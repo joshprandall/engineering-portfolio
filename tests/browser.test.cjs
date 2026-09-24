@@ -19,20 +19,22 @@ async function run(){
  const base=`http://127.0.0.1:${server.address().port}`;
  const args=['--no-sandbox','--disable-dev-shm-usage'];
  if(process.env.PORTFOLIO_BROWSER_SINGLE_PROCESS==='1')args.push('--no-zygote','--single-process','--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader');
- else args.push('--disable-gpu');
+ else args.push('--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader');
  const browser=await chromium.launch({headless:true,executablePath:process.env.PORTFOLIO_BROWSER_EXECUTABLE||undefined,args});
  try{
   const page=await browser.newPage();page.setDefaultTimeout(8000);page.setDefaultNavigationTimeout(15000);
   page.on('pageerror',e=>failures.push(`Runtime: ${e.message}`));
   page.on('response',r=>{if(r.url().startsWith(base)&&r.status()>=400&&!/games\/evil-wizard/.test(r.url()))failures.push(`HTTP ${r.status()}: ${r.url()}`);});
   if(output)fs.mkdirSync(output,{recursive:true});
+  await require('./live-chess.test.cjs')({browser,base,output,failures});
   await require('./appearance.test.cjs')({browser,base,output,failures});
+  await require('./glass.test.cjs')({browser,base,output,failures});
   for(const [name,width,height] of [['phone',390,844],['small-phone',320,740],['tablet',820,1180],['desktop',1440,1000]]){
    console.log('Checking '+name);await page.setViewportSize({width,height});await page.goto(base+'/',{waitUntil:'networkidle'});
    console.log('Loaded '+name);assert.equal(await page.locator('body').evaluate(e=>getComputedStyle(e).backgroundColor),'rgb(16, 20, 22)','Dark theme actually renders');assert.equal(await page.locator('.vnext-world').count(),5,'Five selectable planets');
    for(const label of ['Build','Secure','Automate','Evolve','Architect']){
     const world=page.locator('.vnext-world').filter({has:page.locator('strong',{hasText:label})}).first();
-    await world.evaluate(el=>el.click());
+    await world.press('Enter');
     assert.equal(await world.getAttribute('aria-pressed'),'true');
     assert.match(await page.locator('.vnext-sys-meta').innerText(),new RegExp(label,'i'));
    }
@@ -56,7 +58,7 @@ async function run(){
    await page.locator('#bell-basis').selectOption('ZZ');
    await page.locator('#quantum-cube').scrollIntoViewIfNeeded();
    const capture=()=>page.locator('#quantum-cube').evaluate(c=>c.toDataURL());
-   let frame=await capture(),animated=false;for(let attempt=0;attempt<6&&!animated;attempt++){await page.waitForTimeout(120);animated=(await capture())!==frame;}assert(animated,'Cubes animate');
+   let frame=await capture();await page.waitForFunction(previous=>document.querySelector('#quantum-cube').toDataURL()!==previous,frame,{timeout:3000});
    await page.locator('#cube-pause').click();await page.waitForTimeout(80);frame=await capture();await page.waitForTimeout(140);assert.equal(await capture(),frame,'Cube pause stops rendering motion');await page.locator('#cube-pause').click();
    await page.locator('#motion').click();await page.waitForTimeout(90);frame=await capture();await page.waitForTimeout(140);assert.equal(await capture(),frame,'Global pause reaches quantum animation');
    await page.locator('.vnext-cosmos').scrollIntoViewIfNeeded();let positions=await page.locator('.vnext-world').evaluateAll(es=>es.map(e=>e.style.transform));await page.waitForTimeout(140);assert.deepEqual(await page.locator('.vnext-world').evaluateAll(es=>es.map(e=>e.style.transform)),positions,'Global pause reaches orbital animation');
@@ -71,7 +73,7 @@ async function run(){
    await page.locator('#theme').click();assert.equal(await page.locator('html').getAttribute('data-theme'),'light');
    const lightCardBg=await page.locator('.home-project').first().evaluate(el=>getComputedStyle(el).backgroundColor);
    const lightAlpha=Number((lightCardBg.match(/rgba?\([^,]+,[^,]+,[^,]+(?:,\s*([\d.]+))?\)/)||[])[1]||1);
-   assert(lightAlpha>=.15&&lightAlpha<=.60,`Light project tiles stay translucent, got ${lightCardBg}`);
+   assert(lightAlpha>=.50&&lightAlpha<.95,`Light project tiles stay translucent, got ${lightCardBg}`);
    const lightInk=await page.locator('#hero-title').evaluate(el=>getComputedStyle(el).color);
    const lightRgb=(lightInk.match(/\d+/g)||[]).slice(0,3).map(Number);
    assert(lightRgb.length===3&&Math.max(...lightRgb)<80,`Light-mode hero text stays decisively dark, got ${lightInk}`);
@@ -118,8 +120,8 @@ async function run(){
   }
   // Exercise the new mastery route and a complete lesson, not just their headings.
   await page.goto(base+'/learn.html',{waitUntil:'networkidle'});
-  assert.equal(await page.locator('[data-depth-stage]').count(),8);
-  await page.locator('[data-depth-stage="research"]').click();assert.equal(await page.locator('[data-depth-stage="research"]').getAttribute('aria-pressed'),'true');
+  assert.equal(await page.locator('[data-depth-stage]').count(),0,'Removed stage cards stay removed');
+  await page.locator('[data-depth-target-select]').selectOption('research');
   await page.locator('[data-build-route]').click();await page.waitForURL('**/learn-paths.html?**');
   assert.equal(await page.locator('#learning-depth').count(),0,'Full ladder stays on Learn home');
   assert.match(await page.locator('#depth-context').innerText(),/Doctoral \/ Research/);

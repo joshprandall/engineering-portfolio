@@ -3,6 +3,9 @@
   'use strict';
   if (window.PortfolioTheme) return;
   const root = document.documentElement;
+  const pageName = location.pathname.split('/').filter(Boolean).pop() || 'index.html';
+  const nestedLab = /\/(?:geometric-lab|qubit-preview[^/]*)\//.test(location.pathname);
+  root.dataset.sceneSurface = !nestedLab && (location.pathname.endsWith('/') || ['index.html', 'projects.html', 'learn.html', 'project-battle-chess.html', 'play-evil-wizard.html'].includes(pageName)) ? 'glass' : 'solid';
   const THEME_KEY = 'jr-site-theme';
   const MOTION_KEY = 'jr-site-motion';
   const legacyThemes = ['portfolio-theme', 'jr-knowledge-theme', 'jr-geometry-theme'];

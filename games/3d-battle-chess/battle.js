@@ -353,7 +353,7 @@ function connectButtons(){
  $('#mode').onchange=newGame;
  $('#difficulty').onchange=e=>{const p=computerProfile(Number(e.target.value));notice(`Computer strength: ${p.name} · search depth ${p.depth}`);if($('#mode').value==='ai'&&game.turn==='b'&&!busy)queueComputer()};
  $('#menuBtn').onclick=e=>{const c=$('#controls'),open=c.classList.toggle('open');e.currentTarget.setAttribute('aria-expanded',String(open))};
- $('#handUndo').onclick=undoMove;$('#handFlip').onclick=flipBoard;$('#handView').onclick=e=>{void audio.ensure();setView(e.currentTarget.dataset.targetView||viewMode==='3d'?'2d':'3d')};
+ $('#handUndo').onclick=undoMove;$('#handFlip').onclick=flipBoard;$('#handView').onclick=e=>{void audio.ensure();setView(e.currentTarget.dataset.targetView||(viewMode==='3d'?'2d':'3d'))};
  $('#handSound').onclick=()=>{void toggleSound()};$('#handNew').onclick=newGame;$('#handFullscreen').onclick=()=>{void toggleFullscreen()};
  document.addEventListener('fullscreenchange',syncFullscreenUI);
  document.addEventListener('webkitfullscreenchange',syncFullscreenUI);

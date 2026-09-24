@@ -339,84 +339,8 @@ html[data-theme="light"] body[data-library-page="home"] .vnext-cosmos .vnext-sys
 }
 
 
-/* Light solar typography v8 — stronger dark labels and detail copy. */
-html[data-theme="light"] .vnext-cosmos .vnext-world strong{
-  color:#030705!important;
-  font-weight:800!important;
-  background:transparent!important;
-  border:0!important;
-  box-shadow:none!important;
-  -webkit-backdrop-filter:none!important;
-  backdrop-filter:none!important;
-  -webkit-text-stroke:0 transparent!important;
-  text-shadow:0 1px 1px rgba(255,255,255,.98),0 0 2px rgba(255,255,255,.72)!important;
-}
-html[data-theme="light"] .vnext-cosmos .vnext-sys-detail h2{
-  color:#030705!important;
-  font-weight:800!important;
-  text-shadow:0 1px 1px rgba(255,255,255,.98),0 0 2px rgba(255,255,255,.70)!important;
-}
-html[data-theme="light"] .vnext-cosmos .vnext-sys-detail p,
-html[data-theme="light"] .vnext-cosmos .vnext-cta{
-  color:#050c08!important;
-  font-weight:700!important;
-  text-shadow:0 1px 1px rgba(255,255,255,.96),0 0 2px rgba(255,255,255,.65)!important;
-}
-html[data-theme="light"] .vnext-cosmos .vnext-sys-meta{
-  color:#6f280e!important;
-  font-weight:800!important;
-  text-shadow:0 1px 1px rgba(255,255,255,.94)!important;
-}
-
-
-/* Light solar typography v9 — black labels with zero halo. */
-html[data-theme="light"] body.home-page .vnext-cosmos .vnext-world strong{
-  color:#000000!important;
-  font-weight:900!important;
-  text-shadow:none!important;
-  -webkit-text-stroke:0 transparent!important;
-}
-html[data-theme="light"] body.home-page .vnext-cosmos .vnext-sys-detail h2{
-  color:#000000!important;
-  font-weight:900!important;
-  text-shadow:none!important;
-  -webkit-text-stroke:0 transparent!important;
-}
-html[data-theme="light"] body.home-page .vnext-cosmos .vnext-sys-detail p,
-html[data-theme="light"] body.home-page .vnext-cosmos .vnext-cta{
-  color:#000000!important;
-  font-weight:750!important;
-  text-shadow:none!important;
-  -webkit-text-stroke:0 transparent!important;
-}
-html[data-theme="light"] body.home-page .vnext-cosmos .vnext-sys-meta{
-  color:#4a1606!important;
-  font-weight:900!important;
-  text-shadow:none!important;
-  -webkit-text-stroke:0 transparent!important;
-}
-
-
-/* Light solar typography v9 sitewide — zero halo. */
-html[data-theme="light"] .vnext-cosmos .vnext-world strong,
-html[data-theme="light"] .vnext-cosmos .vnext-sys-detail h2,
-html[data-theme="light"] .vnext-cosmos .vnext-sys-detail p,
-html[data-theme="light"] .vnext-cosmos .vnext-cta{
-  color:#000000!important;
-  text-shadow:none!important;
-  -webkit-text-stroke:0 transparent!important;
-}
-html[data-theme="light"] .vnext-cosmos .vnext-world strong,
-html[data-theme="light"] .vnext-cosmos .vnext-sys-detail h2{
-  font-weight:900!important;
-}
-html[data-theme="light"] .vnext-cosmos .vnext-sys-detail p,
-html[data-theme="light"] .vnext-cosmos .vnext-cta{
-  font-weight:750!important;
-}
-html[data-theme="light"] .vnext-cosmos .vnext-sys-meta{
-  color:#4a1606!important;
-  font-weight:900!important;
-  text-shadow:none!important;
-  -webkit-text-stroke:0 transparent!important;
-}
+/* Solar text inherits the shared adaptive reading palette. */
+html[data-theme] body.living-scenes .vnext-cosmos :is(.vnext-world strong,.vnext-sys-detail h2,.vnext-sys-detail p,.vnext-cta,.vnext-sys-meta){text-shadow:none!important;-webkit-text-stroke:0!important}
+html[data-theme] body.living-scenes .vnext-cosmos :is(.vnext-world strong,.vnext-sys-detail h2){color:var(--ink)!important;font-weight:800!important}
+html[data-theme] body.living-scenes .vnext-cosmos .vnext-sys-detail p{color:var(--muted)!important;font-weight:650!important}
+html[data-theme] body.living-scenes .vnext-cosmos .vnext-cta{color:var(--blue)!important;font-weight:750!important}

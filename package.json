@@ -4,8 +4,8 @@
   "private": true,
   "description": "Responsive static engineering portfolio with accessible interaction patterns and automated validation.",
   "scripts": {
-    "test": "python3 -m py_compile tools/repair-osu-portfolio.py tools/deploy_osu_live.py && node tests/site.test.mjs && python3 -m unittest discover -s tests -p \"test_deploy.py\"",
-    "test:browser": "node tests/browser.test.cjs"
+    "test": "python3 -m py_compile tools/repair-osu-portfolio.py tools/deploy_osu_live.py && node tests/site.test.mjs && python3 -m unittest discover -s tests -p \"test_deploy.py\" && python3 -m unittest discover -s tests -p \"test_reviewed_repair.py\"",
+    "test:browser": "python3 tests/prepare-live-fixture.py && node tests/browser.test.cjs"
   },
   "devDependencies": {
     "playwright": "1.63.0"
