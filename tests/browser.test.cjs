@@ -131,6 +131,36 @@ async function run(){
   await page.locator('[data-home-lesson]').click();assert(!await page.locator('#lesson-view').isVisible());
   await page.setViewportSize({width:1440,height:1000});await page.locator('#mobile-menu').click();assert(await page.locator('#primary-nav').isVisible(),'Desktop learning hamburger works');await page.keyboard.press('Escape');
   console.log('PASS learning: mastery planner, compact paths, research lesson controls, saved progress, navigation');
+
+  // Embedded/in-app browser compatibility is a release requirement, not an external-browser handoff.
+  // Smoke the critical site surfaces with representative Messenger, Facebook, and Instagram WebView UAs.
+  const embeddedCases=[
+   ['messenger-ios','Mozilla/5.0 (iPhone; CPU iPhone OS 26_0 like Mac OS X) AppleWebKit/605.1.15 Mobile/15E148 [FBAN/MessengerForiOS;FBAV/530.0.0.0.0]',390,844],
+   ['facebook-android','Mozilla/5.0 (Linux; Android 16; Pixel 9) AppleWebKit/537.36 Chrome/140 Mobile Safari/537.36 [FB_IAB/FB4A;FBAV/530.0.0.0.0;]',412,915],
+   ['instagram-ios','Mozilla/5.0 (iPhone; CPU iPhone OS 26_0 like Mac OS X) AppleWebKit/605.1.15 Mobile/15E148 Instagram 400.0.0.0.0',390,844]
+  ];
+  const embeddedRoutes=['/','/projects.html','/learn.html','/play-evil-wizard.html','/project-battle-chess.html','/project-geometric-ai.html'];
+  for(const [name,userAgent,width,height] of embeddedCases){
+   const context=await browser.newContext({viewport:{width,height},userAgent,isMobile:true,hasTouch:true,deviceScaleFactor:1});
+   const embedded=await context.newPage();embedded.setDefaultTimeout(8000);embedded.setDefaultNavigationTimeout(15000);
+   const embeddedErrors=[];
+   embedded.on('pageerror',e=>embeddedErrors.push(`Runtime: ${e.message}`));
+   embedded.on('response',res=>{if(res.url().startsWith(base)&&res.status()>=400&&!/games\/evil-wizard/.test(res.url()))embeddedErrors.push(`HTTP ${res.status()}: ${res.url()}`);});
+   for(const route of embeddedRoutes){
+    await embedded.goto(base+route,{waitUntil:'networkidle'});
+    assert(await embedded.locator('body').isVisible(),`${name} ${route}: body visible`);
+    assert(await embedded.locator('main h1:visible,main h2:visible').first().isVisible(),`${name} ${route}: primary heading visible`);
+    assert.equal(await embedded.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true,`${name} ${route}: no horizontal overflow`);
+    const menu=embedded.locator('#menu,#mobile-menu').first();
+    if(await menu.count()&&await menu.isVisible()){
+     await menu.click();assert(await embedded.locator('#primary-nav').isVisible(),`${name} ${route}: hamburger opens`);await embedded.keyboard.press('Escape');
+    }
+   }
+   assert.deepEqual(embeddedErrors,[],`${name}: no embedded-browser runtime/request failures`);
+   await context.close();
+   console.log(`PASS embedded browser ${name}`);
+  }
+
   assert.deepEqual(failures,[],'No runtime or local request failures');
   console.log('PASS browser regression suite');
  }finally{await browser.close();}
