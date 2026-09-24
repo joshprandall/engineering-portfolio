@@ -58,7 +58,7 @@ if hero_has_solar and about_image_start >= 0 and about_copy_start > about_image_
     <span class="credential-text">Oregon State University · B.S. studies in Electrical &amp; Computer Engineering and Computer Science · In progress<br>Minors: Mathematics, Physics &amp; Data Science · Honors College participant</span>
   </div>
   <div class="credential-row credential-row-mit">
-    <span class="credential-logo credential-logo-mit" aria-label="MIT logo">MIT</span>
+    <span class="credential-logo credential-logo-mit"><img src="https://groups.csail.mit.edu/gdpgroup/assets/mitlogo/MIT-logo-black-red-72x38.svg" alt="MIT logo" width="72" height="38"></span>
     <span class="credential-text">MIT · Online Quantum Engineering Program · Tuition-based professional study · In progress</span>
   </div>
 </div>'''
@@ -144,11 +144,17 @@ if marker not in css:
   filter:none!important;
 }
 .credential-logo-mit{
-  background:#a31f34!important;
-  color:#fff!important;
-  border:1px solid rgba(0,0,0,.14)!important;
-  font:900 1.18rem/1 Arial,Helvetica,sans-serif!important;
-  letter-spacing:-.06em!important;
+  background:#fff!important;
+  border:1px solid rgba(0,0,0,.12)!important;
+}
+.credential-logo-mit img{
+  display:block!important;
+  width:72px!important;
+  height:auto!important;
+  max-height:34px!important;
+  object-fit:contain!important;
+  opacity:1!important;
+  filter:none!important;
 }
 @media(max-width:600px){
   .home-page .hero>.about-imagery{
@@ -168,6 +174,10 @@ if marker not in css:
     width:60px!important;
     max-height:28px!important;
   }
+  .credential-logo-mit img{
+    width:60px!important;
+    max-height:30px!important;
+  }
   .portrait-card-copy .credential-text{
     font-size:.62rem!important;
     line-height:1.42!important;
@@ -184,6 +194,7 @@ if marker not in css:
     height:36px!important;
   }
   .credential-logo-osu img{width:55px!important}
+  .credential-logo-mit img{width:55px!important}
   .portrait-card-copy .credential-text{font-size:.585rem!important}
 }
 '''
