@@ -112,7 +112,7 @@ assert.match(read('knowledge.js'),/learning-depth\.js/,'Knowledge Platform must 
 assert.match(read('knowledge.js'),/learning-depth\.css/,'Knowledge Platform must load progressive mastery styling');
 assert.match(learningDepth,/Doctoral \/ Research/,'Mastery ladder must include a doctoral/research target');
 for(const stage of ['Orientation','Foundations','Core','Applied','Undergraduate','Advanced','Graduate bridge','Doctoral / Research']) assert.ok(learningDepth.includes(stage),`Mastery ladder missing ${stage}`);
-assert.match(learningDepth,/Existing lessons keep their verified Foundation \/ Intermediate \/ Advanced difficulty/,'Mastery layer must preserve verified difficulty labels');
+assert.match(learningDepth,/Existing lessons keep their verified Foundation, Intermediate, or Advanced difficulty/,'Mastery layer must preserve verified difficulty labels');
 assert.match(learningDepth,/Build my learning route/,'Mastery layer must provide a route planner');
 assert.match(read('knowledge.js'),/Research bridge/,'Lesson learning modes must include Research Bridge');
 assert.match(read('knowledge.js'),/graduate-style reading habits/,'Research Bridge must explain its academic-depth boundary');
