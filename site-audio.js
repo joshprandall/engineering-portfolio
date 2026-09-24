@@ -3,8 +3,8 @@
 
   // Unified site ambience controller. This is the ONLY script that may create
   // or play background ambience/music.
-  if (window.__JR_SITE_AUDIO_V14__) return;
-  window.__JR_SITE_AUDIO_V14__ = true;
+  if (window.__JR_SITE_AUDIO_V16__) return;
+  window.__JR_SITE_AUDIO_V16__ = true;
 
   const MUTE_KEY = 'jr-site-ambient-muted-v2';
   const DARK_TIME_KEY = 'jr-dark-theme-time-v1';
@@ -18,9 +18,14 @@
     // Existing light-mode field recordings.
     river: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Sanna%20river%20rapids.ogg',
     waterfall: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Water%20fall.ogg',
-    // Shorebirds with waves audible; one track prevents overlap/bleed.
-    beach: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Cape%20May%20Shorebirds%20closer.ogg'
+    // Two matching Cape May shorebird/wave recordings. Alternating them avoids
+    // an obvious 12.5-second repeat while keeping the same natural soundscape.
+    beachNear: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Cape%20May%20Shorebirds%20closer.ogg',
+    beachFar: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Cape%20May%20Shorebirds%20%28distant%29.ogg'
   });
+
+  const BEACH_SOURCES = Object.freeze([SOURCES.beachNear, SOURCES.beachFar]);
+  const BEACH_CROSSFADE_SECONDS = 1.2;
 
   // Website-side hard ceiling. Device volume may further attenuate this, but
   // this player itself can never exceed 10%.
@@ -39,7 +44,7 @@
   let switching = false;
 
   // Remove stale legacy players if a cached older script left one behind.
-  document.querySelectorAll('#jr-site-audio, #jr-dark-theme-music').forEach(node => {
+  document.querySelectorAll('#jr-site-audio, #jr-site-audio-beach-a, #jr-site-audio-beach-b, #jr-dark-theme-music').forEach(node => {
     try { node.pause(); } catch (_) {}
     try { node.remove(); } catch (_) {}
   });
@@ -55,6 +60,33 @@
   audio.style.display = 'none';
   audio.volume = MAX_BACKGROUND_VOLUME;
   (document.body || document.documentElement).appendChild(audio);
+
+  function createBeachPlayer(id, src) {
+    const player = document.createElement('audio');
+    player.id = id;
+    player.preload = 'auto';
+    player.loop = false;
+    player.playsInline = true;
+    player.setAttribute('playsinline', '');
+    player.setAttribute('aria-hidden', 'true');
+    player.style.display = 'none';
+    player.volume = 0;
+    player.src = src;
+    (document.body || document.documentElement).appendChild(player);
+    try { player.load(); } catch (_) {}
+    return player;
+  }
+
+  const beachPlayers = [
+    createBeachPlayer('jr-site-audio-beach-a', BEACH_SOURCES[0]),
+    createBeachPlayer('jr-site-audio-beach-b', BEACH_SOURCES[1])
+  ];
+
+  let beachActiveIndex = 0;
+  let beachStarted = false;
+  let beachTransitioning = false;
+  let beachFadeFrame = 0;
+  let beachGeneration = 0;
 
   function theme() {
     return window.PortfolioTheme?.getTheme?.() ||
@@ -113,15 +145,170 @@
     } catch (_) {}
   }
 
+  function cancelBeachFade() {
+    if (!beachFadeFrame) return;
+    try { cancelAnimationFrame(beachFadeFrame); } catch (_) {}
+    beachFadeFrame = 0;
+  }
+
+  function stopBeach(reset = true) {
+    beachGeneration += 1;
+    cancelBeachFade();
+    beachTransitioning = false;
+    beachStarted = false;
+    beachActiveIndex = 0;
+
+    beachPlayers.forEach(player => {
+      try { player.pause(); } catch (_) {}
+      try { player.volume = 0; } catch (_) {}
+      if (reset) {
+        try { player.currentTime = 0; } catch (_) {}
+      }
+    });
+  }
+
+  function beginBeachTransition() {
+    if (beachTransitioning || currentKey !== 'beach' || desiredKey() !== 'beach') return;
+
+    const fromIndex = beachActiveIndex;
+    const toIndex = 1 - fromIndex;
+    const from = beachPlayers[fromIndex];
+    const to = beachPlayers[toIndex];
+    const generation = beachGeneration;
+    const cap = cappedVolume('beach');
+
+    beachTransitioning = true;
+    try { to.currentTime = 0; } catch (_) {}
+    to.loop = false;
+    to.muted = false;
+    to.volume = 0;
+
+    let playResult;
+    try { playResult = to.play(); }
+    catch (_) {
+      beachTransitioning = false;
+      return;
+    }
+
+    Promise.resolve(playResult).then(() => {
+      if (generation !== beachGeneration || currentKey !== 'beach' || desiredKey() !== 'beach') {
+        try { to.pause(); } catch (_) {}
+        beachTransitioning = false;
+        return;
+      }
+
+      const startedAt = performance.now();
+      const fadeMs = BEACH_CROSSFADE_SECONDS * 1000;
+
+      const step = now => {
+        if (generation !== beachGeneration || currentKey !== 'beach' || desiredKey() !== 'beach') {
+          try { to.pause(); } catch (_) {}
+          beachTransitioning = false;
+          beachFadeFrame = 0;
+          return;
+        }
+
+        const progress = Math.min(1, Math.max(0, (now - startedAt) / fadeMs));
+        // Complementary linear fades keep the combined website-side level at
+        // or below the same 10% ambience ceiling.
+        from.volume = cap * (1 - progress);
+        to.volume = cap * progress;
+
+        if (progress < 1) {
+          beachFadeFrame = requestAnimationFrame(step);
+          return;
+        }
+
+        beachFadeFrame = 0;
+        try { from.pause(); } catch (_) {}
+        try { from.currentTime = 0; } catch (_) {}
+        from.volume = 0;
+        to.volume = cap;
+        beachActiveIndex = toIndex;
+        beachTransitioning = false;
+      };
+
+      beachFadeFrame = requestAnimationFrame(step);
+    }).catch(() => {
+      beachTransitioning = false;
+    });
+  }
+
+  function playBeach() {
+    const player = beachPlayers[beachActiveIndex];
+    const cap = cappedVolume('beach');
+
+    if (!beachStarted) {
+      try { player.currentTime = 0; } catch (_) {}
+    }
+
+    player.loop = false;
+    player.muted = false;
+    player.volume = cap;
+    beachStarted = true;
+
+    try {
+      const result = player.play();
+      if (result?.catch) {
+        result.catch(() => {
+          beachStarted = false;
+        });
+      }
+    } catch (_) {
+      beachStarted = false;
+    }
+  }
+
+  beachPlayers.forEach((player, index) => {
+    player.addEventListener('timeupdate', () => {
+      if (currentKey !== 'beach' || index !== beachActiveIndex || beachTransitioning) return;
+      const duration = Number(player.duration || 0);
+      const current = Number(player.currentTime || 0);
+      if (!Number.isFinite(duration) || duration <= 0 || !Number.isFinite(current)) return;
+
+      // Start the alternate field recording just before this one ends. The
+      // overlap masks both decoder scheduling jitter and the acoustic seam.
+      if (duration - current <= BEACH_CROSSFADE_SECONDS + 0.18) {
+        beginBeachTransition();
+      }
+    });
+
+    player.addEventListener('ended', () => {
+      if (currentKey === 'beach' && index === beachActiveIndex && !beachTransitioning) {
+        beginBeachTransition();
+      }
+    });
+
+    player.addEventListener('error', () => {
+      console.error('JR beach ambience failed:', player.currentSrc, player.error);
+    });
+
+    player.addEventListener('volumechange', () => {
+      const cap = cappedVolume('beach');
+      if (player.volume > cap) player.volume = cap;
+    });
+  });
+
   function stop() {
     saveDarkTime();
     try { audio.pause(); } catch (_) {}
+    stopBeach(true);
   }
 
   function applySource(nextKey) {
     if (!nextKey) {
       stop();
       currentKey = '';
+      return;
+    }
+
+    if (nextKey === 'beach') {
+      if (currentKey === 'beach') return;
+
+      switching = true;
+      stop();
+      currentKey = 'beach';
+      switching = false;
       return;
     }
 
@@ -159,6 +346,12 @@
     }
 
     applySource(key);
+
+    if (key === 'beach') {
+      playBeach();
+      return;
+    }
+
     audio.loop = true;
     audio.muted = false;
     audio.volume = cappedVolume(key);
@@ -179,6 +372,14 @@
     }
 
     if (force || currentKey !== key) applySource(key);
+
+    if (key === 'beach') {
+      const active = beachPlayers[beachActiveIndex];
+      if (!switching && (!beachStarted || (active.paused && !beachTransitioning))) {
+        playBeach();
+      }
+      return;
+    }
 
     if (!switching && (audio.paused || audio.ended)) {
       playDesired();
@@ -268,6 +469,14 @@
       audio.volume = MAX_BACKGROUND_VOLUME;
     }
 
+    if (key === 'beach') {
+      const active = beachPlayers[beachActiveIndex];
+      if (unlocked && !switching && !beachTransitioning && (!beachStarted || active.paused)) {
+        playBeach();
+      }
+      return;
+    }
+
     if (unlocked && audio.paused && !switching) {
       playDesired();
     }
@@ -283,6 +492,7 @@
     get muted() { return muted(); },
     get suppressed() { return suppressed; },
     get maxVolume() { return MAX_BACKGROUND_VOLUME; },
-    get element() { return audio; }
+    get element() { return currentKey === 'beach' ? beachPlayers[beachActiveIndex] : audio; },
+    get beachElements() { return beachPlayers.slice(); }
   });
 })();
