@@ -137,7 +137,7 @@ assert.match(deployScript,/PROTECTED_ROOT_FILES = set\(\)/,'OSU deploy must allo
 for (const file of ['site-theme.js','site-scenes.js','geometric-lab/app.js','geometric-lab/math.js','geometric-lab/worker.js','app.js','portfolio-next.js','handheld-experience.js','science-experiments.js','quantum-cube.js','knowledge.js','learning-depth.js','learning-next.js','agent-workbench.js','labs/qpe.js','labs/emergent.js','qubit-preview-20260921/app.js','qubit-preview-20260921/qubit.js','games/3d-battle-chess/battle.js','games/3d-battle-chess/engine.js']) execFileSync(process.execPath,['--check',path.join(root,file)],{stdio:'pipe'});
 
 const geoHtml=read('geometric-lab/index.html');
-for (const tab of ['geometry','models','diffusion','inverse','topology','spectrum','flow']) assert.match(geoHtml,new RegExp('data-tab=["\\']'+tab+'["\\']'),'Geometry Lab missing '+tab+' experiment');
+for (const tab of ['geometry','models','diffusion','inverse','topology','spectrum','flow']) assert.match(geoHtml,new RegExp(`data-tab=["']${tab}["']`),'Geometry Lab missing '+tab+' experiment');
 assert.match(geoHtml,/id=["']point-inspector["']/,'Geometry Lab point inspector missing');
 await import(pathToFileURL(path.join(root,'geometric-lab/math.js')).href+'?test='+Date.now());
 const geo=globalThis.GeoMath;
