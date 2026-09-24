@@ -901,7 +901,7 @@
     const principles=$('.principles');
     if(principles){principles.hidden=true;principles.style.display='none';}
     if(intro){intro.hidden=page==='home';if(page!=='home'){const x=labels[page]||labels.browse;$('#learn-page-kicker').textContent=x[0];$('#learn-page-title').textContent=x[1];$('#learn-page-copy').textContent=x[2]}}
-    $('[data-learn-page]').forEach(a=>{if(a.dataset.learnPage===page)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});
+    $$('[data-learn-page]').forEach(a=>{if(a.dataset.learnPage===page)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});
   }
 
   function randomLesson(){const l=D.lessons[Math.floor(Math.random()*D.lessons.length)];openLesson(l.id);ping(610)}
