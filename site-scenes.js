@@ -48,7 +48,7 @@
     'forest-waterfall': 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Water%20fall.ogg'
   };
   const BEACH_BIRDS_AUDIO = 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Cape%20May%20Shorebirds%20closer.ogg';
-  const DARK_LICENSED_TRACK = new URL('assets/audio/dark-theme.mp3', SITE_BASE).href;
+  const DARK_LICENSED_TRACK = new URL('assets/audio/dark-theme.ogg', SITE_BASE).href;
   const DARK_TRACK_TIME_KEY = 'jr-dark-theme-time-v1';
   const PROJECT_AUDIO_RE = /(?:^|\/)(?:project-[^/]+\.html|play-evil-wizard\.html|agent-workbench\.html|games\/|geometric-lab\/|qubit-preview-20260921\/|deep-learning\/)/i;
 
@@ -113,7 +113,7 @@
       '<div>' +
         '<p class="scene-source-night">Webb’s Cosmic Cliffs · ' +
           '<a href="https://esawebb.org/images/weic2205a/" target="_blank" rel="noopener noreferrer">NASA, ESA, CSA, and STScI</a><br>' +
-          '<small>Real astronomical imagery with decorative environmental motion; not an observational time-lapse.</small>' +
+          '<small>Audio: “Alien Spaceship Atmosphere” by Kevin MacLeod · CC0 public-domain dedication.</small>' +
         '</p>' +
         '<p class="scene-source-day">Living Earth · ' +
           '<a class="scene-day-link" href="#" target="_blank" rel="noopener noreferrer">real licensed nature footage</a><br>' +
@@ -186,9 +186,9 @@
 
     const motionAllowed = () => true;
 
-    // Audio state. Light mode now uses real field recordings matched to each
-    // scene. Dark mode uses assets/audio/dark-theme.mp3 when the owner supplies
-    // a legally licensed copy for site playback.
+    // Audio state. Light mode uses real field recordings matched to each scene.
+    // Dark mode uses Kevin MacLeod's CC0 'Alien Spaceship Atmosphere', stored
+    // locally as assets/audio/dark-theme.ogg for reliable looping.
     let ambientCtx = null;
     let ambientMaster = null;
     let ambientNodes = [];
