@@ -75,6 +75,13 @@ async function run(){
    const lightInk=await page.locator('#hero-title').evaluate(el=>getComputedStyle(el).color);
    const lightRgb=(lightInk.match(/\d+/g)||[]).slice(0,3).map(Number);
    assert(lightRgb.length===3&&Math.max(...lightRgb)<80,`Light-mode hero text stays decisively dark, got ${lightInk}`);
+   const heroShadow=await page.locator('#hero-title').evaluate(el=>getComputedStyle(el).textShadow);
+   assert(!/rgb\(0, 0, 0\)/.test(heroShadow),`Light-mode hero must not use a black outline/shadow, got ${heroShadow}`);
+   const solarLabel=page.locator('.vnext-world strong').first();
+   const solarShadow=await solarLabel.evaluate(el=>getComputedStyle(el).textShadow);
+   const solarColor=await solarLabel.evaluate(el=>getComputedStyle(el).color);
+   assert(!/rgb\(0, 0, 0\)/.test(solarShadow),`Light solar labels must not use black halos, got ${solarShadow}`);
+   assert.equal(await solarLabel.evaluate(el=>getComputedStyle(el).backgroundColor),'rgba(0, 0, 0, 0)','Light solar labels remain container-free');
    if(output&&name==='phone'){await page.screenshot({animations:'disabled',path:path.join(output,'home-phone-light.png'),fullPage:true});}
    await page.locator('#theme').click();
    console.log(`PASS ${name}: navigation, planet selectors, search, skills, Bell outcomes, animation and pause, images, theme, layout`);
