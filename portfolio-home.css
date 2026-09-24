@@ -435,24 +435,78 @@
   border-color:rgba(159,205,216,.26)!important
 }
 :root[data-theme="light"] .quantum-stage{
-  background:rgba(5,16,21,.74)!important;
-  border-color:rgba(111,203,219,.52)!important;
-  box-shadow:0 18px 46px rgba(5,18,21,.30)!important;
-  -webkit-backdrop-filter:blur(10px) brightness(.58) saturate(.88)!important;
-  backdrop-filter:blur(10px) brightness(.58) saturate(.88)!important;
-  color:#f2fbfc!important
+  background:rgba(4,13,18,.84)!important;
+  border-color:rgba(102,214,230,.72)!important;
+  box-shadow:0 20px 52px rgba(3,15,20,.38)!important;
+  -webkit-backdrop-filter:blur(12px) brightness(.48) saturate(.96)!important;
+  backdrop-filter:blur(12px) brightness(.48) saturate(.96)!important;
+  color:#f8fdff!important
 }
-:root[data-theme="light"] .quantum-stage .quantum-stage-label,
-:root[data-theme="light"] .quantum-stage .quantum-controls label,
-:root[data-theme="light"] .quantum-stage .bell-bars>div,
-:root[data-theme="light"] .quantum-stage #bell-result{
-  color:#d9f3f6!important;
+:root[data-theme="light"] .quantum-stage .quantum-stage-label{
+  color:#effcff!important;
+  font-size:.64rem!important;
+  font-weight:800!important;
+  letter-spacing:.14em!important;
+  border-bottom-color:rgba(129,218,232,.42)!important;
   text-shadow:none!important
 }
 :root[data-theme="light"] .quantum-stage .quantum-stage-label button{
-  color:#d9f3f6!important;
-  background:rgba(8,27,34,.54)!important;
-  border-color:rgba(111,203,219,.48)!important;
+  color:#effcff!important;
+  background:rgba(8,27,34,.78)!important;
+  border:1.5px solid rgba(129,218,232,.68)!important;
+  font-size:.72rem!important;
+  font-weight:800!important;
+  min-height:38px!important;
+  text-shadow:none!important
+}
+:root[data-theme="light"] .quantum-stage .quantum-controls{
+  border-top-color:rgba(129,218,232,.42)!important
+}
+:root[data-theme="light"] .quantum-stage .quantum-controls label{
+  color:#f5fdff!important;
+  font-size:.74rem!important;
+  font-weight:800!important;
+  letter-spacing:.01em!important;
+  text-shadow:none!important
+}
+:root[data-theme="light"] .quantum-stage .quantum-controls select{
+  color:#f8fdff!important;
+  background:rgba(11,31,42,.96)!important;
+  border:1.5px solid rgba(129,218,232,.62)!important;
+  font-size:.82rem!important;
+  font-weight:750!important;
+  min-height:48px!important;
+  box-shadow:0 0 0 1px rgba(255,255,255,.03) inset!important
+}
+:root[data-theme="light"] .quantum-stage .quantum-controls .button{
+  background:#ffb487!important;
+  border-color:#ffb487!important;
+  color:#11191c!important;
+  font-size:.82rem!important;
+  font-weight:900!important;
+  min-height:48px!important
+}
+:root[data-theme="light"] .quantum-stage .bell-bars>div{
+  color:#eefcff!important;
+  font-size:13px!important;
+  font-weight:800!important;
+  text-shadow:none!important
+}
+:root[data-theme="light"] .quantum-stage .bell-bars output{
+  color:#f8fdff!important;
+  font-size:11px!important;
+  font-weight:800!important
+}
+:root[data-theme="light"] .quantum-stage .bell-bars i{
+  height:7px!important;
+  background:linear-gradient(to right,#9cebf4 var(--p),#1d3d49 var(--p))!important
+}
+:root[data-theme="light"] .quantum-stage #bell-result{
+  color:#f6fdff!important;
+  border-top-color:rgba(129,218,232,.42)!important;
+  font-size:.75rem!important;
+  font-weight:750!important;
+  line-height:1.7!important;
   text-shadow:none!important
 }
 #quantum-cube{background:transparent!important}
