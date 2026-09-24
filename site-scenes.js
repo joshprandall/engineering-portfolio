@@ -45,13 +45,26 @@
     const mediaDisabled = saveData || localTestHost;
     const ambientLockedByPage = PROJECT_AUDIO_RE.test(location.pathname);
 
-    // Warm the remote media origins before the first light-theme video request.
+    // Warm image/video connections immediately so the background appears before
+    // the rest of the page has finished settling.
     ['https://videos.pexels.com','https://images.pexels.com'].forEach(href => {
       if (document.querySelector('link[rel="preconnect"][href="' + href + '"]')) return;
       const link = document.createElement('link');
       link.rel = 'preconnect';
       link.href = href;
       link.crossOrigin = 'anonymous';
+      document.head.append(link);
+    });
+    [
+      'assets/scenes/webb-cosmic-cliffs.webp',
+      LIGHT_SCENES[0].poster
+    ].forEach((href, i) => {
+      if (document.querySelector('link[rel="preload"][href="' + href + '"]')) return;
+      const link = document.createElement('link');
+      link.rel = 'preload';
+      link.as = 'image';
+      link.href = href;
+      if (i === 0) link.fetchPriority = 'high';
       document.head.append(link);
     });
 
@@ -93,10 +106,11 @@
       '</div>' +
       '<button data-scene-audio type="button" aria-pressed="false">Mute ambience</button>';
 
-    // Motion is intentionally always on. Remove every legacy pause control;
-    // the one bottom-of-page global control is now the ambience mute button.
+    // Motion is intentionally always on. Any legacy bottom "Pause motion"
+    // button is removed and replaced by one functional mute control.
     document.querySelectorAll('button[data-scene-motion]').forEach(button => button.remove());
     document.body.append(options);
+    appearance.setMotion?.('running', true);
     appearance.bind(options);
 
     const canvas = backdrop.querySelector('.scene-canvas');
@@ -285,7 +299,7 @@
         o.frequency.value = freq;
         filter.type = 'lowpass';
         filter.frequency.value = i === 0 ? 520 : 950;
-        g.gain.value = i === 0 ? .0065 : .0048;
+        g.gain.value = i === 0 ? .0115 : .0082;
         o.connect(filter).connect(g).connect(ambientMaster);
         o.start();
         return o;
@@ -299,7 +313,7 @@
           try { o.frequency.exponentialRampToValueAtTime(progression[chord][i], now + 2.8); } catch (_) {}
         });
       }, 12000);
-      startNoiseBed({gain:.0032, lowpass:420, highpass:45});
+      startNoiseBed({gain:.0048, lowpass:420, highpass:45});
     }
 
     function scheduleBirds() {
@@ -314,7 +328,7 @@
         o.frequency.exponentialRampToValueAtTime(base * 1.34, start + .13);
         o.frequency.exponentialRampToValueAtTime(base * .92, start + .28);
         g.gain.setValueAtTime(.0001, start);
-        g.gain.exponentialRampToValueAtTime(.0042, start + .035);
+        g.gain.exponentialRampToValueAtTime(.0064, start + .035);
         g.gain.exponentialRampToValueAtTime(.0001, start + .31);
         o.connect(g).connect(ambientMaster);
         o.start(start);
@@ -329,15 +343,15 @@
       const scene = LIGHT_SCENES[activeSceneIndex];
       if (!scene) return;
       if (scene.id === 'forest-waterfall') {
-        startNoiseBed({gain:.020, lowpass:4200, highpass:95, lfoRate:.08, lfoDepth:.0020});
-        startNoiseBed({gain:.0070, lowpass:520, highpass:35});
+        startNoiseBed({gain:.028, lowpass:4200, highpass:95, lfoRate:.08, lfoDepth:.0028});
+        startNoiseBed({gain:.0095, lowpass:520, highpass:35});
       } else if (scene.id === 'birds-water') {
-        startNoiseBed({gain:.0135, lowpass:1500, highpass:70, lfoRate:.10, lfoDepth:.0052});
-        startNoiseBed({gain:.0050, lowpass:360, highpass:30, lfoRate:.052, lfoDepth:.0023});
+        startNoiseBed({gain:.020, lowpass:1500, highpass:70, lfoRate:.10, lfoDepth:.0065});
+        startNoiseBed({gain:.0072, lowpass:360, highpass:30, lfoRate:.052, lfoDepth:.0030});
         scheduleBirds();
       } else {
-        startNoiseBed({gain:.0145, lowpass:1350, highpass:60, lfoRate:.065, lfoDepth:.0030});
-        startNoiseBed({gain:.0043, lowpass:320, highpass:28});
+        startNoiseBed({gain:.0205, lowpass:1350, highpass:60, lfoRate:.065, lfoDepth:.0041});
+        startNoiseBed({gain:.0062, lowpass:320, highpass:28});
       }
     }
 
@@ -346,7 +360,7 @@
       [videoA, videoB].forEach(video => {
         try {
           const active = video === activeVideo && allow;
-          video.volume = active ? .10 : 0;
+          video.volume = active ? .16 : 0;
           video.muted = !active;
         } catch (_) {}
       });
@@ -362,7 +376,7 @@
       syncVideoAmbience();
       if (theme === 'dark') startDarkAmbience();
       else startLightAmbience();
-      const target = theme === 'dark' ? .88 : .92;
+      const target = theme === 'dark' ? .96 : .98;
       try {
         ambientMaster.gain.cancelScheduledValues(ambientCtx.currentTime);
         ambientMaster.gain.setValueAtTime(.0001, ambientCtx.currentTime);
