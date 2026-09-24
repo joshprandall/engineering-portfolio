@@ -17,7 +17,10 @@ const server=http.createServer((req,res)=>{
 async function run(){
  await new Promise(r=>server.listen(0,'127.0.0.1',r));
  const base=`http://127.0.0.1:${server.address().port}`;
- const browser=await chromium.launch({headless:true,executablePath:process.env.PORTFOLIO_BROWSER_EXECUTABLE||undefined,args:['--no-sandbox','--disable-dev-shm-usage','--no-zygote','--single-process','--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader']});
+ const args=['--no-sandbox','--disable-dev-shm-usage'];
+ if(process.env.PORTFOLIO_BROWSER_SINGLE_PROCESS==='1')args.push('--no-zygote','--single-process','--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader');
+ else args.push('--disable-gpu');
+ const browser=await chromium.launch({headless:true,executablePath:process.env.PORTFOLIO_BROWSER_EXECUTABLE||undefined,args});
  try{
   const page=await browser.newPage();page.setDefaultTimeout(8000);page.setDefaultNavigationTimeout(15000);
   page.on('pageerror',e=>failures.push(`Runtime: ${e.message}`));
