@@ -80,9 +80,17 @@
     if (document.getElementById('site-scene') || !window.PortfolioTheme) return;
 
     const appearance = window.PortfolioTheme;
-    const saveData = Boolean(navigator.connection && navigator.connection.saveData);
+    const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+    const saveData = Boolean(connection && connection.saveData);
     const localTestHost = location.hostname === '127.0.0.1' || location.hostname === 'localhost';
     const mediaDisabled = saveData || localTestHost;
+    const inAppBrowser = /FBAN|FBAV|Instagram|Messenger|Line\/|; wv\)/i.test(navigator.userAgent || '');
+    const constrainedMedia = Boolean(
+      inAppBrowser ||
+      /(^|-)2g$/.test(connection?.effectiveType || '') ||
+      (navigator.deviceMemory && navigator.deviceMemory <= 4) ||
+      (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4)
+    );
     const ambientLockedByPage = PROJECT_AUDIO_RE.test(location.pathname);
 
     // Warm image/video connections immediately so the background appears before
@@ -122,7 +130,7 @@
       '</div>' +
       '<div class="scene-day-wrap">' +
         '<div class="scene-image scene-day-fallback"></div>' +
-        '<video class="scene-video scene-video-a" muted playsinline autoplay loop preload="auto" tabindex="-1"></video>' +
+        '<video class="scene-video scene-video-a" muted playsinline autoplay loop preload="metadata" tabindex="-1"></video>' +
         '<video class="scene-video scene-video-b" muted playsinline autoplay loop preload="metadata" tabindex="-1"></video>' +
       '</div>' +
       '<canvas class="scene-canvas"></canvas>' +
@@ -680,13 +688,13 @@
     function resize() {
       width = innerWidth;
       height = innerHeight;
-      dpr = Math.min(devicePixelRatio || 1, width < 700 ? 1.35 : 1.75);
+      dpr = Math.min(devicePixelRatio || 1, constrainedMedia ? (width < 700 ? 1.15 : 1.35) : (width < 700 ? 1.35 : 1.7));
       canvas.width = Math.max(1, Math.round(width * dpr));
       canvas.height = Math.max(1, Math.round(height * dpr));
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-      const starCount = mediaDisabled ? 30 : width < 700 ? 55 : 110;
-      const dustCount = mediaDisabled ? 10 : width < 700 ? 20 : 42;
+      const starCount = mediaDisabled ? 30 : constrainedMedia ? (width < 700 ? 42 : 72) : width < 700 ? 55 : 110;
+      const dustCount = mediaDisabled ? 10 : constrainedMedia ? (width < 700 ? 14 : 28) : width < 700 ? 20 : 42;
 
       stars = Array.from({ length: starCount }, () => ({
         x: random(),
@@ -718,7 +726,7 @@
       video.playsInline = true;
       video.autoplay = true;
       video.loop = true;
-      video.preload = mediaDisabled ? 'none' : (video === activeVideo ? 'auto' : 'metadata');
+      video.preload = mediaDisabled ? 'none' : (constrainedMedia ? 'metadata' : (video === activeVideo ? 'auto' : 'metadata'));
       video.load();
     }
 
@@ -781,7 +789,7 @@
     }
 
     async function rotateLightScene() {
-      if (transitionBusy || mediaDisabled || theme !== 'light' || !motionAllowed() || LIGHT_SCENES.length < 2) return;
+      if (transitionBusy || mediaDisabled || constrainedMedia || theme !== 'light' || !motionAllowed() || LIGHT_SCENES.length < 2) return;
       transitionBusy = true;
 
       const nextIndex = (activeSceneIndex + 1) % LIGHT_SCENES.length;
@@ -969,6 +977,8 @@
 
     function releaseMedia() {
       clearTimeout(mediaTimer);
+      // Let navigation, typography and the first content paint settle before
+      // starting a remote 1080p background stream. Posters remain immediate.
       mediaTimer = setTimeout(() => {
         mediaReady = true;
         updateDayCredit();
@@ -976,7 +986,7 @@
           loadInitialLightScene();
           playSafely(activeVideo);
         }
-      }, 40);
+      }, constrainedMedia ? 700 : 220);
     }
 
     // The poster is immediate; video loading begins as soon as the DOM exists.

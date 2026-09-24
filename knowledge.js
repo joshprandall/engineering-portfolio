@@ -912,10 +912,61 @@
   }
   function constellation(){
     const canvas=$('#constellation');if(!canvas)return;
-    const ctx=canvas.getContext('2d');if(!ctx)return;let nodes=[],raf=0;
-    function resize(){const r=canvas.getBoundingClientRect(),dpr=Math.min(devicePixelRatio||1,2);canvas.width=Math.max(1,Math.round(r.width*dpr));canvas.height=Math.max(1,Math.round(r.height*dpr));ctx.setTransform(dpr,0,0,dpr,0,0);const w=r.width,h=r.height;if(!nodes.length)nodes=D.domains.map((d,i)=>({x:w*(.18+.65*((i*37)%100)/100),y:h*(.18+.65*((i*61)%100)/100),vx:(i%2?.12:-.1),vy:(i%3?.08:-.07),label:d.name.split(' ')[0]}))}
-    function draw(){const r=canvas.getBoundingClientRect(),w=r.width,h=r.height,styles=getComputedStyle(document.documentElement),line=styles.getPropertyValue('--line2'),accent=styles.getPropertyValue('--accent'),text=styles.getPropertyValue('--muted');ctx.clearRect(0,0,w,h);ctx.lineWidth=1;for(let i=0;i<nodes.length;i++)for(let j=i+1;j<nodes.length;j++){let a=nodes[i],b=nodes[j],dist=Math.hypot(a.x-b.x,a.y-b.y);if(dist<220){ctx.globalAlpha=Math.max(0,.45-dist/500);ctx.strokeStyle=line;ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke()}}ctx.globalAlpha=1;nodes.forEach((n,i)=>{if(!motionPaused){n.x+=n.vx;n.y+=n.vy;if(n.x<35||n.x>w-35)n.vx*=-1;if(n.y<30||n.y>h-30)n.vy*=-1}ctx.fillStyle=i===0?accent:text;ctx.beginPath();ctx.arc(n.x,n.y,i===0?5:3,0,Math.PI*2);ctx.fill();ctx.font='11px system-ui';ctx.fillStyle=text;ctx.fillText(n.label,n.x+9,n.y+4)});raf=requestAnimationFrame(draw)}
-    resize();draw();window.addEventListener('resize',()=>{nodes=[];resize()});
+    const ctx=canvas.getContext('2d',{alpha:true});if(!ctx)return;
+    const reduced=matchMedia('(prefers-reduced-motion: reduce)');
+    const connection=navigator.connection||navigator.mozConnection||navigator.webkitConnection;
+    const inApp=/FBAN|FBAV|Instagram|Messenger|Line\/|; wv\)/i.test(navigator.userAgent||'');
+    const constrained=Boolean(connection?.saveData||/(^|-)2g$/.test(connection?.effectiveType||'')||(navigator.deviceMemory&&navigator.deviceMemory<=4)||(navigator.hardwareConcurrency&&navigator.hardwareConcurrency<=4)||inApp);
+    const frameInterval=1000/((constrained||innerWidth<700)?20:28);
+    let nodes=[],raf=0,visible=true,lastFrame=0,line='',accent='',text='';
+
+    function syncColors(){
+      const styles=getComputedStyle(document.documentElement);
+      line=styles.getPropertyValue('--line2');
+      accent=styles.getPropertyValue('--accent');
+      text=styles.getPropertyValue('--muted');
+    }
+    function stop(){if(raf)cancelAnimationFrame(raf);raf=0}
+    function start(){if(!raf&&visible&&!document.hidden&&!reduced.matches&&canvas.isConnected)raf=requestAnimationFrame(draw)}
+    function resize(){
+      const r=canvas.getBoundingClientRect(),cap=constrained?(r.width<700?1.15:1.35):(r.width<700?1.35:1.7),dpr=Math.min(devicePixelRatio||1,cap);
+      canvas.width=Math.max(1,Math.round(r.width*dpr));canvas.height=Math.max(1,Math.round(r.height*dpr));
+      ctx.setTransform(dpr,0,0,dpr,0,0);
+      const w=r.width,h=r.height;
+      if(!nodes.length)nodes=D.domains.map((d,i)=>({x:w*(.18+.65*((i*37)%100)/100),y:h*(.18+.65*((i*61)%100)/100),vx:(i%2?.12:-.1),vy:(i%3?.08:-.07),label:d.name.split(' ')[0]}));
+      draw(performance.now(),true);
+    }
+    function draw(now=performance.now(),force=false){
+      raf=0;
+      if(document.hidden||!visible||!canvas.isConnected)return;
+      if(!force&&now-lastFrame<frameInterval){start();return}
+      lastFrame=now;
+      const r=canvas.getBoundingClientRect(),w=r.width,h=r.height;
+      ctx.clearRect(0,0,w,h);ctx.lineWidth=1;
+      for(let i=0;i<nodes.length;i++)for(let j=i+1;j<nodes.length;j++){
+        const a=nodes[i],b=nodes[j],dist=Math.hypot(a.x-b.x,a.y-b.y);
+        if(dist<220){ctx.globalAlpha=Math.max(0,.45-dist/500);ctx.strokeStyle=line;ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke()}
+      }
+      ctx.globalAlpha=1;
+      nodes.forEach((n,i)=>{
+        if(!motionPaused&&!reduced.matches){n.x+=n.vx;n.y+=n.vy;if(n.x<35||n.x>w-35)n.vx*=-1;if(n.y<30||n.y>h-30)n.vy*=-1}
+        ctx.fillStyle=i===0?accent:text;ctx.beginPath();ctx.arc(n.x,n.y,i===0?5:3,0,Math.PI*2);ctx.fill();ctx.font='11px system-ui';ctx.fillStyle=text;ctx.fillText(n.label,n.x+9,n.y+4)
+      });
+      start();
+    }
+
+    syncColors();
+    if('IntersectionObserver'in window){
+      const observer=new IntersectionObserver(entries=>{visible=Boolean(entries[0]?.isIntersecting);if(visible){draw(performance.now(),true);start()}else stop()},{rootMargin:'160px 0px'});
+      observer.observe(canvas);
+    }
+    if('ResizeObserver'in window)new ResizeObserver(()=>{nodes=[];resize();start()}).observe(canvas);
+    else window.addEventListener('resize',()=>{nodes=[];resize();start()},{passive:true});
+    document.addEventListener('visibilitychange',()=>{if(document.hidden)stop();else{draw(performance.now(),true);start()}});
+    document.addEventListener('portfolio:theme',()=>{syncColors();draw(performance.now(),true)});
+    reduced.addEventListener?.('change',()=>{if(reduced.matches){stop();draw(performance.now(),true)}else start()});
+    addEventListener('pagehide',stop,{once:true});
+    resize();start();
   }
 
   function initEvents(){
@@ -963,7 +1014,8 @@
       addEventListener('resize',()=>{if(innerWidth>820)closePrimaryNav()});
     }
     document.addEventListener('keydown',e=>{const typing=/INPUT|TEXTAREA|SELECT/.test(document.activeElement?.tagName);if((e.key==='/'||(e.key.toLowerCase()==='k'&&(e.ctrlKey||e.metaKey)))&&!typing){e.preventDefault();if(currentLesson)closeLesson();setTimeout(()=>$('#knowledge-search').focus(),0)}if(e.key==='Escape'&&currentLesson)closeLesson();if((e.key==='r'||e.key==='R')&&!typing&&!currentLesson)randomLesson();if((e.key==='g'||e.key==='G')&&!typing&&!currentLesson){e.preventDefault();$('#glossary').scrollIntoView({behavior:motionPaused?'auto':'smooth'});setTimeout(()=>$('#glossary-search').focus(),250)}});
-    window.addEventListener('scroll',()=>requestAnimationFrame(updateReadingProgress),{passive:true});
+    let readingProgressRaf=0;
+    window.addEventListener('scroll',()=>{if(readingProgressRaf)return;readingProgressRaf=requestAnimationFrame(()=>{readingProgressRaf=0;updateReadingProgress()})},{passive:true});
     let graphResize;window.addEventListener('resize',()=>{clearTimeout(graphResize);graphResize=setTimeout(renderKnowledgeGraph,120)});
     window.addEventListener('popstate',()=>route(false));
     document.addEventListener('click',e=>{if(soundMode==='full'&&e.target.closest('button,a'))ping(330,.035,.012)});

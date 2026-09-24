@@ -160,6 +160,25 @@ assert.ok(mr.requiresApproval,'MIND workbench must preserve human approval bound
 assert.ok(mr.evidenceCoverage>0,'MIND evidence coverage should respond to evidence');
 console.log('Science-experiment release validation passed: 16 projects, 8,000 manifest records, orbital systems scene, deterministic science math and protected experience exclusions.');
 
+// Performance/usability regression guards: keep expensive continuous work out of
+// hidden/off-screen views and keep the 25 MB learning corpus from parser-blocking.
+for (const file of ['learn.html','learn-browse.html','learn-glossary.html','learn-labs.html','learn-map.html','learn-mastery.html','learn-paths.html','learn-practice.html','learn-verify.html']) {
+  const html=read(file);
+  if (html.includes('knowledge-data.js')) {
+    assert.match(html,/<script\b[^>]*\bdefer\b[^>]*src=["']knowledge-data\.js["']/i, `${file}: knowledge-data.js must be deferred`);
+  }
+}
+assert.match(read('app.js'),/IntersectionObserver/,'Homepage systems animation must suspend when off-screen');
+assert.match(read('app.js'),/document\.hidden/,'Homepage systems animation must suspend in background tabs');
+assert.match(read('portfolio-next.js'),/sceneVisible/,'Solar systems animation must track viewport visibility');
+assert.match(read('portfolio-next.js'),/frameInterval/,'Solar systems animation must use a bounded paint cadence');
+assert.match(read('knowledge.js'),/IntersectionObserver/,'Learning constellation must suspend when off-screen');
+assert.match(read('site-scenes.js'),/constrainedMedia/,'Living scenes must adapt to constrained and in-app browsers');
+assert.match(read('site-scenes.js'),/preload="metadata"/,'Living scenes must not eagerly preload a remote 1080p stream in markup');
+assert.match(read('site-resilience.css'),/content-visibility:auto/,'Off-screen sections must use progressive rendering where supported');
+assert.match(read('project-geometric-ai.html'),/<iframe\b[^>]*loading=["']lazy["']/i,'Geometry Lab preview must lazy-load below the fold');
+
+
 const home=read('index.html');
 assert.doesNotMatch(home,/id="fusion"|Depth across the stack|Grounded in experience/,'Replaced homepage sections must not return');
 for(const asset of ['portfolio-home.css','quantum-cube.js','assets/systems-lab.jpg']) assert.ok(home.includes(asset)&&exists(asset),`Homepage asset missing: ${asset}`);

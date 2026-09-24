@@ -173,67 +173,149 @@
 
   const canvas = $("#network");
   if (canvas) {
-    const ctx = canvas.getContext("2d");
-    const nodes = Array.from({length: 15}, (_, i) => ({
-      x: (i * 73 % 101) / 100,
-      y: (i * 47 % 89) / 100,
-      dx: ((i % 3) - 1) * .00022,
-      dy: (((i + 1) % 3) - 1) * .00018
-    }));
-    function resize() {
-      const dpr = Math.min(devicePixelRatio || 1, 2);
-      canvas.width = Math.max(1, Math.floor(canvas.clientWidth * dpr));
-      canvas.height = Math.max(1, Math.floor(canvas.clientHeight * dpr));
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    }
-    resize();
-    canvas.style.cursor = 'pointer';
-    canvas.tabIndex = 0;
-    canvas.setAttribute('role', 'button');
-    canvas.setAttribute('aria-label', 'Explore connected systems: select a node, or press Enter for the next layer');
-    let activeLayer = 0;
-    canvas.addEventListener('pointerdown', event => {
-      const rect = canvas.getBoundingClientRect();
-      const x = event.clientX - rect.left, y = event.clientY - rect.top;
-      const closest = nodes.map((n,i) => ({i,d:Math.hypot(n.x*rect.width-x,n.y*rect.height-y)})).sort((a,b)=>a.d-b.d)[0];
-      activeLayer = closest.i % 5;
-      document.querySelectorAll('.layer-controls button')[activeLayer]?.click();
-    });
-    canvas.addEventListener('keydown', event => {
-      if (event.key === 'Enter' || event.key === ' ') {
-        event.preventDefault(); activeLayer = (activeLayer+1)%5;
-        document.querySelectorAll('.layer-controls button')[activeLayer]?.click();
-      }
-    });
-    addEventListener("resize", resize);
-    function draw() {
-      const w = canvas.clientWidth, h = canvas.clientHeight;
-      ctx.clearRect(0, 0, w, h);
-      const css = getComputedStyle(document.documentElement);
-      const line = css.getPropertyValue("--line").trim();
-      const accent = css.getPropertyValue("--accent").trim();
-      ctx.lineWidth = 1;
-      nodes.forEach((a, i) => nodes.slice(i + 1).forEach((b) => {
-        const ax = a.x*w, ay = a.y*h, bx = b.x*w, by = b.y*h;
-        const d = Math.hypot(ax-bx, ay-by);
-        if (d < 150) {
-          ctx.globalAlpha = Math.max(0, 1-d/150) * .55;
-          ctx.strokeStyle = line;
-          ctx.beginPath(); ctx.moveTo(ax, ay); ctx.lineTo(bx, by); ctx.stroke();
-        }
+    const ctx = canvas.getContext("2d", { alpha: true });
+    if (ctx) {
+      const nodes = Array.from({length: 15}, (_, i) => ({
+        x: (i * 73 % 101) / 100,
+        y: (i * 47 % 89) / 100,
+        dx: ((i % 3) - 1) * .00022,
+        dy: (((i + 1) % 3) - 1) * .00018
       }));
-      ctx.globalAlpha = 1;
-      nodes.forEach((n, i) => {
-        ctx.fillStyle = i % 5 === 0 ? accent : line;
-        ctx.beginPath(); ctx.arc(n.x*w, n.y*h, i % 5 === 0 ? 4 : 2.5, 0, Math.PI*2); ctx.fill();
-        if (!animationPaused && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
-          n.x += n.dx; n.y += n.dy;
-          if (n.x < .02 || n.x > .98) n.dx *= -1;
-          if (n.y < .02 || n.y > .98) n.dy *= -1;
+      const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
+      const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+      const ua = navigator.userAgent || "";
+      const inAppBrowser = /FBAN|FBAV|Instagram|Messenger|Line\/|; wv\)/i.test(ua);
+      const constrained = Boolean(
+        connection?.saveData ||
+        /(^|-)2g$/.test(connection?.effectiveType || "") ||
+        (navigator.deviceMemory && navigator.deviceMemory <= 4) ||
+        (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4) ||
+        inAppBrowser
+      );
+      let activeLayer = 0;
+      let animationPaused = window.PortfolioTheme?.isPaused() || false;
+      let visible = true;
+      let raf = 0;
+      let lastFrame = 0;
+      let width = 0;
+      let height = 0;
+      let line = "";
+      let accent = "";
+      const frameInterval = 1000 / ((constrained || innerWidth < 700) ? 24 : 30);
+
+      function syncColors() {
+        const css = getComputedStyle(document.documentElement);
+        line = css.getPropertyValue("--line").trim();
+        accent = css.getPropertyValue("--accent").trim();
+      }
+      function stop() {
+        if (raf) cancelAnimationFrame(raf);
+        raf = 0;
+      }
+      function schedule() {
+        if (!raf && visible && !document.hidden && canvas.isConnected && !animationPaused && !reducedMotion.matches) {
+          raf = requestAnimationFrame(draw);
+        }
+      }
+      function resize() {
+        const rect = canvas.getBoundingClientRect();
+        width = Math.max(1, rect.width || canvas.clientWidth);
+        height = Math.max(1, rect.height || canvas.clientHeight);
+        const mobile = width < 700;
+        const cap = constrained ? (mobile ? 1.2 : 1.4) : (mobile ? 1.4 : 1.75);
+        const dpr = Math.min(devicePixelRatio || 1, cap);
+        const nextWidth = Math.max(1, Math.floor(width * dpr));
+        const nextHeight = Math.max(1, Math.floor(height * dpr));
+        if (canvas.width !== nextWidth || canvas.height !== nextHeight) {
+          canvas.width = nextWidth;
+          canvas.height = nextHeight;
+        }
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        draw(performance.now(), true);
+      }
+      function draw(now = performance.now(), force = false) {
+        raf = 0;
+        if (!canvas.isConnected || document.hidden || !visible) return;
+        if (!force && now - lastFrame < frameInterval) {
+          schedule();
+          return;
+        }
+        lastFrame = now;
+        const w = width || canvas.clientWidth;
+        const h = height || canvas.clientHeight;
+        ctx.clearRect(0, 0, w, h);
+        ctx.lineWidth = 1;
+        nodes.forEach((a, i) => nodes.slice(i + 1).forEach((b) => {
+          const ax = a.x*w, ay = a.y*h, bx = b.x*w, by = b.y*h;
+          const d = Math.hypot(ax-bx, ay-by);
+          if (d < 150) {
+            ctx.globalAlpha = Math.max(0, 1-d/150) * .55;
+            ctx.strokeStyle = line;
+            ctx.beginPath(); ctx.moveTo(ax, ay); ctx.lineTo(bx, by); ctx.stroke();
+          }
+        }));
+        ctx.globalAlpha = 1;
+        nodes.forEach((n, i) => {
+          ctx.fillStyle = i % 5 === 0 ? accent : line;
+          ctx.beginPath(); ctx.arc(n.x*w, n.y*h, i % 5 === 0 ? 4 : 2.5, 0, Math.PI*2); ctx.fill();
+          if (!animationPaused && !reducedMotion.matches) {
+            n.x += n.dx; n.y += n.dy;
+            if (n.x < .02 || n.x > .98) n.dx *= -1;
+            if (n.y < .02 || n.y > .98) n.dy *= -1;
+          }
+        });
+        schedule();
+      }
+
+      syncColors();
+      canvas.style.cursor = 'pointer';
+      canvas.tabIndex = 0;
+      canvas.setAttribute('role', 'button');
+      canvas.setAttribute('aria-label', 'Explore connected systems: select a node, or press Enter for the next layer');
+      canvas.addEventListener('pointerdown', event => {
+        const rect = canvas.getBoundingClientRect();
+        const x = event.clientX - rect.left, y = event.clientY - rect.top;
+        const closest = nodes.map((n,i) => ({i,d:Math.hypot(n.x*rect.width-x,n.y*rect.height-y)})).sort((a,b)=>a.d-b.d)[0];
+        activeLayer = closest.i % 5;
+        document.querySelectorAll('.layer-controls button')[activeLayer]?.click();
+      });
+      canvas.addEventListener('keydown', event => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          activeLayer = (activeLayer+1)%5;
+          document.querySelectorAll('.layer-controls button')[activeLayer]?.click();
         }
       });
-      if (canvas.isConnected) requestAnimationFrame(draw);
+      document.addEventListener('portfolio:motion', () => {
+        animationPaused = window.PortfolioTheme?.isPaused() || false;
+        if (animationPaused) stop(); else schedule();
+      });
+      document.addEventListener('portfolio:theme', () => {
+        syncColors();
+        draw(performance.now(), true);
+      });
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden) stop();
+        else { draw(performance.now(), true); schedule(); }
+      });
+      reducedMotion.addEventListener?.('change', () => {
+        if (reducedMotion.matches) { stop(); draw(performance.now(), true); }
+        else schedule();
+      });
+
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver(entries => {
+          visible = Boolean(entries[0]?.isIntersecting);
+          if (visible) { draw(performance.now(), true); schedule(); }
+          else stop();
+        }, { rootMargin: '160px 0px' });
+        observer.observe(canvas);
+      }
+      if ('ResizeObserver' in window) new ResizeObserver(resize).observe(canvas);
+      else addEventListener("resize", resize, { passive: true });
+      addEventListener('pagehide', stop, { once: true });
+      resize();
+      schedule();
     }
-    draw();
   }
 })();

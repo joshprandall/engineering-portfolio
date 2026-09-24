@@ -103,6 +103,11 @@
       {rx:.58,ry:.265,speed:.09,phase:1.62,size:55,kind:'evolve'}
     ];
     let selected=0, raf=0, last=0, t=0, width=0, height=0, dpr=1, parallaxX=0, parallaxY=0, targetX=0, targetY=0;
+    const connection=navigator.connection||navigator.mozConnection||navigator.webkitConnection;
+    const inAppBrowser=/FBAN|FBAV|Instagram|Messenger|Line\/|; wv\)/i.test(navigator.userAgent||'');
+    const constrained=Boolean(connection?.saveData||/(^|-)2g$/.test(connection?.effectiveType||'')||(navigator.deviceMemory&&navigator.deviceMemory<=4)||(navigator.hardwareConcurrency&&navigator.hardwareConcurrency<=4)||inAppBrowser);
+    let sceneVisible=true,lastPaint=0;
+    const frameInterval=1000/((constrained||innerWidth<700)?24:30);
     const positions=modes.map(()=>({x:0,y:0,scale:1,depth:0}));
 
     modes.forEach((mode,i)=>{
@@ -139,7 +144,7 @@
     function resize(){
       const r=scene.getBoundingClientRect();
       width=Math.max(2,r.width);height=Math.max(2,r.height);
-      dpr=Math.min(window.devicePixelRatio||1,2);
+      dpr=Math.min(window.devicePixelRatio||1,constrained?(width<700?1.2:1.4):(width<700?1.4:1.75));
       canvas.width=Math.round(width*dpr);canvas.height=Math.round(height*dpr);
       canvas.style.width=width+'px';canvas.style.height=height+'px';
       ctx.setTransform(dpr,0,0,dpr,0,0);
@@ -214,25 +219,49 @@
       });
     }
 
+    function stop(){
+      if(raf)cancelAnimationFrame(raf);
+      raf=0;
+    }
+    function start(){
+      if(!raf&&sceneVisible&&!document.hidden&&stage.isConnected){
+        last=performance.now();
+        raf=requestAnimationFrame(frame);
+      }
+    }
     function frame(now){
-      if(!stage.isConnected)return;
-      if(document.hidden){last=now;raf=requestAnimationFrame(frame);return;}
-      const dt=Math.min(40,now-last||16);last=now;
-      if(!reduced.matches && document.body.dataset.motion!=='paused')t+=dt/1000;
-      parallaxX+=(targetX-parallaxX)*.045;parallaxY+=(targetY-parallaxY)*.045;
-      draw();raf=requestAnimationFrame(frame);
+      raf=0;
+      if(!stage.isConnected||document.hidden||!sceneVisible)return;
+      if(now-lastPaint<frameInterval){raf=requestAnimationFrame(frame);return;}
+      const dt=Math.min(50,now-last||16);last=now;lastPaint=now;
+      const orbitMoving=!reduced.matches&&document.body.dataset.motion!=='paused';
+      if(orbitMoving)t+=dt/1000;
+      parallaxX+=(targetX-parallaxX)*.07;parallaxY+=(targetY-parallaxY)*.07;
+      draw();
+      const parallaxMoving=Math.abs(targetX-parallaxX)>.002||Math.abs(targetY-parallaxY)>.002;
+      if(orbitMoving||parallaxMoving)raf=requestAnimationFrame(frame);
     }
 
     scene.addEventListener('pointermove',e=>{
       if(e.pointerType==='touch')return;
       const r=scene.getBoundingClientRect();
       targetX=((e.clientX-r.left)/r.width-.5)*2;targetY=((e.clientY-r.top)/r.height-.5)*2;
+      start();
     });
-    scene.addEventListener('pointerleave',()=>{targetX=0;targetY=0});
-    reduced.addEventListener?.('change',()=>draw());
-    if(typeof ResizeObserver!=='undefined')new ResizeObserver(resize).observe(scene);
-    else addEventListener('resize',resize,{passive:true});
-    select(0);resize();raf=requestAnimationFrame(frame);
+    scene.addEventListener('pointerleave',()=>{targetX=0;targetY=0;start()});
+    reduced.addEventListener?.('change',()=>{draw();start()});
+    if(typeof IntersectionObserver!=='undefined'){
+      const observer=new IntersectionObserver(entries=>{
+        sceneVisible=Boolean(entries[0]?.isIntersecting);
+        if(sceneVisible){draw();start()}else stop();
+      },{rootMargin:'180px 0px'});
+      observer.observe(scene);
+    }
+    document.addEventListener('visibilitychange',()=>{if(document.hidden)stop();else{draw();start()}});
+    addEventListener('pagehide',stop,{once:true});
+    if(typeof ResizeObserver!=='undefined')new ResizeObserver(()=>{resize();start()}).observe(scene);
+    else addEventListener('resize',()=>{resize();start()},{passive:true});
+    select(0);resize();start();
   }
 
   function strengthenNavigation(){

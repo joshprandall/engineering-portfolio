@@ -132,3 +132,15 @@ body.header-menu header nav#primary-nav .nav-games{width:100%;border-bottom:1px 
 body.header-menu header nav#primary-nav .nav-games summary{width:100%;min-height:54px;padding:10px 12px;justify-content:space-between}
 body.header-menu header nav#primary-nav .nav-games-menu{position:static;min-width:0;width:100%;padding:0 0 8px 18px;border:0;box-shadow:none;background:transparent}
 body.header-menu header nav#primary-nav .nav-games-menu a{min-height:46px;padding:8px 12px;border-bottom:0;color:var(--muted)}
+
+
+/* Performance containment: defer off-screen section layout/paint without changing semantics. */
+@supports (content-visibility:auto){
+  main > section:not(:first-child),
+  main > .section,
+  .contact{
+    content-visibility:auto;
+    contain-intrinsic-size:auto 680px;
+  }
+}
+.demo-frame{contain:layout paint}
