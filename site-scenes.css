@@ -700,3 +700,75 @@ body.living-scenes[data-library-page="labs"] .lab-card{border-radius:18px!import
   body.living-scenes[data-library-page="home"] .stats{grid-template-columns:repeat(2,minmax(0,1fr))!important}
   body.living-scenes[data-library-page="home"] .stats>div:last-child{grid-column:1/-1!important}
 }
+
+
+/* Light typography v7 — clean dark type without the muddy black-outline effect. */
+:root[data-theme="light"]{
+  --ink:#07110b;
+  --text:#07110b;
+  --muted:#1d3227;
+  --faint:#365145;
+}
+:root[data-theme="light"] .scene-day-fallback,
+:root[data-theme="light"] .scene-video{
+  filter:saturate(1.08) contrast(1.02) brightness(.88)!important;
+}
+:root[data-theme="light"] .scene-veil{
+  background:
+    linear-gradient(90deg,rgba(247,250,245,.20),rgba(247,250,245,.30) 22%,rgba(247,250,245,.33) 50%,rgba(247,250,245,.27) 78%,rgba(247,250,245,.18)),
+    linear-gradient(180deg,rgba(244,248,242,.17),rgba(248,251,246,.24) 48%,rgba(244,248,242,.18))!important;
+}
+
+/* Floating copy gets a soft LIGHT halo only. No dark outline/shadow. */
+:root[data-theme="light"] .living-scenes main h1,
+:root[data-theme="light"] .living-scenes main h2,
+:root[data-theme="light"] .living-scenes main h3,
+:root[data-theme="light"] .living-scenes main h4,
+:root[data-theme="light"] .living-scenes main p,
+:root[data-theme="light"] .living-scenes main li,
+:root[data-theme="light"] .living-scenes main strong,
+:root[data-theme="light"] .living-scenes main .status,
+:root[data-theme="light"] .living-scenes main .muted,
+:root[data-theme="light"] .living-scenes main .lead{
+  color:#07110b!important;
+  -webkit-text-stroke:0 transparent!important;
+  text-shadow:0 1px 1px rgba(255,255,255,.94),0 0 4px rgba(255,255,255,.76)!important;
+}
+
+/* Glass cards already provide contrast; card text should be crisp, not outlined. */
+:root[data-theme="light"] .living-scenes .home-project *,
+:root[data-theme="light"] .living-scenes .project-card *,
+:root[data-theme="light"] .living-scenes .education-cards article *,
+:root[data-theme="light"] body.living-scenes[data-library-page="home"] .stats *,
+:root[data-theme="light"] body.living-scenes[data-library-page="home"] .domain-card *,
+:root[data-theme="light"] body.living-scenes[data-library-page="home"] .principle-grid>article *{
+  text-shadow:none!important;
+  -webkit-text-stroke:0 transparent!important;
+}
+:root[data-theme="light"] .living-scenes .home-project,
+:root[data-theme="light"] .living-scenes .project-card,
+:root[data-theme="light"] .living-scenes .education-cards article,
+:root[data-theme="light"] body.living-scenes[data-library-page="home"] .domain-card{
+  color:#07110b!important;
+}
+:root[data-theme="light"] .living-scenes .home-project p,
+:root[data-theme="light"] .living-scenes .project-card p,
+:root[data-theme="light"] .living-scenes .education-cards article p,
+:root[data-theme="light"] body.living-scenes[data-library-page="home"] .domain-card p{
+  color:#152a1f!important;
+}
+
+/* Accent copy remains warm but clean. */
+:root[data-theme="light"] .living-scenes main .eyebrow,
+:root[data-theme="light"] .living-scenes main .project-number,
+:root[data-theme="light"] .living-scenes main .section-kicker{
+  color:#7a2f12!important;
+  text-shadow:0 1px 1px rgba(255,255,255,.92)!important;
+  -webkit-text-stroke:0 transparent!important;
+}
+:root[data-theme="light"] .living-scenes main a:not(.button):not(.brand),
+:root[data-theme="light"] .living-scenes .text-link{
+  color:#123e30!important;
+  text-shadow:0 1px 1px rgba(255,255,255,.90)!important;
+  -webkit-text-stroke:0 transparent!important;
+}
