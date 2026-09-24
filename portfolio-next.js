@@ -165,10 +165,18 @@
       return {rx:o.rx,ry:o.ry};
     }
 
+    // Solar orbit v12: collision-safe phone/tablet choreography.
+    // Smaller screens cannot provide enough radial lane spacing for five independently
+    // rotating worlds. Keep their relative angular spacing locked below 760px so the
+    // planets never converge, while retaining the original independent desktop motion.
+    const collisionSafePhases=[0,2.16308613,3.82658988,5.03588269,.91318652];
     function worldPosition(i,time){
       const o=orbit[i],r=orbitRadius(o);
-      const motion=reduced.matches?0:time*o.speed;
-      const a=o.phase+motion;
+      const collisionSafe=width<760;
+      const phase=collisionSafe?collisionSafePhases[i]:o.phase;
+      const speed=collisionSafe?.12:o.speed;
+      const motion=reduced.matches?0:time*speed;
+      const a=phase+motion;
       const cx=width*.5+parallaxX*10;
       const cy=height*.45+parallaxY*6;
       const depth=(Math.sin(a)+1)/2;
@@ -210,7 +218,7 @@
       ctx.fillStyle=coreGlow;ctx.beginPath();ctx.arc(cx,cy,54,0,Math.PI*2);ctx.fill();
 
       worldEls.forEach((el,i)=>{
-        const p=positions[i],o=orbit[i],base=Math.min(o.size,width<480?44:o.size);
+        const p=positions[i],o=orbit[i],responsiveCap=width<480?42:(width<760?46:o.size),base=Math.min(o.size,responsiveCap);
         el.style.setProperty('--world-size',`${base}px`);
         const depthScale=.80+p.depth*.28;
         el.style.transform=`translate3d(${p.x}px,${p.y}px,0) translate(-50%,-50%) scale(${depthScale})`;
