@@ -289,6 +289,10 @@
       const audio = createAudioTrack(DARK_LICENSED_TRACK, {loop:true, volume:.24});
       audio.id = 'site-dark-theme-audio';
       audio.setAttribute('aria-hidden','true');
+      audio.setAttribute('playsinline','');
+      audio.autoplay = true;
+      audio.style.display = 'none';
+      document.body.appendChild(audio);
       audio.addEventListener('loadedmetadata', () => {
         try {
           const saved = savedDarkTrackTime();
