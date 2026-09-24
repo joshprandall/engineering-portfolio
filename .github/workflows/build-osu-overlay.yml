@@ -108,6 +108,7 @@ jobs:
           PATH_DOM=$(timeout 45s "$CHROME" --headless=new --no-sandbox --disable-gpu --disable-dev-shm-usage --virtual-time-budget=8500 --dump-dom "http://127.0.0.1:8765/learn-paths.html?targetDepth=research" 2>/dev/null || true)
           grep -Fq 'id="vnext-path-band"' <<< "$PATH_DOM" || { echo 'Rendered Paths page is missing mastery-aware band filtering'; exit 1; }
           grep -Fq 'Doctoral / Research' <<< "$PATH_DOM" || { echo 'Rendered Paths page did not inherit the research target'; exit 1; }
+          if grep -Fq 'id="learning-depth"' <<< "$PATH_DOM"; then echo 'Paths page must not render the full Learn-home mastery section'; exit 1; fi
           for page in index.html projects.html learn.html learn-paths.html qubit-preview-20260921/index.html games/3d-battle-chess/index.html geometric-lab/index.html; do
             name=$(echo "$page" | tr '/.' '--')
             timeout 45s "$CHROME" --headless=new --no-sandbox --disable-gpu --disable-dev-shm-usage --hide-scrollbars --virtual-time-budget=8500 --window-size=390,844 --screenshot="visual-qa/${name}-phone.png" "http://127.0.0.1:8765/$page" >/dev/null 2>&1 || echo "Phone screenshot unavailable for $page"
