@@ -5,6 +5,16 @@ module.exports=async({browser,base,output,failures})=>{
  context.setDefaultTimeout(10000);
  const page=await context.newPage();page.setDefaultTimeout(10000);
  page.on('pageerror',e=>failures.push('Live chess: '+e.message));
+ async function waitForBoardPaint(){
+  await page.waitForFunction(()=>{const c=document.querySelector('#scene canvas');return c&&c.width>100&&c.height>100});
+  for(let attempt=0;attempt<12;attempt++){
+   const png=await page.locator('#scene').screenshot();
+   const colors=await page.evaluate(async data=>{const im=new Image();im.src='data:image/png;base64,'+data;await im.decode();const c=document.createElement('canvas');c.width=64;c.height=48;const x=c.getContext('2d');x.drawImage(im,0,0,64,48);const p=x.getImageData(0,0,64,48).data,s=new Set();for(let i=0;i<p.length;i+=4)s.add(p[i]+','+p[i+1]+','+p[i+2]);return s.size},png.toString('base64'));
+   if(colors>80)return;
+   await page.waitForTimeout(200);
+  }
+  throw new Error('3D canvas is visible but the board has not rendered');
+ }
  const url=base+'/tests/run-live-site/games/3d-battle-chess/index.html';
  await page.goto(url,{waitUntil:'networkidle'});
  await page.locator('#jr-start-game').waitFor({state:'visible'});
@@ -12,6 +22,7 @@ module.exports=async({browser,base,output,failures})=>{
  await page.locator('#jr-setup-mode').selectOption('local');
  await page.locator('#jr-start-game').click();
   await page.locator('#scene canvas').waitFor({state:'visible'});
+ await waitForBoardPaint();
  if(output)await page.screenshot({path:path.join(output,'chess-live-start-landscape.png')});
  if(!await page.locator('#boardMode').isVisible())await page.locator('#menuBtn').click();
  await page.locator('#boardMode').click();
@@ -22,6 +33,7 @@ module.exports=async({browser,base,output,failures})=>{
  assert.match(await page.locator('#turn').innerText(),/Black/);
  await page.locator('#boardMode').click();
  assert(await page.locator('#scene canvas').isVisible(),'Return to 3D');
+ await waitForBoardPaint();
  assert.equal(await page.locator('#boardMode').innerText(),'2D');
  if(output)await page.screenshot({path:path.join(output,'chess-live-3d-landscape.png')});
  await page.locator('#boardMode').click();
@@ -51,12 +63,13 @@ module.exports=async({browser,base,output,failures})=>{
   console.log('Checking installed live pages: '+theme);
   await preview.goto(base+'/tests/run-live-site/index.html',{waitUntil:'networkidle'});
   await preview.evaluate(t=>PortfolioTheme.setTheme(t),theme);
+  await preview.waitForTimeout(1600);
   assert(await preview.locator('.portrait-caption').isVisible(),'Existing live portrait is rebuilt in place');
   if(output)await preview.screenshot({path:path.join(output,'installed-home-'+theme+'.png')});
   await preview.locator('.portrait-caption').scrollIntoViewIfNeeded();
-  await preview.locator('.portrait-cutout').evaluate(im=>im.decode());
+  await preview.locator('.about-imagery img').evaluateAll(images=>Promise.all(images.map(im=>im.decode())));
   console.log('PASS installed live portrait: '+theme);
-  if(output)await preview.screenshot({path:path.join(output,'installed-portrait-'+theme+'.png')});
+  if(output)await preview.locator('.about-imagery').screenshot({path:path.join(output,'installed-portrait-'+theme+'.png')});
   await preview.goto(base+'/tests/run-live-site/projects.html',{waitUntil:'networkidle'});
   assert.equal(await preview.locator('html').getAttribute('data-theme'),theme);
   await preview.locator('#battle-chess').scrollIntoViewIfNeeded();

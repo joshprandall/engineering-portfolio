@@ -61,9 +61,11 @@ body.living-scenes{position:relative;isolation:isolate;min-height:100vh;backgrou
 }
 .living-scenes :is(.hero-intro,.hero-lead,.section-heading>p){text-wrap:pretty}
 .living-scenes :is(.button,.icon-button){border-radius:8px}
+.living-scenes .button{transition:transform .2s,border-color .2s,box-shadow .2s}
 .living-scenes .button:not(.primary){background:var(--scene-surface);color:var(--ink);border-color:var(--scene-border)}
 .living-scenes .button.primary{background:var(--accent);color:#182322;border-color:var(--accent)}
 :root[data-theme=light] .living-scenes .button.primary{color:#fff}
+:root[data-scene-surface=glass] .portrait-caption.scene-copy::before{inset:-18px -22px;border-radius:32px;filter:blur(12px);mask-image:none;-webkit-mask-image:none;backdrop-filter:none;-webkit-backdrop-filter:none}
 .living-scenes>header,.living-scenes .site-header{background:var(--scene-surface);border-color:var(--scene-border);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
 .living-scenes :is(dialog,.modal,.modal-content,.search-dialog){background:var(--surface);color:var(--ink);opacity:1;backdrop-filter:none;-webkit-backdrop-filter:none;border-radius:12px}
 .living-scenes dialog::backdrop{background:#06131cb0;backdrop-filter:blur(5px)}
