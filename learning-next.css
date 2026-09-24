@@ -7,3 +7,5 @@
 
 .vnext-path-intro select{background:#0f2229;color:#fff;border:1px solid #638c8e;border-radius:7px;padding:10px 12px;min-height:44px;font:inherit}
 .vnext-path-intro select:focus-visible{outline:3px solid #9ee8fb;outline-offset:2px}
+
+body[data-library-page="paths"] #learn-page-intro{display:none!important}
