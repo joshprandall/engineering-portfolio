@@ -56,8 +56,8 @@
       '</div>' +
       '<div class="scene-day-wrap">' +
         '<div class="scene-image scene-day-fallback"></div>' +
-        '<video class="scene-video scene-video-a" muted playsinline loop preload="metadata" tabindex="-1"></video>' +
-        '<video class="scene-video scene-video-b" muted playsinline loop preload="metadata" tabindex="-1"></video>' +
+        '<video class="scene-video scene-video-a" muted playsinline autoplay loop preload="metadata" tabindex="-1"></video>' +
+        '<video class="scene-video scene-video-b" muted playsinline autoplay loop preload="metadata" tabindex="-1"></video>' +
       '</div>' +
       '<canvas class="scene-canvas"></canvas>' +
       '<div class="scene-atmosphere"></div>' +
@@ -181,6 +181,7 @@
       video.src = scene.src;
       video.muted = true;
       video.playsInline = true;
+      video.autoplay = true;
       video.loop = true;
       video.preload = mediaDisabled ? 'none' : 'metadata';
       video.load();
@@ -208,10 +209,13 @@
       configureVideo(activeVideo, LIGHT_SCENES[activeSceneIndex]);
       activeVideo.classList.add('is-active');
 
-      const ready = () => {
-        dayFallback.classList.add('video-ready');
-        playSafely(activeVideo);
+      const ready = async () => {
+        const playing = await playSafely(activeVideo);
+        if (playing) dayFallback.classList.add('video-ready');
       };
+      const confirmPlaying = () => dayFallback.classList.add('video-ready');
+      activeVideo.addEventListener('playing', confirmPlaying);
+      activeVideo.addEventListener('error', () => dayFallback.classList.remove('video-ready'));
       if (activeVideo.readyState >= 2) ready();
       else activeVideo.addEventListener('loadeddata', ready, { once: true });
     }
@@ -277,7 +281,7 @@
 
     function drawStars(driftX, driftY) {
       for (const star of stars) {
-        const alpha = .29 + Math.sin(time * star.rate + star.phase) * .18;
+        const alpha = .34 + Math.sin(time * (star.rate * 1.55) + star.phase) * .24;
         ctx.fillStyle = 'rgba(220,236,250,' + Math.max(.07, alpha).toFixed(3) + ')';
         ctx.beginPath();
         ctx.arc(
@@ -295,7 +299,7 @@
       for (const p of dust) {
         const x = ((p.x * width + time * 8 * p.vx) % (width + 40) + width + 40) % (width + 40) - 20;
         const y = ((p.y * height + time * 8 * p.vy) % (height + 40) + height + 40) % (height + 40) - 20;
-        const a = .022 + Math.sin(time * .23 + p.phase) * .018;
+        const a = .04 + Math.sin(time * .34 + p.phase) * .03;
         ctx.fillStyle = 'rgba(229,218,200,' + Math.max(.006, a).toFixed(3) + ')';
         ctx.beginPath();
         ctx.arc(x, y, p.r, 0, Math.PI * 2);
@@ -321,7 +325,7 @@
       const u = streak.age / streak.life;
       if (u >= 1) {
         streak = null;
-        nextStreak = 24 + random() * 42;
+        nextStreak = 14 + random() * 26;
         return;
       }
 
@@ -340,19 +344,19 @@
     }
 
     function universe(dt) {
-      const driftX = Math.sin(time / 18) * 14 + Math.sin(time / 43) * 7;
-      const driftY = Math.cos(time / 25) * 9 + Math.sin(time / 57) * 4;
-      const scale = 1.078 + Math.sin(time / 34) * .009;
+      const driftX = Math.sin(time / 10.5) * 26 + Math.sin(time / 24) * 12;
+      const driftY = Math.cos(time / 14.5) * 16 + Math.sin(time / 31) * 7;
+      const scale = 1.092 + Math.sin(time / 18) * .014;
 
       night.style.transform =
         'translate3d(' + driftX.toFixed(2) + 'px,' + driftY.toFixed(2) + 'px,0) scale(' + scale.toFixed(4) + ')';
 
       nightDepth.style.transform =
         'translate3d(' + (-driftX * .46).toFixed(2) + 'px,' + (-driftY * .34).toFixed(2) + 'px,0) scale(' +
-        (1.112 - Math.sin(time / 41) * .008).toFixed(4) + ')';
+        (1.126 - Math.sin(time / 22) * .012).toFixed(4) + ')';
 
       nightGlow.style.transform =
-        'translate3d(' + (Math.sin(time / 15) * 24).toFixed(2) + 'px,' + (Math.cos(time / 21) * 15).toFixed(2) + 'px,0)';
+        'translate3d(' + (Math.sin(time / 8.5) * 38).toFixed(2) + 'px,' + (Math.cos(time / 12.5) * 24).toFixed(2) + 'px,0)';
 
       drawStars(driftX, driftY);
       drawDust();
@@ -438,6 +442,17 @@
 
     if (document.readyState === 'complete') releaseMedia();
     else addEventListener('load', releaseMedia, { once: true });
+
+    const retryLightPlayback = () => {
+      if (theme === 'light' && mediaReady && motionAllowed()) {
+        playSafely(activeVideo).then(playing => {
+          if (playing) dayFallback.classList.add('video-ready');
+        });
+      }
+    };
+    document.addEventListener('pointerdown', retryLightPlayback, { passive: true });
+    document.addEventListener('touchstart', retryLightPlayback, { passive: true });
+    document.addEventListener('keydown', retryLightPlayback);
 
     document.addEventListener('portfolio:theme', refresh);
     document.addEventListener('portfolio:motion', refresh);
