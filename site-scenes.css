@@ -887,3 +887,66 @@ body.living-scenes[data-library-page="labs"] .lab-card{border-radius:18px!import
   -webkit-text-stroke:0 transparent!important;
   text-decoration-color:rgba(0,40,28,.78)!important;
 }
+
+
+/* Light typography v9 sitewide — final authority.
+   No white text glow anywhere on the living Light-mode surfaces. */
+:root[data-theme="light"]{
+  --ink:#000000;
+  --text:#000000;
+  --muted:#07110b;
+  --faint:#132219;
+}
+:root[data-theme="light"] .living-scenes main h1,
+:root[data-theme="light"] .living-scenes main h2,
+:root[data-theme="light"] .living-scenes main h3,
+:root[data-theme="light"] .living-scenes main h4{
+  color:#000000!important;
+  font-weight:900!important;
+  text-shadow:none!important;
+  -webkit-text-stroke:0 transparent!important;
+  -webkit-font-smoothing:auto;
+}
+:root[data-theme="light"] .living-scenes main p,
+:root[data-theme="light"] .living-scenes main li,
+:root[data-theme="light"] .living-scenes main strong,
+:root[data-theme="light"] .living-scenes main .lead,
+:root[data-theme="light"] .living-scenes main .muted,
+:root[data-theme="light"] .living-scenes main .status,
+:root[data-theme="light"] .living-scenes main summary,
+:root[data-theme="light"] .living-scenes main label{
+  color:#000000!important;
+  font-weight:700!important;
+  text-shadow:none!important;
+  -webkit-text-stroke:0 transparent!important;
+  -webkit-font-smoothing:auto;
+}
+:root[data-theme="light"] .living-scenes main .eyebrow,
+:root[data-theme="light"] .living-scenes main .project-number,
+:root[data-theme="light"] .living-scenes main .section-kicker{
+  color:#4a1606!important;
+  font-weight:900!important;
+  text-shadow:none!important;
+  -webkit-text-stroke:0 transparent!important;
+}
+:root[data-theme="light"] .living-scenes main a:not(.button):not(.brand),
+:root[data-theme="light"] .living-scenes .text-link{
+  color:#00281c!important;
+  font-weight:850!important;
+  text-shadow:none!important;
+  -webkit-text-stroke:0 transparent!important;
+  text-decoration-color:rgba(0,40,28,.78)!important;
+}
+:root[data-theme="light"] .living-scenes .game-launch,
+:root[data-theme="light"] .living-scenes .game-launch *{
+  color:#f4f7f4!important;
+  text-shadow:none!important;
+}
+:root[data-theme="light"] .living-scenes .battle-launch-copy strong,
+:root[data-theme="light"] .living-scenes .battle-launch-copy p{
+  color:#f4f7f4!important;
+  text-shadow:none!important;
+}
+:root[data-theme="light"] .living-scenes .battle-launch-cta{
+  color:#111111!important;
+}
