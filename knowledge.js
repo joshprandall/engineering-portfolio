@@ -39,7 +39,7 @@
   let lessonViewName = 'overview';
   let audioCtx = null;
   let soundMode = preferences.getItem(STORAGE.sound) || 'off';
-  let motionPaused = window.PortfolioTheme?.isPaused() || false;
+  let motionPaused = false;
   let curriculumDomain = 'cloud';
   let glossaryLetter = 'all';
   let graphSelection = 'cloud';
@@ -80,10 +80,10 @@
   }
 
   function initPrefs(){
-    document.body.classList.toggle('motion-paused',motionPaused);
+    motionPaused=false;
+    document.body.classList.remove('motion-paused');
     updateSoundButton();
-    $('#motion-mode').textContent = motionPaused ? '▶' : '◫';
-    $('#motion-mode').setAttribute('aria-label', motionPaused ? 'Resume animation' : 'Pause animation');
+    const motionButton=$('#motion-mode');if(motionButton)motionButton.remove();
   }
   function updateSoundButton(){
     const b=$('#sound-mode');
@@ -925,7 +925,7 @@
     $('#load-more').onclick=()=>{displayLimit+=18;renderLessons()};$('#clear-filters').onclick=clearFilters;$('#surprise-me').onclick=randomLesson;
     $$('[data-scroll]').forEach(b=>b.onclick=()=>$(b.dataset.scroll).scrollIntoView({behavior:motionPaused?'auto':'smooth'}));
     $('#sound-mode').onclick=()=>{soundMode=soundMode==='off'?'educational':soundMode==='educational'?'full':'off';preferences.setItem(STORAGE.sound,soundMode);updateSoundButton();toast(`Sound: ${soundMode}`);if(soundMode!=='off')ping(590)};
-    document.addEventListener('portfolio:motion',()=>{motionPaused=window.PortfolioTheme?.isPaused()||false;});
+    document.addEventListener('portfolio:motion',()=>{motionPaused=false;document.body.classList.remove('motion-paused');});
     document.addEventListener('portfolio:theme',()=>renderKnowledgeGraph());
     const primaryNav=$('.site-header nav'),mobileMenu=$('#mobile-menu');
     if(primaryNav&&mobileMenu){
