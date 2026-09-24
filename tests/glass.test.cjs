@@ -5,6 +5,7 @@ const path = require('node:path');
 module.exports = async ({browser,base,output,failures}) => {
  const root = path.resolve(__dirname,'..');
  const context = await browser.newContext({viewport:{width:390,height:844}});
+ context.setDefaultTimeout(10000);
  const page = await context.newPage();
  page.on('pageerror',error=>failures.push('Glass: '+error.message));
  const css = (selector,property) => page.locator(selector).first().evaluate((el,p)=>getComputedStyle(el)[p],property);

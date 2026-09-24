@@ -1,6 +1,6 @@
 /* Living portfolio environments.
    Dark: real JWST imagery + layered cinematic motion.
-   Light: real licensed nature footage + graceful real-image fallback.
+   Light: real licensed nature footage + an immediate local fallback.
 */
 (() => {
   'use strict';
@@ -144,7 +144,7 @@
       if (dayCredit) {
         dayCredit.textContent = 'Video by ' + scene.creator + ' · Pexels License · real nature footage.';
       }
-      if (mediaReady && !mediaDisabled) dayFallback.style.backgroundImage = 'url("' + scene.poster + '")';
+      if (mediaReady && !mediaDisabled) dayFallback.style.backgroundImage = 'url("' + scene.poster + '"),url("' + new URL('assets/scenes/mountain-valley.svg', assetBase).href + '")';
     }
 
     function resize() {
