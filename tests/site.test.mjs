@@ -164,5 +164,5 @@ const home=read('index.html');
 assert.doesNotMatch(home,/id="fusion"|Depth across the stack|Grounded in experience/,'Replaced homepage sections must not return');
 for(const asset of ['portfolio-home.css','quantum-cube.js','assets/joshua-randall-cutout.webp','assets/systems-lab.jpg','assets/quantum-field-notes.jpg']) assert.ok(home.includes(asset)&&exists(asset),`Homepage asset missing: ${asset}`);
 assert.ok(exists('assets/joshua-randall-headshot.jpg'),'Original headshot must remain available as the source for the cutout');
-assert.match(read('assets/joshua-randall-cutout.webp'),/joshua-randall-headshot\.jpg/,'Portrait cutout must derive from the local headshot asset');
+assert.ok(fs.statSync(path.join(root,'assets/joshua-randall-cutout.webp')).size > 10000,'Transparent portrait cutout must be a real image asset');
 assert.match(read('styles.css'),/assets\/fonts\/fonts.css/,'Main typography must work without an external font request');
