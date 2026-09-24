@@ -367,3 +367,31 @@ html[data-theme="light"] .vnext-cosmos .vnext-sys-meta{
   font-weight:800!important;
   text-shadow:0 1px 1px rgba(255,255,255,.94)!important;
 }
+
+
+/* Light solar typography v9 — black labels with zero halo. */
+html[data-theme="light"] body.home-page .vnext-cosmos .vnext-world strong{
+  color:#000000!important;
+  font-weight:900!important;
+  text-shadow:none!important;
+  -webkit-text-stroke:0 transparent!important;
+}
+html[data-theme="light"] body.home-page .vnext-cosmos .vnext-sys-detail h2{
+  color:#000000!important;
+  font-weight:900!important;
+  text-shadow:none!important;
+  -webkit-text-stroke:0 transparent!important;
+}
+html[data-theme="light"] body.home-page .vnext-cosmos .vnext-sys-detail p,
+html[data-theme="light"] body.home-page .vnext-cosmos .vnext-cta{
+  color:#000000!important;
+  font-weight:750!important;
+  text-shadow:none!important;
+  -webkit-text-stroke:0 transparent!important;
+}
+html[data-theme="light"] body.home-page .vnext-cosmos .vnext-sys-meta{
+  color:#4a1606!important;
+  font-weight:900!important;
+  text-shadow:none!important;
+  -webkit-text-stroke:0 transparent!important;
+}
