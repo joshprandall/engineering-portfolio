@@ -445,6 +445,14 @@
     }
 
     updateAudioButton();
+
+    // Try to continue ambience immediately on browsers that permit it. On
+    // iPhone/Safari the context may remain suspended until the next user tap;
+    // the gesture handlers below then resume the same persistent loop.
+    if (!ambientMuted && !ambientLockedByPage && !lessonIsOpen()) {
+      if (ensureAmbientContext()) refreshAmbientAudio();
+    }
+
     if (audioButton) {
       audioButton.addEventListener('click', () => {
         ambientMuted = !ambientMuted;
