@@ -11,6 +11,12 @@ Blaine Quackenbush and Paul J. Atzberger developed the Geometric Neural Operator
 
 The six recorded neural prediction sets were computed using these upstream pretrained models. Their provenance, model names, weight hashes, inputs, and evaluation conditions accompany the data. Attribution of the website does not transfer authorship of the neural models or their predictions to the website developer.
 
+## Contextual geometry-AI literature
+
+- Mridula Vijendran, Jingjing Deng, Shuang Chen, Edmond S. L. Ho, and Hubert P. H. Shum. *Artificial Intelligence for Geometry-Based Feature Extraction, Analysis and Synthesis in Artistic Images: A Survey* (Artificial Intelligence Review 58, 64, 2025). https://doi.org/10.1007/s10462-024-11051-3 — open manuscript: https://arxiv.org/abs/2412.01450
+
+This survey is cited as broader context for explicit geometric representations in AI. The Geometry Lab does not claim to reproduce its surveyed artistic-image extraction, classification, or synthesis systems.
+
 ## Website adaptation and completed enhancements — Joshua Randall
 
 Website adaptation, implementation, and enhancements by Joshua Randall:
