@@ -70,7 +70,7 @@ async function run(){
    if(output){await page.screenshot({animations:'disabled',path:path.join(output,`home-${name}.png`),fullPage:true});if(await page.locator('#menu').isVisible()){await page.locator('#menu').click();await page.screenshot({animations:'disabled',path:path.join(output,`menu-${name}.png`)});await page.locator('#menu').click();}}
    await page.locator('#theme').click();assert.equal(await page.locator('html').getAttribute('data-theme'),'light');
    const lightCardBg=await page.locator('.home-project').first().evaluate(el=>getComputedStyle(el).backgroundColor);
-   const lightAlpha=Number((lightCardBg.match(/rgba?\\([^,]+,[^,]+,[^,]+(?:,\\s*([\\d.]+))?\\)/)||[])[1]||1);
+   const lightAlpha=Number((lightCardBg.match(/rgba?\([^,]+,[^,]+,[^,]+(?:,\s*([\d.]+))?\)/)||[])[1]||1);
    assert(lightAlpha>=.15&&lightAlpha<=.60,`Light project tiles stay translucent, got ${lightCardBg}`);
    const lightInk=await page.locator('#hero-title').evaluate(el=>getComputedStyle(el).color);
    const lightRgb=(lightInk.match(/\\d+/g)||[]).slice(0,3).map(Number);
