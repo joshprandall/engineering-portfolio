@@ -8,4 +8,5 @@ License: Creative Commons Attribution 4.0, https://creativecommons.org/licenses/
 Media guidance: https://esawebb.org/copyright/
 The supplied display image is encoded as WebP for web delivery. A translucent reading layer, a slow camera drift and decorative stars are rendered separately. The motion is not an astronomical time-lapse.
 
-Day: Original vector landscape and procedural clouds, water highlights, wind and bird flight in this repository. No external video, people, or looping footage.
+Day: licensed real nature footage. Full video sources and creators are listed in LIVING_SCENES_SOURCES.md.
+The original mountain-valley.svg illustration provides an immediate local background while footage loads or when remote footage is unavailable.

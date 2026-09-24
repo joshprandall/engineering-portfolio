@@ -12,11 +12,12 @@ import datetime, hashlib, json, os, re, shutil, sys, tempfile
 VERSION = '20260924-reconciled'
 SOURCE_FILES = ('site-theme.js', 'site-scenes.js', 'site-scenes.css',
                 'portfolio-home.css', 'portfolio-next.css', 'assets/mit-logo.svg',
+                'assets/scenes/CREDITS.md', 'assets/ACADEMIC_MARKS.md',
                 'index.html', 'knowledge.js', 'learning-depth.js',
                 'repairs/chess-views.js', 'repairs/chess-boot.js', 'repairs/game-surfaces.css',
                 'repairs/vendor/three.module.min.js', 'repairs/vendor/three.core.min.js',
                 'repairs/vendor/OrbitControls.js', 'repairs/vendor/LICENSE')
-ASSETS = SOURCE_FILES[:6]
+ASSETS = SOURCE_FILES[:8]
 PUBLIC = 'https://web.engr.oregonstate.edu/~randjosh/'
 
 def replace_section(text, source, start, end):
