@@ -2,10 +2,10 @@
   'use strict';
   const D = window.JR_KNOWLEDGE;
   if (!D) return;
-  if(!document.querySelector('link[href^="handheld-experience.css"]')){const l=document.createElement('link');l.rel='stylesheet';l.href='handheld-experience.css?v=20260923j';document.head.append(l);}
-  if(!document.querySelector('script[src^="handheld-experience.js"]')){const s=document.createElement('script');s.src='handheld-experience.js?v=20260923j';s.defer=true;document.body.append(s);}
-  if(!document.querySelector('link[href^="learning-depth.css"]')){const l=document.createElement('link');l.rel='stylesheet';l.href='learning-depth.css?v=20260923a';document.head.append(l);}
-  if(!document.querySelector('script[src^="learning-depth.js"]')){const s=document.createElement('script');s.src='learning-depth.js?v=20260923a';s.defer=true;document.body.append(s);}
+  if(!document.querySelector('link[href^="handheld-experience.css"]')){const l=document.createElement('link');l.rel='stylesheet';l.href='handheld-experience.css?v=20260924-release';document.head.append(l);}
+  if(!document.querySelector('script[src^="handheld-experience.js"]')){const s=document.createElement('script');s.src='handheld-experience.js?v=20260924-release';s.defer=true;document.body.append(s);}
+  if(!document.querySelector('link[href^="learning-depth.css"]')){const l=document.createElement('link');l.rel='stylesheet';l.href='learning-depth.css?v=20260924-release';document.head.append(l);}
+  if(!document.querySelector('script[src^="learning-depth.js"]')){const s=document.createElement('script');s.src='learning-depth.js?v=20260924-release';s.defer=true;document.body.append(s);}
 
   const $ = (s, r=document) => r.querySelector(s);
   const $$ = (s, r=document) => [...r.querySelectorAll(s)];
@@ -466,7 +466,7 @@
     const back=$('#back-library');
     if(standalone){back.textContent='← All Labs';back.onclick=()=>{location.href='learn-labs.html'};}
     else back.onclick=()=>closeLesson();
-    $('[data-home-lesson]').forEach(b=>b.onclick=()=>{if(standalone)location.href='learn-labs.html';else closeLesson();});
+    $$('[data-home-lesson]').forEach(b=>b.onclick=()=>{if(standalone)location.href='learn-labs.html';else closeLesson();});
     $$('[data-domain-lesson]').forEach(b=>b.onclick=()=>{const dom=b.dataset.domainLesson;location.href=`learn-browse.html?domain=${encodeURIComponent(dom)}`});
     const rate=$('#narration-rate'); rate.value=localStorage.getItem(STORAGE.narrationRate)||'0.95'; rate.onchange=()=>{localStorage.setItem(STORAGE.narrationRate,rate.value);toast(`Narration ${rate.options[rate.selectedIndex].text}`)};
     $('#listen-full').onclick=()=>speakLesson(l,false); $('#listen-summary').onclick=()=>speakLesson(l,true); $('#stop-audio').onclick=stopSpeech;
@@ -929,9 +929,9 @@
       document.addEventListener('click',e=>{
         const games=primaryNav.querySelector('.nav-games');
         if(games?.open&&!games.contains(e.target))games.removeAttribute('open');
-        if(innerWidth<=820&&primaryNav.classList.contains('open')&&!primaryNav.contains(e.target)&&!mobileMenu.contains(e.target))closePrimaryNav();
+        if(primaryNav.classList.contains('open')&&!primaryNav.contains(e.target)&&!mobileMenu.contains(e.target))closePrimaryNav();
       });
-      document.addEventListener('keydown',e=>{if(e.key==='Escape')closePrimaryNav()});
+      document.addEventListener('keydown',e=>{if(e.key==='Escape'&&primaryNav.classList.contains('open')){closePrimaryNav();mobileMenu.focus()}});
       addEventListener('resize',()=>{if(innerWidth>820)closePrimaryNav()});
     }
     document.addEventListener('keydown',e=>{const typing=/INPUT|TEXTAREA|SELECT/.test(document.activeElement?.tagName);if((e.key==='/'||(e.key.toLowerCase()==='k'&&(e.ctrlKey||e.metaKey)))&&!typing){e.preventDefault();if(currentLesson)closeLesson();setTimeout(()=>$('#knowledge-search').focus(),0)}if(e.key==='Escape'&&currentLesson)closeLesson();if((e.key==='r'||e.key==='R')&&!typing&&!currentLesson)randomLesson();if((e.key==='g'||e.key==='G')&&!typing&&!currentLesson){e.preventDefault();$('#glossary').scrollIntoView({behavior:motionPaused?'auto':'smooth'});setTimeout(()=>$('#glossary-search').focus(),250)}});

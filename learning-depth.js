@@ -40,7 +40,7 @@
   function renderState(){
     $$('[data-depth-stage]').forEach(b=>{const active=b.dataset.depthStage===target;b.classList.toggle('active',active);b.setAttribute('aria-pressed',String(active))});
     $$('[data-depth-target-select]').forEach(s=>s.value=target);
-    $('[data-depth-summary]').forEach(el=>el.innerHTML=targetCopy(el.dataset.depthSummary!=='compact'));
+    $$('[data-depth-summary]').forEach(el=>el.innerHTML=targetCopy(el.dataset.depthSummary!=='compact'));
   }
   function scorePath(p){
     let score=0;const text=`${p.title} ${p.description||p.summary||''}`.toLowerCase();

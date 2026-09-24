@@ -127,13 +127,14 @@ assert.match(overlayWorkflow,/forbidden_prefixes=\('games\/',\s*'geometric-lab\/
 assert.match(overlayWorkflow,/protected_root\s*=\s*set\(\)/,'OSU overlay must allow project wrapper HTML to receive navigation fixes');
 assert.match(overlayWorkflow,/forbidden_prefixes=\('games\/',\s*'geometric-lab\/'\)/,'OSU overlay must continue protecting actual game and Geometry Lab trees');
 const deployScript=read('tools/deploy_osu_live.py');
-assert.match(deployScript,/WEB_COMMIT = "eb30de5762fb4ca7698bc1b16fce86ad203245df"/,'OSU deploy must remain pinned to the validated learning-depth website release');
-const webDirs=deployScript.match(/WEB_DIRS = \(([\s\S]*?)\)\n\n/)?.[1]||'';
+assert.match(deployScript,/parser\.add_argument\('--commit',required=True/,'Deployments must explicitly select the exact tested commit');
+assert.doesNotMatch(deployScript,/WEB_COMMIT =/,'A stale hardcoded deploy pin must not override the tested release');
+const webDirs=deployScript.match(/WEB_DIRS = \(([^)]*)\)/)?.[1]||'';
 assert.ok(!/games\/|geometric-lab|project-sources/.test(webDirs),'OSU deploy WEB_DIRS must not overwrite protected or repository-only trees');
 assert.match(deployScript,/PROTECTED_ROOT_FILES = set\(\)/,'OSU deploy must allow project wrapper HTML updates');
 
 
-for (const file of ['app.js','portfolio-next.js','handheld-experience.js','science-experiments.js','knowledge.js','learning-depth.js','learning-next.js','agent-workbench.mjs','labs/qpe.mjs','labs/emergent.mjs','qubit-preview-20260921/app.js','qubit-preview-20260921/qubit.js','games/3d-battle-chess/battle.js','games/3d-battle-chess/engine.js']) execFileSync(process.execPath,['--check',path.join(root,file)],{stdio:'pipe'});
+for (const file of ['app.js','portfolio-next.js','handheld-experience.js','science-experiments.js','quantum-cube.js','knowledge.js','learning-depth.js','learning-next.js','agent-workbench.js','labs/qpe.js','labs/emergent.js','qubit-preview-20260921/app.js','qubit-preview-20260921/qubit.js','games/3d-battle-chess/battle.js','games/3d-battle-chess/engine.js']) execFileSync(process.execPath,['--check',path.join(root,file)],{stdio:'pipe'});
 
 const q=await import(pathToFileURL(path.join(root,'qubit-preview-20260921/qubit.js')).href+'?test='+Date.now());
 const plus=q.stateFromAngles(90,0),minus=q.stateFromAngles(90,180),plusI=q.stateFromAngles(90,90),north=q.stateFromAngles(0,123);
@@ -143,18 +144,23 @@ assert.ok(Math.abs(q.measurementProbabilities(plusI,'Y').p0-1)<1e-12,'|+i> must 
 assert.ok(Math.abs(q.measurementProbabilities(north,'Z').p0-1)<1e-12,'|0> must be deterministic in Z');
 assert.ok(Math.abs(plus.normalization-1)<1e-12,'Qubit normalization drift');
 
-const qpe=await import(pathToFileURL(path.join(root,'labs/qpe.mjs')).href+'?test='+Date.now());
+const qpe=await import(pathToFileURL(path.join(root,'labs/qpe.js')).href+'?test='+Date.now());
 const exact=qpe.distribution(.125,3,0),peak=exact.reduce((a,b)=>b.ideal>a.ideal?b:a);
 assert.equal(peak.bits,'001','QPE exact 1/8 phase should peak at 001');
 assert.ok(Math.abs(exact.reduce((s,x)=>s+x.mixed,0)-1)<1e-10,'QPE distribution must normalize');
 
-const emergent=await import(pathToFileURL(path.join(root,'labs/emergent.mjs')).href+'?test='+Date.now());
+const emergent=await import(pathToFileURL(path.join(root,'labs/emergent.js')).href+'?test='+Date.now());
 const eg=emergent.create(12,.2,42),r0=emergent.order(eg);emergent.advance(eg,10,1.2);
 assert.equal(eg.step,10,'Emergent model step counter mismatch');
 assert.ok(r0>=0&&r0<=1&&emergent.order(eg)>=0&&emergent.order(eg)<=1,'Kuramoto order parameter must remain in [0,1]');
 
-const mind=await import(pathToFileURL(path.join(root,'agent-workbench.mjs')).href+'?test='+Date.now());
+const mind=await import(pathToFileURL(path.join(root,'agent-workbench.js')).href+'?test='+Date.now());
 const mr=mind.run('Repair a test regression',{evidence:['Reproduction steps','CI test output','Rollback review']});
 assert.ok(mr.requiresApproval,'MIND workbench must preserve human approval boundary');
 assert.ok(mr.evidenceCoverage>0,'MIND evidence coverage should respond to evidence');
 console.log('Science-experiment release validation passed: 16 projects, 8,000 manifest records, orbital systems scene, deterministic science math and protected experience exclusions.');
+
+const home=read('index.html');
+assert.doesNotMatch(home,/id="fusion"|Depth across the stack|Grounded in experience/,'Replaced homepage sections must not return');
+for(const asset of ['portfolio-home.css','quantum-cube.js','assets/joshua-randall-headshot.jpg','assets/systems-lab.jpg','assets/quantum-field-notes.jpg']) assert.ok(home.includes(asset)&&exists(asset),`Homepage asset missing: ${asset}`);
+assert.match(read('styles.css'),/assets\/fonts\/fonts.css/,'Main typography must work without an external font request');

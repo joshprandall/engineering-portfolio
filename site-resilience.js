@@ -7,7 +7,8 @@
   const installNavigation=()=>{
     const nav=document.querySelector('header nav#primary-nav');
     const menu=document.getElementById('menu');
-    if(!nav||!menu)return;
+    if(!nav||!menu||menu.dataset.navOwner==='resilience')return;
+    document.body.classList.add('header-menu');
 
     // One intentional game-development category replaces legacy standalone game links.
     nav.querySelectorAll(':scope > a[href="project-battle-chess.html"]').forEach(link=>link.remove());
@@ -31,7 +32,7 @@
     menu.setAttribute('aria-expanded',String(nav.classList.contains('open')));
     menu.setAttribute('aria-label',nav.classList.contains('open')?'Close navigation':'Open navigation');
 
-    // onclick assignment guarantees one owner even if an older cached handler existed.
+    // app.js delegates navigation here; initialize once per document.
     menu.onclick=event=>{
       event.preventDefault();
       event.stopPropagation();
@@ -44,9 +45,9 @@
     nav.addEventListener('click',event=>{if(event.target.closest('a'))close();});
     document.addEventListener('click',event=>{
       if(games?.open&&!games.contains(event.target))games.removeAttribute('open');
-      if((innerWidth<=900||document.body?.classList.contains('project-shell'))&&nav.classList.contains('open')&&!nav.contains(event.target)&&!menu.contains(event.target))close();
+      if(nav.classList.contains('open')&&!nav.contains(event.target)&&!menu.contains(event.target))close();
     });
-    document.addEventListener('keydown',event=>{if(event.key==='Escape')close();});
+    document.addEventListener('keydown',event=>{if(event.key==='Escape'&&nav.classList.contains('open')){close();menu.focus();}});
     window.addEventListener('resize',()=>{if(innerWidth>900)close();});
   };
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',installNavigation,{once:true});

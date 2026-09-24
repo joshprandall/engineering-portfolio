@@ -44,9 +44,9 @@ The release keeps research claims scoped to what the included experiments actual
 ```sh
 npm test
 node --check app.js
-node --check agent-workbench.mjs
-node --check labs/qpe.mjs
-node --check labs/emergent.mjs
+node --check agent-workbench.js
+node --check labs/qpe.js
+node --check labs/emergent.js
 ```
 
 The static test checks required files, duplicate IDs, local references, skip links, landmarks, safe external links, project-card metadata, and the visible project count. Browser smoke tests cover the responsive home/project routes and the interactive geometry, phase-estimation, network, agent, chess, and qubit experiences.

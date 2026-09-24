@@ -1,52 +1,35 @@
-# Science-experiment portfolio: OSU deployment
+# OSU portfolio deployment
 
-This repository combines the portfolio, Knowledge Platform, interactive science labs, and protected game/Geometric AI experiences. GitHub `main` is the source of truth, but it is not itself the live OSU site.
+GitHub `main` contains the reviewed source. The public OSU website changes only when its files are deployed from an authenticated OSU shell.
 
-The current deployment rule is intentionally conservative: update the science/portfolio/learning layers while leaving Battle Chess, Evil Wizard, and the Geometry & Physics / Geometric AI experience untouched on the OSU host.
+## Deploy a tested release
 
-## Protected live experiences
+Use the full 40-character commit SHA from the successful pull request checks. Download the deployment script from that same commit and run it with `--commit SHA`:
 
-Do not overwrite or delete these during this release:
+```bash
+curl -fsS https://raw.githubusercontent.com/joshprandall/engineering-portfolio/SHA/tools/deploy_osu_live.py -o ~/deploy-portfolio.py
+python3 ~/deploy-portfolio.py --commit SHA
+```
+
+Replace both occurrences of `SHA` with the tested commit. The script rejects branch names and does not silently select an older release. Run it in the OSU account containing `~/public_html`.
+
+The deployment creates a full backup outside the web root, installs supporting assets before page HTML, verifies the installed bytes, checks public URLs and JavaScript content types, and restores the previous files if installation or verification fails. Newly introduced files are removed during rollback. Retain the printed backup path.
+
+## Preserved content
+
+This website release preserves these existing host paths byte for byte:
 
 - `games/3d-battle-chess/`
-- `games/evil-wizard/`
+- `games/evil-wizard/`, including the host-only browser export
 - `geometric-lab/`
-- `project-battle-chess.html`
-- `project-geometric-ai.html`
-- `play-evil-wizard.html`
-- `assets/fusion-presentation.mp4` when present
+- `assets/fusion-presentation.mp4`
 
-The science-safe overlay omits those paths by construction. The backup-first deployment utility also skips them.
+The three root project/game launcher pages are updated so they receive the shared navigation fixes. Their actual game and Geometry Lab trees remain separate. Never delete or replace `public_html` as a directory.
 
-## Preferred deployment
+## Release checks
 
-1. Verify the live protected sentinels exist:
-   - `~/public_html/games/3d-battle-chess/index.html`
-   - `~/public_html/games/evil-wizard/index.html`
-   - `~/public_html/geometric-lab/index.html`
-   - the three protected root project/launcher pages listed above.
-2. Create and retain a full `public_html` backup outside the web root.
-3. Use the latest successful **Build OSU science-safe overlay** artifact, or run `tools/deploy_osu_live.py` from an authenticated OSU shell. The utility downloads the exact validated site commit, copies only approved root/science/learning files, validates the result, and restores the backup automatically on failure.
-4. Never replace or delete the `public_html` directory itself. Merge files into the existing directory.
-5. Verify on the public URL:
-   - homepage and animated Connected Systems solar system;
-   - Projects catalog and project experiment consoles;
-   - Learn search/content;
-   - pure-state qubit controls and sampling;
-   - QPE, Emergent Systems, and Project MIND;
-   - phone/tablet navigation;
-   - unchanged Battle Chess, Evil Wizard, and Geometry & Physics Lab.
+`npm test` validates all 16 project cards, the 8,000-record learning manifest, science calculations, release structure, and deployment preservation/rollback. `npm ci` followed by `npm run test:browser` exercises real rendering, navigation, animation controls, project experiments, and learning interactions. Set `PORTFOLIO_BROWSER_EXECUTABLE` to an installed Chrome/Chromium executable, or install Playwright Chromium with `npx playwright install chromium`.
 
-## Manual overlay deployment
+GitHub Actions builds `Joshua_Randall_OSU_Science_Safe_Overlay.zip` and captures phone, tablet, and desktop screenshots. The overlay includes the local photos/fonts, homepage animation, learning data and science modules; it omits the preserved host paths above. If installing it manually, merge its contents into the existing site without deleting destination files.
 
-If using the ZIP artifact manually, extract **Joshua_Randall_OSU_Science_Safe_Overlay.zip** into a staging directory first. Copy its contents into the existing `public_html`. The overlay intentionally does not contain the protected paths above, so do not delete destination files that are absent from the overlay.
-
-Do not upload repository-only material such as `.git`, `.github`, `tools/`, `tests/`, `release-upload/`, `site-repair/`, or `project-sources/`.
-
-## Verification and rollback
-
-The release is not complete until desktop and phone checks pass on the public OSU URL. Static GitHub validation proves source integrity and mathematical unit checks; it cannot prove OSU-hosted permissions, cached files, WebGL behavior, or the host-only Evil Wizard/fusion media.
-
-If any deployment check fails, restore the full pre-deployment backup before making another attempt.
-
-GitHub cannot write to OSU Engineering hosting without an authorized SSH/SFTP deployment connection.
+After deployment, verify the public homepage, hamburger menu, project catalog, QPE and Emergent Systems controls, Learning Library lessons, and existing games in a browser. Local tests cannot establish the live server state or verify the host-only game export. The deployment script performs public HTTP checks but does not replace this final browser check.
