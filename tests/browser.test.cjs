@@ -56,7 +56,7 @@ async function run(){
    await page.locator('#bell-basis').selectOption('ZZ');
    await page.locator('#quantum-cube').scrollIntoViewIfNeeded();
    const capture=()=>page.locator('#quantum-cube').evaluate(c=>c.toDataURL());
-   let frame=await capture();await page.waitForTimeout(140);assert.notEqual(await capture(),frame,'Cubes animate');
+   let frame=await capture(),animated=false;for(let attempt=0;attempt<6&&!animated;attempt++){await page.waitForTimeout(120);animated=(await capture())!==frame;}assert(animated,'Cubes animate');
    await page.locator('#cube-pause').click();await page.waitForTimeout(80);frame=await capture();await page.waitForTimeout(140);assert.equal(await capture(),frame,'Cube pause stops rendering motion');await page.locator('#cube-pause').click();
    await page.locator('#motion').click();await page.waitForTimeout(90);frame=await capture();await page.waitForTimeout(140);assert.equal(await capture(),frame,'Global pause reaches quantum animation');
    await page.locator('.vnext-cosmos').scrollIntoViewIfNeeded();let positions=await page.locator('.vnext-world').evaluateAll(es=>es.map(e=>e.style.transform));await page.waitForTimeout(140);assert.deepEqual(await page.locator('.vnext-world').evaluateAll(es=>es.map(e=>e.style.transform)),positions,'Global pause reaches orbital animation');
@@ -75,6 +75,13 @@ async function run(){
    const lightInk=await page.locator('#hero-title').evaluate(el=>getComputedStyle(el).color);
    const lightRgb=(lightInk.match(/\d+/g)||[]).slice(0,3).map(Number);
    assert(lightRgb.length===3&&Math.max(...lightRgb)<80,`Light-mode hero text stays decisively dark, got ${lightInk}`);
+   const heroShadow=await page.locator('#hero-title').evaluate(el=>getComputedStyle(el).textShadow);
+   assert(!/rgb\(0, 0, 0\)/.test(heroShadow),`Light-mode hero must not use a black outline/shadow, got ${heroShadow}`);
+   const solarLabel=page.locator('.vnext-world strong').first();
+   const solarShadow=await solarLabel.evaluate(el=>getComputedStyle(el).textShadow);
+   const solarColor=await solarLabel.evaluate(el=>getComputedStyle(el).color);
+   assert(!/rgb\(0, 0, 0\)/.test(solarShadow),`Light solar labels must not use black halos, got ${solarShadow}`);
+   assert.equal(await solarLabel.evaluate(el=>getComputedStyle(el).backgroundColor),'rgba(0, 0, 0, 0)','Light solar labels remain container-free');
    if(output&&name==='phone'){await page.screenshot({animations:'disabled',path:path.join(output,'home-phone-light.png'),fullPage:true});}
    await page.locator('#theme').click();
    console.log(`PASS ${name}: navigation, planet selectors, search, skills, Bell outcomes, animation and pause, images, theme, layout`);
