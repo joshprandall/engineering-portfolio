@@ -557,9 +557,9 @@
 
       if (theme === 'dark') {
         stopNatureAmbience();
+        stopDarkAmbience();
         syncVideoAmbience();
         ambientSignature = 'dark';
-        syncDarkThemeMusic();
         return;
       }
 
@@ -997,8 +997,8 @@
 
     ambientWatchdog = setInterval(() => {
       if (theme === 'dark') {
-        if (darkMusicAllowed()) syncDarkThemeMusic();
-        else stopDarkAmbience();
+        stopNatureAmbience();
+        stopDarkAmbience();
         return;
       }
       if (!ambientAllowed() || !audioUnlocked) return;
