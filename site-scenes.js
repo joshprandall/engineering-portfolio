@@ -106,8 +106,19 @@
       '</div>' +
       '<button data-scene-audio type="button" aria-pressed="false">Mute ambience</button>';
 
-    // Motion is intentionally always on. Any legacy bottom "Pause motion"
-    // button is removed and replaced by one functional mute control.
+    // Motion is intentionally always on. Reuse the existing footer motion
+    // control as the global mute button so it stays in exactly the same place.
+    const legacyFooterAudio = document.querySelector('footer button[data-scene-motion]');
+    if (legacyFooterAudio) {
+      legacyFooterAudio.removeAttribute('data-scene-motion');
+      legacyFooterAudio.setAttribute('data-scene-audio','');
+      legacyFooterAudio.hidden = false;
+      legacyFooterAudio.removeAttribute('aria-hidden');
+      legacyFooterAudio.removeAttribute('aria-pressed');
+      legacyFooterAudio.tabIndex = 0;
+      const placeholder = options.querySelector('[data-scene-audio]');
+      if (placeholder) placeholder.replaceWith(legacyFooterAudio);
+    }
     document.querySelectorAll('button[data-scene-motion]').forEach(button => button.remove());
     document.body.append(options);
     appearance.setMotion?.('running', true);
