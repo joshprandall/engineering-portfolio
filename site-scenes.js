@@ -33,6 +33,8 @@
   ];
 
   const ROTATE_AFTER = 28;
+  const AMBIENT_AUDIO_KEY = 'jr-site-ambient-muted-v1';
+  const PROJECT_AUDIO_RE = /(?:^|\/)(?:project-[^/]+\.html|play-evil-wizard\.html|agent-workbench\.html|games\/|geometric-lab\/|qubit-preview-20260921\/|deep-learning\/)/i;
 
   const boot = () => {
     if (document.getElementById('site-scene') || !window.PortfolioTheme) return;
@@ -41,6 +43,7 @@
     const saveData = Boolean(navigator.connection && navigator.connection.saveData);
     const localTestHost = location.hostname === '127.0.0.1' || location.hostname === 'localhost';
     const mediaDisabled = saveData || localTestHost;
+    const ambientLockedByPage = PROJECT_AUDIO_RE.test(location.pathname);
 
     document.body.classList.add('living-scenes');
 
@@ -78,10 +81,13 @@
           '<small class="scene-day-credit">Pexels License · real wind, water, birds, and landscape motion.</small>' +
         '</p>' +
       '</div>' +
-      '<button data-scene-motion type="button">Pause motion</button>';
+      '<button data-scene-audio type="button" aria-pressed="false">Mute ambience</button>';
 
+    // The footer used to host the global motion toggle. Ambient audio now owns
+    // that bottom-of-page control; motion remains available where a page has
+    // its dedicated header control.
     const footerMotion = document.querySelector('footer button[data-scene-motion]');
-    if (footerMotion && options.querySelector('button')) options.querySelector('button').replaceWith(footerMotion);
+    if (footerMotion) footerMotion.remove();
     document.body.append(options);
     appearance.bind(options);
 
@@ -97,6 +103,7 @@
     const videoB = backdrop.querySelector('.scene-video-b');
     const dayLink = options.querySelector('.scene-day-link');
     const dayCredit = options.querySelector('.scene-day-credit');
+    const audioButton = options.querySelector('[data-scene-audio]');
 
     let activeVideo = videoA;
     let standbyVideo = videoB;
@@ -129,6 +136,233 @@
     };
 
     const motionAllowed = () => !appearance.isPaused();
+
+    // Quiet, original ambient soundscape. Dark mode uses a slow cinematic
+    // organ-like pad with no borrowed melody. Light mode synthesizes ambience
+    // that follows the active nature scene: river, surf + birds, or waterfall.
+    let ambientCtx = null;
+    let ambientMaster = null;
+    let ambientNodes = [];
+    let ambientTimer = 0;
+    let birdTimer = 0;
+    let audioUnlocked = false;
+    let audioSuppressed = false;
+    let ambientMuted = (() => {
+      try { return localStorage.getItem(AMBIENT_AUDIO_KEY) === '1'; }
+      catch (_) { return false; }
+    })();
+
+    function storeAmbientMuted() {
+      try { localStorage.setItem(AMBIENT_AUDIO_KEY, ambientMuted ? '1' : '0'); }
+      catch (_) {}
+    }
+
+    function lessonIsOpen() {
+      const view = document.getElementById('lesson-view');
+      return Boolean(view && !view.hidden);
+    }
+
+    function ambientAllowed() {
+      return !ambientMuted && !audioSuppressed && !ambientLockedByPage && !lessonIsOpen() && !document.hidden;
+    }
+
+    function updateAudioButton() {
+      if (!audioButton) return;
+      audioButton.type = 'button';
+      audioButton.setAttribute('aria-pressed', String(ambientMuted));
+      audioButton.setAttribute('aria-label', ambientMuted ? 'Unmute background ambience' : 'Mute background ambience');
+      audioButton.title = ambientLockedByPage
+        ? 'Background ambience pauses automatically while using projects'
+        : (ambientMuted ? 'Unmute ambience' : 'Mute ambience');
+      audioButton.textContent = ambientMuted ? 'Unmute ambience' : 'Mute ambience';
+    }
+
+    function ensureAmbientContext() {
+      const AudioContextCtor = window.AudioContext || window.webkitAudioContext;
+      if (!AudioContextCtor) {
+        if (audioButton) {
+          audioButton.disabled = true;
+          audioButton.textContent = 'Audio unavailable';
+        }
+        return false;
+      }
+      try {
+        if (!ambientCtx) {
+          ambientCtx = new AudioContextCtor();
+          ambientMaster = ambientCtx.createGain();
+          ambientMaster.gain.value = 0;
+          ambientMaster.connect(ambientCtx.destination);
+        }
+        if (ambientCtx.state === 'suspended') ambientCtx.resume();
+        audioUnlocked = true;
+        return true;
+      } catch (_) {
+        return false;
+      }
+    }
+
+    function rememberNode(node) {
+      ambientNodes.push(node);
+      return node;
+    }
+
+    function stopAmbientNodes() {
+      clearInterval(ambientTimer);
+      clearTimeout(birdTimer);
+      ambientTimer = 0;
+      birdTimer = 0;
+      const nodes = ambientNodes.splice(0);
+      nodes.forEach(node => {
+        try { if (typeof node.stop === 'function') node.stop(); } catch (_) {}
+        try { node.disconnect(); } catch (_) {}
+      });
+      if (ambientMaster && ambientCtx) {
+        try {
+          ambientMaster.gain.cancelScheduledValues(ambientCtx.currentTime);
+          ambientMaster.gain.setTargetAtTime(0, ambientCtx.currentTime, .05);
+        } catch (_) {}
+      }
+    }
+
+    function noiseBuffer() {
+      const seconds = 2.4;
+      const buffer = ambientCtx.createBuffer(1, Math.floor(ambientCtx.sampleRate * seconds), ambientCtx.sampleRate);
+      const data = buffer.getChannelData(0);
+      let smoothed = 0;
+      for (let i = 0; i < data.length; i++) {
+        const white = Math.random() * 2 - 1;
+        smoothed = smoothed * .78 + white * .22;
+        data[i] = white * .42 + smoothed * .58;
+      }
+      return buffer;
+    }
+
+    function startNoiseBed({gain=.01, lowpass=1800, highpass=70, lfoRate=0, lfoDepth=0}) {
+      const source = rememberNode(ambientCtx.createBufferSource());
+      source.buffer = noiseBuffer();
+      source.loop = true;
+      const hp = rememberNode(ambientCtx.createBiquadFilter());
+      hp.type = 'highpass';
+      hp.frequency.value = highpass;
+      const lp = rememberNode(ambientCtx.createBiquadFilter());
+      lp.type = 'lowpass';
+      lp.frequency.value = lowpass;
+      const g = rememberNode(ambientCtx.createGain());
+      g.gain.value = gain;
+      source.connect(hp).connect(lp).connect(g).connect(ambientMaster);
+      if (lfoRate > 0 && lfoDepth > 0) {
+        const lfo = rememberNode(ambientCtx.createOscillator());
+        const depth = rememberNode(ambientCtx.createGain());
+        lfo.type = 'sine';
+        lfo.frequency.value = lfoRate;
+        depth.gain.value = lfoDepth;
+        lfo.connect(depth).connect(g.gain);
+        lfo.start();
+      }
+      source.start();
+    }
+
+    function startDarkAmbience() {
+      const progression = [
+        [65.41, 98.00, 130.81, 196.00],
+        [55.00, 82.41, 110.00, 164.81],
+        [43.65, 65.41, 87.31, 130.81],
+        [49.00, 73.42, 98.00, 146.83]
+      ];
+      const oscillators = progression[0].map((freq, i) => {
+        const o = rememberNode(ambientCtx.createOscillator());
+        const g = rememberNode(ambientCtx.createGain());
+        const filter = rememberNode(ambientCtx.createBiquadFilter());
+        o.type = i === 0 ? 'triangle' : 'sine';
+        o.frequency.value = freq;
+        filter.type = 'lowpass';
+        filter.frequency.value = i === 0 ? 520 : 950;
+        g.gain.value = i === 0 ? .0025 : .0018;
+        o.connect(filter).connect(g).connect(ambientMaster);
+        o.start();
+        return o;
+      });
+      let chord = 0;
+      ambientTimer = setInterval(() => {
+        if (!ambientCtx || !ambientAllowed() || theme !== 'dark') return;
+        chord = (chord + 1) % progression.length;
+        const now = ambientCtx.currentTime;
+        oscillators.forEach((o, i) => {
+          try { o.frequency.exponentialRampToValueAtTime(progression[chord][i], now + 2.8); } catch (_) {}
+        });
+      }, 12000);
+      startNoiseBed({gain:.0018, lowpass:420, highpass:45});
+    }
+
+    function scheduleBirds() {
+      clearTimeout(birdTimer);
+      if (!ambientCtx || !ambientAllowed() || theme !== 'light' || LIGHT_SCENES[activeSceneIndex].id !== 'birds-water') return;
+      const chirp = (delay, base) => {
+        const o = rememberNode(ambientCtx.createOscillator());
+        const g = rememberNode(ambientCtx.createGain());
+        o.type = 'sine';
+        const start = ambientCtx.currentTime + delay;
+        o.frequency.setValueAtTime(base, start);
+        o.frequency.exponentialRampToValueAtTime(base * 1.34, start + .13);
+        o.frequency.exponentialRampToValueAtTime(base * .92, start + .28);
+        g.gain.setValueAtTime(.0001, start);
+        g.gain.exponentialRampToValueAtTime(.0023, start + .035);
+        g.gain.exponentialRampToValueAtTime(.0001, start + .31);
+        o.connect(g).connect(ambientMaster);
+        o.start(start);
+        o.stop(start + .34);
+      };
+      chirp(.05, 1750 + Math.random() * 300);
+      if (Math.random() > .45) chirp(.42, 2050 + Math.random() * 300);
+      birdTimer = setTimeout(scheduleBirds, 4300 + Math.random() * 4200);
+    }
+
+    function startLightAmbience() {
+      const scene = LIGHT_SCENES[activeSceneIndex];
+      if (!scene) return;
+      if (scene.id === 'forest-waterfall') {
+        startNoiseBed({gain:.012, lowpass:4200, highpass:95, lfoRate:.08, lfoDepth:.0013});
+        startNoiseBed({gain:.0042, lowpass:520, highpass:35});
+      } else if (scene.id === 'birds-water') {
+        startNoiseBed({gain:.0085, lowpass:1500, highpass:70, lfoRate:.10, lfoDepth:.0042});
+        startNoiseBed({gain:.0032, lowpass:360, highpass:30, lfoRate:.052, lfoDepth:.0018});
+        scheduleBirds();
+      } else {
+        startNoiseBed({gain:.009, lowpass:1350, highpass:60, lfoRate:.065, lfoDepth:.0022});
+        startNoiseBed({gain:.0025, lowpass:320, highpass:28});
+      }
+    }
+
+    function refreshAmbientAudio() {
+      updateAudioButton();
+      if (!audioUnlocked || !ambientCtx || !ambientMaster) return;
+      stopAmbientNodes();
+      if (!ambientAllowed()) return;
+      if (ambientCtx.state === 'suspended') ambientCtx.resume();
+      if (theme === 'dark') startDarkAmbience();
+      else startLightAmbience();
+      const target = theme === 'dark' ? .72 : .78;
+      try {
+        ambientMaster.gain.cancelScheduledValues(ambientCtx.currentTime);
+        ambientMaster.gain.setValueAtTime(.0001, ambientCtx.currentTime);
+        ambientMaster.gain.exponentialRampToValueAtTime(target, ambientCtx.currentTime + 1.4);
+      } catch (_) {}
+    }
+
+    function unlockAmbientFromGesture() {
+      if (!ambientAllowed()) return;
+      if (ensureAmbientContext()) refreshAmbientAudio();
+    }
+
+    updateAudioButton();
+    if (audioButton) {
+      audioButton.addEventListener('click', () => {
+        ambientMuted = !ambientMuted;
+        storeAmbientMuted();
+        if (!ambientMuted) ensureAmbientContext();
+        refreshAmbientAudio();
+      });
+    }
 
     function updateDayCredit() {
       const scene = LIGHT_SCENES[activeSceneIndex];
@@ -269,6 +503,7 @@
       standbyVideo = oldVideo;
       activeSceneIndex = nextIndex;
       updateDayCredit();
+      refreshAmbientAudio();
 
       setTimeout(() => {
         standbyVideo.pause();
@@ -423,6 +658,7 @@
         lastFrame = performance.now();
         raf = requestAnimationFrame(frame);
       }
+      refreshAmbientAudio();
     }
 
     resize();
@@ -453,6 +689,13 @@
     document.addEventListener('pointerdown', retryLightPlayback, { passive: true });
     document.addEventListener('touchstart', retryLightPlayback, { passive: true });
     document.addEventListener('keydown', retryLightPlayback);
+    document.addEventListener('pointerdown', unlockAmbientFromGesture, { passive: true });
+    document.addEventListener('touchstart', unlockAmbientFromGesture, { passive: true });
+    document.addEventListener('keydown', unlockAmbientFromGesture);
+    document.addEventListener('portfolio:ambient-suppression', event => {
+      audioSuppressed = Boolean(event.detail && event.detail.active);
+      refreshAmbientAudio();
+    });
 
     document.addEventListener('portfolio:theme', refresh);
     document.addEventListener('portfolio:motion', refresh);
@@ -460,6 +703,7 @@
     document.addEventListener('visibilitychange', () => {
       if (document.hidden) {
         pauseVideos();
+        stopAmbientNodes();
         cancelAnimationFrame(raf);
         raf = 0;
       } else {
@@ -470,6 +714,7 @@
     addEventListener('resize', resize, { passive: true });
     addEventListener('pagehide', () => {
       pauseVideos();
+      stopAmbientNodes();
       clearTimeout(mediaTimer);
       cancelAnimationFrame(raf);
       raf = 0;
