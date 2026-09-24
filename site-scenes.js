@@ -113,7 +113,7 @@
       '<div>' +
         '<p class="scene-source-night">Webb’s Cosmic Cliffs · ' +
           '<a href="https://esawebb.org/images/weic2205a/" target="_blank" rel="noopener noreferrer">NASA, ESA, CSA, and STScI</a><br>' +
-          '<small>Audio: “Alien Spaceship Atmosphere” by Kevin MacLeod · CC0 public-domain dedication.</small>' +
+          '<small>Audio: “Interstellar Space” by John Bartmann · CC0 public-domain dedication.</small>' +
         '</p>' +
         '<p class="scene-source-day">Living Earth · ' +
           '<a class="scene-day-link" href="#" target="_blank" rel="noopener noreferrer">real licensed nature footage</a><br>' +
@@ -187,8 +187,8 @@
     const motionAllowed = () => true;
 
     // Audio state. Light mode uses real field recordings matched to each scene.
-    // Dark mode uses Kevin MacLeod's CC0 'Alien Spaceship Atmosphere', stored
-    // locally as MP3 for reliable iPhone/Safari playback and looping.
+    // Dark mode uses John Bartmann's CC0 'Interstellar Space' soundtrack,
+    // stored locally as MP3 for reliable iPhone/Safari playback and looping.
     let ambientCtx = null;
     let ambientMaster = null;
     let ambientNodes = [];
@@ -198,6 +198,7 @@
     let ambientSignature = '';
     let recordedAmbience = null;
     let darkLicensedAudio = null;
+    let darkTrackElement = null;
     let birdAudio = null;
     let birdReplayTimer = 0;
     let audioUnlocked = false;
@@ -283,6 +284,27 @@
       return audio;
     }
 
+    function ensureDarkTrackElement() {
+      if (darkTrackElement) return darkTrackElement;
+      const audio = createAudioTrack(DARK_LICENSED_TRACK, {loop:true, volume:.19});
+      audio.id = 'site-dark-theme-audio';
+      audio.setAttribute('aria-hidden','true');
+      audio.addEventListener('loadedmetadata', () => {
+        try {
+          const saved = savedDarkTrackTime();
+          const duration = Number.isFinite(audio.duration) && audio.duration > 0 ? audio.duration : 0;
+          audio.currentTime = duration ? saved % duration : saved;
+        } catch (_) {}
+      }, {once:true});
+      audio.addEventListener('timeupdate', saveDarkTrackTime);
+      audio.addEventListener('error', () => {
+        console.warn('Dark-mode soundtrack could not be loaded:', DARK_LICENSED_TRACK);
+      });
+      try { audio.load(); } catch (_) {}
+      darkTrackElement = audio;
+      return audio;
+    }
+
     function stopNatureAmbience() {
       clearTimeout(birdReplayTimer);
       birdReplayTimer = 0;
@@ -295,8 +317,10 @@
     }
 
     function stopDarkAmbience() {
-      if (darkLicensedAudio) {
-        try { darkLicensedAudio.pause(); } catch (_) {}
+      const audio = darkLicensedAudio || darkTrackElement;
+      if (audio) {
+        saveDarkTrackTime();
+        try { audio.pause(); } catch (_) {}
       }
       darkLicensedAudio = null;
     }
@@ -327,25 +351,20 @@
 
       if (theme === 'dark') {
         stopNatureAmbience();
-        const audio = createAudioTrack(DARK_LICENSED_TRACK, {loop:true, volume:.22});
+        const audio = ensureDarkTrackElement();
         darkLicensedAudio = audio;
-        let failed = false;
-        audio.addEventListener('error', () => { failed = true; }, {once:true});
-        audio.addEventListener('loadedmetadata', () => {
-          try {
-            const saved = savedDarkTrackTime();
-            const limit = Number.isFinite(audio.duration) && audio.duration > 0 ? audio.duration : 0;
-            audio.currentTime = limit ? saved % limit : saved;
-          } catch (_) {}
-        }, {once:true});
-        audio.addEventListener('timeupdate', saveDarkTrackTime);
+        audio.loop = true;
+        audio.volume = .19;
+        audio.muted = false;
         try {
           await audio.play();
-          if (!failed) return true;
-        } catch (_) {}
-        try { audio.pause(); } catch (_) {}
-        darkLicensedAudio = null;
-        return false;
+          return !audio.paused;
+        } catch (_) {
+          // Safari may reject audible autoplay until the next user gesture.
+          // Keep the preloaded element alive so that gesture can resume it
+          // instantly instead of creating/downloading a new track.
+          return false;
+        }
       }
 
       // Nature recordings are strictly light-mode only.
@@ -570,13 +589,26 @@
       )) return;
 
       audioUnlocked = true;
-      // Direct <audio> playback is the primary path. Resume WebAudio only as a
-      // best-effort fallback for older synthetic effects elsewhere.
       try { ensureAmbientContext(); } catch (_) {}
+
+      if (theme === 'dark') {
+        const audio = ensureDarkTrackElement();
+        darkLicensedAudio = audio;
+        audio.muted = false;
+        audio.volume = .19;
+        audio.play().then(() => {
+          ambientSignature = 'dark';
+          updateAudioButton();
+        }).catch(() => {
+          refreshAmbientAudio(true);
+        });
+        return;
+      }
       refreshAmbientAudio(true);
     }
 
     updateAudioButton();
+    ensureDarkTrackElement();
 
     // Try to continue ambience immediately on browsers that permit it. On
     // iPhone/Safari the context may remain suspended until the next user tap;
@@ -590,6 +622,9 @@
       audioButton.addEventListener('click', () => {
         ambientMuted = !ambientMuted;
         storeAmbientMuted();
+        if (darkTrackElement) darkTrackElement.muted = ambientMuted;
+        if (recordedAmbience) recordedAmbience.muted = ambientMuted;
+        if (birdAudio) birdAudio.muted = ambientMuted;
         if (!ambientMuted) {
           audioUnlocked = true;
           try { ensureAmbientContext(); } catch (_) {}
