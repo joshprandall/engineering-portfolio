@@ -3,6 +3,7 @@ name: Build OSU science-safe overlay
 on:
   push:
     branches: [site-v1-1-knowledge-sync, main]
+  pull_request:
   workflow_dispatch:
 
 permissions:
@@ -101,7 +102,13 @@ jobs:
           python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/portfolio-server.log 2>&1 &
           CHROME=$(command -v google-chrome || command -v chromium || command -v chromium-browser || true)
           if [ -z "$CHROME" ]; then echo 'No Chrome binary available; screenshots unavailable'; exit 0; fi
-          for page in index.html projects.html learn.html qubit-preview-20260921/index.html games/3d-battle-chess/index.html geometric-lab/index.html; do
+          LEARN_DOM=$(timeout 45s "$CHROME" --headless=new --no-sandbox --disable-gpu --disable-dev-shm-usage --virtual-time-budget=8500 --dump-dom "http://127.0.0.1:8765/learn.html" 2>/dev/null || true)
+          grep -Fq 'id="learning-depth"' <<< "$LEARN_DOM" || { echo 'Rendered Learn page is missing the progressive mastery ladder'; exit 1; }
+          grep -Fq 'Doctoral / Research' <<< "$LEARN_DOM" || { echo 'Rendered Learn page is missing the research-depth target'; exit 1; }
+          PATH_DOM=$(timeout 45s "$CHROME" --headless=new --no-sandbox --disable-gpu --disable-dev-shm-usage --virtual-time-budget=8500 --dump-dom "http://127.0.0.1:8765/learn-paths.html?targetDepth=research" 2>/dev/null || true)
+          grep -Fq 'id="vnext-path-band"' <<< "$PATH_DOM" || { echo 'Rendered Paths page is missing mastery-aware band filtering'; exit 1; }
+          grep -Fq 'Doctoral / Research' <<< "$PATH_DOM" || { echo 'Rendered Paths page did not inherit the research target'; exit 1; }
+          for page in index.html projects.html learn.html learn-paths.html qubit-preview-20260921/index.html games/3d-battle-chess/index.html geometric-lab/index.html; do
             name=$(echo "$page" | tr '/.' '--')
             timeout 45s "$CHROME" --headless=new --no-sandbox --disable-gpu --disable-dev-shm-usage --hide-scrollbars --virtual-time-budget=8500 --window-size=390,844 --screenshot="visual-qa/${name}-phone.png" "http://127.0.0.1:8765/$page" >/dev/null 2>&1 || echo "Phone screenshot unavailable for $page"
             timeout 45s "$CHROME" --headless=new --no-sandbox --disable-gpu --disable-dev-shm-usage --hide-scrollbars --virtual-time-budget=8500 --window-size=1440,900 --screenshot="visual-qa/${name}-desktop.png" "http://127.0.0.1:8765/$page" >/dev/null 2>&1 || echo "Desktop screenshot unavailable for $page"
