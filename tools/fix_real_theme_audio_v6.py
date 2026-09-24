@@ -28,7 +28,7 @@ for path in ROOT.rglob("*.html"):
         shutil.copy2(path, dest)
         html_files.append(path)
 
-url = "https://raw.githubusercontent.com/joshprandall/engineering-portfolio/d8daf9124a3a8d7a15f6c930b930edf1134d0ee2/site-scenes.js"
+url = "https://raw.githubusercontent.com/joshprandall/engineering-portfolio/a03484622feb8bc38fcaf36ca5e101b913d84cb6/site-scenes.js"
 with urllib.request.urlopen(url, timeout=25) as response:
     data = response.read()
 if len(data) < 5000:
@@ -62,6 +62,7 @@ checks = {
     "real waterfall": "Water%20fall.ogg" in scenes,
     "real shorebirds": "Cape%20May%20Shorebirds%20closer.ogg" in scenes,
     "dark licensed hook": "assets/audio/dark-theme.mp3" in scenes,
+    "dark position persistence": "DARK_TRACK_TIME_KEY" in scenes and "saveDarkTrackTime" in scenes,
     "mute persistence": "AMBIENT_AUDIO_KEY" in scenes,
     "project lesson suppression": "ambientLockedByPage" in scenes and "lessonIsOpen()" in scenes,
 }
