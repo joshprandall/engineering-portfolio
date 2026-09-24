@@ -420,3 +420,66 @@ html[data-theme="light"] .vnext-cosmos .vnext-sys-meta{
   text-shadow:none!important;
   -webkit-text-stroke:0 transparent!important;
 }
+
+
+/* Solar orbit v10 — synchronized geometry and lane clearance. */
+.home-page .vnext-cosmos-scene,
+body[data-library-page="home"] .knowledge-solar-slot .vnext-cosmos-scene{
+  height:clamp(500px,52vw,560px)!important;
+  min-height:500px!important;
+}
+.home-page .vnext-cosmos-core,
+body[data-library-page="home"] .knowledge-solar-slot .vnext-cosmos-core{
+  width:66px!important;
+  height:66px!important;
+  top:50%!important;
+}
+.home-page .vnext-world,
+body[data-library-page="home"] .knowledge-solar-slot .vnext-world{
+  width:104px!important;
+  min-height:108px!important;
+}
+.home-page .vnext-world strong,
+body[data-library-page="home"] .knowledge-solar-slot .vnext-world strong{
+  display:block!important;
+}
+.vnext-world.selected .vnext-planet{transform:scale(1.08)!important}
+.vnext-world:hover .vnext-planet{transform:scale(1.06)}
+@media(max-width:600px){
+  .home-page .vnext-cosmos-scene,
+  body[data-library-page="home"] .knowledge-solar-slot .vnext-cosmos-scene{
+    height:380px!important;
+    min-height:380px!important;
+  }
+  .home-page .vnext-cosmos-core,
+  body[data-library-page="home"] .knowledge-solar-slot .vnext-cosmos-core{
+    width:60px!important;
+    height:60px!important;
+  }
+  .home-page .vnext-world,
+  body[data-library-page="home"] .knowledge-solar-slot .vnext-world{
+    width:72px!important;
+    min-height:78px!important;
+  }
+  .home-page .vnext-world strong,
+  body[data-library-page="home"] .knowledge-solar-slot .vnext-world strong{
+    font-size:.58rem!important;
+  }
+}
+@media(max-width:349px){
+  .home-page .vnext-cosmos-scene,
+  body[data-library-page="home"] .knowledge-solar-slot .vnext-cosmos-scene{
+    height:360px!important;
+    min-height:360px!important;
+  }
+  .home-page .vnext-cosmos-core,
+  body[data-library-page="home"] .knowledge-solar-slot .vnext-cosmos-core{
+    width:52px!important;
+    height:52px!important;
+  }
+  .home-page .vnext-world,
+  body[data-library-page="home"] .knowledge-solar-slot .vnext-world{
+    width:64px!important;
+    min-height:70px!important;
+  }
+}
