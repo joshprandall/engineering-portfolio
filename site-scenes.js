@@ -49,6 +49,7 @@
   };
   const BEACH_BIRDS_AUDIO = 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Cape%20May%20Shorebirds%20closer.ogg';
   const DARK_LICENSED_TRACK = new URL('assets/audio/dark-theme.mp3', SITE_BASE).href;
+  const DARK_TRACK_TIME_KEY = 'jr-dark-theme-time-v1';
   const PROJECT_AUDIO_RE = /(?:^|\/)(?:project-[^/]+\.html|play-evil-wizard\.html|agent-workbench\.html|games\/|geometric-lab\/|qubit-preview-20260921\/|deep-learning\/)/i;
 
   const boot = () => {
@@ -255,6 +256,23 @@
       }
     }
 
+    function savedDarkTrackTime() {
+      try {
+        const value = Number(localStorage.getItem(DARK_TRACK_TIME_KEY) || 0);
+        return Number.isFinite(value) && value >= 0 ? value : 0;
+      } catch (_) {
+        return 0;
+      }
+    }
+
+    function saveDarkTrackTime() {
+      if (!darkLicensedAudio) return;
+      try {
+        const value = Number(darkLicensedAudio.currentTime || 0);
+        if (Number.isFinite(value) && value >= 0) localStorage.setItem(DARK_TRACK_TIME_KEY, String(value));
+      } catch (_) {}
+    }
+
     function createAudioTrack(src, {loop=true, volume=.18}={}) {
       const audio = new Audio();
       audio.src = src;
@@ -301,6 +319,14 @@
         darkLicensedAudio = audio;
         let failed = false;
         audio.addEventListener('error', () => { failed = true; }, {once:true});
+        audio.addEventListener('loadedmetadata', () => {
+          try {
+            const saved = savedDarkTrackTime();
+            const limit = Number.isFinite(audio.duration) && audio.duration > 0 ? audio.duration : 0;
+            audio.currentTime = limit ? saved % limit : saved;
+          } catch (_) {}
+        }, {once:true});
+        audio.addEventListener('timeupdate', saveDarkTrackTime);
         try {
           await audio.play();
           if (!failed) return true;
@@ -937,6 +963,7 @@
 
     addEventListener('resize', resize, { passive: true });
     addEventListener('pagehide', () => {
+      saveDarkTrackTime();
       pauseVideos();
       stopAmbientNodes();
       stopRecordedAmbience();
