@@ -66,13 +66,9 @@ module.exports = async ({ browser, base, output, failures }) => {
     await page.evaluate(mode => PortfolioTheme.setTheme(mode), mode);
     let image = await pixels(); await page.waitForTimeout(400);
     assert.notEqual(await pixels(), image, mode + ': scenery moves');
-    await page.locator('.scene-options [data-scene-motion]').click();
-    image = await pixels(); await page.waitForTimeout(250);
-    assert.equal(await pixels(), image, mode + ': pause freezes scenery');
-    await open('projects.html');
-    assert.equal(await page.locator('body').getAttribute('data-motion'), 'paused', 'Pause survives navigation');
-    await page.locator('.scene-options [data-scene-motion]').click();
-    await open('index.html');
+    assert.equal(await page.locator('.scene-options [data-scene-motion]').count(), 0, mode + ': no legacy motion toggle');
+    assert(await page.locator('.scene-options [data-scene-audio]').isVisible(), mode + ': ambience mute control visible');
+    assert.equal(await page.locator('body').getAttribute('data-motion'), 'running', mode + ': site motion remains running');
     await page.evaluate(() => scrollTo({ top: 0, behavior: 'instant' }));
     if (output) {
       for (const [name, width, height] of [['phone', 390, 844], ['desktop', 1440, 1000]]) {
@@ -88,10 +84,9 @@ module.exports = async ({ browser, base, output, failures }) => {
   await page.evaluate(() => localStorage.removeItem('jr-site-motion'));
   await page.evaluate(() => localStorage.removeItem('jr-knowledge-motion'));
   await open('projects.html');
-  assert.equal(await page.locator('body').getAttribute('data-motion'), 'paused', 'System reduced motion is respected by default');
-  let frozen = await pixels(); await page.waitForTimeout(250); assert.equal(await pixels(), frozen);
-  await page.locator('.scene-options [data-scene-motion]').click();
-  assert.equal(await page.locator('body').getAttribute('data-motion'), 'running', 'Explicit motion choice overrides default');
+  assert.equal(await page.locator('body').getAttribute('data-motion'), 'running', 'Approved always-on scene motion remains running');
+  assert.equal(await page.locator('.scene-options [data-scene-motion]').count(), 0, 'No hidden legacy motion toggle is reintroduced');
+  let moving = await pixels(); await page.waitForTimeout(250); assert.notEqual(await pixels(), moving, 'Scenery remains animated');
   await page.emulateMedia({ reducedMotion: 'no-preference' });
 
   // Private/storage-restricted browsers still get usable controls and an in-tab fallback.
