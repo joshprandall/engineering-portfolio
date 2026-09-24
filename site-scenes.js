@@ -36,7 +36,7 @@
   ];
 
   const ROTATE_AFTER = 28;
-  const AMBIENT_AUDIO_KEY = 'jr-site-ambient-muted-v1';
+  const AMBIENT_AUDIO_KEY = 'jr-site-ambient-muted-v2';
 
   // Real nature recordings. River + beach are CC0, shorebirds are U.S. federal
   // public domain, and the waterfall recording is used as a looped field clip.
@@ -286,7 +286,7 @@
 
     function ensureDarkTrackElement() {
       if (darkTrackElement) return darkTrackElement;
-      const audio = createAudioTrack(DARK_LICENSED_TRACK, {loop:true, volume:.19});
+      const audio = createAudioTrack(DARK_LICENSED_TRACK, {loop:true, volume:.24});
       audio.id = 'site-dark-theme-audio';
       audio.setAttribute('aria-hidden','true');
       audio.addEventListener('loadedmetadata', () => {
@@ -354,7 +354,7 @@
         const audio = ensureDarkTrackElement();
         darkLicensedAudio = audio;
         audio.loop = true;
-        audio.volume = .19;
+        audio.volume = .24;
         audio.muted = false;
         try {
           await audio.play();
@@ -595,7 +595,7 @@
         const audio = ensureDarkTrackElement();
         darkLicensedAudio = audio;
         audio.muted = false;
-        audio.volume = .19;
+        audio.volume = .24;
         audio.play().then(() => {
           ambientSignature = 'dark';
           updateAudioButton();
