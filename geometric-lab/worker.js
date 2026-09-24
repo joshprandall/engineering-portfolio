@@ -1,4 +1,4 @@
-importScripts('math.js');
+importScripts('math.js?v=20260924-research-v2');
 self.onmessage=e=>{
   try{
     const t=performance.now();
