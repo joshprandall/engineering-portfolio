@@ -69,6 +69,7 @@ Canvas rotation supports pointer dragging, arrow keys, plus/minus, and zoom butt
 
 ## Primary sources
 
+- Vijendran, Deng, Chen, Ho & Shum, Artificial Intelligence for Geometry-Based Feature Extraction, Analysis and Synthesis in Artistic Images (2025): https://doi.org/10.1007/s10462-024-11051-3 ; manuscript https://arxiv.org/abs/2412.01450. Contextual survey; no image-analysis model from this paper is claimed as implemented here.
 - Quackenbush & Atzberger, Geometric Neural Operators (2024): https://doi.org/10.1088/2632-2153/ad8980 ; manuscript https://arxiv.org/abs/2404.10843
 - Transferable Foundation Models for Geometric Tasks on Point Cloud Representations (2025): https://doi.org/10.1088/2632-2153/ae1bf8 ; manuscript https://arxiv.org/abs/2503.04649
 - Extending Neural Operators: Robust Handling of Functions Beyond the Training Set (2026 preprint): https://arxiv.org/abs/2603.03621
