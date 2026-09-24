@@ -1031,3 +1031,38 @@ html[data-theme="light"] .living-scenes *{
   text-shadow:none!important;
   -webkit-text-stroke:0 transparent!important;
 }
+
+
+/* 2026-09-24 learning light-mode typography correction.
+   Match the portfolio's local sans face and keep the circled header/kicker copy true black.
+   JR remains the intentional copper brand accent. */
+body[data-library-page="home"]{
+  --sans:"DM Sans",Arial,sans-serif;
+}
+:root[data-theme="light"] body.living-scenes[data-library-page="home"] .site-header .brand>span{
+  color:#000!important;
+  font-family:"DM Sans",Arial,sans-serif!important;
+  font-size:.92rem;
+  font-weight:700!important;
+  line-height:1.35!important;
+  letter-spacing:0!important;
+  text-shadow:none!important;
+  -webkit-text-stroke:0 transparent!important;
+  -webkit-font-smoothing:auto;
+}
+:root[data-theme="light"] body.living-scenes[data-library-page="home"] .site-header .brand>strong{
+  color:#954418!important;
+  font-family:"DM Sans",Arial,sans-serif!important;
+  font-weight:700!important;
+  text-shadow:none!important;
+  -webkit-text-stroke:0 transparent!important;
+}
+:root[data-theme="light"] body.living-scenes[data-library-page="home"] .hero .eyebrow{
+  color:#000!important;
+  font-family:"DM Sans",Arial,sans-serif!important;
+  font-weight:700!important;
+  letter-spacing:.14em!important;
+  text-shadow:none!important;
+  -webkit-text-stroke:0 transparent!important;
+  -webkit-font-smoothing:auto;
+}
