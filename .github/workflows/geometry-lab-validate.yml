@@ -1,0 +1,38 @@
+name: Geometry Lab browser validation
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'geometric-lab/**'
+      - 'tests/geometry-browser.test.cjs'
+      - '.github/workflows/geometry-lab-validate.yml'
+  pull_request:
+    paths:
+      - 'geometric-lab/**'
+      - 'tests/geometry-browser.test.cjs'
+      - '.github/workflows/geometry-lab-validate.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  geometry-browser:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm ci
+      - name: Resolve browser
+        shell: bash
+        run: |
+          CHROME=$(command -v google-chrome || command -v chromium || command -v chromium-browser || true)
+          if [ -z "$CHROME" ]; then npx playwright install --with-deps chromium; fi
+          echo "PORTFOLIO_BROWSER_EXECUTABLE=$CHROME" >> "$GITHUB_ENV"
+      - name: Exercise Geometry Lab research interactions
+        run: node tests/geometry-browser.test.cjs
