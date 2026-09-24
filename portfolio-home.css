@@ -448,3 +448,109 @@
   overflow:visible!important;
   filter:drop-shadow(0 18px 28px rgba(0,0,0,.38))!important
 }
+
+
+/* Hero/profile swap v1 — portrait at top, solar in About. */
+.home-page .hero>.about-imagery{
+  width:100%;
+  margin:0;
+  align-self:center;
+}
+.home-page .about-story>.vnext-cosmos{
+  width:100%;
+  align-self:center;
+}
+.portrait-card-copy{
+  max-width:54ch;
+}
+.portrait-card-copy .portrait-name{
+  font-weight:900!important;
+  font-size:1.14rem!important;
+  letter-spacing:.01em!important;
+}
+.portrait-card-copy .credential-row{
+  display:grid!important;
+  grid-template-columns:82px minmax(0,1fr)!important;
+  align-items:center!important;
+  gap:12px!important;
+  margin-top:10px!important;
+  text-align:left!important;
+}
+.portrait-card-copy .credential-text{
+  display:block!important;
+  margin:0!important;
+  color:var(--ink)!important;
+  font-weight:800!important;
+  font-size:.68rem!important;
+  line-height:1.45!important;
+}
+.credential-logo{
+  display:grid!important;
+  place-items:center!important;
+  width:82px!important;
+  min-width:82px!important;
+  height:42px!important;
+  margin:0!important;
+  border-radius:8px!important;
+  opacity:1!important;
+  -webkit-backdrop-filter:none!important;
+  backdrop-filter:none!important;
+  box-shadow:0 4px 14px rgba(0,0,0,.28)!important;
+  overflow:hidden!important;
+}
+.credential-logo-osu{
+  background:#fff!important;
+  border:1px solid rgba(0,0,0,.12)!important;
+}
+.credential-logo-osu img{
+  display:block!important;
+  width:72px!important;
+  height:auto!important;
+  max-height:32px!important;
+  object-fit:contain!important;
+  opacity:1!important;
+  filter:none!important;
+}
+.credential-logo-mit{
+  background:#a31f34!important;
+  color:#fff!important;
+  border:1px solid rgba(0,0,0,.14)!important;
+  font:900 1.18rem/1 Arial,Helvetica,sans-serif!important;
+  letter-spacing:-.06em!important;
+}
+@media(max-width:600px){
+  .home-page .hero>.about-imagery{
+    min-height:470px!important;
+  }
+  .portrait-card-copy .credential-row{
+    grid-template-columns:68px minmax(0,1fr)!important;
+    gap:9px!important;
+    margin-top:8px!important;
+  }
+  .credential-logo{
+    width:68px!important;
+    min-width:68px!important;
+    height:38px!important;
+  }
+  .credential-logo-osu img{
+    width:60px!important;
+    max-height:28px!important;
+  }
+  .portrait-card-copy .credential-text{
+    font-size:.62rem!important;
+    line-height:1.42!important;
+  }
+}
+@media(max-width:390px){
+  .portrait-card-copy .credential-row{
+    grid-template-columns:62px minmax(0,1fr)!important;
+    gap:8px!important;
+  }
+  .credential-logo{
+    width:62px!important;
+    min-width:62px!important;
+    height:36px!important;
+  }
+  .credential-logo-osu img{width:55px!important}
+  .portrait-card-copy .credential-text{font-size:.585rem!important}
+}
