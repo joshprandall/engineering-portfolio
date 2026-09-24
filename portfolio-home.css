@@ -439,3 +439,12 @@
   .about-imagery{min-height:470px;padding-bottom:154px!important}
   .portrait-photo{bottom:126px!important;width:min(66%,275px)!important}
 }
+
+/* Portrait v5 — inline SVG cutout avoids external-SVG and WebP decoding edge cases. */
+.portrait-photo svg{
+  display:block!important;
+  width:100%!important;
+  height:auto!important;
+  overflow:visible!important;
+  filter:drop-shadow(0 18px 28px rgba(0,0,0,.38))!important
+}
