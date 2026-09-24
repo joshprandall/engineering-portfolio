@@ -32,7 +32,7 @@ async function run(){
    console.log('Loaded '+name);assert.equal(await page.locator('body').evaluate(e=>getComputedStyle(e).backgroundColor),'rgb(16, 20, 22)','Dark theme actually renders');assert.equal(await page.locator('.vnext-world').count(),5,'Five selectable planets');
    for(const label of ['Build','Secure','Automate','Evolve','Architect']){
     const world=page.locator('.vnext-world').filter({has:page.locator('strong',{hasText:label})}).first();
-    await world.click();
+    await world.evaluate(el=>el.click());
     assert.equal(await world.getAttribute('aria-pressed'),'true');
     assert.match(await page.locator('.vnext-sys-meta').innerText(),new RegExp(label,'i'));
    }
