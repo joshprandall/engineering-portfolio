@@ -41,23 +41,24 @@
   function draw() {
     if(!width||!height)return;
     const w=width,h=height,cx=w/2,cy=h*.46;
+    const light=document.documentElement.dataset.theme==='light';
     ctx.clearRect(0,0,w,h);
     // Keep the canvas transparent so the Bell-state illustration floats over the living scene.
-    ctx.lineWidth=.5;ctx.strokeStyle='#50728224';
+    ctx.lineWidth=light?.7:.5;ctx.strokeStyle=light?'#79aebb55':'#50728224';
     for(let i=-7;i<=7;i++){ctx.beginPath();ctx.moveTo(cx+i*w*.024,h*.63);ctx.lineTo(cx+i*w*.17,h);ctx.stroke();}
     for(let i=0;i<6;i++){const y=h*.65+(h*.35)*(i/5)**1.7;ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(w,y);ctx.stroke();}
-    for(let i=0;i<48;i++){const x=((i*137+41)%997)/997*w,y=((i*191+67)%991)/991*h*.72;ctx.fillStyle=`rgba(150,205,220,${.16+(i%4)*.08})`;ctx.fillRect(x,y,1,1);}
+    for(let i=0;i<48;i++){const x=((i*137+41)%997)/997*w,y=((i*191+67)%991)/991*h*.72;ctx.fillStyle=light?`rgba(177,232,240,${.28+(i%4)*.09})`:`rgba(150,205,220,${.16+(i%4)*.08})`;ctx.fillRect(x,y,light?1.25:1,light?1.25:1);}
     const ax=w*.25,bx=w*.75,s=Math.min(38,w*.083);
     // Shared-state ribbon: conceptual artwork, not a propagating physical signal.
     for(let n=0;n<2;n++){
-      ctx.beginPath();ctx.lineWidth=1;ctx.strokeStyle=n?'#eab68765':'#78ddec95';
+      ctx.beginPath();ctx.lineWidth=light?1.45:1;ctx.strokeStyle=n?(light?'#ffc99aa8':'#eab68765'):(light?'#8cecf6c4':'#78ddec95');
       for(let i=0;i<=100;i++){const u=i/100,x=ax+(bx-ax)*u,y=cy+Math.sin(u*Math.PI*4+time*.7+n*Math.PI)*Math.sin(u*Math.PI)*h*.09;i?ctx.lineTo(x,y):ctx.moveTo(x,y);}
       ctx.stroke();
     }
     cube(ax,cy,s,time*.26,'#86e0ed');cube(bx,cy,s,-time*.26+.7,'#edbc91');
     cube(cx,cy,s*.46,time*.18+.3,'#a7e9f0');
-    ctx.fillStyle='#aec9d4';ctx.textAlign='center';ctx.font='10px system-ui,sans-serif';ctx.fillText('QUBIT A',ax,cy+s*2.1);ctx.fillText('QUBIT B',bx,cy+s*2.1);
-    ctx.fillStyle='#79b2c1';ctx.font='9px system-ui,sans-serif';ctx.fillText('ONE JOINT QUANTUM STATE',cx,h*.9);
+    ctx.fillStyle=light?'#f5fdff':'#aec9d4';ctx.textAlign='center';ctx.font=light?'800 11px system-ui,sans-serif':'700 10px system-ui,sans-serif';ctx.fillText('QUBIT A',ax,cy+s*2.1);ctx.fillText('QUBIT B',bx,cy+s*2.1);
+    ctx.fillStyle=light?'#9cebf4':'#79b2c1';ctx.font=light?'800 10px system-ui,sans-serif':'700 9px system-ui,sans-serif';ctx.fillText('ONE JOINT QUANTUM STATE',cx,h*.9);
   }
   function resize(){const r=canvas.getBoundingClientRect(),d=Math.min(devicePixelRatio||1,2);width=r.width;height=r.height;canvas.width=Math.max(2,Math.round(width*d));canvas.height=Math.max(2,Math.round(height*d));ctx.setTransform(d,0,0,d,0,0);draw();}
   function tick(now){raf=0;const dt=Math.min((now-last)/1000||.016,.04);last=now;if(!paused&&!reduced.matches&&document.body.dataset.motion!=='paused')time+=dt;draw();schedule();}
@@ -66,6 +67,7 @@
   pause.addEventListener('click',()=>{paused=!paused;pauseLabel();draw();schedule();});
   reduced.addEventListener('change',()=>{paused=reduced.matches;pauseLabel();draw();schedule();});
   document.addEventListener('portfolio:motion',()=>{draw();schedule();});
+  new MutationObserver((changes)=>{if(changes.some(change=>change.attributeName==='data-theme'))draw();}).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
   document.addEventListener('visibilitychange',schedule);
   new ResizeObserver(resize).observe(canvas);
   new IntersectionObserver(([entry])=>{visible=entry.isIntersecting;schedule();},{rootMargin:'120px'}).observe(canvas);
