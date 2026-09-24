@@ -567,9 +567,9 @@
 }
 
 
-/* Hero portrait vertical alignment v2 — raise headshot on phones. */
+/* Hero portrait vertical alignment v3 — align the bottom of the headshot with the top edge of the profile card on phones. */
 @media(max-width:600px){
   .home-page .hero>.about-imagery .portrait-photo{
-    bottom:206px!important;
+    bottom:180px!important;
   }
 }
