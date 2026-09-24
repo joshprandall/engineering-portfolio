@@ -395,3 +395,28 @@ html[data-theme="light"] body.home-page .vnext-cosmos .vnext-sys-meta{
   text-shadow:none!important;
   -webkit-text-stroke:0 transparent!important;
 }
+
+
+/* Light solar typography v9 sitewide — zero halo. */
+html[data-theme="light"] .vnext-cosmos .vnext-world strong,
+html[data-theme="light"] .vnext-cosmos .vnext-sys-detail h2,
+html[data-theme="light"] .vnext-cosmos .vnext-sys-detail p,
+html[data-theme="light"] .vnext-cosmos .vnext-cta{
+  color:#000000!important;
+  text-shadow:none!important;
+  -webkit-text-stroke:0 transparent!important;
+}
+html[data-theme="light"] .vnext-cosmos .vnext-world strong,
+html[data-theme="light"] .vnext-cosmos .vnext-sys-detail h2{
+  font-weight:900!important;
+}
+html[data-theme="light"] .vnext-cosmos .vnext-sys-detail p,
+html[data-theme="light"] .vnext-cosmos .vnext-cta{
+  font-weight:750!important;
+}
+html[data-theme="light"] .vnext-cosmos .vnext-sys-meta{
+  color:#4a1606!important;
+  font-weight:900!important;
+  text-shadow:none!important;
+  -webkit-text-stroke:0 transparent!important;
+}
