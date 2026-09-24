@@ -35,7 +35,7 @@ function generate(shape='torus',n=1200,scale=1,noise=0,seed=42){
       const no=unit([-x,1,z]);
       const K=-1/(scale*scale*(1+x*x+z*z)**2);
       const H=(z*z-x*x)/(2*scale*(1+x*x+z*z)**1.5);
-      const edgeWeight=(gx===0||gx===m-1?.5:1)*(gy===0||gy===m-1?.5:1);
+      const edgeWeight=(gx===0||gx===m-1 ? .5 : 1)*(gy===0||gy===m-1 ? .5 : 1);
       points.push(p.map(v=>v+normal(rng)*noise*scale));
       truth.push(K);normals.push(no);truthMeanAbs.push(Math.abs(H));
       areaWeights.push(scale*scale*step*step*Math.sqrt(1+x*x+z*z)*edgeWeight);
