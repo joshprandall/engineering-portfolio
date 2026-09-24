@@ -119,6 +119,8 @@ assert.match(read('knowledge.js'),/Research bridge/,'Lesson learning modes must 
 assert.match(read('knowledge.js'),/graduate-style reading habits/,'Research Bridge must explain its academic-depth boundary');
 assert.match(learningNext,/vnext-path-band/,'Learning paths must expose verified path-band filtering');
 assert.match(learningNext,/jr-knowledge-depth-target-v1/,'Learning paths must respect the selected mastery target');
+assert.match(learningDepth,/data-depth-summary="compact"/,'Subpage target-depth context must avoid repeating the target title');
+assert.match(read('learning-next.css'),/data-library-page="paths"[^}]*learn-page-intro/,'Learning Paths must suppress the redundant generic page intro');
 assert.match(learningDepthCss,/\.depth-ladder/,'Progressive mastery ladder styling missing');
 const overlayWorkflow=read('.github/workflows/build-osu-overlay.yml');
 assert.match(overlayWorkflow,/forbidden_prefixes=\('games\/',\s*'geometric-lab\/'\)/,'OSU overlay must forbid game and Geometric AI trees');
