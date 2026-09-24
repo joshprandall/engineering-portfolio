@@ -127,7 +127,7 @@ async function run(){
   await page.waitForFunction(()=>/Computed .* local differential-geometry fits/.test(document.querySelector('#status')?.textContent||''));
   assert.match(await page.locator('#metrics').innerText(),/K MAE/,'Geometry live-fit metrics missing');
   const sceneBox=await page.locator('#scene').boundingBox();
-  await page.mouse.click(sceneBox.x+sceneBox.width/2,sceneBox.y+sceneBox.height/2);
+  await page.locator('#scene').click({position:{x:sceneBox.width/2,y:sceneBox.height/2}});
   assert(await page.locator('#point-inspector').isVisible(),'Geometry point inspector must open from a tap/click');
 
   await page.locator('[data-tab="topology"]').click();
