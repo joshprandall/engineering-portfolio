@@ -44,7 +44,7 @@ async function run(){
     assert.match(fitText,/K MAE/);assert.match(fitText,/K RMSE/);assert.match(fitText,/95% \|K error\|/);
 
     const box=await page.locator('#scene').boundingBox();
-    await page.mouse.click(box.x+box.width/2,box.y+box.height/2);
+    await page.locator('#scene').click({position:{x:box.width/2,y:box.height/2}});
     assert(await page.locator('#point-inspector').isVisible(),'Point inspector did not open');
     assert.match(await page.locator('#point-inspector').innerText(),/Estimated K/);
 
