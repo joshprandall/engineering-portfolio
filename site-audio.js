@@ -18,12 +18,19 @@
     beach: new URL('assets/audio/beach.mp3', base).href
   };
 
+  // Hard ceiling for all background ambience/music. This caps the website's
+  // own media gain at 15% even when the visitor's device volume is at 100%.
+  const MAX_BACKGROUND_VOLUME = .15;
   const VOLUME = {
-    dark: .26,
-    river: .26,
-    waterfall: .27,
-    beach: .28
+    dark: .15,
+    river: .15,
+    waterfall: .15,
+    beach: .15
   };
+
+  function cappedVolume(key) {
+    return Math.min(MAX_BACKGROUND_VOLUME, Math.max(0, Number(VOLUME[key] ?? MAX_BACKGROUND_VOLUME)));
+  }
 
   let sceneId = 'forest-river';
   let suppressed = PROJECT_RE.test(location.pathname);
@@ -105,7 +112,7 @@
     currentKey = nextKey;
     audio.loop = true;
     audio.muted = false;
-    audio.volume = VOLUME[nextKey];
+    audio.volume = cappedVolume(nextKey);
     audio.src = SOURCES[nextKey];
 
     audio.onloadedmetadata = () => {
@@ -129,7 +136,7 @@
     switchSource(key);
     audio.loop = true;
     audio.muted = false;
-    audio.volume = VOLUME[key];
+    audio.volume = cappedVolume(key);
 
     try {
       const p = audio.play();
@@ -205,6 +212,13 @@
     console.error('JR site audio failed:', currentKey, audio.currentSrc, audio.error);
   });
 
+  // Enforce the 15% ceiling even if another script tries to raise the player.
+  audio.addEventListener('volumechange', () => {
+    if (audio.volume > MAX_BACKGROUND_VOLUME) {
+      audio.volume = MAX_BACKGROUND_VOLUME;
+    }
+  });
+
   setInterval(() => {
     const key = desiredKey();
     if (!key) {
@@ -225,6 +239,7 @@
     get scene(){ return sceneId; },
     get theme(){ return theme(); },
     get muted(){ return muted(); },
+    get maxVolume(){ return MAX_BACKGROUND_VOLUME; },
     get element(){ return audio; }
   });
 })();
