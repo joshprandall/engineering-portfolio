@@ -38,8 +38,8 @@ body.living-scenes{position:relative;isolation:isolate;min-height:100vh;backgrou
 :root[data-theme=light] .scene-veil{background:rgba(234,245,236,var(--scene-wash))}
 
 /* Main-page cards have a visible edge, a tint and blur; never element opacity. */
-:root[data-scene-surface=glass] .living-scenes :is(.home-project,.project-card,.education-cards article,.domain-card,.principle-grid article,.home-spotlight,.stat-band,.verification-strip,.resume-strip,.learn-page-nav,.glass-surface){
- background:var(--scene-surface);border:1px solid var(--scene-border);border-radius:var(--scene-radius);
+:root[data-scene-surface=glass] .living-scenes :is(.home-project,.project-card,.education-cards article,.domain-card,.principle-grid article,.home-spotlight,.stats>div,.verification-inner,.resume-inner,.learn-page-nav,.glass-surface){
+ background:var(--scene-surface)!important;border:1px solid var(--scene-border)!important;border-radius:var(--scene-radius)!important;
  box-shadow:var(--scene-shadow);backdrop-filter:blur(14px) saturate(1.12);-webkit-backdrop-filter:blur(14px) saturate(1.12);
  color:var(--ink);transition:background-color 1.2s ease,border-color .2s,box-shadow .2s,color 1.2s ease
 }
@@ -180,3 +180,20 @@ body[data-library-page=home] .depth-heading h2{font-size:clamp(2rem,4vw,3.6rem)}
 body[data-library-page=home] .depth-ladder strong{font-size:1.15rem;margin-block:12px}
 body[data-library-page=home] .depth-ladder button p{font-size:.9rem!important;margin-top:14px}
 @media(max-width:600px){html:has(body.living-scenes){font-size:17px}body.living-scenes .scene-options p{max-width:none}.scene-options{align-items:flex-start}.home-page .hero-note{flex-wrap:wrap!important}.home-page .hero-note span+span{border:0;padding-left:0}.home-page .hero h1{font-size:clamp(2.25rem,10.2vw,3.5rem)}body.living-scenes .vnext-cosmos .vnext-sys-detail h2{font-size:1.35rem}body.living-scenes .vnext-sys-top{font-size:.7rem!important}.home-page .contact-actions{min-width:0}body.living-scenes .hero .eyebrow{font-size:.72rem!important}}
+
+/* Preserve the latest floating labels and compact, separate learning cards. */
+body.living-scenes .vnext-world strong{display:block!important;color:var(--ink)!important;background:transparent!important;border:0!important;box-shadow:none!important;text-shadow:none!important;-webkit-text-stroke:0!important;font-size:.82rem!important;font-weight:750;backdrop-filter:none!important}
+body.living-scenes .vnext-world.selected strong{color:var(--accent)!important}
+body.living-scenes .vnext-sys-detail :is(h2,p,a){text-shadow:none!important;-webkit-text-stroke:0!important}
+body.living-scenes .vnext-sys-detail h2{color:var(--ink)!important}
+body.living-scenes .vnext-sys-detail p{color:var(--muted)!important}
+body.living-scenes .vnext-sys-detail a{color:var(--blue)!important}
+body.living-scenes .quantum-stage{background:transparent;border:0;backdrop-filter:none;box-shadow:none}
+body.living-scenes .quantum-controls,body.living-scenes #bell-result{background:var(--scene-surface);border-radius:12px;border:1px solid var(--scene-border);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+body.living-scenes .quantum-stage-label{color:var(--ink)}
+body.living-scenes .quantum-stage-label button{font-size:.82rem;font-weight:650;min-height:44px}
+body[data-library-page=home] :is(.stat-band,.verification-strip,.resume-strip){background:transparent!important;border:0!important;box-shadow:none!important;backdrop-filter:none!important}
+body[data-library-page=home] .stats{gap:14px;border:0!important}
+body[data-library-page=home] .stats>div{padding:18px;min-width:0}
+body.living-scenes :is(td,th){font-size:.9rem;line-height:1.65}
+@media(max-width:520px){body[data-library-page=home] .stats{grid-template-columns:repeat(2,minmax(0,1fr))!important}body[data-library-page=home] .stats>div:last-child{grid-column:1/-1}}

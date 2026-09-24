@@ -182,3 +182,11 @@
 .academic-mark.mit{padding:12px}
 @media(max-width:900px){.about-imagery{max-width:540px;margin-inline:auto}.portrait-composition{aspect-ratio:1.2}.portrait-cutout{width:76%}}
 @media(max-width:600px){.portrait-composition{aspect-ratio:1.08}.portrait-cutout{width:94%}.portrait-name{font-size:1.45rem}.academic-line{grid-template-columns:64px minmax(0,1fr);gap:12px}.academic-mark{width:64px;min-height:48px}.academic-line p{font-size:.73rem}.academic-line strong{font-size:.8rem}}
+
+/* Retain the current embedded portrait and the container-free Bell-pair animation. */
+.portrait-composition .portrait-photo{position:relative;left:auto;top:auto;bottom:auto;width:88%;height:auto;margin:0 auto;padding:0;background:transparent;border:0;box-shadow:none;transform:none}
+.portrait-composition .portrait-photo img{display:block;width:100%;height:auto;border-radius:0}
+.quantum-banner{display:none}
+.quantum-stage{background:transparent;border:0;box-shadow:none}
+.quantum-stage-label,.quantum-controls,#bell-result{background:transparent}
+#quantum-cube{background:transparent}

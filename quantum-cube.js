@@ -42,8 +42,7 @@
     if(!width||!height)return;
     const w=width,h=height,cx=w/2,cy=h*.46;
     ctx.clearRect(0,0,w,h);
-    const bg=ctx.createRadialGradient(cx,cy,0,cx,cy,w*.6);
-    bg.addColorStop(0,'#122d3a');bg.addColorStop(1,'#040d16');ctx.fillStyle=bg;ctx.fillRect(0,0,w,h);
+    // Keep the canvas transparent so the Bell-state illustration floats over the living scene.
     ctx.lineWidth=.5;ctx.strokeStyle='#50728224';
     for(let i=-7;i<=7;i++){ctx.beginPath();ctx.moveTo(cx+i*w*.024,h*.63);ctx.lineTo(cx+i*w*.17,h);ctx.stroke();}
     for(let i=0;i<6;i++){const y=h*.65+(h*.35)*(i/5)**1.7;ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(w,y);ctx.stroke();}

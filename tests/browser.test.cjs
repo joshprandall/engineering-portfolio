@@ -32,10 +32,14 @@ async function run(){
    console.log('Checking '+name);await page.setViewportSize({width,height});await page.goto(base+'/',{waitUntil:'networkidle'});
    console.log('Loaded '+name);assert.equal(await page.locator('body').evaluate(e=>getComputedStyle(e).backgroundColor),'rgb(16, 20, 22)','Dark theme actually renders');assert.equal(await page.locator('.vnext-world').count(),5,'Five selectable planets');
    for(const label of ['Build','Secure','Automate','Evolve','Architect']){
-    await page.getByRole('button',{name:'Select '+label,exact:true}).press('Enter');
-    assert.equal(await page.getByRole('tab',{name:label,exact:true,includeHidden:true}).getAttribute('aria-selected'),'true');
+    const world=page.locator('.vnext-world').filter({has:page.locator('strong',{hasText:label})}).first();
+    await world.press('Enter');
+    assert.equal(await world.getAttribute('aria-pressed'),'true');
     assert.match(await page.locator('.vnext-sys-meta').innerText(),new RegExp(label,'i'));
    }
+   assert.equal(await page.locator('.vnext-system-tabs').count(),0,'Top solar capability buttons are removed');
+   assert.equal(await page.locator('.vnext-sys-top').count(),0,'Solar top status strip is removed');
+   assert.equal(await page.locator('.vnext-cosmos-hint').count(),0,'Solar hint container is removed');
    if(await page.locator('#menu').isVisible()){
     for(let n=0;n<3;n++){
      await page.locator('#menu').click();assert.equal(await page.locator('#menu').getAttribute('aria-expanded'),'true');assert(await page.locator('#primary-nav').isVisible());
@@ -58,11 +62,27 @@ async function run(){
    await page.locator('#motion').click();await page.waitForTimeout(90);frame=await capture();await page.waitForTimeout(140);assert.equal(await capture(),frame,'Global pause reaches quantum animation');
    await page.locator('.vnext-cosmos').scrollIntoViewIfNeeded();let positions=await page.locator('.vnext-world').evaluateAll(es=>es.map(e=>e.style.transform));await page.waitForTimeout(140);assert.deepEqual(await page.locator('.vnext-world').evaluateAll(es=>es.map(e=>e.style.transform)),positions,'Global pause reaches orbital animation');
    await page.locator('#motion').click();
-   for(const img of await page.locator('main img').all()){await img.scrollIntoViewIfNeeded();await img.evaluate(im=>im.decode());}
+   for(const img of await page.locator('main img:visible').all()){await img.scrollIntoViewIfNeeded();await img.evaluate(im=>im.decode());}
+   const portrait=page.locator('.portrait-photo img');assert(await portrait.isVisible(),'Portrait is visible over systems artwork');
+   const pb=await portrait.boundingBox(),ab=await page.locator('.about-imagery').boundingBox();assert(pb&&ab&&pb.x>=ab.x-2&&pb.x+pb.width<=ab.x+ab.width+2,'Portrait stays inside systems composition');
+   assert.equal(await page.locator('.quantum-banner').count(),0,'Quantum banner artwork is removed from the homepage DOM');
    assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true,`${name}: no horizontal overflow`);
    await page.evaluate(()=>scrollTo({top:0,behavior:'instant'}));
    if(output){await page.screenshot({animations:'disabled',path:path.join(output,`home-${name}.png`),fullPage:true});if(await page.locator('#menu').isVisible()){await page.locator('#menu').click();await page.screenshot({animations:'disabled',path:path.join(output,`menu-${name}.png`)});await page.locator('#menu').click();}}
    await page.locator('#theme').click();assert.equal(await page.locator('html').getAttribute('data-theme'),'light');
+   const lightCardBg=await page.locator('.home-project').first().evaluate(el=>getComputedStyle(el).backgroundColor);
+   const lightAlpha=Number((lightCardBg.match(/rgba?\([^,]+,[^,]+,[^,]+(?:,\s*([\d.]+))?\)/)||[])[1]||1);
+   assert(lightAlpha>=.50&&lightAlpha<.95,`Light project tiles stay translucent, got ${lightCardBg}`);
+   const lightInk=await page.locator('#hero-title').evaluate(el=>getComputedStyle(el).color);
+   const lightRgb=(lightInk.match(/\d+/g)||[]).slice(0,3).map(Number);
+   assert(lightRgb.length===3&&Math.max(...lightRgb)<80,`Light-mode hero text stays decisively dark, got ${lightInk}`);
+   const heroShadow=await page.locator('#hero-title').evaluate(el=>getComputedStyle(el).textShadow);
+   assert(!/rgb\(0, 0, 0\)/.test(heroShadow),`Light-mode hero must not use a black outline/shadow, got ${heroShadow}`);
+   const solarLabel=page.locator('.vnext-world strong').first();
+   const solarShadow=await solarLabel.evaluate(el=>getComputedStyle(el).textShadow);
+   const solarColor=await solarLabel.evaluate(el=>getComputedStyle(el).color);
+   assert(!/rgb\(0, 0, 0\)/.test(solarShadow),`Light solar labels must not use black halos, got ${solarShadow}`);
+   assert.equal(await solarLabel.evaluate(el=>getComputedStyle(el).backgroundColor),'rgba(0, 0, 0, 0)','Light solar labels remain container-free');
    if(output&&name==='phone'){await page.screenshot({animations:'disabled',path:path.join(output,'home-phone-light.png'),fullPage:true});}
    await page.locator('#theme').click();
    console.log(`PASS ${name}: navigation, planet selectors, search, skills, Bell outcomes, animation and pause, images, theme, layout`);

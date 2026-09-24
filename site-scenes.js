@@ -450,7 +450,7 @@
     let lastContrast = 0;
     let contrastTimer = 0;
     const copySelector = '.hero-copy,.about-copy,.section-heading,.portrait-caption,.quantum-intro,.projects-hero,.contact>div,.vnext-sys-detail,.scene-options>div,footer.wrap,.site-footer,.vnext-sys-top,.learn-page-intro,.education-section>.text-link,.depth-heading>div:first-child';
-    const glassSelector = '.home-project,.project-card,.education-cards article,.domain-card,.principle-grid article,.home-spotlight,.stat-band,.verification-strip,.resume-strip,.learn-page-nav,.credentials-detail,.depth-coverage,.depth-ladder button,.depth-planner,.depth-integrity,.research-bridge';
+    const glassSelector = '.home-project,.project-card,.education-cards article,.domain-card,.principle-grid article,.home-spotlight,.stats>div,.verification-inner,.resume-inner,.learn-page-nav,.credentials-detail,.depth-coverage,.depth-ladder button,.depth-planner,.depth-integrity,.research-bridge';
     function collectSurfaces() {
       if (document.documentElement.dataset.sceneSurface !== 'glass') return;
       document.querySelectorAll(copySelector).forEach(el => el.classList.add('scene-copy'));
