@@ -5,6 +5,9 @@
 (() => {
   'use strict';
 
+  const SCENE_SCRIPT_URL = new URL(document.currentScript?.src || location.href, location.href);
+  const SITE_BASE = new URL('./', SCENE_SCRIPT_URL);
+
   const LIGHT_SCENES = [
     {
       id: 'forest-river',
@@ -56,7 +59,7 @@
       document.head.append(link);
     });
     [
-      'assets/scenes/webb-cosmic-cliffs.webp',
+      new URL('assets/scenes/webb-cosmic-cliffs.webp', SITE_BASE).href,
       LIGHT_SCENES[0].poster
     ].forEach((href, i) => {
       if (document.querySelector('link[rel="preload"][href="' + href + '"]')) return;
