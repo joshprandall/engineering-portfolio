@@ -34,7 +34,13 @@ body:has(#game-shell) :is(.field select,.mapping-row select,.guide-text,.device)
 /* Keep the full board above the fold in phone landscape. */
 .jr-playing #jr-game-shell main{grid-template-rows:auto}
 .jr-playing #jr-game-shell .stage{height:calc(100dvh - 125px);min-height:240px!important}
-.jr-playing[data-chess-view=2d] #jr-game-shell .stage{height:auto;min-height:0!important;display:flex;flex-direction:column;align-items:center}
-.jr-playing[data-chess-view=2d] .jr-board2d{width:min(100%,calc(100dvh - 165px))}
-.jr-playing[data-chess-view=2d] #jr-game-shell .hud{position:static;flex-wrap:wrap;justify-content:center;margin:8px 0 0}
+.jr-playing[data-chess-view="2d"] #jr-game-shell .stage{height:auto;min-height:0!important;display:flex;flex-direction:column;align-items:center}
+.jr-playing[data-chess-view="2d"] .jr-board2d{width:min(100%,calc(100dvh - 165px))}
+.jr-playing[data-chess-view="2d"] #jr-game-shell .hud{position:static;flex-wrap:wrap;justify-content:center;margin:8px 0 0}
 #jr-game-shell #boardMode{min-width:52px}
+
+.jr-playing #jr-game-shell .topbar{min-height:62px;padding:8px 16px;gap:16px}
+.jr-playing #jr-game-shell .topbar p{display:none!important}
+.jr-playing #jr-game-shell .topbar h1{font-size:1.2rem}
+.jr-playing #jr-game-shell .stage{height:calc(100dvh - 95px)}
+.jr-playing[data-chess-view="2d"] .jr-board2d{width:min(100%,calc(100dvh - 145px))}

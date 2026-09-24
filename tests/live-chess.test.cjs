@@ -33,10 +33,10 @@ module.exports=async({browser,base,output,failures})=>{
  if(output)await page.screenshot({path:path.join(output,'chess-live-2d-landscape.png')});
  await context.close();
  const fallback=await browser.newContext({viewport:{width:844,height:390}});
- await fallback.addInitScript(()=>{const original=HTMLCanvasElement.prototype.getContext;HTMLCanvasElement.prototype.getContext=function(kind,...args){return /webgl/.test(kind)?null:original.call(this,kind,...args)}});
+ await fallback.route('**/vendor/three.module.min.js',route=>route.abort());
  const safe=await fallback.newPage();await safe.goto(url,{waitUntil:'networkidle'});
  await safe.locator('#jr-start-game').waitFor({state:'visible'});
- assert(await safe.locator('#jr-setup-view option[value="3d"]').isDisabled());
+ assert(await safe.locator('#jr-setup-view option[value="3d"]').isDisabled(),await safe.locator('#jr-game-setup').innerText());
  await safe.locator('#jr-start-game').click();
  assert.match(await safe.locator('#boardMode').innerText(),/unavailable/);
  assert.equal(await safe.locator('#scene button').count(),64,'A working 2D board remains available when graphics cannot start');
