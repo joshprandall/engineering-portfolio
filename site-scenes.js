@@ -283,16 +283,27 @@
       return audio;
     }
 
-    function stopRecordedAmbience() {
+    function stopNatureAmbience() {
       clearTimeout(birdReplayTimer);
       birdReplayTimer = 0;
-      [recordedAmbience, darkLicensedAudio, birdAudio].forEach(audio => {
+      [recordedAmbience, birdAudio].forEach(audio => {
         if (!audio) return;
         try { audio.pause(); } catch (_) {}
       });
       recordedAmbience = null;
-      darkLicensedAudio = null;
       birdAudio = null;
+    }
+
+    function stopDarkAmbience() {
+      if (darkLicensedAudio) {
+        try { darkLicensedAudio.pause(); } catch (_) {}
+      }
+      darkLicensedAudio = null;
+    }
+
+    function stopRecordedAmbience() {
+      stopNatureAmbience();
+      stopDarkAmbience();
     }
 
     function scheduleBeachBirds() {
@@ -315,6 +326,7 @@
       if (!ambientAllowed() || !audioUnlocked) return false;
 
       if (theme === 'dark') {
+        stopNatureAmbience();
         const audio = createAudioTrack(DARK_LICENSED_TRACK, {loop:true, volume:.22});
         darkLicensedAudio = audio;
         let failed = false;
@@ -336,6 +348,9 @@
         return false;
       }
 
+      // Nature recordings are strictly light-mode only.
+      if (theme !== 'light') return false;
+      stopDarkAmbience();
       const scene = LIGHT_SCENES[activeSceneIndex];
       const src = scene && REAL_NATURE_AUDIO[scene.id];
       if (!src) return false;
@@ -531,6 +546,9 @@
 
       syncVideoAmbience();
       ambientSignature = wanted;
+
+      if (theme === 'dark') stopNatureAmbience();
+      else stopDarkAmbience();
 
       startRecordedAmbience().then(started => {
         if (started || !ambientAllowed()) return;
