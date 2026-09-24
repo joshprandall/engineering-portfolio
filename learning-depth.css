@@ -2,3 +2,66 @@
 @media(max-width:1180px){.depth-ladder{grid-template-columns:repeat(4,1fr)}.depth-heading{grid-template-columns:1fr}.depth-coverage{max-width:560px}.depth-planner{grid-template-columns:1fr}.research-grid{grid-template-columns:repeat(2,1fr)}.research-grid article:nth-child(3n){border-right:1px solid var(--line)}.research-grid article:nth-child(2n){border-right:0}.research-grid article:nth-last-child(-n+3){border-bottom:1px solid var(--line)}.research-grid article:nth-last-child(-n+2){border-bottom:0}}
 @media(max-width:760px){.depth-system{padding:56px 0 64px}.depth-ladder{grid-template-columns:repeat(2,1fr)}.depth-ladder button{min-height:210px}.depth-controls{grid-template-columns:1fr}.depth-controls .button{grid-column:auto}.depth-integrity{grid-template-columns:1fr;gap:4px}.depth-context{grid-template-columns:1fr}.depth-context .button{width:100%}.research-grid{grid-template-columns:1fr}.research-grid article,.research-grid article:nth-child(2n),.research-grid article:nth-child(3n){border-right:0;border-bottom:1px solid var(--line)}.research-grid article:last-child{border-bottom:0}.research-actions{display:grid}.research-actions .button{width:100%}}
 @media(max-width:420px){.depth-ladder{grid-template-columns:1fr}.depth-ladder button{min-height:170px}.depth-coverage{grid-template-columns:1fr}.depth-coverage span{border-right:0}.depth-coverage span:nth-last-child(-n+2){border-bottom:1px solid var(--line)}.depth-coverage span:last-child{border-bottom:0}}
+
+
+/* Learning home v4 — orderly rounded glass cards, never spreadsheet grids. */
+body[data-library-page="home"] .depth-system{
+  background:transparent!important;border:0!important;padding-block:72px!important
+}
+body[data-library-page="home"] .depth-coverage{
+  border:0!important;border-radius:0!important;background:transparent!important;
+  overflow:visible!important;gap:12px!important
+}
+body[data-library-page="home"] .depth-coverage span{
+  border:1px solid rgba(32,78,59,.23)!important;border-radius:16px!important;
+  background:rgba(248,251,246,.15)!important;padding:17px 18px!important;
+  -webkit-backdrop-filter:blur(5px)!important;backdrop-filter:blur(5px)!important
+}
+html[data-theme="dark"] body[data-library-page="home"] .depth-coverage span{
+  border-color:rgba(176,214,222,.24)!important;background:rgba(7,13,16,.15)!important
+}
+body[data-library-page="home"] .depth-ladder{
+  border:0!important;gap:14px!important;margin-bottom:28px!important
+}
+body[data-library-page="home"] .depth-ladder button{
+  border:1px solid rgba(32,78,59,.23)!important;border-radius:18px!important;
+  background:rgba(248,251,246,.15)!important;overflow:hidden!important;
+  box-shadow:0 12px 28px rgba(25,45,33,.06)!important;
+  -webkit-backdrop-filter:blur(5px)!important;backdrop-filter:blur(5px)!important
+}
+html[data-theme="dark"] body[data-library-page="home"] .depth-ladder button{
+  border-color:rgba(176,214,222,.24)!important;background:rgba(7,13,16,.15)!important
+}
+body[data-library-page="home"] .depth-ladder button.active{
+  box-shadow:inset 0 3px 0 var(--accent),0 12px 28px rgba(25,45,33,.06)!important;
+  background:color-mix(in srgb,var(--accent-soft) 55%,rgba(248,251,246,.15))!important
+}
+html[data-theme="dark"] body[data-library-page="home"] .depth-ladder button.active{
+  background:color-mix(in srgb,var(--accent-soft) 55%,rgba(7,13,16,.18))!important
+}
+body[data-library-page="home"] .depth-planner{
+  border:1px solid rgba(32,78,59,.23)!important;border-radius:20px!important;
+  background:rgba(248,251,246,.16)!important;
+  -webkit-backdrop-filter:blur(5px)!important;backdrop-filter:blur(5px)!important
+}
+html[data-theme="dark"] body[data-library-page="home"] .depth-planner{
+  border-color:rgba(176,214,222,.24)!important;background:rgba(7,13,16,.16)!important
+}
+body[data-library-page="home"] .depth-integrity{
+  border:1px solid rgba(32,78,59,.22)!important;border-left:3px solid var(--accent)!important;
+  border-radius:14px!important;background:rgba(248,251,246,.12)!important
+}
+html[data-theme="dark"] body[data-library-page="home"] .depth-integrity{
+  border-color:rgba(176,214,222,.22)!important;border-left-color:var(--accent)!important;
+  background:rgba(7,13,16,.13)!important
+}
+@media(max-width:760px){
+  body[data-library-page="home"] .depth-ladder{grid-template-columns:1fr!important}
+  body[data-library-page="home"] .depth-ladder button{min-height:0!important;padding:22px!important}
+  body[data-library-page="home"] .depth-ladder strong{margin-top:12px!important}
+  body[data-library-page="home"] .depth-ladder p{margin-top:16px!important}
+  body[data-library-page="home"] .depth-coverage{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+}
+@media(max-width:430px){
+  body[data-library-page="home"] .depth-coverage{grid-template-columns:1fr!important}
+}
