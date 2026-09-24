@@ -1022,3 +1022,12 @@ body.living-scenes[data-library-page="labs"] .lab-card{border-radius:18px!import
     background:rgba(248,251,246,.18)!important;
   }
 }
+
+/* 2026-09-24 light-mode text rendering — no halos or text shadows. */
+:root[data-theme="light"] .living-scenes,
+:root[data-theme="light"] .living-scenes *,
+html[data-theme="light"] .living-scenes,
+html[data-theme="light"] .living-scenes *{
+  text-shadow:none!important;
+  -webkit-text-stroke:0 transparent!important;
+}
