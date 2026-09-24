@@ -10,11 +10,11 @@
   --bg:#e8efe8;
   --surface:#fbfcf8;
   --surface2:#e0ebe2;
-  --ink:#10231d;
-  --text:#10231d;
-  --muted:#233a33;
-  --accent:#a45122;
-  --blue:#216d78;
+  --ink:#050c09;
+  --text:#050c09;
+  --muted:#0f2119;
+  --accent:#843613;
+  --blue:#0b4d57;
   --line:#afc5b8;
   --panel:#fafcf8;
   --panel2:#e8f0e8;
@@ -167,13 +167,13 @@ body.living-scenes{position:relative;isolation:isolate;min-height:100vh;backgrou
 :root[data-theme=light] .living-scenes li,
 :root[data-theme=light] .living-scenes .kpi,
 :root[data-theme=light] .living-scenes .formula{
-  text-shadow:0 1px 2px rgba(255,255,255,.22)
+  text-shadow:0 1px 0 rgba(255,255,255,.68),0 0 7px rgba(255,255,255,.34)
 }
 :root[data-theme=light] .living-scenes .accent,
 :root[data-theme=light] .living-scenes .section-kicker,
 :root[data-theme=light] .living-scenes .eyebrow{
-  color:#9b4a1d;
-  text-shadow:0 1px 1px rgba(255,255,255,.18)
+  color:#7b3012;
+  text-shadow:0 1px 0 rgba(255,255,255,.62),0 0 5px rgba(255,255,255,.24)
 }
 
 
@@ -247,3 +247,37 @@ button.appearance-toggle:focus-visible{outline:3px solid var(--blue,var(--accent
 .living-scenes .practice-card input,.living-scenes .practice-card select{min-width:0;max-width:100%}
 
 :root[data-theme=light] .button.primary{color:#fff}
+
+
+/* High-contrast Light-mode typography over variable moving footage. */
+:root[data-theme=light] .living-scenes main,
+:root[data-theme=light] .living-scenes main p,
+:root[data-theme=light] .living-scenes main li,
+:root[data-theme=light] .living-scenes main summary,
+:root[data-theme=light] .living-scenes main label{
+  color:#050c09
+}
+:root[data-theme=light] .living-scenes .hero-intro,
+:root[data-theme=light] .living-scenes .hero-note,
+:root[data-theme=light] .living-scenes .section-heading>p,
+:root[data-theme=light] .living-scenes .about-copy>p,
+:root[data-theme=light] .living-scenes .education-cards p,
+:root[data-theme=light] .living-scenes .credentials-content p,
+:root[data-theme=light] .living-scenes .quantum-intro>p,
+:root[data-theme=light] .living-scenes .quantum-intro .quantum-note,
+:root[data-theme=light] .living-scenes .portrait-card-copy span{
+  color:#0b1812!important
+}
+:root[data-theme=light] .living-scenes .quantum-intro .quantum-formula{
+  color:#083f48!important;
+  font-weight:600;
+  text-shadow:0 1px 0 rgba(255,255,255,.76),0 0 8px rgba(255,255,255,.36)
+}
+:root[data-theme=light] .living-scenes .text-link,
+:root[data-theme=light] .living-scenes a:not(.button):not(.brand){
+  color:#092d26
+}
+:root[data-theme=light] .living-scenes .text-link{
+  font-weight:650;
+  text-decoration-color:rgba(9,45,38,.62)
+}
