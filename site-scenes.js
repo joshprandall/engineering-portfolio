@@ -594,18 +594,7 @@
       audioUnlocked = true;
 
       if (theme === 'dark') {
-        // Keep play() directly inside the user-gesture call stack for iOS.
-        const audio = ensureDarkTrackElement();
-        darkLicensedAudio = audio;
-        audio.loop = true;
-        audio.muted = false;
-        audio.volume = .24;
-        try {
-          const attempt = audio.play();
-          if (attempt?.catch) attempt.catch(() => {});
-        } catch (_) {}
-        ambientSignature = 'dark';
-        updateAudioButton();
+        // Dark music is owned by dark-music.js.
         return;
       }
 
@@ -614,8 +603,6 @@
     }
 
     updateAudioButton();
-    ensureDarkTrackElement();
-
     // Try to continue ambience immediately on browsers that permit it. On
     // iPhone/Safari the context may remain suspended until the next user tap;
     // the gesture handlers below then resume the same persistent loop.
@@ -634,16 +621,7 @@
         if (!ambientMuted) {
           audioUnlocked = true;
           if (theme === 'dark') {
-            const audio = ensureDarkTrackElement();
-            darkLicensedAudio = audio;
-            audio.loop = true;
-            audio.muted = false;
-            audio.volume = .24;
-            try {
-              const attempt = audio.play();
-              if (attempt?.catch) attempt.catch(() => {});
-            } catch (_) {}
-            ambientSignature = 'dark';
+            // dark-music.js listens to this button and resumes the soundtrack.
             updateAudioButton();
           } else {
             try { ensureAmbientContext(); } catch (_) {}
