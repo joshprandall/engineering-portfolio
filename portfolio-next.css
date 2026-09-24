@@ -483,3 +483,37 @@ body[data-library-page="home"] .knowledge-solar-slot .vnext-world strong{
     min-height:70px!important;
   }
 }
+
+
+/* Solar orbit v11 — original perspective, wider separated tracks. */
+.home-page .vnext-cosmos-scene,
+body[data-library-page="home"] .knowledge-solar-slot .vnext-cosmos-scene{
+  height:350px!important;
+  min-height:350px!important;
+}
+.home-page .vnext-cosmos-core,
+body[data-library-page="home"] .knowledge-solar-slot .vnext-cosmos-core{
+  width:66px!important;
+  height:66px!important;
+  top:45%!important;
+}
+.home-page .vnext-world,
+body[data-library-page="home"] .knowledge-solar-slot .vnext-world{
+  width:104px!important;
+  min-height:108px!important;
+}
+.vnext-world.selected .vnext-planet{transform:scale(1.15)!important}
+.vnext-world:hover .vnext-planet{transform:scale(1.12)!important}
+@media(max-width:600px){
+  .home-page .vnext-cosmos-scene,
+  body[data-library-page="home"] .knowledge-solar-slot .vnext-cosmos-scene{
+    height:300px!important;
+    min-height:300px!important;
+  }
+  .home-page .vnext-cosmos-core,
+  body[data-library-page="home"] .knowledge-solar-slot .vnext-cosmos-core{
+    width:54px!important;
+    height:54px!important;
+    top:45%!important;
+  }
+}
