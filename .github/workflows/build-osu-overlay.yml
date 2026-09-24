@@ -3,6 +3,7 @@ name: Build OSU science-safe overlay
 on:
   push:
     branches: [site-v1-1-knowledge-sync, main]
+  pull_request:
   workflow_dispatch:
 
 permissions:
