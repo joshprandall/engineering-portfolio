@@ -146,34 +146,18 @@
       draw();
     }
 
-    // Solar orbit v10: all five lanes are concentric, homothetic ellipses.
-    // Lane spacing is computed from the largest rendered planet so a planet
-    // stays inside its own orbital lane instead of crossing a neighboring path.
-    function planetDiameterLimit(){
-      if(width<350)return 24;
-      if(width<420)return 32;
-      if(width<640)return 40;
-      return 58;
-    }
-
+    // Solar orbit v11: restore the original cinematic angle and motion.
+    // The old desktop clamp made the outer tracks share the same horizontal
+    // endpoints. These radii preserve the original perspective while widening
+    // every lane so the drawn orbit paths remain distinct.
     function orbitRadius(o){
       const i=orbit.indexOf(o);
-      const compact=width<640;
-      const tiny=width<350;
-      const planetRadius=planetDiameterLimit()*.54; // 1.08 selected scale / 2
-      const measuredCore=coreEl.getBoundingClientRect().width/2||0;
-      const coreRadius=Math.max(tiny?26:compact?30:33,measuredCore);
-      const edgeReserve=tiny?22:compact?24:36;
-      const maxRx=Math.max(86,width*.5-edgeReserve);
-      const minRy=coreRadius+planetRadius+(compact?8:12);
-      const laneClearance=planetRadius+(compact?7:9);
-      const neededMaxRy=minRy+laneClearance*(orbit.length-1);
-      const baseAspect=compact?.72:.58;
-      const aspect=Math.min(1,Math.max(baseAspect,neededMaxRy/maxRx));
-      const maxRy=maxRx*aspect;
-      const stepRy=(maxRy-minRy)/(orbit.length-1);
-      const ry=minRy+stepRy*i;
-      return {rx:ry/aspect,ry};
+      if(width<520){
+        const mobileRx=[.24,.31,.38,.45,.52];
+        const mobileRy=[.105,.145,.185,.225,.265];
+        return {rx:mobileRx[i]??o.rx,ry:mobileRy[i]??o.ry};
+      }
+      return {rx:o.rx,ry:o.ry};
     }
 
     function worldPosition(i,time){
@@ -181,9 +165,9 @@
       const motion=reduced.matches?0:time*o.speed;
       const a=o.phase+motion;
       const cx=width*.5+parallaxX*10;
-      const cy=height*.5+parallaxY*6;
+      const cy=height*.45+parallaxY*6;
       const depth=(Math.sin(a)+1)/2;
-      return {x:cx+Math.cos(a)*r.rx,y:cy+Math.sin(a)*r.ry,depth,scale:.72+depth*.38};
+      return {x:cx+Math.cos(a)*width*r.rx,y:cy+Math.sin(a)*height*r.ry,depth,scale:.72+depth*.38};
     }
 
     function draw(){
@@ -196,7 +180,7 @@
         ctx.save();
         ctx.strokeStyle=i===selected?'rgba(155,91,48,.52)':'rgba(55,114,125,.26)';
         ctx.lineWidth=i===selected?1.7:1;
-        ctx.beginPath();ctx.ellipse(cx,cy,r.rx,r.ry,0,0,Math.PI*2);ctx.stroke();ctx.restore();
+        ctx.beginPath();ctx.ellipse(cx,cy,width*r.rx,height*r.ry,0,0,Math.PI*2);ctx.stroke();ctx.restore();
       });
       coreEl.style.transform=`translate(calc(-50% + ${parallaxX*10}px), calc(-50% + ${parallaxY*6}px))`;
       positions.forEach((_,i)=>Object.assign(positions[i],worldPosition(i,t)));
@@ -221,7 +205,7 @@
       ctx.fillStyle=coreGlow;ctx.beginPath();ctx.arc(cx,cy,54,0,Math.PI*2);ctx.fill();
 
       worldEls.forEach((el,i)=>{
-        const p=positions[i],o=orbit[i],base=Math.min(o.size,planetDiameterLimit());
+        const p=positions[i],o=orbit[i],base=Math.min(o.size,width<480?44:o.size);
         el.style.setProperty('--world-size',`${base}px`);
         const depthScale=.80+p.depth*.28;
         el.style.transform=`translate3d(${p.x}px,${p.y}px,0) translate(-50%,-50%) scale(${depthScale})`;
