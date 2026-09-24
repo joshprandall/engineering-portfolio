@@ -565,3 +565,11 @@
   .credential-logo-mit img{width:55px!important}
   .portrait-card-copy .credential-text{font-size:.585rem!important}
 }
+
+
+/* Hero portrait vertical alignment v2 — raise headshot on phones. */
+@media(max-width:600px){
+  .home-page .hero>.about-imagery .portrait-photo{
+    bottom:206px!important;
+  }
+}
