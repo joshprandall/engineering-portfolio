@@ -217,3 +217,37 @@ body[data-library-page="home"] .vnext-detail-grid>div:last-child ul{display:none
   .home-page .vnext-cosmos-scene,
   body[data-library-page="home"] .vnext-cosmos-scene{height:300px!important;min-height:300px!important}
 }
+
+
+/* 2026-09-24 light mode for the container-free solar model. */
+html[data-theme="light"] .home-page .vnext-cosmos,
+html[data-theme="light"] body[data-library-page="home"] .vnext-cosmos{
+  color:#06150d!important
+}
+html[data-theme="light"] .home-page .vnext-cosmos .vnext-sys-detail,
+html[data-theme="light"] body[data-library-page="home"] .vnext-cosmos .vnext-sys-detail{
+  color:#06150d!important;
+  background:transparent!important
+}
+html[data-theme="light"] .home-page .vnext-cosmos .vnext-sys-detail h2,
+html[data-theme="light"] .home-page .vnext-cosmos .vnext-sys-detail p,
+html[data-theme="light"] body[data-library-page="home"] .vnext-cosmos .vnext-sys-detail h2,
+html[data-theme="light"] body[data-library-page="home"] .vnext-cosmos .vnext-sys-detail p{
+  color:#06150d!important;
+  text-shadow:0 1px 2px rgba(255,255,255,.88),0 0 8px rgba(255,255,255,.58)!important
+}
+html[data-theme="light"] .home-page .vnext-cosmos .vnext-sys-meta,
+html[data-theme="light"] body[data-library-page="home"] .vnext-cosmos .vnext-sys-meta{
+  color:#702e12!important;
+  text-shadow:0 1px 2px rgba(255,255,255,.88)!important
+}
+html[data-theme="light"] .home-page .vnext-cosmos .vnext-cta,
+html[data-theme="light"] body[data-library-page="home"] .vnext-cosmos .vnext-cta{
+  color:#083c2c!important;
+  text-shadow:0 1px 2px rgba(255,255,255,.88)!important
+}
+html[data-theme="light"] .home-page .vnext-world strong,
+html[data-theme="light"] body[data-library-page="home"] .vnext-world strong{
+  color:#f5fbf8!important;
+  text-shadow:0 2px 7px #000,0 0 14px #000!important
+}
