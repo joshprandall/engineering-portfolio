@@ -8,6 +8,30 @@
   const SCENE_SCRIPT_URL = new URL(document.currentScript?.src || location.href, location.href);
   const SITE_BASE = new URL('./', SCENE_SCRIPT_URL);
 
+  // Load exactly one shared ambience controller everywhere the living-scene
+  // layer is used. Keeping this here avoids per-page audio script drift.
+  function ensureSiteAudioController() {
+    if (window.SiteAudio || window.__JR_SITE_AUDIO_LOADING__) return;
+    if (document.getElementById('jr-site-audio-controller')) return;
+
+    window.__JR_SITE_AUDIO_LOADING__ = true;
+    const script = document.createElement('script');
+    script.id = 'jr-site-audio-controller';
+    script.src = new URL('site-audio.js?v=20260924-unified-v14', SITE_BASE).href;
+    script.async = false;
+    script.onload = () => {
+      window.__JR_SITE_AUDIO_LOADING__ = false;
+      try { window.SiteAudio?.sync?.(true); } catch (_) {}
+    };
+    script.onerror = () => {
+      window.__JR_SITE_AUDIO_LOADING__ = false;
+      console.error('Failed to load unified site audio controller:', script.src);
+    };
+    (document.head || document.documentElement).appendChild(script);
+  }
+
+  ensureSiteAudioController();
+
   const LIGHT_SCENES = [
     {
       id: 'forest-river',
@@ -48,7 +72,7 @@
     'forest-waterfall': 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Water%20fall.ogg'
   };
   const BEACH_BIRDS_AUDIO = 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Cape%20May%20Shorebirds%20closer.ogg';
-  const DARK_LICENSED_TRACK = new URL('assets/audio/dark-theme.mp3', SITE_BASE).href;
+  const DARK_LICENSED_TRACK = 'https://files.freemusicarchive.org/storage-freemusicarchive-org/music/ccCommunity/John_Bartmann/Public_Domain_Soundtrack_Music_Album_One/John_Bartmann_-_12_-_Interstellar_Space.mp3';
   const DARK_TRACK_TIME_KEY = 'jr-dark-theme-time-v1';
   const PROJECT_AUDIO_RE = /(?:^|\/)(?:project-[^/]+\.html|play-evil-wizard\.html|agent-workbench\.html|games\/|geometric-lab\/|qubit-preview-20260921\/|deep-learning\/)/i;
 
@@ -595,7 +619,7 @@
       audioUnlocked = true;
 
       if (theme === 'dark') {
-        // Dark music is owned by dark-music.js.
+        // Dark music is owned by the unified site-audio.js controller.
         return;
       }
 
@@ -622,7 +646,7 @@
         if (!ambientMuted) {
           audioUnlocked = true;
           if (theme === 'dark') {
-            // dark-music.js listens to this button and resumes the soundtrack.
+            // site-audio.js sees the updated mute state on this same click.
             updateAudioButton();
           } else {
             try { ensureAmbientContext(); } catch (_) {}
