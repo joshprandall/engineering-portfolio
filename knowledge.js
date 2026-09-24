@@ -887,7 +887,8 @@
     if(!currentLesson)return; const doc=document.documentElement, max=doc.scrollHeight-innerHeight, pct=max>0?scrollY/max*100:0; $('#reading-progress').style.width=Math.min(100,Math.max(0,pct))+'%';
   }
   function constellation(){
-    const canvas=$('#constellation'),ctx=canvas.getContext('2d');let nodes=[],raf=0;
+    const canvas=$('#constellation');if(!canvas)return;
+    const ctx=canvas.getContext('2d');if(!ctx)return;let nodes=[],raf=0;
     function resize(){const r=canvas.getBoundingClientRect(),dpr=Math.min(devicePixelRatio||1,2);canvas.width=Math.max(1,Math.round(r.width*dpr));canvas.height=Math.max(1,Math.round(r.height*dpr));ctx.setTransform(dpr,0,0,dpr,0,0);const w=r.width,h=r.height;if(!nodes.length)nodes=D.domains.map((d,i)=>({x:w*(.18+.65*((i*37)%100)/100),y:h*(.18+.65*((i*61)%100)/100),vx:(i%2?.12:-.1),vy:(i%3?.08:-.07),label:d.name.split(' ')[0]}))}
     function draw(){const r=canvas.getBoundingClientRect(),w=r.width,h=r.height,styles=getComputedStyle(document.documentElement),line=styles.getPropertyValue('--line2'),accent=styles.getPropertyValue('--accent'),text=styles.getPropertyValue('--muted');ctx.clearRect(0,0,w,h);ctx.lineWidth=1;for(let i=0;i<nodes.length;i++)for(let j=i+1;j<nodes.length;j++){let a=nodes[i],b=nodes[j],dist=Math.hypot(a.x-b.x,a.y-b.y);if(dist<220){ctx.globalAlpha=Math.max(0,.45-dist/500);ctx.strokeStyle=line;ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke()}}ctx.globalAlpha=1;nodes.forEach((n,i)=>{if(!motionPaused){n.x+=n.vx;n.y+=n.vy;if(n.x<35||n.x>w-35)n.vx*=-1;if(n.y<30||n.y>h-30)n.vy*=-1}ctx.fillStyle=i===0?accent:text;ctx.beginPath();ctx.arc(n.x,n.y,i===0?5:3,0,Math.PI*2);ctx.fill();ctx.font='11px system-ui';ctx.fillStyle=text;ctx.fillText(n.label,n.x+9,n.y+4)});raf=requestAnimationFrame(draw)}
     resize();draw();window.addEventListener('resize',()=>{nodes=[];resize()});

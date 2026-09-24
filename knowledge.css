@@ -162,3 +162,43 @@ body.standalone-experience .lesson-topbar{position:sticky;top:0;z-index:50;backg
 .glossary-card,.glossary-term>*{min-width:0;overflow-wrap:anywhere}
 .glossary-term{flex-wrap:wrap}
 .glossary-search{grid-template-columns:auto minmax(0,1fr) auto}
+
+
+/* September 23 Connected Systems solar integration */
+.knowledge-solar-slot{min-width:0;width:100%;align-self:center}
+.knowledge-solar-slot .vnext-cosmos{width:100%;max-width:none;border-radius:14px;align-self:center;box-shadow:0 20px 65px #0004}
+.knowledge-solar-slot .vnext-cosmos-scene{height:350px;min-height:350px}
+.knowledge-solar-slot .vnext-cosmos .vnext-system-tabs{grid-template-columns:repeat(5,minmax(0,1fr));padding:10px;gap:5px;border-right:0}
+.knowledge-solar-slot .vnext-cosmos .vnext-system-tabs button{font-size:.69rem;padding:9px 3px;min-height:42px;border-radius:5px;gap:4px;text-align:center}
+.knowledge-solar-slot .vnext-cosmos .vnext-system-tabs button:last-child{grid-column:auto}
+.knowledge-solar-slot .vnext-cosmos .vnext-system-tabs button span:not(.vnext-tab-dot){font-size:inherit;flex:0 1 auto}
+.knowledge-solar-slot .vnext-cosmos .vnext-tab-dot{display:none}
+.knowledge-solar-slot .vnext-cosmos .vnext-sys-top{font-size:.59rem;padding:14px 16px}
+.knowledge-solar-slot .vnext-cosmos .vnext-sys-detail{padding:19px 22px;min-height:174px}
+.knowledge-solar-slot .vnext-detail-grid{display:block}
+.knowledge-solar-slot .vnext-detail-grid>div:last-child ul{display:none}
+.knowledge-solar-slot .vnext-cosmos .vnext-sys-detail h2{font-size:1.2rem;line-height:1.24;letter-spacing:-.03em;max-width:38ch;margin-top:8px}
+.knowledge-solar-slot .vnext-cosmos .vnext-sys-detail p{font-size:.78rem;line-height:1.65}
+.knowledge-solar-slot .vnext-cosmos .vnext-cta{font-size:.75rem;min-height:36px;padding-block:5px}
+.knowledge-solar-slot .vnext-sys-meta{font-size:.56rem;letter-spacing:.13em}
+.knowledge-solar-slot .vnext-world{min-height:68px;width:68px}
+.knowledge-solar-slot .vnext-world strong,.knowledge-solar-slot .vnext-world small{display:none}
+.knowledge-solar-slot .vnext-cosmos-hint{font-size:.45rem;letter-spacing:.1em}
+.knowledge-solar-slot .vnext-cosmos-core{width:66px;height:66px}
+.knowledge-solar-slot .vnext-cosmos-core span{font-size:.93rem}
+.knowledge-solar-slot .vnext-cosmos-core small{font-size:.37rem}
+body[data-library-page="home"] .hero:has(.knowledge-solar-slot){grid-template-columns:minmax(0,.92fr) minmax(0,1.12fr);gap:60px}
+@media(max-width:1180px){
+  body[data-library-page="home"] .hero:has(.knowledge-solar-slot){grid-template-columns:1fr;gap:35px}
+  .knowledge-solar-slot{max-width:820px;margin-inline:auto}
+}
+@media(max-width:600px){
+  .knowledge-solar-slot .vnext-cosmos-scene{height:280px;min-height:280px}
+  .knowledge-solar-slot .vnext-cosmos .vnext-sys-top{font-size:.5rem;letter-spacing:.06em;padding:12px}
+  .knowledge-solar-slot .vnext-cosmos .vnext-system-tabs{grid-template-columns:repeat(5,minmax(0,1fr));padding:8px;gap:4px}
+  .knowledge-solar-slot .vnext-cosmos .vnext-system-tabs button{font-size:.58rem;padding:8px 2px}
+  .knowledge-solar-slot .vnext-cosmos .vnext-system-tabs button:last-child{grid-column:auto}
+  .knowledge-solar-slot .vnext-cosmos .vnext-sys-detail{padding:16px;min-height:0}
+  .knowledge-solar-slot .vnext-cosmos .vnext-sys-detail h2{font-size:1.09rem}
+  .knowledge-solar-slot .vnext-cosmos .vnext-sys-detail p{font-size:.74rem}
+}
