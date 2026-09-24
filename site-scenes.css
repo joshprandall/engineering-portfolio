@@ -950,3 +950,75 @@ body.living-scenes[data-library-page="labs"] .lab-card{border-radius:18px!import
 :root[data-theme="light"] .living-scenes .battle-launch-cta{
   color:#111111!important;
 }
+
+
+/* 2026-09-24 project/game glass correction.
+   Project showcase surfaces must reveal the living background instead of
+   becoming opaque reading cards. Interactive game art remains readable while
+   the surrounding scene is visibly present through every tile. */
+.living-scenes .project-detail{
+  background:rgba(7,13,16,.22)!important;
+  border:1px solid rgba(176,214,222,.30)!important;
+  border-radius:20px!important;
+  box-shadow:0 18px 52px rgba(0,0,0,.14)!important;
+  -webkit-backdrop-filter:blur(6px) saturate(.92)!important;
+  backdrop-filter:blur(6px) saturate(.92)!important;
+}
+:root[data-theme="light"] .living-scenes .project-detail{
+  background:rgba(248,251,246,.22)!important;
+  border-color:rgba(28,72,51,.28)!important;
+  box-shadow:0 18px 44px rgba(29,48,36,.10)!important;
+  -webkit-backdrop-filter:blur(6px) saturate(.92)!important;
+  backdrop-filter:blur(6px) saturate(.92)!important;
+}
+.living-scenes .game-notes article{
+  background:rgba(7,13,16,.20)!important;
+  border:1px solid rgba(176,214,222,.28)!important;
+  border-radius:18px!important;
+  box-shadow:0 12px 30px rgba(0,0,0,.10)!important;
+  -webkit-backdrop-filter:blur(5px) saturate(.92)!important;
+  backdrop-filter:blur(5px) saturate(.92)!important;
+}
+:root[data-theme="light"] .living-scenes .game-notes article{
+  background:rgba(248,251,246,.20)!important;
+  border-color:rgba(28,72,51,.26)!important;
+  box-shadow:0 12px 28px rgba(29,48,36,.08)!important;
+}
+.living-scenes .battle-launch,
+.living-scenes .game-launch{
+  background:rgba(4,9,13,.34)!important;
+  border-color:rgba(176,214,222,.30)!important;
+  box-shadow:0 22px 60px rgba(0,0,0,.22)!important;
+  -webkit-backdrop-filter:blur(5px) saturate(.90)!important;
+  backdrop-filter:blur(5px) saturate(.90)!important;
+}
+.living-scenes .battle-launch-copy{
+  background:linear-gradient(180deg,rgba(5,8,13,0),rgba(5,8,13,.58) 58%)!important;
+}
+.living-scenes .game-launch::before{
+  opacity:.58!important;
+}
+.living-scenes .game-launch::after{
+  background:linear-gradient(180deg,rgba(3,5,9,0) 24%,rgba(3,5,9,.14) 54%,rgba(3,5,9,.58) 100%)!important;
+}
+:root[data-theme="light"] .living-scenes .battle-launch,
+:root[data-theme="light"] .living-scenes .game-launch{
+  background:rgba(7,12,16,.30)!important;
+  border-color:rgba(18,57,45,.34)!important;
+}
+:root[data-theme="light"] .living-scenes .game-notes article h2,
+:root[data-theme="light"] .living-scenes .game-notes article p{
+  text-shadow:none!important;
+}
+@media(max-width:700px){
+  .living-scenes .project-detail{
+    border-radius:18px!important;
+    padding-inline:18px!important;
+  }
+  :root[data-theme="light"] .living-scenes .project-detail{
+    background:rgba(248,251,246,.18)!important;
+  }
+  :root[data-theme="light"] .living-scenes .game-notes article{
+    background:rgba(248,251,246,.18)!important;
+  }
+}
