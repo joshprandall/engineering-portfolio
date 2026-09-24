@@ -772,3 +772,68 @@ body.living-scenes[data-library-page="labs"] .lab-card{border-radius:18px!import
   text-shadow:0 1px 1px rgba(255,255,255,.90)!important;
   -webkit-text-stroke:0 transparent!important;
 }
+
+
+/* Light typography v8 — darker, bolder, cleaner over moving nature footage. */
+:root[data-theme="light"]{
+  --ink:#030705;
+  --text:#030705;
+  --muted:#0d1a14;
+  --faint:#213229;
+}
+:root[data-theme="light"] .living-scenes main h1,
+:root[data-theme="light"] .living-scenes main h2,
+:root[data-theme="light"] .living-scenes main h3,
+:root[data-theme="light"] .living-scenes main h4{
+  color:#030705!important;
+  font-weight:800!important;
+  -webkit-text-stroke:0 transparent!important;
+  text-shadow:0 1px 1px rgba(255,255,255,.98),0 0 2px rgba(255,255,255,.74)!important;
+}
+:root[data-theme="light"] .living-scenes main p,
+:root[data-theme="light"] .living-scenes main li,
+:root[data-theme="light"] .living-scenes main strong,
+:root[data-theme="light"] .living-scenes main .lead,
+:root[data-theme="light"] .living-scenes main .muted,
+:root[data-theme="light"] .living-scenes main .status{
+  color:#050c08!important;
+  font-weight:650!important;
+  -webkit-text-stroke:0 transparent!important;
+  text-shadow:0 1px 1px rgba(255,255,255,.95),0 0 2px rgba(255,255,255,.66)!important;
+}
+:root[data-theme="light"] .living-scenes main .eyebrow,
+:root[data-theme="light"] .living-scenes main .project-number,
+:root[data-theme="light"] .living-scenes main .section-kicker{
+  color:#6f280e!important;
+  font-weight:800!important;
+  text-shadow:0 1px 1px rgba(255,255,255,.92)!important;
+}
+:root[data-theme="light"] .living-scenes main a:not(.button):not(.brand),
+:root[data-theme="light"] .living-scenes .text-link{
+  color:#0b3428!important;
+  font-weight:800!important;
+  text-shadow:0 1px 1px rgba(255,255,255,.92)!important;
+}
+:root[data-theme="light"] .living-scenes .home-project *,
+:root[data-theme="light"] .living-scenes .project-card *,
+:root[data-theme="light"] .living-scenes .education-cards article *,
+:root[data-theme="light"] body.living-scenes[data-library-page="home"] .stats *,
+:root[data-theme="light"] body.living-scenes[data-library-page="home"] .domain-card *,
+:root[data-theme="light"] body.living-scenes[data-library-page="home"] .principle-grid>article *{
+  text-shadow:none!important;
+  -webkit-text-stroke:0 transparent!important;
+}
+:root[data-theme="light"] .living-scenes .home-project h2,
+:root[data-theme="light"] .living-scenes .project-card h2,
+:root[data-theme="light"] .living-scenes .education-cards article h2,
+:root[data-theme="light"] body.living-scenes[data-library-page="home"] .domain-card h2{
+  color:#030705!important;
+  font-weight:800!important;
+}
+:root[data-theme="light"] .living-scenes .home-project p,
+:root[data-theme="light"] .living-scenes .project-card p,
+:root[data-theme="light"] .living-scenes .education-cards article p,
+:root[data-theme="light"] body.living-scenes[data-library-page="home"] .domain-card p{
+  color:#0b1711!important;
+  font-weight:650!important;
+}
