@@ -8,12 +8,19 @@ JS='<script defer src="lesson-header-controls.js?v=20260924-1"></script>'
 def main():
  p=argparse.ArgumentParser();p.add_argument('--root',type=Path,default=Path.home()/'public_html');root=p.parse_args().root.resolve()
  changes=dict(ASSETS)
- for name in ('learn.html','projects.html'):
+ knowledge=root/'knowledge.js'
+ if knowledge.exists():
+  old=knowledge.read_text();fixed=old.replace("$('[data-learn-page]').forEach","$$('[data-learn-page]').forEach")
+  if fixed!=old:changes['knowledge.js']=fixed
+ for name in ['projects.html']+[f.name for f in root.glob('learn*.html') if 'id="sound-mode"' in f.read_text() or 'id="sound-mode"' in f.read_text()]:
   text=(root/name).read_text()
   if '</head>' not in text:raise SystemExit('Stopped: unexpected '+name+'; no files changed.')
   extra=[]
   if 'header-cleanup.css?v=20260924-1' not in text:extra.append(CSS)
-  if name=='learn.html' and 'lesson-header-controls.js?v=20260924-1' not in text:extra.append(JS)
+  if name.startswith('learn') and 'lesson-header-controls.js?v=20260924-1' not in text:extra.append(JS)
+  if name.startswith('learn'):
+   import re
+   text=re.sub(r'knowledge\.js(?:\?[^"<>]*)?', 'knowledge.js?v=20260924-header-cleanup',text)
   if extra:text=text.replace('</head>','\n'.join(extra)+'\n</head>')
   changes[name]=text
  changes={n:t for n,t in changes.items() if not (root/n).exists() or (root/n).read_bytes()!=t.encode()}
