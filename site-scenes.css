@@ -71,7 +71,7 @@ body.living-scenes{position:relative;isolation:isolate;min-height:100vh;backgrou
   background-repeat:no-repeat;
   transform:scale(1.025);
   opacity:1;
-  filter:saturate(1.12) contrast(1.02) brightness(1.02);
+  filter:saturate(1.12) contrast(1.02) brightness(.75);
   transition:opacity 1s ease
 }
 .scene-day-fallback.video-ready{opacity:.2}
@@ -84,7 +84,7 @@ body.living-scenes{position:relative;isolation:isolate;min-height:100vh;backgrou
   opacity:0;
   transform:translate3d(0,0,0) scale(1.015);
   transition:opacity 1.7s ease;
-  filter:saturate(1.16) contrast(1.04) brightness(1.02);
+  filter:saturate(1.16) contrast(1.04) brightness(.75);
   will-change:opacity,transform
 }
 .scene-video.is-active{opacity:1}
@@ -126,8 +126,8 @@ body.living-scenes{position:relative;isolation:isolate;min-height:100vh;backgrou
 }
 :root[data-theme=light] .scene-veil{
   background:
-    linear-gradient(90deg,rgba(236,246,237,.11),rgba(246,250,242,.55) 13%,rgba(246,250,242,.69) 41%,rgba(246,250,242,.53) 78%,rgba(232,244,233,.10)),
-    linear-gradient(180deg,rgba(255,249,226,.035),rgba(246,249,242,.01) 54%,rgba(228,241,226,.08))
+    linear-gradient(90deg,rgba(20,38,31,.08),rgba(245,249,242,.34) 13%,rgba(245,249,242,.46) 41%,rgba(245,249,242,.32) 78%,rgba(18,34,28,.07)),
+    linear-gradient(180deg,rgba(24,41,34,.08),rgba(246,249,242,.01) 54%,rgba(22,40,31,.10))
 }
 @keyframes scene-atmosphere-drift{
   from{transform:translate3d(-1.2%,-.7%,0) scale(1.02)}
@@ -155,7 +155,7 @@ body.living-scenes{position:relative;isolation:isolate;min-height:100vh;backgrou
 @media(max-width:900px){
   .scene-video{inset:-3%;width:106%;height:106%}
   .scene-veil{background:linear-gradient(180deg,rgba(10,20,25,.60),rgba(10,20,25,.78) 38%,rgba(10,20,25,.63))}
-  :root[data-theme=light] .scene-veil{background:linear-gradient(180deg,rgba(242,248,239,.43),rgba(246,249,242,.67) 38%,rgba(240,247,237,.48))}
+  :root[data-theme=light] .scene-veil{background:linear-gradient(180deg,rgba(24,42,34,.10),rgba(243,248,239,.44) 38%,rgba(22,40,31,.12))}
 }
 @media(prefers-reduced-motion:reduce){
   .scene-image,.scene-night-depth,.scene-night-glow,.scene-atmosphere,.scene-video{will-change:auto}
@@ -188,7 +188,7 @@ button.appearance-toggle:focus-visible{outline:3px solid var(--blue,var(--accent
  button.appearance-toggle,body.project-shell .tools #theme.appearance-toggle{width:44px;min-width:44px;padding:0}
  button.appearance-toggle>span{display:none}
  .scene-veil{background:linear-gradient(180deg,rgba(10,20,25,.76),rgba(10,20,25,.84) 38%,rgba(10,20,25,.76))}
- :root[data-theme=light] .scene-veil{background:linear-gradient(180deg,rgba(244,249,241,.77),rgba(246,249,242,.89) 38%,rgba(244,249,241,.77))}
+ :root[data-theme=light] .scene-veil{background:linear-gradient(180deg,rgba(24,42,34,.10),rgba(243,248,239,.44) 38%,rgba(22,40,31,.12))}
  .scene-options{width:calc(100% - 36px);font-size:11px;padding-block:16px}
  .scene-options p{max-width:260px}
 }
