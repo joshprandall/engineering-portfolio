@@ -33,6 +33,7 @@
   ];
 
   const ROTATE_AFTER = 28;
+  const assetBase = new URL('.', document.currentScript.src);
 
   const boot = () => {
     if (document.getElementById('site-scene') || !window.PortfolioTheme) return;
@@ -41,6 +42,7 @@
     const saveData = Boolean(navigator.connection && navigator.connection.saveData);
     const localTestHost = location.hostname === '127.0.0.1' || location.hostname === 'localhost';
     const mediaDisabled = saveData || localTestHost;
+    const solidWorkspace = () => document.documentElement.dataset.sceneSurface === 'solid' || document.body.classList.contains('reading');
 
     document.body.classList.add('living-scenes');
 
@@ -56,8 +58,8 @@
       '</div>' +
       '<div class="scene-day-wrap">' +
         '<div class="scene-image scene-day-fallback"></div>' +
-        '<video class="scene-video scene-video-a" muted playsinline autoplay loop preload="metadata" tabindex="-1"></video>' +
-        '<video class="scene-video scene-video-b" muted playsinline autoplay loop preload="metadata" tabindex="-1"></video>' +
+        '<video class="scene-video scene-video-a" muted playsinline loop preload="none" tabindex="-1"></video>' +
+        '<video class="scene-video scene-video-b" muted playsinline loop preload="none" tabindex="-1"></video>' +
       '</div>' +
       '<canvas class="scene-canvas"></canvas>' +
       '<div class="scene-atmosphere"></div>' +
@@ -87,7 +89,7 @@
 
     const canvas = backdrop.querySelector('.scene-canvas');
     const ctx = canvas.getContext('2d', { alpha: true });
-    if (!ctx) return;
+    // A missing decorative canvas must not disable the video player or controls.
 
     const night = backdrop.querySelector('.scene-night');
     const nightDepth = backdrop.querySelector('.scene-night-depth');
@@ -101,8 +103,11 @@
     let activeVideo = videoA;
     let standbyVideo = videoB;
     let activeSceneIndex = 0;
-    let mediaReady = false;
-    let mediaTimer = 0;
+    let mediaReady = true;
+    let fadeTimer = 0;
+    let nextAttempt = 0;
+    let startingVideo = false;
+    let nextPlayAttempt = 0;
     let lightLoaded = false;
     let transitionBusy = false;
     let rotationElapsed = 0;
@@ -117,7 +122,7 @@
     let stars = [];
     let dust = [];
     let streak = null;
-    let nextStreak = 18;
+    let nextStreak = 6;
 
     const seedArray = new Uint32Array(1);
     if (window.crypto && window.crypto.getRandomValues) window.crypto.getRandomValues(seedArray);
@@ -148,7 +153,7 @@
       dpr = Math.min(devicePixelRatio || 1, width < 700 ? 1.35 : 1.75);
       canvas.width = Math.max(1, Math.round(width * dpr));
       canvas.height = Math.max(1, Math.round(height * dpr));
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx?.setTransform(dpr, 0, 0, dpr, 0, 0);
 
       const starCount = mediaDisabled ? 30 : width < 700 ? 55 : 110;
       const dustCount = mediaDisabled ? 10 : width < 700 ? 20 : 42;
@@ -174,119 +179,142 @@
       draw();
     }
 
-    function configureVideo(video, scene) {
+    const canPlay = () => theme === 'light' && motionAllowed() && !mediaDisabled && !document.hidden && !solidWorkspace();
+
+    function configureVideo(video, index) {
+      if (video.dataset.sceneIndex === String(index) && video.getAttribute('src')) return;
+      const scene = LIGHT_SCENES[index];
       video.pause();
-      video.removeAttribute('src');
+      if (video !== activeVideo) video.classList.remove('is-active');
+      video.dataset.sceneIndex = String(index);
+      delete video.dataset.corsRetry;
+      video.crossOrigin = 'anonymous';
       video.poster = scene.poster;
-      video.src = scene.src;
       video.muted = true;
       video.playsInline = true;
-      video.autoplay = true;
+      video.autoplay = false;
       video.loop = true;
-      video.preload = mediaDisabled ? 'none' : 'metadata';
+      video.preload = 'auto';
+      video.src = scene.src;
       video.load();
     }
 
-    async function playSafely(video) {
-      if (!video || theme !== 'light' || !motionAllowed() || mediaDisabled) return false;
-      try {
-        await video.play();
-        return true;
-      } catch (_) {
-        return false;
-      }
+    // Some video CDNs omit CORS. Keep playback working, with conservative contrast.
+    for (const video of [videoA, videoB]) {
+      video.addEventListener('error', () => {
+        if (video.dataset.corsRetry || !video.getAttribute('src')) return;
+        video.dataset.corsRetry = 'true';
+        video.removeAttribute('crossorigin');
+        video.load();
+        if (video === activeVideo && canPlay()) startActiveVideo();
+      });
     }
 
-    function pauseVideos() {
-      videoA.pause();
-      videoB.pause();
-    }
-
-    function loadInitialLightScene() {
-      updateDayCredit();
-      if (!mediaReady || lightLoaded || mediaDisabled) return;
-      lightLoaded = true;
-      configureVideo(activeVideo, LIGHT_SCENES[activeSceneIndex]);
-      activeVideo.classList.add('is-active');
-
-      const ready = async () => {
-        const playing = await playSafely(activeVideo);
-        if (playing) dayFallback.classList.add('video-ready');
-      };
-      const confirmPlaying = () => dayFallback.classList.add('video-ready');
-      activeVideo.addEventListener('playing', confirmPlaying);
-      activeVideo.addEventListener('error', () => dayFallback.classList.remove('video-ready'));
-      if (activeVideo.readyState >= 2) ready();
-      else activeVideo.addEventListener('loadeddata', ready, { once: true });
-    }
-
-    function waitForVideo(video, timeoutMs) {
+    function presentedFrame(video, timeout = 6000) {
       return new Promise(resolve => {
-        if (video.readyState >= 3) {
-          resolve(true);
-          return;
-        }
+        let handle = 0;
         let done = false;
         const finish = value => {
           if (done) return;
           done = true;
           clearTimeout(timer);
-          video.removeEventListener('canplay', ok);
-          video.removeEventListener('error', fail);
+          if (handle && video.cancelVideoFrameCallback) video.cancelVideoFrameCallback(handle);
+          video.removeEventListener('timeupdate', updated);
           resolve(value);
         };
-        const ok = () => finish(true);
-        const fail = () => finish(false);
-        const timer = setTimeout(() => finish(false), timeoutMs || 9000);
-        video.addEventListener('canplay', ok, { once: true });
-        video.addEventListener('error', fail, { once: true });
+        const updated = () => { if (video.readyState >= 2 && !video.paused && video.currentTime > 0) finish(true); };
+        const timer = setTimeout(() => finish(false), timeout);
+        if (video.requestVideoFrameCallback) handle = video.requestVideoFrameCallback(() => finish(true));
+        else video.addEventListener('timeupdate', updated);
       });
     }
 
+    async function playSafely(video) {
+      if (!canPlay()) return false;
+      try {
+        // A resolved play() alone is not enough: wait for a decoded, presented frame.
+        const presented = presentedFrame(video);
+        const started = Promise.resolve(video.play()).then(() => true, () => false);
+        const okay = await Promise.race([
+          Promise.all([started, presented]).then(([playing, frame]) => playing && frame),
+          new Promise(resolve => setTimeout(() => resolve(false), 6500))
+        ]);
+        if (!okay || !canPlay()) { video.pause(); return false; }
+        return true;
+      } catch (_) { return false; }
+    }
+
+    function pauseVideos() { videoA.pause(); videoB.pause(); }
+
+    async function startActiveVideo() {
+      if (startingVideo || !canPlay()) return;
+      startingVideo = true;
+      const video = activeVideo;
+      const playing = await playSafely(video);
+      if (playing && video === activeVideo && canPlay()) {
+        video.classList.add('is-active');
+        dayFallback.classList.add('video-ready');
+        backdrop.dataset.playback = 'playing';
+      } else if (!dayFallback.classList.contains('video-ready')) backdrop.dataset.playback = 'poster';
+      startingVideo = false;
+    }
+
+    function loadInitialLightScene() {
+      updateDayCredit();
+      if (!mediaReady || mediaDisabled || solidWorkspace()) return;
+      if (!lightLoaded) { lightLoaded = true; configureVideo(activeVideo, activeSceneIndex); }
+      if (activeVideo.paused) startActiveVideo();
+    }
+
+    function warmNextScene() {
+      if (!canPlay() || transitionBusy) return;
+      configureVideo(standbyVideo, (activeSceneIndex + 1) % LIGHT_SCENES.length);
+    }
+
     async function rotateLightScene() {
-      if (transitionBusy || mediaDisabled || theme !== 'light' || !motionAllowed() || LIGHT_SCENES.length < 2) return;
+      if (transitionBusy || !canPlay() || time < nextAttempt) return;
       transitionBusy = true;
-
+      const incoming = standbyVideo;
+      const outgoing = activeVideo;
       const nextIndex = (activeSceneIndex + 1) % LIGHT_SCENES.length;
-      configureVideo(standbyVideo, LIGHT_SCENES[nextIndex]);
-
-      const available = await waitForVideo(standbyVideo, 9000);
-      if (!available || theme !== 'light' || !motionAllowed()) {
-        standbyVideo.pause();
+      configureVideo(incoming, nextIndex);
+      const playing = await playSafely(incoming);
+      if (!playing || !canPlay()) {
+        incoming.pause();
         transitionBusy = false;
-        rotationElapsed = 0;
+        nextAttempt = time + 6;
+        // Leave the existing video visible and playing throughout a network delay.
+        if (canPlay() && outgoing.paused) startActiveVideo();
         return;
       }
-
-      try { standbyVideo.currentTime = 0; } catch (_) {}
-      await playSafely(standbyVideo);
-
-      standbyVideo.classList.add('is-active');
-      activeVideo.classList.remove('is-active');
-
-      const oldVideo = activeVideo;
-      activeVideo = standbyVideo;
-      standbyVideo = oldVideo;
+      incoming.style.zIndex = '1';
+      outgoing.style.zIndex = '0';
+      incoming.classList.add('is-active');
+      activeVideo = incoming;
+      standbyVideo = outgoing;
       activeSceneIndex = nextIndex;
       updateDayCredit();
-
-      setTimeout(() => {
-        standbyVideo.pause();
-        try { standbyVideo.currentTime = 0; } catch (_) {}
-      }, 1900);
-
       rotationElapsed = 0;
-      transitionBusy = false;
+      backdrop.dataset.playback = 'crossfade';
+      clearTimeout(fadeTimer);
+      fadeTimer = setTimeout(() => {
+        // Capture the outgoing element, never a mutable standby pointer.
+        outgoing.pause();
+        outgoing.classList.remove('is-active');
+        transitionBusy = false;
+        backdrop.dataset.playback = activeVideo.paused ? 'paused' : 'playing';
+        if (canPlay()) warmNextScene();
+      }, 1500);
     }
 
     function drawStars(driftX, driftY) {
       for (const star of stars) {
-        const alpha = .34 + Math.sin(time * (star.rate * 1.55) + star.phase) * .24;
+        const alpha = .56 + Math.sin(time * (star.rate * 1.6) + star.phase) * .28;
         ctx.fillStyle = 'rgba(220,236,250,' + Math.max(.07, alpha).toFixed(3) + ')';
         ctx.beginPath();
         ctx.arc(
-          star.x * width + driftX * star.depth * .36,
-          star.y * height + driftY * star.depth * .28,
+          star.x * width + driftX * star.depth * .85,
+          star.y * height + driftY * star.depth * .65,
           star.r,
           0,
           Math.PI * 2
@@ -297,9 +325,9 @@
 
     function drawDust() {
       for (const p of dust) {
-        const x = ((p.x * width + time * 8 * p.vx) % (width + 40) + width + 40) % (width + 40) - 20;
-        const y = ((p.y * height + time * 8 * p.vy) % (height + 40) + height + 40) % (height + 40) - 20;
-        const a = .04 + Math.sin(time * .34 + p.phase) * .03;
+        const x = ((p.x * width + time * 15 * p.vx) % (width + 40) + width + 40) % (width + 40) - 20;
+        const y = ((p.y * height + time * 15 * p.vy) % (height + 40) + height + 40) % (height + 40) - 20;
+        const a = .14 + Math.sin(time * .34 + p.phase) * .055;
         ctx.fillStyle = 'rgba(229,218,200,' + Math.max(.006, a).toFixed(3) + ')';
         ctx.beginPath();
         ctx.arc(x, y, p.r, 0, Math.PI * 2);
@@ -325,13 +353,13 @@
       const u = streak.age / streak.life;
       if (u >= 1) {
         streak = null;
-        nextStreak = 14 + random() * 26;
+        nextStreak = 9 + random() * 17;
         return;
       }
 
       const x = streak.x + u * streak.speed;
       const y = streak.y + u * streak.speed * .34;
-      const alpha = Math.sin(u * Math.PI) * .13;
+      const alpha = Math.sin(u * Math.PI) * .36;
       const g = ctx.createLinearGradient(x, y, x - streak.length, y - streak.length * .34);
       g.addColorStop(0, 'rgba(232,244,255,' + alpha.toFixed(3) + ')');
       g.addColorStop(1, 'rgba(232,244,255,0)');
@@ -344,16 +372,16 @@
     }
 
     function universe(dt) {
-      const driftX = Math.sin(time / 10.5) * 26 + Math.sin(time / 24) * 12;
-      const driftY = Math.cos(time / 14.5) * 16 + Math.sin(time / 31) * 7;
-      const scale = 1.092 + Math.sin(time / 18) * .014;
+      const driftX = Math.sin(time / 8.5) * Math.min(width * .04, 48) + Math.sin(time / 21) * 10;
+      const driftY = Math.cos(time / 12) * Math.min(height * .035, 30) + Math.sin(time / 27) * 8;
+      const scale = 1.17 + Math.sin(time / 16) * .024;
 
       night.style.transform =
         'translate3d(' + driftX.toFixed(2) + 'px,' + driftY.toFixed(2) + 'px,0) scale(' + scale.toFixed(4) + ')';
 
       nightDepth.style.transform =
         'translate3d(' + (-driftX * .46).toFixed(2) + 'px,' + (-driftY * .34).toFixed(2) + 'px,0) scale(' +
-        (1.126 - Math.sin(time / 22) * .012).toFixed(4) + ')';
+        (1.19 - Math.sin(time / 22) * .022).toFixed(4) + ')';
 
       nightGlow.style.transform =
         'translate3d(' + (Math.sin(time / 8.5) * 38).toFixed(2) + 'px,' + (Math.cos(time / 12.5) * 24).toFixed(2) + 'px,0)';
@@ -376,6 +404,7 @@
     }
 
     function draw(dt) {
+      if (!ctx) return;
       ctx.clearRect(0, 0, width, height);
       if (theme === 'dark') universe(dt || .033);
       else livingEarth();
@@ -383,18 +412,25 @@
 
     function frame(now) {
       raf = 0;
-      if (document.hidden || !motionAllowed()) return;
+      if (document.hidden || !motionAllowed() || solidWorkspace()) return;
 
-      const interval = width < 700 || mediaDisabled ? 1000 / 18 : 1000 / 28;
+      const interval = width < 700 || mediaDisabled ? 1000 / 24 : 1000 / 30;
       if (now - lastFrame >= interval) {
         const dt = Math.min((now - lastFrame) / 1000 || .035, .12);
         lastFrame = now;
         time += dt;
 
-        if (theme === 'light') {
-          rotationElapsed += dt;
-          if (rotationElapsed >= ROTATE_AFTER) rotateLightScene();
+        if (canPlay() && activeVideo.paused && !startingVideo && time > nextPlayAttempt) {
+          nextPlayAttempt = time + 8; loadInitialLightScene();
         }
+        if (theme === 'light' && !activeVideo.paused && activeVideo.readyState >= 3) {
+          rotationElapsed += dt;
+          const duration = Number.isFinite(activeVideo.duration) ? activeVideo.duration : ROTATE_AFTER + 4;
+          const deadline = Math.min(ROTATE_AFTER, Math.max(4, duration - 2));
+          if (rotationElapsed > 2) warmNextScene();
+          if (rotationElapsed >= deadline) rotateLightScene();
+        }
+        if (now - lastContrast > 850) { updateContrast(); lastContrast = now; }
 
         draw(dt);
       }
@@ -402,56 +438,119 @@
       raf = requestAnimationFrame(frame);
     }
 
+    const sampleCanvas = document.createElement('canvas');
+    sampleCanvas.width = 64; sampleCanvas.height = 48;
+    let sampleContext = sampleCanvas.getContext('2d', { willReadFrequently: true });
+    const nightImage = new Image();
+    nightImage.src = new URL('assets/scenes/webb-cosmic-cliffs.webp', assetBase).href;
+    const fallbackImage = new Image();
+    fallbackImage.src = new URL('assets/scenes/mountain-valley.svg', assetBase).href;
+    const unreadable = new WeakSet();
+    let contrastNodes = [];
+    let lastContrast = 0;
+    let contrastTimer = 0;
+    const copySelector = '.hero-copy,.about-copy,.section-heading,.portrait-caption,.quantum-intro,.projects-hero,.contact>div,.vnext-sys-detail,.scene-options>div,footer.wrap,.site-footer,.vnext-sys-top,.learn-page-intro,.education-section>.text-link';
+    const glassSelector = '.home-project,.project-card,.education-cards article,.domain-card,.principle-grid article,.home-spotlight,.stat-band,.verification-strip,.resume-strip,.learn-page-nav,.credentials-detail';
+    function collectSurfaces() {
+      if (document.documentElement.dataset.sceneSurface !== 'glass') return;
+      document.querySelectorAll(copySelector).forEach(el => el.classList.add('scene-copy'));
+      document.querySelectorAll(glassSelector).forEach(el => el.classList.add('glass-surface'));
+      contrastNodes = [...document.querySelectorAll('.scene-copy,.glass-surface')];
+      updateContrast();
+    }
+    const linear = x => { x /= 255; return x <= .04045 ? x / 12.92 : ((x + .055) / 1.055) ** 2.4; };
+    const luminance = rgb => .2126 * linear(rgb[0]) + .7152 * linear(rgb[1]) + .0722 * linear(rgb[2]);
+    const ratio = (a, b) => (Math.max(a,b) + .05) / (Math.min(a,b) + .05);
+
+    function updateContrast(force = false) {
+      if (solidWorkspace()) return;
+      const light = theme === 'light';
+      let source = light ? activeVideo : nightImage;
+      let sampled = false, pixels;
+      if (light && (activeVideo.readyState < 2 || unreadable.has(activeVideo))) source = fallbackImage;
+      try {
+        const sw = source.videoWidth || source.naturalWidth, sh = source.videoHeight || source.naturalHeight;
+        if (sampleContext && sw && sh) {
+          const scale = Math.max(width / sw, height / sh);
+          const cw = width / scale, ch = height / scale;
+          sampleContext.drawImage(source, (sw-cw)/2, (sh-ch)/2, cw, ch, 0, 0, 64, 48);
+          pixels = sampleContext.getImageData(0,0,64,48).data;
+          // A remote video without CORS needs conservative surfaces, not guessed pixel colors.
+          sampled = !light || source === activeVideo;
+        }
+      } catch (_) {
+        unreadable.add(source);
+        sampleCanvas.width = 64; // clear the tainted backing store before the next sample
+        sampleContext = sampleCanvas.getContext('2d', { willReadFrequently: true });
+      }
+      backdrop.dataset.contrast = sampled ? 'sampled' : 'conservative';
+      for (const el of contrastNodes) {
+        const rect = el.getBoundingClientRect();
+        if (!rect.width || rect.bottom < 0 || rect.top > height) continue;
+        let sum = 0, n = 0, worst = light ? 255 : 0;
+        if (sampled && pixels) {
+          const x0=Math.max(0,Math.floor(rect.left/width*64)), x1=Math.min(64,Math.ceil(rect.right/width*64));
+          const y0=Math.max(0,Math.floor(rect.top/height*48)), y1=Math.min(48,Math.ceil(rect.bottom/height*48));
+          for(let y=y0;y<y1;y+=2) for(let x=x0;x<x1;x+=2) {
+            const i=(y*64+x)*4, v=.2126*pixels[i]+.7152*pixels[i+1]+.0722*pixels[i+2];
+            sum+=v; n++; worst=light?Math.min(worst,v):Math.max(worst,v);
+          }
+        }
+        const mean=n?sum/n:light?95:160;
+        const strength=light?1-mean/255:mean/255;
+        const ink=light?[8+Math.round((1-strength)*8),30+Math.round((1-strength)*8),26+Math.round((1-strength)*6)]:[237+Math.round(strength*12),245+Math.round(strength*8),246+Math.round(strength*7)];
+        const muted=light?[30,55,46]:[203,220,224];
+        const accent=light?[120,46,16]:[255,201,160];
+        const link=light?[16,68,77]:[175,235,241];
+        const tint=light?[247,252,248]:[13,27,34];
+        // Bound the unseen/high-frequency detail beyond the sparse sample, too.
+        const raw=n?(light?Math.max(0,worst-40):Math.min(255,worst+40)):(light?0:255);
+        const wash=light?.15:.27, veil=light?235:12;
+        const backdropValue=raw*(1-wash)+veil*wash;
+        let alpha=.56;
+        for(;alpha<.88;alpha+=.01) {
+          const bg=luminance(tint.map(v=>v*alpha+backdropValue*(1-alpha)));
+          if ([ink,muted,accent,link].every(rgb=>ratio(luminance(rgb),bg)>=5)) break;
+        }
+        // Strengthen immediately; ease only toward greater transparency.
+        const old=Number(el.dataset.glassAlpha)||alpha;
+        if (!force && alpha<old) alpha=old*.7+alpha*.3;
+        const value=alpha.toFixed(3);
+        el.dataset.glassAlpha=value;
+        el.style.setProperty('--glass-alpha',value);
+        el.style.setProperty('--copy-alpha',value);
+        el.style.setProperty('--scene-surface',`rgba(${tint.join(',')},${value})`);
+        for(const [key,rgb] of [['ink',ink],['text',ink],['muted',muted],['accent',accent],['blue',link]]) el.style.setProperty('--'+key,`rgb(${rgb.join(',')})`);
+      }
+    }
+    new MutationObserver(() => {
+      clearTimeout(contrastTimer);
+      contrastTimer=setTimeout(collectSurfaces,120);
+    }).observe(document.body,{childList:true,subtree:true});
+    collectSurfaces();
+    nightImage.addEventListener('load',()=>updateContrast(true));
+    addEventListener('scroll',()=>{if(!raf) updateContrast();},{passive:true});
+
     function refresh() {
       cancelAnimationFrame(raf);
       raf = 0;
       theme = appearance.getTheme();
       backdrop.dataset.sceneTheme = theme;
-
-      if (theme === 'light') {
-        updateDayCredit();
-        if (mediaReady) loadInitialLightScene();
-        if (mediaReady && motionAllowed()) playSafely(activeVideo);
-        else pauseVideos();
-      } else {
-        pauseVideos();
-      }
-
-      draw(.033);
-
-      if (!document.hidden && motionAllowed()) {
+      if (canPlay()) loadInitialLightScene();
+      else { pauseVideos(); backdrop.dataset.playback = 'paused'; }
+      updateContrast(true);
+      draw(0);
+      if (!document.hidden && motionAllowed() && !solidWorkspace()) {
         lastFrame = performance.now();
         raf = requestAnimationFrame(frame);
       }
     }
 
+    // Start at DOM readiness, not after all 8,000 learning records and images load.
     resize();
     refresh();
-
-    function releaseMedia() {
-      clearTimeout(mediaTimer);
-      mediaTimer = setTimeout(() => {
-        mediaReady = true;
-        updateDayCredit();
-        if (theme === 'light') {
-          loadInitialLightScene();
-          if (motionAllowed()) playSafely(activeVideo);
-        }
-      }, 1200);
-    }
-
-    if (document.readyState === 'complete') releaseMedia();
-    else addEventListener('load', releaseMedia, { once: true });
-
-    const retryLightPlayback = () => {
-      if (theme === 'light' && mediaReady && motionAllowed()) {
-        playSafely(activeVideo).then(playing => {
-          if (playing) dayFallback.classList.add('video-ready');
-        });
-      }
-    };
+    const retryLightPlayback = () => { if (activeVideo.paused && canPlay()) loadInitialLightScene(); };
     document.addEventListener('pointerdown', retryLightPlayback, { passive: true });
-    document.addEventListener('touchstart', retryLightPlayback, { passive: true });
     document.addEventListener('keydown', retryLightPlayback);
 
     document.addEventListener('portfolio:theme', refresh);
@@ -470,11 +569,18 @@
     addEventListener('resize', resize, { passive: true });
     addEventListener('pagehide', () => {
       pauseVideos();
-      clearTimeout(mediaTimer);
+      clearTimeout(fadeTimer);
+      standbyVideo.classList.remove('is-active');
+      transitionBusy = false;
       cancelAnimationFrame(raf);
       raf = 0;
     });
     addEventListener('pageshow', refresh);
+    let wasSolid = solidWorkspace();
+    new MutationObserver(() => {
+      const solid = solidWorkspace();
+      if (solid !== wasSolid) { wasSolid = solid; refresh(); }
+    }).observe(document.body, { attributes: true, attributeFilter: ['class'] });
   };
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot, { once: true });

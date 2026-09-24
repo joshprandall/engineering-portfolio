@@ -77,7 +77,7 @@ jobs:
                   'science-experiments.js','science-experiments.css',
                   'knowledge.js','learning-depth.js','learning-depth.css','learning-capstones.json',
                   'portfolio-home.css','quantum-cube.js','assets/fonts/fonts.css',
-                  'assets/joshua-randall-headshot.jpg','assets/systems-lab.jpg','assets/quantum-field-notes.jpg',
+                  'assets/joshua-randall-headshot.jpg', 'assets/joshua-randall-cutout.webp', 'assets/mit-logo.svg','assets/systems-lab.jpg','assets/quantum-field-notes.jpg',
                   'agent-workbench.js','labs/qpe.js','labs/emergent.js',
                   'qubit-preview-20260921/index.html',
                   'qubit-preview-20260921/app.js',

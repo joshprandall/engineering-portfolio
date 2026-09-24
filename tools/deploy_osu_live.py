@@ -27,7 +27,7 @@ REQUIRED = THEME_SHELL_FILES + (
     'learning-capstones.json', 'labs/qpe.js', 'labs/emergent.js', 'agent-workbench.js',
     'qubit-preview-20260921/index.html', 'qubit-preview-20260921/app.js',
     'qubit-preview-20260921/qubit.js', 'assets/fonts/fonts.css',
-    'assets/joshua-randall-headshot.jpg', 'assets/systems-lab.jpg', 'assets/quantum-field-notes.jpg',
+    'assets/joshua-randall-headshot.jpg', 'assets/joshua-randall-cutout.webp', 'assets/mit-logo.svg', 'assets/systems-lab.jpg', 'assets/quantum-field-notes.jpg',
 )
 
 def protected(name):
