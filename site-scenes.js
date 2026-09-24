@@ -37,6 +37,18 @@
 
   const ROTATE_AFTER = 28;
   const AMBIENT_AUDIO_KEY = 'jr-site-ambient-muted-v1';
+
+  // Real nature recordings. River + beach are CC0, shorebirds are U.S. federal
+  // public domain, and the waterfall recording is used as a looped field clip.
+  // Dark mode intentionally looks for a local licensed file instead of copying
+  // a copyrighted film score into the repository.
+  const REAL_NATURE_AUDIO = {
+    'forest-river': 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Sanna%20river%20rapids.ogg',
+    'birds-water': 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Ocean%20Waves%20on%20a%20Tropical%20Beach.ogg',
+    'forest-waterfall': 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Water%20fall.ogg'
+  };
+  const BEACH_BIRDS_AUDIO = 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Cape%20May%20Shorebirds%20closer.ogg';
+  const DARK_LICENSED_TRACK = new URL('assets/audio/dark-theme.mp3', SITE_BASE).href;
   const PROJECT_AUDIO_RE = /(?:^|\/)(?:project-[^/]+\.html|play-evil-wizard\.html|agent-workbench\.html|games\/|geometric-lab\/|qubit-preview-20260921\/|deep-learning\/)/i;
 
   const boot = () => {
@@ -173,9 +185,9 @@
 
     const motionAllowed = () => true;
 
-    // Quiet, original ambient soundscape. Dark mode uses a slow cinematic
-    // organ-like pad with no borrowed melody. Light mode synthesizes ambience
-    // that follows the active nature scene: river, surf + birds, or waterfall.
+    // Audio state. Light mode now uses real field recordings matched to each
+    // scene. Dark mode uses assets/audio/dark-theme.mp3 when the owner supplies
+    // a legally licensed copy for site playback.
     let ambientCtx = null;
     let ambientMaster = null;
     let ambientNodes = [];
@@ -183,6 +195,10 @@
     let birdTimer = 0;
     let ambientWatchdog = 0;
     let ambientSignature = '';
+    let recordedAmbience = null;
+    let darkLicensedAudio = null;
+    let birdAudio = null;
+    let birdReplayTimer = 0;
     let audioUnlocked = false;
     let audioSuppressed = false;
     let ambientMuted = (() => {
@@ -239,6 +255,78 @@
       }
     }
 
+    function createAudioTrack(src, {loop=true, volume=.18}={}) {
+      const audio = new Audio();
+      audio.src = src;
+      audio.loop = loop;
+      audio.preload = 'auto';
+      audio.playsInline = true;
+      audio.volume = volume;
+      return audio;
+    }
+
+    function stopRecordedAmbience() {
+      clearTimeout(birdReplayTimer);
+      birdReplayTimer = 0;
+      [recordedAmbience, darkLicensedAudio, birdAudio].forEach(audio => {
+        if (!audio) return;
+        try { audio.pause(); } catch (_) {}
+      });
+      recordedAmbience = null;
+      darkLicensedAudio = null;
+      birdAudio = null;
+    }
+
+    function scheduleBeachBirds() {
+      clearTimeout(birdReplayTimer);
+      if (!ambientAllowed() || theme !== 'light' || LIGHT_SCENES[activeSceneIndex]?.id !== 'birds-water' || !audioUnlocked) return;
+      const delay = 6500 + Math.random() * 9000;
+      birdReplayTimer = setTimeout(async () => {
+        if (!ambientAllowed() || theme !== 'light' || LIGHT_SCENES[activeSceneIndex]?.id !== 'birds-water') return;
+        try {
+          if (!birdAudio) birdAudio = createAudioTrack(BEACH_BIRDS_AUDIO, {loop:false, volume:.16});
+          birdAudio.currentTime = 0;
+          await birdAudio.play();
+        } catch (_) {}
+        scheduleBeachBirds();
+      }, delay);
+    }
+
+    async function startRecordedAmbience() {
+      stopRecordedAmbience();
+      if (!ambientAllowed() || !audioUnlocked) return false;
+
+      if (theme === 'dark') {
+        const audio = createAudioTrack(DARK_LICENSED_TRACK, {loop:true, volume:.22});
+        darkLicensedAudio = audio;
+        let failed = false;
+        audio.addEventListener('error', () => { failed = true; }, {once:true});
+        try {
+          await audio.play();
+          if (!failed) return true;
+        } catch (_) {}
+        try { audio.pause(); } catch (_) {}
+        darkLicensedAudio = null;
+        return false;
+      }
+
+      const scene = LIGHT_SCENES[activeSceneIndex];
+      const src = scene && REAL_NATURE_AUDIO[scene.id];
+      if (!src) return false;
+
+      const volume = scene.id === 'forest-waterfall' ? .28 : scene.id === 'birds-water' ? .22 : .24;
+      const audio = createAudioTrack(src, {loop:true, volume});
+      recordedAmbience = audio;
+      try {
+        await audio.play();
+        if (scene.id === 'birds-water') scheduleBeachBirds();
+        return true;
+      } catch (_) {
+        recordedAmbience = null;
+        return false;
+      }
+    }
+
     function rememberNode(node) {
       ambientNodes.push(node);
       return node;
@@ -247,6 +335,7 @@
     function stopAmbientNodes() {
       clearInterval(ambientTimer);
       clearTimeout(birdTimer);
+      clearTimeout(birdReplayTimer);
       ambientTimer = 0;
       birdTimer = 0;
       ambientSignature = '';
@@ -395,6 +484,7 @@
 
       if (!ambientAllowed()) {
         if (ambientNodes.length) stopAmbientNodes();
+        stopRecordedAmbience();
         return;
       }
       if (!audioUnlocked || !ambientCtx || !ambientMaster) return;
@@ -411,24 +501,34 @@
       if (ambientCtx.state !== 'running') return;
 
       const wanted = desiredAmbientSignature();
-      if (!force && ambientSignature === wanted && ambientNodes.length) {
+      const recordedPlaying = Boolean(
+        (recordedAmbience && !recordedAmbience.paused) ||
+        (darkLicensedAudio && !darkLicensedAudio.paused)
+      );
+      if (!force && ambientSignature === wanted && recordedPlaying) {
         syncVideoAmbience();
         return;
       }
 
       stopAmbientNodes();
+      stopRecordedAmbience();
       if (!ambientAllowed()) return;
 
       syncVideoAmbience();
-      if (theme === 'dark') startDarkAmbience();
-      else startLightAmbience();
       ambientSignature = wanted;
 
-      const target = theme === 'dark' ? .96 : .98;
+      startRecordedAmbience().then(started => {
+        if (started || !ambientAllowed()) return;
+
+        // If no licensed dark track is installed, keep dark mode silent rather
+        // than substituting a fake copy of a film theme. Nature modes rely on
+        // real recordings and are retried by the watchdog if playback fails.
+        if (theme === 'dark') return;
+      }).catch(() => {});
+
       try {
         ambientMaster.gain.cancelScheduledValues(ambientCtx.currentTime);
-        ambientMaster.gain.setValueAtTime(.0001, ambientCtx.currentTime);
-        ambientMaster.gain.exponentialRampToValueAtTime(target, ambientCtx.currentTime + .9);
+        ambientMaster.gain.setValueAtTime(0, ambientCtx.currentTime);
       } catch (_) {}
     }
 
@@ -803,7 +903,11 @@
     ambientWatchdog = setInterval(() => {
       if (!ambientAllowed() || !audioUnlocked || !ambientCtx) return;
       if (ambientCtx.state === 'running') {
-        if (!ambientNodes.length || ambientSignature !== desiredAmbientSignature()) refreshAmbientAudio(true);
+        const recordedPlaying = Boolean(
+          (recordedAmbience && !recordedAmbience.paused) ||
+          (darkLicensedAudio && !darkLicensedAudio.paused)
+        );
+        if (!recordedPlaying || ambientSignature !== desiredAmbientSignature()) refreshAmbientAudio(true);
         else syncVideoAmbience();
       }
     }, 2500);
@@ -830,6 +934,7 @@
     addEventListener('pagehide', () => {
       pauseVideos();
       stopAmbientNodes();
+      stopRecordedAmbience();
       clearInterval(ambientWatchdog);
       clearTimeout(mediaTimer);
       cancelAnimationFrame(raf);
