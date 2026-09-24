@@ -28,7 +28,7 @@ for path in ROOT.rglob("*.html"):
         shutil.copy2(path, dest)
         html_files.append(path)
 
-url = "https://raw.githubusercontent.com/joshprandall/engineering-portfolio/f5e41f36c23ccb0f4a599dd76f4be3abf06d4931/site-scenes.js"
+url = "https://raw.githubusercontent.com/joshprandall/engineering-portfolio/d8daf9124a3a8d7a15f6c930b930edf1134d0ee2/site-scenes.js"
 with urllib.request.urlopen(url, timeout=25) as response:
     data = response.read()
 if len(data) < 5000:
