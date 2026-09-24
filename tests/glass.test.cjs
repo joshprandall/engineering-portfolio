@@ -16,6 +16,8 @@ module.exports = async ({browser,base,output,failures}) => {
   await page.waitForTimeout(1000);
   const opacity = alpha(await css('.home-project','backgroundColor'));
   assert(opacity>=.5 && opacity<.95,mode+': frosted card has tint and transparency');
+  assert(parseFloat(await css('.home-project p','fontSize'))>=17,mode+': comfortable paragraph size');
+  assert(parseFloat(await css('.home-project p','fontWeight'))>=500,mode+': substantial paragraph weight');
   assert.equal(await css('.home-project','opacity'),'1','Text does not inherit artwork opacity');
   assert(parseFloat(await css('.home-project','borderRadius'))>=8);
   assert.equal(await css('.vnext-cosmos-scene','backgroundColor'),'rgba(0, 0, 0, 0)','Solar scene floats');

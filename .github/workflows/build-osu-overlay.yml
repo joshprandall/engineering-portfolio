@@ -128,6 +128,7 @@ jobs:
             timeout 45s "$CHROME" --headless=new --no-sandbox --disable-gpu --disable-dev-shm-usage --hide-scrollbars --virtual-time-budget=8500 --window-size=1440,900 --screenshot="visual-qa/${name}-desktop.png" "http://127.0.0.1:8765/$page" >/dev/null 2>&1 || echo "Desktop screenshot unavailable for $page"
           done
       - uses: actions/upload-artifact@v4
+        if: always()
         with:
           name: joshua-randall-site-visual-qa
           path: visual-qa/

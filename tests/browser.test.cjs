@@ -32,8 +32,8 @@ async function run(){
    console.log('Checking '+name);await page.setViewportSize({width,height});await page.goto(base+'/',{waitUntil:'networkidle'});
    console.log('Loaded '+name);assert.equal(await page.locator('body').evaluate(e=>getComputedStyle(e).backgroundColor),'rgb(16, 20, 22)','Dark theme actually renders');assert.equal(await page.locator('.vnext-world').count(),5,'Five selectable planets');
    for(const label of ['Build','Secure','Automate','Evolve','Architect']){
-    await page.getByRole('tab',{name:label,exact:true}).click();
-    assert.equal(await page.getByRole('tab',{name:label,exact:true}).getAttribute('aria-selected'),'true');
+    await page.getByRole('button',{name:'Select '+label,exact:true}).press('Enter');
+    assert.equal(await page.getByRole('tab',{name:label,exact:true,includeHidden:true}).getAttribute('aria-selected'),'true');
     assert.match(await page.locator('.vnext-sys-meta').innerText(),new RegExp(label,'i'));
    }
    if(await page.locator('#menu').isVisible()){
@@ -53,7 +53,7 @@ async function run(){
    await page.locator('#bell-basis').selectOption('ZZ');
    await page.locator('#quantum-cube').scrollIntoViewIfNeeded();
    const capture=()=>page.locator('#quantum-cube').evaluate(c=>c.toDataURL());
-   let frame=await capture();await page.waitForTimeout(140);assert.notEqual(await capture(),frame,'Cubes animate');
+   let frame=await capture();await page.waitForFunction(previous=>document.querySelector('#quantum-cube').toDataURL()!==previous,frame,{timeout:3000});
    await page.locator('#cube-pause').click();await page.waitForTimeout(80);frame=await capture();await page.waitForTimeout(140);assert.equal(await capture(),frame,'Cube pause stops rendering motion');await page.locator('#cube-pause').click();
    await page.locator('#motion').click();await page.waitForTimeout(90);frame=await capture();await page.waitForTimeout(140);assert.equal(await capture(),frame,'Global pause reaches quantum animation');
    await page.locator('.vnext-cosmos').scrollIntoViewIfNeeded();let positions=await page.locator('.vnext-world').evaluateAll(es=>es.map(e=>e.style.transform));await page.waitForTimeout(140);assert.deepEqual(await page.locator('.vnext-world').evaluateAll(es=>es.map(e=>e.style.transform)),positions,'Global pause reaches orbital animation');
