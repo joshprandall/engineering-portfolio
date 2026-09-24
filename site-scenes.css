@@ -205,7 +205,7 @@ body.living-scenes .filters select{min-width:0;max-width:100%;flex:1;width:0}
 body.living-scenes .search-box{grid-template-columns:auto minmax(0,1fr) auto}
 @media(max-width:520px){body.living-scenes .filters{grid-template-columns:minmax(0,1fr)}}
 /* Consistent mobile header; auxiliary learning sound/motion controls live below. */
-@media(max-width:800px){body[data-library-page] .site-header{height:76px;min-height:76px;padding:0 18px;gap:10px}body[data-library-page] .header-tools{margin-left:auto;gap:4px}body[data-library-page] .brand{gap:9px;min-width:0}body[data-library-page] .brand strong{font-size:1.65rem}body[data-library-page] .brand span{font-size:.83rem;font-weight:750}body[data-library-page] .brand small{display:none}body[data-library-page] .header-tools :is(#sound-toggle,#motion-toggle){display:none}}
+@media(max-width:800px){body[data-library-page] .site-header{height:76px;min-height:76px;padding:0 18px;gap:10px}body[data-library-page] .header-tools{margin-left:auto;gap:4px}body[data-library-page] .brand{gap:9px;min-width:0}body[data-library-page] .brand strong{font-size:1.65rem}body[data-library-page] .brand span{font-size:.83rem;font-weight:750}body[data-library-page] .brand small{display:none}body[data-library-page] .header-tools :is(#sound-mode,#motion-mode){display:none}}
 
 /* Game launch pages are galleries; the opened games own their playing surface. */
 :root[data-scene-surface=glass] .living-scenes .project-detail{background:transparent!important;border:0!important;box-shadow:none!important}

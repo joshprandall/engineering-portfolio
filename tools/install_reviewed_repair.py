@@ -64,8 +64,10 @@ def plan_changes(root, source):
             fragment = re.sub(r'data:image/[^"\s]+',lambda _:photo.group(),fragment)
             text = text.replace(old,fragment,1)
         put(page.relative_to(root).as_posix(),text)
-    put('knowledge.js',replace_section(read('knowledge.js'),src('knowledge.js'),
-                                      '  function applyLibraryPage(){','  function randomLesson(){'))
+    knowledge=replace_section(read('knowledge.js'),src('knowledge.js'),
+                              '  function applyLibraryPage(){','  function randomLesson(){')
+    knowledge=re.sub(r'(learning-depth\.js)\?[^"\s\x27>]+',r'\1?v='+VERSION,knowledge)
+    put('knowledge.js',knowledge)
     put('learning-depth.js',replace_section(read('learning-depth.js'),src('learning-depth.js'),
                                            '  function homeSection(){','  function contextBar(){'))
     # This is the actual older renderer used on OSU, not the different GitHub game.

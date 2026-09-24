@@ -82,6 +82,7 @@ module.exports = async ({browser,base,output,failures}) => {
   if(!route.request().url().includes('33886656')) await delayed;
   await route.fulfill({contentType:'video/mp4',headers:{'access-control-allow-origin':'*'},body:media});
  });
+ try {
  await page.goto('http://portfolio.test/index.html',{waitUntil:'domcontentloaded'});
  if(await page.locator('html').getAttribute('data-theme')!=='light') await page.locator('[data-theme-toggle]').click();
  await page.waitForFunction(()=>document.querySelector('#site-scene').dataset.playback==='playing');
@@ -102,6 +103,9 @@ module.exports = async ({browser,base,output,failures}) => {
  await page.waitForFunction(()=>!document.querySelector('.scene-video-b').paused);
  await page.locator('[data-theme-toggle]').click();
  assert(await page.locator('.scene-video').evaluateAll(videos=>videos.every(v=>v.paused)),'Night suspends day decoders');
- if(process.env.PORTFOLIO_BROWSER_SINGLE_PROCESS!=='1') await context.close();
+ } finally {
+  releaseNext(); // A failed assertion must not leave a routed request blocking shutdown.
+  if(process.env.PORTFOLIO_BROWSER_SINGLE_PROCESS!=='1') await context.close();
+ }
  console.log('PASS adaptive glass: card transparency, solid labs/dialogs, floating solar/portrait, delayed video, decoded crossfade, persistent pause');
 };
