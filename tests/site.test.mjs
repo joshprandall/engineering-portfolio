@@ -87,7 +87,7 @@ assert.match(resilience,/play-evil-wizard\.html/,'Game Development navigation mu
 assert.match(resilience,/menu\.onclick=/,'Shared header must have a single explicit hamburger owner');
 assert.match(resilience,/project-shell/,'Project pages must be marked for hamburger-only header navigation');
 assert.match(read('site-resilience.css'),/body\.project-shell #menu\{display:inline-flex!important/,'Project pages must expose the hamburger at all viewport sizes');
-assert.match(read('site-resilience.css'),/body\.project-shell #theme\{display:none!important/,'Project pages must keep the header limited to home, search, and hamburger tools');
+assert.match(read('site-scenes.css'),/body\.project-shell \.tools #theme\.appearance-toggle/,'Project pages must expose the shared appearance control');
 assert.doesNotMatch(read('app.js'),/menu\.addEventListener\("click"/,'app.js must not register a competing hamburger handler');
 assert.match(read('site-resilience.css'),/\.nav-games-menu/,'Game Development submenu styling is missing');
 assert.match(read('knowledge.js'),/closePrimaryNav/,'Knowledge Library must use robust top navigation close behavior');
@@ -134,7 +134,7 @@ assert.ok(!/games\/|geometric-lab|project-sources/.test(webDirs),'OSU deploy WEB
 assert.match(deployScript,/PROTECTED_ROOT_FILES = set\(\)/,'OSU deploy must allow project wrapper HTML updates');
 
 
-for (const file of ['app.js','portfolio-next.js','handheld-experience.js','science-experiments.js','quantum-cube.js','knowledge.js','learning-depth.js','learning-next.js','agent-workbench.js','labs/qpe.js','labs/emergent.js','qubit-preview-20260921/app.js','qubit-preview-20260921/qubit.js','games/3d-battle-chess/battle.js','games/3d-battle-chess/engine.js']) execFileSync(process.execPath,['--check',path.join(root,file)],{stdio:'pipe'});
+for (const file of ['site-theme.js','site-scenes.js','geometric-lab/app.js','app.js','portfolio-next.js','handheld-experience.js','science-experiments.js','quantum-cube.js','knowledge.js','learning-depth.js','learning-next.js','agent-workbench.js','labs/qpe.js','labs/emergent.js','qubit-preview-20260921/app.js','qubit-preview-20260921/qubit.js','games/3d-battle-chess/battle.js','games/3d-battle-chess/engine.js']) execFileSync(process.execPath,['--check',path.join(root,file)],{stdio:'pipe'});
 
 const q=await import(pathToFileURL(path.join(root,'qubit-preview-20260921/qubit.js')).href+'?test='+Date.now());
 const plus=q.stateFromAngles(90,0),minus=q.stateFromAngles(90,180),plusI=q.stateFromAngles(90,90),north=q.stateFromAngles(0,123);

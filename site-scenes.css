@@ -1,0 +1,77 @@
+/* Living backgrounds and one appearance control for portfolio, learning, and lab pages. */
+:root{--scene-surface:rgba(16,20,22,.86);--scene-soft:rgba(16,20,22,.7);--scene-edge:rgba(16,20,22,.36);--scene-border:rgba(173,209,215,.18)}
+:root[data-theme=light]{--bg:#eef2ed;--surface:#f9fbf7;--surface2:#e3ebe5;--ink:#1b302d;--text:#1b302d;--muted:#49605b;--accent:#8a4821;--blue:#266c70;--line:#b8c9c0;--panel:#f9fbf7;--panel2:#e8eee7;--panel3:#e0e9e0;--bg2:#e8eee7;--scene-surface:rgba(247,250,243,.89);--scene-soft:rgba(246,249,242,.79);--scene-edge:rgba(236,244,237,.35);--scene-border:rgba(70,105,88,.2)}
+body.living-scenes{position:relative;isolation:isolate;min-height:100vh;background:var(--bg)}
+.living-scenes>.ambient{display:none}
+.scene-backdrop{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none;contain:strict;background:#07141e}
+.scene-image,.scene-canvas,.scene-veil{position:absolute;inset:0;width:100%;height:100%}
+.scene-image{background-size:cover;background-position:center;transform:scale(1.04);will-change:transform}
+.scene-night{background-color:#081925;opacity:1}
+:root[data-theme=dark] .scene-night{background-image:url('assets/scenes/webb-cosmic-cliffs.webp')}
+.scene-day{background-color:#d6e6e5;opacity:0;transform:none;will-change:auto}
+:root[data-theme=light] .scene-day{background-image:url('assets/scenes/mountain-valley.svg');opacity:1}
+:root[data-theme=light] .scene-night{opacity:0}
+.scene-canvas{display:block;opacity:.6;z-index:1}
+.scene-veil{background:linear-gradient(90deg,var(--scene-edge),var(--scene-soft) 13%,var(--scene-surface) 42%,var(--scene-soft) 78%,var(--scene-edge)),linear-gradient(180deg,rgba(6,17,24,.18),rgba(6,17,24,.04) 60%,rgba(6,17,24,.25))}
+:root[data-theme=light] .scene-veil{background:linear-gradient(90deg,var(--scene-edge),var(--scene-soft) 12%,var(--scene-surface) 40%,var(--scene-soft) 80%,var(--scene-edge)),linear-gradient(180deg,rgba(250,248,236,.13),transparent 60%,rgba(245,250,241,.18))}
+.living-scenes>header{background:var(--scene-surface);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
+.living-scenes .project-card,.living-scenes .home-project,.living-scenes .education-cards article,.living-scenes .portrait-card{background:var(--scene-surface);border-color:var(--scene-border)}
+.living-scenes .stat-band,.living-scenes .home-spotlight,.living-scenes .section.alt{background:var(--scene-soft)}
+.living-scenes .home-section,.living-scenes .contact{border-color:var(--scene-border)}
+.living-scenes .home-project:hover{background:var(--surface)}
+.living-scenes .section-heading>p,.living-scenes .hero-intro{text-wrap:pretty}
+.living-scenes .site-footer,.living-scenes footer.wrap{background:transparent}
+
+/* The two labels describe the active appearance; the accessible name describes the action. */
+button.appearance-toggle,body.project-shell .tools #theme.appearance-toggle{display:inline-flex!important;align-items:center;justify-content:center;gap:8px;width:auto;min-width:44px;height:44px;min-height:44px;padding:0 12px;border:1px solid var(--line);border-radius:24px;background:var(--surface,var(--panel));color:var(--ink,var(--text));font:600 12px/1.2 system-ui,sans-serif;letter-spacing:.015em;white-space:nowrap;flex-shrink:0;box-shadow:inset 0 1px 0 #ffffff08}
+button.appearance-toggle svg{display:block;width:20px;height:20px;flex:none}
+button.appearance-toggle:hover{border-color:var(--accent);color:var(--accent)}
+button.appearance-toggle:focus-visible{outline:3px solid var(--blue,var(--accent));outline-offset:3px}
+:root[data-theme=light] button.appearance-toggle{background:#fffaf0;border-color:#c9cfb9;color:#765320;box-shadow:0 2px 8px #4f623b0a}
+.cap-header .appearance-toggle{margin-left:auto}
+.scene-options{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px 20px;max-width:1320px;width:calc(100% - 48px);margin:0 auto;padding:18px 0 24px;border-top:1px solid var(--scene-border);font:12px/1.7 system-ui,sans-serif;color:var(--muted)}
+.scene-options button{display:inline-flex;align-items:center;gap:7px;min-height:44px;padding:8px 12px;border:1px solid var(--line);border-radius:7px;background:var(--scene-surface);color:var(--ink,var(--text));font:inherit;cursor:pointer}
+.scene-options a{color:inherit;text-decoration:underline;text-underline-offset:3px}
+.scene-options p{margin:0;font:inherit;color:inherit}
+.scene-source-day{display:none}
+:root[data-theme=light] .scene-source-night{display:none}
+:root[data-theme=light] .scene-source-day{display:block}
+.scene-options small{font-size:11px}
+
+@media(max-width:900px){
+ button.appearance-toggle,body.project-shell .tools #theme.appearance-toggle{width:44px;min-width:44px;padding:0}
+ button.appearance-toggle>span{display:none}
+ .scene-veil{background:linear-gradient(180deg,rgba(10,20,25,.76),rgba(10,20,25,.84) 38%,rgba(10,20,25,.76))}
+ :root[data-theme=light] .scene-veil{background:linear-gradient(180deg,rgba(244,249,241,.77),rgba(246,249,242,.89) 38%,rgba(244,249,241,.77))}
+ .scene-options{width:calc(100% - 36px);font-size:11px;padding-block:16px}
+ .scene-options p{max-width:260px}
+}
+@media(max-width:380px){
+ .living-scenes .site-header .header-tools{gap:3px;margin-left:auto}
+ .living-scenes .site-header .brand span{font-size:11px}
+ .living-scenes .site-header .brand small{display:none}
+ .living-scenes .site-header .brand{gap:7px}
+}
+@media(prefers-reduced-motion:reduce){.scene-image{will-change:auto}}
+:root[data-scene-motion=paused] .scene-image{will-change:auto}
+@media print{.scene-backdrop,.scene-options,.appearance-toggle{display:none!important}.living-scenes{background:white!important;color:black!important}}
+
+/* Light surfaces for the authored practice pages and path planner. */
+:root[data-theme=light] .cap-header a,:root[data-theme=light] .cap-next a{color:var(--blue)}
+:root[data-theme=light] #cap-selector a,:root[data-theme=light] .cap-example,:root[data-theme=light] .cap-check{background:var(--scene-surface);color:var(--ink)}
+:root[data-theme=light] #cap-selector a[aria-current=page]{background:var(--surface2);color:var(--accent)}
+:root[data-theme=light] #cap-detail{background:var(--scene-surface);color:var(--ink)}
+:root[data-theme=light] .cap-check-result{color:#276446}
+:root[data-theme=light] .vnext-path-intro,:root[data-theme=light] .vnext-path-check{background:var(--scene-surface);color:var(--ink);border-color:var(--line)}
+:root[data-theme=light] .vnext-path-intro input,:root[data-theme=light] .vnext-path-intro select{background:var(--surface);color:var(--ink);border-color:var(--line)}
+:root[data-theme=light] .vnext-syllabus .vnext-path-outcome{color:var(--ink)!important}
+:root[data-theme=light] .vnext-path-intro #vnext-path-results{color:var(--muted)}
+.living-scenes .path-card{grid-template-columns:minmax(0,1fr) auto;min-width:0}
+.living-scenes .path-card>div{min-width:0;overflow-wrap:anywhere}
+@media(max-width:380px){.living-scenes .path-card{padding:18px;gap:12px}.living-scenes .path-card h3{font-size:1.65rem}}
+
+.living-scenes .game-launch{color:#f1f3ee}
+.living-scenes .resume,.living-scenes .practice-card{overflow-wrap:anywhere}
+.living-scenes .practice-card input,.living-scenes .practice-card select{min-width:0;max-width:100%}
+
+:root[data-theme=light] .button.primary{color:#fff}

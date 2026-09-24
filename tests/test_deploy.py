@@ -21,6 +21,8 @@ class DeploymentTest(unittest.TestCase):
         self.write(self.source / 'index.html', '<link href="portfolio-home.css"><script src="quantum-cube.js"></script>')
         self.write(self.source / 'projects.html', '<article class="project-card"></article>' * 16)
         self.write(self.source / 'games/evil-wizard/index.html', 'must never overwrite the game')
+        self.write(self.source / 'geometric-lab/math.js', 'must never overwrite lab calculations')
+        self.write(self.site / 'geometric-lab/math.js', 'host lab calculations')
         for name in (*deploy.PROTECTED_REQUIRED, 'assets/fusion-presentation.mp4', 'index.html', 'app.js', 'private-host-page.html'):
             self.write(self.site / name, 'original ' + name)
         self.before = self.snapshot()
@@ -41,6 +43,19 @@ class DeploymentTest(unittest.TestCase):
             if deploy.protected(name) or name == 'private-host-page.html':
                 self.assertEqual((self.site / name).read_bytes(), content)
         self.assertEqual((self.site / 'project-battle-chess.html').read_bytes(), (self.source / 'project-battle-chess.html').read_bytes())
+        for name in deploy.THEME_SHELL_FILES:
+            self.assertEqual((self.site / name).read_bytes(), (self.source / name).read_bytes())
+        self.assertEqual((self.site / 'geometric-lab/math.js').read_text(), 'host lab calculations')
+
+    def test_new_scene_directories_are_web_readable_with_restrictive_umask(self):
+        import os
+        previous = os.umask(0o077)
+        try:
+            deploy.deploy(self.source, self.site)
+        finally:
+            os.umask(previous)
+        self.assertEqual((self.site / 'assets/scenes').stat().st_mode & 0o777, 0o755)
+        self.assertEqual((self.site / 'assets/scenes/webb-cosmic-cliffs.webp').stat().st_mode & 0o777, 0o644)
 
     def test_failed_public_verification_restores_every_original_and_removes_new_files(self):
         def failed_check():
