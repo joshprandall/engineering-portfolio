@@ -117,6 +117,40 @@ async function run(){
    assert.equal(await page.locator('.hx-phone-dock,.hx-tablet-rail').count(),0,'No floating navigation');
    console.log('PASS app '+route);
   }
+  // Geometry Lab v2: exercise real controls, worker calculations, and research tabs.
+  await page.setViewportSize({width:390,height:844});
+  await page.goto(base+'/geometric-lab/index.html',{waitUntil:'networkidle'});
+  assert.match(await page.locator('main h1').innerText(),/Scientific ML Lab/,'Geometry Lab v2 heading missing');
+  await page.locator('#shape').selectOption('sphere');
+  await page.locator('#density').selectOption('600');
+  await page.locator('#estimate').click();
+  await page.waitForFunction(()=>/Computed .* local differential-geometry fits/.test(document.querySelector('#status')?.textContent||''));
+  assert.match(await page.locator('#metrics').innerText(),/K MAE/,'Geometry live-fit metrics missing');
+  const sceneBox=await page.locator('#scene').boundingBox();
+  await page.locator('#scene').click({position:{x:sceneBox.width/2,y:sceneBox.height/2}});
+  assert(await page.locator('#point-inspector').isVisible(),'Geometry point inspector must open from a tap/click');
+
+  await page.locator('[data-tab="topology"]').click();
+  assert.match(await page.locator('#mode-title').innerText(),/Gauss–Bonnet/,'Topology experiment did not load');
+  await page.locator('#gb-density').selectOption('600');
+  await page.locator('#gb-estimate').click();
+  await page.waitForFunction(()=>/Integrated .* local curvature estimates/.test(document.querySelector('#status')?.textContent||''));
+  assert.match(await page.locator('#metrics').innerText(),/Inferred χ/,'Gauss–Bonnet metrics missing');
+
+  await page.locator('[data-tab="spectrum"]').click();
+  await page.locator('#spectrum-l').selectOption('3');
+  assert.match(await page.locator('#metrics').innerText(),/Eigenvalue λℓ/,'Spectral metrics missing');
+  assert.match(await page.locator('#metrics').innerText(),/Multiplicity\s*7/,'Spectral multiplicity incorrect in UI');
+
+  await page.locator('[data-tab="flow"]').click();
+  assert.match(await page.locator('#metrics').innerText(),/Extinction time/,'Curvature-flow metrics missing');
+  await page.locator('#flow-play').click();
+  await page.waitForTimeout(120);
+  assert(Number(await page.locator('#flow-time').inputValue())>0,'Curvature-flow animation must advance time');
+  await page.locator('#flow-play').click();
+  assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true,'Geometry Lab v2 must not overflow on phone');
+  console.log('PASS Geometry Lab v2: local fit, point inspection, topology, spectrum, flow, phone layout');
+
   // Exercise the new mastery route and a complete lesson, not just their headings.
   await page.goto(base+'/learn.html',{waitUntil:'networkidle'});
   assert.equal(await page.locator('[data-depth-stage]').count(),8);
@@ -141,7 +175,7 @@ async function run(){
    ['facebook-android','Mozilla/5.0 (Linux; Android 16; Pixel 9) AppleWebKit/537.36 Chrome/140 Mobile Safari/537.36 [FB_IAB/FB4A;FBAV/530.0.0.0.0;]',412,915],
    ['instagram-ios','Mozilla/5.0 (iPhone; CPU iPhone OS 26_0 like Mac OS X) AppleWebKit/605.1.15 Mobile/15E148 Instagram 400.0.0.0.0',390,844]
   ];
-  const embeddedRoutes=['/','/projects.html','/learn.html','/play-evil-wizard.html','/project-battle-chess.html','/project-geometric-ai.html'];
+  const embeddedRoutes=['/','/projects.html','/learn.html','/play-evil-wizard.html','/project-battle-chess.html','/project-geometric-ai.html','/geometric-lab/index.html'];
   for(const [name,userAgent,width,height] of embeddedCases){
    const context=await browser.newContext({viewport:{width,height},userAgent,isMobile:true,hasTouch:true,deviceScaleFactor:1});
    const embedded=await context.newPage();embedded.setDefaultTimeout(8000);embedded.setDefaultNavigationTimeout(15000);

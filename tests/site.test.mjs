@@ -7,7 +7,7 @@ const root = path.resolve(import.meta.dirname, '..');
 const exists = file => fs.existsSync(path.join(root, file));
 const read = file => fs.readFileSync(path.join(root, file), 'utf8');
 for (const file of ['index.html','projects.html','styles.css','app.js','portfolio-next.js','portfolio-next.css','handheld-experience.js','handheld-experience.css','science-experiments.js','science-experiments.css','learn.html','learn-browse.html','knowledge-data.js','knowledge.js','knowledge.css','deep-learning/index.json','verification-manifest.json','play-evil-wizard.html','qubit-preview-20260921/index.html','games/3d-battle-chess/index.html']) assert.ok(exists(file), `Missing required release file: ${file}`);
-for (const file of ['index.html','projects.html','learn.html','play-evil-wizard.html']) {
+for (const file of ['index.html','projects.html','learn.html','play-evil-wizard.html','geometric-lab/index.html']) {
   const html = read(file);
   assert.match(html, /<html[^>]*lang=["']en["']/i, `${file}: missing document language`);
   assert.match(html, /<main\b/i, `${file}: missing main landmark`);
@@ -126,6 +126,12 @@ const overlayWorkflow=read('.github/workflows/build-osu-overlay.yml');
 assert.match(overlayWorkflow,/forbidden_prefixes=\('games\/',\s*'geometric-lab\/'\)/,'OSU overlay must forbid game and Geometric AI trees');
 assert.match(overlayWorkflow,/protected_root\s*=\s*set\(\)/,'OSU overlay must allow project wrapper HTML to receive navigation fixes');
 assert.match(overlayWorkflow,/forbidden_prefixes=\('games\/',\s*'geometric-lab\/'\)/,'OSU overlay must continue protecting actual game and Geometry Lab trees');
+const geometryDeploy=read('tools/deploy_geometry_lab.py');
+assert.match(geometryDeploy,/parser\.add_argument\("--commit", required=True/,'Geometry deploy must require an exact commit');
+assert.match(geometryDeploy,/target = web_root \/ "geometric-lab"/,'Geometry deploy must stay scoped to the Geometry Lab tree');
+for (const required of ['math.js','worker.js','styles.css','benchmarks.js','METHODS.md','CREDITS.md']) assert.ok(geometryDeploy.includes('"' + required + '"'),'Geometry deploy missing required file guard for '+required);
+assert.match(geometryDeploy,/ROLLBACK:/,'Geometry deploy must include rollback behavior');
+execFileSync('python3',['-m','py_compile',path.join(root,'tools/deploy_geometry_lab.py')],{stdio:'pipe'});
 const deployScript=read('tools/deploy_osu_live.py');
 assert.match(deployScript,/parser\.add_argument\('--commit',required=True/,'Deployments must explicitly select the exact tested commit');
 assert.doesNotMatch(deployScript,/WEB_COMMIT =/,'A stale hardcoded deploy pin must not override the tested release');
@@ -134,7 +140,26 @@ assert.ok(!/games\/|geometric-lab|project-sources/.test(webDirs),'OSU deploy WEB
 assert.match(deployScript,/PROTECTED_ROOT_FILES = set\(\)/,'OSU deploy must allow project wrapper HTML updates');
 
 
-for (const file of ['site-theme.js','site-scenes.js','geometric-lab/app.js','app.js','portfolio-next.js','handheld-experience.js','science-experiments.js','quantum-cube.js','knowledge.js','learning-depth.js','learning-next.js','agent-workbench.js','labs/qpe.js','labs/emergent.js','qubit-preview-20260921/app.js','qubit-preview-20260921/qubit.js','games/3d-battle-chess/battle.js','games/3d-battle-chess/engine.js']) execFileSync(process.execPath,['--check',path.join(root,file)],{stdio:'pipe'});
+for (const file of ['site-theme.js','site-scenes.js','geometric-lab/app.js','geometric-lab/math.js','geometric-lab/worker.js','app.js','portfolio-next.js','handheld-experience.js','science-experiments.js','quantum-cube.js','knowledge.js','learning-depth.js','learning-next.js','agent-workbench.js','labs/qpe.js','labs/emergent.js','qubit-preview-20260921/app.js','qubit-preview-20260921/qubit.js','games/3d-battle-chess/battle.js','games/3d-battle-chess/engine.js']) execFileSync(process.execPath,['--check',path.join(root,file)],{stdio:'pipe'});
+
+const geoHtml=read('geometric-lab/index.html');
+for (const tab of ['geometry','models','diffusion','inverse','topology','spectrum','flow']) assert.match(geoHtml,new RegExp(`data-tab=["']${tab}["']`),'Geometry Lab missing '+tab+' experiment');
+assert.match(geoHtml,/id=["']point-inspector["']/,'Geometry Lab point inspector missing');
+await import(pathToFileURL(path.join(root,'geometric-lab/math.js')).href+'?test='+Date.now());
+const geo=globalThis.GeoMath;
+assert.ok(geo,'Geometry Lab math module did not initialize');
+const geoSphere=geo.generate('sphere',600,1,0,42),geoTorus=geo.generate('torus',600,1,0,42);
+const sphereGB=geo.gaussBonnet(geoSphere,geoSphere.truth),torusGB=geo.gaussBonnet(geoTorus,geoTorus.truth);
+assert.ok(Math.abs(sphereGB.integral-4*Math.PI)<1e-10,'Sphere Gauss-Bonnet integral must equal 4π');
+assert.ok(Math.abs(torusGB.integral)<1e-10,'Torus Gauss-Bonnet integral must cancel to zero');
+const geoFit=geo.estimateGeometry(geoSphere.points,30,geoSphere.normals),geoFitStats=geo.stats(geoFit.gaussian,geoSphere.truth);
+assert.ok(geoFitStats.mae<.12,'Clean 600-point sphere local-fit K MAE regressed beyond 0.12');
+assert.ok(geoFitStats.p95Ae<.13,'Clean 600-point sphere local-fit 95th-percentile K error regressed beyond 0.13');
+const geoMode=geo.spectralSphere(geo.generate('sphere',240,2,0,42).points,2,3);
+assert.ok(Math.abs(geoMode.eigenvalue-3)<1e-12,'Sphere ℓ=3, r=2 Laplace-Beltrami eigenvalue must be 3');
+assert.equal(geoMode.multiplicity,7,'Sphere ℓ=3 eigenspace multiplicity must be 7');
+const geoFlow=geo.meanCurvatureFlowSphere(1.4,.1);
+assert.ok(Math.abs(geoFlow.radius*geoFlow.radius-(1.4*1.4-.4))<1e-12,'Shrinking-sphere mean-curvature-flow identity drift');
 
 const q=await import(pathToFileURL(path.join(root,'qubit-preview-20260921/qubit.js')).href+'?test='+Date.now());
 const plus=q.stateFromAngles(90,0),minus=q.stateFromAngles(90,180),plusI=q.stateFromAngles(90,90),north=q.stateFromAngles(0,123);
