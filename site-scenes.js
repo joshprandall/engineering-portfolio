@@ -45,6 +45,16 @@
     const mediaDisabled = saveData || localTestHost;
     const ambientLockedByPage = PROJECT_AUDIO_RE.test(location.pathname);
 
+    // Warm the remote media origins before the first light-theme video request.
+    ['https://videos.pexels.com','https://images.pexels.com'].forEach(href => {
+      if (document.querySelector('link[rel="preconnect"][href="' + href + '"]')) return;
+      const link = document.createElement('link');
+      link.rel = 'preconnect';
+      link.href = href;
+      link.crossOrigin = 'anonymous';
+      document.head.append(link);
+    });
+
     document.body.classList.add('living-scenes');
 
     const backdrop = document.createElement('div');
@@ -59,7 +69,7 @@
       '</div>' +
       '<div class="scene-day-wrap">' +
         '<div class="scene-image scene-day-fallback"></div>' +
-        '<video class="scene-video scene-video-a" muted playsinline autoplay loop preload="metadata" tabindex="-1"></video>' +
+        '<video class="scene-video scene-video-a" muted playsinline autoplay loop preload="auto" tabindex="-1"></video>' +
         '<video class="scene-video scene-video-b" muted playsinline autoplay loop preload="metadata" tabindex="-1"></video>' +
       '</div>' +
       '<canvas class="scene-canvas"></canvas>' +
@@ -83,11 +93,9 @@
       '</div>' +
       '<button data-scene-audio type="button" aria-pressed="false">Mute ambience</button>';
 
-    // The footer used to host the global motion toggle. Ambient audio now owns
-    // that bottom-of-page control; motion remains available where a page has
-    // its dedicated header control.
-    const footerMotion = document.querySelector('footer button[data-scene-motion]');
-    if (footerMotion) footerMotion.remove();
+    // Motion is intentionally always on. Remove every legacy pause control;
+    // the one bottom-of-page global control is now the ambience mute button.
+    document.querySelectorAll('button[data-scene-motion]').forEach(button => button.remove());
     document.body.append(options);
     appearance.bind(options);
 
@@ -135,7 +143,7 @@
       return seed / 4294967296;
     };
 
-    const motionAllowed = () => !appearance.isPaused();
+    const motionAllowed = () => true;
 
     // Quiet, original ambient soundscape. Dark mode uses a slow cinematic
     // organ-like pad with no borrowed melody. Light mode synthesizes ambience
@@ -277,7 +285,7 @@
         o.frequency.value = freq;
         filter.type = 'lowpass';
         filter.frequency.value = i === 0 ? 520 : 950;
-        g.gain.value = i === 0 ? .0025 : .0018;
+        g.gain.value = i === 0 ? .0065 : .0048;
         o.connect(filter).connect(g).connect(ambientMaster);
         o.start();
         return o;
@@ -291,7 +299,7 @@
           try { o.frequency.exponentialRampToValueAtTime(progression[chord][i], now + 2.8); } catch (_) {}
         });
       }, 12000);
-      startNoiseBed({gain:.0018, lowpass:420, highpass:45});
+      startNoiseBed({gain:.0032, lowpass:420, highpass:45});
     }
 
     function scheduleBirds() {
@@ -306,7 +314,7 @@
         o.frequency.exponentialRampToValueAtTime(base * 1.34, start + .13);
         o.frequency.exponentialRampToValueAtTime(base * .92, start + .28);
         g.gain.setValueAtTime(.0001, start);
-        g.gain.exponentialRampToValueAtTime(.0023, start + .035);
+        g.gain.exponentialRampToValueAtTime(.0042, start + .035);
         g.gain.exponentialRampToValueAtTime(.0001, start + .31);
         o.connect(g).connect(ambientMaster);
         o.start(start);
@@ -321,27 +329,40 @@
       const scene = LIGHT_SCENES[activeSceneIndex];
       if (!scene) return;
       if (scene.id === 'forest-waterfall') {
-        startNoiseBed({gain:.012, lowpass:4200, highpass:95, lfoRate:.08, lfoDepth:.0013});
-        startNoiseBed({gain:.0042, lowpass:520, highpass:35});
+        startNoiseBed({gain:.020, lowpass:4200, highpass:95, lfoRate:.08, lfoDepth:.0020});
+        startNoiseBed({gain:.0070, lowpass:520, highpass:35});
       } else if (scene.id === 'birds-water') {
-        startNoiseBed({gain:.0085, lowpass:1500, highpass:70, lfoRate:.10, lfoDepth:.0042});
-        startNoiseBed({gain:.0032, lowpass:360, highpass:30, lfoRate:.052, lfoDepth:.0018});
+        startNoiseBed({gain:.0135, lowpass:1500, highpass:70, lfoRate:.10, lfoDepth:.0052});
+        startNoiseBed({gain:.0050, lowpass:360, highpass:30, lfoRate:.052, lfoDepth:.0023});
         scheduleBirds();
       } else {
-        startNoiseBed({gain:.009, lowpass:1350, highpass:60, lfoRate:.065, lfoDepth:.0022});
-        startNoiseBed({gain:.0025, lowpass:320, highpass:28});
+        startNoiseBed({gain:.0145, lowpass:1350, highpass:60, lfoRate:.065, lfoDepth:.0030});
+        startNoiseBed({gain:.0043, lowpass:320, highpass:28});
       }
+    }
+
+    function syncVideoAmbience() {
+      const allow = ambientAllowed() && audioUnlocked && theme === 'light';
+      [videoA, videoB].forEach(video => {
+        try {
+          const active = video === activeVideo && allow;
+          video.volume = active ? .10 : 0;
+          video.muted = !active;
+        } catch (_) {}
+      });
     }
 
     function refreshAmbientAudio() {
       updateAudioButton();
+      syncVideoAmbience();
       if (!audioUnlocked || !ambientCtx || !ambientMaster) return;
       stopAmbientNodes();
       if (!ambientAllowed()) return;
       if (ambientCtx.state === 'suspended') ambientCtx.resume();
+      syncVideoAmbience();
       if (theme === 'dark') startDarkAmbience();
       else startLightAmbience();
-      const target = theme === 'dark' ? .72 : .78;
+      const target = theme === 'dark' ? .88 : .92;
       try {
         ambientMaster.gain.cancelScheduledValues(ambientCtx.currentTime);
         ambientMaster.gain.setValueAtTime(.0001, ambientCtx.currentTime);
@@ -373,7 +394,7 @@
       if (dayCredit) {
         dayCredit.textContent = 'Video by ' + scene.creator + ' · Pexels License · real nature footage.';
       }
-      if (mediaReady && !mediaDisabled) dayFallback.style.backgroundImage = 'url("' + scene.poster + '")';
+      if (!mediaDisabled) dayFallback.style.backgroundImage = 'url("' + scene.poster + '")';
     }
 
     function resize() {
@@ -417,7 +438,7 @@
       video.playsInline = true;
       video.autoplay = true;
       video.loop = true;
-      video.preload = mediaDisabled ? 'none' : 'metadata';
+      video.preload = mediaDisabled ? 'none' : (video === activeVideo ? 'auto' : 'metadata');
       video.load();
     }
 
@@ -432,8 +453,10 @@
     }
 
     function pauseVideos() {
-      videoA.pause();
-      videoB.pause();
+      [videoA, videoB].forEach(video => {
+        try { video.muted = true; video.volume = 0; } catch (_) {}
+        video.pause();
+      });
     }
 
     function loadInitialLightScene() {
@@ -671,13 +694,14 @@
         updateDayCredit();
         if (theme === 'light') {
           loadInitialLightScene();
-          if (motionAllowed()) playSafely(activeVideo);
+          playSafely(activeVideo);
         }
-      }, 1200);
+      }, 40);
     }
 
-    if (document.readyState === 'complete') releaseMedia();
-    else addEventListener('load', releaseMedia, { once: true });
+    // The poster is immediate; video loading begins as soon as the DOM exists.
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', releaseMedia, { once: true });
+    else releaseMedia();
 
     const retryLightPlayback = () => {
       if (theme === 'light' && mediaReady && motionAllowed()) {
