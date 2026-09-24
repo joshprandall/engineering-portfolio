@@ -386,3 +386,317 @@ body.living-scenes[data-library-page="labs"] .lab-visual{background:var(--bg2)}
 @media(max-width:700px){
   .living-scenes .project-detail{padding-inline:20px}
 }
+
+
+/* 2026-09-24 visual correction — unmistakable glass, rounded tiles, orderly learning landing. */
+.living-scenes .project-card,
+.living-scenes .home-project,
+.living-scenes .education-cards article,
+.living-scenes .portrait-card{
+  background:rgba(7,12,15,.18)!important;
+  border:1px solid rgba(176,214,222,.24)!important;
+  border-radius:20px!important;
+  box-shadow:0 18px 48px rgba(0,0,0,.14)!important;
+  -webkit-backdrop-filter:blur(5px) saturate(.92)!important;
+  backdrop-filter:blur(5px) saturate(.92)!important
+}
+.living-scenes .project-card:hover,
+.living-scenes .home-project:hover{
+  background:rgba(9,15,18,.28)!important;
+  border-color:rgba(240,165,117,.56)!important
+}
+.living-scenes .project-card .card-bottom,
+.living-scenes .home-project .project-open{
+  border-color:rgba(185,214,218,.20)!important
+}
+:root[data-theme=light] .living-scenes .project-card,
+:root[data-theme=light] .living-scenes .home-project,
+:root[data-theme=light] .living-scenes .education-cards article,
+:root[data-theme=light] .living-scenes .portrait-card{
+  background:rgba(248,251,246,.22)!important;
+  border-color:rgba(27,71,53,.24)!important;
+  box-shadow:0 18px 48px rgba(34,55,42,.10)!important;
+  -webkit-backdrop-filter:blur(5px) saturate(.90)!important;
+  backdrop-filter:blur(5px) saturate(.90)!important
+}
+:root[data-theme=light] .living-scenes .project-card:hover,
+:root[data-theme=light] .living-scenes .home-project:hover{
+  background:rgba(248,251,246,.34)!important
+}
+
+/* Learning home: cards instead of spreadsheet-like divider lines. */
+body.living-scenes[data-library-page="home"] .stat-band{
+  border:0!important;
+  background:transparent!important;
+  padding:18px 0 10px
+}
+body.living-scenes[data-library-page="home"] .stats{
+  gap:12px;
+  grid-template-columns:repeat(5,minmax(0,1fr))
+}
+body.living-scenes[data-library-page="home"] .stats>div{
+  border:1px solid rgba(176,214,222,.20)!important;
+  border-radius:16px;
+  padding:22px 20px;
+  background:rgba(7,12,15,.16)!important;
+  -webkit-backdrop-filter:blur(5px);
+  backdrop-filter:blur(5px)
+}
+body.living-scenes[data-library-page="home"] .verification-strip{
+  border:0!important;
+  background:transparent!important;
+  padding:20px 0
+}
+body.living-scenes[data-library-page="home"] .verification-inner{
+  border:1px solid rgba(176,214,222,.20);
+  border-radius:18px;
+  padding:24px;
+  background:rgba(7,12,15,.16);
+  -webkit-backdrop-filter:blur(5px);
+  backdrop-filter:blur(5px)
+}
+body.living-scenes[data-library-page="home"] .domain-grid{
+  border:0!important;
+  gap:14px
+}
+body.living-scenes[data-library-page="home"] .domain-card{
+  border:1px solid rgba(176,214,222,.20)!important;
+  border-radius:18px!important;
+  background:rgba(7,12,15,.16)!important;
+  -webkit-backdrop-filter:blur(5px);
+  backdrop-filter:blur(5px)
+}
+body.living-scenes[data-library-page="home"] .domain-card:hover{
+  background:rgba(9,15,18,.27)!important
+}
+:root[data-theme=light] body.living-scenes[data-library-page="home"] .stats>div,
+:root[data-theme=light] body.living-scenes[data-library-page="home"] .verification-inner,
+:root[data-theme=light] body.living-scenes[data-library-page="home"] .domain-card{
+  background:rgba(248,251,246,.22)!important;
+  border-color:rgba(27,71,53,.22)!important
+}
+@media(max-width:980px){
+  body.living-scenes[data-library-page="home"] .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+  body.living-scenes[data-library-page="home"] .stats>div:last-child{grid-column:1/-1}
+}
+@media(max-width:520px){
+  body.living-scenes[data-library-page="home"] .stats{grid-template-columns:1fr}
+  body.living-scenes[data-library-page="home"] .stats>div:last-child{grid-column:auto}
+}
+
+
+/* 2026-09-24 light-mode coherence pass.
+   Preserve the moving nature scene, but stop the washed-out veil and keep type decisively dark. */
+:root[data-theme=light]{
+  --bg:#dfe8df;
+  --bg2:#d9e4da;
+  --surface:#f6faf3;
+  --surface2:#e7f0e8;
+  --panel:#eef5ed;
+  --panel2:#e4eee5;
+  --panel3:#dbe8dd;
+  --ink:#031009;
+  --text:#031009;
+  --muted:#183226;
+  --faint:#315044;
+  --line:rgba(26,72,51,.28);
+  --line2:rgba(26,72,51,.38);
+  --scene-surface:rgba(239,247,239,.64);
+  --scene-soft:rgba(239,247,239,.30);
+  --scene-edge:rgba(239,247,239,.10);
+  --scene-border:rgba(24,72,49,.28)
+}
+:root[data-theme=light] .scene-day-fallback,
+:root[data-theme=light] .scene-video{
+  filter:saturate(1.12) contrast(1.06) brightness(.78)!important
+}
+:root[data-theme=light] .scene-veil{
+  background:
+    linear-gradient(90deg,rgba(8,28,18,.12),rgba(248,251,246,.08) 16%,rgba(248,251,246,.12) 48%,rgba(248,251,246,.07) 82%,rgba(8,28,18,.12)),
+    linear-gradient(180deg,rgba(7,25,16,.11),rgba(255,255,255,.015) 52%,rgba(8,26,17,.13))!important
+}
+:root[data-theme=light] .scene-atmosphere{
+  opacity:.55;
+  mix-blend-mode:soft-light
+}
+:root[data-theme=light] .living-scenes>header,
+:root[data-theme=light] .living-scenes .site-header{
+  background:rgba(239,247,239,.70)!important;
+  border-color:rgba(24,72,49,.24)!important;
+  color:#031009!important;
+  -webkit-backdrop-filter:blur(14px) saturate(.92)!important;
+  backdrop-filter:blur(14px) saturate(.92)!important
+}
+:root[data-theme=light] .living-scenes header a,
+:root[data-theme=light] .living-scenes header button,
+:root[data-theme=light] .living-scenes .site-header a,
+:root[data-theme=light] .living-scenes .site-header button{
+  color:#06150d
+}
+:root[data-theme=light] .living-scenes .project-card,
+:root[data-theme=light] .living-scenes .home-project,
+:root[data-theme=light] .living-scenes .education-cards article,
+:root[data-theme=light] .living-scenes .portrait-card,
+:root[data-theme=light] body.living-scenes[data-library-page="home"] .stats>div,
+:root[data-theme=light] body.living-scenes[data-library-page="home"] .verification-inner,
+:root[data-theme=light] body.living-scenes[data-library-page="home"] .domain-card{
+  background:rgba(244,249,242,.34)!important;
+  border-color:rgba(24,72,49,.28)!important;
+  -webkit-backdrop-filter:blur(3px) saturate(.92)!important;
+  backdrop-filter:blur(3px) saturate(.92)!important;
+  box-shadow:0 14px 36px rgba(23,52,38,.09)!important
+}
+:root[data-theme=light] .living-scenes .project-card:hover,
+:root[data-theme=light] .living-scenes .home-project:hover,
+:root[data-theme=light] body.living-scenes[data-library-page="home"] .domain-card:hover{
+  background:rgba(244,249,242,.46)!important
+}
+:root[data-theme=light] .living-scenes main h1,
+:root[data-theme=light] .living-scenes main h2,
+:root[data-theme=light] .living-scenes main h3,
+:root[data-theme=light] .living-scenes main h4,
+:root[data-theme=light] .living-scenes main p,
+:root[data-theme=light] .living-scenes main li,
+:root[data-theme=light] .living-scenes main strong,
+:root[data-theme=light] .living-scenes main .status,
+:root[data-theme=light] .living-scenes main .muted{
+  color:#06150d!important;
+  text-shadow:0 1px 1px rgba(255,255,255,.72)
+}
+:root[data-theme=light] .living-scenes main .eyebrow,
+:root[data-theme=light] .living-scenes main .project-number,
+:root[data-theme=light] .living-scenes main .section-kicker{
+  color:#6b2a10!important;
+  text-shadow:0 1px 1px rgba(255,255,255,.76)
+}
+:root[data-theme=light] .living-scenes main a:not(.button):not(.brand),
+:root[data-theme=light] .living-scenes .text-link{
+  color:#083c2c!important;
+  text-decoration-color:rgba(8,60,44,.56)
+}
+:root[data-theme=light] .living-scenes .button:not(.primary),
+:root[data-theme=light] .living-scenes .filter-bar button,
+:root[data-theme=light] .living-scenes .icon-button{
+  background:rgba(248,251,246,.30)!important;
+  border-color:rgba(24,72,49,.30)!important;
+  color:#06150d!important;
+  -webkit-backdrop-filter:blur(3px);
+  backdrop-filter:blur(3px)
+}
+:root[data-theme=light] .living-scenes .button.primary,
+:root[data-theme=light] .living-scenes .filter-bar button.active{
+  color:#18110c!important;
+  text-shadow:none!important
+}
+:root[data-theme=light] body.living-scenes[data-library-page="home"] .stats strong{
+  color:#8a3d18!important;
+  text-shadow:0 1px 1px rgba(255,255,255,.75)
+}
+:root[data-theme=light] body.living-scenes[data-library-page="home"] .stats span{
+  color:#10281d!important
+}
+@media(max-width:900px){
+  :root[data-theme=light] .scene-veil{
+    background:
+      linear-gradient(180deg,rgba(7,25,16,.13),rgba(250,252,248,.09) 38%,rgba(7,25,16,.14))!important
+  }
+}
+
+
+/* Finish the learning-home card rhythm: no full-width divider bars. */
+body.living-scenes[data-library-page="home"] .resume-strip{
+  border:0!important;
+  background:transparent!important;
+  padding:18px 0
+}
+body.living-scenes[data-library-page="home"] .resume-inner{
+  min-height:0;
+  border:1px solid rgba(176,214,222,.20);
+  border-radius:18px;
+  padding:24px;
+  background:rgba(7,12,15,.16);
+  -webkit-backdrop-filter:blur(4px);
+  backdrop-filter:blur(4px)
+}
+:root[data-theme=light] body.living-scenes[data-library-page="home"] .resume-inner{
+  background:rgba(244,249,242,.34);
+  border-color:rgba(24,72,49,.28)
+}
+
+
+/* Glass system v4 — visible background through every landing/listing tile. */
+.living-scenes .home-project,
+.living-scenes .project-card,
+.living-scenes .education-cards article{
+  background:rgba(7,13,16,.16)!important;
+  background-image:none!important;
+  border:1px solid rgba(176,214,222,.28)!important;
+  border-radius:20px!important;
+  box-shadow:0 14px 36px rgba(0,0,0,.12)!important;
+  -webkit-backdrop-filter:blur(5px) saturate(.9)!important;
+  backdrop-filter:blur(5px) saturate(.9)!important
+}
+:root[data-theme="light"] .living-scenes .home-project,
+:root[data-theme="light"] .living-scenes .project-card,
+:root[data-theme="light"] .living-scenes .education-cards article{
+  background:rgba(248,251,246,.16)!important;
+  background-image:none!important;
+  border-color:rgba(32,78,59,.26)!important;
+  box-shadow:0 14px 34px rgba(28,47,36,.09)!important
+}
+.living-scenes .home-project:hover,.living-scenes .project-card:hover{background:rgba(7,13,16,.25)!important}
+:root[data-theme="light"] .living-scenes .home-project:hover,
+:root[data-theme="light"] .living-scenes .project-card:hover{background:rgba(248,251,246,.25)!important}
+
+/* Knowledge landing/listing grids are cards, not spreadsheet cells. Labs remain solid. */
+body.living-scenes[data-library-page="home"] .stats,
+body.living-scenes[data-library-page="home"] .domain-grid,
+body.living-scenes[data-library-page="home"] .principle-grid{
+  border:0!important;gap:14px!important
+}
+body.living-scenes[data-library-page="home"] .stats>div,
+body.living-scenes[data-library-page="home"] .domain-card,
+body.living-scenes[data-library-page="home"] .principle-grid>article{
+  border:1px solid rgba(176,214,222,.25)!important;
+  border-radius:18px!important;
+  background:rgba(7,13,16,.15)!important;
+  background-image:none!important;
+  box-shadow:0 12px 30px rgba(0,0,0,.09)!important;
+  -webkit-backdrop-filter:blur(5px) saturate(.9)!important;
+  backdrop-filter:blur(5px) saturate(.9)!important;
+  overflow:hidden
+}
+:root[data-theme="light"] body.living-scenes[data-library-page="home"] .stats>div,
+:root[data-theme="light"] body.living-scenes[data-library-page="home"] .domain-card,
+:root[data-theme="light"] body.living-scenes[data-library-page="home"] .principle-grid>article{
+  background:rgba(248,251,246,.15)!important;
+  border-color:rgba(32,78,59,.24)!important
+}
+body.living-scenes[data-library-page="home"] .stats>div{min-height:118px}
+body.living-scenes[data-library-page="home"] .domain-card:before{opacity:.48}
+body.living-scenes[data-library-page="labs"] .lab-card,
+body.living-scenes[data-library-page="labs"] .lab-visual{
+  background:var(--panel)!important;
+  -webkit-backdrop-filter:none!important;backdrop-filter:none!important
+}
+body.living-scenes[data-library-page="labs"] .lab-card{border-radius:18px!important}
+
+/* Safety net: even if an older cached solar DOM is briefly present, its chrome never appears. */
+.living-scenes .vnext-cosmos,
+.living-scenes .vnext-cosmos-scene,
+.living-scenes .knowledge-solar-slot .vnext-cosmos{
+  background:transparent!important;border:0!important;border-radius:0!important;box-shadow:none!important
+}
+.living-scenes .vnext-cosmos .vnext-sys-top,
+.living-scenes .vnext-cosmos .vnext-system-tabs,
+.living-scenes .vnext-cosmos-hint{display:none!important}
+.living-scenes .vnext-cosmos .vnext-sys-detail{
+  background:transparent!important;border:0!important;border-radius:0!important;box-shadow:none!important
+}
+
+
+/* Mobile learning stats stay compact: two rounded cards per row, final metric spans both. */
+@media(max-width:520px){
+  body.living-scenes[data-library-page="home"] .stats{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  body.living-scenes[data-library-page="home"] .stats>div:last-child{grid-column:1/-1!important}
+}

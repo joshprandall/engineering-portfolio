@@ -75,21 +75,19 @@
     const stage=document.createElement('section');
     stage.className='vnext-system vnext-cosmos';
     stage.setAttribute('aria-label','Interactive Connected Systems solar-system model');
-    stage.innerHTML=`<div class="vnext-sys-top"><span>CONNECTED SYSTEMS / SELECT A WORLD</span><span id="vnext-count">01 / 05</span></div>
-      <div class="vnext-system-tabs" role="tablist" aria-label="Connected systems capabilities"></div>
-      <div class="vnext-cosmos-scene" aria-label="Animated solar-system capability scene">
+    stage.innerHTML=`<div class="vnext-cosmos-scene" aria-label="Animated solar-system capability scene">
         <canvas class="vnext-cosmos-canvas" role="img" aria-label="Five linked capability nodes orbiting a central systems core"></canvas>
         <div class="vnext-cosmos-core" aria-hidden="true"></div>
-        <div class="vnext-cosmos-worlds"></div>
-        <div class="vnext-cosmos-hint">SELECT A WORLD · CONNECTIONS MOVE WITH THE SYSTEM</div>
+        <div class="vnext-cosmos-worlds" role="group" aria-label="Select a connected-systems capability"></div>
       </div>
-      <div class="vnext-sys-detail" id="vnext-detail" role="tabpanel" tabindex="0">
+      <div class="vnext-sys-detail" id="vnext-detail" aria-live="polite">
         <div class="vnext-sys-meta">ACTIVE CAPABILITY</div>
-        <div class="vnext-detail-grid"><div><h2 id="vnext-title"></h2><p id="vnext-copy"></p></div><div><ul id="vnext-bullets"></ul><a class="vnext-cta" id="vnext-link"></a></div></div>
+        <h2 id="vnext-title"></h2>
+        <p id="vnext-copy"></p>
+        <a class="vnext-cta" id="vnext-link"></a>
       </div>`;
     old.replaceWith(stage);
 
-    const tabs=$('.vnext-system-tabs',stage);
     const scene=$('.vnext-cosmos-scene',stage);
     const canvas=$('.vnext-cosmos-canvas',stage);
     const worlds=$('.vnext-cosmos-worlds',stage);
@@ -108,43 +106,34 @@
     const positions=modes.map(()=>({x:0,y:0,scale:1,depth:0}));
 
     modes.forEach((mode,i)=>{
-      const tab=document.createElement('button');
-      tab.type='button';tab.setAttribute('role','tab');tab.id=`vnext-tab-${i}`;tab.setAttribute('aria-controls','vnext-detail');
-      tab.innerHTML=`<span class="vnext-tab-dot" aria-hidden="true"></span><span>${mode.name}</span>`;
-      tab.addEventListener('click',()=>select(i,true));
-      tab.addEventListener('keydown',e=>{
-        if(!['ArrowRight','ArrowLeft','Home','End'].includes(e.key))return;
-        e.preventDefault();
-        const n=e.key==='Home'?0:e.key==='End'?modes.length-1:(i+(e.key==='ArrowRight'?1:-1)+modes.length)%modes.length;
-        select(n,true);tabs.children[n].focus();
-      });
-      tabs.append(tab);
-
       const world=document.createElement('button');
       world.type='button';
       world.className=`vnext-world vnext-world-${orbit[i].kind}`;
       world.dataset.capability=String(i);
       world.setAttribute('aria-label',`Select ${mode.name}`);
+      world.setAttribute('aria-pressed','false');
       world.title=mode.name;
-      world.innerHTML=`<span class="vnext-planet" aria-hidden="true"><span class="vnext-planet-shine"></span><span class="vnext-planet-ring"></span></span><strong>${mode.name}</strong><small>0${i+1}</small>`;
-      world.addEventListener('click',()=>select(i,true));
-      world.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();select(i,true);}});
+      world.innerHTML=`<span class="vnext-planet" aria-hidden="true"><span class="vnext-planet-shine"></span><span class="vnext-planet-ring"></span></span><strong>${mode.name}</strong>`;
+      world.addEventListener('click',()=>select(i));
+      world.addEventListener('keydown',e=>{
+        if(!['ArrowRight','ArrowLeft','Home','End'].includes(e.key))return;
+        e.preventDefault();
+        const n=e.key==='Home'?0:e.key==='End'?modes.length-1:(i+(e.key==='ArrowRight'?1:-1)+modes.length)%modes.length;
+        select(n);worldEls[n]?.focus();
+      });
       worlds.append(world);
       worldEls.push(world);
     });
 
-    function select(i,focusDetail=false){
+    function select(i){
       selected=i;const mode=modes[i];stage.dataset.mode=mode.name.toLowerCase();
-      [...tabs.children].forEach((b,j)=>{const on=j===i;b.setAttribute('aria-selected',String(on));b.tabIndex=on?0:-1;b.classList.toggle('selected',on);});
-      $$('.vnext-world',worlds).forEach((n,j)=>{const on=j===i;n.classList.toggle('selected',on);n.setAttribute('aria-pressed',String(on));});
-      $('#vnext-count',stage).textContent=`0${i+1} / 05`;
+      worldEls.forEach((n,j)=>{const on=j===i;n.classList.toggle('selected',on);n.setAttribute('aria-pressed',String(on));});
       $('.vnext-sys-meta',stage).textContent=`ACTIVE CAPABILITY / ${mode.name.toUpperCase()}`;
       $('#vnext-title',stage).textContent=mode.heading;
       $('#vnext-copy',stage).textContent=mode.description;
-      $('#vnext-bullets',stage).replaceChildren(...mode.bullets.map(s=>{const li=document.createElement('li');li.textContent=s;return li;}));
       const link=$('#vnext-link',stage);link.href=mode.url;link.textContent=mode.cta+' ↗';
       canvas.setAttribute('aria-label',`${mode.name} selected. Five linked capability nodes orbit a central systems core.`);
-      // Preserve focus on the selected control for keyboard and repeated selection.
+      draw();
     }
 
     function resize(){
@@ -174,64 +163,37 @@
       const cx=width*.5+parallaxX*10;
       const cy=height*.45+parallaxY*6;
       const depth=(Math.sin(a)+1)/2;
-      return {
-        x:cx+Math.cos(a)*width*r.rx,
-        y:cy+Math.sin(a)*height*r.ry,
-        depth,
-        scale:.72+depth*.38
-      };
-    }
-
-    function star(x,y,r,a){
-      ctx.globalAlpha=a;ctx.fillStyle='#dff7ff';ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.fill();
+      return {x:cx+Math.cos(a)*width*r.rx,y:cy+Math.sin(a)*height*r.ry,depth,scale:.72+depth*.38};
     }
 
     function draw(){
       if(!width||!height)return;
       ctx.clearRect(0,0,width,height);
-      const bg=ctx.createRadialGradient(width*.46,height*.42,12,width*.5,height*.48,width*.72);
-      bg.addColorStop(0,'#0b2535');bg.addColorStop(.38,'#07131e');bg.addColorStop(1,'#02060b');
-      ctx.fillStyle=bg;ctx.fillRect(0,0,width,height);
-
-      const nebula=ctx.createRadialGradient(width*.18+parallaxX*18,height*.22+parallaxY*10,0,width*.18,height*.22,width*.34);
-      nebula.addColorStop(0,'rgba(30,130,190,.23)');nebula.addColorStop(1,'rgba(0,0,0,0)');
-      ctx.fillStyle=nebula;ctx.fillRect(0,0,width,height);
-      const nebula2=ctx.createRadialGradient(width*.83-parallaxX*14,height*.19-parallaxY*10,0,width*.83,height*.19,width*.28);
-      nebula2.addColorStop(0,'rgba(126,54,165,.17)');nebula2.addColorStop(1,'rgba(0,0,0,0)');
-      ctx.fillStyle=nebula2;ctx.fillRect(0,0,width,height);
-
-      const seed=113;
-      for(let i=0;i<135;i++){
-        const x=((i*83+seed*17)%997)/997*width;
-        const y=((i*47+seed*29)%991)/991*height;
-        const pulse=.48+.34*Math.sin(t*.7+i*.91);
-        star(x+parallaxX*(i%3),y+parallaxY*(i%5)*.5,(i%11===0?1.5:.65),Math.max(.18,pulse));
-      }
-      ctx.globalAlpha=1;
-
       const cx=width*.5+parallaxX*10,cy=height*.45+parallaxY*6;
+
       orbit.forEach((o,i)=>{
         const r=orbitRadius(o);
-        ctx.save();ctx.strokeStyle=i===selected?'rgba(255,190,145,.34)':'rgba(94,183,215,.16)';ctx.lineWidth=i===selected?1.5:1;
+        ctx.save();
+        ctx.strokeStyle=i===selected?'rgba(155,91,48,.52)':'rgba(55,114,125,.26)';
+        ctx.lineWidth=i===selected?1.7:1;
         ctx.beginPath();ctx.ellipse(cx,cy,width*r.rx,height*r.ry,0,0,Math.PI*2);ctx.stroke();ctx.restore();
       });
       coreEl.style.transform=`translate(calc(-50% + ${parallaxX*10}px), calc(-50% + ${parallaxY*6}px))`;
-
       positions.forEach((_,i)=>Object.assign(positions[i],worldPosition(i,t)));
 
       const pairs=[[0,1],[1,2],[2,3],[3,4],[4,0],[0,2],[1,3]];
       pairs.forEach(([a,b],idx)=>{
         const p=positions[a],q=positions[b],active=a===selected||b===selected;
-        ctx.save();ctx.strokeStyle=active?'rgba(255,190,145,.58)':'rgba(76,196,226,.20)';ctx.lineWidth=active?1.7:1;
+        ctx.save();ctx.strokeStyle=active?'rgba(155,91,48,.62)':'rgba(37,119,133,.24)';ctx.lineWidth=active?1.7:1;
         ctx.setLineDash(active?[7,6]:[3,8]);ctx.lineDashOffset=-(t*28+idx*11);
         ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(q.x,q.y);ctx.stroke();ctx.restore();
       });
       positions.forEach((p,i)=>{
-        ctx.save();ctx.strokeStyle=i===selected?'rgba(255,194,151,.78)':'rgba(85,205,235,.28)';ctx.lineWidth=i===selected?2.2:1.1;
+        ctx.save();ctx.strokeStyle=i===selected?'rgba(169,91,43,.72)':'rgba(43,125,140,.26)';ctx.lineWidth=i===selected?2.2:1.1;
         ctx.setLineDash(i===selected?[8,5]:[3,8]);ctx.lineDashOffset=-t*34;
         ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(p.x,p.y);ctx.stroke();
         const q=((t*.38+i*.17)%1),px=cx+(p.x-cx)*q,py=cy+(p.y-cy)*q;
-        ctx.fillStyle=i===selected?'#ffd0ad':'#81e5f4';ctx.shadowColor=ctx.fillStyle;ctx.shadowBlur=10;ctx.beginPath();ctx.arc(px,py,i===selected?2.7:1.8,0,Math.PI*2);ctx.fill();ctx.restore();
+        ctx.fillStyle=i===selected?'#d16f37':'#4baebf';ctx.shadowColor=ctx.fillStyle;ctx.shadowBlur=10;ctx.beginPath();ctx.arc(px,py,i===selected?2.7:1.8,0,Math.PI*2);ctx.fill();ctx.restore();
       });
 
       const coreGlow=ctx.createRadialGradient(cx-8,cy-10,2,cx,cy,54);
@@ -264,12 +226,9 @@
     });
     scene.addEventListener('pointerleave',()=>{targetX=0;targetY=0});
     reduced.addEventListener?.('change',()=>draw());
-    if(typeof ResizeObserver!=='undefined'){
-      new ResizeObserver(resize).observe(scene);
-    }else{
-      addEventListener('resize',resize,{passive:true});
-    }
-    select(0,false);resize();raf=requestAnimationFrame(frame);
+    if(typeof ResizeObserver!=='undefined')new ResizeObserver(resize).observe(scene);
+    else addEventListener('resize',resize,{passive:true});
+    select(0);resize();raf=requestAnimationFrame(frame);
   }
 
   function strengthenNavigation(){
