@@ -34,7 +34,7 @@ async function run(){
     const world=page.locator('.vnext-world').filter({has:page.locator('strong',{hasText:label})}).first();
     await world.evaluate(el=>el.click());
     assert.equal(await world.getAttribute('aria-pressed'),'true');
-    assert.match(await page.locator('.vnext-sys-meta').innerText(),new RegExp(label,'i'));
+    assert.match((await page.locator('.vnext-sys-meta').textContent())||'',new RegExp(label,'i'));
    }
    assert.equal(await page.locator('.vnext-system-tabs').count(),0,'Top solar capability buttons are removed');
    assert.equal(await page.locator('.vnext-sys-top').count(),0,'Solar top status strip is removed');
