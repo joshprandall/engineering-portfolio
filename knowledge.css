@@ -272,3 +272,8 @@ body[data-library-page="home"] .curriculum{background:transparent!important;bord
   body[data-library-page="home"] .principle-grid article{min-height:0!important;padding:24px!important}
   body[data-library-page="home"] .principle-grid h3{margin-top:26px!important}
 }
+
+
+/* Readability scale v9 — keep the learning system legible on phones and tablets. */
+html{font-size:17px}
+body{font-size:1rem}
