@@ -837,3 +837,53 @@ body.living-scenes[data-library-page="labs"] .lab-card{border-radius:18px!import
   color:#0b1711!important;
   font-weight:650!important;
 }
+
+
+/* Light typography v9 — true dark type, no white halo.
+   The prior light-mode passes used white text-shadow for separation; on moving
+   forest footage that anti-aliased into a gray/washed appearance on iPhone.
+   Homepage copy now uses actual black/dark ink with no glow or stroke. */
+:root[data-theme="light"] body.home-page.living-scenes{
+  --ink:#000000;
+  --text:#000000;
+  --muted:#07110b;
+  --faint:#132219;
+}
+:root[data-theme="light"] body.home-page.living-scenes main h1,
+:root[data-theme="light"] body.home-page.living-scenes main h2,
+:root[data-theme="light"] body.home-page.living-scenes main h3,
+:root[data-theme="light"] body.home-page.living-scenes main h4{
+  color:#000000!important;
+  font-weight:900!important;
+  text-shadow:none!important;
+  -webkit-text-stroke:0 transparent!important;
+  -webkit-font-smoothing:auto;
+}
+:root[data-theme="light"] body.home-page.living-scenes main p,
+:root[data-theme="light"] body.home-page.living-scenes main li,
+:root[data-theme="light"] body.home-page.living-scenes main strong,
+:root[data-theme="light"] body.home-page.living-scenes main .lead,
+:root[data-theme="light"] body.home-page.living-scenes main .muted,
+:root[data-theme="light"] body.home-page.living-scenes main .status{
+  color:#000000!important;
+  font-weight:700!important;
+  text-shadow:none!important;
+  -webkit-text-stroke:0 transparent!important;
+  -webkit-font-smoothing:auto;
+}
+:root[data-theme="light"] body.home-page.living-scenes main .eyebrow,
+:root[data-theme="light"] body.home-page.living-scenes main .project-number,
+:root[data-theme="light"] body.home-page.living-scenes main .section-kicker{
+  color:#4a1606!important;
+  font-weight:900!important;
+  text-shadow:none!important;
+  -webkit-text-stroke:0 transparent!important;
+}
+:root[data-theme="light"] body.home-page.living-scenes main a:not(.button):not(.brand),
+:root[data-theme="light"] body.home-page.living-scenes .text-link{
+  color:#00281c!important;
+  font-weight:850!important;
+  text-shadow:none!important;
+  -webkit-text-stroke:0 transparent!important;
+  text-decoration-color:rgba(0,40,28,.78)!important;
+}
