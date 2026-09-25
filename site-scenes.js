@@ -17,7 +17,7 @@
     window.__JR_SITE_AUDIO_LOADING__ = true;
     const script = document.createElement('script');
     script.id = 'jr-site-audio-controller';
-    script.src = new URL('site-audio.js?v=20260925-audible-header-v23', SITE_BASE).href;
+    script.src = new URL('site-audio.js?v=20260925-day-rotation-volume-v24', SITE_BASE).href;
     script.async = false;
     script.onload = () => {
       window.__JR_SITE_AUDIO_LOADING__ = false;
@@ -201,13 +201,13 @@
     function ambientVolumePercent() {
       try {
         const saved = Number(localStorage.getItem(AMBIENT_VOLUME_KEY));
-        if (Number.isFinite(saved)) return Math.round(Math.min(.08, Math.max(0, saved)) * 1000) / 10;
+        if (Number.isFinite(saved)) return Math.round(Math.min(.10, Math.max(0, saved)) * 1000) / 10;
       } catch (_) {}
       return 5;
     }
 
     function setAmbientVolumePercent(percent) {
-      const pct = Math.min(8, Math.max(0, Number(percent) || 0));
+      const pct = Math.min(10, Math.max(0, Number(percent) || 0));
       const value = pct / 100;
       try { localStorage.setItem(AMBIENT_VOLUME_KEY, String(value)); } catch (_) {}
       try { window.SiteAudio?.setVolume?.(value); } catch (_) {}
@@ -232,7 +232,7 @@
       soundPanel.hidden = true;
       soundPanel.innerHTML =
         '<label><span>Ambient sound</span><output>5%</output></label>' +
-        '<input type="range" min="0" max="8" step="0.5" value="5" aria-label="Ambient sound volume, zero to eight percent">' +
+        '<input type="range" min="0" max="10" step="0.5" value="5" aria-label="Ambient sound volume, zero to ten percent">' +
         '<button type="button" class="scene-sound-mute">Mute</button>';
       wrapper.appendChild(soundPanel);
 
@@ -861,25 +861,45 @@
     }
 
     async function rotateLightScene() {
-      if (transitionBusy || mediaDisabled || constrainedMedia || theme !== 'light' || !motionAllowed() || LIGHT_SCENES.length < 2) return;
+      // Rotate on phones and in-app browsers too. The previous constrainedMedia
+      // guard trapped many iPhones on the first river scene indefinitely.
+      if (transitionBusy || mediaDisabled || theme !== 'light' || !motionAllowed() || LIGHT_SCENES.length < 2) return;
       transitionBusy = true;
 
       const nextIndex = (activeSceneIndex + 1) % LIGHT_SCENES.length;
       configureVideo(standbyVideo, LIGHT_SCENES[nextIndex]);
 
       const available = await waitForVideo(standbyVideo, 9000);
-      if (!available || theme !== 'light' || !motionAllowed()) {
-        standbyVideo.pause();
+      let playing = false;
+      if (available && theme === 'light' && motionAllowed()) {
+        try { standbyVideo.currentTime = 0; } catch (_) {}
+        playing = await playSafely(standbyVideo);
+      }
+
+      if (!playing || theme !== 'light' || !motionAllowed()) {
+        try { standbyVideo.pause(); } catch (_) {}
+
+        // Do not let a slow/blocked remote video pin Day mode to one scene.
+        // Advance the licensed poster and matching ambience anyway; the next
+        // rotation will try video again.
+        if (theme === 'light' && motionAllowed()) {
+          activeVideo.classList.remove('is-active');
+          standbyVideo.classList.remove('is-active');
+          try { activeVideo.pause(); } catch (_) {}
+          activeSceneIndex = nextIndex;
+          updateDayCredit();
+          dayFallback.classList.remove('video-ready');
+          refreshAmbientAudio(true);
+        }
+
         transitionBusy = false;
         rotationElapsed = 0;
         return;
       }
 
-      try { standbyVideo.currentTime = 0; } catch (_) {}
-      await playSafely(standbyVideo);
-
       standbyVideo.classList.add('is-active');
       activeVideo.classList.remove('is-active');
+      dayFallback.classList.add('video-ready');
 
       const oldVideo = activeVideo;
       activeVideo = standbyVideo;
