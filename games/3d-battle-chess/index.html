@@ -1,15 +1,15 @@
 <!doctype html>
 <html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#071019">
-<meta name="description" content="Play Joshua Randall's browser-based Battle Chess with switchable 3D and 2D boards, themed combat, computer or local opponents, and handheld controls.">
-<title>3D Battle Chess — Joshua Randall</title>
+<meta name="description" content="Play Crown &amp; Ash, Joshua Randall's browser-based 3D chess combat game with switchable 3D and 2D boards, themed armies, computer or local opponents, and handheld controls.">
+<title>Crown &amp; Ash — 3D Chess Combat</title>
 <link rel="stylesheet" href="styles.css">
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/"}}</script>
 </head><body>
 <section id="setupScreen" class="setup-screen" aria-labelledby="setupTitle">
   <a class="game-brand" href="https://web.engr.oregonstate.edu/~randjosh/" aria-label="Joshua Randall portfolio home"><span>JR</span><strong>Joshua Randall</strong></a>
   <div class="setup-panel">
-    <p class="setup-kicker">BROWSER GAME / 3D BATTLE CHESS</p>
+    <p class="setup-kicker">CROWN &amp; ASH / 3D CHESS COMBAT</p>
     <h1 id="setupTitle">Choose your battle.</h1>
     <p class="setup-lead">Configure the match, then launch the board as a dedicated game experience. Your browser will enter full screen when it permits it; phones and tablets play in landscape.</p>
     <div class="setup-grid">
@@ -39,7 +39,7 @@
 </section>
 
 <div id="gameShell" class="game-shell hidden" aria-hidden="true">
-<header class="topbar"><div><h1>3D Battle Chess</h1><p>Strategy becomes spectacle.</p></div>
+<header class="topbar"><div><h1>Crown &amp; Ash</h1><p>Strategy becomes spectacle.</p></div>
 <button id="menuBtn" class="menu" aria-controls="controls" aria-expanded="false">☰ Game Menu</button>
 <div class="controls" id="controls">
 <label>Mode <select id="mode"><option value="ai">Vs Computer</option><option value="local">Local 2 Player</option></select></label>
@@ -67,7 +67,7 @@
 <button id="handView" type="button" aria-label="Switch to 2D board" title="Switch to 2D board">2D</button><button id="handSound" type="button">Sound</button>
 <button id="handNew" type="button">New Game</button><button id="handFullscreen" type="button">Full Screen</button>
 </div></div></section>
-<div id="rotateGate" class="rotate-gate" role="status" aria-live="polite"><div><span class="rotate-icon" aria-hidden="true">↻</span><strong>Rotate your device</strong><p>Battle Chess plays in landscape on phones and tablets.</p></div></div>
+<div id="rotateGate" class="rotate-gate" role="status" aria-live="polite"><div><span class="rotate-icon" aria-hidden="true">↻</span><strong>Rotate your device</strong><p>Crown &amp; Ash plays in landscape on phones and tablets.</p></div></div>
 <div id="promotion" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="promotionTitle"><div class="dialog"><h2 id="promotionTitle">Promote Pawn</h2><div id="promotionChoices"></div></div></div>
 <div id="toast" role="status" aria-live="polite"></div>
 </div>
