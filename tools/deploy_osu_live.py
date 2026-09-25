@@ -145,7 +145,7 @@ def deploy(source, site, verify_public=None):
 def http_smoke(commit):
     checks = [('site-theme.js','jr-site-theme'),('site-scenes.js','Cosmic Cliffs'),
               ('site-scenes.css','mountain-valley.svg'),('geometric-lab/index.html','site-theme.js'),
-              ('geometric-lab/app.js','PortfolioTheme'),('index.html','quantum-cube.js'),('projects.html','3D Battle Chess'),
+              ('geometric-lab/app.js','PortfolioTheme'),('index.html','quantum-cube.js'),('projects.html','Crown &amp; Ash'),
               ('portfolio-home.css','.home-page'),('quantum-cube.js','Bell-state'),
               ('labs/qpe.js','function distribution'),('labs/emergent.js','function create'),
               ('agent-workbench.js','requiresApproval'),('handheld-experience.js','removeLegacyFloatingNavigation'),
