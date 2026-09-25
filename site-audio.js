@@ -3,8 +3,8 @@
 
   // Unified site ambience controller. This is the ONLY script that may create
   // or play background ambience/music.
-  if (window.__JR_SITE_AUDIO_V18__) return;
-  window.__JR_SITE_AUDIO_V18__ = true;
+  if (window.__JR_SITE_AUDIO_V19__) return;
+  window.__JR_SITE_AUDIO_V19__ = true;
 
   const MUTE_KEY = 'jr-site-ambient-muted-v2';
   const DARK_TIME_KEY = 'jr-dark-theme-time-v1';
@@ -12,8 +12,8 @@
   const LOCAL_TEST_HOST = location.hostname === '127.0.0.1' || location.hostname === 'localhost';
 
   const SOURCES = Object.freeze({
-    // John Bartmann — “Interstellar Space” (CC0/public-domain dedication).
-    dark: 'https://web.engr.oregonstate.edu/~randjosh/assets/audio/dark-theme-user.mp3?v=20260925-seamless-v18',
+    // User-provided dark-mode soundtrack, pre-rendered as a seamless cyclic loop.
+    dark: 'https://web.engr.oregonstate.edu/~randjosh/assets/audio/dark-theme-user.mp3?v=20260925-seamless-single-v19',
     darkFallback: 'https://files.freemusicarchive.org/storage-freemusicarchive-org/music/ccCommunity/John_Bartmann/Public_Domain_Soundtrack_Music_Album_One/John_Bartmann_-_12_-_Interstellar_Space.mp3',
 
     // Existing light-mode field recordings.
@@ -27,7 +27,6 @@
 
   const BEACH_SOURCES = Object.freeze([SOURCES.beachNear, SOURCES.beachFar]);
   const BEACH_CROSSFADE_SECONDS = 1.2;
-  const DARK_CROSSFADE_SECONDS = 4.0;
 
   // Website-side hard ceiling. Device volume may further attenuate this, but
   // this player itself can never exceed 10%.
@@ -62,36 +61,9 @@
   audio.setAttribute('aria-hidden', 'true');
   audio.style.display = 'none';
   audio.volume = MAX_BACKGROUND_VOLUME;
+  audio.defaultPlaybackRate = 1;
+  audio.playbackRate = 1;
   (document.body || document.documentElement).appendChild(audio);
-
-  function createDarkPlayer(id) {
-    const player = document.createElement('audio');
-    player.id = id;
-    player.preload = 'auto';
-    // Native looping is a fallback if a second player cannot start on a
-    // restrictive mobile/in-app browser. The audio asset itself is seamless.
-    player.loop = true;
-    player.playsInline = true;
-    player.setAttribute('playsinline', '');
-    player.setAttribute('aria-hidden', 'true');
-    player.style.display = 'none';
-    player.volume = 0;
-    player.src = SOURCES.dark;
-    (document.body || document.documentElement).appendChild(player);
-    try { player.load(); } catch (_) {}
-    return player;
-  }
-
-  const darkPlayers = [
-    createDarkPlayer('jr-site-audio-dark-a'),
-    createDarkPlayer('jr-site-audio-dark-b')
-  ];
-
-  let darkActiveIndex = 0;
-  let darkStarted = false;
-  let darkTransitioning = false;
-  let darkFadeFrame = 0;
-  let darkGeneration = 0;
 
   function createBeachPlayer(id, src) {
     const player = document.createElement('audio');
@@ -160,182 +132,22 @@
   function saveDarkTime() {
     if (currentKey !== 'dark') return;
     try {
-      const player = darkPlayers[darkActiveIndex];
-      const value = Number(player?.currentTime || 0);
+      const value = Number(audio.currentTime || 0);
       if (Number.isFinite(value) && value >= 0) {
         localStorage.setItem(DARK_TIME_KEY, String(value));
       }
     } catch (_) {}
   }
 
-  function restoreDarkTime(player) {
-    if (!player) return;
+  function restoreDarkTime() {
+    if (currentKey !== 'dark') return;
     try {
       const saved = Number(localStorage.getItem(DARK_TIME_KEY) || 0);
       if (!Number.isFinite(saved) || saved < 0) return;
-      const duration = Number(player.duration || 0);
-      player.currentTime = duration > 0 ? saved % duration : saved;
+      const duration = Number(audio.duration || 0);
+      audio.currentTime = duration > 0 ? saved % duration : saved;
     } catch (_) {}
   }
-
-  function cancelDarkFade() {
-    if (!darkFadeFrame) return;
-    try { cancelAnimationFrame(darkFadeFrame); } catch (_) {}
-    darkFadeFrame = 0;
-  }
-
-  function stopDark(reset = true) {
-    darkGeneration += 1;
-    cancelDarkFade();
-    darkTransitioning = false;
-    darkStarted = false;
-    darkActiveIndex = 0;
-
-    darkPlayers.forEach(player => {
-      try { player.pause(); } catch (_) {}
-      try { player.volume = 0; } catch (_) {}
-      player.loop = true;
-      if (reset) {
-        try { player.currentTime = 0; } catch (_) {}
-      }
-    });
-  }
-
-  function beginDarkTransition() {
-    if (darkTransitioning || currentKey !== 'dark' || desiredKey() !== 'dark') return;
-
-    const fromIndex = darkActiveIndex;
-    const toIndex = 1 - fromIndex;
-    const from = darkPlayers[fromIndex];
-    const to = darkPlayers[toIndex];
-    const generation = darkGeneration;
-    const cap = cappedVolume('dark');
-
-    darkTransitioning = true;
-    from.loop = false;
-    to.loop = true;
-    try { to.currentTime = 0; } catch (_) {}
-    to.muted = false;
-    to.volume = 0;
-
-    let playResult;
-    try { playResult = to.play(); }
-    catch (_) {
-      from.loop = true;
-      darkTransitioning = false;
-      return;
-    }
-
-    Promise.resolve(playResult).then(() => {
-      if (generation !== darkGeneration || currentKey !== 'dark' || desiredKey() !== 'dark') {
-        try { to.pause(); } catch (_) {}
-        from.loop = true;
-        darkTransitioning = false;
-        return;
-      }
-
-      const startedAt = performance.now();
-      const fadeMs = DARK_CROSSFADE_SECONDS * 1000;
-
-      const step = now => {
-        if (generation !== darkGeneration || currentKey !== 'dark' || desiredKey() !== 'dark') {
-          try { to.pause(); } catch (_) {}
-          from.loop = true;
-          darkTransitioning = false;
-          darkFadeFrame = 0;
-          return;
-        }
-
-        const progress = Math.min(1, Math.max(0, (now - startedAt) / fadeMs));
-        // Raised-cosine complementary gains make the transition smooth while
-        // keeping the two players' combined website-side gain at the 10% cap.
-        const incoming = 0.5 - 0.5 * Math.cos(Math.PI * progress);
-        from.volume = cap * (1 - incoming);
-        to.volume = cap * incoming;
-
-        if (progress < 1) {
-          darkFadeFrame = requestAnimationFrame(step);
-          return;
-        }
-
-        darkFadeFrame = 0;
-        try { from.pause(); } catch (_) {}
-        try { from.currentTime = 0; } catch (_) {}
-        from.volume = 0;
-        from.loop = true;
-        to.volume = cap;
-        darkActiveIndex = toIndex;
-        darkTransitioning = false;
-      };
-
-      darkFadeFrame = requestAnimationFrame(step);
-    }).catch(() => {
-      from.loop = true;
-      darkTransitioning = false;
-    });
-  }
-
-  function playDark() {
-    const player = darkPlayers[darkActiveIndex];
-    const cap = cappedVolume('dark');
-
-    if (!darkStarted) restoreDarkTime(player);
-
-    player.loop = true;
-    player.muted = false;
-    player.volume = cap;
-    darkStarted = true;
-
-    try {
-      const result = player.play();
-      if (result?.catch) {
-        result.catch(() => {
-          darkStarted = false;
-        });
-      }
-    } catch (_) {
-      darkStarted = false;
-    }
-  }
-
-  darkPlayers.forEach((player, index) => {
-    player.addEventListener('timeupdate', () => {
-      if (currentKey !== 'dark' || index !== darkActiveIndex || darkTransitioning) return;
-      const duration = Number(player.duration || 0);
-      const current = Number(player.currentTime || 0);
-      if (!Number.isFinite(duration) || duration <= 0 || !Number.isFinite(current)) return;
-
-      if (duration - current <= DARK_CROSSFADE_SECONDS + 0.20) {
-        beginDarkTransition();
-      }
-    });
-
-    player.addEventListener('error', () => {
-      if (!darkFallbackActive && player.currentSrc !== SOURCES.darkFallback) {
-        darkFallbackActive = true;
-        darkGeneration += 1;
-        cancelDarkFade();
-        darkTransitioning = false;
-        darkStarted = false;
-        darkActiveIndex = 0;
-        darkPlayers.forEach(item => {
-          try { item.pause(); } catch (_) {}
-          item.src = SOURCES.darkFallback;
-          item.loop = true;
-          item.volume = 0;
-          try { item.load(); } catch (_) {}
-        });
-        if (currentKey === 'dark' && desiredKey() === 'dark') playDark();
-        return;
-      }
-      console.error('JR dark ambience failed:', player.currentSrc, player.error);
-    });
-
-    player.addEventListener('volumechange', () => {
-      const cap = cappedVolume('dark');
-      if (player.volume > cap) player.volume = cap;
-    });
-  });
 
   function cancelBeachFade() {
     if (!beachFadeFrame) return;
@@ -484,7 +296,6 @@
   function stop() {
     saveDarkTime();
     try { audio.pause(); } catch (_) {}
-    stopDark(true);
     stopBeach(true);
   }
 
@@ -492,17 +303,6 @@
     if (!nextKey) {
       stop();
       currentKey = '';
-      return;
-    }
-
-    if (nextKey === 'dark') {
-      if (currentKey === 'dark') return;
-
-      switching = true;
-      stop();
-      currentKey = 'dark';
-      darkFallbackActive = false;
-      switching = false;
       return;
     }
 
@@ -525,13 +325,19 @@
     stop();
 
     currentKey = nextKey;
+    if (nextKey === 'dark') darkFallbackActive = false;
     audio.loop = true;
     audio.muted = false;
+    audio.defaultPlaybackRate = 1;
+    audio.playbackRate = 1;
     audio.volume = cappedVolume(nextKey);
     audio.src = SOURCES[nextKey];
 
     audio.onloadedmetadata = () => {
-      try { audio.currentTime = 0; } catch (_) {}
+      if (currentKey === 'dark') restoreDarkTime();
+      else {
+        try { audio.currentTime = 0; } catch (_) {}
+      }
       switching = false;
     };
 
@@ -548,11 +354,6 @@
 
     applySource(key);
 
-    if (key === 'dark') {
-      playDark();
-      return;
-    }
-
     if (key === 'beach') {
       playBeach();
       return;
@@ -560,6 +361,8 @@
 
     audio.loop = true;
     audio.muted = false;
+    audio.defaultPlaybackRate = 1;
+    audio.playbackRate = 1;
     audio.volume = cappedVolume(key);
 
     try {
@@ -578,14 +381,6 @@
     }
 
     if (force || currentKey !== key) applySource(key);
-
-    if (key === 'dark') {
-      const active = darkPlayers[darkActiveIndex];
-      if (!switching && (!darkStarted || (active.paused && !darkTransitioning))) {
-        playDark();
-      }
-      return;
-    }
 
     if (key === 'beach') {
       const active = beachPlayers[beachActiveIndex];
@@ -655,14 +450,30 @@
   });
 
   audio.addEventListener('error', () => {
+    if (currentKey === 'dark' && !darkFallbackActive && audio.currentSrc !== SOURCES.darkFallback) {
+      darkFallbackActive = true;
+      audio.src = SOURCES.darkFallback;
+      audio.loop = true;
+      audio.volume = cappedVolume('dark');
+      try {
+        const result = audio.play();
+        if (result?.catch) result.catch(() => {});
+      } catch (_) {}
+      return;
+    }
     console.error('JR site audio failed:', currentKey, audio.currentSrc, audio.error);
   });
 
-  // Enforce the ceiling even if another script or browser control changes it.
+  // Enforce the ceiling and normal speed even if another script, browser,
+  // media-session quirk, or in-app browser tries to alter either value.
   audio.addEventListener('volumechange', () => {
     if (audio.volume > MAX_BACKGROUND_VOLUME) {
       audio.volume = MAX_BACKGROUND_VOLUME;
     }
+  });
+  audio.addEventListener('ratechange', () => {
+    if (audio.defaultPlaybackRate !== 1) audio.defaultPlaybackRate = 1;
+    if (audio.playbackRate !== 1) audio.playbackRate = 1;
   });
 
   // Recovery watchdog: one player, one desired source, no cross-theme bleed.
@@ -681,14 +492,6 @@
 
     if (audio.volume > MAX_BACKGROUND_VOLUME) {
       audio.volume = MAX_BACKGROUND_VOLUME;
-    }
-
-    if (key === 'dark') {
-      const active = darkPlayers[darkActiveIndex];
-      if (unlocked && !switching && !darkTransitioning && (!darkStarted || active.paused)) {
-        playDark();
-      }
-      return;
     }
 
     if (key === 'beach') {
@@ -714,12 +517,7 @@
     get muted() { return muted(); },
     get suppressed() { return suppressed; },
     get maxVolume() { return MAX_BACKGROUND_VOLUME; },
-    get element() {
-      if (currentKey === 'dark') return darkPlayers[darkActiveIndex];
-      if (currentKey === 'beach') return beachPlayers[beachActiveIndex];
-      return audio;
-    },
-    get darkElements() { return darkPlayers.slice(); },
+    get element() { return currentKey === 'beach' ? beachPlayers[beachActiveIndex] : audio; },
     get beachElements() { return beachPlayers.slice(); }
   });
 })();
