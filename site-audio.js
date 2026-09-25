@@ -8,6 +8,7 @@
 
   const MUTE_KEY = 'jr-site-ambient-muted-v2';
   const DARK_TIME_KEY = 'jr-dark-theme-time-v1';
+  const VOLUME_KEY = 'jr-site-ambient-volume-v1';
   const PROJECT_RE = /(?:^|\/)(?:project-[^/]+\.html|play-evil-wizard\.html|agent-workbench\.html|games\/|geometric-lab\/|qubit-preview-20260921\/|deep-learning\/)/i;
   const LOCAL_TEST_HOST = location.hostname === '127.0.0.1' || location.hostname === 'localhost';
 
@@ -28,15 +29,10 @@
   const BEACH_SOURCES = Object.freeze([SOURCES.beachNear, SOURCES.beachFar]);
   const BEACH_CROSSFADE_SECONDS = 1.2;
 
-  // Website-side hard ceiling. Device volume may further attenuate this, but
-  // this player itself can never exceed 10%.
-  const MAX_BACKGROUND_VOLUME = 0.10;
-  const VOLUME = Object.freeze({
-    dark: 0.10,
-    river: 0.10,
-    waterfall: 0.10,
-    beach: 0.10
-  });
+  // Quiet-first ambience. Device volume can still be raised, so the site keeps
+  // its own deliberately low ceiling. 2% is the default; 4% is the absolute max.
+  const DEFAULT_BACKGROUND_VOLUME = 0.02;
+  const MAX_BACKGROUND_VOLUME = 0.04;
 
   let sceneId = 'forest-river';
   let suppressed = PROJECT_RE.test(location.pathname);
@@ -60,7 +56,7 @@
   audio.setAttribute('playsinline', '');
   audio.setAttribute('aria-hidden', 'true');
   audio.style.display = 'none';
-  audio.volume = MAX_BACKGROUND_VOLUME;
+  audio.volume = DEFAULT_BACKGROUND_VOLUME;
   audio.defaultPlaybackRate = 1;
   audio.playbackRate = 1;
   (document.body || document.documentElement).appendChild(audio);
@@ -124,9 +120,33 @@
     return 'river';
   }
 
-  function cappedVolume(key) {
-    const requested = Number(VOLUME[key] ?? MAX_BACKGROUND_VOLUME);
-    return Math.min(MAX_BACKGROUND_VOLUME, Math.max(0, requested));
+  function preferredVolume() {
+    try {
+      const saved = Number(localStorage.getItem(VOLUME_KEY));
+      if (Number.isFinite(saved)) return Math.min(MAX_BACKGROUND_VOLUME, Math.max(0, saved));
+    } catch (_) {}
+    return DEFAULT_BACKGROUND_VOLUME;
+  }
+
+  function cappedVolume() {
+    return preferredVolume();
+  }
+
+  function applyPreferredVolume() {
+    const cap = preferredVolume();
+    try { audio.volume = cap; } catch (_) {}
+    beachPlayers.forEach((player, index) => {
+      if (beachTransitioning) return;
+      try { player.volume = index === beachActiveIndex && beachStarted ? cap : 0; } catch (_) {}
+    });
+  }
+
+  function setPreferredVolume(value) {
+    const next = Math.min(MAX_BACKGROUND_VOLUME, Math.max(0, Number(value) || 0));
+    try { localStorage.setItem(VOLUME_KEY, String(next)); } catch (_) {}
+    applyPreferredVolume();
+    document.dispatchEvent(new CustomEvent('portfolio:ambient-volume', { detail: { volume: next } }));
+    return next;
   }
 
   function saveDarkTime() {
@@ -439,6 +459,10 @@
   // Keep different tabs/windows in sync with the global mute preference.
   addEventListener('storage', event => {
     if (event.key === MUTE_KEY) sync(true);
+    if (event.key === VOLUME_KEY) {
+      applyPreferredVolume();
+      sync(true);
+    }
   });
 
   audio.addEventListener('ended', () => {
@@ -517,6 +541,8 @@
     get muted() { return muted(); },
     get suppressed() { return suppressed; },
     get maxVolume() { return MAX_BACKGROUND_VOLUME; },
+    get volume() { return preferredVolume(); },
+    setVolume: setPreferredVolume,
     get element() { return currentKey === 'beach' ? beachPlayers[beachActiveIndex] : audio; },
     get beachElements() { return beachPlayers.slice(); }
   });
