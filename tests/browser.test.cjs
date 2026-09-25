@@ -59,7 +59,7 @@ async function run(){
    let frame=await capture(),animated=false;for(let attempt=0;attempt<6&&!animated;attempt++){await page.waitForTimeout(120);animated=(await capture())!==frame;}assert(animated,'Cubes animate');
    await page.locator('#cube-pause').click();await page.waitForTimeout(80);frame=await capture();await page.waitForTimeout(140);assert.equal(await capture(),frame,'Cube pause stops rendering motion');await page.locator('#cube-pause').click();
    assert.equal(await page.locator('#motion').getAttribute('data-scene-audio'),'','Former motion control is the global ambience mute');await page.waitForTimeout(90);frame=await capture();await page.waitForTimeout(140);assert.notEqual(await capture(),frame,'Global site motion remains active');
-   await page.locator('.vnext-cosmos').scrollIntoViewIfNeeded();let positions=await page.locator('.vnext-world').evaluateAll(es=>es.map(e=>e.style.transform));await page.waitForTimeout(140);assert.notDeepEqual(await page.locator('.vnext-world').evaluateAll(es=>es.map(e=>e.style.transform)),positions,'Orbital animation remains active');
+   await page.locator('.vnext-cosmos').scrollIntoViewIfNeeded();let positions=await page.locator('.vnext-world').evaluateAll(es=>es.map(e=>e.style.transform)),orbitMoved=false;for(let attempt=0;attempt<8&&!orbitMoved;attempt++){await page.waitForTimeout(120);orbitMoved=!require('node:util').isDeepStrictEqual(await page.locator('.vnext-world').evaluateAll(es=>es.map(e=>e.style.transform)),positions);}assert(orbitMoved,'Orbital animation remains active');
    for(const img of await page.locator('main img:visible').all()){await img.scrollIntoViewIfNeeded();await img.evaluate(im=>im.decode());}
    const portrait=page.locator('.portrait-photo img');assert(await portrait.isVisible(),'Portrait is visible over systems artwork');
    const pb=await portrait.boundingBox(),ab=await page.locator('.about-imagery').boundingBox();assert(pb&&ab&&pb.x>=ab.x-2&&pb.x+pb.width<=ab.x+ab.width+2,'Portrait stays inside systems composition');
@@ -124,6 +124,9 @@ async function run(){
   await page.locator('[data-build-route]').click();await page.waitForURL('**/learn-paths.html?**');
   assert.equal(await page.locator('#learning-depth').count(),0,'Full ladder stays on Learn home');
   assert.match(await page.locator('#depth-context').innerText(),/Doctoral \/ Research/);
+  const depthTitle=(await page.locator('#depth-context strong').innerText()).trim(),depthSummary=(await page.locator('#depth-context [data-depth-summary]').innerText()).trim();
+  assert(!depthSummary.startsWith(depthTitle),`Target-depth summary must not repeat "${depthTitle}"`);
+  assert.equal(await page.locator('#depth-context [data-depth-summary]').getAttribute('data-depth-summary'),'compact');
   assert(await page.locator('#vnext-path-band').isVisible());
   await page.goto(base+'/learn-browse.html',{waitUntil:'networkidle'});
   await page.locator('.lesson-card[data-popout="0"]').first().click();assert(await page.locator('.lesson-title').isVisible());
