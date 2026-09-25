@@ -158,6 +158,9 @@ const eg=emergent.create(12,.2,42),r0=emergent.order(eg);emergent.advance(eg,10,
 assert.equal(eg.step,10,'Emergent model step counter mismatch');
 assert.ok(r0>=0&&r0<=1&&emergent.order(eg)>=0&&emergent.order(eg)<=1,'Kuramoto order parameter must remain in [0,1]');
 
+const mindSource=read('agent-workbench.js');
+assert.doesNotMatch(mindSource,/agent-tasks['"]?\)?\.innerHTML/,'MIND workbench must not inject generated task content with innerHTML');
+assert.match(mindSource,/status\.textContent=x\.status/,'MIND workbench must render generated task fields as text');
 const mind=await import(pathToFileURL(path.join(root,'agent-workbench.js')).href+'?test='+Date.now());
 const mr=mind.run('Repair a test regression',{evidence:['Reproduction steps','CI test output','Rollback review']});
 assert.ok(mr.requiresApproval,'MIND workbench must preserve human approval boundary');
