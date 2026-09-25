@@ -60,6 +60,13 @@ async function run(){
    await page.locator('#cube-pause').click();await page.waitForTimeout(80);frame=await capture();await page.waitForTimeout(140);assert.equal(await capture(),frame,'Cube pause stops rendering motion');await page.locator('#cube-pause').click();
    assert.equal(await page.locator('#motion').getAttribute('data-scene-audio'),'','Former motion control is the global ambience mute');await page.waitForTimeout(90);frame=await capture();await page.waitForTimeout(140);assert.notEqual(await capture(),frame,'Global site motion remains active');
    await page.locator('.vnext-cosmos').scrollIntoViewIfNeeded();let positions=await page.locator('.vnext-world').evaluateAll(es=>es.map(e=>e.style.transform)),orbitMoved=false;for(let attempt=0;attempt<8&&!orbitMoved;attempt++){await page.waitForTimeout(120);orbitMoved=!require('node:util').isDeepStrictEqual(await page.locator('.vnext-world').evaluateAll(es=>es.map(e=>e.style.transform)),positions);}assert(orbitMoved,'Orbital animation remains active');
+   if(name==='phone'||name==='small-phone'){
+    await page.locator('#direction').scrollIntoViewIfNeeded();
+    assert(await page.locator('#education-title').isVisible(),name+': Education heading renders when scrolled into view');
+    assert.equal(await page.locator('.education-cards article').count(),3,name+': all three Education cards are present');
+    const educationBox=await page.locator('#direction').boundingBox();assert(educationBox&&educationBox.height>300,name+': Education section has rendered content height');
+    if(output&&name==='phone')await page.locator('#direction').screenshot({animations:'disabled',path:path.join(output,'education-phone.png')});
+   }
    for(const img of await page.locator('main img:visible').all()){await img.scrollIntoViewIfNeeded();await img.evaluate(im=>im.decode());}
    const portrait=page.locator('.portrait-photo img');assert(await portrait.isVisible(),'Portrait is visible over systems artwork');
    const pb=await portrait.boundingBox(),ab=await page.locator('.about-imagery').boundingBox();assert(pb&&ab&&pb.x>=ab.x-2&&pb.x+pb.width<=ab.x+ab.width+2,'Portrait stays inside systems composition');
