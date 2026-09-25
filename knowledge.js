@@ -87,8 +87,18 @@
   }
   function updateSoundButton(){
     const b=$('#sound-mode');
-    const map={off:['◖×','Sound mode: off'],educational:['◖)','Sound mode: educational'],full:['◖))','Sound mode: full']};
-    b.textContent=map[soundMode][0]; b.setAttribute('aria-label',map[soundMode][1]); b.title=map[soundMode][1];
+    if(!b)return;
+    const icons={
+      off:'<path d="M5 10h3l4-3v10l-4-3H5z"/><path d="m17 9 4 6m0-6-4 6"/>',
+      educational:'<path d="M5 10h3l4-3v10l-4-3H5z"/><path d="M16 10.5a3 3 0 0 1 0 3"/>',
+      full:'<path d="M5 10h3l4-3v10l-4-3H5z"/><path d="M16 9a5 5 0 0 1 0 6"/><path d="M19 7a8 8 0 0 1 0 10"/>'
+    };
+    const labels={off:'Sound mode: off',educational:'Sound mode: educational',full:'Sound mode: full'};
+    const state=icons[soundMode]?soundMode:'off';
+    b.innerHTML=`<svg class="sound-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">${icons[state]}</svg>`;
+    b.dataset.soundMode=state;
+    b.setAttribute('aria-label',labels[state]);
+    b.title=labels[state];
   }
 
   function renderStats(){
