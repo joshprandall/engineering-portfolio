@@ -17,7 +17,7 @@
     window.__JR_SITE_AUDIO_LOADING__ = true;
     const script = document.createElement('script');
     script.id = 'jr-site-audio-controller';
-    script.src = new URL('site-audio.js?v=20260925-wav-master-v21', SITE_BASE).href;
+    script.src = new URL('site-audio.js?v=20260925-quiet-sound-v22', SITE_BASE).href;
     script.async = false;
     script.onload = () => {
       window.__JR_SITE_AUDIO_LOADING__ = false;
@@ -61,6 +61,7 @@
 
   const ROTATE_AFTER = 28;
   const AMBIENT_AUDIO_KEY = 'jr-site-ambient-muted-v2';
+  const AMBIENT_VOLUME_KEY = 'jr-site-ambient-volume-v1';
 
   // Real nature recordings. River + beach are CC0, shorebirds are U.S. federal
   // public domain, and the waterfall recording is used as a looped field clip.
@@ -184,6 +185,56 @@
     const dayLink = options.querySelector('.scene-day-link');
     const dayCredit = options.querySelector('.scene-day-credit');
     const audioButton = options.querySelector('[data-scene-audio]');
+    let soundPanel = null;
+    let soundSlider = null;
+    let soundValue = null;
+    let soundMuteButton = null;
+
+    function ambientVolumePercent() {
+      try {
+        const saved = Number(localStorage.getItem(AMBIENT_VOLUME_KEY));
+        if (Number.isFinite(saved)) return Math.round(Math.min(.04, Math.max(0, saved)) * 1000) / 10;
+      } catch (_) {}
+      return 2;
+    }
+
+    function setAmbientVolumePercent(percent) {
+      const pct = Math.min(4, Math.max(0, Number(percent) || 0));
+      const value = pct / 100;
+      try { localStorage.setItem(AMBIENT_VOLUME_KEY, String(value)); } catch (_) {}
+      try { window.SiteAudio?.setVolume?.(value); } catch (_) {}
+      if (pct > 0 && ambientMuted) {
+        ambientMuted = false;
+        storeAmbientMuted();
+      }
+      try { window.SiteAudio?.sync?.(true); } catch (_) {}
+      if (soundValue) soundValue.textContent = pct === 0 ? 'Off' : pct.toFixed(pct % 1 ? 1 : 0) + '%';
+      if (soundSlider && Number(soundSlider.value) !== pct) soundSlider.value = String(pct);
+      updateAudioButton();
+    }
+
+    if (audioButton) {
+      const wrapper = document.createElement('div');
+      wrapper.className = 'scene-sound-control';
+      audioButton.parentNode?.insertBefore(wrapper, audioButton);
+      wrapper.appendChild(audioButton);
+
+      soundPanel = document.createElement('div');
+      soundPanel.className = 'scene-sound-panel';
+      soundPanel.hidden = true;
+      soundPanel.innerHTML =
+        '<label><span>Ambient sound</span><output>2%</output></label>' +
+        '<input type="range" min="0" max="4" step="0.25" value="2" aria-label="Ambient sound volume, zero to four percent">' +
+        '<button type="button" class="scene-sound-mute">Mute</button>';
+      wrapper.appendChild(soundPanel);
+
+      soundSlider = soundPanel.querySelector('input');
+      soundValue = soundPanel.querySelector('output');
+      soundMuteButton = soundPanel.querySelector('.scene-sound-mute');
+      const initial = ambientVolumePercent();
+      soundSlider.value = String(initial);
+      soundValue.textContent = initial === 0 ? 'Off' : initial.toFixed(initial % 1 ? 1 : 0) + '%';
+    }
 
     let activeVideo = videoA;
     let standbyVideo = videoB;
@@ -256,13 +307,19 @@
 
     function updateAudioButton() {
       if (!audioButton) return;
+      const pct = ambientMuted ? 0 : ambientVolumePercent();
       audioButton.type = 'button';
-      audioButton.setAttribute('aria-pressed', String(ambientMuted));
-      audioButton.setAttribute('aria-label', ambientMuted ? 'Unmute background ambience' : 'Mute background ambience');
+      audioButton.setAttribute('aria-pressed', String(!ambientMuted && pct > 0));
+      audioButton.setAttribute('aria-expanded', String(Boolean(soundPanel && !soundPanel.hidden)));
+      audioButton.setAttribute('aria-label', 'Background sound control');
       audioButton.title = ambientLockedByPage
         ? 'Background ambience pauses automatically while using projects'
-        : (ambientMuted ? 'Unmute ambience' : 'Mute ambience');
-      audioButton.textContent = ambientMuted ? 'Unmute' : 'Mute';
+        : 'Background sound';
+      audioButton.innerHTML =
+        '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10h4l5-4v12l-5-4H4z"></path><path d="M17 9c1 1 1 5 0 6"></path><path d="M19 7c2 2 2 8 0 10"></path></svg>' +
+        '<span>Sound</span>';
+      if (soundMuteButton) soundMuteButton.textContent = ambientMuted ? 'Unmute' : 'Mute';
+      if (soundValue) soundValue.textContent = ambientMuted ? 'Muted' : (pct === 0 ? 'Off' : pct.toFixed(pct % 1 ? 1 : 0) + '%');
     }
 
     function ensureAmbientContext() {
@@ -644,25 +701,33 @@
     }
 
     if (audioButton) {
-      audioButton.addEventListener('click', () => {
+      audioButton.addEventListener('click', event => {
+        event.stopPropagation();
+        if (!soundPanel) return;
+        soundPanel.hidden = !soundPanel.hidden;
+        updateAudioButton();
+      });
+
+      soundSlider?.addEventListener('input', event => {
+        event.stopPropagation();
+        audioUnlocked = true;
+        setAmbientVolumePercent(event.currentTarget.value);
+      });
+
+      soundMuteButton?.addEventListener('click', event => {
+        event.stopPropagation();
         ambientMuted = !ambientMuted;
         storeAmbientMuted();
-        if (darkTrackElement) darkTrackElement.muted = ambientMuted;
-        if (recordedAmbience) recordedAmbience.muted = ambientMuted;
-        if (birdAudio) birdAudio.muted = ambientMuted;
-        if (!ambientMuted) {
-          audioUnlocked = true;
-          if (theme === 'dark') {
-            // site-audio.js sees the updated mute state on this same click.
-            updateAudioButton();
-          } else {
-            try { ensureAmbientContext(); } catch (_) {}
-            refreshAmbientAudio(true);
-          }
-        } else {
-          stopDarkAmbience();
-          refreshAmbientAudio(true);
-        }
+        if (!ambientMuted && ambientVolumePercent() <= 0) setAmbientVolumePercent(2);
+        try { window.SiteAudio?.sync?.(true); } catch (_) {}
+        updateAudioButton();
+      });
+
+      document.addEventListener('click', event => {
+        if (!soundPanel || soundPanel.hidden) return;
+        if (event.target instanceof Node && soundPanel.parentElement?.contains(event.target)) return;
+        soundPanel.hidden = true;
+        updateAudioButton();
       });
     }
 
