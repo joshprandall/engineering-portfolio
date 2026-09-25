@@ -4,6 +4,7 @@
 <meta name="description" content="Play Crown &amp; Ash, Joshua Randall's browser-based 3D chess combat game with switchable 3D and 2D boards, themed armies, computer or local opponents, and handheld controls.">
 <title>Crown &amp; Ash — 3D Chess Combat</title>
 <link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="fallback.css">
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/"}}</script>
 </head><body>
 <section id="setupScreen" class="setup-screen" aria-labelledby="setupTitle">
@@ -71,5 +72,5 @@
 <div id="promotion" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="promotionTitle"><div class="dialog"><h2 id="promotionTitle">Promote Pawn</h2><div id="promotionChoices"></div></div></div>
 <div id="toast" role="status" aria-live="polite"></div>
 </div>
-<script type="module" src="battle.js"></script>
+<script type="module" src="boot.js"></script>
 </body></html>
