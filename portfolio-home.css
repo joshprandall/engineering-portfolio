@@ -32,7 +32,7 @@
 .home-page .vnext-cosmos-core{width:66px;height:66px}
 .home-page .vnext-cosmos-core span{font-size:.93rem}
 .home-page .vnext-cosmos-core small{font-size:.37rem}
-.home-section{padding-block:76px;border-top:1px solid var(--line)}
+.home-section{padding-block:76px;border-top:1px solid var(--line);scroll-margin-top:110px}
 .home-page h2{font-size:clamp(1.9rem,3.05vw,3rem);line-height:1.13;letter-spacing:-.045em}
 .home-page .section-heading{margin-bottom:32px;align-items:flex-end}
 .home-page .section-heading>p{max-width:36ch;margin-bottom:0;font-size:.9rem;line-height:1.75}
