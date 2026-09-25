@@ -73,7 +73,7 @@
     if((document.body.dataset.libraryPage||'home')==='home'||$('#depth-context'))return;
     const nav=$('.learn-page-nav');if(!nav)return;
     const bar=document.createElement('section');bar.id='depth-context';bar.className='depth-context shell';
-    bar.innerHTML=`<div><span class="eyebrow">TARGET DEPTH</span><strong>${esc((depthById.get(target)||depths[1]).title)}</strong><p data-depth-summary>${targetCopy()}</p></div><label>Change target<select data-depth-target-select>${depths.map(d=>`<option value="${d.id}">${esc(d.title)}</option>`).join('')}</select></label><a class="button" href="learn.html#learning-depth">Edit learning plan →</a>`;
+    bar.innerHTML=`<div><span class="eyebrow">TARGET DEPTH</span><strong>${esc((depthById.get(target)||depths[1]).title)}</strong><p data-depth-summary="compact">${targetCopy(false)}</p></div><label>Change target<select data-depth-target-select>${depths.map(d=>`<option value="${d.id}">${esc(d.title)}</option>`).join('')}</select></label><a class="button" href="learn.html#learning-depth">Edit learning plan →</a>`;
     nav.insertAdjacentElement('afterend',bar);bind(bar);renderState();
   }
   function bind(root){
