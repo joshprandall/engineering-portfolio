@@ -65,6 +65,8 @@ async function run(){
     assert(await page.locator('#education-title').isVisible(),name+': Education heading renders when scrolled into view');
     assert.equal(await page.locator('.education-cards article').count(),3,name+': all three Education cards are present');
     const educationBox=await page.locator('#direction').boundingBox();assert(educationBox&&educationBox.height>300,name+': Education section has rendered content height');
+    const headerBottom=await page.locator('header').evaluate(el=>el.getBoundingClientRect().bottom),educationTop=await page.locator('#education-title').evaluate(el=>el.getBoundingClientRect().top);
+    assert(educationTop>=headerBottom-2,name+': Education heading clears the sticky header after scrolling');
     if(output&&name==='phone')await page.locator('#direction').screenshot({animations:'disabled',path:path.join(output,'education-phone.png')});
    }
    for(const img of await page.locator('main img:visible').all()){await img.scrollIntoViewIfNeeded();await img.evaluate(im=>im.decode());}
