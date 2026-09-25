@@ -17,7 +17,7 @@
     window.__JR_SITE_AUDIO_LOADING__ = true;
     const script = document.createElement('script');
     script.id = 'jr-site-audio-controller';
-    script.src = new URL('site-audio.js?v=20260925-beat-loop-v20', SITE_BASE).href;
+    script.src = new URL('site-audio.js?v=20260925-wav-master-v21', SITE_BASE).href;
     script.async = false;
     script.onload = () => {
       window.__JR_SITE_AUDIO_LOADING__ = false;
@@ -64,8 +64,7 @@
 
   // Real nature recordings. River + beach are CC0, shorebirds are U.S. federal
   // public domain, and the waterfall recording is used as a looped field clip.
-  // Dark mode intentionally looks for a local licensed file instead of copying
-  // a copyrighted film score into the repository.
+  // Dark mode playback is owned by site-audio.js, which prefers the local WAV master and falls back to the previous local MP3.
   const REAL_NATURE_AUDIO = {
     'forest-river': 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Sanna%20river%20rapids.ogg',
     'birds-water': 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Ocean%20Waves%20on%20a%20Tropical%20Beach.ogg',
@@ -145,7 +144,7 @@
       '<div>' +
         '<p class="scene-source-night">Webb’s Cosmic Cliffs · ' +
           '<a href="https://esawebb.org/images/weic2205a/" target="_blank" rel="noopener noreferrer">NASA, ESA, CSA, and STScI</a><br>' +
-          '<small>Audio: “Interstellar Space” by John Bartmann · CC0 public-domain dedication.</small>' +
+          '<small>Audio: custom dark-mode ambient loop.</small>' +
         '</p>' +
         '<p class="scene-source-day">Living Earth · ' +
           '<a class="scene-day-link" href="#" target="_blank" rel="noopener noreferrer">real licensed nature footage</a><br>' +
