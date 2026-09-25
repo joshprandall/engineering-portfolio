@@ -17,6 +17,7 @@ PROTECTED_REQUIRED = tuple(PROTECTED_ROOT_FILES) + (
 )
 REQUIRED = THEME_SHELL_FILES + (
     'site-theme.js', 'site-scenes.js', 'site-audio.js', 'site-scenes.css',
+    'assets/audio/dark-theme-user.wav',
     'assets/scenes/webb-cosmic-cliffs.webp', 'assets/scenes/mountain-valley.svg',
     'index.html', 'projects.html', 'app.js', 'styles.css', 'site-resilience.js',
     'site-resilience.css', 'portfolio-next.js', 'portfolio-next.css', 'portfolio-home.css',
