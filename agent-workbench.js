@@ -4,7 +4,24 @@ export function plan(goal){const g=normalizeGoal(goal);if(!g)throw new Error('A 
 export function run(goal,{evidence=[]}={}){const clean=normalizeGoal(goal),tasks=plan(clean),ev=evidence.map(x=>String(x).trim()).filter(Boolean),categories=classifyEvidence(ev),coverage=Math.min(100,Math.round((ev.length/4)*55+(categories.length/4)*45)),reviewable=ev.length>=2&&categories.length>=2,ledger=[{event:'workflow.created',detail:'Deterministic local workflow initialized; no external authority granted.'},{event:'planner.completed',detail:`${tasks.length} bounded stages created.`},{event:'evidence.recorded',detail:ev.length?`${ev.length} evidence item(s), categories: ${categories.join(', ')||'uncategorized'}.`:'No evidence supplied.'},{event:'verifier.assessed',detail:reviewable?'Evidence package is broad enough for human review; no automatic truth claim is made.':'Evidence coverage is incomplete; completion claims remain blocked.'},{event:'executor.dry_run',detail:'No network request, shell command, account change or file mutation was executed.'},{event:'approval.required',detail:'A human remains the execution boundary.'}];return {goal:clean,tasks,evidence:ev,evidenceCategories:categories,evidenceCoverage:coverage,reviewable,ledger,requiresApproval:true}}
 if(typeof window!=='undefined'){
   const $=s=>document.querySelector(s),presets={repair:{goal:'Repair a mobile navigation regression without breaking desktop behavior',evidence:'Reproduction steps on phone\nBefore/after screenshots\nStatic test output\nRollback point'},deploy:{goal:'Deploy a reviewed portfolio release safely',evidence:'Pinned source commit\nCI test result\nBackup verification\nRollback procedure'},research:{goal:'Evaluate a scientific claim and keep speculation separate from evidence',evidence:'Primary paper or source\nReproducible calculation or experiment\nKnown limitations\nIndependent review note'}};
-  const render=o=>{$('#agent-status').textContent=o.reviewable?'Evidence package ready for human review; execution remains blocked pending approval.':'Workflow paused: add independent evidence before making a completion claim.';$('#agent-tasks').innerHTML=o.tasks.map(x=>`<li><strong>${x.agent}</strong><br>${x.action}<span class="status">${x.status}</span></li>`).join('');$('#agent-ledger').textContent=o.ledger.map(x=>`${x.event}: ${x.detail}`).join('\n');$('#agent-coverage').textContent=o.evidenceCoverage+'%';$('#agent-coverage-bar').style.width=o.evidenceCoverage+'%';$('#agent-categories').textContent=o.evidenceCategories.length?o.evidenceCategories.join(' · '):'none yet';window.__mind=o};
+  const render=o=>{
+    $('#agent-status').textContent=o.reviewable?'Evidence package ready for human review; execution remains blocked pending approval.':'Workflow paused: add independent evidence before making a completion claim.';
+    const taskList=$('#agent-tasks');
+    taskList.replaceChildren(...o.tasks.map(x=>{
+      const li=document.createElement('li');
+      const strong=document.createElement('strong');strong.textContent=x.agent;
+      const br=document.createElement('br');
+      const action=document.createTextNode(x.action);
+      const status=document.createElement('span');status.className='status';status.textContent=x.status;
+      li.append(strong,br,action,status);
+      return li;
+    }));
+    $('#agent-ledger').textContent=o.ledger.map(x=>`${x.event}: ${x.detail}`).join('\n');
+    $('#agent-coverage').textContent=o.evidenceCoverage+'%';
+    $('#agent-coverage-bar').style.width=o.evidenceCoverage+'%';
+    $('#agent-categories').textContent=o.evidenceCategories.length?o.evidenceCategories.join(' · '):'none yet';
+    window.__mind=o;
+  };
   document.querySelectorAll('[data-agent-scenario]').forEach(b=>b.addEventListener('click',()=>{const p=presets[b.dataset.agentScenario];$('#agent-goal').value=p.goal;$('#agent-evidence').value=p.evidence;render(run(p.goal,{evidence:p.evidence.split('\n')}))}));
   const requested=new URLSearchParams(location.search).get('scenario');if(requested&&presets[requested]){const p=presets[requested];$('#agent-goal').value=p.goal;$('#agent-evidence').value=p.evidence}
   $('#agent-form').addEventListener('submit',e=>{e.preventDefault();try{const ev=$('#agent-evidence').value.split('\n').map(x=>x.trim()).filter(Boolean);render(run($('#agent-goal').value,{evidence:ev}))}catch(err){$('#agent-status').textContent=err.message}});$('#agent-export').addEventListener('click',()=>{const ev=$('#agent-evidence').value.split('\n').map(x=>x.trim()).filter(Boolean),o=window.__mind||run($('#agent-goal').value,{evidence:ev}),a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(o,null,2)],{type:'application/json'}));a.download='project-mind-workflow.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)});if(requested&&presets[requested])$('#agent-form').requestSubmit();
