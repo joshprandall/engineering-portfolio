@@ -1,6 +1,6 @@
 # Credits and attribution
 
-3D Battle Chess project concept, creative direction, theme selection and iterative improvements: Joshua Randall.
+Crown & Ash project concept, creative direction, theme selection and iterative improvements: Joshua Randall.
 
 The board, piece geometry, chess implementation, visual effects and project-specific interface are original project code and procedural designs. No externally authored models, textures, music or sound-effect files are included.
 
