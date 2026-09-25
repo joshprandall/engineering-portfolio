@@ -6,9 +6,9 @@
   if (window.__JR_SITE_AUDIO_V20__) return;
   window.__JR_SITE_AUDIO_V20__ = true;
 
-  const MUTE_KEY = 'jr-site-ambient-muted-v2';
+  const MUTE_KEY = 'jr-site-ambient-muted-v3';
   const DARK_TIME_KEY = 'jr-dark-theme-time-v1';
-  const VOLUME_KEY = 'jr-site-ambient-volume-v1';
+  const VOLUME_KEY = 'jr-site-ambient-volume-v2';
   const PROJECT_RE = /(?:^|\/)(?:project-[^/]+\.html|play-evil-wizard\.html|agent-workbench\.html|games\/|geometric-lab\/|qubit-preview-20260921\/|deep-learning\/)/i;
   const LOCAL_TEST_HOST = location.hostname === '127.0.0.1' || location.hostname === 'localhost';
 
@@ -30,9 +30,9 @@
   const BEACH_CROSSFADE_SECONDS = 1.2;
 
   // Quiet-first ambience. Device volume can still be raised, so the site keeps
-  // its own deliberately low ceiling. 2% is the default; 4% is the absolute max.
-  const DEFAULT_BACKGROUND_VOLUME = 0.02;
-  const MAX_BACKGROUND_VOLUME = 0.04;
+  // its own deliberately low ceiling. 5% is the default; 8% is the absolute max.
+  const DEFAULT_BACKGROUND_VOLUME = 0.05;
+  const MAX_BACKGROUND_VOLUME = 0.08;
 
   let sceneId = 'forest-river';
   let suppressed = PROJECT_RE.test(location.pathname);
