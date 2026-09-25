@@ -17,7 +17,7 @@
     window.__JR_SITE_AUDIO_LOADING__ = true;
     const script = document.createElement('script');
     script.id = 'jr-site-audio-controller';
-    script.src = new URL('site-audio.js?v=20260925-quiet-sound-v22', SITE_BASE).href;
+    script.src = new URL('site-audio.js?v=20260925-audible-header-v23', SITE_BASE).href;
     script.async = false;
     script.onload = () => {
       window.__JR_SITE_AUDIO_LOADING__ = false;
@@ -60,8 +60,8 @@
   ];
 
   const ROTATE_AFTER = 28;
-  const AMBIENT_AUDIO_KEY = 'jr-site-ambient-muted-v2';
-  const AMBIENT_VOLUME_KEY = 'jr-site-ambient-volume-v1';
+  const AMBIENT_AUDIO_KEY = 'jr-site-ambient-muted-v3';
+  const AMBIENT_VOLUME_KEY = 'jr-site-ambient-volume-v2';
 
   // Real nature recordings. River + beach are CC0, shorebirds are U.S. federal
   // public domain, and the waterfall recording is used as a looped field clip.
@@ -185,6 +185,14 @@
     const dayLink = options.querySelector('.scene-day-link');
     const dayCredit = options.querySelector('.scene-day-credit');
     const audioButton = options.querySelector('[data-scene-audio]');
+    const homepageHeaderTools = document.body.classList.contains('home-page')
+      ? document.querySelector('header .tools')
+      : null;
+    if (audioButton && homepageHeaderTools) {
+      const themeButton = homepageHeaderTools.querySelector('[data-theme-toggle], #theme');
+      homepageHeaderTools.insertBefore(audioButton, themeButton || homepageHeaderTools.lastElementChild);
+    }
+
     let soundPanel = null;
     let soundSlider = null;
     let soundValue = null;
@@ -193,13 +201,13 @@
     function ambientVolumePercent() {
       try {
         const saved = Number(localStorage.getItem(AMBIENT_VOLUME_KEY));
-        if (Number.isFinite(saved)) return Math.round(Math.min(.04, Math.max(0, saved)) * 1000) / 10;
+        if (Number.isFinite(saved)) return Math.round(Math.min(.08, Math.max(0, saved)) * 1000) / 10;
       } catch (_) {}
-      return 2;
+      return 5;
     }
 
     function setAmbientVolumePercent(percent) {
-      const pct = Math.min(4, Math.max(0, Number(percent) || 0));
+      const pct = Math.min(8, Math.max(0, Number(percent) || 0));
       const value = pct / 100;
       try { localStorage.setItem(AMBIENT_VOLUME_KEY, String(value)); } catch (_) {}
       try { window.SiteAudio?.setVolume?.(value); } catch (_) {}
@@ -223,8 +231,8 @@
       soundPanel.className = 'scene-sound-panel';
       soundPanel.hidden = true;
       soundPanel.innerHTML =
-        '<label><span>Ambient sound</span><output>2%</output></label>' +
-        '<input type="range" min="0" max="4" step="0.25" value="2" aria-label="Ambient sound volume, zero to four percent">' +
+        '<label><span>Ambient sound</span><output>5%</output></label>' +
+        '<input type="range" min="0" max="8" step="0.5" value="5" aria-label="Ambient sound volume, zero to eight percent">' +
         '<button type="button" class="scene-sound-mute">Mute</button>';
       wrapper.appendChild(soundPanel);
 
@@ -718,7 +726,7 @@
         event.stopPropagation();
         ambientMuted = !ambientMuted;
         storeAmbientMuted();
-        if (!ambientMuted && ambientVolumePercent() <= 0) setAmbientVolumePercent(2);
+        if (!ambientMuted && ambientVolumePercent() <= 0) setAmbientVolumePercent(5);
         try { window.SiteAudio?.sync?.(true); } catch (_) {}
         updateAudioButton();
       });
