@@ -16,7 +16,7 @@ PROTECTED_REQUIRED = tuple(PROTECTED_ROOT_FILES) + (
     'games/evil-wizard/play.html', 'geometric-lab/index.html',
 )
 REQUIRED = THEME_SHELL_FILES + (
-    'site-theme.js', 'site-scenes.js', 'site-scenes.css',
+    'site-theme.js', 'site-scenes.js', 'site-audio.js', 'site-scenes.css',
     'assets/scenes/webb-cosmic-cliffs.webp', 'assets/scenes/mountain-valley.svg',
     'index.html', 'projects.html', 'app.js', 'styles.css', 'site-resilience.js',
     'site-resilience.css', 'portfolio-next.js', 'portfolio-next.css', 'portfolio-home.css',
@@ -143,7 +143,7 @@ def deploy(source, site, verify_public=None):
     return backup
 
 def http_smoke(commit):
-    checks = [('site-theme.js','jr-site-theme'),('site-scenes.js','Cosmic Cliffs'),
+    checks = [('site-theme.js','jr-site-theme'),('site-scenes.js','Cosmic Cliffs'),('site-audio.js','dark-theme-user.wav'),
               ('site-scenes.css','mountain-valley.svg'),('geometric-lab/index.html','site-theme.js'),
               ('geometric-lab/app.js','PortfolioTheme'),('index.html','quantum-cube.js'),('projects.html','Crown &amp; Ash'),
               ('portfolio-home.css','.home-page'),('quantum-cube.js','Bell-state'),
