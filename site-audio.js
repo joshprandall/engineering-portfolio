@@ -3,8 +3,8 @@
 
   // Unified site ambience controller. This is the ONLY script that may create
   // or play background ambience/music.
-  if (window.__JR_SITE_AUDIO_V19__) return;
-  window.__JR_SITE_AUDIO_V19__ = true;
+  if (window.__JR_SITE_AUDIO_V20__) return;
+  window.__JR_SITE_AUDIO_V20__ = true;
 
   const MUTE_KEY = 'jr-site-ambient-muted-v2';
   const DARK_TIME_KEY = 'jr-dark-theme-time-v1';
@@ -13,7 +13,7 @@
 
   const SOURCES = Object.freeze({
     // User-provided dark-mode soundtrack, pre-rendered as a seamless cyclic loop.
-    dark: 'https://web.engr.oregonstate.edu/~randjosh/assets/audio/dark-theme-user.mp3?v=20260925-seamless-single-v19',
+    dark: 'https://web.engr.oregonstate.edu/~randjosh/assets/audio/dark-theme-user.mp3?v=20260925-beat-loop-v20',
     darkFallback: 'https://files.freemusicarchive.org/storage-freemusicarchive-org/music/ccCommunity/John_Bartmann/Public_Domain_Soundtrack_Music_Album_One/John_Bartmann_-_12_-_Interstellar_Space.mp3',
 
     // Existing light-mode field recordings.
