@@ -1,6 +1,6 @@
-# 3D Battle Chess
+# Crown & Ash
 
-A standalone, browser-based, 3D chess project created and directed by Joshua Randall.
+A standalone, browser-based, 3D chess combat game created and directed by Joshua Randall.
 
 ## Play and features
 
@@ -24,4 +24,4 @@ With Node.js 22 or later, run `npm test`. The automated tests exercise the chess
 
 Upload the files together into a dedicated directory such as `public_html/games/3d-battle-chess/`. Keep `index.html`, `styles.css`, `battle.js` and `engine.js` in that directory. Link to `/~randjosh/games/3d-battle-chess/` from your existing portfolio. Do not overwrite the portfolio root `index.html`, `styles.css`, `app.js`, or any existing game or Qubit folders.
 
-See `DEPLOYMENT.md` for step-by-step instructions and `CREDITS.md` for third-party attribution.
+See `DEPLOYMENT.md` for step-by-step instructions, `CREDITS.md` for third-party attribution, and `STEAM-ROADMAP.md` for the commercial desktop release plan.
