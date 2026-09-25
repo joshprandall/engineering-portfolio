@@ -1,4 +1,4 @@
-# Deploy 3D Battle Chess to Joshua Randall's OSU website
+# Deploy Crown & Ash to Joshua Randall's OSU website
 
 This procedure deploys the standalone web game without overwriting the live portfolio, Qubit project, Evil Wizard or shared navigation.
 
@@ -35,6 +35,6 @@ This procedure deploys the standalone web game without overwriting the live port
 
 ## Optional: link-only markup with no shared CSS changes
 
-`<p><a href="games/3d-battle-chess/">Play 3D Battle Chess</a> · <a href="https://github.com/joshprandall/3d-battle-chess">View source on GitHub</a></p>`
+`<p><a href="games/3d-battle-chess/">Play Crown & Ash</a> · <a href="https://github.com/joshprandall/3d-battle-chess">View source on GitHub</a></p>`
 
 The OSU filesystem is not connected for direct publishing through this chat, so committing to GitHub does not automatically upload files to `public_html`.
