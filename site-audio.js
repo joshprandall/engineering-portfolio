@@ -12,9 +12,9 @@
   const LOCAL_TEST_HOST = location.hostname === '127.0.0.1' || location.hostname === 'localhost';
 
   const SOURCES = Object.freeze({
-    // User-provided dark-mode soundtrack, pre-rendered as a seamless cyclic loop.
-    dark: 'https://web.engr.oregonstate.edu/~randjosh/assets/audio/dark-theme-user.mp3?v=20260925-beat-loop-v20',
-    darkFallback: 'https://files.freemusicarchive.org/storage-freemusicarchive-org/music/ccCommunity/John_Bartmann/Public_Domain_Soundtrack_Music_Album_One/John_Bartmann_-_12_-_Interstellar_Space.mp3',
+    // User-provided dark-mode soundtrack. Prefer the PCM WAV master so the browser has no MP3/AAC encoder padding at the loop boundary.
+    dark: 'https://web.engr.oregonstate.edu/~randjosh/assets/audio/dark-theme-user.wav?v=20260925-wav-master-v21',
+    darkFallback: 'https://web.engr.oregonstate.edu/~randjosh/assets/audio/dark-theme-user.mp3?v=20260925-mp3-fallback-v21',
 
     // Existing light-mode field recordings.
     river: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Sanna%20river%20rapids.ogg',
