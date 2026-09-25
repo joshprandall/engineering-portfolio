@@ -15,7 +15,7 @@
     if(!nav.querySelector('.nav-games')){
       const games=document.createElement('details');
       games.className='nav-games';
-      games.innerHTML='<summary>Game Development</summary><div class="nav-games-menu"><a href="project-battle-chess.html">3D Battle Chess</a><a href="play-evil-wizard.html">Defeat the Evil Wizard</a></div>';
+      games.innerHTML='<summary>Game Development</summary><div class="nav-games-menu"><a href="project-battle-chess.html">Crown &amp; Ash</a><a href="play-evil-wizard.html">Defeat the Evil Wizard</a></div>';
       nav.append(games);
     }
 
