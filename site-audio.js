@@ -3,8 +3,8 @@
 
   // Unified site ambience controller. This is the ONLY script that may create
   // or play background ambience/music.
-  if (window.__JR_SITE_AUDIO_V20__) return;
-  window.__JR_SITE_AUDIO_V20__ = true;
+  if (window.__JR_SITE_AUDIO_V24__) return;
+  window.__JR_SITE_AUDIO_V24__ = true;
 
   const MUTE_KEY = 'jr-site-ambient-muted-v3';
   const DARK_TIME_KEY = 'jr-dark-theme-time-v1';
@@ -30,9 +30,10 @@
   const BEACH_CROSSFADE_SECONDS = 1.2;
 
   // Quiet-first ambience. Device volume can still be raised, so the site keeps
-  // its own deliberately low ceiling. 5% is the default; 8% is the absolute max.
+  // its own deliberately low ceiling. 5% is the default; 10% is the absolute max.
+  // The same stored master level is used for both Day and Night modes.
   const DEFAULT_BACKGROUND_VOLUME = 0.05;
-  const MAX_BACKGROUND_VOLUME = 0.08;
+  const MAX_BACKGROUND_VOLUME = 0.10;
 
   let sceneId = 'forest-river';
   let suppressed = PROJECT_RE.test(location.pathname);
