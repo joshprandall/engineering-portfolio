@@ -47,24 +47,9 @@
     }
   ];
 
-  const searchable = [
-    ["Infrastructure & cloud", "Azure Windows Linux VMware networking storage", "expertise-experience.html#expertise"],
-    ["Identity & security", "Active Directory Entra Intune MFA Conditional Access", "expertise-experience.html#expertise"],
-    ["Automation", "PowerShell Python Bash SQL Git CI", "expertise-experience.html#expertise"],
-    ["Fusion energy", "OSU engineering systems feasibility team presentation", "project-fusion.html"],
-    ["Quantum phase estimation", "quantum algorithm QPE phase probability", "project-qpe.html"],
-    ["Knowledge Library", "learning paths lessons research mathematics physics computing", "learn.html"],
-    ["Experience", "infrastructure systems field engineering consulting leadership", "expertise-experience.html#experience"],
-    ["Defeat the Evil Wizard", "Godot GDScript action RPG platformer game development 15 champions multidirectional combat exploration puzzles bosses portals", "game-development.html"],
-    ["Recovery Readiness Auditor", "backup disaster recovery RPO RTO Python", "project-recovery.html"],
-    ["Infrastructure Dependency Analyzer", "dependencies graph business impact Python", "project-dependency.html"],
-    ["Employee Lifecycle Toolkit", "PowerShell onboarding offboarding identity", "project-lifecycle.html"],
-    ["One qubit. Two outcomes.", "quantum qubit probability measurement", "project-qubit.html"]
-  ];
-
   // site-theme.js owns theme and motion preferences across all pages.
 
-  // Navigation is owned by site-resilience.js so every standard page uses one handler.
+  // Navigation is owned by site-navigation.js so every standard page uses one handler.
 
   $$(".layer-controls button").forEach((button) => {
     button.addEventListener("click", () => {
@@ -101,34 +86,6 @@
       setTab(next);
       tabs[next].focus();
     });
-  });
-
-  const searchDialog = $("#search-dialog");
-  const searchInput = $("#search-input");
-  const searchResults = $("#search-results");
-  function showSearch() {
-    if (!searchDialog) return;
-    if (!searchDialog.open) searchDialog.showModal();
-    searchInput?.dispatchEvent(new Event("input"));
-    setTimeout(() => searchInput?.focus(), 0);
-  }
-  $("#search-open")?.addEventListener("click", showSearch);
-  document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape" && searchDialog?.open) {
-      event.preventDefault();
-      searchDialog.close();
-      return;
-    }
-    if (event.key === "/" && !/input|textarea/i.test(document.activeElement?.tagName || "")) {
-      event.preventDefault();
-      showSearch();
-    }
-  });
-  $$("[data-close]").forEach(b => b.addEventListener("click", () => b.closest("dialog")?.close()));
-  searchInput?.addEventListener("input", () => {
-    const q = searchInput.value.trim().toLowerCase();
-    const matches = q ? searchable.filter(x => `${x[0]} ${x[1]}`.toLowerCase().includes(q)) : searchable.slice(0, 5);
-    searchResults.innerHTML = matches.map(x => `<a href="${x[2]}"><strong>${x[0]}</strong><br><small>${x[1]}</small></a>`).join("");
   });
 
   const filterButtons = $$(".filter-bar [data-filter]");
