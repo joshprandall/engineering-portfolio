@@ -144,7 +144,8 @@ def deploy(source, site, verify_public=None):
     return backup
 
 def http_smoke(commit):
-    checks = [('site-theme.js','jr-site-theme'),('site-scenes.js','Cosmic Cliffs'),('site-audio.js','dark-theme-user.wav'),\n              ('site-sound-control.js','JR_HEADER_SOUND_CONTROL_V25'),
+    checks = [('site-theme.js','jr-site-theme'),('site-scenes.js','Cosmic Cliffs'),('site-audio.js','dark-theme-user.wav'),
+              ('site-sound-control.js','JR_HEADER_SOUND_CONTROL_V25'),
               ('site-scenes.css','mountain-valley.svg'),('geometric-lab/index.html','site-theme.js'),
               ('geometric-lab/app.js','PortfolioTheme'),('index.html','quantum-cube.js'),('projects.html','Crown &amp; Ash'),
               ('portfolio-home.css','.home-page'),('quantum-cube.js','Bell-state'),
