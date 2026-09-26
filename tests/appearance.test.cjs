@@ -5,6 +5,7 @@ const path = require('node:path');
 
 module.exports = async ({ browser, base, output, failures }) => {
   const context = await browser.newContext({ viewport: { width: 1440, height: 1000 } });
+  await context.route('https://**/*',r=>r.abort()); // Explicit provider-outage acceptance; no streaming networkidle dependency.
   const page = await context.newPage();
   page.setDefaultTimeout(8000);
   page.on('pageerror', e => failures.push('Appearance: ' + (e.stack || e.message)));

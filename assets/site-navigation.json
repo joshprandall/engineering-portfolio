@@ -5,8 +5,20 @@
       "label": "Home"
     },
     {
+      "path": "about.html",
+      "label": "About Me"
+    },
+    {
       "path": "expertise-experience.html",
       "label": "Expertise & Experience"
+    },
+    {
+      "path": "resume.html",
+      "label": "R\u00e9sum\u00e9"
+    },
+    {
+      "path": "direction.html",
+      "label": "Direction"
     },
     {
       "path": "projects.html",
@@ -21,11 +33,29 @@
       "label": "Game Development"
     },
     {
-      "path": "index.html#direction",
-      "label": "Direction"
+      "path": "ai-development.html",
+      "label": "AI Development"
     }
   ],
   "parents": {
+    "learn-advanced.html": "learn.html",
+    "learn-browse.html": "learn.html",
+    "learn-capstones.html": "learn.html",
+    "learn-cloud.html": "learn.html",
+    "learn-cyber.html": "learn.html",
+    "learn-glossary.html": "learn.html",
+    "learn-labs.html": "learn.html",
+    "learn-leadership.html": "learn.html",
+    "learn-map.html": "learn.html",
+    "learn-mastery.html": "learn.html",
+    "learn-math.html": "learn.html",
+    "learn-paths.html": "learn.html",
+    "learn-physics.html": "learn.html",
+    "learn-practice.html": "learn.html",
+    "learn-software.html": "learn.html",
+    "learn-verify.html": "learn.html",
+    "learn.html": "learn.html",
+    "lesson.html": "learn.html",
     "play-evil-wizard.html": "game-development.html",
     "project-advanced-computing.html": "projects.html",
     "project-asset-inventory.html": "projects.html",

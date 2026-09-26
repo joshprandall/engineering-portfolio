@@ -22,7 +22,7 @@ async function run(){
  else args.push('--disable-gpu');
  const browser=await chromium.launch({headless:true,executablePath:process.env.PORTFOLIO_BROWSER_EXECUTABLE||undefined,args});
  try{
-  const page=await browser.newPage();page.setDefaultTimeout(8000);page.setDefaultNavigationTimeout(15000);
+  const page=await browser.newPage();await page.route('https://**/*',r=>r.abort());page.setDefaultTimeout(8000);page.setDefaultNavigationTimeout(15000);
   page.on('pageerror',e=>failures.push(`Runtime: ${e.message}`));
   page.on('response',r=>{if(r.url().startsWith(base)&&r.status()>=400&&!/games\/evil-wizard/.test(r.url()))failures.push(`HTTP ${r.status()}: ${r.url()}`);});
   if(output)fs.mkdirSync(output,{recursive:true});
@@ -37,9 +37,9 @@ async function run(){
      await page.locator('#menu').click();assert.equal(await page.locator('#menu').getAttribute('aria-expanded'),'false');assert(!await page.locator('#primary-nav').isVisible());
     }
     await page.locator('#menu').click();await page.keyboard.press('Escape');assert(!await page.locator('#primary-nav').isVisible());
-    await page.locator('#menu').click();await page.locator('#primary-nav a[href="index.html#direction"]').click();assert(!await page.locator('#primary-nav').isVisible());
+    await page.locator('#menu').click();await page.locator('#primary-nav a[href="index.html"]').click();assert(!await page.locator('#primary-nav').isVisible());
    }
-   await page.locator('#search-open').click();await page.locator('#search-input').fill('quantum');assert((await page.locator('#search-results a').count())>0);await page.keyboard.press('Escape');
+   await page.locator('#search-open').click();await page.locator('#search-input').fill('quantum');await page.locator('#search-results a').first().waitFor();assert((await page.locator('#search-results a').count())>0);await page.keyboard.press('Escape');
    await page.locator('#bell-basis').selectOption('YY');await page.locator('#bell-measure').click();assert.match(await page.locator('#bell-result').innerText(),/00 = 0, 01 = \d+, 10 = \d+, 11 = 0/);
    await page.locator('#bell-basis').selectOption('ZZ');await page.locator('#bell-measure').click();assert.match(await page.locator('#bell-result').innerText(),/01 = 0, 10 = 0/);
    await page.locator('#bell-basis').selectOption('ZX');await page.locator('#bell-measure').click();assert.match(await page.locator('#bell-result').innerText(),/1,000 simulated pairs/);

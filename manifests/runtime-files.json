@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "sourceCommit": "4add6453c53852e79ce06672caacdda2cdd5bac7",
+  "sourceCommit": "6ab91ed6e0f35483939e1f127de9e27a0428fb48",
   "bytePolicy": "Exact Git blobs; artifacts verified against committed SHA-256 and size.",
   "files": [
     {
@@ -1903,11 +1903,11 @@
     },
     {
       "path": "knowledge.js",
-      "size": 192235,
-      "sha256": "e95fb548bbaae17fa373bb6f9f83fe96e9787bd81f86b6853bd40c9393b35718",
+      "size": 192335,
+      "sha256": "6f10cbd4290f145eba44cecb7f4df9ab8e41159b18051cb3d4983e84e4a8b360",
       "source": {
         "kind": "git-blob",
-        "blob": "3e31144445a726fa9b1ffbc9b0ee90e36ae9bc32"
+        "blob": "f7eda8b181a93473ab4877365da645eee6c10a94"
       },
       "owningComponent": "learning",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -2046,11 +2046,11 @@
     },
     {
       "path": "learn.html",
-      "size": 22047,
-      "sha256": "8519e989b4e8c3c856b057fcd23874e5753156a1c31445ed24ec73ce347d5e09",
+      "size": 22098,
+      "sha256": "f14b871931e14c56e8f036043e024ac6b69f502995bee140a75f904f6ed51165",
       "source": {
         "kind": "git-blob",
-        "blob": "122411d1e9edc0bc0f5ace26d202dfbda89e18b3"
+        "blob": "fd9760afd48dcd66da3fdc5b2d1a37b53a043884"
       },
       "owningComponent": "learning",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -2465,11 +2465,11 @@
     },
     {
       "path": "site-audio.js",
-      "size": 19311,
-      "sha256": "1a310a69c73b89c33e1a263d890fbd51079144fd1b6976235359e567ec9d4c8c",
+      "size": 19628,
+      "sha256": "13e4fb98eb1f518b95ed6ce8a2869bea608d1f0b68e610acc2470a350f5f94fd",
       "source": {
         "kind": "git-blob",
-        "blob": "d1a1de3b9c2d1d042681a737ac3f708a102fc913"
+        "blob": "70033625d030fc25a12812ae159ee83369e67458"
       },
       "owningComponent": "site-audio",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -2509,22 +2509,22 @@
     },
     {
       "path": "site-scenes.css",
-      "size": 54529,
-      "sha256": "bab2b5bbb7c98358850d1024cdc3a9a3378f33c6e628e0c2c1d420a67b90c45e",
+      "size": 54794,
+      "sha256": "16350e2a85f412fb57a0a7724d54510a7b3f675aa1074316a3d7a81fd37d8afd",
       "source": {
         "kind": "git-blob",
-        "blob": "575d752f76bb6a332b64580dceb5002873fa0eb6"
+        "blob": "f4f032276c07bf9d0b2bd04cc1e024a65f396043"
       },
       "owningComponent": "site-scenes",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "site-scenes.js",
-      "size": 45275,
-      "sha256": "9bbcc0fc05404a5fbec9e53b3c1d15abf93b5708aa5520f06f00475e4c19444e",
+      "size": 20668,
+      "sha256": "f9df3f838a81898bafa0d00a56b32b7d238985afd648d1bedd4435619e7dc0df",
       "source": {
         "kind": "git-blob",
-        "blob": "340f636775233fe0dd94fe9f4ec26526037412b4"
+        "blob": "20120dfcc293716be65e4bd09a1347abfa9a4de7"
       },
       "owningComponent": "site-scenes",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -2542,22 +2542,22 @@
     },
     {
       "path": "site-sound-control.js",
-      "size": 7410,
-      "sha256": "fa353d7bb228ed98bca0320e4609a951d5b049122e1d081a95489a435eb67f37",
+      "size": 2794,
+      "sha256": "c6b6de9df140faaa02b344d9da5766026f25af71dec5aaffff36e46395f7c179",
       "source": {
         "kind": "git-blob",
-        "blob": "0c77329091bb6d4870741118ed5481b7098bf12c"
+        "blob": "ca02e2ee0fcfe393895b2a52fd4cb424f4012660"
       },
       "owningComponent": "site-sound-control",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "site-theme.js",
-      "size": 5610,
-      "sha256": "37bdc340e977e0975ee8ac6a2d012ad5222319e1d2fe0d2ba7fa160ebacdbc2d",
+      "size": 5605,
+      "sha256": "08c43cc25273ea87605229ae2e944a4691e8cf36b7519c98a27c326e1eb5572e",
       "source": {
         "kind": "git-blob",
-        "blob": "dd344918091c01cb50d5738143fdc8995c425d75"
+        "blob": "730e745ba8e99decd948b0a38d13cc86ac7f7fe9"
       },
       "owningComponent": "site-theme",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -2572,8 +2572,148 @@
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "about.html",
+      "size": 2395,
+      "sha256": "e2aa24444ddb9ae6e8d5ed339b2713a1c8d0ac3b7ac9727b96d5410faa2568c3",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "ai-development.html",
+      "size": 13042,
+      "sha256": "6561aaa0ff0fc82e7864a82ed03a7328e1132c54edcd41b5cd315a3408e55ed7",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "direction.html",
+      "size": 4439,
+      "sha256": "a51af7fb707729af656667bf281b1639aa6510b997f1e9ed294cf10275e07918",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "engine-development.html",
+      "size": 3227,
+      "sha256": "5e3a6d2630f01c133e7b56c06812024d13c4bd8086b62e1db55c0c33ecafa1a2",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "learn-advanced.html",
+      "size": 3605,
+      "sha256": "976a1b263dbbe484e13b016180bcf0605166f202c2147743047a49e7aa5e0a0e",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "learn-cloud.html",
+      "size": 3572,
+      "sha256": "dd9b2d1f67f4a8b6a6d99862023f7d145a00e0a289684f510871740be4c4ca0d",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "learn-cyber.html",
+      "size": 3581,
+      "sha256": "841a29329370d0afde85bbf2715067574bd51143a06397e5951f5d0229713f97",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "learn-leadership.html",
+      "size": 3646,
+      "sha256": "9cc8214d8653e383607fc0e1b3018983ed3466e9052951f51ee8a70144c66cf8",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "learn-math.html",
+      "size": 3569,
+      "sha256": "f745b1efbc6d9ad19c166c8a63ac28464f98948bb6aca6e59938416081696bfe",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "learn-physics.html",
+      "size": 3586,
+      "sha256": "6c8030ac7fc4302dbfdacc43d1244194e0905ded5bac8fa21155591b8f47f8d1",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "learn-software.html",
+      "size": 3617,
+      "sha256": "55c399f54e39ff701604c421f0e45f160b5713a9db23d8fbc90b977af6e11588",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "site-subject.js",
+      "size": 2534,
+      "sha256": "2ef61e53883e86b034ac53bd19580e148d9e3a8eef8de820d1ad91bf9467cd65",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "site-sections.css",
+      "size": 2097,
+      "sha256": "6b73aea754b57ba19dd4d768da3ff386744794f617d6ae6e36c9dc61f00dea8b",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "assets/site-subjects.json",
+      "size": 1252155,
+      "sha256": "27a803ba0050932239ff48f0cd011668c23e96a5f3e84de60fc8f7352df7c14c",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
     }
   ],
   "fileCount": 232,
-  "byteSize": 281447183
+  "byteSize": 281418688
 }
