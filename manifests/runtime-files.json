@@ -1,8 +1,19 @@
 {
   "schemaVersion": 2,
-  "sourceCommit": "6ab91ed6e0f35483939e1f127de9e27a0428fb48",
+  "sourceCommit": "32931e3ce3a2e0928e3716f36463d3928e0a045e",
   "bytePolicy": "Exact Git blobs; artifacts verified against committed SHA-256 and size.",
   "files": [
+    {
+      "path": "about.html",
+      "size": 2395,
+      "sha256": "e2aa24444ddb9ae6e8d5ed339b2713a1c8d0ac3b7ac9727b96d5410faa2568c3",
+      "source": {
+        "kind": "git-blob",
+        "blob": "9c16e7795ef51406f732218e0bf4fe045a7b1857"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
     {
       "path": "agent-workbench.html",
       "size": 5997,
@@ -21,6 +32,17 @@
       "source": {
         "kind": "git-blob",
         "blob": "6021b2c4985cbd33f9b95ed3ccc3d4c10559e31c"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "ai-development.html",
+      "size": 13042,
+      "sha256": "6561aaa0ff0fc82e7864a82ed03a7328e1132c54edcd41b5cd315a3408e55ed7",
+      "source": {
+        "kind": "git-blob",
+        "blob": "b6529856f31b321d35b4944b44ff761622faf5e4"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -238,22 +260,33 @@
     },
     {
       "path": "assets/site-navigation.json",
-      "size": 1323,
-      "sha256": "0bbdd94ec7e869b1c15952c7191472a95bac62dabab3c002dd8392c768f90f55",
+      "size": 2268,
+      "sha256": "d92e67b6d78c17481a8b0a69734ead9825d0a419d4c54a387b51f0e8664171bf",
       "source": {
         "kind": "git-blob",
-        "blob": "bb4bd128f3536ef81011c1735e26a42581ab0ad5"
+        "blob": "064d648ab3dc039e7591539839c1dee048d093ed"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "assets/site-search.json",
-      "size": 2285818,
-      "sha256": "3ee397532b48900f6af21c7ebcdfe824a6f18b9a0aa8d32498e552c141a01bed",
+      "size": 2300066,
+      "sha256": "096cba1dae2283819d75b534da2f75230a486245256e32309ad412c3d083d109",
       "source": {
         "kind": "git-blob",
-        "blob": "1f5d87001b969e138a1761f4f73a57710f362e29"
+        "blob": "fe945c55b896e1e45b2e27f02f5bbe922ea73c96"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "assets/site-subjects.json",
+      "size": 1252155,
+      "sha256": "27a803ba0050932239ff48f0cd011668c23e96a5f3e84de60fc8f7352df7c14c",
+      "source": {
+        "kind": "git-blob",
+        "blob": "761d80926e48c1ea3615ea73f86267ecbbcba95f"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -1128,6 +1161,28 @@
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
+      "path": "direction.html",
+      "size": 4439,
+      "sha256": "a51af7fb707729af656667bf281b1639aa6510b997f1e9ed294cf10275e07918",
+      "source": {
+        "kind": "git-blob",
+        "blob": "94041553fd0693b70a1419e4faaf385407c3d7be"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "engine-development.html",
+      "size": 3227,
+      "sha256": "5e3a6d2630f01c133e7b56c06812024d13c4bd8086b62e1db55c0c33ecafa1a2",
+      "source": {
+        "kind": "git-blob",
+        "blob": "137646578349ff32f17dc01626be54f5eed3abf6"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
       "path": "expertise-experience.html",
       "size": 7740,
       "sha256": "92779c11aaf813fe8477ed230c90c7204970b5230ec8a3ca8173442a759f4202",
@@ -1140,11 +1195,11 @@
     },
     {
       "path": "game-development.html",
-      "size": 5365,
-      "sha256": "fae5ce09052438333a9eec0d5de89359228d877bcdd30f5ee934fb6560e4a77f",
+      "size": 8300,
+      "sha256": "553a8a9977df252807ae0f1cc679d615a1c24bd86177e7cd093ecb427b4fdddd",
       "source": {
         "kind": "git-blob",
-        "blob": "1ac09610a5d8c206403a405c8c6157479d648410"
+        "blob": "872e5dcfd0c2e3f87bf6390154bfd70395cb9e74"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -1870,11 +1925,11 @@
     },
     {
       "path": "index.html",
-      "size": 27486,
-      "sha256": "03587e10cd04d937bcef581f89e52bb95df360615f20de297b9ea2062a2d65f1",
+      "size": 28311,
+      "sha256": "da2008eb980e64ac9eba1d2ce1c0aa41e03fd83b7f8e1c20c7413470e0b186cf",
       "source": {
         "kind": "git-blob",
-        "blob": "45cbef026b54b8bf49669c68a07ee1011d819ea7"
+        "blob": "f58845852f8d1f8a243ce92386252ed63a0f75a7"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -1903,11 +1958,11 @@
     },
     {
       "path": "knowledge.js",
-      "size": 192335,
-      "sha256": "6f10cbd4290f145eba44cecb7f4df9ab8e41159b18051cb3d4983e84e4a8b360",
+      "size": 190646,
+      "sha256": "7cdd71481ef02c81fe36aff142bf532faf7c339e9cc969d7b88e1629c872b344",
       "source": {
         "kind": "git-blob",
-        "blob": "f7eda8b181a93473ab4877365da645eee6c10a94"
+        "blob": "b1f4bdd36df4ccbab80bc9f2eee21f25e870cf58"
       },
       "owningComponent": "learning",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -1946,111 +2001,188 @@
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
-      "path": "learn-browse.html",
-      "size": 21950,
-      "sha256": "71da65ce411a9cc1b48dc8b0ba2c830197bf1e806538469748760d977fd649b2",
+      "path": "learn-advanced.html",
+      "size": 3605,
+      "sha256": "976a1b263dbbe484e13b016180bcf0605166f202c2147743047a49e7aa5e0a0e",
       "source": {
         "kind": "git-blob",
-        "blob": "56254700743810913e7e2fa10c8e9859ef538a70"
+        "blob": "44b7c90542b981cfaa2da29c947eaaf7d1c02933"
+      },
+      "owningComponent": "learning",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "learn-browse.html",
+      "size": 21998,
+      "sha256": "6eaa06ae86c338909e7df8cdee4d921631bddc3979da7ef4c42da5f49512ab47",
+      "source": {
+        "kind": "git-blob",
+        "blob": "b68847c56b496e15cd3c3fe5b6676315db5a9418"
       },
       "owningComponent": "learning",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "learn-capstones.html",
-      "size": 1583,
-      "sha256": "d1012af48cb6ebea98413d5a2d58cf67f7ee9a29aad4d765f597c0e6bb18538e",
+      "size": 1631,
+      "sha256": "2112462a879de722d7bc6687d54824a83c2696548d26365eafe98eb42acf3d85",
       "source": {
         "kind": "git-blob",
-        "blob": "0016d004097975ee2ee3478f6c293f6b0c797769"
+        "blob": "b6d27f1a9bd2c1a9546d79e0d2b42f4688aab7cf"
+      },
+      "owningComponent": "learning",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "learn-cloud.html",
+      "size": 3572,
+      "sha256": "dd9b2d1f67f4a8b6a6d99862023f7d145a00e0a289684f510871740be4c4ca0d",
+      "source": {
+        "kind": "git-blob",
+        "blob": "884d95cb9e3d42ff6e706618b660384ba0fcb929"
+      },
+      "owningComponent": "learning",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "learn-cyber.html",
+      "size": 3581,
+      "sha256": "841a29329370d0afde85bbf2715067574bd51143a06397e5951f5d0229713f97",
+      "source": {
+        "kind": "git-blob",
+        "blob": "ad46395e92daf62733c6733c7b623aa56aeec8ac"
       },
       "owningComponent": "learning",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "learn-glossary.html",
-      "size": 21955,
-      "sha256": "ba61c75fd4a888e338495618aa519b740dcb372763e771710da4c1b8d8dd4201",
+      "size": 22003,
+      "sha256": "4eb4e7d0f4e0fc55616d6817f89367eca9c41580bda77f987515dc22db55e41b",
       "source": {
         "kind": "git-blob",
-        "blob": "4a94fbd59cf19008d2a346477c82d533334c4dd9"
+        "blob": "015cff5894de7eadfeb47f426a6e3a9231097432"
       },
       "owningComponent": "learning",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "learn-labs.html",
-      "size": 21949,
-      "sha256": "c175d0c7e2a25806761239c4a69529aebfb452d717dba1e6ecbd770c4fe7eef6",
+      "size": 21997,
+      "sha256": "fb2c04bc29ccfa783ad7ea0e27f527629e64261842efd2c927fee61a746bd1ad",
       "source": {
         "kind": "git-blob",
-        "blob": "b615435159ddeec118168a422963418f11bb7798"
+        "blob": "65c86a979d5e19c94c2e51fb4f6c294a7f0672b9"
+      },
+      "owningComponent": "learning",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "learn-leadership.html",
+      "size": 3646,
+      "sha256": "9cc8214d8653e383607fc0e1b3018983ed3466e9052951f51ee8a70144c66cf8",
+      "source": {
+        "kind": "git-blob",
+        "blob": "2bde3141c74486aee964e7591b150e1d15389543"
       },
       "owningComponent": "learning",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "learn-map.html",
-      "size": 21945,
-      "sha256": "c69382121d4301f85f80ae8b3a6a1533b79a2a60e6a3d152c468d01b64fda150",
+      "size": 21993,
+      "sha256": "c850ad91ca9e59b8abd02bdd3fcf26df9176440fcc2d971e709d2645b6c89e2a",
       "source": {
         "kind": "git-blob",
-        "blob": "9a307788bf3047885985e591ddb1e2ebeead4098"
+        "blob": "f7db1aea9dad806142059906e5e6c1a05564a7c0"
       },
       "owningComponent": "learning",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "learn-mastery.html",
-      "size": 21944,
-      "sha256": "739a2384ebe91f3a68843227d82c563e8a007a923579e6712d12e58ba2a1a735",
+      "size": 21992,
+      "sha256": "a24202bf5a7c5bf2e13fb63fdbc86749e0e8ed97a1181157c302aa1049c4a3f8",
       "source": {
         "kind": "git-blob",
-        "blob": "549a6c2f90da07c618ebd4265dde2f6d2df84ddd"
+        "blob": "aae52f9389c9ac68f1acb72beb8b282d6a6e3328"
+      },
+      "owningComponent": "learning",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "learn-math.html",
+      "size": 3569,
+      "sha256": "f745b1efbc6d9ad19c166c8a63ac28464f98948bb6aca6e59938416081696bfe",
+      "source": {
+        "kind": "git-blob",
+        "blob": "cb58b46a69e4cabf012aa7c177c3215260dc4fcd"
       },
       "owningComponent": "learning",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "learn-paths.html",
-      "size": 20222,
-      "sha256": "b5fb5731ead1b01ade0d217bc8359fe07070d9f82ed6d51eb49fd54cc8465ba0",
+      "size": 20270,
+      "sha256": "c56334d9bc593a05b4c416e6a87bb8e8a2493256de1969c768ee566c24088398",
       "source": {
         "kind": "git-blob",
-        "blob": "5676afc2fe27fe0a1fe7baeee30604253f78e3f5"
+        "blob": "224b71a61fc464079ff2e8c900d414ee057c5543"
+      },
+      "owningComponent": "learning",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "learn-physics.html",
+      "size": 3586,
+      "sha256": "6c8030ac7fc4302dbfdacc43d1244194e0905ded5bac8fa21155591b8f47f8d1",
+      "source": {
+        "kind": "git-blob",
+        "blob": "4e866778897b98fa16df9a4dde9fa8218eb676ec"
       },
       "owningComponent": "learning",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "learn-practice.html",
-      "size": 21945,
-      "sha256": "dd75fc1355f75ec2b787f369b0447eab6dd7fe0e5bddc32a77bdf42d2b77d7f1",
+      "size": 21993,
+      "sha256": "6347866e534b573323685d1c1e62d9b306f7c3b17624298e57216c856c53bd0a",
       "source": {
         "kind": "git-blob",
-        "blob": "bd9fc03b972eeae163e28f55845f8766c510aaff"
+        "blob": "90dda64680bf849bcc8cba420fe7ec97c718000f"
+      },
+      "owningComponent": "learning",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "learn-software.html",
+      "size": 3617,
+      "sha256": "55c399f54e39ff701604c421f0e45f160b5713a9db23d8fbc90b977af6e11588",
+      "source": {
+        "kind": "git-blob",
+        "blob": "e383ec8b20c85f7f392c4e77ff95cf8e1e02aa4e"
       },
       "owningComponent": "learning",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "learn-verify.html",
-      "size": 21947,
-      "sha256": "26c2c7dd6db818de9029fcfcde8fd794f68806191be36f4c7182c2253b418e69",
+      "size": 21995,
+      "sha256": "c7915a9ba6a1929447d8ddfc9763f02f0199625c3b9b97f01daaf0141b23af5a",
       "source": {
         "kind": "git-blob",
-        "blob": "9aa5db00e617de9623ff36c0c9b62add0fe00d60"
+        "blob": "23e6fa5bc6ef6801380f17189e5b995f7654b3b1"
       },
       "owningComponent": "learning",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "learn.html",
-      "size": 22098,
-      "sha256": "f14b871931e14c56e8f036043e024ac6b69f502995bee140a75f904f6ed51165",
+      "size": 22913,
+      "sha256": "685374e3a3e2724ee924c3abcf5db120b7dcfcec8fa4f74dd560d2185722ef13",
       "source": {
         "kind": "git-blob",
-        "blob": "fd9760afd48dcd66da3fdc5b2d1a37b53a043884"
+        "blob": "e4f79fe2234d747274f78b4be41af7f3419e601a"
       },
       "owningComponent": "learning",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -2134,11 +2266,11 @@
     },
     {
       "path": "lesson.html",
-      "size": 22054,
-      "sha256": "ce3018a0c847e199255078d8313449a295d1d7c9df75971f4cab3e330d49e635",
+      "size": 22102,
+      "sha256": "d5ba73829e71ee886780e14bd347e0a4bea4b177e0d973e16f57d2941c898f93",
       "source": {
         "kind": "git-blob",
-        "blob": "df38dbd2275f80bb433fb33afc427486451cb130"
+        "blob": "bac08b6e3c6ba9ddf6be199e8f2d37cd91861cfb"
       },
       "owningComponent": "learning",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -2476,11 +2608,11 @@
     },
     {
       "path": "site-navigation.js",
-      "size": 2081,
-      "sha256": "b6303fae53766de40fcf2d5be13f2295dc1aac2e845fcce1f6618188b1b47e1e",
+      "size": 2161,
+      "sha256": "47a728f65b436484080195325cbf6b98fac60996c973f84d67270aa9eca1514e",
       "source": {
         "kind": "git-blob",
-        "blob": "dd82123405f1bac6362824b382b8358f450fa20e"
+        "blob": "1cc8a947d18f7b0cd37fec5ec6e818caa084bed8"
       },
       "owningComponent": "site-navigation",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -2531,13 +2663,24 @@
     },
     {
       "path": "site-search.js",
-      "size": 1902,
-      "sha256": "05598e160ad5aeb778c0c41ac4b0ff607479403b2ad5f4f751052eeb87cb1387",
+      "size": 2047,
+      "sha256": "3568c12141f4692ff36eff618b83df4d0acd0bfd23150995a6e16be7a9ca3eee",
       "source": {
         "kind": "git-blob",
-        "blob": "868f146ef5fac1b8bea9c13184ec333b2668b3c2"
+        "blob": "458f2b3941e7edbe71c79df125dba92f37d32388"
       },
       "owningComponent": "site-search",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "site-sections.css",
+      "size": 2099,
+      "sha256": "b9cc25126bb988322d394740e7ac5058fa6a1e02cb53c4c6e31d8cee55d66f01",
+      "source": {
+        "kind": "git-blob",
+        "blob": "f5bc1d69f802c1b1f87b79db2b27173b8a078b16"
+      },
+      "owningComponent": "site-sections",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
@@ -2549,6 +2692,17 @@
         "blob": "ca02e2ee0fcfe393895b2a52fd4cb424f4012660"
       },
       "owningComponent": "site-sound-control",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "site-subject.js",
+      "size": 2544,
+      "sha256": "74662c0e81b8c0d9f48978119833ebcd8d14e5cf2a1d10cd5eb6911f7dae3d7f",
+      "source": {
+        "kind": "git-blob",
+        "blob": "cd08beecd1f3d50b5df08e46e8d3bb79f25dabdb"
+      },
+      "owningComponent": "site-subject",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
@@ -2572,148 +2726,8 @@
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
-    },
-    {
-      "path": "about.html",
-      "size": 2395,
-      "sha256": "e2aa24444ddb9ae6e8d5ed339b2713a1c8d0ac3b7ac9727b96d5410faa2568c3",
-      "source": {
-        "kind": "candidate-worktree"
-      },
-      "owningComponent": "portfolio",
-      "deploymentClassification": "KEEP_PRODUCTION"
-    },
-    {
-      "path": "ai-development.html",
-      "size": 13042,
-      "sha256": "6561aaa0ff0fc82e7864a82ed03a7328e1132c54edcd41b5cd315a3408e55ed7",
-      "source": {
-        "kind": "candidate-worktree"
-      },
-      "owningComponent": "portfolio",
-      "deploymentClassification": "KEEP_PRODUCTION"
-    },
-    {
-      "path": "direction.html",
-      "size": 4439,
-      "sha256": "a51af7fb707729af656667bf281b1639aa6510b997f1e9ed294cf10275e07918",
-      "source": {
-        "kind": "candidate-worktree"
-      },
-      "owningComponent": "portfolio",
-      "deploymentClassification": "KEEP_PRODUCTION"
-    },
-    {
-      "path": "engine-development.html",
-      "size": 3227,
-      "sha256": "5e3a6d2630f01c133e7b56c06812024d13c4bd8086b62e1db55c0c33ecafa1a2",
-      "source": {
-        "kind": "candidate-worktree"
-      },
-      "owningComponent": "portfolio",
-      "deploymentClassification": "KEEP_PRODUCTION"
-    },
-    {
-      "path": "learn-advanced.html",
-      "size": 3605,
-      "sha256": "976a1b263dbbe484e13b016180bcf0605166f202c2147743047a49e7aa5e0a0e",
-      "source": {
-        "kind": "candidate-worktree"
-      },
-      "owningComponent": "portfolio",
-      "deploymentClassification": "KEEP_PRODUCTION"
-    },
-    {
-      "path": "learn-cloud.html",
-      "size": 3572,
-      "sha256": "dd9b2d1f67f4a8b6a6d99862023f7d145a00e0a289684f510871740be4c4ca0d",
-      "source": {
-        "kind": "candidate-worktree"
-      },
-      "owningComponent": "portfolio",
-      "deploymentClassification": "KEEP_PRODUCTION"
-    },
-    {
-      "path": "learn-cyber.html",
-      "size": 3581,
-      "sha256": "841a29329370d0afde85bbf2715067574bd51143a06397e5951f5d0229713f97",
-      "source": {
-        "kind": "candidate-worktree"
-      },
-      "owningComponent": "portfolio",
-      "deploymentClassification": "KEEP_PRODUCTION"
-    },
-    {
-      "path": "learn-leadership.html",
-      "size": 3646,
-      "sha256": "9cc8214d8653e383607fc0e1b3018983ed3466e9052951f51ee8a70144c66cf8",
-      "source": {
-        "kind": "candidate-worktree"
-      },
-      "owningComponent": "portfolio",
-      "deploymentClassification": "KEEP_PRODUCTION"
-    },
-    {
-      "path": "learn-math.html",
-      "size": 3569,
-      "sha256": "f745b1efbc6d9ad19c166c8a63ac28464f98948bb6aca6e59938416081696bfe",
-      "source": {
-        "kind": "candidate-worktree"
-      },
-      "owningComponent": "portfolio",
-      "deploymentClassification": "KEEP_PRODUCTION"
-    },
-    {
-      "path": "learn-physics.html",
-      "size": 3586,
-      "sha256": "6c8030ac7fc4302dbfdacc43d1244194e0905ded5bac8fa21155591b8f47f8d1",
-      "source": {
-        "kind": "candidate-worktree"
-      },
-      "owningComponent": "portfolio",
-      "deploymentClassification": "KEEP_PRODUCTION"
-    },
-    {
-      "path": "learn-software.html",
-      "size": 3617,
-      "sha256": "55c399f54e39ff701604c421f0e45f160b5713a9db23d8fbc90b977af6e11588",
-      "source": {
-        "kind": "candidate-worktree"
-      },
-      "owningComponent": "portfolio",
-      "deploymentClassification": "KEEP_PRODUCTION"
-    },
-    {
-      "path": "site-subject.js",
-      "size": 2534,
-      "sha256": "2ef61e53883e86b034ac53bd19580e148d9e3a8eef8de820d1ad91bf9467cd65",
-      "source": {
-        "kind": "candidate-worktree"
-      },
-      "owningComponent": "portfolio",
-      "deploymentClassification": "KEEP_PRODUCTION"
-    },
-    {
-      "path": "site-sections.css",
-      "size": 2097,
-      "sha256": "6b73aea754b57ba19dd4d768da3ff386744794f617d6ae6e36c9dc61f00dea8b",
-      "source": {
-        "kind": "candidate-worktree"
-      },
-      "owningComponent": "portfolio",
-      "deploymentClassification": "KEEP_PRODUCTION"
-    },
-    {
-      "path": "assets/site-subjects.json",
-      "size": 1252155,
-      "sha256": "27a803ba0050932239ff48f0cd011668c23e96a5f3e84de60fc8f7352df7c14c",
-      "source": {
-        "kind": "candidate-worktree"
-      },
-      "owningComponent": "portfolio",
-      "deploymentClassification": "KEEP_PRODUCTION"
     }
   ],
-  "fileCount": 232,
-  "byteSize": 281418688
+  "fileCount": 246,
+  "byteSize": 282742549
 }

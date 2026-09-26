@@ -28,7 +28,7 @@ async function run(){
   if(output)fs.mkdirSync(output,{recursive:true});
   if(!process.env.PORTFOLIO_SKIP_APPEARANCE)await require('./appearance.test.cjs')({browser,base,output,failures});
   for(const [name,width,height] of [['phone',390,844],['small-phone',320,740],['tablet',820,1180],['desktop',1440,1000]]){
-   console.log('Checking '+name);await page.setViewportSize({width,height});await page.goto(base+'/',{waitUntil:'networkidle'});
+   console.log('Checking '+name);await page.setViewportSize({width,height});await page.goto(base+'/',{waitUntil:'domcontentloaded'});
    console.log('Loaded '+name);assert.equal(await page.locator('body').evaluate(e=>getComputedStyle(e).backgroundColor),'rgb(16, 20, 22)','Dark theme actually renders');
    assert(await page.locator('#selected-work').isVisible(),'Current home project section renders');
    if(await page.locator('#menu').isVisible()){
@@ -48,7 +48,7 @@ async function run(){
    const capture=()=>page.locator('#quantum-cube').evaluate(c=>c.toDataURL());
    let frame=await capture(),animated=false;for(let attempt=0;attempt<6&&!animated;attempt++){await page.waitForTimeout(120);animated=(await capture())!==frame;}assert(animated,'Cubes animate');
    await page.locator('#cube-pause').click();await page.waitForTimeout(80);frame=await capture();await page.waitForTimeout(140);assert.equal(await capture(),frame,'Cube pause stops rendering motion');await page.locator('#cube-pause').click();
-   assert.equal(await page.locator('#motion').getAttribute('data-scene-audio'),'','Former motion control is the global ambience mute');await page.waitForTimeout(90);frame=await capture();await page.waitForTimeout(140);assert.notEqual(await capture(),frame,'Global site motion remains active');
+   assert.equal(await page.locator('header [data-scene-audio]').count(),1,'Header owns the only ambient sound control');await page.waitForTimeout(90);frame=await capture();await page.waitForTimeout(140);assert.notEqual(await capture(),frame,'Global site motion remains active');
    if(name==='phone'||name==='small-phone'){
     await page.locator('#direction').scrollIntoViewIfNeeded();
     assert(await page.locator('#education-title').isVisible(),name+': Education heading renders when scrolled into view');
@@ -81,7 +81,7 @@ async function run(){
   // Every project detail page must display a heading and working primary navigation.
   const routes=fs.readdirSync(root).filter(n=>/^project-.*\.html$/.test(n));
   for(const route of routes){
-   await page.setViewportSize({width:390,height:844});await page.goto(base+'/'+route,{waitUntil:'networkidle'});
+   await page.setViewportSize({width:390,height:844});await page.goto(base+'/'+route,{waitUntil:'domcontentloaded'});
    assert(await page.locator('h1').isVisible(),route+': project heading visible');
    await page.locator('#menu').click();assert(await page.locator('#primary-nav').isVisible(),route+': menu opens');await page.locator('#menu').click();
    assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true,route+': no overflow');
@@ -96,11 +96,11 @@ async function run(){
    if(route==='project-kubernetes-lab.html'){await page.locator('#ku').fill('0');await page.locator('#kf').check();assert.match(await page.locator('#ks').innerText(),/would pause/);}
    console.log('PASS project '+route);
   }
-  await page.goto(base+'/projects.html',{waitUntil:'networkidle'});
+  await page.goto(base+'/projects.html',{waitUntil:'domcontentloaded'});
   assert.equal(await page.locator('.project-card').count(),16);
   for(const button of await page.locator('.filter-bar button').all()){await button.click();const visible=await page.locator('.project-card:visible').count();assert(visible>0,'Category has visible projects');}
   for(const route of ['learn.html','learn-browse.html','learn-labs.html','learn-paths.html','learn-mastery.html','learn-practice.html','learn-glossary.html','learn-map.html','learn-verify.html','learn-capstones.html','agent-workbench.html','qubit-preview-20260921/']){
-   await page.goto(base+'/'+route,{waitUntil:'networkidle'});assert(await page.locator('main h1:visible,main h2:visible').first().isVisible(),route+': visible page heading');
+   await page.goto(base+'/'+route,{waitUntil:'domcontentloaded'});assert(await page.locator('main h1:visible,main h2:visible').first().isVisible(),route+': visible page heading');
    assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true,route+': no overflow');
    if(await page.locator('#mobile-menu').count()){
     await page.locator('#mobile-menu').click();assert(await page.locator('#primary-nav').isVisible());await page.keyboard.press('Escape');assert(!await page.locator('#primary-nav').isVisible());
@@ -109,7 +109,7 @@ async function run(){
    console.log('PASS app '+route);
   }
   // Exercise the new mastery route and a complete lesson, not just their headings.
-  await page.goto(base+'/learn.html',{waitUntil:'networkidle'});
+  await page.goto(base+'/learn.html',{waitUntil:'domcontentloaded'});
   assert.equal(await page.locator('[data-depth-stage]').count(),8);
   await page.locator('[data-depth-stage="research"]').click();assert.equal(await page.locator('[data-depth-stage="research"]').getAttribute('aria-pressed'),'true');
   await page.locator('[data-build-route]').click();await page.waitForURL('**/learn-paths.html?**');
@@ -119,7 +119,7 @@ async function run(){
   assert(!depthSummary.startsWith(depthTitle),`Target-depth summary must not repeat "${depthTitle}"`);
   assert.equal(await page.locator('#depth-context [data-depth-summary]').getAttribute('data-depth-summary'),'compact');
   assert(await page.locator('#vnext-path-band').isVisible());
-  await page.goto(base+'/learn-browse.html',{waitUntil:'networkidle'});
+  await page.goto(base+'/learn-browse.html',{waitUntil:'domcontentloaded'});
   await page.locator('.lesson-card[data-popout="0"]').first().click();await page.waitForURL('**/lesson.html?**');assert(await page.locator('.lesson-title').isVisible());
   await page.locator('#learner-mode').selectOption('research');
   assert.match(await page.locator('#lesson-page-content').innerText(),/Research|research/);
@@ -143,7 +143,7 @@ async function run(){
    embedded.on('pageerror',e=>embeddedErrors.push(`Runtime: ${e.message}`));
    embedded.on('response',res=>{if(res.url().startsWith(base)&&res.status()>=400&&!/games\/evil-wizard/.test(res.url()))embeddedErrors.push(`HTTP ${res.status()}: ${res.url()}`);});
    for(const route of embeddedRoutes){
-    await embedded.goto(base+route,{waitUntil:'networkidle'});
+    await embedded.goto(base+route,{waitUntil:'domcontentloaded'});
     assert(await embedded.locator('body').isVisible(),`${name} ${route}: body visible`);
     assert(await embedded.locator('main h1:visible,main h2:visible').first().isVisible(),`${name} ${route}: primary heading visible`);
     assert.equal(await embedded.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true,`${name} ${route}: no horizontal overflow`);

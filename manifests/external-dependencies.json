@@ -1617,11 +1617,11 @@
       "url": "https://groups.csail.mit.edu/gdpgroup/assets/mitlogo/MIT-logo-black-red-72x38.svg",
       "consumers": [
         {
-          "source": "index.html",
+          "source": "direction.html",
           "evidence": "current-runtime"
         },
         {
-          "source": "direction.html",
+          "source": "index.html",
           "evidence": "current-runtime"
         },
         {
@@ -2956,20 +2956,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        }
-      ],
-      "provider": "other",
-      "sha256": null,
-      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
-      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
-      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
-    },
-    {
-      "url": "https://raw.githubusercontent.com/joshprandall/engineering-portfolio/main/assets/",
-      "consumers": [
-        {
-          "source": "site-resilience.js",
           "evidence": "current-runtime"
         }
       ],

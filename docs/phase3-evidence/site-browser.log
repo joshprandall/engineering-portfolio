@@ -1,0 +1,16 @@
+PASS appearance: both navigation directions, reload, Back, tab sync, controls on all 32 pages
+PASS scenery: animation, persistent pause, reduced motion, private-mode fallback
+Checking phone
+Loaded phone
+AssertionError [ERR_ASSERTION]: Former motion control is the global ambience mute
+
+null !== ''
+
+    at run (C:\Users\joshp\Documents\engineering-portfolio\tests\browser.test.cjs:51:11) {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: null,
+  expected: '',
+  operator: 'strictEqual',
+  diff: 'simple'
+}

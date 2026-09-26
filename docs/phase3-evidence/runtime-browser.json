@@ -1,7 +1,11 @@
 {
-  "sourceCommit": "aa446186b926da4e9e09ae0d9e5b230874e2714e",
+  "sourceCommit": "32931e3ce3a2e0928e3716f36463d3928e0a045e",
   "routes": [
+    "about.html",
     "agent-workbench.html",
+    "ai-development.html",
+    "direction.html",
+    "engine-development.html",
     "expertise-experience.html",
     "game-development.html",
     "games/3d-battle-chess/index.html",
@@ -11,14 +15,21 @@
     "games/evil-wizard/play.html",
     "geometric-lab/index.html",
     "index.html",
+    "learn-advanced.html",
     "learn-browse.html",
     "learn-capstones.html",
+    "learn-cloud.html",
+    "learn-cyber.html",
     "learn-glossary.html",
     "learn-labs.html",
+    "learn-leadership.html",
     "learn-map.html",
     "learn-mastery.html",
+    "learn-math.html",
     "learn-paths.html",
+    "learn-physics.html",
     "learn-practice.html",
+    "learn-software.html",
     "learn-verify.html",
     "learn.html",
     "lesson.html",
@@ -72,6 +83,10 @@
       390
     ]
   ],
-  "failures": [],
+  "failures": [
+    "resume.html: overflow 820",
+    "resume.html: overflow 1180",
+    "resume.html: overflow 844"
+  ],
   "physicalHardware": false
 }
