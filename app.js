@@ -48,18 +48,18 @@
   ];
 
   const searchable = [
-    ["Infrastructure & cloud", "Azure Windows Linux VMware networking storage", "index.html#expertise"],
-    ["Identity & security", "Active Directory Entra Intune MFA Conditional Access", "index.html#expertise"],
-    ["Automation", "PowerShell Python Bash SQL Git CI", "index.html#expertise"],
+    ["Infrastructure & cloud", "Azure Windows Linux VMware networking storage", "expertise-experience.html#expertise"],
+    ["Identity & security", "Active Directory Entra Intune MFA Conditional Access", "expertise-experience.html#expertise"],
+    ["Automation", "PowerShell Python Bash SQL Git CI", "expertise-experience.html#expertise"],
     ["Fusion energy", "OSU engineering systems feasibility team presentation", "project-fusion.html"],
     ["Quantum phase estimation", "quantum algorithm QPE phase probability", "project-qpe.html"],
     ["Knowledge Library", "learning paths lessons research mathematics physics computing", "learn.html"],
-    ["Experience", "infrastructure systems field engineering consulting leadership", "index.html#experience"],
-    ["Defeat the Evil Wizard", "Godot GDScript action RPG platformer game development 15 champions multidirectional combat exploration puzzles bosses portals", "play-evil-wizard.html"],
+    ["Experience", "infrastructure systems field engineering consulting leadership", "expertise-experience.html#experience"],
+    ["Defeat the Evil Wizard", "Godot GDScript action RPG platformer game development 15 champions multidirectional combat exploration puzzles bosses portals", "game-development.html"],
     ["Recovery Readiness Auditor", "backup disaster recovery RPO RTO Python", "project-recovery.html"],
     ["Infrastructure Dependency Analyzer", "dependencies graph business impact Python", "project-dependency.html"],
     ["Employee Lifecycle Toolkit", "PowerShell onboarding offboarding identity", "project-lifecycle.html"],
-    ["One qubit. Two outcomes.", "quantum qubit probability measurement", "qubit-preview-20260921/"]
+    ["One qubit. Two outcomes.", "quantum qubit probability measurement", "project-qubit.html"]
   ];
 
   // site-theme.js owns theme and motion preferences across all pages.
