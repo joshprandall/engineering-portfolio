@@ -1243,25 +1243,25 @@ body.living-scenes[data-library-page="labs"] .lab-visual{
 
 
 /* Homepage header sound control. */
-.home-page header .scene-sound-control{position:relative;display:inline-flex;align-items:center}
-.home-page header .scene-sound-control>button{
+header .scene-sound-control{position:relative;display:inline-flex;align-items:center}
+header .scene-sound-control>button{
   display:inline-flex;align-items:center;justify-content:center;gap:7px;
   min-width:44px;height:44px;padding:0 12px;border:1px solid var(--line);
   border-radius:24px;background:var(--surface,var(--panel));color:var(--ink,var(--text));
   font:600 12px/1.2 system-ui,sans-serif;cursor:pointer;white-space:nowrap
 }
-.home-page header .scene-sound-control>button svg{
+header .scene-sound-control>button svg{
   width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.7;
   stroke-linecap:round;stroke-linejoin:round;flex:none
 }
-.home-page header .scene-sound-control>button:hover{border-color:var(--accent);color:var(--accent)}
-.home-page header .scene-sound-control>button:focus-visible{outline:3px solid var(--blue,var(--accent));outline-offset:3px}
-.home-page header .scene-sound-panel{
+header .scene-sound-control>button:hover{border-color:var(--accent);color:var(--accent)}
+header .scene-sound-control>button:focus-visible{outline:3px solid var(--blue,var(--accent));outline-offset:3px}
+header .scene-sound-panel{
   top:calc(100% + 10px);bottom:auto;right:0;
   width:min(250px,calc(100vw - 24px))
 }
 @media(max-width:700px){
-  .home-page header .scene-sound-control>button{width:44px;padding:0}
-  .home-page header .scene-sound-control>button span{display:none}
-  .home-page header .scene-sound-panel{right:-46px}
+  header .scene-sound-control>button{width:44px;padding:0}
+  header .scene-sound-control>button span{display:none}
+  header .scene-sound-panel{right:-46px}
 }
