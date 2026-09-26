@@ -41,7 +41,10 @@ def build(commit,refresh=False):
             u=urlsplit(ref)
             if u.scheme or ref.startswith('//') or not u.path:continue
             target=posixpath.normpath(posixpath.join(posixpath.dirname(path),unquote(u.path)))
-            if target in blobs or target in asset_by_path:paths.add(target)
+            if ref.startswith('/'):target=unquote(u.path).lstrip('/')
+            if target not in blobs and target.rstrip('/')+'/index.html' in blobs:target=target.rstrip('/')+'/index.html'
+            if target not in blobs and target not in asset_by_path:raise ValueError('Missing exact-case HTML dependency: '+path+' -> '+ref)
+            paths.add(target)
     files=[];payload={}
     for path in sorted(paths):
         pp=PurePosixPath(path)
@@ -58,7 +61,7 @@ def build(commit,refresh=False):
         if not refresh:
             expected=old.get(path)
             if expected is None:raise ValueError('Not in runtime allowlist: '+path)
-            if digest(data)!=expected['sha256']:
+            if digest(data)!=expected['sha256'] or len(data)!=expected['size']:
                 # Phase 2's explicit Windows-working-tree hash convention only.
                 legacy=manifest('runtime-files.json').get('schemaVersion')==1
                 crlf=data.replace(b'\r\n',b'\n').replace(b'\n',b'\r\n')

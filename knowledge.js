@@ -53,7 +53,7 @@
   const deepLessonCache = new Map(), deepChunkLoads = new Map();
   let recallState = (()=>{try{return JSON.parse(preferences.getItem(STORAGE.recall)||'{}')}catch{return {}}})();
   let flashState = (()=>{try{return JSON.parse(preferences.getItem(STORAGE.flashcards)||'{}')}catch{return {}}})();
-  let recallLessonId = null, flashIndex = 0, flashRevealed = false, labLimit = 12, labDomain='all', labDifficulty='all', sprintState=null;
+  let recallLessonId = null, flashIndex = 0, flashRevealed = false, labLimit = 12, labDomain=activeSubject||'all', labDifficulty='all', sprintState=null;
 
   function toast(msg){
     const t=$('#toast'); t.textContent=msg; t.classList.add('show');
@@ -882,8 +882,9 @@
   function renderRetentionStats(){const vals=Object.values(recallState),attempts=vals.reduce((a,r)=>a+(r.total||0),0),correct=vals.reduce((a,r)=>a+(r.correct||0),0),mastered=Object.values(flashState).filter(x=>x==='got').length;const a=$('#recall-attempts'),acc=$('#recall-accuracy'),fm=$('#flash-mastered');if(a)a.textContent=attempts;if(acc)acc.textContent=attempts?Math.round(correct/attempts*100)+'%':'—';if(fm)fm.textContent=mastered}
   function newRecallChallenge(preferWeak=false){const pool=D.lessons.filter(l=>l.quiz&&(!activeSubject||l.domain===activeSubject));if(!pool.length)return;let candidates=pool;if(preferWeak){const weak=pool.filter(l=>recallState[l.id]?.total&&recallState[l.id].correct/recallState[l.id].total<.75);if(weak.length)candidates=weak}const l=candidates[Math.floor(Math.random()*candidates.length)];recallLessonId=l.id;const q=l.quiz,stage=$('#recall-stage');if(!stage)return;stage.innerHTML=`<p class="challenge-domain">${esc(domainMap.get(l.domain)?.name||l.domain)} · ${esc(l.category)}</p><h4>${esc(q.q)}</h4><div class="recall-options">${q.options.map((o,i)=>`<button type="button" data-recall-option="${i}">${esc(o)}</button>`).join('')}</div><p class="recall-feedback muted" data-recall-feedback>Answer from memory before opening the lesson.</p>`;$$('[data-recall-option]',stage).forEach(b=>b.onclick=()=>{const i=+b.dataset.recallOption,correct=i===q.answer;$$('[data-recall-option]',stage).forEach(x=>x.disabled=true);b.classList.add(correct?'correct':'wrong');const cb=$(`[data-recall-option="${q.answer}"]`,stage);if(cb)cb.classList.add('correct');$('[data-recall-feedback]',stage).textContent=(correct?'Correct. ':'Not yet. ')+(q.explain||l.takeaway);recordRecall(l.id,correct);ping(correct?720:240,.1,.025);$('#recall-open').hidden=false});$('#recall-open').hidden=true}
   function nextFlashcard(){const all=D.glossary||[];if(!all.length)return;flashIndex=(flashIndex+1)%all.length;flashRevealed=false;renderFlashcard()}
-  function renderFlashcard(){const all=D.glossary||[],g=all[flashIndex%Math.max(1,all.length)],stage=$('#flashcard-stage');if(!g||!stage)return;stage.innerHTML=`<span class="flash-domain">${esc(domainMap.get(g.domain)?.name||g.domain)}</span><strong>${esc(g.term)}</strong><p>${flashRevealed?esc(g.definition):'Define this term from memory, then reveal the answer.'}</p>`;$('#flash-reveal').hidden=flashRevealed;$('#flash-again').hidden=!flashRevealed;$('#flash-got').hidden=!flashRevealed}
-  function markFlash(status){const g=(D.glossary||[])[flashIndex%(D.glossary||[]).length];if(!g)return;flashState[g.term]=status;saveFlash();renderRetentionStats();nextFlashcard()}
+  function subjectGlossary(){return (D.glossary||[]).filter(g=>!activeSubject||g.domain===activeSubject)}
+  function renderFlashcard(){const all=subjectGlossary(),g=all[flashIndex%Math.max(1,all.length)],stage=$('#flashcard-stage');if(!g||!stage)return;stage.innerHTML=`<span class="flash-domain">${esc(domainMap.get(g.domain)?.name||g.domain)}</span><strong>${esc(g.term)}</strong><p>${flashRevealed?esc(g.definition):'Define this term from memory, then reveal the answer.'}</p>`;$('#flash-reveal').hidden=flashRevealed;$('#flash-again').hidden=!flashRevealed;$('#flash-got').hidden=!flashRevealed}
+  function markFlash(status){const pool=subjectGlossary(),g=pool[flashIndex%pool.length];if(!g)return;flashState[g.term]=status;saveFlash();renderRetentionStats();nextFlashcard()}
   function renderLabGallery(){
     const grid=$('#lab-grid');if(!grid)return;let labs=D.lessons.filter(l=>isInteractiveExperience(l));
     if(labDomain!=='all')labs=labs.filter(l=>l.domain===labDomain);if(labDifficulty!=='all')labs=labs.filter(l=>l.difficulty===labDifficulty);
@@ -902,7 +903,7 @@
 
   function renderMastery(){
     const grid=$('#mastery-grid'); if(!grid)return;
-    const rows=D.domains.map(d=>{
+    const rows=D.domains.filter(d=>!activeSubject||d.id===activeSubject).map(d=>{
       const ls=D.lessons.filter(l=>l.domain===d.id), done=ls.filter(l=>completed.has(l.id)).length;
       const attempts=ls.reduce((n,l)=>n+(recallState[l.id]?.total||0),0), correct=ls.reduce((n,l)=>n+(recallState[l.id]?.correct||0),0);
       const recall=attempts?Math.round(correct/attempts*100):null, pct=ls.length?Math.round(done/ls.length*100):0;
