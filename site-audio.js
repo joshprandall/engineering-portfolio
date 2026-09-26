@@ -11,7 +11,7 @@
   const VOLUME_KEY = 'jr-site-ambient-volume-v2';
   const PROJECT_RE = /(?:^|\/)(?:project-[^/]+\.html|play-evil-wizard\.html|agent-workbench\.html|games\/|geometric-lab\/|qubit-preview-20260921\/|deep-learning\/)/i;
   const LOCAL_TEST_HOST = location.hostname === '127.0.0.1' || location.hostname === 'localhost';
-  const MAIN_PAGE_RE = /(?:^|\/)(?:index\.html|expertise-experience\.html|projects\.html|game-development\.html|learn(?:-(?:browse|paths|practice|mastery|labs|glossary|map|verify))?\.html)?$/i;
+  const MAIN_PAGE_RE = /(?:^|\/)(?:index\.html|expertise-experience\.html|projects\.html|game-development\.html|learn(?:-[a-z0-9-]+)?\.html)?$/i;
   const MAIN_PAGE = MAIN_PAGE_RE.test(location.pathname);
 
   const SOURCES = Object.freeze({
