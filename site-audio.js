@@ -3,14 +3,16 @@
 
   // Unified site ambience controller. This is the ONLY script that may create
   // or play background ambience/music.
-  if (window.__JR_SITE_AUDIO_V24__) return;
-  window.__JR_SITE_AUDIO_V24__ = true;
+  if (window.__JR_SITE_AUDIO_V26__) return;
+  window.__JR_SITE_AUDIO_V26__ = true;
 
   const MUTE_KEY = 'jr-site-ambient-muted-v3';
   const DARK_TIME_KEY = 'jr-dark-theme-time-v1';
   const VOLUME_KEY = 'jr-site-ambient-volume-v2';
   const PROJECT_RE = /(?:^|\/)(?:project-[^/]+\.html|play-evil-wizard\.html|agent-workbench\.html|games\/|geometric-lab\/|qubit-preview-20260921\/|deep-learning\/)/i;
   const LOCAL_TEST_HOST = location.hostname === '127.0.0.1' || location.hostname === 'localhost';
+  const MAIN_PAGE_RE = /(?:^|\/)(?:index\.html|learn\.html)?$/i;
+  const MAIN_PAGE = MAIN_PAGE_RE.test(location.pathname);
 
   const SOURCES = Object.freeze({
     // User-provided dark-mode soundtrack. Prefer the PCM WAV master so the browser has no MP3/AAC encoder padding at the loop boundary.
@@ -41,6 +43,8 @@
   let unlocked = false;
   let switching = false;
   let darkFallbackActive = false;
+  let autoplayBlocked = false;
+  let autoplayRetryTimers = [];
 
   // Remove stale legacy players if a cached older script left one behind.
   document.querySelectorAll('#jr-site-audio, #jr-site-audio-dark-a, #jr-site-audio-dark-b, #jr-site-audio-beach-a, #jr-site-audio-beach-b, #jr-dark-theme-music').forEach(node => {
@@ -52,6 +56,8 @@
   const audio = document.createElement('audio');
   audio.id = 'jr-site-audio';
   audio.preload = 'auto';
+  audio.autoplay = true;
+  audio.setAttribute('autoplay', '');
   audio.loop = true;
   audio.playsInline = true;
   audio.setAttribute('playsinline', '');
@@ -66,6 +72,8 @@
     const player = document.createElement('audio');
     player.id = id;
     player.preload = 'auto';
+    player.autoplay = true;
+    player.setAttribute('autoplay', '');
     player.loop = false;
     player.playsInline = true;
     player.setAttribute('playsinline', '');
@@ -259,6 +267,14 @@
     });
   }
 
+  function markAutoplayState(blocked) {
+    if (autoplayBlocked === blocked) return;
+    autoplayBlocked = blocked;
+    document.dispatchEvent(new CustomEvent('portfolio:ambient-autoplay', {
+      detail: { blocked }
+    }));
+  }
+
   function playBeach() {
     const player = beachPlayers[beachActiveIndex];
     const cap = cappedVolume('beach');
@@ -274,11 +290,10 @@
 
     try {
       const result = player.play();
-      if (result?.catch) {
-        result.catch(() => {
-          beachStarted = false;
-        });
-      }
+      if (result?.then) result.then(() => markAutoplayState(false)).catch(error => {
+        beachStarted = false;
+        if (error?.name === 'NotAllowedError') markAutoplayState(true);
+      });
     } catch (_) {
       beachStarted = false;
     }
@@ -388,8 +403,12 @@
 
     try {
       const result = audio.play();
-      if (result?.catch) result.catch(() => {});
-    } catch (_) {}
+      if (result?.then) result.then(() => markAutoplayState(false)).catch(error => {
+        if (error?.name === 'NotAllowedError') markAutoplayState(true);
+      });
+    } catch (error) {
+      if (error?.name === 'NotAllowedError') markAutoplayState(true);
+    }
   }
 
   function sync(force = false) {
@@ -418,12 +437,33 @@
 
   function unlockAndPlay() {
     unlocked = true;
+    clearAutoplayRetries();
     playDesired();
   }
 
-  // Best effort immediately. Browsers with autoplay restrictions will resume
-  // on the first real interaction and then reuse this same player.
+  function clearAutoplayRetries() {
+    autoplayRetryTimers.forEach(timer => clearTimeout(timer));
+    autoplayRetryTimers = [];
+  }
+
+  function scheduleAutoplayRetries() {
+    if (!MAIN_PAGE || muted() || suppressed || lessonOpen()) return;
+    clearAutoplayRetries();
+
+    // Start immediately, then retry as the document/media pipeline settles.
+    // Browsers that permit audible autoplay will begin without any interaction.
+    [0, 120, 450, 1100, 2200].forEach(delay => {
+      autoplayRetryTimers.push(setTimeout(() => {
+        if (!document.hidden && allowed()) playDesired();
+      }, delay));
+    });
+  }
+
+  // Best effort immediately. Browsers that allow audible autoplay start here.
+  // Safari/iOS and some Chromium configurations may still require a real user
+  // gesture; that browser policy cannot be bypassed by page JavaScript.
   sync(true);
+  scheduleAutoplayRetries();
 
   document.addEventListener('pointerdown', unlockAndPlay, { passive: true, capture: true });
   document.addEventListener('touchstart', unlockAndPlay, { passive: true, capture: true });
@@ -436,7 +476,10 @@
     sync(true);
   });
 
-  document.addEventListener('portfolio:theme', () => sync(true));
+  document.addEventListener('portfolio:theme', () => {
+    sync(true);
+    scheduleAutoplayRetries();
+  });
 
   document.addEventListener('portfolio:scene', event => {
     const next = event.detail?.id;
@@ -450,8 +493,16 @@
     sync(true);
   });
 
-  document.addEventListener('visibilitychange', () => sync(true));
-  addEventListener('pageshow', () => sync(true));
+  document.addEventListener('visibilitychange', () => {
+    sync(true);
+    if (!document.hidden) scheduleAutoplayRetries();
+  });
+  addEventListener('DOMContentLoaded', scheduleAutoplayRetries, { once: true });
+  addEventListener('load', scheduleAutoplayRetries, { once: true });
+  addEventListener('pageshow', () => {
+    sync(true);
+    scheduleAutoplayRetries();
+  });
   addEventListener('pagehide', () => {
     saveDarkTime();
     stop();
@@ -541,6 +592,7 @@
     get theme() { return theme(); },
     get muted() { return muted(); },
     get suppressed() { return suppressed; },
+    get autoplayBlocked() { return autoplayBlocked; },
     get maxVolume() { return MAX_BACKGROUND_VOLUME; },
     get volume() { return preferredVolume(); },
     setVolume: setPreferredVolume,
