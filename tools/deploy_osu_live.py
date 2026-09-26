@@ -19,7 +19,7 @@ REQUIRED = THEME_SHELL_FILES + (
     'site-theme.js', 'site-scenes.js', 'site-audio.js', 'site-sound-control.js', 'site-scenes.css',
     'assets/audio/dark-theme-user.wav',
     'assets/scenes/webb-cosmic-cliffs.webp', 'assets/scenes/mountain-valley.svg',
-    'index.html', 'projects.html', 'app.js', 'styles.css', 'site-resilience.js',
+    'index.html', 'expertise-experience.html', 'projects.html', 'game-development.html', 'lesson.html', 'app.js', 'styles.css', 'site-resilience.js',
     'site-resilience.css', 'portfolio-next.js', 'portfolio-next.css', 'portfolio-home.css',
     'quantum-cube.js', 'handheld-experience.js', 'handheld-experience.css',
     'science-experiments.js', 'science-experiments.css', 'knowledge.js', 'knowledge.css',
@@ -144,11 +144,12 @@ def deploy(source, site, verify_public=None):
     return backup
 
 def http_smoke(commit):
-    checks = [('site-theme.js','jr-site-theme'),('site-scenes.js','Cosmic Cliffs'),('site-audio.js','dark-theme-user.wav'),
+    checks = [('site-theme.js','jr-site-theme'),('site-scenes.js','LIGHT_SCENE_KEY'),('site-audio.js','MAIN_PAGE_RE'),
               ('site-sound-control.js','JR_HEADER_SOUND_CONTROL_V25'),
               ('site-scenes.css','mountain-valley.svg'),('geometric-lab/index.html','site-theme.js'),
               ('geometric-lab/app.js','PortfolioTheme'),('index.html','site-audio.js'),('learn.html','site-audio.js'),
-              ('projects.html','Crown &amp; Ash'),
+              ('expertise-experience.html','TECHNICAL EXPERTISE'),('game-development.html','Games deserve'),
+              ('lesson.html','lesson-view'),('knowledge.js','dedicatedLessonPage'),('projects.html','Crown &amp; Ash'),
               ('portfolio-home.css','.home-page'),('quantum-cube.js','Bell-state'),
               ('labs/qpe.js','function distribution'),('labs/emergent.js','function create'),
               ('agent-workbench.js','requiresApproval'),('handheld-experience.js','removeLegacyFloatingNavigation'),
