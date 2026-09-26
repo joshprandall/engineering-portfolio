@@ -1,6 +1,6 @@
 const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),http=require('node:http');
 const {chromium}=require('playwright');
-const root=path.resolve(__dirname,'..');
+const root=path.resolve(process.env.PORTFOLIO_RUNTIME_ROOT||path.join(__dirname,'..'));
 const mime={'.html':'text/html','.js':'text/javascript','.css':'text/css','.json':'application/json','.wasm':'application/wasm','.png':'image/png'};
 const server=http.createServer((req,res)=>{try{const pathname=decodeURIComponent(new URL(req.url,'http://local').pathname),file=path.resolve(root,'.'+pathname+(pathname.endsWith('/')?'index.html':''));if(!file.startsWith(root+path.sep))throw Error('outside');res.setHeader('Content-Type',mime[path.extname(file)]||'application/octet-stream');res.end(fs.readFileSync(file));}catch{res.writeHead(404);res.end();}});
 const results=[],offline=process.env.CHESS_OFFLINE_ONLY==='1';
@@ -41,5 +41,5 @@ try{
  const touchContext=await browser.newContext({viewport:{width:844,height:390},hasTouch:true,isMobile:true});const touchPage=await touchContext.newPage();await touchPage.route('**/battle.js?*',r=>r.abort());await enter(touchPage,'2d');
  await touchPage.locator('#board2d [data-x="4"][data-y="6"]').tap();await touchPage.locator('#board2d [data-x="4"][data-y="4"]').tap();assert.equal((await game(touchPage)).moves.length,1);await touchPage.locator('#handUndo').tap();assert.equal((await game(touchPage)).moves.length,0);await touchPage.setViewportSize({width:390,height:844});assert.equal(await touchPage.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);results.push({case:'offline-touch-move-undo-responsive',passed:true});await touchContext.close();
  console.log(offline?'PASS offline emergency chess gameplay and touch/responsive; advanced 3D cases NOT RUN.':'PASS chess browser: desktop, touch, capture combat, undo, flip, repeated 2D/3D switching, orientation gate, module failure/retry and no-WebGL keyboard play.');
-}finally{await browser.close();server.close();fs.mkdirSync(path.join(root,'docs/phase2-evidence'),{recursive:true});fs.writeFileSync(path.join(root,'docs/phase2-evidence/chess-browser.json'),JSON.stringify(results,null,2)+'\n');}
+}finally{await browser.close();server.close();fs.mkdirSync(path.join(__dirname,'../docs/phase3-evidence'),{recursive:true});fs.writeFileSync(path.join(__dirname,'../docs/phase3-evidence/chess-browser.json'),JSON.stringify(results,null,2)+'\n');}
 })().catch(e=>{console.error(e);server.close();process.exitCode=1;});

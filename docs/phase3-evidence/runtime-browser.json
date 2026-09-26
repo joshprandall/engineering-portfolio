@@ -1,0 +1,77 @@
+{
+  "sourceCommit": "aa446186b926da4e9e09ae0d9e5b230874e2714e",
+  "routes": [
+    "agent-workbench.html",
+    "expertise-experience.html",
+    "game-development.html",
+    "games/3d-battle-chess/index.html",
+    "games/battle-chess/index.html",
+    "games/evil-wizard/console.html",
+    "games/evil-wizard/index.html",
+    "games/evil-wizard/play.html",
+    "geometric-lab/index.html",
+    "index.html",
+    "learn-browse.html",
+    "learn-capstones.html",
+    "learn-glossary.html",
+    "learn-labs.html",
+    "learn-map.html",
+    "learn-mastery.html",
+    "learn-paths.html",
+    "learn-practice.html",
+    "learn-verify.html",
+    "learn.html",
+    "lesson.html",
+    "play-evil-wizard.html",
+    "project-advanced-computing.html",
+    "project-asset-inventory.html",
+    "project-battle-chess.html",
+    "project-dependency.html",
+    "project-emergent.html",
+    "project-fusion.html",
+    "project-geometric-ai.html",
+    "project-kubernetes-lab.html",
+    "project-learning-library.html",
+    "project-lifecycle.html",
+    "project-mind.html",
+    "project-portfolio.html",
+    "project-qpe.html",
+    "project-qubit.html",
+    "project-recovery.html",
+    "projects.html",
+    "qubit-preview-20260921/index.html",
+    "resume.html"
+  ],
+  "viewports": [
+    [
+      1440,
+      1000
+    ],
+    [
+      1920,
+      1080
+    ],
+    [
+      820,
+      1180
+    ],
+    [
+      1180,
+      820
+    ],
+    [
+      390,
+      844
+    ],
+    [
+      320,
+      740
+    ],
+    [
+      844,
+      390
+    ]
+  ],
+  "failures": [],
+  "physicalHardware": false
+}

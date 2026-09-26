@@ -21,11 +21,11 @@
       "url": "https://arxiv.org/abs/2404.10843",
       "consumers": [
         {
-          "source": "project-geometric-ai.html",
+          "source": "geometric-lab/app.js",
           "evidence": "current-runtime"
         },
         {
-          "source": "geometric-lab/app.js",
+          "source": "project-geometric-ai.html",
           "evidence": "current-runtime"
         }
       ],
@@ -147,10 +147,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -164,10 +160,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -183,10 +175,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -200,10 +188,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -219,10 +203,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -236,10 +216,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -255,10 +231,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -272,10 +244,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -437,10 +405,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -454,10 +418,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -473,10 +433,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -490,10 +446,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -509,10 +461,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -526,10 +474,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -545,10 +489,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -562,10 +502,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -581,10 +517,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -598,10 +530,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -631,10 +559,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -648,10 +572,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -667,10 +587,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -684,10 +600,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -703,10 +615,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -720,10 +628,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -739,10 +643,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -756,10 +656,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -775,10 +671,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -792,10 +684,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -811,10 +699,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -828,10 +712,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -847,10 +727,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -864,10 +740,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -883,10 +755,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -900,10 +768,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -919,10 +783,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -936,10 +796,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -955,10 +811,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -972,10 +824,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -991,10 +839,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -1008,10 +852,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -1027,10 +867,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -1044,10 +880,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -1063,10 +895,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -1080,10 +908,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -1099,10 +923,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -1116,10 +936,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -1135,10 +951,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -1152,10 +964,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -1171,10 +979,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -1188,10 +992,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -1207,10 +1007,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -1223,11 +1019,11 @@
       "url": "https://doi.org/10.1088/2632-2153/ad8980",
       "consumers": [
         {
-          "source": "project-geometric-ai.html",
+          "source": "geometric-lab/app.js",
           "evidence": "current-runtime"
         },
         {
-          "source": "geometric-lab/app.js",
+          "source": "project-geometric-ai.html",
           "evidence": "current-runtime"
         }
       ],
@@ -1270,10 +1066,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -1325,10 +1117,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -1342,10 +1130,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -1361,10 +1145,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -1378,10 +1158,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -1397,10 +1173,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -1414,10 +1186,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -1433,10 +1201,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -1450,10 +1214,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -1469,10 +1229,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -1486,10 +1242,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -1505,10 +1257,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -1522,10 +1270,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -1541,10 +1285,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -1559,10 +1299,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -1575,15 +1311,15 @@
       "url": "https://github.com/atzberg/geo_neural_op",
       "consumers": [
         {
-          "source": "project-geometric-ai.html",
-          "evidence": "current-runtime"
-        },
-        {
           "source": "geometric-lab/app.js",
           "evidence": "current-runtime"
         },
         {
           "source": "geometric-lab/benchmarks.js",
+          "evidence": "current-runtime"
+        },
+        {
+          "source": "project-geometric-ai.html",
           "evidence": "current-runtime"
         }
       ],
@@ -2005,10 +1741,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -2022,10 +1754,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -2041,10 +1769,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -2058,10 +1782,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -2077,10 +1797,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -2094,10 +1810,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -2113,10 +1825,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -2130,10 +1838,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -2149,10 +1853,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -2166,10 +1866,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -2185,10 +1881,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -2202,10 +1894,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -2221,10 +1909,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -2238,10 +1922,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -2257,10 +1937,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -2274,10 +1950,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -2293,10 +1965,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -2310,10 +1978,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -2329,10 +1993,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -2346,10 +2006,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -2365,10 +2021,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -2382,10 +2034,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -2401,10 +2049,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -2418,10 +2062,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -2437,10 +2077,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -2454,10 +2090,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -2473,10 +2105,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -2490,10 +2118,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -2509,10 +2133,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -2526,10 +2146,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -2545,10 +2161,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -2562,10 +2174,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -2581,10 +2189,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -2598,10 +2202,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -2617,10 +2217,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -2634,10 +2230,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -2653,10 +2245,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -2670,10 +2258,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -2689,10 +2273,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -2706,10 +2286,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -2725,10 +2301,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -2742,10 +2314,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -2761,10 +2329,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -2778,10 +2342,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -2797,10 +2357,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -2814,10 +2370,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -2833,10 +2385,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -2850,10 +2398,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -2869,10 +2413,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -2886,10 +2426,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -2905,10 +2441,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -2922,10 +2454,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -2941,10 +2469,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -2958,10 +2482,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -2977,10 +2497,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -2994,10 +2510,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -3013,10 +2525,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -3030,10 +2538,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -3049,10 +2553,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -3066,10 +2566,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -3085,10 +2581,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -3102,10 +2594,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -3121,10 +2609,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -3138,10 +2622,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -3157,10 +2637,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -3174,10 +2650,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -3193,10 +2665,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -3210,10 +2678,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -3229,10 +2693,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -3246,10 +2706,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -3265,10 +2721,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -3282,10 +2734,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -3301,10 +2749,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -3318,10 +2762,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -3337,10 +2777,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -3354,10 +2790,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -3373,10 +2805,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -3390,10 +2818,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -3409,10 +2833,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -3426,10 +2846,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -3445,10 +2861,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -3462,10 +2874,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -3481,10 +2889,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -3498,10 +2902,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -3517,10 +2917,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -3534,10 +2930,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -3553,10 +2945,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -3571,10 +2959,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -3588,10 +2972,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -3616,42 +2996,10 @@
       "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
     },
     {
-      "url": "https://registry.npmjs.org/playwright-core/-/playwright-core-1.63.0.tgz",
-      "consumers": [
-        {
-          "source": "package-lock.json",
-          "evidence": "current-runtime"
-        }
-      ],
-      "provider": "other",
-      "sha256": null,
-      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
-      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
-      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
-    },
-    {
-      "url": "https://registry.npmjs.org/playwright/-/playwright-1.63.0.tgz",
-      "consumers": [
-        {
-          "source": "package-lock.json",
-          "evidence": "current-runtime"
-        }
-      ],
-      "provider": "other",
-      "sha256": null,
-      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
-      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
-      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
-    },
-    {
       "url": "https://slurm.schedmd.com/overview.html",
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -3667,10 +3015,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -3684,10 +3028,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -3703,10 +3043,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -3720,10 +3056,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -3739,10 +3071,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -3756,10 +3084,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -3775,10 +3099,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -3792,10 +3112,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -3889,15 +3205,15 @@
       "url": "https://web.engr.oregonstate.edu/~randjosh/",
       "consumers": [
         {
+          "source": "games/3d-battle-chess/index.html",
+          "evidence": "current-runtime"
+        },
+        {
           "source": "index.html",
           "evidence": "current-runtime"
         },
         {
           "source": "qubit-preview-20260921/index.html",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "games/3d-battle-chess/index.html",
           "evidence": "current-runtime"
         }
       ],
@@ -3922,9 +3238,14 @@
       "fallbackContract": "Resolve same-site absolute media to preserved local bytes when available. Preserve existing URL until route migration and consumer checks pass.",
       "localCounterpart": {
         "path": "assets/audio/dark-theme-user.mp3",
-        "sha256": "7bb6e261c7de036ee9ebffeafaf5bba2befdeabe0580d2701088505f33300eb4",
         "size": 483831,
-        "storage": "git-file"
+        "sha256": "7bb6e261c7de036ee9ebffeafaf5bba2befdeabe0580d2701088505f33300eb4",
+        "source": {
+          "kind": "git-blob",
+          "blob": "6e1722b15220c5d696af496f435b008e0b9711c6"
+        },
+        "owningComponent": "portfolio",
+        "deploymentClassification": "KEEP_PRODUCTION"
       }
     },
     {
@@ -3942,9 +3263,14 @@
       "fallbackContract": "Resolve same-site absolute media to preserved local bytes when available. Preserve existing URL until route migration and consumer checks pass.",
       "localCounterpart": {
         "path": "assets/audio/dark-theme-user.wav",
-        "sha256": "e5e1144506681a091b98975016b48992443cc93ccf6898e203864fab90e1bb6d",
         "size": 3002348,
-        "storage": "git-file"
+        "sha256": "e5e1144506681a091b98975016b48992443cc93ccf6898e203864fab90e1bb6d",
+        "source": {
+          "kind": "git-blob",
+          "blob": "1ed8a7037eeb1cc7bc9d0d4f872f16e9e45f183a"
+        },
+        "owningComponent": "portfolio",
+        "deploymentClassification": "KEEP_PRODUCTION"
       }
     },
     {
@@ -3962,14 +3288,25 @@
       "fallbackContract": "Resolve same-site absolute media to preserved local bytes when available. Preserve existing URL until route migration and consumer checks pass.",
       "localCounterpart": {
         "path": "assets/fusion-presentation.mp4",
-        "sha256": "eefc852a3a5d12eeedf8a217fc2cb68d6d0476612ad4d8744a8e6febd99361e8",
         "size": 168678432,
-        "storage": "release-asset"
+        "sha256": "eefc852a3a5d12eeedf8a217fc2cb68d6d0476612ad4d8744a8e6febd99361e8",
+        "source": {
+          "kind": "release-asset",
+          "assetId": 590222021,
+          "sha256": "eefc852a3a5d12eeedf8a217fc2cb68d6d0476612ad4d8744a8e6febd99361e8",
+          "provenance": "Z:/public_html/assets/fusion-presentation.mp4"
+        },
+        "owningComponent": "portfolio",
+        "deploymentClassification": "KEEP_PRODUCTION"
       }
     },
     {
       "url": "https://web.engr.oregonstate.edu/~randjosh/assets/joshua-randall-headshot.jpg",
       "consumers": [
+        {
+          "source": "games/3d-battle-chess/index.html",
+          "evidence": "current-runtime"
+        },
         {
           "source": "index.html",
           "evidence": "current-runtime"
@@ -3985,10 +3322,6 @@
         {
           "source": "projects.html",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "games/3d-battle-chess/index.html",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "osu",
@@ -3998,9 +3331,14 @@
       "fallbackContract": "Resolve same-site absolute media to preserved local bytes when available. Preserve existing URL until route migration and consumer checks pass.",
       "localCounterpart": {
         "path": "assets/joshua-randall-headshot.jpg",
-        "sha256": "24d61be42c1564b120360abaec9fcfa6c4d55736fbe888eb0cadaffe42ad64d4",
         "size": 89637,
-        "storage": "git-file"
+        "sha256": "24d61be42c1564b120360abaec9fcfa6c4d55736fbe888eb0cadaffe42ad64d4",
+        "source": {
+          "kind": "git-blob",
+          "blob": "65e334ec4874e47355b74d45ca1e6c2b418bc306"
+        },
+        "owningComponent": "portfolio",
+        "deploymentClassification": "KEEP_PRODUCTION"
       }
     },
     {
@@ -4032,9 +3370,14 @@
       "fallbackContract": "Resolve same-site absolute media to preserved local bytes when available. Preserve existing URL until route migration and consumer checks pass.",
       "localCounterpart": {
         "path": "play-evil-wizard.html",
-        "sha256": "9872eca359efa25d44b1fa5f805872d70660129a5914aed4a6f67bf2ab3017b6",
         "size": 7751,
-        "storage": "git-file"
+        "sha256": "9872eca359efa25d44b1fa5f805872d70660129a5914aed4a6f67bf2ab3017b6",
+        "source": {
+          "kind": "git-blob",
+          "blob": "685e62dd31a84fda70216d2c868fb1e570e8708f"
+        },
+        "owningComponent": "portfolio",
+        "deploymentClassification": "KEEP_PRODUCTION"
       }
     },
     {
@@ -4052,9 +3395,14 @@
       "fallbackContract": "Resolve same-site absolute media to preserved local bytes when available. Preserve existing URL until route migration and consumer checks pass.",
       "localCounterpart": {
         "path": "project-battle-chess.html",
-        "sha256": "37e8b8f960dd9bec4e1959784a6353c9f0c97def6e3c09c496efa25908b0c4f9",
         "size": 8848,
-        "storage": "git-file"
+        "sha256": "37e8b8f960dd9bec4e1959784a6353c9f0c97def6e3c09c496efa25908b0c4f9",
+        "source": {
+          "kind": "git-blob",
+          "blob": "41f00c6f24e2cc7589a69f70244542b13dd60f93"
+        },
+        "owningComponent": "portfolio",
+        "deploymentClassification": "KEEP_PRODUCTION"
       }
     },
     {
@@ -4072,9 +3420,14 @@
       "fallbackContract": "Resolve same-site absolute media to preserved local bytes when available. Preserve existing URL until route migration and consumer checks pass.",
       "localCounterpart": {
         "path": "projects.html",
-        "sha256": "32d48ed2579eadd51c3887eb989e5062ac1341f0d592fe9f41f4c4da0f78642e",
         "size": 14941,
-        "storage": "git-file"
+        "sha256": "32d48ed2579eadd51c3887eb989e5062ac1341f0d592fe9f41f4c4da0f78642e",
+        "source": {
+          "kind": "git-blob",
+          "blob": "dc411eab28afada73d78f417f1a6714a55dea4c1"
+        },
+        "owningComponent": "portfolio",
+        "deploymentClassification": "KEEP_PRODUCTION"
       }
     },
     {
@@ -4082,10 +3435,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -4101,10 +3450,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -4118,10 +3463,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -4137,10 +3478,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -4154,10 +3491,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -4173,10 +3506,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -4190,10 +3519,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -4299,10 +3624,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -4316,10 +3637,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -4335,10 +3652,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -4353,10 +3666,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -4370,10 +3679,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -4431,10 +3736,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -4448,10 +3749,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -4467,10 +3764,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -4484,10 +3777,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -4503,10 +3792,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -4520,10 +3805,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -4539,10 +3820,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -4556,10 +3833,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -4575,10 +3848,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -4592,10 +3861,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -4611,10 +3876,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -4628,10 +3889,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -4647,10 +3904,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -4664,10 +3917,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -4683,10 +3932,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -4700,10 +3945,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -4719,10 +3960,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -4736,10 +3973,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -4755,10 +3988,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -4772,10 +4001,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -4791,10 +4016,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -4808,10 +4029,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -4827,10 +4044,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -4844,10 +4057,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -4863,10 +4072,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -4880,10 +4085,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -4899,10 +4100,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -4916,10 +4113,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -4935,10 +4128,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -4952,10 +4141,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -4971,10 +4156,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -4988,10 +4169,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -5007,10 +4184,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -5024,10 +4197,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -5043,10 +4212,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -5060,10 +4225,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -5079,10 +4240,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -5096,10 +4253,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -5115,10 +4268,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -5132,10 +4281,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -5151,10 +4296,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -5168,10 +4309,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -5187,10 +4324,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -5205,10 +4338,6 @@
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -5222,10 +4351,6 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],

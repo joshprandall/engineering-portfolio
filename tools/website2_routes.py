@@ -34,7 +34,9 @@ def main():
         target=posixpath.normpath(posixpath.join(posixpath.dirname(source),unquote(u.path)))
         if value.startswith('/'):target=unquote(u.path).lstrip('/')
         if target not in files and target.rstrip('/')+'/index.html' in files:target=target.rstrip('/')+'/index.html'
-        if target in files:(links if kind=='navigation' else edges)[source].add(target)
+        if target in files:
+            (links if kind=='navigation' else edges)[source].add(target)
+            if kind=='navigation' and not target.endswith('.html'):edges[source].add(target)
         elif strict and not value.startswith('#'):missing.append({'source':source,'reference':value,'resolved':target})
     for p in files:
         if Path(p).suffix not in ('.html','.css','.js','.json'):continue
