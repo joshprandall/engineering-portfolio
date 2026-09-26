@@ -2528,6 +2528,26 @@
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "site-navigation.js",
+      "size": 2060,
+      "sha256": "eeae23d818ca494ea9dda1dddaee2795e41170af79f9ef49729e3cb5a9fb45e5",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "assets/site-navigation.json",
+      "size": 1323,
+      "sha256": "0bbdd94ec7e869b1c15952c7191472a95bac62dabab3c002dd8392c768f90f55",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
     }
   ],
   "fileCount": 228,

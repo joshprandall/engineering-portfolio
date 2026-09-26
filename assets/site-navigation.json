@@ -1,0 +1,46 @@
+{
+  "items": [
+    {
+      "path": "index.html",
+      "label": "Home"
+    },
+    {
+      "path": "expertise-experience.html",
+      "label": "Expertise & Experience"
+    },
+    {
+      "path": "projects.html",
+      "label": "Projects"
+    },
+    {
+      "path": "learn.html",
+      "label": "Learn"
+    },
+    {
+      "path": "game-development.html",
+      "label": "Game Development"
+    },
+    {
+      "path": "index.html#direction",
+      "label": "Direction"
+    }
+  ],
+  "parents": {
+    "play-evil-wizard.html": "game-development.html",
+    "project-advanced-computing.html": "projects.html",
+    "project-asset-inventory.html": "projects.html",
+    "project-battle-chess.html": "game-development.html",
+    "project-dependency.html": "projects.html",
+    "project-emergent.html": "projects.html",
+    "project-fusion.html": "projects.html",
+    "project-geometric-ai.html": "projects.html",
+    "project-kubernetes-lab.html": "projects.html",
+    "project-learning-library.html": "projects.html",
+    "project-lifecycle.html": "projects.html",
+    "project-mind.html": "projects.html",
+    "project-portfolio.html": "projects.html",
+    "project-qpe.html": "projects.html",
+    "project-qubit.html": "projects.html",
+    "project-recovery.html": "projects.html"
+  }
+}

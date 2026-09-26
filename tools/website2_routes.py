@@ -82,7 +82,7 @@ def main():
         if group=='osu' and '/~randjosh/' in urlsplit(url).path:
             counterpart=unquote(urlsplit(url).path.split('/~randjosh/',1)[1])
             if counterpart in files:row['localCounterpart']=files[counterpart]
-    save('site-routes.json',{'schemaVersion':1,'status':'candidate-not-deployed','deploymentMode':'atomic-complete-runtime-allowlist','runtimeManifest':'manifests/runtime-files.json','method':'HTML attributes plus static code/CSS references and conservative whole game/lab/learning units. Computed paths require package browser acceptance; this is not proof of dynamic closure.','unresolvedReferences':missing,'routes':routes})
+    save('site-routes.json',{'navigation':json.loads((M/'site-routes.json').read_text(encoding='utf-8')).get('navigation',[]),'schemaVersion':1,'status':'candidate-not-deployed','deploymentMode':'atomic-complete-runtime-allowlist','runtimeManifest':'manifests/runtime-files.json','method':'HTML attributes plus static code/CSS references and conservative whole game/lab/learning units. Computed paths require package browser acceptance; this is not proof of dynamic closure.','unresolvedReferences':missing,'routes':routes})
     save('external-dependencies.json',{'schemaVersion':1,'inventoryOnly':True,'networkFetched':False,'dependencies':[external[u] for u in sorted(external)]})
     units=[]
     preserved=json.loads((M/'live-preservation.json').read_text())
