@@ -50,7 +50,7 @@
     if (!script) {
       script = document.createElement('script');
       script.id = 'jr-site-audio-controller';
-      script.src = new URL('site-audio.js?v=20260925-main-autoplay-v26', SITE_BASE).href;
+      script.src = new URL('site-audio.js?v=20260925-architecture-v28', SITE_BASE).href;
       script.async = false;
       (document.head || document.documentElement).appendChild(script);
     }
