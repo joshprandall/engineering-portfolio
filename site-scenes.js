@@ -62,6 +62,19 @@
   const ROTATE_AFTER = 28;
   const AMBIENT_AUDIO_KEY = 'jr-site-ambient-muted-v3';
   const AMBIENT_VOLUME_KEY = 'jr-site-ambient-volume-v2';
+  const LIGHT_SCENE_KEY = 'jr-site-light-scene-v1';
+  const MAIN_PAGE_RE = /(?:^|\/)(?:index\.html|expertise-experience\.html|projects\.html|game-development\.html|learn(?:-(?:browse|paths|practice|mastery|labs|glossary|map|verify))?\.html)?$/i;
+  const MAIN_PAGE = MAIN_PAGE_RE.test(location.pathname);
+
+  function storedLightSceneIndex() {
+    try {
+      const id = localStorage.getItem(LIGHT_SCENE_KEY);
+      const index = LIGHT_SCENES.findIndex(scene => scene.id === id);
+      return index >= 0 ? index : 0;
+    } catch (_) {
+      return 0;
+    }
+  }
 
   // Real nature recordings. River + beach are CC0, shorebirds are U.S. federal
   // public domain, and the waterfall recording is used as a looped field clip.
@@ -91,7 +104,7 @@
       (navigator.deviceMemory && navigator.deviceMemory <= 4) ||
       (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4)
     );
-    const ambientLockedByPage = PROJECT_AUDIO_RE.test(location.pathname);
+    const ambientLockedByPage = !MAIN_PAGE || PROJECT_AUDIO_RE.test(location.pathname);
 
     // Warm image/video connections immediately so the background appears before
     // the rest of the page has finished settling.
@@ -105,7 +118,7 @@
     });
     [
       new URL('assets/scenes/webb-cosmic-cliffs.webp', SITE_BASE).href,
-      LIGHT_SCENES[0].poster
+      LIGHT_SCENES[storedLightSceneIndex()].poster
     ].forEach((href, i) => {
       if (document.querySelector('link[rel="preload"][href="' + href + '"]')) return;
       const link = document.createElement('link');
@@ -185,12 +198,14 @@
     const dayLink = options.querySelector('.scene-day-link');
     const dayCredit = options.querySelector('.scene-day-credit');
     const audioButton = options.querySelector('[data-scene-audio]');
-    const homepageHeaderTools = document.body.classList.contains('home-page')
-      ? document.querySelector('header .tools')
+    const mainHeaderTools = MAIN_PAGE
+      ? document.querySelector('header .tools, header .header-tools')
       : null;
-    if (audioButton && homepageHeaderTools) {
-      const themeButton = homepageHeaderTools.querySelector('[data-theme-toggle], #theme');
-      homepageHeaderTools.insertBefore(audioButton, themeButton || homepageHeaderTools.lastElementChild);
+    if (audioButton && mainHeaderTools) {
+      const themeButton = mainHeaderTools.querySelector('[data-theme-toggle], #theme, #theme-mode');
+      mainHeaderTools.insertBefore(audioButton, themeButton || mainHeaderTools.lastElementChild);
+    } else if (audioButton && !MAIN_PAGE) {
+      audioButton.hidden = true;
     }
 
     let soundPanel = null;
@@ -246,7 +261,7 @@
 
     let activeVideo = videoA;
     let standbyVideo = videoB;
-    let activeSceneIndex = 0;
+    let activeSceneIndex = storedLightSceneIndex();
     let mediaReady = false;
     let mediaTimer = 0;
     let lightLoaded = false;
@@ -741,6 +756,7 @@
 
     function updateDayCredit() {
       const scene = LIGHT_SCENES[activeSceneIndex];
+      try { localStorage.setItem(LIGHT_SCENE_KEY, scene.id); } catch (_) {}
       if (dayLink) {
         dayLink.href = scene.page;
         dayLink.textContent = scene.label;
