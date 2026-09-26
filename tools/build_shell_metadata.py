@@ -1,5 +1,5 @@
 """Derive compact navigation/search payloads from the reviewed route owner."""
-import json,re,html
+import json,re,html,math
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 def main():
@@ -24,7 +24,7 @@ def main():
     (ROOT/'assets/site-search.json').write_text(json.dumps({'source':'manifests/site-routes.json and JR_KNOWLEDGE corpus; no game internals','entries':entries},ensure_ascii=False,separators=(',',':'))+'\n',encoding='utf-8')
     for filename,kind,items,title in [('index.html','portfolio',nav,'Explore my world'),('learn.html','learning',[{'path':'learn-'+d['id']+'.html','label':d['name']} for d in data['domains']],'Choose a learning orbit')]:
         p=ROOT/filename;text=p.read_text(encoding='utf-8')
-        section='<section class="wrap solar-navigation" data-solar="'+kind+'" aria-labelledby="'+kind+'-solar-title"><h2 id="'+kind+'-solar-title">'+title+'</h2><nav class="solar-orbits" aria-label="'+kind+' solar navigation">'+''.join('<a class="solar-link" href="'+html.escape(i['path'])+'">'+html.escape(i['label'])+'</a>' for i in items)+'</nav></section>'
+        section='<section class="wrap solar-navigation" data-solar="'+kind+'" aria-labelledby="'+kind+'-solar-title"><h2 id="'+kind+'-solar-title">'+title+'</h2><nav class="solar-orbits" aria-label="'+kind+' solar navigation">'+''.join('<a class="solar-link" style="--orbit-x:'+str(round(50+38*math.cos(2*math.pi*n/len(items)-math.pi/2),2))+'%;--orbit-y:'+str(round(50+37*math.sin(2*math.pi*n/len(items)-math.pi/2),2))+'%" href="'+html.escape(i['path'])+'">'+html.escape(i['label'])+'</a>' for n,i in enumerate(items))+'</nav></section>'
         text=re.sub(r'<section class="wrap solar-navigation".*?</section>','',text,flags=re.S)
         text=text.replace('</main>',section+'</main>')
         if 'site-sections.css' not in text:text=text.replace('</head>','<link rel="stylesheet" href="site-sections.css"></head>')

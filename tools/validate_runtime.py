@@ -19,9 +19,26 @@ def validate():
     package=ROOT/'staging/website-2.0-runtime';m=json.loads((ROOT/'staging/website-2.0-runtime-manifest.json').read_text())
     files={r['path']:r for r in m['files']};actual={p.relative_to(package).as_posix() for p in package.rglob('*') if p.is_file()}
     assert actual==set(files),'Package contains unexpected/missing files'
-    issues=[];pages=0
+    issues=[];pages=0;module_aliases={}
+    for p in files:
+        if p.endswith('.html'):
+            text=(package/p).read_text(encoding='utf-8')
+            for match in re.findall(r'<script\s+type=["\']importmap["\'][^>]*>(.*?)</script>',text,re.S):module_aliases.update(json.loads(match).get('imports',{}))
     for p,r in files.items():
         data=(package/p).read_bytes();assert len(data)==r['size'] and hashlib.sha256(data).hexdigest()==r['sha256'],p
+        if p.endswith(('.js','.css')):
+            text=data.decode('utf-8')
+            refs=[]
+            if p.endswith('.css'):refs=re.findall(r'url\(\s*["\']?([^\)"\']+)',text)
+            else:
+                refs=re.findall(r'''(?:from\s+|import\s*\(\s*|fetch\s*\(\s*|new\s+Worker\s*\(\s*)["']([^"']+)["']''',text)
+            for ref in refs:
+                u=urlsplit(ref)
+                if u.scheme or ref.startswith('//') or not u.path or '${' in ref:continue
+                # Bare ES module identifiers are resolved by the committed import map.
+                if p.endswith('.js') and any((ref==key or key.endswith('/') and ref.startswith(key)) and urlsplit(value).scheme in ('http','https') for key,value in module_aliases.items()):continue
+                target=posixpath.normpath(posixpath.join(posixpath.dirname(p),unquote(u.path)))
+                if target not in files:issues.append((p,'module/worker/fetch/CSS: '+ref))
         if not p.endswith('.html'):continue
         pages+=1;parser=Page();parser.feed(data.decode('utf-8'))
         if len(parser.ids)!=len(set(parser.ids)):issues.append((p,'duplicate IDs'))

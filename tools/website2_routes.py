@@ -47,7 +47,7 @@ def main():
         for value in re.findall(r'https?://[^\s"\'<>`\\)]+',text):remote(value,p,'current-runtime')
         for match in re.finditer(r'''["']([^"'\r\n]+\.(?:js|css|json|html|svg|png|jpg|jpeg|webp|mp3|wav|ogg|mp4|wasm|pck)(?:\?[^"'\r\n]*)?)["']''',text):
             value=match.group(1)
-            if text[match.end():].lstrip().startswith(':'):continue # Filename dictionary keys are not loads.
+            if text[match.end():match.end()+32].lstrip().startswith(':'):continue # Filename dictionary keys are not loads.
             resolve(p,value,'runtime')
         for value in re.findall(r'url\(\s*["\']?([^\)"\']+)',text):resolve(p,value,'runtime')
     routes=[]

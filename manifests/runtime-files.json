@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "sourceCommit": "32931e3ce3a2e0928e3716f36463d3928e0a045e",
+  "sourceCommit": "3b6d5fb6a957168c2aae9d69c4271e9ce417133e",
   "bytePolicy": "Exact Git blobs; artifacts verified against committed SHA-256 and size.",
   "files": [
     {
@@ -2276,18 +2276,6 @@
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
-      "path": "osu-logo.png",
-      "size": 10683,
-      "sha256": "c3fa4511073c80ddd4b10a567719b4860cacfd98a462080e6792b8050f47279f",
-      "source": {
-        "kind": "git-blob",
-        "blob": "9ed5bb41a22cabed2b9c976c394383006e514ec7",
-        "provenance": "Z:/public_html/osu-logo.png"
-      },
-      "owningComponent": "portfolio",
-      "deploymentClassification": "KEEP_PRODUCTION"
-    },
-    {
       "path": "play-evil-wizard.html",
       "size": 7843,
       "sha256": "f080d0a1f8e5c72f926d62769af5482620351bb350d275c83aff0d841ab4f954",
@@ -2564,11 +2552,11 @@
     },
     {
       "path": "resume.html",
-      "size": 19385,
-      "sha256": "196f982956c98b31c9c2bdfc742fc975f00f1728405c584a51cb61a9c83f07c7",
+      "size": 19435,
+      "sha256": "c79bcb1982b81bc3a22e43096642eec409da40ba8165517d257862d7dcdba025",
       "source": {
         "kind": "git-blob",
-        "blob": "998f381a8e5ddbbfc5f6ee04060e78b24e17d03e"
+        "blob": "2bbd41c0000bdb8ec917cb305cae8d1a7e4d8146"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -2630,11 +2618,11 @@
     },
     {
       "path": "site-resilience.js",
-      "size": 3259,
-      "sha256": "ae661488c270f0b989405fd51417883aedd9dceecff9e150ec3aa62b70e301f7",
+      "size": 2996,
+      "sha256": "d877c8682771f34907cfd8e6f57bde62df5f80b234f21b19134ea3d01f941834",
       "source": {
         "kind": "git-blob",
-        "blob": "c22a52701a84d2c1dd37533ff56c67522559435b"
+        "blob": "3232189ebb91da1691351d8c3f2b290855e492b0"
       },
       "owningComponent": "site-resilience",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -2728,6 +2716,6 @@
       "deploymentClassification": "KEEP_PRODUCTION"
     }
   ],
-  "fileCount": 246,
-  "byteSize": 282742549
+  "fileCount": 245,
+  "byteSize": 282731653
 }

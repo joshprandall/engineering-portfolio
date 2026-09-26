@@ -34,10 +34,10 @@ async function run(){
    if(await page.locator('#menu').isVisible()){
     for(let n=0;n<3;n++){
      await page.locator('#menu').click();assert.equal(await page.locator('#menu').getAttribute('aria-expanded'),'true');assert(await page.locator('#primary-nav').isVisible());
-     await page.locator('#menu').click();assert.equal(await page.locator('#menu').getAttribute('aria-expanded'),'false');assert(!await page.locator('#primary-nav').isVisible());
+     await page.locator('#menu').click();assert.equal(await page.locator('#menu').getAttribute('aria-expanded'),'false');await page.locator('#primary-nav').waitFor({state:'hidden'});
     }
-    await page.locator('#menu').click();await page.keyboard.press('Escape');assert(!await page.locator('#primary-nav').isVisible());
-    await page.locator('#menu').click();await page.locator('#primary-nav a[href="index.html"]').click();assert(!await page.locator('#primary-nav').isVisible());
+    await page.locator('#menu').click();await page.keyboard.press('Escape');await page.locator('#primary-nav').waitFor({state:'hidden'});
+    await page.locator('#menu').click();await page.locator('#primary-nav a[href="index.html"]').click();await page.locator('#primary-nav').waitFor({state:'hidden'});
    }
    await page.locator('#search-open').click();await page.locator('#search-input').fill('quantum');await page.locator('#search-results a').first().waitFor();assert((await page.locator('#search-results a').count())>0);await page.keyboard.press('Escape');
    await page.locator('#bell-basis').selectOption('YY');await page.locator('#bell-measure').click();assert.match(await page.locator('#bell-result').innerText(),/00 = 0, 01 = \d+, 10 = \d+, 11 = 0/);
@@ -103,7 +103,7 @@ async function run(){
    await page.goto(base+'/'+route,{waitUntil:'domcontentloaded'});assert(await page.locator('main h1:visible,main h2:visible').first().isVisible(),route+': visible page heading');
    assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true,route+': no overflow');
    if(await page.locator('#mobile-menu').count()){
-    await page.locator('#mobile-menu').click();assert(await page.locator('#primary-nav').isVisible());await page.keyboard.press('Escape');assert(!await page.locator('#primary-nav').isVisible());
+    await page.locator('#mobile-menu').click();assert(await page.locator('#primary-nav').isVisible());await page.keyboard.press('Escape');await page.locator('#primary-nav').waitFor({state:'hidden'});
    }
    assert.equal(await page.locator('.hx-phone-dock,.hx-tablet-rail').count(),0,'No floating navigation');
    console.log('PASS app '+route);
