@@ -1043,6 +1043,7 @@
   function route(push=false){
     const u=new URL(location.href), lesson=u.searchParams.get('lesson'), dom=u.searchParams.get('domain'), q=u.searchParams.get('q');
     if(lesson&&lessonMap.has(lesson)){openLesson(lesson,false);return}
+    if((document.body.dataset.libraryPage||'home')==='lesson'){location.replace('learn.html');return}
     if((dom||q)&&(document.body.dataset.libraryPage||'home')==='home'){const dest=new URL('learn-browse.html',location.href);if(dom)dest.searchParams.set('domain',dom);if(q)dest.searchParams.set('q',q);location.replace(dest);return}
     if(currentLesson) closeLesson(false);
     applyLibraryPage();
