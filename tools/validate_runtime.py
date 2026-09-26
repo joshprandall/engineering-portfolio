@@ -39,6 +39,8 @@ def validate():
                 # Bare ES module identifiers are resolved by the committed import map.
                 if p.endswith('.js') and any((ref==key or key.endswith('/') and ref.startswith(key)) and urlsplit(value).scheme in ('http','https') for key,value in module_aliases.items()):continue
                 target=posixpath.normpath(posixpath.join(posixpath.dirname(p),unquote(u.path)))
+                if ref.startswith('/'):target=unquote(u.path).lstrip('/')
+                if target not in files and target.rstrip('/')+'/index.html' in files:target=target.rstrip('/')+'/index.html'
                 if target not in files:issues.append((p,'module/worker/fetch/CSS: '+ref))
         if not p.endswith('.html'):continue
         pages+=1;parser=Page();parser.feed(data.decode('utf-8'))
