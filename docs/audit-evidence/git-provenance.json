@@ -1,0 +1,14 @@
+{
+  "capturedAt": "2026-09-26T07:03:02.970Z",
+  "head": "abf09c466cc06c4cfff8c62004e867972c52a878",
+  "main": "ad48c33cf476bd6a8c02a436a3ac747147b7e085",
+  "originMain": "c8a34a8d90ac7556cd9e8f96efce62352791d989",
+  "branch": "website-2.0-reconciliation",
+  "refs": 61,
+  "counts": {
+    "identical": 181,
+    "different": 49,
+    "live-only": 167,
+    "git-only": 57
+  }
+}

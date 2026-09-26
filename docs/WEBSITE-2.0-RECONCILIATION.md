@@ -2,6 +2,11 @@
 
 Status: non-destructive audit in progress.
 
+Update, September 26, 2026: the direct read-only reconciliation is documented in
+[WEBSITE-2.0-AUDIT.md](WEBSITE-2.0-AUDIT.md), with committed-byte comparisons,
+canonical file mapping, cleanup candidates, and explicit access/validation gaps.
+The supplied inventory counts below are historical context, not the new capture.
+
 This document records the first reconciliation pass between the OSU home directory inventory and the GitHub repository. No OSU files should be deleted solely from this document; suspected duplicates and historical material must be content-hashed or otherwise verified before removal.
 
 ## Inventory received

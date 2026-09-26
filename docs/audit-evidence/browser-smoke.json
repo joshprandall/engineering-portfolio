@@ -1,0 +1,280 @@
+[
+  {
+    "tree": "repository",
+    "route": "index.html",
+    "errors": [],
+    "missing": [],
+    "initial": {
+      "title": "Systems, Software & Scientific Exploration | Joshua Randall",
+      "overflow": false,
+      "theme": "dark",
+      "canvasCount": 2,
+      "soundButtons": [
+        {
+          "location": "header",
+          "visible": true
+        }
+      ]
+    },
+    "afterTheme": "light",
+    "menuExpanded": "true",
+    "menuAfterEscape": "false"
+  },
+  {
+    "tree": "repository",
+    "route": "learn.html",
+    "errors": [],
+    "missing": [],
+    "initial": {
+      "title": "Knowledge Library | Joshua Randall",
+      "overflow": false,
+      "theme": "light",
+      "canvasCount": 3,
+      "soundButtons": [
+        {
+          "location": "header",
+          "visible": true
+        }
+      ]
+    },
+    "afterTheme": "dark"
+  },
+  {
+    "tree": "repository",
+    "route": "project-qpe.html",
+    "errors": [],
+    "missing": [],
+    "initial": {
+      "title": "Quantum Phase Estimation | Joshua Randall",
+      "overflow": false,
+      "theme": "dark",
+      "canvasCount": 2,
+      "soundButtons": [
+        {
+          "location": "scene-options",
+          "visible": true
+        }
+      ]
+    },
+    "afterTheme": "light",
+    "menuExpanded": "true",
+    "menuAfterEscape": "false"
+  },
+  {
+    "tree": "repository",
+    "route": "project-emergent.html",
+    "errors": [],
+    "missing": [],
+    "initial": {
+      "title": "Emergent Systems Explorer | Joshua Randall",
+      "overflow": false,
+      "theme": "light",
+      "canvasCount": 2,
+      "soundButtons": [
+        {
+          "location": "scene-options",
+          "visible": true
+        }
+      ]
+    },
+    "afterTheme": "dark",
+    "menuExpanded": "true",
+    "menuAfterEscape": "false"
+  },
+  {
+    "tree": "repository",
+    "route": "geometric-lab/",
+    "errors": [],
+    "missing": [],
+    "initial": {
+      "title": "Geometry & Physics Lab | Joshua Randall",
+      "overflow": false,
+      "theme": "dark",
+      "canvasCount": 2,
+      "soundButtons": [
+        {
+          "location": "scene-options",
+          "visible": true
+        }
+      ]
+    },
+    "afterTheme": "light"
+  },
+  {
+    "tree": "repository",
+    "route": "qubit-preview-20260921/",
+    "errors": [],
+    "missing": [],
+    "initial": {
+      "title": "One qubit. Two outcomes.",
+      "overflow": false,
+      "theme": "light",
+      "canvasCount": 2,
+      "soundButtons": [
+        {
+          "location": "scene-options",
+          "visible": true
+        }
+      ]
+    },
+    "afterTheme": "dark"
+  },
+  {
+    "tree": "repository",
+    "route": "games/3d-battle-chess/",
+    "errors": [],
+    "missing": [],
+    "initial": {
+      "title": "Crown & Ash — 3D Chess Combat",
+      "overflow": false,
+      "canvasCount": 0,
+      "soundButtons": []
+    }
+  },
+  {
+    "tree": "live",
+    "route": "index.html",
+    "errors": [],
+    "missing": [],
+    "initial": {
+      "title": "Systems, Software & Scientific Exploration | Joshua Randall",
+      "overflow": false,
+      "theme": "dark",
+      "canvasCount": 3,
+      "soundButtons": [
+        {
+          "location": "header",
+          "visible": true
+        }
+      ]
+    },
+    "afterTheme": "light",
+    "menuExpanded": "true",
+    "menuAfterEscape": "false"
+  },
+  {
+    "tree": "live",
+    "route": "learn.html",
+    "errors": [],
+    "missing": [],
+    "initial": {
+      "title": "Knowledge Library | Joshua Randall",
+      "overflow": false,
+      "theme": "light",
+      "canvasCount": 3,
+      "soundButtons": [
+        {
+          "location": "scene-options",
+          "visible": true
+        }
+      ]
+    },
+    "afterTheme": "dark"
+  },
+  {
+    "tree": "live",
+    "route": "project-qpe.html",
+    "errors": [],
+    "missing": [],
+    "initial": {
+      "title": "Quantum Phase Estimation | Joshua Randall",
+      "overflow": false,
+      "theme": "dark",
+      "canvasCount": 2,
+      "soundButtons": [
+        {
+          "location": "scene-options",
+          "visible": true
+        }
+      ]
+    },
+    "afterTheme": "light",
+    "menuExpanded": "true",
+    "menuAfterEscape": "false"
+  },
+  {
+    "tree": "live",
+    "route": "project-emergent.html",
+    "errors": [],
+    "missing": [],
+    "initial": {
+      "title": "Emergent Systems Explorer | Joshua Randall",
+      "overflow": false,
+      "theme": "light",
+      "canvasCount": 2,
+      "soundButtons": [
+        {
+          "location": "scene-options",
+          "visible": true
+        }
+      ]
+    },
+    "afterTheme": "dark",
+    "menuExpanded": "true",
+    "menuAfterEscape": "false"
+  },
+  {
+    "tree": "live",
+    "route": "geometric-lab/",
+    "errors": [],
+    "missing": [],
+    "initial": {
+      "title": "Geometry & Physics Lab | Joshua Randall",
+      "overflow": false,
+      "theme": "dark",
+      "canvasCount": 2,
+      "soundButtons": [
+        {
+          "location": "scene-options",
+          "visible": true
+        }
+      ]
+    },
+    "afterTheme": "light"
+  },
+  {
+    "tree": "live",
+    "route": "qubit-preview-20260921/",
+    "errors": [],
+    "missing": [],
+    "initial": {
+      "title": "One qubit. Two outcomes.",
+      "overflow": false,
+      "theme": "light",
+      "canvasCount": 2,
+      "soundButtons": [
+        {
+          "location": "scene-options",
+          "visible": true
+        }
+      ]
+    },
+    "afterTheme": "dark"
+  },
+  {
+    "tree": "live",
+    "route": "games/3d-battle-chess/",
+    "errors": [],
+    "missing": [],
+    "initial": {
+      "title": "3D Battle Chess — Joshua Randall",
+      "overflow": false,
+      "canvasCount": 1,
+      "soundButtons": []
+    }
+  },
+  {
+    "tree": "live",
+    "route": "games/evil-wizard/play.html",
+    "errors": [],
+    "missing": [],
+    "initial": {
+      "title": "Defeat the Evil Wizard",
+      "overflow": false,
+      "canvasCount": 0,
+      "soundButtons": []
+    },
+    "menuExpanded": null,
+    "menuAfterEscape": null
+  }
+]

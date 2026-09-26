@@ -1,0 +1,742 @@
+[
+  {
+    "sha256": "073f02b97e2d60f86766b7ccf097f701b52a8fb39284f1277af2bfacc0612a64",
+    "files": [
+      {
+        "tree": "repository",
+        "path": "assets/Joshua_Randall_Master_Resume.docx",
+        "size": 37409
+      },
+      {
+        "tree": "live",
+        "path": "assets/Joshua_Randall_Master_Resume.docx",
+        "size": 37409
+      },
+      {
+        "tree": "live",
+        "path": "Joshua_Randall_MASTER_RESUME_L.docx",
+        "size": 37409
+      }
+    ]
+  },
+  {
+    "sha256": "c3fa4511073c80ddd4b10a567719b4860cacfd98a462080e6792b8050f47279f",
+    "files": [
+      {
+        "tree": "repository",
+        "path": "assets/osu-logo.png",
+        "size": 10683
+      },
+      {
+        "tree": "live",
+        "path": "assets/osu-logo.png",
+        "size": 10683
+      },
+      {
+        "tree": "live",
+        "path": "osu-logo.png",
+        "size": 10683
+      }
+    ]
+  },
+  {
+    "sha256": "7887b098ca27e1ec77238381526fe042dc8ef1efe0d7a1d8519cced93e9dc8aa",
+    "files": [
+      {
+        "tree": "repository",
+        "path": "assets/portrait.jpg",
+        "size": 308295
+      },
+      {
+        "tree": "live",
+        "path": "assets/portrait.jpg",
+        "size": 308295
+      },
+      {
+        "tree": "live",
+        "path": "joshua-randall.jpg",
+        "size": 308295
+      }
+    ]
+  },
+  {
+    "sha256": "06ea43512e56553f36ee818bfc0f1d9122513df199d43b455dc650139c6d4047",
+    "files": [
+      {
+        "tree": "live",
+        "path": "_before_game_learning_patch_20260924-060952/games/3d-battle-chess/index.html",
+        "size": 3447
+      },
+      {
+        "tree": "live",
+        "path": "_safe_patch_backup_20260924-060626/games/3d-battle-chess/index.html",
+        "size": 3447
+      },
+      {
+        "tree": "live",
+        "path": "games/3d-battle-chess/index.html.bak",
+        "size": 3447
+      }
+    ]
+  },
+  {
+    "sha256": "ccc6d4b1e7007e0fc5ad456ba24f40aa01d8fc691c1a7b9e720c6337574757f5",
+    "files": [
+      {
+        "tree": "live",
+        "path": "_before_game_learning_patch_20260924-060952/games/3d-battle-chess/styles.css",
+        "size": 3868
+      },
+      {
+        "tree": "live",
+        "path": "_safe_patch_backup_20260924-060626/games/3d-battle-chess/styles.css",
+        "size": 3868
+      },
+      {
+        "tree": "live",
+        "path": "games/3d-battle-chess/styles.before-navigation.css",
+        "size": 3868
+      }
+    ]
+  },
+  {
+    "sha256": "74182fa975f9e3dff72d8d4bcc746b0baa06aae8f310525a1fe942a6d49aedda",
+    "files": [
+      {
+        "tree": "live",
+        "path": "_before_game_learning_patch_20260924-060952/games/evil-wizard/play.html",
+        "size": 22376
+      },
+      {
+        "tree": "live",
+        "path": "_safe_patch_backup_20260924-060626/games/evil-wizard/play.html",
+        "size": 22376
+      }
+    ]
+  },
+  {
+    "sha256": "ab6fe7f2b9269ec9df2a163fdbab5faebbef4eda377598388837a02c37c02ed4",
+    "files": [
+      {
+        "tree": "live",
+        "path": "_before_game_learning_patch_20260924-060952/knowledge.css",
+        "size": 93255
+      },
+      {
+        "tree": "live",
+        "path": "_safe_patch_backup_20260924-060626/knowledge.css",
+        "size": 93255
+      }
+    ]
+  },
+  {
+    "sha256": "97da360e44a21d2a9c29b5c082ba3f73808af9f8e2e77161cd7c831893a0be4a",
+    "files": [
+      {
+        "tree": "live",
+        "path": "_before_game_learning_patch_20260924-060952/learn.html",
+        "size": 21124
+      },
+      {
+        "tree": "live",
+        "path": "_safe_patch_backup_20260924-060626/learn.html",
+        "size": 21124
+      }
+    ]
+  },
+  {
+    "sha256": "bfcf367eb25b496b8bc51dfc5805bc11ae5f58675e5c372a2a995ff3e7a3fc4a",
+    "files": [
+      {
+        "tree": "live",
+        "path": "_before_game_learning_patch_20260924-060952/play-evil-wizard.html",
+        "size": 6248
+      },
+      {
+        "tree": "live",
+        "path": "_safe_patch_backup_20260924-060626/play-evil-wizard.html",
+        "size": 6248
+      }
+    ]
+  },
+  {
+    "sha256": "c6051e4df96de0e7145dc7b6525ddf77a1f18851e55856c9d914912bf85fa409",
+    "files": [
+      {
+        "tree": "live",
+        "path": "_before_game_learning_patch_20260924-060952/project-battle-chess.html",
+        "size": 7436
+      },
+      {
+        "tree": "live",
+        "path": "_safe_patch_backup_20260924-060626/project-battle-chess.html",
+        "size": 7436
+      }
+    ]
+  },
+  {
+    "sha256": "03633c2e7b6f274f2af2bc9bf68299948b1eae17e6bae14edcbb88b9599e39dc",
+    "files": [
+      {
+        "tree": "live",
+        "path": "_before_game_learning_patch_20260924-060952/projects.html",
+        "size": 14767
+      },
+      {
+        "tree": "live",
+        "path": "_safe_patch_backup_20260924-060626/projects.html",
+        "size": 14767
+      }
+    ]
+  },
+  {
+    "sha256": "8e3f425b37d4a44f0324932581fe130a7ff1e5bd418e2cea689c15a73ab65f1b",
+    "files": [
+      {
+        "tree": "live",
+        "path": "_before_game_learning_patch_20260924-060952/styles.css",
+        "size": 20030
+      },
+      {
+        "tree": "live",
+        "path": "_safe_patch_backup_20260924-060626/styles.css",
+        "size": 20030
+      },
+      {
+        "tree": "live",
+        "path": "styles.css",
+        "size": 20030
+      }
+    ]
+  },
+  {
+    "sha256": "6715c7f20435a85375be74a44e6c04dc8b42009f0b1ab8fb4a8bd185f322738c",
+    "files": [
+      {
+        "tree": "live",
+        "path": "_safe_patch_backup_20260924-060626/games/3d-battle-chess/battle.js",
+        "size": 12557
+      },
+      {
+        "tree": "live",
+        "path": "games/3d-battle-chess/_before_2d3d_fix_20260924-064833/battle.js",
+        "size": 12557
+      },
+      {
+        "tree": "live",
+        "path": "games/3d-battle-chess/_before_2d3d_fix_20260924-064922/battle.js",
+        "size": 12557
+      },
+      {
+        "tree": "live",
+        "path": "games/3d-battle-chess/battle.js.bak",
+        "size": 12557
+      }
+    ]
+  },
+  {
+    "sha256": "eefc852a3a5d12eeedf8a217fc2cb68d6d0476612ad4d8744a8e6febd99361e8",
+    "files": [
+      {
+        "tree": "live",
+        "path": "assets/fusion-presentation.mp4",
+        "size": 168678432
+      },
+      {
+        "tree": "live",
+        "path": "fusion-presentation.mp4",
+        "size": 168678432
+      }
+    ]
+  },
+  {
+    "sha256": "f50f06818c1cf06049c7e5f342fee3e9631b93f650a35fff54deb6f7d030ba0e",
+    "files": [
+      {
+        "tree": "live",
+        "path": "games/3d-battle-chess-v8/combat-v8/animation-runtime.js",
+        "size": 2287
+      },
+      {
+        "tree": "live",
+        "path": "games/3d-battle-chess/combat-v8/animation-runtime.js",
+        "size": 2287
+      }
+    ]
+  },
+  {
+    "sha256": "879dee6bb22cecf30dd5a2b1efe45caf576bdb5ea6a31741c89ad31074d0d287",
+    "files": [
+      {
+        "tree": "live",
+        "path": "games/3d-battle-chess-v8/combat-v8/attack-executor.js",
+        "size": 3501
+      },
+      {
+        "tree": "live",
+        "path": "games/3d-battle-chess/combat-v8/attack-executor.js",
+        "size": 3501
+      }
+    ]
+  },
+  {
+    "sha256": "7c26b5151852c149a91bc91a7097fab14a4a26d385a45741ddaf9a07cac28f35",
+    "files": [
+      {
+        "tree": "live",
+        "path": "games/3d-battle-chess-v8/combat-v8/attacks.js",
+        "size": 5672
+      },
+      {
+        "tree": "live",
+        "path": "games/3d-battle-chess/combat-v8/attacks.js",
+        "size": 5672
+      }
+    ]
+  },
+  {
+    "sha256": "488885ee9d1b625316959738c95db3ed226981bedeb9ca2293654d0c1a817a8e",
+    "files": [
+      {
+        "tree": "live",
+        "path": "games/3d-battle-chess-v8/combat-v8/character-definitions.js",
+        "size": 5385
+      },
+      {
+        "tree": "live",
+        "path": "games/3d-battle-chess/combat-v8/character-definitions.js",
+        "size": 5385
+      }
+    ]
+  },
+  {
+    "sha256": "9a33a663ff1ece5bf2a73c4e151e20e00a2227d2541ce585b4b6e6b7df58e390",
+    "files": [
+      {
+        "tree": "live",
+        "path": "games/3d-battle-chess-v8/combat-v8/character-factory.js",
+        "size": 3640
+      },
+      {
+        "tree": "live",
+        "path": "games/3d-battle-chess/combat-v8/character-factory.js",
+        "size": 3640
+      }
+    ]
+  },
+  {
+    "sha256": "1575dd520ae9e4e0b436747bc5bb56a718e21ad60e3436aa08c111a9b5bc637a",
+    "files": [
+      {
+        "tree": "live",
+        "path": "games/3d-battle-chess-v8/combat-v8/character-visuals.js",
+        "size": 8879
+      },
+      {
+        "tree": "live",
+        "path": "games/3d-battle-chess/combat-v8/character-visuals.js",
+        "size": 8879
+      }
+    ]
+  },
+  {
+    "sha256": "156d981a3b7ff8c6a0fab0afbaa5679c2a3d0626d83b06f65bad81f9a1cce766",
+    "files": [
+      {
+        "tree": "live",
+        "path": "games/3d-battle-chess-v8/combat-v8/choreography.js",
+        "size": 5591
+      },
+      {
+        "tree": "live",
+        "path": "games/3d-battle-chess/combat-v8/choreography.js",
+        "size": 5591
+      }
+    ]
+  },
+  {
+    "sha256": "61d2647eadfe979c987b999c45784c26bab835e3ef1a7a4185414d07d594068b",
+    "files": [
+      {
+        "tree": "live",
+        "path": "games/3d-battle-chess-v8/combat-v8/collision.js",
+        "size": 1084
+      },
+      {
+        "tree": "live",
+        "path": "games/3d-battle-chess/combat-v8/collision.js",
+        "size": 1084
+      }
+    ]
+  },
+  {
+    "sha256": "af4536764025a0cb361e8b70f9a794f8afcfc0cbf4cd0f6f3f32e37d46942c71",
+    "files": [
+      {
+        "tree": "live",
+        "path": "games/3d-battle-chess-v8/combat-v8/combat-director.js",
+        "size": 4152
+      },
+      {
+        "tree": "live",
+        "path": "games/3d-battle-chess/combat-v8/combat-director.js",
+        "size": 4152
+      }
+    ]
+  },
+  {
+    "sha256": "9d9d80ac948b996038346e9b1f2c266d86975c6326b0f5bdd2be7ba2f00fa1d2",
+    "files": [
+      {
+        "tree": "live",
+        "path": "games/3d-battle-chess-v8/combat-v8/defeat-choreography.js",
+        "size": 976
+      },
+      {
+        "tree": "live",
+        "path": "games/3d-battle-chess/combat-v8/defeat-choreography.js",
+        "size": 976
+      }
+    ]
+  },
+  {
+    "sha256": "7a84f001202a989ebd48090dede064d3a0b2073f49419b2670c22db292de7d05",
+    "files": [
+      {
+        "tree": "live",
+        "path": "games/3d-battle-chess-v8/combat-v8/effects.js",
+        "size": 9126
+      },
+      {
+        "tree": "live",
+        "path": "games/3d-battle-chess/combat-v8/effects.js",
+        "size": 9126
+      }
+    ]
+  },
+  {
+    "sha256": "e0b2fdfba12b5cf6a964d3055816c1adda4cc2543505434e155a76b0c92fc2dd",
+    "files": [
+      {
+        "tree": "live",
+        "path": "games/3d-battle-chess-v8/combat-v8/physics.js",
+        "size": 765
+      },
+      {
+        "tree": "live",
+        "path": "games/3d-battle-chess/combat-v8/physics.js",
+        "size": 765
+      }
+    ]
+  },
+  {
+    "sha256": "31a3ec60002b2783a0e75ca1001e2bd9df767ba38d9e9e5c0eb5fb03f30e5038",
+    "files": [
+      {
+        "tree": "live",
+        "path": "games/3d-battle-chess-v8/combat-v8/reactions.js",
+        "size": 1492
+      },
+      {
+        "tree": "live",
+        "path": "games/3d-battle-chess/combat-v8/reactions.js",
+        "size": 1492
+      }
+    ]
+  },
+  {
+    "sha256": "495aaa6baa866f1cb360193579d2296ad6c34b20bfa5a47aff1c18b277d34f8e",
+    "files": [
+      {
+        "tree": "live",
+        "path": "games/3d-battle-chess-v8/combat-v8/rig-types.js",
+        "size": 8049
+      },
+      {
+        "tree": "live",
+        "path": "games/3d-battle-chess/combat-v8/rig-types.js",
+        "size": 8049
+      }
+    ]
+  },
+  {
+    "sha256": "c85f824b464639b365644c0f183a2c7d976f71fea19b43d3f0de2d43dbd5a3cc",
+    "files": [
+      {
+        "tree": "live",
+        "path": "games/3d-battle-chess-v8/pieces.js",
+        "size": 7347
+      },
+      {
+        "tree": "live",
+        "path": "games/3d-battle-chess/pieces.js",
+        "size": 7347
+      }
+    ]
+  },
+  {
+    "sha256": "07e5203fef8e8e40cc72e87b15b8fd3a59631975eef5afc1fcd70f94d0871e0b",
+    "files": [
+      {
+        "tree": "live",
+        "path": "games/3d-battle-chess/_before_2d3d_fix_20260924-064833/index.html",
+        "size": 4767
+      },
+      {
+        "tree": "live",
+        "path": "games/3d-battle-chess/_before_2d3d_fix_20260924-064922/index.html",
+        "size": 4767
+      }
+    ]
+  },
+  {
+    "sha256": "31d694db15860eec8ffae24233b3aa6761c4090e5af58db829be171437624fdb",
+    "files": [
+      {
+        "tree": "live",
+        "path": "games/evil-wizard-adaptive-preview-v23/console-champions.js",
+        "size": 9430
+      },
+      {
+        "tree": "live",
+        "path": "games/evil-wizard-preview-20260922-163345/console-champions.js",
+        "size": 9430
+      }
+    ]
+  },
+  {
+    "sha256": "01d4f63e525941e06ce74f5187dad030d20a8d52a07ce365ae4e94af97a3b1f5",
+    "files": [
+      {
+        "tree": "live",
+        "path": "games/evil-wizard-adaptive-preview-v23/index.apple-touch-icon.png",
+        "size": 11944
+      },
+      {
+        "tree": "live",
+        "path": "games/evil-wizard-console-20260922/index.apple-touch-icon.png",
+        "size": 11944
+      },
+      {
+        "tree": "live",
+        "path": "games/evil-wizard-preview-20260922-163345/index.apple-touch-icon.png",
+        "size": 11944
+      },
+      {
+        "tree": "live",
+        "path": "games/evil-wizard/index.apple-touch-icon.png",
+        "size": 11944
+      }
+    ]
+  },
+  {
+    "sha256": "be33985bc7160d6bf9646f259cd86b259cd67b02ccb297ee5c44f8ac84327bc8",
+    "files": [
+      {
+        "tree": "live",
+        "path": "games/evil-wizard-adaptive-preview-v23/index.audio.position.worklet.js",
+        "size": 2973
+      },
+      {
+        "tree": "live",
+        "path": "games/evil-wizard-console-20260922/index.audio.position.worklet.js",
+        "size": 2973
+      },
+      {
+        "tree": "live",
+        "path": "games/evil-wizard-preview-20260922-163345/index.audio.position.worklet.js",
+        "size": 2973
+      },
+      {
+        "tree": "live",
+        "path": "games/evil-wizard/index.audio.position.worklet.js",
+        "size": 2973
+      }
+    ]
+  },
+  {
+    "sha256": "5b476a9c9ce642c0ee4256436d1bc31d9c38f868aca0f9a8e2a57c18d2dec2a3",
+    "files": [
+      {
+        "tree": "live",
+        "path": "games/evil-wizard-adaptive-preview-v23/index.audio.worklet.js",
+        "size": 7298
+      },
+      {
+        "tree": "live",
+        "path": "games/evil-wizard-console-20260922/index.audio.worklet.js",
+        "size": 7298
+      },
+      {
+        "tree": "live",
+        "path": "games/evil-wizard-preview-20260922-163345/index.audio.worklet.js",
+        "size": 7298
+      },
+      {
+        "tree": "live",
+        "path": "games/evil-wizard/index.audio.worklet.js",
+        "size": 7298
+      }
+    ]
+  },
+  {
+    "sha256": "ad3c35ad0facf487c618204bd98db543034fc95224eadc7f08c7a9ff38d5b3b5",
+    "files": [
+      {
+        "tree": "live",
+        "path": "games/evil-wizard-adaptive-preview-v23/index.icon.png",
+        "size": 5700
+      },
+      {
+        "tree": "live",
+        "path": "games/evil-wizard-console-20260922/index.icon.png",
+        "size": 5700
+      },
+      {
+        "tree": "live",
+        "path": "games/evil-wizard-preview-20260922-163345/index.icon.png",
+        "size": 5700
+      },
+      {
+        "tree": "live",
+        "path": "games/evil-wizard/index.icon.png",
+        "size": 5700
+      }
+    ]
+  },
+  {
+    "sha256": "33c94cb3175f3333b82e2a3be5e8e86f77986f0aa2042b1631f6367a4e5bb6ba",
+    "files": [
+      {
+        "tree": "live",
+        "path": "games/evil-wizard-adaptive-preview-v23/index.js",
+        "size": 279815
+      },
+      {
+        "tree": "live",
+        "path": "games/evil-wizard-console-20260922/index.js",
+        "size": 279815
+      },
+      {
+        "tree": "live",
+        "path": "games/evil-wizard-preview-20260922-163345/index.js",
+        "size": 279815
+      },
+      {
+        "tree": "live",
+        "path": "games/evil-wizard/index.js",
+        "size": 279815
+      }
+    ]
+  },
+  {
+    "sha256": "3cb4495c0b98dfbe4b663cbf2b6836473572339beb66d902367893162a70be0e",
+    "files": [
+      {
+        "tree": "live",
+        "path": "games/evil-wizard-adaptive-preview-v23/index.png",
+        "size": 21443
+      },
+      {
+        "tree": "live",
+        "path": "games/evil-wizard-console-20260922/index.png",
+        "size": 21443
+      },
+      {
+        "tree": "live",
+        "path": "games/evil-wizard-preview-20260922-163345/index.png",
+        "size": 21443
+      },
+      {
+        "tree": "live",
+        "path": "games/evil-wizard/index.png",
+        "size": 21443
+      }
+    ]
+  },
+  {
+    "sha256": "fc74679e3b97f76878947fcd4fbe1268cbfa6188182a2e33bbc3f5dc9bfa57d0",
+    "files": [
+      {
+        "tree": "live",
+        "path": "games/evil-wizard-adaptive-preview-v23/index.wasm",
+        "size": 39514754
+      },
+      {
+        "tree": "live",
+        "path": "games/evil-wizard-console-20260922/index.wasm",
+        "size": 39514754
+      },
+      {
+        "tree": "live",
+        "path": "games/evil-wizard-preview-20260922-163345/index.wasm",
+        "size": 39514754
+      },
+      {
+        "tree": "live",
+        "path": "games/evil-wizard/index.wasm",
+        "size": 39514754
+      }
+    ]
+  },
+  {
+    "sha256": "0ed86a8c81d53edab5504b170b5894115cdc297008e86d820a4806d2ffa5d603",
+    "files": [
+      {
+        "tree": "live",
+        "path": "games/evil-wizard-console-20260922/console.html",
+        "size": 13233
+      },
+      {
+        "tree": "live",
+        "path": "games/evil-wizard-preview-20260922-163345/console.html",
+        "size": 13233
+      }
+    ]
+  },
+  {
+    "sha256": "5bf9b6977c3707e75680822cffd08edf7e7c9da5abb74b5ebd077b4ab3d2e9a6",
+    "files": [
+      {
+        "tree": "live",
+        "path": "Joshua_Randall_Knowledge_Platform_v0.3.0/public_html/README_KNOWLEDGE_PLATFORM.txt",
+        "size": 2943
+      },
+      {
+        "tree": "live",
+        "path": "Joshua_Randall_Knowledge_Platform_v0.3.0/README_FIRST.txt",
+        "size": 2943
+      }
+    ]
+  },
+  {
+    "sha256": "d17428421d6e23f78d6851fb6a2e22a883b9403312da21c1efdf1e1a4fec891a",
+    "files": [
+      {
+        "tree": "live",
+        "path": "labs/emergent.js",
+        "size": 4780
+      },
+      {
+        "tree": "live",
+        "path": "labs/emergent.mjs",
+        "size": 4780
+      }
+    ]
+  },
+  {
+    "sha256": "f230626678a14ff26b45578a8f1c3b379cdb48992416616cfe3a5ebd2b870a4d",
+    "files": [
+      {
+        "tree": "live",
+        "path": "labs/qpe.js",
+        "size": 3883
+      },
+      {
+        "tree": "live",
+        "path": "labs/qpe.mjs",
+        "size": 3883
+      }
+    ]
+  }
+]

@@ -1,0 +1,923 @@
+[
+  {
+    "path": "3d-battle-chess-osu-deploy.zip",
+    "sha256": "1349e0188578db18e6291bd4d214dd08d0ce600dbd25ef778c60a7b3cf3364e2",
+    "branchesWithPath": []
+  },
+  {
+    "path": "ASIMOV.jpg",
+    "sha256": "204c07dea9584fe664b8668dd81b7d4b27a9a452e13a692ae8aa601bee251c7c",
+    "branchesWithPath": []
+  },
+  {
+    "path": "DEPLOYMENT_READ_FIRST.txt",
+    "sha256": "96171ebee0ee4f5ec6d19b849fef089f1b96fa7c8dd0dea14bf593a765a2b5fd",
+    "branchesWithPath": []
+  },
+  {
+    "path": "Joshua_Randall_Knowledge_Platform_v0.3.0/README_FIRST.txt",
+    "sha256": "5bf9b6977c3707e75680822cffd08edf7e7c9da5abb74b5ebd077b4ab3d2e9a6",
+    "branchesWithPath": []
+  },
+  {
+    "path": "Joshua_Randall_Knowledge_Platform_v0.3.0/RELEASE_NOTES_v0.3.0.txt",
+    "sha256": "4eb312529a8a2d857067bd0f7dd38fefc2d6192b8cf9c430364093dd956d5e95",
+    "branchesWithPath": []
+  },
+  {
+    "path": "Joshua_Randall_Knowledge_Platform_v0.3.0/VALIDATION_v0.3.0.txt",
+    "sha256": "e8674d0f0a40ec757a13bc4f172ec24d0feaf0f492c0e6fae85a371e648843cc",
+    "branchesWithPath": []
+  },
+  {
+    "path": "Joshua_Randall_Knowledge_Platform_v0.3.0/build_data.py",
+    "sha256": "33c5372edda8dc5fa02f0f6579bef7d5f5d6e4cef229f07aa688a9afd891bd8d",
+    "branchesWithPath": []
+  },
+  {
+    "path": "Joshua_Randall_Knowledge_Platform_v0.3.0/public_html/README_KNOWLEDGE_PLATFORM.txt",
+    "sha256": "5bf9b6977c3707e75680822cffd08edf7e7c9da5abb74b5ebd077b4ab3d2e9a6",
+    "branchesWithPath": []
+  },
+  {
+    "path": "Joshua_Randall_Knowledge_Platform_v0.3.0/public_html/index.html",
+    "sha256": "d5056a639ce1c2e130a0ad8f29755e91f12702f59bf84274a98a740cb6c72b7b",
+    "branchesWithPath": []
+  },
+  {
+    "path": "Joshua_Randall_Knowledge_Platform_v0.3.0/public_html/knowledge-data.js",
+    "sha256": "34b5faa0de7f7e86969604aa420c2d8c6023c78b39672e12ac7db41a62e9e2e0",
+    "branchesWithPath": []
+  },
+  {
+    "path": "Joshua_Randall_Knowledge_Platform_v0.3.0/public_html/knowledge.css",
+    "sha256": "435c507034ea0ac2d6db5c83c1a22404bb8f1a2d4e9c27254dc6074fb19fae4b",
+    "branchesWithPath": []
+  },
+  {
+    "path": "Joshua_Randall_Knowledge_Platform_v0.3.0/public_html/knowledge.js",
+    "sha256": "770a63a0947525f4476b93e725189e7ac5cbc2f48ca05bb682ac734b10b0ccdd",
+    "branchesWithPath": []
+  },
+  {
+    "path": "Joshua_Randall_Knowledge_Platform_v0.3.0/public_html/learn.html",
+    "sha256": "ded1025796b4c670ee0de940de00d203919857f4d2b806b2ec921461e82c7af5",
+    "branchesWithPath": []
+  },
+  {
+    "path": "Joshua_Randall_Knowledge_Platform_v0.3.0/public_html/projects.html",
+    "sha256": "0b9d483c77ff7619cc1e8aeba1cc1b61adc6ca23e2ea62bb44cd9b92c3c8c8b8",
+    "branchesWithPath": []
+  },
+  {
+    "path": "Joshua_Randall_MASTER_RESUME_L.docx",
+    "sha256": "073f02b97e2d60f86766b7ccf097f701b52a8fb39284f1277af2bfacc0612a64",
+    "branchesWithPath": []
+  },
+  {
+    "path": "Joshua_Randall_OSU_Reconciled_Site_Overlay_FINAL.zip",
+    "sha256": "19d376ce63a902ff1cc443a2a48f3f797345914356bf4fef461676ae932f3683",
+    "branchesWithPath": []
+  },
+  {
+    "path": "Joshua_Randall_Portfolio_vNext_Review_Overlay.zip",
+    "sha256": "7ad4f39e6a2ac5473b1cbd8d3e0ed59586f7713ffd8fc94eb2fa295a817c1f59",
+    "branchesWithPath": []
+  },
+  {
+    "path": "Joshua_Randall_Resume(2).pdf",
+    "sha256": "67a8e8fdad6be4beaa4346e1755c051f24d3ba0a13f1301ba429593bc49b37ff",
+    "branchesWithPath": []
+  },
+  {
+    "path": "README_DEPLOY_THIS_EXACTLY.txt",
+    "sha256": "9b76e195ec736182e4358c0822e6f5f4e80f310959a08f5bf246a13b7854fbe7",
+    "branchesWithPath": []
+  },
+  {
+    "path": "README_FIRST.txt",
+    "sha256": "609c27463483129b7405c88785cde2769ad3485443b740ed01289428f6d7d6b9",
+    "branchesWithPath": []
+  },
+  {
+    "path": "RELEASE_NOTES_v0.2.0.txt",
+    "sha256": "fa12b2e81528da89366a8d6c92ba878d67dba48ffd7a4ef00023eef9881f6e1b",
+    "branchesWithPath": []
+  },
+  {
+    "path": "Thumbs.db",
+    "sha256": "c265fa19c1b974b07a1f0378ed992b9680bdd75f84776ab1d7f0e8ca4f68a898",
+    "branchesWithPath": []
+  },
+  {
+    "path": "VALIDATION_v0.2.0.txt",
+    "sha256": "6de463878c90f7612cf25659a26bc4894c96bd52a8a195889231d178ac1b186d",
+    "branchesWithPath": []
+  },
+  {
+    "path": "_before_game_learning_patch_20260924-060952/games/3d-battle-chess/index.html",
+    "sha256": "06ea43512e56553f36ee818bfc0f1d9122513df199d43b455dc650139c6d4047",
+    "branchesWithPath": []
+  },
+  {
+    "path": "_before_game_learning_patch_20260924-060952/games/3d-battle-chess/styles.css",
+    "sha256": "ccc6d4b1e7007e0fc5ad456ba24f40aa01d8fc691c1a7b9e720c6337574757f5",
+    "branchesWithPath": []
+  },
+  {
+    "path": "_before_game_learning_patch_20260924-060952/games/evil-wizard/play.html",
+    "sha256": "74182fa975f9e3dff72d8d4bcc746b0baa06aae8f310525a1fe942a6d49aedda",
+    "branchesWithPath": []
+  },
+  {
+    "path": "_before_game_learning_patch_20260924-060952/knowledge.css",
+    "sha256": "ab6fe7f2b9269ec9df2a163fdbab5faebbef4eda377598388837a02c37c02ed4",
+    "branchesWithPath": []
+  },
+  {
+    "path": "_before_game_learning_patch_20260924-060952/learn.html",
+    "sha256": "97da360e44a21d2a9c29b5c082ba3f73808af9f8e2e77161cd7c831893a0be4a",
+    "branchesWithPath": []
+  },
+  {
+    "path": "_before_game_learning_patch_20260924-060952/play-evil-wizard.html",
+    "sha256": "bfcf367eb25b496b8bc51dfc5805bc11ae5f58675e5c372a2a995ff3e7a3fc4a",
+    "branchesWithPath": []
+  },
+  {
+    "path": "_before_game_learning_patch_20260924-060952/project-battle-chess.html",
+    "sha256": "c6051e4df96de0e7145dc7b6525ddf77a1f18851e55856c9d914912bf85fa409",
+    "branchesWithPath": []
+  },
+  {
+    "path": "_before_game_learning_patch_20260924-060952/projects.html",
+    "sha256": "03633c2e7b6f274f2af2bc9bf68299948b1eae17e6bae14edcbb88b9599e39dc",
+    "branchesWithPath": []
+  },
+  {
+    "path": "_before_game_learning_patch_20260924-060952/styles.css",
+    "sha256": "8e3f425b37d4a44f0324932581fe130a7ff1e5bd418e2cea689c15a73ab65f1b",
+    "branchesWithPath": []
+  },
+  {
+    "path": "_before_true_glass_20260924-061812/games/3d-battle-chess/index.html",
+    "sha256": "e1f60f769b0c779987179f805617cd8310d42d83e0a17e854c1efac9bdfaa011",
+    "branchesWithPath": []
+  },
+  {
+    "path": "_before_true_glass_20260924-061812/games/3d-battle-chess/styles.css",
+    "sha256": "e1fcf3b38b3ec9375f7ee675241eb9222d79cccb46ca3bcd59fbf0c0442794f6",
+    "branchesWithPath": []
+  },
+  {
+    "path": "_before_true_glass_20260924-061812/games/evil-wizard/play.html",
+    "sha256": "740d0794f47386323921b33beaf57722d871e527937b9cffd1e4d40b3edf0087",
+    "branchesWithPath": []
+  },
+  {
+    "path": "_before_true_glass_20260924-061812/play-evil-wizard.html",
+    "sha256": "34a45f4b597ff0b02b05a43acc8d0fca64ec5b471a5efd0c811470371b5dda07",
+    "branchesWithPath": []
+  },
+  {
+    "path": "_before_true_glass_20260924-061812/project-battle-chess.html",
+    "sha256": "7e44c53967208f79b08cff8fdfa96c8aed335d773382931d5768f7aa094007e9",
+    "branchesWithPath": []
+  },
+  {
+    "path": "_before_true_glass_20260924-061812/projects.html",
+    "sha256": "8bc208249aab695015a7a7ce8905679ee7012e8586ef99daeeb96242006e7603",
+    "branchesWithPath": []
+  },
+  {
+    "path": "_safe_patch_backup_20260924-060626/games/3d-battle-chess/battle.js",
+    "sha256": "6715c7f20435a85375be74a44e6c04dc8b42009f0b1ab8fb4a8bd185f322738c",
+    "branchesWithPath": []
+  },
+  {
+    "path": "_safe_patch_backup_20260924-060626/games/3d-battle-chess/index.html",
+    "sha256": "06ea43512e56553f36ee818bfc0f1d9122513df199d43b455dc650139c6d4047",
+    "branchesWithPath": []
+  },
+  {
+    "path": "_safe_patch_backup_20260924-060626/games/3d-battle-chess/styles.css",
+    "sha256": "ccc6d4b1e7007e0fc5ad456ba24f40aa01d8fc691c1a7b9e720c6337574757f5",
+    "branchesWithPath": []
+  },
+  {
+    "path": "_safe_patch_backup_20260924-060626/games/evil-wizard/play.html",
+    "sha256": "74182fa975f9e3dff72d8d4bcc746b0baa06aae8f310525a1fe942a6d49aedda",
+    "branchesWithPath": []
+  },
+  {
+    "path": "_safe_patch_backup_20260924-060626/knowledge.css",
+    "sha256": "ab6fe7f2b9269ec9df2a163fdbab5faebbef4eda377598388837a02c37c02ed4",
+    "branchesWithPath": []
+  },
+  {
+    "path": "_safe_patch_backup_20260924-060626/learn.html",
+    "sha256": "97da360e44a21d2a9c29b5c082ba3f73808af9f8e2e77161cd7c831893a0be4a",
+    "branchesWithPath": []
+  },
+  {
+    "path": "_safe_patch_backup_20260924-060626/play-evil-wizard.html",
+    "sha256": "bfcf367eb25b496b8bc51dfc5805bc11ae5f58675e5c372a2a995ff3e7a3fc4a",
+    "branchesWithPath": []
+  },
+  {
+    "path": "_safe_patch_backup_20260924-060626/project-battle-chess.html",
+    "sha256": "c6051e4df96de0e7145dc7b6525ddf77a1f18851e55856c9d914912bf85fa409",
+    "branchesWithPath": []
+  },
+  {
+    "path": "_safe_patch_backup_20260924-060626/projects.html",
+    "sha256": "03633c2e7b6f274f2af2bc9bf68299948b1eae17e6bae14edcbb88b9599e39dc",
+    "branchesWithPath": []
+  },
+  {
+    "path": "_safe_patch_backup_20260924-060626/styles.css",
+    "sha256": "8e3f425b37d4a44f0324932581fe130a7ff1e5bd418e2cea689c15a73ab65f1b",
+    "branchesWithPath": []
+  },
+  {
+    "path": "agent-workbench.mjs",
+    "sha256": "581fd9f9f2c40e38c5a02df94ce9786e2cc27da2a430b9c214d2c55e50f4cad0",
+    "branchesWithPath": [
+      "origin/chore/preserve-battle-chess-v7",
+      "origin/deploy/osu-live-vnext-20260922",
+      "origin/feature/battle-chess-handheld-device-only",
+      "origin/feature/battle-chess-handheld-link",
+      "origin/feature/learning-depth-research-bridge",
+      "origin/fix/ci-navigation-cache-token-2026-09-23",
+      "origin/fix/cosmos-world-positioning",
+      "origin/fix/final-visual-qa",
+      "origin/fix/handheld-dock-theme",
+      "origin/fix/learning-depth-state-rendering",
+      "origin/fix/learning-platform-foundation-2026-09-23",
+      "origin/fix/mastery-home-page-scope",
+      "origin/fix/mobile-qubit-roadmap-cleanup",
+      "origin/fix/pin-green-osu-release-2026-09-23",
+      "origin/fix/pin-learning-depth-green-release",
+      "origin/fix/pin-validated-osu-release-2026-09-23",
+      "origin/fix/project-pager-cleanup-selector-2026-09-23",
+      "origin/fix/project-windows-node-sync-20260922",
+      "origin/fix/science-safe-overlay-host-only-game",
+      "origin/polish/learning-paths-compact",
+      "origin/release/final-project-portfolio-2026-09-22",
+      "origin/release/science-safe-osu-deploy",
+      "origin/repair/mobile-images-navigation-chess-20260922",
+      "origin/science-experiment-overhaul",
+      "origin/science-experiment-overhaul-v2",
+      "origin/site-v1-1-knowledge-sync",
+      "origin/site-vnext-foundations-20260922",
+      "origin/sync/battle-chess-immersive-v9",
+      "origin/test/learning-browser-regressions"
+    ]
+  },
+  {
+    "path": "assets/Recovery_Readiness_Auditor.zip",
+    "sha256": "8205c4c2b1102398c53d4de315522bb3b92ef154d0f4c40bf4d5da1a1647e1e9",
+    "branchesWithPath": []
+  },
+  {
+    "path": "assets/audio/README.txt",
+    "sha256": "4a66c2930fc8c810863fc281732fe8796e51908128c520900052235767006f10",
+    "branchesWithPath": []
+  },
+  {
+    "path": "assets/audio/beach-birds.mp3",
+    "sha256": "b44bebff290a7140d36bce16c78012f0a8f51ffd1865b885fbb3e502568741c1",
+    "branchesWithPath": []
+  },
+  {
+    "path": "assets/audio/beach-waves.mp3",
+    "sha256": "fd505dbd43cb1c3508f884279bf5d3e060bb14f2bc3d9b4cce334eb7a75b5d7f",
+    "branchesWithPath": []
+  },
+  {
+    "path": "assets/audio/beach.mp3",
+    "sha256": "28c937dfdd2b5fbabe542d6802f4aadbaa2b092576ab90813b12109e0ea189a3",
+    "branchesWithPath": []
+  },
+  {
+    "path": "assets/audio/dark-theme.mp3",
+    "sha256": "d8b2e11b03041ca1e8423f573a64b4c6eedb1b04b097644cefcadae647954cff",
+    "branchesWithPath": []
+  },
+  {
+    "path": "assets/audio/river.mp3",
+    "sha256": "292d85cdf026ac4f02a248006facbf94a21b609f805a3ea92c9ef9309b3c0978",
+    "branchesWithPath": []
+  },
+  {
+    "path": "assets/audio/waterfall.mp3",
+    "sha256": "685584b0df0f59da41fec8c14b04e3c639f0bad12cdb7a1ce5d5ee922907c30c",
+    "branchesWithPath": []
+  },
+  {
+    "path": "assets/fusion-presentation.mp4",
+    "sha256": "eefc852a3a5d12eeedf8a217fc2cb68d6d0476612ad4d8744a8e6febd99361e8",
+    "branchesWithPath": []
+  },
+  {
+    "path": "audio-diagnostic.html",
+    "sha256": "9d2c776ac2ae43fefadc5a6b30c28cd2b4cae172651c6884c8ab622c67b9293c",
+    "branchesWithPath": []
+  },
+  {
+    "path": "backup-20260923-1119/site-resilience.css",
+    "sha256": "77269147df98e6878683eff83e49b4acb46b91d7f6d37298e00e54dc1105bd82",
+    "branchesWithPath": []
+  },
+  {
+    "path": "backup-20260923-1119/site-resilience.js",
+    "sha256": "77a093cbb79f3aaa3a5ae4de858aa694f2d60785c0373a09655cea2ed1508751",
+    "branchesWithPath": []
+  },
+  {
+    "path": "backup-cosmos-20260923/index.html",
+    "sha256": "cbd100f850d61f98f6a2d8007d71351968800763b58c51a74a0cf26c6c825531",
+    "branchesWithPath": []
+  },
+  {
+    "path": "backup-cosmos-20260923/portfolio-next.css",
+    "sha256": "29da054dcc67fa6d7f26c3493577164fe7aaa0ed818bf678e4f9581396194e1a",
+    "branchesWithPath": []
+  },
+  {
+    "path": "backup-cosmos-20260923/portfolio-next.js",
+    "sha256": "047a63201ee33800a5c9925543a3b83f060a520f04299a31d97905072f6dd199",
+    "branchesWithPath": []
+  },
+  {
+    "path": "backup-cosmos-labels-20260923/index.html",
+    "sha256": "178ef284753a837bc75dddc1b9ea46c3910bc3e011584d0ed7e0b7eb3fa576f7",
+    "branchesWithPath": []
+  },
+  {
+    "path": "backup-cosmos-labels-20260923/portfolio-next.css",
+    "sha256": "17684a8d1391e654b1580d31812e87fc614ce3e0ac801ab743a796a00d76bffa",
+    "branchesWithPath": []
+  },
+  {
+    "path": "backup-cosmos-labels-20260923/portfolio-next.js",
+    "sha256": "4305a88226170c522e749aaed137cc46748c67a2258422f7298a6833b4c6112c",
+    "branchesWithPath": []
+  },
+  {
+    "path": "backup-theme-20260923/app.js",
+    "sha256": "599a2d4bc1dab942b85b427171a60a94ccad1381b9e77289a5c2204bba63654a",
+    "branchesWithPath": []
+  },
+  {
+    "path": "backup-theme-20260923/index.html",
+    "sha256": "1e6d630070d700b16e6d86613d0a720cbd87cf5c2ebb5f4f9a0f52f9ab32cd4e",
+    "branchesWithPath": []
+  },
+  {
+    "path": "backup-theme-20260923/portfolio-next.css",
+    "sha256": "2e0f5d825831793befaff15cbf214df8845285eb2084dc3686b5dfe267af57d5",
+    "branchesWithPath": []
+  },
+  {
+    "path": "backup-theme-20260923/portfolio-next.js",
+    "sha256": "160d6845b35688a896643e955364869733f2a6bdc18d02be629771fca434c390",
+    "branchesWithPath": []
+  },
+  {
+    "path": "build_data.py",
+    "sha256": "cdf6e7419ec353f44b06ae1f763f207fd45da7dff3bb6c30d89cda0732bef0e9",
+    "branchesWithPath": []
+  },
+  {
+    "path": "fusion-presentation.mp4",
+    "sha256": "eefc852a3a5d12eeedf8a217fc2cb68d6d0476612ad4d8744a8e6febd99361e8",
+    "branchesWithPath": []
+  },
+  {
+    "path": "games/3d-battle-chess-v8/combat-v8/animation-runtime.js",
+    "sha256": "f50f06818c1cf06049c7e5f342fee3e9631b93f650a35fff54deb6f7d030ba0e",
+    "branchesWithPath": []
+  },
+  {
+    "path": "games/3d-battle-chess-v8/combat-v8/attack-executor.js",
+    "sha256": "879dee6bb22cecf30dd5a2b1efe45caf576bdb5ea6a31741c89ad31074d0d287",
+    "branchesWithPath": []
+  },
+  {
+    "path": "games/3d-battle-chess-v8/combat-v8/attacks.js",
+    "sha256": "7c26b5151852c149a91bc91a7097fab14a4a26d385a45741ddaf9a07cac28f35",
+    "branchesWithPath": []
+  },
+  {
+    "path": "games/3d-battle-chess-v8/combat-v8/character-definitions.js",
+    "sha256": "488885ee9d1b625316959738c95db3ed226981bedeb9ca2293654d0c1a817a8e",
+    "branchesWithPath": []
+  },
+  {
+    "path": "games/3d-battle-chess-v8/combat-v8/character-factory.js",
+    "sha256": "9a33a663ff1ece5bf2a73c4e151e20e00a2227d2541ce585b4b6e6b7df58e390",
+    "branchesWithPath": []
+  },
+  {
+    "path": "games/3d-battle-chess-v8/combat-v8/character-visuals.js",
+    "sha256": "1575dd520ae9e4e0b436747bc5bb56a718e21ad60e3436aa08c111a9b5bc637a",
+    "branchesWithPath": []
+  },
+  {
+    "path": "games/3d-battle-chess-v8/combat-v8/choreography.js",
+    "sha256": "156d981a3b7ff8c6a0fab0afbaa5679c2a3d0626d83b06f65bad81f9a1cce766",
+    "branchesWithPath": []
+  },
+  {
+    "path": "games/3d-battle-chess-v8/combat-v8/collision.js",
+    "sha256": "61d2647eadfe979c987b999c45784c26bab835e3ef1a7a4185414d07d594068b",
+    "branchesWithPath": []
+  },
+  {
+    "path": "games/3d-battle-chess-v8/combat-v8/combat-director.js",
+    "sha256": "af4536764025a0cb361e8b70f9a794f8afcfc0cbf4cd0f6f3f32e37d46942c71",
+    "branchesWithPath": []
+  },
+  {
+    "path": "games/3d-battle-chess-v8/combat-v8/defeat-choreography.js",
+    "sha256": "9d9d80ac948b996038346e9b1f2c266d86975c6326b0f5bdd2be7ba2f00fa1d2",
+    "branchesWithPath": []
+  },
+  {
+    "path": "games/3d-battle-chess-v8/combat-v8/effects.js",
+    "sha256": "7a84f001202a989ebd48090dede064d3a0b2073f49419b2670c22db292de7d05",
+    "branchesWithPath": []
+  },
+  {
+    "path": "games/3d-battle-chess-v8/combat-v8/physics.js",
+    "sha256": "e0b2fdfba12b5cf6a964d3055816c1adda4cc2543505434e155a76b0c92fc2dd",
+    "branchesWithPath": []
+  },
+  {
+    "path": "games/3d-battle-chess-v8/combat-v8/reactions.js",
+    "sha256": "31a3ec60002b2783a0e75ca1001e2bd9df767ba38d9e9e5c0eb5fb03f30e5038",
+    "branchesWithPath": []
+  },
+  {
+    "path": "games/3d-battle-chess-v8/combat-v8/rig-types.js",
+    "sha256": "495aaa6baa866f1cb360193579d2296ad6c34b20bfa5a47aff1c18b277d34f8e",
+    "branchesWithPath": []
+  },
+  {
+    "path": "games/3d-battle-chess-v8/index.html",
+    "sha256": "0473006bfa4d427ad7feb864d39c48e0c2995267c9af89521a4872ccae498f92",
+    "branchesWithPath": []
+  },
+  {
+    "path": "games/3d-battle-chess-v8/pieces.js",
+    "sha256": "c85f824b464639b365644c0f183a2c7d976f71fea19b43d3f0de2d43dbd5a3cc",
+    "branchesWithPath": []
+  },
+  {
+    "path": "games/3d-battle-chess-v8/v8-preview.css",
+    "sha256": "3a6bb2e36ac223b8508dfba72527c393ad4780df44ff5e952fe18628b44fb643",
+    "branchesWithPath": []
+  },
+  {
+    "path": "games/3d-battle-chess-v8/v8-preview.js",
+    "sha256": "7ea35e5a188a78becef5c607d56dddbd67fea6200eb72958f791df41ed4ad28c",
+    "branchesWithPath": []
+  },
+  {
+    "path": "games/3d-battle-chess/_before_2d3d_fix_20260924-064833/battle.js",
+    "sha256": "6715c7f20435a85375be74a44e6c04dc8b42009f0b1ab8fb4a8bd185f322738c",
+    "branchesWithPath": []
+  },
+  {
+    "path": "games/3d-battle-chess/_before_2d3d_fix_20260924-064833/index.html",
+    "sha256": "07e5203fef8e8e40cc72e87b15b8fd3a59631975eef5afc1fcd70f94d0871e0b",
+    "branchesWithPath": []
+  },
+  {
+    "path": "games/3d-battle-chess/_before_2d3d_fix_20260924-064922/battle.js",
+    "sha256": "6715c7f20435a85375be74a44e6c04dc8b42009f0b1ab8fb4a8bd185f322738c",
+    "branchesWithPath": []
+  },
+  {
+    "path": "games/3d-battle-chess/_before_2d3d_fix_20260924-064922/index.html",
+    "sha256": "07e5203fef8e8e40cc72e87b15b8fd3a59631975eef5afc1fcd70f94d0871e0b",
+    "branchesWithPath": []
+  },
+  {
+    "path": "games/3d-battle-chess/battle.js.bak",
+    "sha256": "6715c7f20435a85375be74a44e6c04dc8b42009f0b1ab8fb4a8bd185f322738c",
+    "branchesWithPath": []
+  },
+  {
+    "path": "games/3d-battle-chess/index.before-navigation.html",
+    "sha256": "308c766c0b66510e9773cf23257d1806188fb9b5e2aa107840b622646c488f2e",
+    "branchesWithPath": []
+  },
+  {
+    "path": "games/3d-battle-chess/index.html.bak",
+    "sha256": "06ea43512e56553f36ee818bfc0f1d9122513df199d43b455dc650139c6d4047",
+    "branchesWithPath": []
+  },
+  {
+    "path": "games/3d-battle-chess/shared-game.js",
+    "sha256": "3c63c3b2dd45572dd99a70397b53785c3132522a0f8c3f0be85f649a2a61ca99",
+    "branchesWithPath": []
+  },
+  {
+    "path": "games/3d-battle-chess/styles.before-navigation.css",
+    "sha256": "ccc6d4b1e7007e0fc5ad456ba24f40aa01d8fc691c1a7b9e720c6337574757f5",
+    "branchesWithPath": []
+  },
+  {
+    "path": "games/evil-wizard-adaptive-preview-v23/console-champions.js",
+    "sha256": "31d694db15860eec8ffae24233b3aa6761c4090e5af58db829be171437624fdb",
+    "branchesWithPath": []
+  },
+  {
+    "path": "games/evil-wizard-adaptive-preview-v23/console.html",
+    "sha256": "1e03b0de241d0dd5f20aa065a6e688d848574a9cf8fd34673d90a413c7b9c8cf",
+    "branchesWithPath": []
+  },
+  {
+    "path": "games/evil-wizard-adaptive-preview-v23/index.apple-touch-icon.png",
+    "sha256": "01d4f63e525941e06ce74f5187dad030d20a8d52a07ce365ae4e94af97a3b1f5",
+    "branchesWithPath": []
+  },
+  {
+    "path": "games/evil-wizard-adaptive-preview-v23/index.audio.position.worklet.js",
+    "sha256": "be33985bc7160d6bf9646f259cd86b259cd67b02ccb297ee5c44f8ac84327bc8",
+    "branchesWithPath": []
+  },
+  {
+    "path": "games/evil-wizard-adaptive-preview-v23/index.audio.worklet.js",
+    "sha256": "5b476a9c9ce642c0ee4256436d1bc31d9c38f868aca0f9a8e2a57c18d2dec2a3",
+    "branchesWithPath": []
+  },
+  {
+    "path": "games/evil-wizard-adaptive-preview-v23/index.html",
+    "sha256": "802f5df75b7c1c27e93cdb4a91f3edf31f5c1c19e3d6277bd95710f42cf7be55",
+    "branchesWithPath": []
+  },
+  {
+    "path": "games/evil-wizard-adaptive-preview-v23/index.icon.png",
+    "sha256": "ad3c35ad0facf487c618204bd98db543034fc95224eadc7f08c7a9ff38d5b3b5",
+    "branchesWithPath": []
+  },
+  {
+    "path": "games/evil-wizard-adaptive-preview-v23/index.js",
+    "sha256": "33c94cb3175f3333b82e2a3be5e8e86f77986f0aa2042b1631f6367a4e5bb6ba",
+    "branchesWithPath": []
+  },
+  {
+    "path": "games/evil-wizard-adaptive-preview-v23/index.pck",
+    "sha256": "aaf7dd79b59d397db1fdca6c01090423b6a78485f22972f755312fb181690dc4",
+    "branchesWithPath": []
+  },
+  {
+    "path": "games/evil-wizard-adaptive-preview-v23/index.png",
+    "sha256": "3cb4495c0b98dfbe4b663cbf2b6836473572339beb66d902367893162a70be0e",
+    "branchesWithPath": []
+  },
+  {
+    "path": "games/evil-wizard-adaptive-preview-v23/index.wasm",
+    "sha256": "fc74679e3b97f76878947fcd4fbe1268cbfa6188182a2e33bbc3f5dc9bfa57d0",
+    "branchesWithPath": []
+  },
+  {
+    "path": "games/evil-wizard-adaptive-preview-v23/play.html",
+    "sha256": "9f7166ece383a59cf67d25528fd342c3ef6b83de312522b8601bde445b2a5094",
+    "branchesWithPath": []
+  },
+  {
+    "path": "games/evil-wizard-console-20260922/console-champions.js",
+    "sha256": "1ef8ef8f32dafb28aac094b7f16e41ec6792ab212f54ead3ab4cdfafe2bfea5a",
+    "branchesWithPath": []
+  },
+  {
+    "path": "games/evil-wizard-console-20260922/console.html",
+    "sha256": "0ed86a8c81d53edab5504b170b5894115cdc297008e86d820a4806d2ffa5d603",
+    "branchesWithPath": []
+  },
+  {
+    "path": "games/evil-wizard-console-20260922/index.apple-touch-icon.png",
+    "sha256": "01d4f63e525941e06ce74f5187dad030d20a8d52a07ce365ae4e94af97a3b1f5",
+    "branchesWithPath": []
+  },
+  {
+    "path": "games/evil-wizard-console-20260922/index.audio.position.worklet.js",
+    "sha256": "be33985bc7160d6bf9646f259cd86b259cd67b02ccb297ee5c44f8ac84327bc8",
+    "branchesWithPath": []
+  },
+  {
+    "path": "games/evil-wizard-console-20260922/index.audio.worklet.js",
+    "sha256": "5b476a9c9ce642c0ee4256436d1bc31d9c38f868aca0f9a8e2a57c18d2dec2a3",
+    "branchesWithPath": []
+  },
+  {
+    "path": "games/evil-wizard-console-20260922/index.html",
+    "sha256": "3c91d7e073d1415cf085bce9b284d700f9d124d8974d8354d5e7f9cb9625aad6",
+    "branchesWithPath": []
+  },
+  {
+    "path": "games/evil-wizard-console-20260922/index.icon.png",
+    "sha256": "ad3c35ad0facf487c618204bd98db543034fc95224eadc7f08c7a9ff38d5b3b5",
+    "branchesWithPath": []
+  },
+  {
+    "path": "games/evil-wizard-console-20260922/index.js",
+    "sha256": "33c94cb3175f3333b82e2a3be5e8e86f77986f0aa2042b1631f6367a4e5bb6ba",
+    "branchesWithPath": []
+  },
+  {
+    "path": "games/evil-wizard-console-20260922/index.pck",
+    "sha256": "7c64ab80db32f6f0fa93893b11b0e58a0506ee8f7a9d838bd587e225bd2c3940",
+    "branchesWithPath": []
+  },
+  {
+    "path": "games/evil-wizard-console-20260922/index.png",
+    "sha256": "3cb4495c0b98dfbe4b663cbf2b6836473572339beb66d902367893162a70be0e",
+    "branchesWithPath": []
+  },
+  {
+    "path": "games/evil-wizard-console-20260922/index.wasm",
+    "sha256": "fc74679e3b97f76878947fcd4fbe1268cbfa6188182a2e33bbc3f5dc9bfa57d0",
+    "branchesWithPath": []
+  },
+  {
+    "path": "games/evil-wizard-preview-20260922-163345/console-champions.js",
+    "sha256": "31d694db15860eec8ffae24233b3aa6761c4090e5af58db829be171437624fdb",
+    "branchesWithPath": []
+  },
+  {
+    "path": "games/evil-wizard-preview-20260922-163345/console.html",
+    "sha256": "0ed86a8c81d53edab5504b170b5894115cdc297008e86d820a4806d2ffa5d603",
+    "branchesWithPath": []
+  },
+  {
+    "path": "games/evil-wizard-preview-20260922-163345/index.apple-touch-icon.png",
+    "sha256": "01d4f63e525941e06ce74f5187dad030d20a8d52a07ce365ae4e94af97a3b1f5",
+    "branchesWithPath": []
+  },
+  {
+    "path": "games/evil-wizard-preview-20260922-163345/index.audio.position.worklet.js",
+    "sha256": "be33985bc7160d6bf9646f259cd86b259cd67b02ccb297ee5c44f8ac84327bc8",
+    "branchesWithPath": []
+  },
+  {
+    "path": "games/evil-wizard-preview-20260922-163345/index.audio.worklet.js",
+    "sha256": "5b476a9c9ce642c0ee4256436d1bc31d9c38f868aca0f9a8e2a57c18d2dec2a3",
+    "branchesWithPath": []
+  },
+  {
+    "path": "games/evil-wizard-preview-20260922-163345/index.html",
+    "sha256": "6fb638baaa05709130bc8d9b18ea8f5cfd6f7003dc383e655c1b1421e166a763",
+    "branchesWithPath": []
+  },
+  {
+    "path": "games/evil-wizard-preview-20260922-163345/index.icon.png",
+    "sha256": "ad3c35ad0facf487c618204bd98db543034fc95224eadc7f08c7a9ff38d5b3b5",
+    "branchesWithPath": []
+  },
+  {
+    "path": "games/evil-wizard-preview-20260922-163345/index.js",
+    "sha256": "33c94cb3175f3333b82e2a3be5e8e86f77986f0aa2042b1631f6367a4e5bb6ba",
+    "branchesWithPath": []
+  },
+  {
+    "path": "games/evil-wizard-preview-20260922-163345/index.pck",
+    "sha256": "88d84fee9950ce24cb2b22622f23189b122bbf59f030e0230ae5f20c01d4923c",
+    "branchesWithPath": []
+  },
+  {
+    "path": "games/evil-wizard-preview-20260922-163345/index.png",
+    "sha256": "3cb4495c0b98dfbe4b663cbf2b6836473572339beb66d902367893162a70be0e",
+    "branchesWithPath": []
+  },
+  {
+    "path": "games/evil-wizard-preview-20260922-163345/index.wasm",
+    "sha256": "fc74679e3b97f76878947fcd4fbe1268cbfa6188182a2e33bbc3f5dc9bfa57d0",
+    "branchesWithPath": []
+  },
+  {
+    "path": "games/evil-wizard/.htaccess",
+    "sha256": "092929636313b35dfc5f1fae97a59aad91f7bec44971997a0a8e74921b1bed25",
+    "branchesWithPath": []
+  },
+  {
+    "path": "games/evil-wizard/console-champions.js",
+    "sha256": "b3fc5fba19f1ea579f5c3e59d9152cef38d8168ef0cc30d7d4ea8ba9b97d6138",
+    "branchesWithPath": []
+  },
+  {
+    "path": "games/evil-wizard/console.html",
+    "sha256": "3267ca05361444d359b150e88dcad5db6605a988e91bba50d876712099a5f359",
+    "branchesWithPath": []
+  },
+  {
+    "path": "games/evil-wizard/index.apple-touch-icon.png",
+    "sha256": "01d4f63e525941e06ce74f5187dad030d20a8d52a07ce365ae4e94af97a3b1f5",
+    "branchesWithPath": []
+  },
+  {
+    "path": "games/evil-wizard/index.audio.position.worklet.js",
+    "sha256": "be33985bc7160d6bf9646f259cd86b259cd67b02ccb297ee5c44f8ac84327bc8",
+    "branchesWithPath": []
+  },
+  {
+    "path": "games/evil-wizard/index.audio.worklet.js",
+    "sha256": "5b476a9c9ce642c0ee4256436d1bc31d9c38f868aca0f9a8e2a57c18d2dec2a3",
+    "branchesWithPath": []
+  },
+  {
+    "path": "games/evil-wizard/index.html",
+    "sha256": "9cc6e2fdddf17e095751162ed1c41e1927f84ceb456cd69b2613441962b59906",
+    "branchesWithPath": []
+  },
+  {
+    "path": "games/evil-wizard/index.icon.png",
+    "sha256": "ad3c35ad0facf487c618204bd98db543034fc95224eadc7f08c7a9ff38d5b3b5",
+    "branchesWithPath": []
+  },
+  {
+    "path": "games/evil-wizard/index.js",
+    "sha256": "33c94cb3175f3333b82e2a3be5e8e86f77986f0aa2042b1631f6367a4e5bb6ba",
+    "branchesWithPath": []
+  },
+  {
+    "path": "games/evil-wizard/index.pck",
+    "sha256": "ad3ca9d384f87565bc792945aa884dd20c6f2a84782257939f7a5fc756026588",
+    "branchesWithPath": []
+  },
+  {
+    "path": "games/evil-wizard/index.png",
+    "sha256": "3cb4495c0b98dfbe4b663cbf2b6836473572339beb66d902367893162a70be0e",
+    "branchesWithPath": []
+  },
+  {
+    "path": "games/evil-wizard/index.wasm",
+    "sha256": "fc74679e3b97f76878947fcd4fbe1268cbfa6188182a2e33bbc3f5dc9bfa57d0",
+    "branchesWithPath": []
+  },
+  {
+    "path": "games/evil-wizard/play.html",
+    "sha256": "b59d7b932b4402c9ff17a6189355d5c7aa7ba5a4466684e3ace1d62c4bbbe5ed",
+    "branchesWithPath": []
+  },
+  {
+    "path": "header-cleanup.css",
+    "sha256": "30df82dca6ac86489c365cc18146ddf9eead7a9172fe575c5786b9634d593f59",
+    "branchesWithPath": [
+      "origin/fix/live-chess-toggle-learn-font"
+    ]
+  },
+  {
+    "path": "joshua-randall.jpg",
+    "sha256": "7887b098ca27e1ec77238381526fe042dc8ef1efe0d7a1d8519cced93e9dc8aa",
+    "branchesWithPath": []
+  },
+  {
+    "path": "knowledge.js.bak",
+    "sha256": "e8196e1783981be83faf339afd74ac4df3df54441a9b2ac9040c274e9341e632",
+    "branchesWithPath": []
+  },
+  {
+    "path": "labs/emergent.mjs",
+    "sha256": "d17428421d6e23f78d6851fb6a2e22a883b9403312da21c1efdf1e1a4fec891a",
+    "branchesWithPath": [
+      "origin/chore/preserve-battle-chess-v7",
+      "origin/deploy/osu-live-vnext-20260922",
+      "origin/feature/battle-chess-handheld-device-only",
+      "origin/feature/battle-chess-handheld-link",
+      "origin/feature/learning-depth-research-bridge",
+      "origin/fix/ci-navigation-cache-token-2026-09-23",
+      "origin/fix/cosmos-world-positioning",
+      "origin/fix/final-visual-qa",
+      "origin/fix/handheld-dock-theme",
+      "origin/fix/learning-depth-state-rendering",
+      "origin/fix/learning-platform-foundation-2026-09-23",
+      "origin/fix/mastery-home-page-scope",
+      "origin/fix/mobile-qubit-roadmap-cleanup",
+      "origin/fix/pin-green-osu-release-2026-09-23",
+      "origin/fix/pin-learning-depth-green-release",
+      "origin/fix/pin-validated-osu-release-2026-09-23",
+      "origin/fix/project-pager-cleanup-selector-2026-09-23",
+      "origin/fix/project-windows-node-sync-20260922",
+      "origin/fix/science-safe-overlay-host-only-game",
+      "origin/polish/learning-paths-compact",
+      "origin/release/final-project-portfolio-2026-09-22",
+      "origin/release/science-safe-osu-deploy",
+      "origin/repair/mobile-images-navigation-chess-20260922",
+      "origin/science-experiment-overhaul",
+      "origin/science-experiment-overhaul-v2",
+      "origin/site-v1-1-knowledge-sync",
+      "origin/site-vnext-foundations-20260922",
+      "origin/sync/battle-chess-immersive-v9",
+      "origin/test/learning-browser-regressions"
+    ]
+  },
+  {
+    "path": "labs/qpe.mjs",
+    "sha256": "f230626678a14ff26b45578a8f1c3b379cdb48992416616cfe3a5ebd2b870a4d",
+    "branchesWithPath": [
+      "origin/chore/preserve-battle-chess-v7",
+      "origin/deploy/osu-live-vnext-20260922",
+      "origin/feature/battle-chess-handheld-device-only",
+      "origin/feature/battle-chess-handheld-link",
+      "origin/feature/learning-depth-research-bridge",
+      "origin/fix/ci-navigation-cache-token-2026-09-23",
+      "origin/fix/cosmos-world-positioning",
+      "origin/fix/final-visual-qa",
+      "origin/fix/handheld-dock-theme",
+      "origin/fix/learning-depth-state-rendering",
+      "origin/fix/learning-platform-foundation-2026-09-23",
+      "origin/fix/mastery-home-page-scope",
+      "origin/fix/mobile-qubit-roadmap-cleanup",
+      "origin/fix/pin-green-osu-release-2026-09-23",
+      "origin/fix/pin-learning-depth-green-release",
+      "origin/fix/pin-validated-osu-release-2026-09-23",
+      "origin/fix/project-pager-cleanup-selector-2026-09-23",
+      "origin/fix/project-windows-node-sync-20260922",
+      "origin/fix/science-safe-overlay-host-only-game",
+      "origin/polish/learning-paths-compact",
+      "origin/release/final-project-portfolio-2026-09-22",
+      "origin/release/science-safe-osu-deploy",
+      "origin/repair/mobile-images-navigation-chess-20260922",
+      "origin/science-experiment-overhaul",
+      "origin/science-experiment-overhaul-v2",
+      "origin/site-v1-1-knowledge-sync",
+      "origin/site-vnext-foundations-20260922",
+      "origin/sync/battle-chess-immersive-v9",
+      "origin/test/learning-browser-regressions"
+    ]
+  },
+  {
+    "path": "learn-brand.css",
+    "sha256": "07c6818d7a25782436201d563bd3b24dc206560daf4f619ecb3ea6a97a5c8e45",
+    "branchesWithPath": [
+      "origin/fix/live-chess-toggle-learn-font"
+    ]
+  },
+  {
+    "path": "learn.html.bak",
+    "sha256": "de6a15dfa3c7f7e60fc21f970016f13acf8c6556b15e57a8031ce0f5049f3d26",
+    "branchesWithPath": []
+  },
+  {
+    "path": "learn.html.before-header-type-20260924-062338",
+    "sha256": "a08f0d33b709e6a88c57e6eae9d4717fa5be252e8ec03fca85cc191a03916b92",
+    "branchesWithPath": []
+  },
+  {
+    "path": "learning-depth.js.bak",
+    "sha256": "aba97dca8539982ddd9f62a366757585366c46afeff173af00680ec8dc4ed414",
+    "branchesWithPath": []
+  },
+  {
+    "path": "lesson-header-controls.js",
+    "sha256": "37b5d1103e6d4a6116f7bd2206117e8c902fd0340102fd56e53283a85a571c15",
+    "branchesWithPath": [
+      "origin/fix/live-chess-toggle-learn-font"
+    ]
+  },
+  {
+    "path": "osu-logo.png",
+    "sha256": "c3fa4511073c80ddd4b10a567719b4860cacfd98a462080e6792b8050f47279f",
+    "branchesWithPath": []
+  },
+  {
+    "path": "project-battle-chess.html.before-clear-glass-20260924-062614",
+    "sha256": "ee23f9ed6844b9d142c7b81125b2bd4bb464bf596fb87b94ac745f777eb61806",
+    "branchesWithPath": []
+  },
+  {
+    "path": "projects-before-battle-chess.html",
+    "sha256": "cbcb53cb25b9a514189700eaeae2f5cb73ccc200742c13261e59548b529881d5",
+    "branchesWithPath": []
+  },
+  {
+    "path": "projects-before-chess-source.html",
+    "sha256": "1b46e79675c90fbeb8232278a18019dc83a69513658e5f42476cab1cb3c8f3b5",
+    "branchesWithPath": []
+  },
+  {
+    "path": "projects-before-source-arrow.html",
+    "sha256": "d76d06dd4649681c7677ce54ddfef6588d4e884fa2939ab2ad6ca46d81775ba7",
+    "branchesWithPath": []
+  },
+  {
+    "path": "projects-qubit-backup-20260921-224301.html",
+    "sha256": "73eb149ead6793f864327db3ed28553b9d582b003e8a8833f4313ac1f37f618e",
+    "branchesWithPath": []
+  },
+  {
+    "path": "projects.backup-before-game-20260913-110537.html",
+    "sha256": "7ff4baa013424683be3c80ddc1a4ab02c1be909f047d7797176c9dc49313b3c7",
+    "branchesWithPath": []
+  },
+  {
+    "path": "projects.backup-before-web-game-20260913-114339.html",
+    "sha256": "09496d911a75ae2d6c69ffbcf212beb695f5f4714e8d0bc6bc6116d21d2796a9",
+    "branchesWithPath": []
+  }
+]

@@ -1,0 +1,107 @@
+[
+  {
+    "tree": "live",
+    "file": "audio-diagnostic.html",
+    "line": 39,
+    "type": "literal-backslash-n-candidate",
+    "excerpt": "function write(s,cls=''){lines.push(s);log.textContent=lines.join('\\n');}"
+  },
+  {
+    "tree": "live",
+    "file": "projects-qubit-backup-20260921-224301.html",
+    "line": 1,
+    "type": "encoding-candidate",
+    "excerpt": "><div class=\"card-bottom\"><span class=\"status\">Playable browser build Â· v2.0.2</span><a href=\"play-evil-wizard.html\">Play in browser â†—</a><a href=\"https://github.com/joshprandall/Defeat-the-Evil-Wizard\" target=\"_blank\" rel=\"noopener noreferrer\">Source â†—</a></div></article></div></section><secti"
+  },
+  {
+    "tree": "live",
+    "file": "index.html",
+    "line": 27,
+    "type": "literal-backslash-n-candidate",
+    "excerpt": "<script defer src=\"site-scenes.js?v=20260925-header-sound-v25\"></script>\\n<script defer src=\"site-sound-control.js?v=20260925-header-sound-v25\"></script>"
+  },
+  {
+    "tree": "live",
+    "file": "games/evil-wizard-preview-20260922-163345/index.html",
+    "line": 145,
+    "type": "literal-backslash-n-candidate",
+    "excerpt": "\t\tconst lines = text.split('\\n');"
+  },
+  {
+    "tree": "live",
+    "file": "games/evil-wizard-preview-20260922-163345/index.html",
+    "line": 197,
+    "type": "literal-backslash-n-candidate",
+    "excerpt": "\t\t\tconst missingMsg = 'Error\\nThe following features required to run Godot projects on the Web are missing:\\n';"
+  },
+  {
+    "tree": "live",
+    "file": "games/evil-wizard-preview-20260922-163345/index.html",
+    "line": 198,
+    "type": "literal-backslash-n-candidate",
+    "excerpt": "\t\t\tdisplayFailureNotice(missingMsg + missing.join('\\n'));"
+  },
+  {
+    "tree": "live",
+    "file": "games/evil-wizard/index.html",
+    "line": 145,
+    "type": "literal-backslash-n-candidate",
+    "excerpt": "\t\tconst lines = text.split('\\n');"
+  },
+  {
+    "tree": "live",
+    "file": "games/evil-wizard/index.html",
+    "line": 197,
+    "type": "literal-backslash-n-candidate",
+    "excerpt": "\t\t\tconst missingMsg = 'Error\\nThe following features required to run Godot projects on the Web are missing:\\n';"
+  },
+  {
+    "tree": "live",
+    "file": "games/evil-wizard/index.html",
+    "line": 198,
+    "type": "literal-backslash-n-candidate",
+    "excerpt": "\t\t\tdisplayFailureNotice(missingMsg + missing.join('\\n'));"
+  },
+  {
+    "tree": "live",
+    "file": "games/evil-wizard-console-20260922/index.html",
+    "line": 145,
+    "type": "literal-backslash-n-candidate",
+    "excerpt": "\t\tconst lines = text.split('\\n');"
+  },
+  {
+    "tree": "live",
+    "file": "games/evil-wizard-console-20260922/index.html",
+    "line": 197,
+    "type": "literal-backslash-n-candidate",
+    "excerpt": "\t\t\tconst missingMsg = 'Error\\nThe following features required to run Godot projects on the Web are missing:\\n';"
+  },
+  {
+    "tree": "live",
+    "file": "games/evil-wizard-console-20260922/index.html",
+    "line": 198,
+    "type": "literal-backslash-n-candidate",
+    "excerpt": "\t\t\tdisplayFailureNotice(missingMsg + missing.join('\\n'));"
+  },
+  {
+    "tree": "live",
+    "file": "games/evil-wizard-adaptive-preview-v23/index.html",
+    "line": 145,
+    "type": "literal-backslash-n-candidate",
+    "excerpt": "\t\tconst lines = text.split('\\n');"
+  },
+  {
+    "tree": "live",
+    "file": "games/evil-wizard-adaptive-preview-v23/index.html",
+    "line": 197,
+    "type": "literal-backslash-n-candidate",
+    "excerpt": "\t\t\tconst missingMsg = 'Error\\nThe following features required to run Godot projects on the Web are missing:\\n';"
+  },
+  {
+    "tree": "live",
+    "file": "games/evil-wizard-adaptive-preview-v23/index.html",
+    "line": 198,
+    "type": "literal-backslash-n-candidate",
+    "excerpt": "\t\t\tdisplayFailureNotice(missingMsg + missing.join('\\n'));"
+  }
+]

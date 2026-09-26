@@ -1,0 +1,763 @@
+{
+  "syntax": [
+    {
+      "tree": "repository",
+      "path": "agent-workbench.js",
+      "passed": true
+    },
+    {
+      "tree": "repository",
+      "path": "app.js",
+      "passed": true
+    },
+    {
+      "tree": "repository",
+      "path": "dark-music.js",
+      "passed": true
+    },
+    {
+      "tree": "repository",
+      "path": "games/3d-battle-chess/attacks.js",
+      "passed": true
+    },
+    {
+      "tree": "repository",
+      "path": "games/3d-battle-chess/audio.js",
+      "passed": true
+    },
+    {
+      "tree": "repository",
+      "path": "games/3d-battle-chess/battle.js",
+      "passed": true
+    },
+    {
+      "tree": "repository",
+      "path": "games/3d-battle-chess/boot.js",
+      "passed": true
+    },
+    {
+      "tree": "repository",
+      "path": "games/3d-battle-chess/castle-controls.js",
+      "passed": true
+    },
+    {
+      "tree": "repository",
+      "path": "games/3d-battle-chess/characters.js",
+      "passed": true
+    },
+    {
+      "tree": "repository",
+      "path": "games/3d-battle-chess/combat-physics.js",
+      "passed": true
+    },
+    {
+      "tree": "repository",
+      "path": "games/3d-battle-chess/combat-v8/animation-runtime.js",
+      "passed": true
+    },
+    {
+      "tree": "repository",
+      "path": "games/3d-battle-chess/combat-v8/attack-executor.js",
+      "passed": true
+    },
+    {
+      "tree": "repository",
+      "path": "games/3d-battle-chess/combat-v8/attacks.js",
+      "passed": true
+    },
+    {
+      "tree": "repository",
+      "path": "games/3d-battle-chess/combat-v8/character-definitions.js",
+      "passed": true
+    },
+    {
+      "tree": "repository",
+      "path": "games/3d-battle-chess/combat-v8/character-factory.js",
+      "passed": true
+    },
+    {
+      "tree": "repository",
+      "path": "games/3d-battle-chess/combat-v8/character-visuals.js",
+      "passed": true
+    },
+    {
+      "tree": "repository",
+      "path": "games/3d-battle-chess/combat-v8/choreography.js",
+      "passed": true
+    },
+    {
+      "tree": "repository",
+      "path": "games/3d-battle-chess/combat-v8/collision.js",
+      "passed": true
+    },
+    {
+      "tree": "repository",
+      "path": "games/3d-battle-chess/combat-v8/combat-director.js",
+      "passed": true
+    },
+    {
+      "tree": "repository",
+      "path": "games/3d-battle-chess/combat-v8/defeat-choreography.js",
+      "passed": true
+    },
+    {
+      "tree": "repository",
+      "path": "games/3d-battle-chess/combat-v8/effects.js",
+      "passed": true
+    },
+    {
+      "tree": "repository",
+      "path": "games/3d-battle-chess/combat-v8/physics.js",
+      "passed": true
+    },
+    {
+      "tree": "repository",
+      "path": "games/3d-battle-chess/combat-v8/reactions.js",
+      "passed": true
+    },
+    {
+      "tree": "repository",
+      "path": "games/3d-battle-chess/combat-v8/rig-types.js",
+      "passed": true
+    },
+    {
+      "tree": "repository",
+      "path": "games/3d-battle-chess/combatants-v6.js",
+      "passed": true
+    },
+    {
+      "tree": "repository",
+      "path": "games/3d-battle-chess/combatants.js",
+      "passed": true
+    },
+    {
+      "tree": "repository",
+      "path": "games/3d-battle-chess/duels-physics.js",
+      "passed": true
+    },
+    {
+      "tree": "repository",
+      "path": "games/3d-battle-chess/duels-v6.js",
+      "passed": true
+    },
+    {
+      "tree": "repository",
+      "path": "games/3d-battle-chess/duels-v8.js",
+      "passed": true
+    },
+    {
+      "tree": "repository",
+      "path": "games/3d-battle-chess/duels.js",
+      "passed": true
+    },
+    {
+      "tree": "repository",
+      "path": "games/3d-battle-chess/engine.js",
+      "passed": true
+    },
+    {
+      "tree": "repository",
+      "path": "games/3d-battle-chess/fallback-board.js",
+      "passed": true
+    },
+    {
+      "tree": "repository",
+      "path": "games/3d-battle-chess/pieces.js",
+      "passed": true
+    },
+    {
+      "tree": "repository",
+      "path": "games/battle-chess/arena.js",
+      "passed": true
+    },
+    {
+      "tree": "repository",
+      "path": "geometric-lab/app.js",
+      "passed": true
+    },
+    {
+      "tree": "repository",
+      "path": "geometric-lab/benchmarks.js",
+      "passed": true
+    },
+    {
+      "tree": "repository",
+      "path": "geometric-lab/math.js",
+      "passed": true
+    },
+    {
+      "tree": "repository",
+      "path": "geometric-lab/worker.js",
+      "passed": true
+    },
+    {
+      "tree": "repository",
+      "path": "handheld-experience.js",
+      "passed": true
+    },
+    {
+      "tree": "repository",
+      "path": "knowledge.js",
+      "passed": true
+    },
+    {
+      "tree": "repository",
+      "path": "labs/emergent.js",
+      "passed": true
+    },
+    {
+      "tree": "repository",
+      "path": "labs/qpe.js",
+      "passed": true
+    },
+    {
+      "tree": "repository",
+      "path": "learning-capstones.js",
+      "passed": true
+    },
+    {
+      "tree": "repository",
+      "path": "learning-depth.js",
+      "passed": true
+    },
+    {
+      "tree": "repository",
+      "path": "learning-next.js",
+      "passed": true
+    },
+    {
+      "tree": "repository",
+      "path": "portfolio-next.js",
+      "passed": true
+    },
+    {
+      "tree": "repository",
+      "path": "quantum-cube.js",
+      "passed": true
+    },
+    {
+      "tree": "repository",
+      "path": "qubit-preview-20260921/app.js",
+      "passed": true
+    },
+    {
+      "tree": "repository",
+      "path": "qubit-preview-20260921/qubit.js",
+      "passed": true
+    },
+    {
+      "tree": "repository",
+      "path": "science-experiments.js",
+      "passed": true
+    },
+    {
+      "tree": "repository",
+      "path": "site-audio.js",
+      "passed": true
+    },
+    {
+      "tree": "repository",
+      "path": "site-repair/site-resilience.js",
+      "passed": true
+    },
+    {
+      "tree": "repository",
+      "path": "site-resilience.js",
+      "passed": true
+    },
+    {
+      "tree": "repository",
+      "path": "site-scenes.js",
+      "passed": true
+    },
+    {
+      "tree": "repository",
+      "path": "site-sound-control.js",
+      "passed": true
+    },
+    {
+      "tree": "repository",
+      "path": "site-theme.js",
+      "passed": true
+    },
+    {
+      "tree": "repository",
+      "path": "tests/appearance.test.cjs",
+      "passed": true
+    },
+    {
+      "tree": "repository",
+      "path": "tests/browser.test.cjs",
+      "passed": true
+    },
+    {
+      "tree": "repository",
+      "path": "tests/site.test.mjs",
+      "passed": true
+    },
+    {
+      "tree": "live",
+      "path": "agent-workbench.js",
+      "passed": true
+    },
+    {
+      "tree": "live",
+      "path": "labs/emergent.js",
+      "passed": true
+    },
+    {
+      "tree": "live",
+      "path": "labs/qpe.mjs",
+      "passed": true
+    },
+    {
+      "tree": "live",
+      "path": "labs/emergent.mjs",
+      "passed": true
+    },
+    {
+      "tree": "live",
+      "path": "labs/qpe.js",
+      "passed": true
+    },
+    {
+      "tree": "live",
+      "path": "learning-next.js",
+      "passed": true
+    },
+    {
+      "tree": "live",
+      "path": "science-experiments.js",
+      "passed": true
+    },
+    {
+      "tree": "live",
+      "path": "portfolio-next.js",
+      "passed": true
+    },
+    {
+      "tree": "live",
+      "path": "agent-workbench.mjs",
+      "passed": true
+    },
+    {
+      "tree": "live",
+      "path": "dark-music.js",
+      "passed": true
+    },
+    {
+      "tree": "live",
+      "path": "app.js",
+      "passed": true
+    },
+    {
+      "tree": "live",
+      "path": "knowledge.js",
+      "passed": true
+    },
+    {
+      "tree": "live",
+      "path": "games/evil-wizard-preview-20260922-163345/index.audio.worklet.js",
+      "passed": true
+    },
+    {
+      "tree": "live",
+      "path": "games/evil-wizard-preview-20260922-163345/index.audio.position.worklet.js",
+      "passed": true
+    },
+    {
+      "tree": "live",
+      "path": "games/evil-wizard-preview-20260922-163345/console-champions.js",
+      "passed": true
+    },
+    {
+      "tree": "live",
+      "path": "games/evil-wizard-preview-20260922-163345/index.js",
+      "passed": true
+    },
+    {
+      "tree": "live",
+      "path": "games/battle-chess/arena.js",
+      "passed": true
+    },
+    {
+      "tree": "live",
+      "path": "games/3d-battle-chess-v8/pieces.js",
+      "passed": true
+    },
+    {
+      "tree": "live",
+      "path": "games/3d-battle-chess-v8/combat-v8/attacks.js",
+      "passed": true
+    },
+    {
+      "tree": "live",
+      "path": "games/3d-battle-chess-v8/combat-v8/character-visuals.js",
+      "passed": true
+    },
+    {
+      "tree": "live",
+      "path": "games/3d-battle-chess-v8/combat-v8/reactions.js",
+      "passed": true
+    },
+    {
+      "tree": "live",
+      "path": "games/3d-battle-chess-v8/combat-v8/effects.js",
+      "passed": true
+    },
+    {
+      "tree": "live",
+      "path": "games/3d-battle-chess-v8/combat-v8/character-factory.js",
+      "passed": true
+    },
+    {
+      "tree": "live",
+      "path": "games/3d-battle-chess-v8/combat-v8/animation-runtime.js",
+      "passed": true
+    },
+    {
+      "tree": "live",
+      "path": "games/3d-battle-chess-v8/combat-v8/physics.js",
+      "passed": true
+    },
+    {
+      "tree": "live",
+      "path": "games/3d-battle-chess-v8/combat-v8/defeat-choreography.js",
+      "passed": true
+    },
+    {
+      "tree": "live",
+      "path": "games/3d-battle-chess-v8/combat-v8/combat-director.js",
+      "passed": true
+    },
+    {
+      "tree": "live",
+      "path": "games/3d-battle-chess-v8/combat-v8/collision.js",
+      "passed": true
+    },
+    {
+      "tree": "live",
+      "path": "games/3d-battle-chess-v8/combat-v8/character-definitions.js",
+      "passed": true
+    },
+    {
+      "tree": "live",
+      "path": "games/3d-battle-chess-v8/combat-v8/attack-executor.js",
+      "passed": true
+    },
+    {
+      "tree": "live",
+      "path": "games/3d-battle-chess-v8/combat-v8/choreography.js",
+      "passed": true
+    },
+    {
+      "tree": "live",
+      "path": "games/3d-battle-chess-v8/combat-v8/rig-types.js",
+      "passed": true
+    },
+    {
+      "tree": "live",
+      "path": "games/3d-battle-chess-v8/v8-preview.js",
+      "passed": true
+    },
+    {
+      "tree": "live",
+      "path": "games/evil-wizard/index.audio.worklet.js",
+      "passed": true
+    },
+    {
+      "tree": "live",
+      "path": "games/evil-wizard/index.audio.position.worklet.js",
+      "passed": true
+    },
+    {
+      "tree": "live",
+      "path": "games/evil-wizard/console-champions.js",
+      "passed": true
+    },
+    {
+      "tree": "live",
+      "path": "games/evil-wizard/index.js",
+      "passed": true
+    },
+    {
+      "tree": "live",
+      "path": "games/evil-wizard-console-20260922/index.audio.worklet.js",
+      "passed": true
+    },
+    {
+      "tree": "live",
+      "path": "games/evil-wizard-console-20260922/index.audio.position.worklet.js",
+      "passed": true
+    },
+    {
+      "tree": "live",
+      "path": "games/evil-wizard-console-20260922/console-champions.js",
+      "passed": true
+    },
+    {
+      "tree": "live",
+      "path": "games/evil-wizard-console-20260922/index.js",
+      "passed": true
+    },
+    {
+      "tree": "live",
+      "path": "games/3d-battle-chess/boot.js",
+      "passed": true
+    },
+    {
+      "tree": "live",
+      "path": "games/3d-battle-chess/castle-controls.js",
+      "passed": true
+    },
+    {
+      "tree": "live",
+      "path": "games/3d-battle-chess/attacks.js",
+      "passed": true
+    },
+    {
+      "tree": "live",
+      "path": "games/3d-battle-chess/combatants.js",
+      "passed": true
+    },
+    {
+      "tree": "live",
+      "path": "games/3d-battle-chess/duels.js",
+      "passed": true
+    },
+    {
+      "tree": "live",
+      "path": "games/3d-battle-chess/shared-game.js",
+      "passed": true
+    },
+    {
+      "tree": "live",
+      "path": "games/3d-battle-chess/audio.js",
+      "passed": true
+    },
+    {
+      "tree": "live",
+      "path": "games/3d-battle-chess/engine.js",
+      "passed": true
+    },
+    {
+      "tree": "live",
+      "path": "games/3d-battle-chess/pieces.js",
+      "passed": true
+    },
+    {
+      "tree": "live",
+      "path": "games/3d-battle-chess/characters.js",
+      "passed": true
+    },
+    {
+      "tree": "live",
+      "path": "games/3d-battle-chess/duels-physics.js",
+      "passed": true
+    },
+    {
+      "tree": "live",
+      "path": "games/3d-battle-chess/combat-v8/attacks.js",
+      "passed": true
+    },
+    {
+      "tree": "live",
+      "path": "games/3d-battle-chess/combat-v8/character-visuals.js",
+      "passed": true
+    },
+    {
+      "tree": "live",
+      "path": "games/3d-battle-chess/combat-v8/reactions.js",
+      "passed": true
+    },
+    {
+      "tree": "live",
+      "path": "games/3d-battle-chess/combat-v8/effects.js",
+      "passed": true
+    },
+    {
+      "tree": "live",
+      "path": "games/3d-battle-chess/combat-v8/character-factory.js",
+      "passed": true
+    },
+    {
+      "tree": "live",
+      "path": "games/3d-battle-chess/combat-v8/animation-runtime.js",
+      "passed": true
+    },
+    {
+      "tree": "live",
+      "path": "games/3d-battle-chess/combat-v8/physics.js",
+      "passed": true
+    },
+    {
+      "tree": "live",
+      "path": "games/3d-battle-chess/combat-v8/defeat-choreography.js",
+      "passed": true
+    },
+    {
+      "tree": "live",
+      "path": "games/3d-battle-chess/combat-v8/combat-director.js",
+      "passed": true
+    },
+    {
+      "tree": "live",
+      "path": "games/3d-battle-chess/combat-v8/collision.js",
+      "passed": true
+    },
+    {
+      "tree": "live",
+      "path": "games/3d-battle-chess/combat-v8/character-definitions.js",
+      "passed": true
+    },
+    {
+      "tree": "live",
+      "path": "games/3d-battle-chess/combat-v8/attack-executor.js",
+      "passed": true
+    },
+    {
+      "tree": "live",
+      "path": "games/3d-battle-chess/combat-v8/choreography.js",
+      "passed": true
+    },
+    {
+      "tree": "live",
+      "path": "games/3d-battle-chess/combat-v8/rig-types.js",
+      "passed": true
+    },
+    {
+      "tree": "live",
+      "path": "games/3d-battle-chess/battle.js",
+      "passed": true
+    },
+    {
+      "tree": "live",
+      "path": "games/3d-battle-chess/combat-physics.js",
+      "passed": true
+    },
+    {
+      "tree": "live",
+      "path": "games/3d-battle-chess/duels-v8.js",
+      "passed": true
+    },
+    {
+      "tree": "live",
+      "path": "games/3d-battle-chess/fallback-board.js",
+      "passed": true
+    },
+    {
+      "tree": "live",
+      "path": "games/evil-wizard-adaptive-preview-v23/index.audio.worklet.js",
+      "passed": true
+    },
+    {
+      "tree": "live",
+      "path": "games/evil-wizard-adaptive-preview-v23/index.audio.position.worklet.js",
+      "passed": true
+    },
+    {
+      "tree": "live",
+      "path": "games/evil-wizard-adaptive-preview-v23/console-champions.js",
+      "passed": true
+    },
+    {
+      "tree": "live",
+      "path": "games/evil-wizard-adaptive-preview-v23/index.js",
+      "passed": true
+    },
+    {
+      "tree": "live",
+      "path": "site-audio.js",
+      "passed": true
+    },
+    {
+      "tree": "live",
+      "path": "site-resilience.js",
+      "passed": true
+    },
+    {
+      "tree": "live",
+      "path": "learning-depth.js",
+      "passed": true
+    },
+    {
+      "tree": "live",
+      "path": "site-repair/site-resilience.js",
+      "passed": true
+    },
+    {
+      "tree": "live",
+      "path": "lesson-header-controls.js",
+      "passed": true
+    },
+    {
+      "tree": "live",
+      "path": "learning-capstones.js",
+      "passed": true
+    },
+    {
+      "tree": "live",
+      "path": "site-theme.js",
+      "passed": true
+    },
+    {
+      "tree": "live",
+      "path": "quantum-cube.js",
+      "passed": true
+    },
+    {
+      "tree": "live",
+      "path": "site-scenes.js",
+      "passed": true
+    },
+    {
+      "tree": "live",
+      "path": "geometric-lab/math.js",
+      "passed": true
+    },
+    {
+      "tree": "live",
+      "path": "geometric-lab/app.js",
+      "passed": true
+    },
+    {
+      "tree": "live",
+      "path": "geometric-lab/benchmarks.js",
+      "passed": true
+    },
+    {
+      "tree": "live",
+      "path": "geometric-lab/worker.js",
+      "passed": true
+    },
+    {
+      "tree": "live",
+      "path": "qubit-preview-20260921/app.js",
+      "passed": true
+    },
+    {
+      "tree": "live",
+      "path": "qubit-preview-20260921/qubit.js",
+      "passed": true
+    },
+    {
+      "tree": "live",
+      "path": "handheld-experience.js",
+      "passed": true
+    },
+    {
+      "tree": "live",
+      "path": "site-sound-control.js",
+      "passed": true
+    }
+  ],
+  "deepIndexEntries": 76,
+  "missingChunks": [],
+  "lessonCount": 8000,
+  "manifestRecords": 8000,
+  "missingComputedLessonChunkPaths": [],
+  "pythonCompile": [
+    "tools/repair-osu-portfolio.py",
+    "tools/deploy_osu_live.py"
+  ]
+}
