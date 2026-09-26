@@ -5,7 +5,8 @@ Machine-readable manifest: `manifests/production-cleanup.json`. It covers 397 vi
 | Category | Meaning |
 |---|---|
 | `KEEP_PRODUCTION` | Current runtime or linked attribution; retain until an accepted replacement is deployed. |
-| `IMPORT_TO_GITHUB` | Originally absent from the audited branch; preservation/import has been prepared in Git or authenticated draft assets. This category records disposition, not permission to remove live. |
+| `IMPORT_TO_SOURCE` | Originally absent from the audited branch; preservation/import has been prepared in ordinary Git. This category records disposition, not permission to remove live. |
+| `PRESERVE_AS_ARTIFACT` | Large shared runtime binaries preserved as authenticated GitHub release assets; restore to their recorded paths. Historical copies remain recoverable through the same hash. |
 | `ARCHIVE` | Historical/source/alternate release/diagnostic material; exact bytes are preserved or referenced by immutable Git blob identity. Review consumers and recovery before removing production copies. |
 | `DELETE_AFTER_VERIFICATION` | Root fusion duplicate and Windows thumbnail cache. Removal remains forbidden until all listed verification steps pass. |
 | `UNRESOLVED` | Two unreadable files and unenumerated metadata directory; retain untouched. |

@@ -48,3 +48,11 @@ The two inaccessible files (`quantum2.jpg` and `_shellfish_uploading_43361591251
 The architecture and cleanup manifests are review artifacts, not executable authorization. Commit/push status must be checked separately from local file completion. Next phase: extend game acceptance and review unresolved preservation entries, then build and test an isolated runtime staging package. Do not deploy or clean production in that phase without a separate explicit release decision.
 
 Final staging verification: all 389 Git-backed preservation references matched their audited SHA-256 after Git filtering; the remaining six readable references use the two independently verified release assets. Staged whitespace checks report only four inherited export EOF blank lines, deliberately retained for exact provenance. Runtime candidate hashes describe this captured working-tree byte layout; a future cross-platform package builder must materialize a defined newline policy and regenerate/verify its package hashes before release.
+
+## Attached-request completion supplement
+
+The original Phase 2 commit is 8258ddac191b1ef92e14c2e47fe857190501c6a0, verified on origin/website-2.0-reconciliation. The older audit commit remains its ancestor; the branch was not reset.
+
+The supplement adds manifests/site-routes.json (40 pages and dependency units), manifests/external-dependencies.json (current/audited external provenance and fallback contracts), and manifests/evil-wizard-builds.json (four distinct runtime exports). Production cleanup schema v2 uses IMPORT_TO_SOURCE and PRESERVE_AS_ARTIFACT as requested. Static HTML references resolve within the candidate runtime tree. Computed paths and cross-platform package hashes still require staged-package acceptance. Controllers/navigation and required routes must ship atomically; no independent shared-controller deployment is authorized.
+
+Supplement validation: all four route/export/cleanup/remote contract tests pass; core science/site and chess rules pass; deployment tests pass with the existing Windows symlink-privilege skip. No runtime code changed in this supplement; the previously passed full site/chess/Evil Wizard browser evidence remains applicable. The standard test runner now includes the manifest contracts.

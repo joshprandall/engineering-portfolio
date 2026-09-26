@@ -28,3 +28,9 @@ Implementation follows GitHub's [release API](https://docs.github.com/en/rest/re
 5. A future package builder must require every `manifests/runtime-files.json` entry and validate all hashes, including restored binaries, before considering upload. No deploy command is part of this restoration tool.
 
 All 395 readable captured files were reconstructed and verified using local cache and preserved Git sources. An independent authenticated GitHub download using `python tools/restore_website2_assets.py --refresh` passed for both assets, bypassing the cache and validating size/SHA-256. Do not delete the live originals or draft assets before that independent recovery test.
+
+## Remote dependencies and export identity
+
+See manifests/external-dependencies.json for current and audit-only Pexels, Wikimedia, pinned Three.js CDN, absolute OSU media and other external references. Each records source consumers, fallback contract, license uncertainty and any preserved local counterpart. No remote bytes were fetched for this inventory; URL presence is not proof of availability or redistribution permission. Audit-only entries are retained as historical evidence, not asserted to be active runtime loads.
+
+See manifests/evil-wizard-builds.json for four complete export units, their distinct PCK hashes, common engine identity and exact restoration members. The deployed export is canonical for preservation; matching source fragments do not establish build reproducibility.

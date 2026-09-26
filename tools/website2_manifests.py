@@ -14,9 +14,10 @@ def main():
         p=r['path'];storage=r['storage']
         if storage['kind']=='unresolved':category='UNRESOLVED';reason='Content unreadable; retain live untouched.'
         elif p in ['fusion-presentation.mp4','Thumbs.db']:category='DELETE_AFTER_VERIFICATION';reason='Duplicate video or generated OS cache; archival and URL gates still required.'
+        elif storage['kind']=='release-asset':category='PRESERVE_AS_ARTIFACT';reason='Exact bytes retained in authenticated GitHub release storage; restore to the recorded runtime path when needed.'
         elif historical.search(p) or (p.endswith(('.zip','.py','.mjs','.txt')) and not p.startswith('assets/')) or p in ['audio-diagnostic.html','header-cleanup.css','learn-brand.css','lesson-header-controls.js']:
             category='ARCHIVE';reason='Preserved historical/source/diagnostic material; exclude from future runtime after consumer review.'
-        elif p not in baseline:category='IMPORT_TO_GITHUB';reason='Live-only asset preserved in branch or checksum-verified draft assets; keep live until release verification.'
+        elif p not in baseline:category='IMPORT_TO_SOURCE';reason='Live-only asset preserved in branch; keep live until release verification.'
         else:category='KEEP_PRODUCTION';reason='Current runtime or linked attribution; preserve existing live behavior until validated replacement.'
         row={'path':p,'category':category,'sha256':r['sha256'],'size':r['size'],'reason':reason,'preservedStorage':storage,'deleteAuthorized':False}
         if category in ['ARCHIVE','DELETE_AFTER_VERIFICATION']:
@@ -25,7 +26,7 @@ def main():
         if p not in baseline and (ROOT/p).is_file() and p not in ['fusion-presentation.mp4']:
             imports.append({'path':p,'sha256':sha(ROOT/p),'size':(ROOT/p).stat().st_size,'storage':'external-restored' if p.endswith(('.mp4','.wasm')) else 'git-file','source':'Z:/public_html/'+p})
     rows.append({'path':'.codex/','category':'UNRESOLVED','sha256':None,'size':None,'reason':'Directory enumeration denied; no cleanup authorized.','deleteAuthorized':False})
-    save('production-cleanup.json',{'schemaVersion':1,'scope':'captured-live-tree','executionAllowed':False,'source':'Z:/public_html','categories':['KEEP_PRODUCTION','IMPORT_TO_GITHUB','ARCHIVE','DELETE_AFTER_VERIFICATION','UNRESOLVED'],'files':rows})
+    save('production-cleanup.json',{'schemaVersion':2,'scope':'captured-live-tree','executionAllowed':False,'source':'Z:/public_html','categories':['KEEP_PRODUCTION','IMPORT_TO_SOURCE','PRESERVE_AS_ARTIFACT','ARCHIVE','DELETE_AFTER_VERIFICATION','UNRESOLVED'],'files':rows})
     save('live-imports.json',{'schemaVersion':1,'files':imports})
     runtime=[]
     for p in ROOT.rglob('*'):

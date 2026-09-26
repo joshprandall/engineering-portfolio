@@ -1,0 +1,494 @@
+{
+  "schemaVersion": 1,
+  "sourceReproductionVerified": false,
+  "restoreCommand": "python tools/restore_website2_assets.py --snapshot",
+  "units": [
+    {
+      "id": "games/evil-wizard",
+      "canonical": true,
+      "buildIdentity": "Deployed-byte snapshot 2026-09-26; source-to-export reproducibility unproven",
+      "restorePath": "games/evil-wizard",
+      "members": [
+        {
+          "path": "games/evil-wizard/.htaccess",
+          "sha256": "092929636313b35dfc5f1fae97a59aad91f7bec44971997a0a8e74921b1bed25",
+          "size": 476,
+          "storage": {
+            "kind": "repository-file",
+            "path": "games/evil-wizard/.htaccess"
+          }
+        },
+        {
+          "path": "games/evil-wizard/console-champions.js",
+          "sha256": "b3fc5fba19f1ea579f5c3e59d9152cef38d8168ef0cc30d7d4ea8ba9b97d6138",
+          "size": 3323,
+          "storage": {
+            "kind": "repository-file",
+            "path": "games/evil-wizard/console-champions.js"
+          }
+        },
+        {
+          "path": "games/evil-wizard/console.html",
+          "sha256": "3267ca05361444d359b150e88dcad5db6605a988e91bba50d876712099a5f359",
+          "size": 18101,
+          "storage": {
+            "kind": "repository-file",
+            "path": "games/evil-wizard/console.html"
+          }
+        },
+        {
+          "path": "games/evil-wizard/index.apple-touch-icon.png",
+          "sha256": "01d4f63e525941e06ce74f5187dad030d20a8d52a07ce365ae4e94af97a3b1f5",
+          "size": 11944,
+          "storage": {
+            "kind": "repository-file",
+            "path": "preservation/live-20260926/games/evil-wizard-adaptive-preview-v23/index.apple-touch-icon.png"
+          }
+        },
+        {
+          "path": "games/evil-wizard/index.audio.position.worklet.js",
+          "sha256": "be33985bc7160d6bf9646f259cd86b259cd67b02ccb297ee5c44f8ac84327bc8",
+          "size": 2973,
+          "storage": {
+            "kind": "repository-file",
+            "path": "preservation/live-20260926/games/evil-wizard-adaptive-preview-v23/index.audio.position.worklet.js"
+          }
+        },
+        {
+          "path": "games/evil-wizard/index.audio.worklet.js",
+          "sha256": "5b476a9c9ce642c0ee4256436d1bc31d9c38f868aca0f9a8e2a57c18d2dec2a3",
+          "size": 7298,
+          "storage": {
+            "kind": "repository-file",
+            "path": "preservation/live-20260926/games/evil-wizard-adaptive-preview-v23/index.audio.worklet.js"
+          }
+        },
+        {
+          "path": "games/evil-wizard/index.html",
+          "sha256": "9cc6e2fdddf17e095751162ed1c41e1927f84ceb456cd69b2613441962b59906",
+          "size": 5454,
+          "storage": {
+            "kind": "repository-file",
+            "path": "games/evil-wizard/index.html"
+          }
+        },
+        {
+          "path": "games/evil-wizard/index.icon.png",
+          "sha256": "ad3c35ad0facf487c618204bd98db543034fc95224eadc7f08c7a9ff38d5b3b5",
+          "size": 5700,
+          "storage": {
+            "kind": "repository-file",
+            "path": "preservation/live-20260926/games/evil-wizard-adaptive-preview-v23/index.icon.png"
+          }
+        },
+        {
+          "path": "games/evil-wizard/index.js",
+          "sha256": "33c94cb3175f3333b82e2a3be5e8e86f77986f0aa2042b1631f6367a4e5bb6ba",
+          "size": 279815,
+          "storage": {
+            "kind": "repository-file",
+            "path": "preservation/live-20260926/games/evil-wizard-adaptive-preview-v23/index.js"
+          }
+        },
+        {
+          "path": "games/evil-wizard/index.pck",
+          "sha256": "ad3ca9d384f87565bc792945aa884dd20c6f2a84782257939f7a5fc756026588",
+          "size": 4398232,
+          "storage": {
+            "kind": "repository-file",
+            "path": "games/evil-wizard/index.pck"
+          }
+        },
+        {
+          "path": "games/evil-wizard/index.png",
+          "sha256": "3cb4495c0b98dfbe4b663cbf2b6836473572339beb66d902367893162a70be0e",
+          "size": 21443,
+          "storage": {
+            "kind": "repository-file",
+            "path": "preservation/live-20260926/games/evil-wizard-adaptive-preview-v23/index.png"
+          }
+        },
+        {
+          "path": "games/evil-wizard/index.wasm",
+          "sha256": "fc74679e3b97f76878947fcd4fbe1268cbfa6188182a2e33bbc3f5dc9bfa57d0",
+          "size": 39514754,
+          "storage": {
+            "kind": "release-asset",
+            "filename": "evil-wizard-engine-fc74679e3b97f76878947fcd4fbe1268cbfa6188182a2e33bbc3f5dc9bfa57d0.wasm",
+            "sha256": "fc74679e3b97f76878947fcd4fbe1268cbfa6188182a2e33bbc3f5dc9bfa57d0",
+            "size": 39514754,
+            "canonicalPath": "games/evil-wizard/index.wasm",
+            "releaseTag": "website-2.0-preservation-20260926",
+            "state": "uploaded-and-server-digest-verified",
+            "assetId": 590223347,
+            "apiUrl": "https://api.github.com/repos/joshprandall/engineering-portfolio/releases/assets/590223347",
+            "releaseId": 397149099
+          }
+        },
+        {
+          "path": "games/evil-wizard/play.html",
+          "sha256": "b59d7b932b4402c9ff17a6189355d5c7aa7ba5a4466684e3ace1d62c4bbbe5ed",
+          "size": 23930,
+          "storage": {
+            "kind": "repository-file",
+            "path": "games/evil-wizard/play.html"
+          }
+        }
+      ]
+    },
+    {
+      "id": "games/evil-wizard-adaptive-preview-v23",
+      "canonical": false,
+      "buildIdentity": "Deployed-byte snapshot 2026-09-26; source-to-export reproducibility unproven",
+      "restorePath": "games/evil-wizard-adaptive-preview-v23",
+      "members": [
+        {
+          "path": "games/evil-wizard-adaptive-preview-v23/console-champions.js",
+          "sha256": "31d694db15860eec8ffae24233b3aa6761c4090e5af58db829be171437624fdb",
+          "size": 9430,
+          "storage": {
+            "kind": "repository-file",
+            "path": "preservation/live-20260926/games/evil-wizard-adaptive-preview-v23/console-champions.js"
+          }
+        },
+        {
+          "path": "games/evil-wizard-adaptive-preview-v23/console.html",
+          "sha256": "1e03b0de241d0dd5f20aa065a6e688d848574a9cf8fd34673d90a413c7b9c8cf",
+          "size": 13468,
+          "storage": {
+            "kind": "repository-file",
+            "path": "preservation/live-20260926/games/evil-wizard-adaptive-preview-v23/console.html"
+          }
+        },
+        {
+          "path": "games/evil-wizard-adaptive-preview-v23/index.apple-touch-icon.png",
+          "sha256": "01d4f63e525941e06ce74f5187dad030d20a8d52a07ce365ae4e94af97a3b1f5",
+          "size": 11944,
+          "storage": {
+            "kind": "repository-file",
+            "path": "preservation/live-20260926/games/evil-wizard-adaptive-preview-v23/index.apple-touch-icon.png"
+          }
+        },
+        {
+          "path": "games/evil-wizard-adaptive-preview-v23/index.audio.position.worklet.js",
+          "sha256": "be33985bc7160d6bf9646f259cd86b259cd67b02ccb297ee5c44f8ac84327bc8",
+          "size": 2973,
+          "storage": {
+            "kind": "repository-file",
+            "path": "preservation/live-20260926/games/evil-wizard-adaptive-preview-v23/index.audio.position.worklet.js"
+          }
+        },
+        {
+          "path": "games/evil-wizard-adaptive-preview-v23/index.audio.worklet.js",
+          "sha256": "5b476a9c9ce642c0ee4256436d1bc31d9c38f868aca0f9a8e2a57c18d2dec2a3",
+          "size": 7298,
+          "storage": {
+            "kind": "repository-file",
+            "path": "preservation/live-20260926/games/evil-wizard-adaptive-preview-v23/index.audio.worklet.js"
+          }
+        },
+        {
+          "path": "games/evil-wizard-adaptive-preview-v23/index.html",
+          "sha256": "802f5df75b7c1c27e93cdb4a91f3edf31f5c1c19e3d6277bd95710f42cf7be55",
+          "size": 5454,
+          "storage": {
+            "kind": "repository-file",
+            "path": "preservation/live-20260926/games/evil-wizard-adaptive-preview-v23/index.html"
+          }
+        },
+        {
+          "path": "games/evil-wizard-adaptive-preview-v23/index.icon.png",
+          "sha256": "ad3c35ad0facf487c618204bd98db543034fc95224eadc7f08c7a9ff38d5b3b5",
+          "size": 5700,
+          "storage": {
+            "kind": "repository-file",
+            "path": "preservation/live-20260926/games/evil-wizard-adaptive-preview-v23/index.icon.png"
+          }
+        },
+        {
+          "path": "games/evil-wizard-adaptive-preview-v23/index.js",
+          "sha256": "33c94cb3175f3333b82e2a3be5e8e86f77986f0aa2042b1631f6367a4e5bb6ba",
+          "size": 279815,
+          "storage": {
+            "kind": "repository-file",
+            "path": "preservation/live-20260926/games/evil-wizard-adaptive-preview-v23/index.js"
+          }
+        },
+        {
+          "path": "games/evil-wizard-adaptive-preview-v23/index.pck",
+          "sha256": "aaf7dd79b59d397db1fdca6c01090423b6a78485f22972f755312fb181690dc4",
+          "size": 4385808,
+          "storage": {
+            "kind": "repository-file",
+            "path": "preservation/live-20260926/games/evil-wizard-adaptive-preview-v23/index.pck"
+          }
+        },
+        {
+          "path": "games/evil-wizard-adaptive-preview-v23/index.png",
+          "sha256": "3cb4495c0b98dfbe4b663cbf2b6836473572339beb66d902367893162a70be0e",
+          "size": 21443,
+          "storage": {
+            "kind": "repository-file",
+            "path": "preservation/live-20260926/games/evil-wizard-adaptive-preview-v23/index.png"
+          }
+        },
+        {
+          "path": "games/evil-wizard-adaptive-preview-v23/index.wasm",
+          "sha256": "fc74679e3b97f76878947fcd4fbe1268cbfa6188182a2e33bbc3f5dc9bfa57d0",
+          "size": 39514754,
+          "storage": {
+            "kind": "release-asset",
+            "filename": "evil-wizard-engine-fc74679e3b97f76878947fcd4fbe1268cbfa6188182a2e33bbc3f5dc9bfa57d0.wasm",
+            "sha256": "fc74679e3b97f76878947fcd4fbe1268cbfa6188182a2e33bbc3f5dc9bfa57d0",
+            "size": 39514754,
+            "canonicalPath": "games/evil-wizard/index.wasm",
+            "releaseTag": "website-2.0-preservation-20260926",
+            "state": "uploaded-and-server-digest-verified",
+            "assetId": 590223347,
+            "apiUrl": "https://api.github.com/repos/joshprandall/engineering-portfolio/releases/assets/590223347",
+            "releaseId": 397149099
+          }
+        },
+        {
+          "path": "games/evil-wizard-adaptive-preview-v23/play.html",
+          "sha256": "9f7166ece383a59cf67d25528fd342c3ef6b83de312522b8601bde445b2a5094",
+          "size": 3374,
+          "storage": {
+            "kind": "repository-file",
+            "path": "preservation/live-20260926/games/evil-wizard-adaptive-preview-v23/play.html"
+          }
+        }
+      ]
+    },
+    {
+      "id": "games/evil-wizard-console-20260922",
+      "canonical": false,
+      "buildIdentity": "Deployed-byte snapshot 2026-09-26; source-to-export reproducibility unproven",
+      "restorePath": "games/evil-wizard-console-20260922",
+      "members": [
+        {
+          "path": "games/evil-wizard-console-20260922/console-champions.js",
+          "sha256": "1ef8ef8f32dafb28aac094b7f16e41ec6792ab212f54ead3ab4cdfafe2bfea5a",
+          "size": 2619,
+          "storage": {
+            "kind": "repository-file",
+            "path": "preservation/live-20260926/games/evil-wizard-console-20260922/console-champions.js"
+          }
+        },
+        {
+          "path": "games/evil-wizard-console-20260922/console.html",
+          "sha256": "0ed86a8c81d53edab5504b170b5894115cdc297008e86d820a4806d2ffa5d603",
+          "size": 13233,
+          "storage": {
+            "kind": "repository-file",
+            "path": "preservation/live-20260926/games/evil-wizard-console-20260922/console.html"
+          }
+        },
+        {
+          "path": "games/evil-wizard-console-20260922/index.apple-touch-icon.png",
+          "sha256": "01d4f63e525941e06ce74f5187dad030d20a8d52a07ce365ae4e94af97a3b1f5",
+          "size": 11944,
+          "storage": {
+            "kind": "repository-file",
+            "path": "preservation/live-20260926/games/evil-wizard-adaptive-preview-v23/index.apple-touch-icon.png"
+          }
+        },
+        {
+          "path": "games/evil-wizard-console-20260922/index.audio.position.worklet.js",
+          "sha256": "be33985bc7160d6bf9646f259cd86b259cd67b02ccb297ee5c44f8ac84327bc8",
+          "size": 2973,
+          "storage": {
+            "kind": "repository-file",
+            "path": "preservation/live-20260926/games/evil-wizard-adaptive-preview-v23/index.audio.position.worklet.js"
+          }
+        },
+        {
+          "path": "games/evil-wizard-console-20260922/index.audio.worklet.js",
+          "sha256": "5b476a9c9ce642c0ee4256436d1bc31d9c38f868aca0f9a8e2a57c18d2dec2a3",
+          "size": 7298,
+          "storage": {
+            "kind": "repository-file",
+            "path": "preservation/live-20260926/games/evil-wizard-adaptive-preview-v23/index.audio.worklet.js"
+          }
+        },
+        {
+          "path": "games/evil-wizard-console-20260922/index.html",
+          "sha256": "3c91d7e073d1415cf085bce9b284d700f9d124d8974d8354d5e7f9cb9625aad6",
+          "size": 5454,
+          "storage": {
+            "kind": "repository-file",
+            "path": "preservation/live-20260926/games/evil-wizard-console-20260922/index.html"
+          }
+        },
+        {
+          "path": "games/evil-wizard-console-20260922/index.icon.png",
+          "sha256": "ad3c35ad0facf487c618204bd98db543034fc95224eadc7f08c7a9ff38d5b3b5",
+          "size": 5700,
+          "storage": {
+            "kind": "repository-file",
+            "path": "preservation/live-20260926/games/evil-wizard-adaptive-preview-v23/index.icon.png"
+          }
+        },
+        {
+          "path": "games/evil-wizard-console-20260922/index.js",
+          "sha256": "33c94cb3175f3333b82e2a3be5e8e86f77986f0aa2042b1631f6367a4e5bb6ba",
+          "size": 279815,
+          "storage": {
+            "kind": "repository-file",
+            "path": "preservation/live-20260926/games/evil-wizard-adaptive-preview-v23/index.js"
+          }
+        },
+        {
+          "path": "games/evil-wizard-console-20260922/index.pck",
+          "sha256": "7c64ab80db32f6f0fa93893b11b0e58a0506ee8f7a9d838bd587e225bd2c3940",
+          "size": 4375160,
+          "storage": {
+            "kind": "repository-file",
+            "path": "preservation/live-20260926/games/evil-wizard-console-20260922/index.pck"
+          }
+        },
+        {
+          "path": "games/evil-wizard-console-20260922/index.png",
+          "sha256": "3cb4495c0b98dfbe4b663cbf2b6836473572339beb66d902367893162a70be0e",
+          "size": 21443,
+          "storage": {
+            "kind": "repository-file",
+            "path": "preservation/live-20260926/games/evil-wizard-adaptive-preview-v23/index.png"
+          }
+        },
+        {
+          "path": "games/evil-wizard-console-20260922/index.wasm",
+          "sha256": "fc74679e3b97f76878947fcd4fbe1268cbfa6188182a2e33bbc3f5dc9bfa57d0",
+          "size": 39514754,
+          "storage": {
+            "kind": "release-asset",
+            "filename": "evil-wizard-engine-fc74679e3b97f76878947fcd4fbe1268cbfa6188182a2e33bbc3f5dc9bfa57d0.wasm",
+            "sha256": "fc74679e3b97f76878947fcd4fbe1268cbfa6188182a2e33bbc3f5dc9bfa57d0",
+            "size": 39514754,
+            "canonicalPath": "games/evil-wizard/index.wasm",
+            "releaseTag": "website-2.0-preservation-20260926",
+            "state": "uploaded-and-server-digest-verified",
+            "assetId": 590223347,
+            "apiUrl": "https://api.github.com/repos/joshprandall/engineering-portfolio/releases/assets/590223347",
+            "releaseId": 397149099
+          }
+        }
+      ]
+    },
+    {
+      "id": "games/evil-wizard-preview-20260922-163345",
+      "canonical": false,
+      "buildIdentity": "Deployed-byte snapshot 2026-09-26; source-to-export reproducibility unproven",
+      "restorePath": "games/evil-wizard-preview-20260922-163345",
+      "members": [
+        {
+          "path": "games/evil-wizard-preview-20260922-163345/console-champions.js",
+          "sha256": "31d694db15860eec8ffae24233b3aa6761c4090e5af58db829be171437624fdb",
+          "size": 9430,
+          "storage": {
+            "kind": "repository-file",
+            "path": "preservation/live-20260926/games/evil-wizard-adaptive-preview-v23/console-champions.js"
+          }
+        },
+        {
+          "path": "games/evil-wizard-preview-20260922-163345/console.html",
+          "sha256": "0ed86a8c81d53edab5504b170b5894115cdc297008e86d820a4806d2ffa5d603",
+          "size": 13233,
+          "storage": {
+            "kind": "repository-file",
+            "path": "preservation/live-20260926/games/evil-wizard-console-20260922/console.html"
+          }
+        },
+        {
+          "path": "games/evil-wizard-preview-20260922-163345/index.apple-touch-icon.png",
+          "sha256": "01d4f63e525941e06ce74f5187dad030d20a8d52a07ce365ae4e94af97a3b1f5",
+          "size": 11944,
+          "storage": {
+            "kind": "repository-file",
+            "path": "preservation/live-20260926/games/evil-wizard-adaptive-preview-v23/index.apple-touch-icon.png"
+          }
+        },
+        {
+          "path": "games/evil-wizard-preview-20260922-163345/index.audio.position.worklet.js",
+          "sha256": "be33985bc7160d6bf9646f259cd86b259cd67b02ccb297ee5c44f8ac84327bc8",
+          "size": 2973,
+          "storage": {
+            "kind": "repository-file",
+            "path": "preservation/live-20260926/games/evil-wizard-adaptive-preview-v23/index.audio.position.worklet.js"
+          }
+        },
+        {
+          "path": "games/evil-wizard-preview-20260922-163345/index.audio.worklet.js",
+          "sha256": "5b476a9c9ce642c0ee4256436d1bc31d9c38f868aca0f9a8e2a57c18d2dec2a3",
+          "size": 7298,
+          "storage": {
+            "kind": "repository-file",
+            "path": "preservation/live-20260926/games/evil-wizard-adaptive-preview-v23/index.audio.worklet.js"
+          }
+        },
+        {
+          "path": "games/evil-wizard-preview-20260922-163345/index.html",
+          "sha256": "6fb638baaa05709130bc8d9b18ea8f5cfd6f7003dc383e655c1b1421e166a763",
+          "size": 5454,
+          "storage": {
+            "kind": "repository-file",
+            "path": "preservation/live-20260926/games/evil-wizard-preview-20260922-163345/index.html"
+          }
+        },
+        {
+          "path": "games/evil-wizard-preview-20260922-163345/index.icon.png",
+          "sha256": "ad3c35ad0facf487c618204bd98db543034fc95224eadc7f08c7a9ff38d5b3b5",
+          "size": 5700,
+          "storage": {
+            "kind": "repository-file",
+            "path": "preservation/live-20260926/games/evil-wizard-adaptive-preview-v23/index.icon.png"
+          }
+        },
+        {
+          "path": "games/evil-wizard-preview-20260922-163345/index.js",
+          "sha256": "33c94cb3175f3333b82e2a3be5e8e86f77986f0aa2042b1631f6367a4e5bb6ba",
+          "size": 279815,
+          "storage": {
+            "kind": "repository-file",
+            "path": "preservation/live-20260926/games/evil-wizard-adaptive-preview-v23/index.js"
+          }
+        },
+        {
+          "path": "games/evil-wizard-preview-20260922-163345/index.pck",
+          "sha256": "88d84fee9950ce24cb2b22622f23189b122bbf59f030e0230ae5f20c01d4923c",
+          "size": 4378404,
+          "storage": {
+            "kind": "repository-file",
+            "path": "preservation/live-20260926/games/evil-wizard-preview-20260922-163345/index.pck"
+          }
+        },
+        {
+          "path": "games/evil-wizard-preview-20260922-163345/index.png",
+          "sha256": "3cb4495c0b98dfbe4b663cbf2b6836473572339beb66d902367893162a70be0e",
+          "size": 21443,
+          "storage": {
+            "kind": "repository-file",
+            "path": "preservation/live-20260926/games/evil-wizard-adaptive-preview-v23/index.png"
+          }
+        },
+        {
+          "path": "games/evil-wizard-preview-20260922-163345/index.wasm",
+          "sha256": "fc74679e3b97f76878947fcd4fbe1268cbfa6188182a2e33bbc3f5dc9bfa57d0",
+          "size": 39514754,
+          "storage": {
+            "kind": "release-asset",
+            "filename": "evil-wizard-engine-fc74679e3b97f76878947fcd4fbe1268cbfa6188182a2e33bbc3f5dc9bfa57d0.wasm",
+            "sha256": "fc74679e3b97f76878947fcd4fbe1268cbfa6188182a2e33bbc3f5dc9bfa57d0",
+            "size": 39514754,
+            "canonicalPath": "games/evil-wizard/index.wasm",
+            "releaseTag": "website-2.0-preservation-20260926",
+            "state": "uploaded-and-server-digest-verified",
+            "assetId": 590223347,
+            "apiUrl": "https://api.github.com/repos/joshprandall/engineering-portfolio/releases/assets/590223347",
+            "releaseId": 397149099
+          }
+        }
+      ]
+    }
+  ]
+}

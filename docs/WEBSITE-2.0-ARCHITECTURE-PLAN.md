@@ -4,7 +4,7 @@ This is a staged implementation plan, not a broad refactor already performed. Ke
 
 | Concern | Target owner and interface | Migration and acceptance |
 |---|---|---|
-| Global routes | `config/site-routes.json` | Define IDs, URLs, labels, page kinds and search metadata; generate navigation/search at build time. Validate every route and compatibility redirect, including dedicated lesson pages. |
+| Global routes | `manifests/site-routes.json` | The Phase 2 manifest now records every HTML route, isolated runtime boundary, static dependency closure, linked routes and external dependencies. Extend it with stable IDs, navigation labels and search metadata before generating navigation/search at build time. Validate every route and compatibility redirect, including dedicated lesson pages. |
 | Primary/hamburger navigation | `site-navigation.js`, generated header template | Extract standard behavior from `site-resilience.js`; replace learning `knowledge.js` header binding with this owner. One handler per button; Escape/outside click/navigation close; focus return and `aria-expanded` tests at 320/390/820/1440 widths. |
 | Global search | `site-search.js`, route-manifest index | Move `app.js` catalog/dialog controls. Keep lesson search inside the learning app, with only explicit link/search metadata exported. No game internals in global search execution. |
 | Theme persistence | existing `site-theme.js` / `PortfolioTheme` | Retain `jr-site-theme`, legacy key migration, session fallback and `portfolio:theme` event. Other components consume this API instead of registering competing preference writers. Test reload/back/cross-tab/blocked storage. |
