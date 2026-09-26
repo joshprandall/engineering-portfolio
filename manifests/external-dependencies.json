@@ -283,10 +283,6 @@
           "evidence": "current-runtime"
         },
         {
-          "source": "site-scenes.js",
-          "evidence": "current-runtime"
-        },
-        {
           "source": "site-audio.js",
           "evidence": "audit-repository"
         },
@@ -314,10 +310,6 @@
       "consumers": [
         {
           "source": "site-scenes.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "site-scenes.js",
           "evidence": "audit-repository"
         },
         {
@@ -336,10 +328,6 @@
       "consumers": [
         {
           "source": "site-audio.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "site-scenes.js",
           "evidence": "current-runtime"
         },
         {
@@ -370,10 +358,6 @@
       "consumers": [
         {
           "source": "site-audio.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "site-scenes.js",
           "evidence": "current-runtime"
         },
         {
@@ -1078,10 +1062,6 @@
     {
       "url": "https://files.freemusicarchive.org/storage-freemusicarchive-org/music/ccCommunity/John_Bartmann/Public_Domain_Soundtrack_Music_Album_One/John_Bartmann_-_12_-_Interstellar_Space.mp3",
       "consumers": [
-        {
-          "source": "site-scenes.js",
-          "evidence": "current-runtime"
-        },
         {
           "source": "site-scenes.js",
           "evidence": "audit-repository"
@@ -3224,56 +3204,6 @@
       "fallbackContract": "Resolve same-site absolute media to preserved local bytes when available. Preserve existing URL until route migration and consumer checks pass."
     },
     {
-      "url": "https://web.engr.oregonstate.edu/~randjosh/assets/audio/dark-theme-user.mp3?v=20260925-mp3-fallback-v21",
-      "consumers": [
-        {
-          "source": "site-audio.js",
-          "evidence": "current-runtime"
-        }
-      ],
-      "provider": "osu",
-      "sha256": null,
-      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
-      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
-      "fallbackContract": "Resolve same-site absolute media to preserved local bytes when available. Preserve existing URL until route migration and consumer checks pass.",
-      "localCounterpart": {
-        "path": "assets/audio/dark-theme-user.mp3",
-        "size": 483831,
-        "sha256": "7bb6e261c7de036ee9ebffeafaf5bba2befdeabe0580d2701088505f33300eb4",
-        "source": {
-          "kind": "git-blob",
-          "blob": "6e1722b15220c5d696af496f435b008e0b9711c6"
-        },
-        "owningComponent": "portfolio",
-        "deploymentClassification": "KEEP_PRODUCTION"
-      }
-    },
-    {
-      "url": "https://web.engr.oregonstate.edu/~randjosh/assets/audio/dark-theme-user.wav?v=20260925-wav-master-v21",
-      "consumers": [
-        {
-          "source": "site-audio.js",
-          "evidence": "current-runtime"
-        }
-      ],
-      "provider": "osu",
-      "sha256": null,
-      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
-      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
-      "fallbackContract": "Resolve same-site absolute media to preserved local bytes when available. Preserve existing URL until route migration and consumer checks pass.",
-      "localCounterpart": {
-        "path": "assets/audio/dark-theme-user.wav",
-        "size": 3002348,
-        "sha256": "e5e1144506681a091b98975016b48992443cc93ccf6898e203864fab90e1bb6d",
-        "source": {
-          "kind": "git-blob",
-          "blob": "1ed8a7037eeb1cc7bc9d0d4f872f16e9e45f183a"
-        },
-        "owningComponent": "portfolio",
-        "deploymentClassification": "KEEP_PRODUCTION"
-      }
-    },
-    {
       "url": "https://web.engr.oregonstate.edu/~randjosh/assets/fusion-presentation.mp4",
       "consumers": [
         {
@@ -3370,11 +3300,11 @@
       "fallbackContract": "Resolve same-site absolute media to preserved local bytes when available. Preserve existing URL until route migration and consumer checks pass.",
       "localCounterpart": {
         "path": "play-evil-wizard.html",
-        "size": 7751,
-        "sha256": "9872eca359efa25d44b1fa5f805872d70660129a5914aed4a6f67bf2ab3017b6",
+        "size": 7843,
+        "sha256": "f080d0a1f8e5c72f926d62769af5482620351bb350d275c83aff0d841ab4f954",
         "source": {
           "kind": "git-blob",
-          "blob": "685e62dd31a84fda70216d2c868fb1e570e8708f"
+          "blob": "2cb216ce3387c6c4a5fa02e782dfd1daa7b79b78"
         },
         "owningComponent": "portfolio",
         "deploymentClassification": "KEEP_PRODUCTION"
@@ -3395,11 +3325,11 @@
       "fallbackContract": "Resolve same-site absolute media to preserved local bytes when available. Preserve existing URL until route migration and consumer checks pass.",
       "localCounterpart": {
         "path": "project-battle-chess.html",
-        "size": 8848,
-        "sha256": "37e8b8f960dd9bec4e1959784a6353c9f0c97def6e3c09c496efa25908b0c4f9",
+        "size": 8940,
+        "sha256": "903a2e663073f582d5155fc4dc58b792bef6838ba9c9650ab30936cdaccc5ea6",
         "source": {
           "kind": "git-blob",
-          "blob": "41f00c6f24e2cc7589a69f70244542b13dd60f93"
+          "blob": "5301e3f53f06644a55f275b67f6bef43c5c10ea3"
         },
         "owningComponent": "portfolio",
         "deploymentClassification": "KEEP_PRODUCTION"
@@ -3420,11 +3350,11 @@
       "fallbackContract": "Resolve same-site absolute media to preserved local bytes when available. Preserve existing URL until route migration and consumer checks pass.",
       "localCounterpart": {
         "path": "projects.html",
-        "size": 14941,
-        "sha256": "32d48ed2579eadd51c3887eb989e5062ac1341f0d592fe9f41f4c4da0f78642e",
+        "size": 15033,
+        "sha256": "8b4295096859a01a2482d9d42650cae3136dc6f13805ec1b425717d468c20623",
         "source": {
           "kind": "git-blob",
-          "blob": "dc411eab28afada73d78f417f1a6714a55dea4c1"
+          "blob": "3523cd2e70b882331cc8766893caddcf08a4544f"
         },
         "owningComponent": "portfolio",
         "deploymentClassification": "KEEP_PRODUCTION"

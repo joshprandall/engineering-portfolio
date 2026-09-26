@@ -1265,3 +1265,7 @@ header .scene-sound-panel{
   header .scene-sound-control>button span{display:none}
   header .scene-sound-panel{right:-46px}
 }
+
+/* Decorative scenery honors the shared motion preference. */
+body.motion-paused .scene-backdrop *{animation:none!important;transition:none!important}
+@media(prefers-reduced-motion:reduce){.scene-backdrop *{animation:none!important;transition:none!important}}

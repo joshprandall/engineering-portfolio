@@ -89,9 +89,9 @@ module.exports = async ({ browser, base, output, failures }) => {
   await page.evaluate(() => localStorage.removeItem('jr-site-motion'));
   await page.evaluate(() => localStorage.removeItem('jr-knowledge-motion'));
   await open('projects.html');
-  assert.equal(await page.locator('body').getAttribute('data-motion'), 'running', 'Approved always-on scene motion remains running');
-  assert.equal(await page.locator('.scene-options [data-scene-motion]').count(), 0, 'No hidden legacy motion toggle is reintroduced');
-  let moving = await pixels(); await page.waitForTimeout(250); assert.notEqual(await pixels(), moving, 'Scenery remains animated');
+  assert.equal(await page.locator('body').getAttribute('data-motion'), 'paused', 'Reduced-motion preference pauses decorative scenery');
+  assert(await page.evaluate(()=>window.PortfolioTheme.isPaused()), 'Theme owner exposes reduced-motion state');
+  let moving = await pixels(); await page.waitForTimeout(250); assert.equal(await pixels(), moving, 'Scenery remains still under reduced motion');
   await page.emulateMedia({ reducedMotion: 'no-preference' });
 
   // Private/storage-restricted browsers still get usable controls and an in-tab fallback.

@@ -80,8 +80,8 @@
   }
 
   function initPrefs(){
-    motionPaused=false;
-    document.body.classList.remove('motion-paused');
+    motionPaused=Boolean(window.PortfolioTheme?.isPaused());
+    document.body.classList.toggle('motion-paused',motionPaused);
     updateSoundButton();
     const motionButton=$('#motion-mode');if(motionButton)motionButton.remove();
   }
@@ -1000,7 +1000,7 @@
     $('#load-more').onclick=()=>{displayLimit+=18;renderLessons()};$('#clear-filters').onclick=clearFilters;$('#surprise-me').onclick=randomLesson;
     $$('[data-scroll]').forEach(b=>b.onclick=()=>$(b.dataset.scroll).scrollIntoView({behavior:motionPaused?'auto':'smooth'}));
     $('#sound-mode').onclick=()=>{soundMode=soundMode==='off'?'educational':soundMode==='educational'?'full':'off';preferences.setItem(STORAGE.sound,soundMode);updateSoundButton();toast(`Sound: ${soundMode}`);if(soundMode!=='off')ping(590)};
-    document.addEventListener('portfolio:motion',()=>{motionPaused=false;document.body.classList.remove('motion-paused');});
+    document.addEventListener('portfolio:motion',()=>{motionPaused=Boolean(window.PortfolioTheme?.isPaused());document.body.classList.toggle('motion-paused',motionPaused);});
     document.addEventListener('portfolio:theme',()=>renderKnowledgeGraph());
     const primaryNav=$('.site-header nav'),mobileMenu=$('#mobile-menu');
     if(primaryNav&&mobileMenu){

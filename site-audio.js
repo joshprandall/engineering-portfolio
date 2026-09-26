@@ -11,13 +11,13 @@
   const VOLUME_KEY = 'jr-site-ambient-volume-v2';
   const PROJECT_RE = /(?:^|\/)(?:project-[^/]+\.html|play-evil-wizard\.html|agent-workbench\.html|games\/|geometric-lab\/|qubit-preview-20260921\/|deep-learning\/)/i;
   const LOCAL_TEST_HOST = location.hostname === '127.0.0.1' || location.hostname === 'localhost';
-  const MAIN_PAGE_RE = /(?:^|\/)(?:index\.html|expertise-experience\.html|projects\.html|game-development\.html|learn(?:-[a-z0-9-]+)?\.html)?$/i;
-  const MAIN_PAGE = MAIN_PAGE_RE.test(location.pathname);
+  const MAIN_PAGE_RE = /(?:^|\/)(?:index\.html|learn\.html)?$/i;
+  const MAIN_PAGE = ['', 'index.html', 'learn.html'].includes(location.pathname.slice(new URL('./', document.currentScript.src).pathname.length));
 
   const SOURCES = Object.freeze({
     // User-provided dark-mode soundtrack. Prefer the PCM WAV master so the browser has no MP3/AAC encoder padding at the loop boundary.
-    dark: 'https://web.engr.oregonstate.edu/~randjosh/assets/audio/dark-theme-user.wav?v=20260925-wav-master-v21',
-    darkFallback: 'https://web.engr.oregonstate.edu/~randjosh/assets/audio/dark-theme-user.mp3?v=20260925-mp3-fallback-v21',
+    dark: new URL('assets/audio/dark-theme-user.wav', document.currentScript.src).href,
+    darkFallback: new URL('assets/audio/dark-theme-user.mp3', document.currentScript.src).href,
 
     // Existing light-mode field recordings.
     river: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Sanna%20river%20rapids.ogg',
@@ -103,9 +103,11 @@
       'dark';
   }
 
+  let memoryVolume=DEFAULT_BACKGROUND_VOLUME, memoryMuted=false;
+  function setMuted(value){memoryMuted=Boolean(value);try{localStorage.setItem(MUTE_KEY,memoryMuted?'1':'0');}catch{}sync(true);document.dispatchEvent(new CustomEvent('portfolio:ambient-volume'));}
   function muted() {
-    try { return localStorage.getItem(MUTE_KEY) === '1'; }
-    catch (_) { return false; }
+    try { const value=localStorage.getItem(MUTE_KEY);return value===null?memoryMuted:value==='1'; }
+    catch (_) { return memoryMuted; }
   }
 
   function lessonOpen() {
@@ -114,8 +116,7 @@
   }
 
   function allowed() {
-    return !LOCAL_TEST_HOST &&
-      !muted() &&
+    return !muted() &&
       !suppressed &&
       !lessonOpen() &&
       !document.hidden;
@@ -131,10 +132,11 @@
 
   function preferredVolume() {
     try {
-      const saved = Number(localStorage.getItem(VOLUME_KEY));
+      const raw = localStorage.getItem(VOLUME_KEY);
+      const saved = raw === null ? memoryVolume : Number(raw);
       if (Number.isFinite(saved)) return Math.min(MAX_BACKGROUND_VOLUME, Math.max(0, saved));
     } catch (_) {}
-    return DEFAULT_BACKGROUND_VOLUME;
+    return memoryVolume;
   }
 
   function cappedVolume() {
@@ -152,6 +154,7 @@
 
   function setPreferredVolume(value) {
     const next = Math.min(MAX_BACKGROUND_VOLUME, Math.max(0, Number(value) || 0));
+    memoryVolume=next;
     try { localStorage.setItem(VOLUME_KEY, String(next)); } catch (_) {}
     applyPreferredVolume();
     document.dispatchEvent(new CustomEvent('portfolio:ambient-volume', { detail: { volume: next } }));
@@ -596,6 +599,7 @@
     get maxVolume() { return MAX_BACKGROUND_VOLUME; },
     get volume() { return preferredVolume(); },
     setVolume: setPreferredVolume,
+    setMuted,
     get element() { return currentKey === 'beach' ? beachPlayers[beachActiveIndex] : audio; },
     get beachElements() { return beachPlayers.slice(); }
   });
