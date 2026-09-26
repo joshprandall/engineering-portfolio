@@ -8,6 +8,7 @@ def main():
     for r in routes['routes']:
         p=r['path']
         if p.startswith('project-'):parents[p]='projects.html'
+        if p.startswith('learn') or p=='lesson.html':parents[p]='learn.html'
         if p in ('project-battle-chess.html','play-evil-wizard.html'):parents[p]='game-development.html'
     (ROOT/'assets/site-navigation.json').write_text(json.dumps({'items':nav,'parents':parents},indent=2)+'\n')
     entries=[]

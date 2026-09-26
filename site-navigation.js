@@ -2,7 +2,7 @@
 (() => {
   const script=document.currentScript,base=new URL('./',script.src);
   const install=()=>{
-    const nav=document.querySelector('header #primary-nav'),menu=document.querySelector('header #menu');
+    const nav=document.querySelector('header #primary-nav'),menu=document.querySelector('header #menu, header #mobile-menu');
     if(!nav||!menu||menu.dataset.navOwner)return;
     menu.dataset.navOwner='site-navigation';document.body.classList.add('header-menu');
     const close=(restore=false)=>{nav.classList.remove('open');menu.setAttribute('aria-expanded','false');menu.setAttribute('aria-label','Open navigation');if(restore)menu.focus();};

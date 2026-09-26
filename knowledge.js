@@ -1002,37 +1002,6 @@
     $('#sound-mode').onclick=()=>{soundMode=soundMode==='off'?'educational':soundMode==='educational'?'full':'off';preferences.setItem(STORAGE.sound,soundMode);updateSoundButton();toast(`Sound: ${soundMode}`);if(soundMode!=='off')ping(590)};
     document.addEventListener('portfolio:motion',()=>{motionPaused=Boolean(window.PortfolioTheme?.isPaused());document.body.classList.toggle('motion-paused',motionPaused);});
     document.addEventListener('portfolio:theme',()=>renderKnowledgeGraph());
-    const primaryNav=$('.site-header nav'),mobileMenu=$('#mobile-menu');
-    if(primaryNav&&mobileMenu){
-      primaryNav.id=primaryNav.id||'primary-nav';
-      mobileMenu.setAttribute('aria-controls',primaryNav.id);
-
-      primaryNav.innerHTML=[
-        ['index.html','Home'],
-        ['expertise-experience.html','Expertise & Experience'],
-        ['projects.html','Projects'],
-        ['learn.html','Learn'],
-        ['game-development.html','Game Development'],
-        ['index.html#direction','Direction']
-      ].map(([href,label])=>'<a href="'+href+'"'+(href==='learn.html'?' aria-current="page"':'')+'>'+label+'</a>').join('');
-      const closePrimaryNav=()=>{
-        primaryNav.classList.remove('open');
-        mobileMenu.setAttribute('aria-expanded','false');
-        mobileMenu.setAttribute('aria-label','Open navigation');
-      };
-      mobileMenu.onclick=e=>{
-        e.preventDefault();e.stopPropagation();
-        const open=primaryNav.classList.toggle('open');
-                mobileMenu.setAttribute('aria-expanded',String(open));
-        mobileMenu.setAttribute('aria-label',open?'Close navigation':'Open navigation');
-      };
-      primaryNav.addEventListener('click',e=>{if(e.target.closest('a'))closePrimaryNav()});
-      document.addEventListener('click',e=>{
-        if(primaryNav.classList.contains('open')&&!primaryNav.contains(e.target)&&!mobileMenu.contains(e.target))closePrimaryNav();
-      });
-      document.addEventListener('keydown',e=>{if(e.key==='Escape'&&primaryNav.classList.contains('open')){closePrimaryNav();mobileMenu.focus()}});
-      addEventListener('resize',()=>{if(innerWidth>820)closePrimaryNav()});
-    }
     document.addEventListener('keydown',e=>{const typing=/INPUT|TEXTAREA|SELECT/.test(document.activeElement?.tagName);if((e.key==='/'||(e.key.toLowerCase()==='k'&&(e.ctrlKey||e.metaKey)))&&!typing){e.preventDefault();if(currentLesson)closeLesson();setTimeout(()=>$('#knowledge-search').focus(),0)}if(e.key==='Escape'&&currentLesson)closeLesson();if((e.key==='r'||e.key==='R')&&!typing&&!currentLesson)randomLesson();if((e.key==='g'||e.key==='G')&&!typing&&!currentLesson){e.preventDefault();$('#glossary').scrollIntoView({behavior:motionPaused?'auto':'smooth'});setTimeout(()=>$('#glossary-search').focus(),250)}});
     let readingProgressRaf=0;
     window.addEventListener('scroll',()=>{if(readingProgressRaf)return;readingProgressRaf=requestAnimationFrame(()=>{readingProgressRaf=0;updateReadingProgress()})},{passive:true});
