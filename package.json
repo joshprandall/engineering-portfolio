@@ -6,7 +6,10 @@
   "scripts": {
     "test": "node tools/run-tests.cjs",
     "test:browser": "node tests/browser.test.cjs",
-    "test:chess-browser": "node tests/chess-browser.test.cjs"
+    "test:chess-browser": "node tests/chess-browser.test.cjs",
+    "test:runtime-browser": "node tests/runtime-browser.test.cjs",
+    "test:ownership-browser": "node tests/ownership-browser.test.cjs",
+    "test:evil-wizard-browser": "node tests/evil-wizard-browser.test.cjs"
   },
   "devDependencies": {
     "playwright": "1.63.0"

@@ -50,6 +50,7 @@ def main():
             if text[match.end():match.end()+32].lstrip().startswith(':'):continue # Filename dictionary keys are not loads.
             resolve(p,value,'runtime')
         for value in re.findall(r'url\(\s*["\']?([^\)"\']+)',text):resolve(p,value,'runtime')
+    linked_docs={target for values in list(edges.values())+list(links.values()) for target in values if target.endswith(('.md','.txt'))}
     routes=[]
     for p in sorted(x for x in files if x.endswith('.html')):
         closure={p};todo=[p]
@@ -58,7 +59,7 @@ def main():
                 if dep not in closure:closure.add(dep);todo.append(dep)
         boundary='portfolio'
         for prefix in ('games/evil-wizard/','games/3d-battle-chess/','geometric-lab/','qubit-preview-20260921/'):
-            if p.startswith(prefix):boundary=prefix.rstrip('/');closure.update(x for x in files if x.startswith(prefix))
+            if p.startswith(prefix):boundary=prefix.rstrip('/');closure.update(x for x in files if x.startswith(prefix) and (not x.endswith(('.md','.txt')) or x in linked_docs))
         if p.startswith('learn') or p=='lesson.html':
             boundary='learning';closure.update(x for x in files if x.startswith(('deep-learning/','data/')))
         navigation=set(links[p])

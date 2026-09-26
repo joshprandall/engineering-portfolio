@@ -40,7 +40,7 @@ module.exports = async ({ browser, base, output, failures }) => {
   await page.waitForFunction(() => document.documentElement.dataset.theme === 'light');
   await tab.close();
 
-  const root = path.resolve(__dirname, '..');
+  const root = path.resolve(process.env.PORTFOLIO_RUNTIME_ROOT || path.join(__dirname, '../staging/website-2.0-runtime'));
   const routes = fs.readdirSync(root).filter(n => n.endsWith('.html')).concat(['geometric-lab/index.html', 'qubit-preview-20260921/index.html']);
   await page.setViewportSize({ width: 320, height: 740 });
   const layoutProblems = [];
@@ -60,7 +60,7 @@ module.exports = async ({ browser, base, output, failures }) => {
     await toggle();
   }
   assert.deepEqual(layoutProblems, [], 'No horizontal overflow on the smallest phone');
-  console.log('PASS appearance: both navigation directions, reload, Back, tab sync, controls on all 32 pages');
+  console.log(`PASS appearance: both navigation directions, reload, Back, tab sync, controls on all ${routes.length} pages`);
 
   for (const mode of ['light', 'dark']) {
     await open('index.html');

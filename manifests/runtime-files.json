@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "sourceCommit": "3b6d5fb6a957168c2aae9d69c4271e9ce417133e",
+  "sourceCommit": "d25327dc82c6592934b08153a4eb7ae78573d819",
   "bytePolicy": "Exact Git blobs; artifacts verified against committed SHA-256 and size.",
   "files": [
     {
@@ -282,11 +282,11 @@
     },
     {
       "path": "assets/site-subjects.json",
-      "size": 1252155,
-      "sha256": "27a803ba0050932239ff48f0cd011668c23e96a5f3e84de60fc8f7352df7c14c",
+      "size": 1390906,
+      "sha256": "4bd7e81b72bc3e7f620f235477fb84e905bd99b461d107218537e3a5a90cc6d5",
       "source": {
         "kind": "git-blob",
-        "blob": "761d80926e48c1ea3615ea73f86267ecbbcba95f"
+        "blob": "f1004e6123a1f5f834b5ac3b85669d750c40dfa4"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -1925,11 +1925,11 @@
     },
     {
       "path": "index.html",
-      "size": 28311,
-      "sha256": "da2008eb980e64ac9eba1d2ce1c0aa41e03fd83b7f8e1c20c7413470e0b186cf",
+      "size": 28683,
+      "sha256": "52712e37f56d4f2044804c234d38596f8f55b8f8ac7c23790607a71344ae35a3",
       "source": {
         "kind": "git-blob",
-        "blob": "f58845852f8d1f8a243ce92386252ed63a0f75a7"
+        "blob": "2aa63c9006bfd803466c66ae3296eaea876295d9"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -1958,11 +1958,11 @@
     },
     {
       "path": "knowledge.js",
-      "size": 190646,
-      "sha256": "7cdd71481ef02c81fe36aff142bf532faf7c339e9cc969d7b88e1629c872b344",
+      "size": 191047,
+      "sha256": "4a9f67909258f2155203cc200ec16215709f96507b68c6632dec688c72bf0eb3",
       "source": {
         "kind": "git-blob",
-        "blob": "b1f4bdd36df4ccbab80bc9f2eee21f25e870cf58"
+        "blob": "e6286198ae3e2824e2c6118ac034eeafbc19f3d1"
       },
       "owningComponent": "learning",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -2178,11 +2178,11 @@
     },
     {
       "path": "learn.html",
-      "size": 22913,
-      "sha256": "685374e3a3e2724ee924c3abcf5db120b7dcfcec8fa4f74dd560d2185722ef13",
+      "size": 23205,
+      "sha256": "0240c14832edcaa782466f44bde9a37a155a45926fafccc7866f1831c39b80b2",
       "source": {
         "kind": "git-blob",
-        "blob": "e4f79fe2234d747274f78b4be41af7f3419e601a"
+        "blob": "620bc9da4644bc6978dbdd9f2f30fac11198515c"
       },
       "owningComponent": "learning",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -2662,11 +2662,11 @@
     },
     {
       "path": "site-sections.css",
-      "size": 2099,
-      "sha256": "b9cc25126bb988322d394740e7ac5058fa6a1e02cb53c4c6e31d8cee55d66f01",
+      "size": 2897,
+      "sha256": "2c0b2597caffb421b3864ea0d77cbe396eb43c4a8903e124b3e9e16d29e6f198",
       "source": {
         "kind": "git-blob",
-        "blob": "f5bc1d69f802c1b1f87b79db2b27173b8a078b16"
+        "blob": "a88c6cba9eaf2a089f259b9d0dda399343d3a84e"
       },
       "owningComponent": "site-sections",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -2714,8 +2714,18 @@
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "assets/Recovery_Readiness_Auditor.zip",
+      "size": 8597,
+      "sha256": "8205c4c2b1102398c53d4de315522bb3b92ef154d0f4c40bf4d5da1a1647e1e9",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "recovery-readiness",
+      "deploymentClassification": "KEEP_PRODUCTION"
     }
   ],
   "fileCount": 245,
-  "byteSize": 282731653
+  "byteSize": 282872267
 }

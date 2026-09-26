@@ -3194,33 +3194,6 @@
       "fallbackContract": "Resolve same-site absolute media to preserved local bytes when available. Preserve existing URL until route migration and consumer checks pass."
     },
     {
-      "url": "https://web.engr.oregonstate.edu/~randjosh/assets/fusion-presentation.mp4",
-      "consumers": [
-        {
-          "source": "project-fusion.html",
-          "evidence": "current-runtime"
-        }
-      ],
-      "provider": "osu",
-      "sha256": null,
-      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
-      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
-      "fallbackContract": "Resolve same-site absolute media to preserved local bytes when available. Preserve existing URL until route migration and consumer checks pass.",
-      "localCounterpart": {
-        "path": "assets/fusion-presentation.mp4",
-        "size": 168678432,
-        "sha256": "eefc852a3a5d12eeedf8a217fc2cb68d6d0476612ad4d8744a8e6febd99361e8",
-        "source": {
-          "kind": "release-asset",
-          "assetId": 590222021,
-          "sha256": "eefc852a3a5d12eeedf8a217fc2cb68d6d0476612ad4d8744a8e6febd99361e8",
-          "provenance": "Z:/public_html/assets/fusion-presentation.mp4"
-        },
-        "owningComponent": "portfolio",
-        "deploymentClassification": "KEEP_PRODUCTION"
-      }
-    },
-    {
       "url": "https://web.engr.oregonstate.edu/~randjosh/assets/joshua-randall-headshot.jpg",
       "consumers": [
         {

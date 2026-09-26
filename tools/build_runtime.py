@@ -10,6 +10,10 @@ from restore_website2_assets import read_bytes
 ROOT=Path(__file__).resolve().parents[1]
 TARGET=ROOT/'staging/website-2.0-runtime'
 def digest(data):return hashlib.sha256(data).hexdigest()
+def safe_path(path):
+    pp=PurePosixPath(path)
+    if not path or pp.is_absolute() or '..' in pp.parts or '\\' in path or ':' in path or any(ord(c)<32 for c in path):raise ValueError('Unsafe package path: '+path)
+    return pp
 def owner(path):
     for prefix in ('games/','geometric-lab/','qubit-preview-20260921/','deep-learning/'):
         if path.startswith(prefix):return '/'.join(path.split('/')[:2]) if prefix=='games/' else prefix.rstrip('/')
@@ -47,7 +51,7 @@ def build(commit,refresh=False):
             paths.add(target)
     files=[];payload={}
     for path in sorted(paths):
-        pp=PurePosixPath(path)
+        pp=safe_path(path)
         if pp.is_absolute() or '..' in pp.parts or pp.parts[0] in {'.git','.github','preservation','tests','tools','project-sources','.asset-cache','staging'} or '.bak' in path or 'before-' in path:
             raise ValueError('Disallowed runtime path: '+path)
         if path in asset_by_path:
@@ -71,10 +75,10 @@ def build(commit,refresh=False):
     result={'schemaVersion':2,'sourceCommit':commit,'bytePolicy':'Exact Git blobs; artifacts verified against committed SHA-256 and size.','files':files,'fileCount':len(files),'byteSize':sum(f['size'] for f in files)}
     # Build/verify first. Replace only this explicitly named local staging directory.
     resolved=TARGET.resolve();allowed=(ROOT/'staging').resolve()
-    if resolved.parent!=allowed or resolved.name!='website-2.0-runtime':raise ValueError('Unsafe output')
+    if allowed.parent!=ROOT.resolve() or resolved.parent!=allowed or resolved.name!='website-2.0-runtime':raise ValueError('Unsafe output')
     if TARGET.is_symlink():raise ValueError('Symlink output forbidden')
     if TARGET.exists():
-        if any(p.is_symlink() for p in TARGET.rglob('*')):raise ValueError('Symlink in previous output')
+        if any(p.is_symlink() or not p.resolve().is_relative_to(resolved) for p in TARGET.rglob('*')):raise ValueError('Symlink/junction in previous output')
         shutil.rmtree(TARGET)
     for path,data in payload.items():
         target=TARGET/path;target.parent.mkdir(parents=True,exist_ok=True);target.write_bytes(data)

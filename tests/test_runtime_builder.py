@@ -7,6 +7,11 @@ sys.path.insert(0,str(ROOT/'tools'))
 import build_runtime
 
 class RuntimeBuilder(unittest.TestCase):
+    def test_absolute_drive_and_traversal_paths_are_rejected(self):
+        for path in ('../index.html','/index.html','C:/public_html/index.html','..\\index.html','assets/file:stream',''):
+            with self.assertRaises(ValueError):build_runtime.safe_path(path)
+        self.assertEqual(str(build_runtime.safe_path('assets/fusion-presentation.mp4')),'assets/fusion-presentation.mp4')
+
     def test_corrupt_artifact_cannot_replace_staged_package(self):
         marker=ROOT/'staging/website-2.0-runtime-manifest.json'
         if not marker.exists():self.skipTest('Build a staged package first')
