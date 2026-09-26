@@ -1,0 +1,84 @@
+<!doctype html>
+<html id="top" lang="en">
+<head>
+<script src="site-theme.js?v=20260924-scenes"></script>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta name="description" content="Joshua Randall's game development projects, including Crown & Ash and Defeat the Evil Wizard."/>
+<meta name="color-scheme" content="dark light"/>
+<meta name="theme-color" content="#101416"/>
+<title>Game Development | Joshua Randall</title>
+<link href="assets/favicon.svg" rel="icon" type="image/svg+xml"/>
+<link href="styles.css?v=20260924-readable-v9" rel="stylesheet"/>
+<link href="site-resilience.css?v=20260924-perf-v1scenes" rel="stylesheet"/>
+<link href="portfolio-next.css?v=20260924-light-type-v9-nohalo" rel="stylesheet"/>
+<link href="site-scenes.css?v=20260925-architecture-v27" rel="stylesheet"/>
+<script defer src="site-audio.js?v=20260925-architecture-v27"></script>
+<script defer src="site-scenes.js?v=20260925-architecture-v27"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header>
+  <a aria-label="Joshua Randall home" class="brand" href="index.html">JR<span>Joshua Randall<small>Systems. Software. Possibility.</small></span></a>
+  <nav aria-label="Primary" id="primary-nav">
+    <a href="index.html">Home</a>
+    <a href="expertise-experience.html">Expertise &amp; Experience</a>
+    <a href="projects.html">Projects</a>
+    <a href="learn.html">Learn</a>
+    <a aria-current="page" href="game-development.html">Game Development</a>
+    <a href="index.html#direction">Direction</a>
+  </nav>
+  <div class="tools">
+    <button aria-label="Search portfolio" id="search-open">⌕ <span>Search</span><kbd>/</kbd></button>
+    <button aria-label="Switch color theme" id="theme" data-theme-toggle>◐</button>
+    <button aria-controls="primary-nav" aria-expanded="false" aria-label="Open navigation" id="menu">☰</button>
+  </div>
+</header>
+
+<main id="main">
+  <section class="wrap projects-hero">
+    <p class="eyebrow">GAME DEVELOPMENT / INTERACTIVE WORLDS</p>
+    <h1>Games deserve<br/><em>their own room.</em></h1>
+    <p class="lead">Each game has a dedicated project page and a dedicated playable page. The portfolio explains the engineering; the game page is for playing.</p>
+  </section>
+
+  <section class="wrap" id="game-list">
+    <div class="project-grid">
+      <article class="project-card">
+        <span class="project-number">01 / 3D CHESS COMBAT</span>
+        <h2>Crown &amp; Ash</h2>
+        <p>A 3D battle-chess simulator with themed armies, legal chess, animated captures, local two-player play, computer-opponent play, and touch-friendly controls.</p>
+        <div class="card-bottom">
+          <span class="status">Playable prototype · Steam productization in progress</span>
+          <a class="tile-open vnext-card-link" href="project-battle-chess.html">Project page ↗︎</a>
+          <a class="tile-secondary vnext-secondary-link" href="games/3d-battle-chess/index.html">Play Crown &amp; Ash ↗︎</a>
+        </div>
+      </article>
+
+      <article class="project-card">
+        <span class="project-number">02 / DARK-FANTASY ACTION</span>
+        <h2>Defeat the Evil Wizard</h2>
+        <p>An adaptive browser action game with desktop keyboard play and handheld controls for phones and tablets.</p>
+        <div class="card-bottom">
+          <span class="status">Adaptive Web release · mobile + desktop</span>
+          <a class="tile-open vnext-card-link" href="play-evil-wizard.html">Project page ↗︎</a>
+          <a class="tile-secondary vnext-secondary-link" href="games/evil-wizard/play.html">Play Defeat the Evil Wizard ↗︎</a>
+        </div>
+      </article>
+    </div>
+  </section>
+</main>
+
+<section class="contact wrap" id="connect">
+  <div><p class="eyebrow">BUILD / TEST / PLAY / ITERATE</p><h2>Interactive systems<br/>with consequences.</h2><p>Games are where software architecture, state, UX, simulation, graphics, sound, and performance meet.</p></div>
+  <div class="contact-actions"><a class="button primary" href="projects.html">Engineering projects ↗︎</a><a href="https://github.com/joshprandall" rel="noopener noreferrer" target="_blank">GitHub ↗︎</a></div>
+</section>
+
+<footer class="wrap"><span>© 2026 Joshua Randall · Albany, Oregon</span><div><a href="#top">Back to top ↑</a></div><small>Hello World!!! — where this OSU engineering portfolio began.</small></footer>
+<dialog aria-labelledby="search-title" id="search-dialog"><div class="dialog-head"><h2 id="search-title">Explore the portfolio</h2><button aria-label="Close search" data-close="">✕</button></div><label for="search-input">Search skills, experience, and projects</label><input autocomplete="off" id="search-input" placeholder="Try Azure, leadership, or fusion…" type="search"/><div id="search-results"></div><p class="muted">Escape to close · Tab to navigate results</p></dialog>
+<div aria-live="polite" id="toast" role="status"></div>
+<script defer src="site-resilience.js?v=20260925-architecture-v27"></script>
+<script defer src="app.js?v=20260924-perf-v1scenes"></script>
+<script defer src="portfolio-next.js?v=20260924-perf-v1solar-v4"></script>
+</body>
+</html>
