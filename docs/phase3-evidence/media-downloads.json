@@ -1,0 +1,21 @@
+{
+  "labChecks": [
+    "Qubit deterministic zero-state sampling",
+    "Geometric local curvature worker",
+    "recorded neural outputs",
+    "diffusion time control",
+    "inverse posterior"
+  ],
+  "sourceCommit": "926efb72d00b949abcb86b6a15bb67f07791490c",
+  "video": {
+    "duration": 440.652653,
+    "width": 1920,
+    "height": 1080,
+    "source": "assets/fusion-presentation.mp4"
+  },
+  "downloads": [
+    "assets/Joshua_Randall_Master_Resume.docx",
+    "assets/Recovery_Readiness_Auditor.zip"
+  ],
+  "externalNetworkBlocked": true
+}

@@ -1,0 +1,2 @@
+Chess: Failed to load resource: the server responded with a status of 404 (Not Found)
+PASS chess browser: desktop, touch, capture combat, undo, flip, repeated 2D/3D switching, orientation gate, module failure/retry and no-WebGL keyboard play.

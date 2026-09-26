@@ -1,23 +1,23 @@
 Science-experiment release validation passed: 16 projects, 8,000 manifest records, orbital systems scene, deterministic science math and protected experience exclusions.
-(node:31504) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/joshp/Documents/engineering-portfolio/qubit-preview-20260921/qubit.js?test=1790437472438 is not specified and it doesn't parse as CommonJS.
+(node:2596) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/joshp/Documents/engineering-portfolio/qubit-preview-20260921/qubit.js?test=1790442058850 is not specified and it doesn't parse as CommonJS.
 Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
 To eliminate this warning, add "type": "module" to \\?\C:\Users\joshp\Documents\engineering-portfolio\package.json.
 (Use `node --trace-warnings ...` to show where the warning was created)
-(node:22828) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/joshp/Documents/engineering-portfolio/games/3d-battle-chess/engine.js is not specified and it doesn't parse as CommonJS.
+(node:39344) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/joshp/Documents/engineering-portfolio/games/3d-battle-chess/engine.js is not specified and it doesn't parse as CommonJS.
 Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
 To eliminate this warning, add "type": "module" to \\?\C:\Users\joshp\Documents\engineering-portfolio\package.json.
 (Use `node --trace-warnings ...` to show where the warning was created)
 PASS chess rules: perft 20/400/8902, mate, castling, en passant, promotion, pins, draws, undo and all AI levels.
-Creating full backup: C:\Users\joshp\AppData\Local\Temp\tmpl0pmed1z\public_html-before-20260926-084434-254653.tar.gz
+Creating full backup: C:\Users\joshp\AppData\Local\Temp\tmpz_irf1nq\public_html-before-20260926-100100-593143.tar.gz
 Verification failed. Previous files restored.
-Creating full backup: C:\Users\joshp\AppData\Local\Temp\tmpaj3xsng8\public_html-before-20260926-084434-589631.tar.gz
+Creating full backup: C:\Users\joshp\AppData\Local\Temp\tmp_k8wgst_\public_html-before-20260926-100100-994021.tar.gz
 Verification failed. Previous files restored.
-Creating full backup: C:\Users\joshp\AppData\Local\Temp\tmpxg1spn0g\public_html-before-20260926-084434-756102.tar.gz
+Creating full backup: C:\Users\joshp\AppData\Local\Temp\tmpuu2fgcwe\public_html-before-20260926-100101-181798.tar.gz
 Installed and verified 57 files. Games, Geometry Lab calculation modules and fusion video are unchanged; the lab theme shell is updated.
-Creating full backup: C:\Users\joshp\AppData\Local\Temp\tmpr_nvq3rg\public_html-before-20260926-084435-072337.tar.gz
+Creating full backup: C:\Users\joshp\AppData\Local\Temp\tmpsuqur3_1\public_html-before-20260926-100101-536002.tar.gz
 Installed and verified 57 files. Games, Geometry Lab calculation modules and fusion video are unchanged; the lab theme shell is updated.
-.....s.......
+.....s........
 ----------------------------------------------------------------------
-Ran 13 tests in 2.271s
+Ran 14 tests in 2.442s
 
 OK (skipped=1)

@@ -1,0 +1,46 @@
+PASS appearance: both navigation directions, reload, Back, tab sync, controls on all 46 pages
+PASS scenery: animation, persistent pause, reduced motion, private-mode fallback
+Checking phone
+Loaded phone
+PASS phone: navigation, search, selected work, Bell outcomes, animation and pause, images, theme, layout
+Checking small-phone
+Loaded small-phone
+PASS small-phone: navigation, search, selected work, Bell outcomes, animation and pause, images, theme, layout
+Checking tablet
+Loaded tablet
+PASS tablet: navigation, search, selected work, Bell outcomes, animation and pause, images, theme, layout
+Checking desktop
+Loaded desktop
+PASS desktop: navigation, search, selected work, Bell outcomes, animation and pause, images, theme, layout
+PASS project project-advanced-computing.html
+PASS project project-asset-inventory.html
+PASS project project-battle-chess.html
+PASS project project-dependency.html
+PASS project project-emergent.html
+PASS project project-fusion.html
+PASS project project-geometric-ai.html
+PASS project project-kubernetes-lab.html
+PASS project project-learning-library.html
+PASS project project-lifecycle.html
+PASS project project-mind.html
+PASS project project-portfolio.html
+PASS project project-qpe.html
+PASS project project-qubit.html
+PASS project project-recovery.html
+PASS app learn.html
+PASS app learn-browse.html
+PASS app learn-labs.html
+PASS app learn-paths.html
+PASS app learn-mastery.html
+PASS app learn-practice.html
+PASS app learn-glossary.html
+PASS app learn-map.html
+PASS app learn-verify.html
+PASS app learn-capstones.html
+PASS app agent-workbench.html
+PASS app qubit-preview-20260921/
+PASS learning: mastery planner, compact paths, research lesson controls, saved progress, navigation
+PASS embedded browser messenger-ios
+PASS embedded browser facebook-android
+PASS embedded browser instagram-ios
+PASS browser regression suite
