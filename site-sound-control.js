@@ -50,7 +50,7 @@
     if (!script) {
       script = document.createElement('script');
       script.id = 'jr-site-audio-controller';
-      script.src = new URL('site-audio.js?v=20260925-header-sound-v25', SITE_BASE).href;
+      script.src = new URL('site-audio.js?v=20260925-main-autoplay-v26', SITE_BASE).href;
       script.async = false;
       (document.head || document.documentElement).appendChild(script);
     }
@@ -132,7 +132,7 @@
       button.setAttribute('aria-label', 'Background sound control');
       button.setAttribute('aria-expanded', String(!panel.hidden));
       button.setAttribute('aria-pressed', String(!muted && pct > 0));
-      button.title = 'Background sound';
+      button.title = window.SiteAudio?.autoplayBlocked ? 'Background sound — tap to start' : 'Background sound';
       button.innerHTML =
         '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10h4l5-4v12l-5-4H4z"></path><path d="M17 9c1 1 1 5 0 6"></path><path d="M19 7c2 2 2 8 0 10"></path></svg>' +
         '<span>Sound</span>';
@@ -188,6 +188,7 @@
     });
 
     document.addEventListener('portfolio:ambient-volume', render);
+    document.addEventListener('portfolio:ambient-autoplay', render);
     document.addEventListener('portfolio:theme', () => {
       ensureAudioController(() => {
         try { window.SiteAudio?.sync?.(true); } catch (_) {}
