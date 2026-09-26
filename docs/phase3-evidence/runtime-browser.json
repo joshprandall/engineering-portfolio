@@ -1,5 +1,5 @@
 {
-  "sourceCommit": "32931e3ce3a2e0928e3716f36463d3928e0a045e",
+  "sourceCommit": "d25327dc82c6592934b08153a4eb7ae78573d819",
   "routes": [
     "about.html",
     "agent-workbench.html",
@@ -83,10 +83,6 @@
       390
     ]
   ],
-  "failures": [
-    "resume.html: overflow 820",
-    "resume.html: overflow 1180",
-    "resume.html: overflow 844"
-  ],
+  "failures": [],
   "physicalHardware": false
 }

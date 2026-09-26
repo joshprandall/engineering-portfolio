@@ -1,11 +1,11 @@
 {
-  "sourceCommit": "32931e3ce3a2e0928e3716f36463d3928e0a045e",
+  "sourceCommit": "d25327dc82c6592934b08153a4eb7ae78573d819",
   "passed": [
     "quiet default, 5% steps, mute/volume persistence, denied autoplay state",
     "global search includes dedicated lessons and returns focus",
     "distinct solar data; learning suppression",
     "ambience suppressed on projects, subject plans and lessons",
-    "subject plan persists and opens dedicated lesson",
+    "subject plans, dedicated lessons and domain-scoped labs/practice",
     "reduced-motion scene is stationary",
     "canvas unavailable and blocked storage retain sound/theme controls"
   ],

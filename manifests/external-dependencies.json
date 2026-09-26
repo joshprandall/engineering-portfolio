@@ -3288,11 +3288,11 @@
       "fallbackContract": "Resolve same-site absolute media to preserved local bytes when available. Preserve existing URL until route migration and consumer checks pass.",
       "localCounterpart": {
         "path": "project-battle-chess.html",
-        "size": 8940,
-        "sha256": "903a2e663073f582d5155fc4dc58b792bef6838ba9c9650ab30936cdaccc5ea6",
+        "size": 9029,
+        "sha256": "65b7588cfc19386736649cb15b97d04c5f5989c7d83d93383466875d4d178d12",
         "source": {
           "kind": "git-blob",
-          "blob": "5301e3f53f06644a55f275b67f6bef43c5c10ea3"
+          "blob": "c2a3901dbe3bd8f598e8ea4319fc7389e2729490"
         },
         "owningComponent": "portfolio",
         "deploymentClassification": "KEEP_PRODUCTION"

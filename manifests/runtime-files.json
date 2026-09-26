@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "sourceCommit": "d25327dc82c6592934b08153a4eb7ae78573d819",
+  "sourceCommit": "aedef5def3bd5c9c9a96cc5a266c564961cd306b",
   "bytePolicy": "Exact Git blobs; artifacts verified against committed SHA-256 and size.",
   "files": [
     {
@@ -271,11 +271,11 @@
     },
     {
       "path": "assets/site-search.json",
-      "size": 2300066,
-      "sha256": "096cba1dae2283819d75b534da2f75230a486245256e32309ad412c3d083d109",
+      "size": 2300094,
+      "sha256": "8ebff830d19bb038bf1b2c65a43b550d49552d89b45d15b18738353f92e4549b",
       "source": {
         "kind": "git-blob",
-        "blob": "fe945c55b896e1e45b2e27f02f5bbe922ea73c96"
+        "blob": "534a4be7ba78fdfa661e8a7dabce7d7f5e661376"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -1216,50 +1216,6 @@
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
-      "path": "games/3d-battle-chess/DEPLOYMENT.md",
-      "size": 3571,
-      "sha256": "bb774c239a546bf83ce622e54b7b91a6a0223710cd77eaf659fe56687189cf72",
-      "source": {
-        "kind": "git-blob",
-        "blob": "9870445709280a15a3fb40ab1067d8d150c8258b"
-      },
-      "owningComponent": "games/3d-battle-chess",
-      "deploymentClassification": "KEEP_PRODUCTION"
-    },
-    {
-      "path": "games/3d-battle-chess/README.md",
-      "size": 2070,
-      "sha256": "7dc8796a510f0ba8cd1ba0e1f214b734a9ab7e5ca4d96185d16ddbbacb767e96",
-      "source": {
-        "kind": "git-blob",
-        "blob": "62c3a78ac8371973bdf02bd3bf211737cf896df6"
-      },
-      "owningComponent": "games/3d-battle-chess",
-      "deploymentClassification": "KEEP_PRODUCTION"
-    },
-    {
-      "path": "games/3d-battle-chess/SOURCE_COMMIT.txt",
-      "size": 302,
-      "sha256": "cfabb7f92013a274114623a58fcd8534cdf3c190cd12ea40d8bfa023c7cf5cda",
-      "source": {
-        "kind": "git-blob",
-        "blob": "1fc364f3140d047c941d49267abc72e406356fd5"
-      },
-      "owningComponent": "games/3d-battle-chess",
-      "deploymentClassification": "KEEP_PRODUCTION"
-    },
-    {
-      "path": "games/3d-battle-chess/STEAM-ROADMAP.md",
-      "size": 8156,
-      "sha256": "80cca868647e61b291e05fa58a254ca4d3f05ffb724b52628c19108c1eb400bd",
-      "source": {
-        "kind": "git-blob",
-        "blob": "69506217a0e8d0b1d9e62dd95b073268d552e9c7"
-      },
-      "owningComponent": "games/3d-battle-chess",
-      "deploymentClassification": "KEEP_PRODUCTION"
-    },
-    {
       "path": "games/3d-battle-chess/attacks.js",
       "size": 6036,
       "sha256": "20053d3c55bce7d3d1a851b9f8b6464a1aa4258802efe1c3e79607bf00eea1d6",
@@ -1814,17 +1770,6 @@
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
-      "path": "geometric-lab/METHODS.md",
-      "size": 6824,
-      "sha256": "df606e5bfeac9efb0072d5fc64da6aaff9b6b3c48aa7b4e1c3eeea9138079b13",
-      "source": {
-        "kind": "git-blob",
-        "blob": "eac781d5f7d50d3f5c0f7b4a92a711319ef51a40"
-      },
-      "owningComponent": "geometric-lab",
-      "deploymentClassification": "KEEP_PRODUCTION"
-    },
-    {
       "path": "geometric-lab/app.js",
       "size": 40301,
       "sha256": "439ba6dac5cf7404dec9e831dac8f4c3f4ef28cd76539bc2f95af1948178928a",
@@ -2343,11 +2288,11 @@
     },
     {
       "path": "project-battle-chess.html",
-      "size": 8940,
-      "sha256": "903a2e663073f582d5155fc4dc58b792bef6838ba9c9650ab30936cdaccc5ea6",
+      "size": 9029,
+      "sha256": "65b7588cfc19386736649cb15b97d04c5f5989c7d83d93383466875d4d178d12",
       "source": {
         "kind": "git-blob",
-        "blob": "5301e3f53f06644a55f275b67f6bef43c5c10ea3"
+        "blob": "c2a3901dbe3bd8f598e8ea4319fc7389e2729490"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -2376,11 +2321,11 @@
     },
     {
       "path": "project-fusion.html",
-      "size": 5350,
-      "sha256": "8ed9034e190885309ea4cae034435b7d2d57fbece63b49620384f1714bba0d40",
+      "size": 5221,
+      "sha256": "3a039e660c0477abf29a7caf89788cf94477c74245fd9586fe6e281833cc4177",
       "source": {
         "kind": "git-blob",
-        "blob": "d59da7940ee40bcb816217ed9f2fbbd8b6945b1d"
+        "blob": "9a66c0795e8c3e63febead3cec01ffd82034c319"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -2716,16 +2661,26 @@
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
+      "path": "geometric-lab/METHODS.md",
+      "size": 6824,
+      "sha256": "df606e5bfeac9efb0072d5fc64da6aaff9b6b3c48aa7b4e1c3eeea9138079b13",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
       "path": "assets/Recovery_Readiness_Auditor.zip",
       "size": 8597,
       "sha256": "8205c4c2b1102398c53d4de315522bb3b92ef154d0f4c40bf4d5da1a1647e1e9",
       "source": {
         "kind": "candidate-worktree"
       },
-      "owningComponent": "recovery-readiness",
+      "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
     }
   ],
-  "fileCount": 245,
-  "byteSize": 282872267
+  "fileCount": 240,
+  "byteSize": 282851332
 }

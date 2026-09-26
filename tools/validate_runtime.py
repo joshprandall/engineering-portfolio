@@ -32,6 +32,7 @@ def validate():
             if p.endswith('.css'):refs=re.findall(r'url\(\s*["\']?([^\)"\']+)',text)
             else:
                 refs=re.findall(r'''(?:from\s+|import\s*\(\s*|fetch\s*\(\s*|new\s+Worker\s*\(\s*)["']([^"']+)["']''',text)
+            if p.endswith('.js'):refs+=re.findall(r'''(?:href|src|poster)=["']([^"']+)["']''',text)
             for ref in refs:
                 u=urlsplit(ref)
                 if u.scheme or ref.startswith('//') or not u.path or '${' in ref:continue

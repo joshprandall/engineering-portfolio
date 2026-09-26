@@ -1,0 +1,13 @@
+Creating full backup: C:\Users\joshp\AppData\Local\Temp\tmp5ivm25rf\public_html-before-20260926-084628-041934.tar.gz
+Verification failed. Previous files restored.
+Creating full backup: C:\Users\joshp\AppData\Local\Temp\tmpca2wc6t0\public_html-before-20260926-084628-407832.tar.gz
+Verification failed. Previous files restored.
+Creating full backup: C:\Users\joshp\AppData\Local\Temp\tmp8siij7kv\public_html-before-20260926-084628-575210.tar.gz
+Installed and verified 57 files. Games, Geometry Lab calculation modules and fusion video are unchanged; the lab theme shell is updated.
+Creating full backup: C:\Users\joshp\AppData\Local\Temp\tmp1w6sogsb\public_html-before-20260926-084628-939076.tar.gz
+Installed and verified 57 files. Games, Geometry Lab calculation modules and fusion video are unchanged; the lab theme shell is updated.
+.....s........
+----------------------------------------------------------------------
+Ran 14 tests in 2.383s
+
+OK (skipped=1)
