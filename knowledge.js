@@ -411,6 +411,14 @@
   }
   function openLesson(id,push=true){
     const l=lessonMap.get(id); if(!l)return;
+    const dedicatedLessonPage=/(?:^|\/)lesson\.html$/i.test(location.pathname);
+    if(!dedicatedLessonPage){
+      const u=new URL('lesson.html',location.href);
+      u.searchParams.set('lesson',id);
+      u.searchParams.set('view','overview');
+      location.assign(u);
+      return;
+    }
     setAmbientSuppressed(true);
     const standalone=new URL(location.href).searchParams.get('standalone')==='1';
     document.body.classList.toggle('standalone-experience',standalone);
@@ -455,7 +463,12 @@
     $('#lesson-page-content').innerHTML=lessonPageHTML(l,view); bindLessonPage(l); mountInteractive(view==='lab'?l.interactive:null,l); window.scrollTo({top:Math.max(0,$('.lesson-page-tabs').getBoundingClientRect().top+scrollY-95),behavior:motionPaused?'auto':'smooth'}); updateReadingProgress();
   }
   function closeLesson(push=true){
-    stopSpeech(); currentLesson=null; $('#lesson-view').hidden=true; $('#library-view').hidden=false; document.body.classList.remove('reading','standalone-experience'); setAmbientSuppressed(false);
+    stopSpeech();
+    if(/(?:^|\/)lesson\.html$/i.test(location.pathname)){
+      location.assign('learn.html');
+      return;
+    }
+    currentLesson=null; $('#lesson-view').hidden=true; $('#library-view').hidden=false; document.body.classList.remove('reading','standalone-experience'); setAmbientSuppressed(false);
     if(push){const u=new URL(location.href);u.searchParams.delete('lesson');u.searchParams.delete('view');history.pushState({},'',u)}
     renderLessons(); renderPaths(); renderKnowledgeGraph(); applyLibraryPage(); window.scrollTo({top:0,behavior:'auto'});
   }
@@ -993,31 +1006,27 @@
       primaryNav.id=primaryNav.id||'primary-nav';
       mobileMenu.setAttribute('aria-controls',primaryNav.id);
 
-      if(!primaryNav.querySelector('a[href="index.html#direction"]')){
-        const direction=document.createElement('a');direction.href='index.html#direction';direction.textContent='Direction';primaryNav.append(direction);
-      }
-      if(!primaryNav.querySelector('.nav-games')){
-        const games=document.createElement('details');games.className='nav-games';
-        games.innerHTML='<summary>Game Development</summary><div class="nav-games-menu"><a href="project-battle-chess.html">3D Battle Chess</a><a href="play-evil-wizard.html">Defeat the Evil Wizard</a></div>';
-        primaryNav.append(games);
-      }
+      primaryNav.innerHTML=[
+        ['index.html','Home'],
+        ['expertise-experience.html','Expertise & Experience'],
+        ['projects.html','Projects'],
+        ['learn.html','Learn'],
+        ['game-development.html','Game Development'],
+        ['index.html#direction','Direction']
+      ].map(([href,label])=>'<a href="'+href+'"'+(href==='learn.html'?' aria-current="page"':'')+'>'+label+'</a>').join('');
       const closePrimaryNav=()=>{
         primaryNav.classList.remove('open');
-        primaryNav.querySelector('.nav-games')?.removeAttribute('open');
         mobileMenu.setAttribute('aria-expanded','false');
         mobileMenu.setAttribute('aria-label','Open navigation');
       };
       mobileMenu.onclick=e=>{
         e.preventDefault();e.stopPropagation();
         const open=primaryNav.classList.toggle('open');
-        if(!open)primaryNav.querySelector('.nav-games')?.removeAttribute('open');
-        mobileMenu.setAttribute('aria-expanded',String(open));
+                mobileMenu.setAttribute('aria-expanded',String(open));
         mobileMenu.setAttribute('aria-label',open?'Close navigation':'Open navigation');
       };
       primaryNav.addEventListener('click',e=>{if(e.target.closest('a'))closePrimaryNav()});
       document.addEventListener('click',e=>{
-        const games=primaryNav.querySelector('.nav-games');
-        if(games?.open&&!games.contains(e.target))games.removeAttribute('open');
         if(primaryNav.classList.contains('open')&&!primaryNav.contains(e.target)&&!mobileMenu.contains(e.target))closePrimaryNav();
       });
       document.addEventListener('keydown',e=>{if(e.key==='Escape'&&primaryNav.classList.contains('open')){closePrimaryNav();mobileMenu.focus()}});
