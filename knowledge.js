@@ -420,6 +420,7 @@
       return;
     }
     setAmbientSuppressed(true);
+    document.title=l.title+' | Joshua Randall';
     const standalone=new URL(location.href).searchParams.get('standalone')==='1';
     document.body.classList.toggle('standalone-experience',standalone);
     stopSpeech(); currentLesson=id; lessonViewName=lessonViewFromURL(); preferences.setItem(STORAGE.recent,id); renderContinue(); const initialView=lessonViewName; ensureDeepLearning(l).then(()=>{if(currentLesson===id&&lessonViewName===initialView){const host=$('#lesson-page-content');if(host){host.innerHTML=lessonPageHTML(l,initialView);bindLessonPage(l);if(initialView==='lab')mountInteractive(l.interactive,l)}}});
