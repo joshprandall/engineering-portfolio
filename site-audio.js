@@ -11,7 +11,7 @@
   const VOLUME_KEY = 'jr-site-ambient-volume-v2';
   const PROJECT_RE = /(?:^|\/)(?:project-[^/]+\.html|play-evil-wizard\.html|agent-workbench\.html|games\/|geometric-lab\/|qubit-preview-20260921\/|deep-learning\/)/i;
   const LOCAL_TEST_HOST = location.hostname === '127.0.0.1' || location.hostname === 'localhost';
-  const MAIN_PAGE_RE = /(?:^|\/)(?:index\.html|learn\.html)?$/i;
+  const MAIN_PAGE_RE = /(?:^|\/)(?:index\.html|expertise-experience\.html|projects\.html|game-development\.html|learn(?:-(?:browse|paths|practice|mastery|labs|glossary|map|verify))?\.html)?$/i;
   const MAIN_PAGE = MAIN_PAGE_RE.test(location.pathname);
 
   const SOURCES = Object.freeze({
@@ -38,7 +38,7 @@
   const MAX_BACKGROUND_VOLUME = 0.10;
 
   let sceneId = 'forest-river';
-  let suppressed = PROJECT_RE.test(location.pathname);
+  let suppressed = !MAIN_PAGE || PROJECT_RE.test(location.pathname);
   let currentKey = '';
   let unlocked = false;
   let switching = false;
@@ -489,7 +489,7 @@
   });
 
   document.addEventListener('portfolio:ambient-suppression', event => {
-    suppressed = Boolean(event.detail?.active);
+    suppressed = !MAIN_PAGE || Boolean(event.detail?.active);
     sync(true);
   });
 
