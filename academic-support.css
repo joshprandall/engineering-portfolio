@@ -10,8 +10,10 @@
 .support-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem}
 .support-grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}
 .support-card,.support-callout>div,.resource-list article,.support-notes{
+  border:1px solid rgba(255,255,255,.16);
   border:1px solid color-mix(in srgb,currentColor 16%,transparent);
   border-radius:18px;
+  background:rgba(16,22,29,.78);
   background:color-mix(in srgb,var(--panel,#10161d) 76%,transparent);
   backdrop-filter:blur(18px);
   -webkit-backdrop-filter:blur(18px);
@@ -20,10 +22,10 @@
 .support-card h3,.support-callout h3{margin:.25rem 0 .7rem}
 .support-card p,.support-callout p{line-height:1.55}
 .support-number{display:inline-flex;min-width:2.5rem;font-variant-numeric:tabular-nums;opacity:.55}
-.support-row{display:flex;justify-content:space-between;gap:1rem;padding:.55rem 0;border-top:1px solid color-mix(in srgb,currentColor 12%,transparent)}
+.support-row{display:flex;justify-content:space-between;gap:1rem;padding:.55rem 0;border-top:1px solid rgba(255,255,255,.12);border-top:1px solid color-mix(in srgb,currentColor 12%,transparent)}
 .support-row:first-of-type{margin-top:.75rem}
 .support-row span{opacity:.8}
-.tutor+.tutor{margin-top:1rem;padding-top:1rem;border-top:1px solid color-mix(in srgb,currentColor 12%,transparent)}
+.tutor+.tutor{margin-top:1rem;padding-top:1rem;border-top:1px solid rgba(255,255,255,.12);border-top:1px solid color-mix(in srgb,currentColor 12%,transparent)}
 .support-callout{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}
 .resource-list{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:.75rem}
 .resource-list article{display:flex;flex-direction:column;gap:.4rem}
