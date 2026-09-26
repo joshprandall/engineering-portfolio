@@ -1,0 +1,138 @@
+/* Portfolio vNext: interactive systems, realistic-looking schematic, semantic project catalog. */
+.vnext-system{width:100%;max-width:650px;align-self:stretch;border:1px solid #37515b;border-radius:18px;background:radial-gradient(circle at 55% 32%,#18313d,#0b151c 70%);box-shadow:0 26px 60px #0004;overflow:hidden;display:flex;flex-direction:column;padding:clamp(15px,2.5vw,24px);gap:13px;min-width:0;color:#f3f6f7}
+.vnext-sys-top{display:flex;justify-content:space-between;gap:10px;font-size:.7rem;letter-spacing:.14em;color:#a8c9ce}
+.vnext-system-tabs{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px}
+.vnext-system-tabs button{min-height:44px;padding:9px 3px;border:1px solid #35515a;border-radius:8px;background:#12242c;color:#c6d7da;font-family:inherit;font-size:.72rem;font-weight:600;line-height:1.2;cursor:pointer}
+.vnext-system-tabs button[aria-selected="true"]{background:#f0b38d;color:#10191b;border-color:#f0b38d;box-shadow:0 0 0 2px #f0b38d28}
+.vnext-system-tabs button:focus-visible,.vnext-node:focus-visible{outline:3px solid #f0b38d;outline-offset:2px}
+.vnext-sys-svg{display:block;width:100%;max-height:290px;flex:0 0 auto;overflow:visible}
+.vnext-edge{fill:none;stroke:#57c9db;stroke-width:1.5;stroke-dasharray:6 8;opacity:.7;animation:vnext-flow 8s linear infinite;animation-delay:var(--delay)}
+.vnext-node{cursor:pointer;color:#dff9ff}.vnext-node-hit{fill:transparent}.vnext-node-orb{fill:#58d9e5;stroke:#d6faff;stroke-width:2;filter:drop-shadow(0 0 9px #56eaff7f);transition:r .15s,fill .15s}.vnext-node:hover .vnext-node-orb,.vnext-node.selected .vnext-node-orb{fill:#f5bd95;r:22}
+.vnext-node-label{fill:#c5e0e5;font:600 14px/1 system-ui,sans-serif;letter-spacing:.025em;pointer-events:none}
+.vnext-sys-detail{border-top:1px solid #33505c;padding-top:14px;min-width:0}.vnext-sys-meta{font-size:.66rem;letter-spacing:.13em;color:#f3b995}.vnext-sys-detail h2{font-size:clamp(1.35rem,2.2vw,1.8rem);line-height:1.15;margin:7px 0}.vnext-sys-detail p{font-size:.89rem;line-height:1.55;color:#c6d4d7;margin:6px 0}.vnext-sys-detail ul{margin:10px 0 14px;padding-left:20px;display:grid;gap:4px;font-size:.82rem;color:#e7e8e4}.vnext-sys-detail li::marker{color:#f5b590}.vnext-cta{display:inline-flex;align-items:center;min-height:44px;padding:8px 0;color:#ffd2b5;text-decoration:underline;text-underline-offset:4px;font-size:.87rem}.vnext-sys-detail .vnext-node-note{font-size:.76rem;min-height:1.8em;color:#9fd5dd}
+@keyframes vnext-flow{to{stroke-dashoffset:-112}}
+.vnext-education{border-block:1px solid var(--line);padding:20px 0;margin:27px 0;display:grid;gap:14px}
+.vnext-school{min-width:0;display:flex;align-items:center;gap:16px;padding:13px;background:var(--surface);border:1px solid var(--line);border-radius:12px}
+.vnext-school-mark{width:74px;min-width:74px;height:74px;display:flex;align-items:center;justify-content:center;font:800 1.25rem/1 system-ui;letter-spacing:-.055em;border-radius:10px}
+.vnext-osu{background:#cf4619;color:#fff}.vnext-mit{background:#9b1829;color:white;font-size:1.5rem;letter-spacing:-.08em}
+.vnext-school>div:last-child{min-width:0}.vnext-school strong{display:block;font-size:clamp(.94rem,1.8vw,1.15rem);line-height:1.35}.vnext-school p{font-size:.83rem!important;margin:5px 0!important;line-height:1.4!important}.vnext-school small{font-size:.75rem;color:var(--muted);line-height:1.4;display:block}
+.vnext-quantum{position:relative;align-self:stretch;min-width:0;overflow:hidden;background:#06131b;border:1px solid #3e7180;border-radius:16px;box-shadow:0 18px 48px #0004;color:#e9f7f9}
+.vnext-quantum-head{position:absolute;top:0;left:0;right:0;z-index:1;display:flex;align-items:center;justify-content:space-between;gap:6px;padding:15px;background:linear-gradient(#020c12e8,#020c1200);font-size:.66rem;letter-spacing:.08em;color:#c7e7ea}.vnext-quantum-tag{border:1px solid #4da9bc;border-radius:16px;padding:6px 8px;color:#7de1f0}
+#vnext-quantum-canvas{display:block;width:100%;height:clamp(280px,34vw,420px);background:#081923}
+.vnext-quantum-floor{background:linear-gradient(#132732,#07131b);padding:20px 22px 25px;border-top:1px solid #457782}.vnext-ket{font:600 clamp(1.05rem,2vw,1.5rem)/1.3 ui-serif,Georgia,serif;color:#dcfaff;letter-spacing:.02em}
+.vnext-quantum-floor p{margin:9px 0;font-size:.82rem!important;line-height:1.55;color:#c2d6dc}.vnext-measures{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-top:16px}.vnext-measures label{font-size:.78rem}.vnext-measures select,.vnext-measures button{color:#f8faf9;background:#132f3c;border:1px solid #57a8bc;border-radius:8px;min-height:44px;padding:8px 12px;font:600 .82rem system-ui;cursor:pointer}.vnext-measures button{background:#efb389;color:#11202a;border-color:#efb389}
+.vnext-quantum-floor #vnext-measure-result{min-height:55px;color:#9be4ee}
+.project-card{position:relative}.project-card .vnext-card-link::after{content:"";position:absolute;inset:0;z-index:1}.project-card .vnext-secondary-link{position:relative;z-index:3}.project-card a:focus-visible{outline:3px solid var(--accent);outline-offset:4px}.vnext-embedded-note{padding:18px;border:1px solid var(--line);border-radius:8px}
+@media(max-width:760px){.vnext-system{max-width:none;margin-top:6px}.vnext-sys-svg{max-height:230px}.vnext-sys-detail h2{font-size:1.4rem}.vnext-quantum-head{font-size:.58rem;letter-spacing:.03em}.vnext-quantum-floor{padding:16px}.vnext-education{gap:10px}}
+@media(max-width:440px){.vnext-system{padding:13px}.vnext-system-tabs{gap:3px}.vnext-system-tabs button{font-size:.64rem;padding:7px 0;word-break:normal}.vnext-sys-svg{max-height:188px}.vnext-node-label{font-size:16px}.vnext-sys-top{font-size:.58rem;letter-spacing:.06em}.vnext-school{gap:10px;padding:10px}.vnext-school-mark{width:56px;min-width:56px;height:56px;font-size:1.05rem}.vnext-school p{font-size:.75rem!important}.vnext-quantum-head{flex-wrap:wrap}.vnext-quantum-tag{padding:4px 6px}#vnext-quantum-canvas{height:275px}}
+@media(prefers-reduced-motion:reduce){.vnext-edge{animation:none}.vnext-node-orb{transition:none}}
+.vnext-project-nav{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:15px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.vnext-project-nav a{display:inline-flex;align-items:center;min-height:44px;padding:6px 10px;color:var(--accent);text-decoration:none;border:1px solid var(--line);border-radius:7px;font-size:.84rem}
+.vnext-project-nav a:focus-visible,.vnext-project-nav a:hover{border-color:var(--accent);text-decoration:underline}
+.vnext-qubit-frame{width:100%;min-height:740px;border:1px solid var(--line);border-radius:10px;background:#111b20}
+.vnext-frame-note{font-size:.86rem;color:var(--muted)}
+@media(max-width:700px){.vnext-project-nav a{flex:1 1 130px;justify-content:center;text-align:center}.vnext-qubit-frame{display:block;min-height:980px}}
+
+.vnext-osu{background:#fff;color:#d44a20}.vnext-osu img{max-width:92%;max-height:80%;object-fit:contain}
+
+
+/* September interaction refinement: one text label = one node, dedicated full-screen project pages. */
+.vnext-system-tabs button{display:flex;align-items:center;justify-content:center;gap:7px;transition:background .18s,border-color .18s,transform .18s,box-shadow .18s}
+.vnext-system-tabs button:hover{border-color:#6fc9d7;transform:translateY(-1px)}
+.vnext-tab-dot{width:8px;height:8px;border-radius:50%;background:#4c8190;box-shadow:0 0 0 3px #4c819022;transition:background .18s,box-shadow .18s,transform .18s}
+.vnext-system-tabs button[aria-selected="true"] .vnext-tab-dot{background:#142129;box-shadow:0 0 0 4px #14212922;transform:scale(1.2)}
+.vnext-node{outline:none}.vnext-node-orb{transition:r .2s,fill .2s,stroke .2s,filter .2s}
+.vnext-node.selected .vnext-node-orb{fill:#f5bd95;stroke:#fff0e5;filter:drop-shadow(0 0 14px #f5bd95cc);r:25}
+.vnext-node.selected .vnext-node-label{fill:#ffd6bd;font-weight:800}
+.vnext-node[aria-pressed="false"] .vnext-node-orb{opacity:.8}
+.vnext-sys-detail{min-height:220px}
+.vnext-sys-detail:focus{outline:none}
+.vnext-sys-detail h2{max-width:28ch}
+.vnext-sys-detail>p{max-width:62ch}
+.vnext-project-nav{position:sticky;top:92px;z-index:20;background:color-mix(in srgb,var(--bg) 94%,transparent);backdrop-filter:blur(14px)}
+@media(max-width:900px){.vnext-project-nav{top:76px}}
+.vnext-project-nav a[data-project-nav="all"]{font-weight:800;border-color:var(--accent)}
+body:has(.vnext-project-nav) main{min-height:calc(100dvh - 150px)}
+.project-card{cursor:pointer}
+.project-card:hover{transform:translateY(-2px)}
+.project-card .vnext-card-link{font-weight:700}
+.project-card .vnext-card-link::after{cursor:pointer}
+@media(max-width:700px){
+  .vnext-system-tabs{grid-template-columns:1fr 1fr}
+  .vnext-system-tabs button:last-child{grid-column:1/-1}
+  .vnext-sys-svg{max-height:260px}
+  .vnext-sys-detail{min-height:260px}
+  .vnext-project-nav{top:76px;padding-inline:10px}
+}
+
+
+/* Connected Systems orbital science scene */
+.vnext-cosmos{max-width:760px;padding:0;gap:0;background:#03080d;border-color:#294754;box-shadow:0 36px 90px #0008,0 0 0 1px #6bdff014 inset;overflow:hidden}
+.vnext-cosmos .vnext-sys-top{padding:17px 20px 14px;background:linear-gradient(180deg,#07131c,#050c12);border-bottom:1px solid #203944;font-size:.66rem;letter-spacing:.14em}
+.vnext-cosmos .vnext-system-tabs{padding:10px 14px;gap:7px;background:#050c12;border-bottom:1px solid #203944}
+.vnext-cosmos .vnext-system-tabs button{position:relative;min-height:42px;padding:8px 5px;background:#081721cc;border-color:#274552;color:#bfd9df;overflow:hidden}
+.vnext-cosmos .vnext-system-tabs button::after{content:"";position:absolute;inset:auto 9px 5px;height:1px;background:linear-gradient(90deg,transparent,#69d6e7,transparent);opacity:.12}
+.vnext-cosmos .vnext-system-tabs button[aria-selected="true"]{background:linear-gradient(180deg,#ffd2b4,#efa979);border-color:#ffd8be;color:#17100c;box-shadow:0 0 22px #ffb47d40}
+.vnext-cosmos .vnext-tab-dot{width:7px;height:7px;flex:0 0 7px!important;border-radius:50%;background:currentColor;box-shadow:0 0 10px currentColor;opacity:.8}
+.vnext-cosmos-scene{position:relative;height:clamp(410px,43vw,535px);min-height:410px;overflow:hidden;isolation:isolate;background:#02070b}
+.vnext-cosmos-scene::before{content:"";position:absolute;inset:0;z-index:3;pointer-events:none;background:radial-gradient(circle at 50% 45%,transparent 35%,#02070b22 70%,#02070bba 100%),linear-gradient(180deg,#0000 60%,#02070b80)}
+.vnext-cosmos-scene::after{content:"";position:absolute;inset:0;z-index:4;pointer-events:none;opacity:.12;background:repeating-linear-gradient(180deg,#fff0 0 3px,#a9edff18 4px)}
+.vnext-cosmos-canvas{position:absolute;inset:0;width:100%;height:100%;z-index:1}
+.vnext-cosmos-core{position:absolute;left:50%;top:45%;z-index:18;width:84px;height:84px;display:flex;flex-direction:column;align-items:center;justify-content:center;transform:translate(-50%,-50%);border-radius:50%;color:#4a2b17;text-align:center;pointer-events:none;background:radial-gradient(circle at 38% 32%,#fffdf1 0 8%,#ffe1a6 18%,#ffb35f 40%,#d7702d 62%,#5f220d 78%,#0000 80%);filter:drop-shadow(0 0 13px #ffbd76) drop-shadow(0 0 32px #f07938a8)}
+.vnext-cosmos-core::before{content:"";position:absolute;inset:-17px;border-radius:50%;border:1px solid #ffd6a754;box-shadow:0 0 26px #ffb56e4a inset}
+.vnext-cosmos-core span{font:900 1.22rem/1 system-ui;letter-spacing:-.05em}.vnext-cosmos-core small{font:800 .48rem/1.2 system-ui;letter-spacing:.08em;margin-top:4px}
+.vnext-cosmos-worlds{position:absolute;inset:0;z-index:10;pointer-events:none}
+.vnext-world{--world-size:52px;position:absolute;left:0;top:0;width:104px;min-height:108px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:0;border:0;background:none;color:#eaf6f8;pointer-events:auto;transform-origin:center;transition:filter .18s ease,opacity .18s ease;will-change:transform;outline:none}
+.vnext-world strong{font:800 .68rem/1 system-ui;letter-spacing:.08em;text-shadow:0 2px 6px #000,0 0 10px #000;white-space:nowrap}
+.vnext-world small{font:700 .52rem/1 system-ui;color:#9dbbc3;letter-spacing:.12em}
+.vnext-planet{position:relative;width:var(--world-size);height:var(--world-size);display:block;border-radius:50%;box-shadow:inset -13px -11px 22px #0009,inset 8px 7px 16px #fff2,0 0 10px #5ad7eb44;transition:transform .18s ease,box-shadow .18s ease,filter .18s ease}
+.vnext-planet::after{content:"";position:absolute;inset:8% 12%;border-radius:50%;background:linear-gradient(155deg,#fff2,#0000 42%,#0004 100%);mix-blend-mode:screen}
+.vnext-planet-shine{position:absolute;left:20%;top:17%;width:24%;height:18%;border-radius:50%;background:#fff8;filter:blur(3px);transform:rotate(-25deg)}
+.vnext-planet-ring{position:absolute;left:50%;top:50%;width:145%;height:36%;border:1px solid #c7f6ff66;border-radius:50%;transform:translate(-50%,-50%) rotate(-13deg);box-shadow:0 0 6px #7ae7fa42;opacity:.25}
+.vnext-world-architect .vnext-planet{background:radial-gradient(circle at 32% 26%,#d9fbff 0 5%,#46d7e9 23%,#087a9b 55%,#053249 78%)}
+.vnext-world-build .vnext-planet{background:radial-gradient(circle at 35% 27%,#ffe6d9 0 5%,#ee8764 22%,#a33435 57%,#4b1621 82%)}
+.vnext-world-secure .vnext-planet{background:radial-gradient(circle at 32% 26%,#e6feff 0 4%,#73ecf2 22%,#1593aa 56%,#064150 82%)}
+.vnext-world-automate .vnext-planet{background:radial-gradient(circle at 35% 28%,#f4e6ff 0 4%,#c479ee 23%,#7638ac 58%,#2a174b 83%)}
+.vnext-world-evolve .vnext-planet{background:radial-gradient(circle at 32% 27%,#fff4ca 0 5%,#f2c35d 24%,#ad7525 58%,#563613 82%)}
+.vnext-world-secure .vnext-planet-ring,.vnext-world-automate .vnext-planet-ring,.vnext-world-evolve .vnext-planet-ring{opacity:.78}
+.vnext-world.selected{filter:brightness(1.1)}.vnext-world.selected .vnext-planet{transform:scale(1.15);box-shadow:inset -13px -11px 22px #0008,inset 8px 7px 16px #fff3,0 0 0 3px #ffd5b5,0 0 20px #ffc393,0 0 48px #ff9d626e}
+.vnext-world.selected strong{color:#ffd8bf}.vnext-world:hover .vnext-planet{transform:scale(1.12);filter:brightness(1.12)}
+.vnext-world:focus-visible .vnext-planet{outline:3px solid #fff0df;outline-offset:7px}
+.vnext-cosmos-hint{position:absolute;z-index:22;left:18px;bottom:15px;font:700 .56rem/1 system-ui;letter-spacing:.12em;color:#a5c9d0;text-shadow:0 1px 4px #000}
+.vnext-cosmos .vnext-sys-detail{border-top:1px solid #29434d;padding:19px 21px 22px;background:linear-gradient(145deg,#0b1a22,#071117);min-height:225px}
+.vnext-cosmos .vnext-sys-meta{font-size:.62rem;letter-spacing:.15em;color:#f4b78f}
+.vnext-detail-grid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(210px,.65fr);gap:32px;align-items:start}
+.vnext-cosmos .vnext-sys-detail h2{font-size:clamp(1.45rem,2.4vw,2rem);margin:8px 0 10px;max-width:29ch}
+.vnext-cosmos .vnext-sys-detail p{font-size:.9rem;max-width:64ch}
+.vnext-cosmos .vnext-sys-detail ul{margin:11px 0 13px}
+.vnext-cosmos .vnext-cta{font-weight:750;color:#ffd1b3}
+@media(max-width:760px){
+  .vnext-cosmos{max-width:none}
+  .vnext-cosmos-scene{height:430px;min-height:430px}
+  .vnext-detail-grid{grid-template-columns:1fr;gap:6px}
+  .vnext-cosmos .vnext-sys-detail{min-height:0}
+}
+@media(max-width:520px){
+  .vnext-cosmos .vnext-sys-top{padding:13px 14px 11px;font-size:.56rem;letter-spacing:.08em}
+  .vnext-cosmos .vnext-system-tabs{grid-template-columns:1fr 1fr;padding:8px}
+  .vnext-cosmos .vnext-system-tabs button:last-child{grid-column:1/-1}
+  .vnext-cosmos-scene{height:390px;min-height:390px}
+  .vnext-cosmos-core{width:64px;height:64px}.vnext-cosmos-core span{font-size:1rem}.vnext-cosmos-core small{font-size:.4rem}
+  .vnext-world{width:80px;min-height:88px}.vnext-world strong{font-size:.56rem}.vnext-world small{display:none}
+  .vnext-cosmos-hint{left:12px;bottom:10px;font-size:.48rem;letter-spacing:.07em}
+  .vnext-cosmos .vnext-sys-detail{padding:16px}
+}
+@media(prefers-reduced-motion:reduce){.vnext-world,.vnext-planet{transition:none!important}}
+
+
+/* Light-theme contrast guard for the dark Connected Systems science scene. */
+html[data-theme="light"] .vnext-system,
+html[data-theme="light"] .vnext-cosmos{color:#f3f6f7;background:#03080d}
+html[data-theme="light"] .vnext-cosmos .vnext-sys-top,
+html[data-theme="light"] .vnext-cosmos .vnext-system-tabs{background:#050c12;color:#a8c9ce}
+html[data-theme="light"] .vnext-cosmos .vnext-sys-detail{background:linear-gradient(145deg,#0b1a22,#071117);color:#f3f6f7;border-top-color:#29434d}
+html[data-theme="light"] .vnext-cosmos .vnext-sys-detail h2{color:#f3f6f7}
+html[data-theme="light"] .vnext-cosmos .vnext-sys-detail p{color:#c6d4d7}
+html[data-theme="light"] .vnext-cosmos .vnext-sys-detail ul{color:#e7e8e4}
+html[data-theme="light"] .vnext-cosmos .vnext-sys-meta{color:#f4b78f}
+html[data-theme="light"] .vnext-cosmos .vnext-cta{color:#ffd1b3}

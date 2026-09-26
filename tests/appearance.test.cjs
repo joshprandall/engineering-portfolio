@@ -67,7 +67,12 @@ module.exports = async ({ browser, base, output, failures }) => {
     let image = await pixels(); await page.waitForTimeout(400);
     assert.notEqual(await pixels(), image, mode + ': scenery moves');
     assert.equal(await page.locator('.scene-options [data-scene-motion]').count(), 0, mode + ': no legacy motion toggle');
-    assert(await page.locator('.scene-options [data-scene-audio]').isVisible(), mode + ': ambience mute control visible');
+    const sound=page.locator('header [data-scene-audio]');
+    assert.equal(await sound.count(),1,mode+': one header sound control');
+    assert(await sound.isVisible(),mode+': sound control visible');
+    await sound.click();
+    assert(await page.locator('header .scene-sound-panel').isVisible(),mode+': sound panel opens');
+    await sound.click();
     assert.equal(await page.locator('body').getAttribute('data-motion'), 'running', mode + ': site motion remains running');
     await page.evaluate(() => scrollTo({ top: 0, behavior: 'instant' }));
     if (output) {

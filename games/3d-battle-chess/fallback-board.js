@@ -1,71 +1,78 @@
-/* Accessible, self-contained 2D chess if WebGL/CDN is unavailable or the player chooses 2D. */
-import {ChessGame,chooseComputerMove} from './engine.js';
+/* CDN-independent renderer, sharing the live-repair singleton with battle.js. */
+import {chooseComputerMove} from './engine.js';
+import {game} from './shared-game.js';
+import {castleNotation,castleAttempt} from './castle-controls.js';
 const $=id=>document.getElementById(id);
 const glyph={w:{k:'♔',q:'♕',r:'♖',b:'♗',n:'♘',p:'♙'},b:{k:'♚',q:'♛',r:'♜',b:'♝',n:'♞',p:'♟'}};
-export function startTwoDimensionalBoard(){
- if(window.__battle2D)return;window.__battle2D=true;
- const game=new ChessGame(),scene=$('scene'),status=$('state'),turn=$('turn'),log=$('log');
- let chosen=null,moves=[],flipped=false,generation=0,timer=null;
- scene.replaceChildren();scene.classList.add('board-2d-mode');scene.setAttribute('aria-label','Playable two-dimensional chessboard');
- const info=document.createElement('p');info.className='board-2d-notice';
- info.textContent='2D backup board — 3D graphics are unavailable or you selected 2D. Full chess rules still apply.';
- const grid=document.createElement('div');grid.className='board-2d-grid';grid.setAttribute('role','group');grid.setAttribute('aria-label','Chess squares');
- scene.append(info,grid);
- function view(){
-  grid.replaceChildren();const list=[];
-  for(let row=0;row<8;row++)for(let col=0;col<8;col++){
-   const x=flipped?7-col:col,y=flipped?7-row:row,p=game.piece(x,y),sq=String.fromCharCode(97+x)+(8-y);
-   const button=document.createElement('button');button.type='button';button.className='square-2d '+((x+y)%2?'dark':'light');
-   if(chosen&&chosen.x===x&&chosen.y===y)button.classList.add('chosen');
-   if(moves.some(m=>m.nx===x&&m.ny===y))button.classList.add('legal');
-   button.textContent=p?glyph[p.c][p.t]:'';
-   button.dataset.color=p?.c||'';
-   button.setAttribute('aria-label',`${sq}: ${p?(p.c==='w'?'white ':'black ')+({k:'king',q:'queen',r:'rook',b:'bishop',n:'knight',p:'pawn'}[p.t]):'empty'}${moves.some(m=>m.nx===x&&m.ny===y)?', legal destination':''}`);
-   button.addEventListener('click',()=>choose(x,y));list.push(button);
-  }
-  grid.append(...list);
-  const st=game.status();turn.textContent=st.over?'Game over':`${game.turn==='w'?'White':'Black'} to move`;
-  status.textContent=st.over?(st.winner?`${st.winner==='w'?'White':'Black'} wins by checkmate`:`Draw: ${st.kind}`):(st.check?'Check':'2D board ready');
-  log.replaceChildren(...game.moves.map((m,i)=>{const li=document.createElement('li');li.textContent=`${i+1}. ${m.notation}`;return li}));
-  $('difficulty').disabled=true;$('difficulty').title='2D mode uses a fast, fixed-strength computer opponent';
+let lifecycle=null,timer=null,selected=null,moves=[],flipped=false,active=false,started=false,retry=null;
+const listen=(el,type,fn)=>el?.addEventListener(type,fn,{signal:lifecycle.signal});
+function cancel(){clearTimeout(timer);timer=null;selected=null;moves=[];}
+function render(){
+ if(!active||!started)return;
+ const grid=$('board2d');grid.replaceChildren();
+ for(let row=0;row<8;row++)for(let col=0;col<8;col++){
+  const x=flipped?7-col:col,y=flipped?7-row:row,p=game.piece(x,y),b=document.createElement('button');
+  b.type='button';b.className='square2d '+((x+y)%2?'dark':'light');
+  if(p)b.classList.add(p.c==='w'?'white-piece':'black-piece');
+  if(selected?.x===x&&selected?.y===y)b.classList.add('selected');
+  if(moves.some(m=>m.nx===x&&m.ny===y))b.classList.add('legal');
+  b.dataset.x=x;b.dataset.y=y;b.textContent=p?glyph[p.c][p.t]:'';b.setAttribute('role','gridcell');
+  b.setAttribute('aria-label',`${String.fromCharCode(97+x)}${8-y}: ${p?(p.c==='w'?'white ':'black ')+p.t:'empty'}`);grid.append(b);
  }
- function invalidate(){generation++;clearTimeout(timer);chosen=null;moves=[];}
- function computer(){if($('mode').value!=='ai'||game.turn!=='b'||game.status().over)return;
-  const ticket=++generation;timer=setTimeout(()=>{
-   if(ticket!==generation||window.__battle2D!==true)return;
-   try{const m=chooseComputerMove(game,1);if(m)game.move(m.x,m.y,m.nx,m.ny);}
-   catch(e){status.textContent='Computer move unavailable: '+e.message;return;}
-   chosen=null;moves=[];view();
-  },180);
- }
- function promote(p,y){if(p?.t!=='p'||(y!==0&&y!==7))return 'q';
-  const answer=prompt('Promote to queen (q), rook (r), bishop (b), or knight (n):','q');
-  const choice=(answer||'q').trim().toLowerCase();return ['q','r','b','n'].includes(choice)?choice:'q';
- }
- function play(m,promotion=null){
-  const piece=game.piece(m.x,m.y),chosenPromotion=promotion||promote(piece,m.ny);
-  const done=game.move(m.x,m.y,m.nx,m.ny,chosenPromotion);
-  if(!done)return false;chosen=null;moves=[];view();computer();return true;
- }
- function choose(x,y){if($('mode').value==='ai'&&game.turn==='b')return;
-  const move=moves.find(m=>m.nx===x&&m.ny===y);
-  if(move){play(move);return;}
-  if(game.piece(x,y)?.c===game.turn){chosen={x,y};moves=game.legalMoves(x,y);}else{chosen=null;moves=[];}
-  view();
- }
- $('newGame').onclick=()=>{invalidate();game.reset();view();};
- $('undo').onclick=()=>{invalidate();if(game.undo()&&$('mode').value==='ai'&&game.turn==='b')game.undo();view();};
- $('flip').onclick=()=>{flipped=!flipped;view();};
- $('theme').onchange=()=>{grid.dataset.theme=$('theme').value;};
- $('mode').onchange=()=>{invalidate();game.reset();view();};
- $('sound').onclick=event=>{event.currentTarget.textContent='Sound unavailable in 2D mode';event.currentTarget.setAttribute('aria-pressed','false');};
- $('menuBtn').onclick=event=>{const opened=$('controls').classList.toggle('open');event.currentTarget.setAttribute('aria-expanded',String(opened));};
- $('moveForm').onsubmit=event=>{
-  event.preventDefault();const field=$('moveInput'),match=/^([a-h])([1-8])([a-h])([1-8])([qrbn])?$/i.exec(field.value.trim());
-  if(!match){status.textContent='Enter a move such as e2e4.';return;}
-  const x=match[1].toLowerCase().charCodeAt(0)-97,y=8-Number(match[2]),nx=match[3].toLowerCase().charCodeAt(0)-97,ny=8-Number(match[4]);
-  if(!game.legalMoves(x,y).some(m=>m.nx===nx&&m.ny===ny)){status.textContent='That move is not legal.';return;}
-  if(play({x,y,nx,ny},match[5]?.toLowerCase()||null))field.value='';
- };
- grid.dataset.theme=$('theme').value;view();
+ const st=game.status();$('turn').textContent=st.over?'Game over':`${game.turn==='w'?'White':'Black'} to move`;
+ $('state').textContent=st.over?(st.winner?`${st.winner==='w'?'White':'Black'} wins by checkmate`:`Draw: ${st.kind}`):(st.check?'Check':'2D board — 3D modules unavailable');
+ $('log').replaceChildren(...game.moves.map(m=>{const li=document.createElement('li');li.textContent=m.notation;return li;}));
+ $('difficulty').disabled=$('mode').value!=='ai';
+ for(const id of ['viewToggle','handView']){$(id).textContent='Retry 3D';$(id).setAttribute('aria-label','Retry 3D without resetting game');}
 }
+function computer(){
+ clearTimeout(timer);
+ if(!active||!started||$('mode').value!=='ai'||game.turn!=='b'||game.status().over)return;
+ timer=setTimeout(()=>{if(!active||!started)return;const m=chooseComputerMove(game,Number($('difficulty').value));if(m)game.move(m.x,m.y,m.nx,m.ny);render();},350);
+}
+function play(m,promotion){
+ if(!active||!started||game.status().over||($('mode').value==='ai'&&game.turn==='b'))return false;
+ const p=game.piece(m.x,m.y);
+ if(!promotion&&p?.t==='p'&&(m.ny===0||m.ny===7)){const answer=(prompt('Promote: q, r, b, n','q')||'q').toLowerCase();promotion=['q','r','b','n'].includes(answer)?answer:'q';}
+ if(!game.move(m.x,m.y,m.nx,m.ny,promotion||'q'))return false;
+ selected=null;moves=[];render();computer();return true;
+}
+function choose(x,y){
+ if($('mode').value==='ai'&&game.turn==='b')return;
+ const castle=selected&&castleAttempt(game,selected,x,y),m=castle?.move||moves.find(m=>m.nx===x&&m.ny===y);
+ if(m){play(m);return;}
+ selected=game.piece(x,y)?.c===game.turn?{x,y}:null;moves=selected?game.legalMoves(x,y):[];render();
+}
+function fullscreen(){$('gameShell').classList.toggle('immersive-fullscreen');}
+export function installFallback({onRetry3D}){
+ if(active)return;
+ lifecycle=new AbortController();active=true;retry=onRetry3D;
+ const hint=document.createElement('p');hint.id='fallback-hint';hint.setAttribute('role','status');hint.textContent='3D could not load. Start a full-rules 2D match; retry 3D later without losing moves.';$('setupScreen').querySelector('.setup-panel').append(hint);
+ listen($('startGameBtn'),'click',()=>{
+  for(const [to,from]of [['mode','setupMode'],['theme','setupTheme'],['difficulty','setupDifficulty']])$(to).value=$(from).value;
+  $('setupScreen').classList.add('hidden');$('gameShell').classList.remove('hidden');$('gameShell').setAttribute('aria-hidden','false');document.body.classList.add('playing');document.body.classList.toggle('handheld-active',navigator.maxTouchPoints>0&&matchMedia('(pointer:coarse)').matches);started=true;
+  $('scene').hidden=true;$('board2d').classList.remove('hidden');$('gameShell').classList.add('immersive-fullscreen');render();computer();
+ });
+ listen($('board2d'),'click',e=>{const b=e.target.closest('[data-x]');if(b)choose(Number(b.dataset.x),Number(b.dataset.y));});
+  const reset=()=>{cancel();game.reset();render();};const undo=()=>{cancel();if(game.undo()&&$('mode').value==='ai'&&game.turn==='b')game.undo();render();};
+ listen(document,'keydown',e=>{
+  if(!started||/INPUT|SELECT|TEXTAREA/.test(e.target.tagName))return;
+  const key=e.key.toLowerCase();
+  if(key==='escape'){$('gameShell').classList.remove('immersive-fullscreen');return;}
+  if(key==='u'){e.preventDefault();undo();}
+  if(key==='v'){e.preventDefault();void retry();}
+  if(key==='f'){e.preventDefault();flipped=!flipped;render();}
+  if(key==='n'){e.preventDefault();reset();}
+ });
+ for(const id of ['newGame','handNew'])listen($(id),'click',reset);
+ for(const id of ['undo','handUndo'])listen($(id),'click',undo);
+ for(const id of ['flip','handFlip'])listen($(id),'click',()=>{flipped=!flipped;render();});
+ for(const id of ['viewToggle','handView'])listen($(id),'click',()=>void retry());
+ for(const id of ['fullscreenBtn','handFullscreen'])listen($(id),'click',fullscreen);
+ for(const id of ['sound','handSound'])listen($(id),'click',()=>{$(id).textContent='Sound unavailable in emergency mode';$(id).setAttribute('aria-pressed','false');});
+ listen($('mode'),'change',reset);listen($('difficulty'),'change',computer);
+ listen($('menuBtn'),'click',()=>{$('menuBtn').setAttribute('aria-expanded',String($('controls').classList.toggle('open')));});
+ listen($('exitGame'),'click',()=>{cancel();started=false;$('gameShell').classList.add('hidden');$('gameShell').classList.remove('immersive-fullscreen');$('gameShell').setAttribute('aria-hidden','true');$('setupScreen').classList.remove('hidden');document.body.classList.remove('playing');});
+ listen($('moveForm'),'submit',e=>{e.preventDefault();const value=$('moveInput').value.trim(),castle=castleNotation(game,value),m=/^([a-h])([1-8])([a-h])([1-8])([qrbn])?$/i.exec(value);const move=castle?.move||(m&&{x:m[1].toLowerCase().charCodeAt(0)-97,y:8-Number(m[2]),nx:m[3].toLowerCase().charCodeAt(0)-97,ny:8-Number(m[4])});if(move&&play(move,m?.[5]?.toLowerCase()))$('moveInput').value='';else $('state').textContent='Enter a legal move such as e2e4 or O-O.';});
+}
+export function stopTwoDimensionalBoard(){cancel();lifecycle?.abort();active=false;started=false;$('fallback-hint')?.remove();$('board2d').replaceChildren();}

@@ -1,0 +1,49 @@
+/* Responsive and accessible corrections, September 2026. Add after styles.css. */
+html,body{max-width:100%;overflow-x:clip}
+header{isolation:isolate}header nav#primary-nav{min-width:0}
+.tools button{width:44px;min-width:44px;height:44px;display:inline-flex;align-items:center;justify-content:center;font-size:1.2rem;line-height:1}
+.tools #search-open{min-width:44px}.brand{min-width:0}.brand>span{min-width:0}
+.project-card{min-width:0}.project-card .card-bottom{flex-wrap:wrap;align-items:flex-start;gap:12px 16px}
+.project-card .card-bottom .status{min-width:0;overflow-wrap:break-word;flex-basis:100%}
+.project-card .card-bottom a{display:inline-flex;align-items:center;justify-content:center;min-height:44px;text-decoration:none;overflow-wrap:break-word}
+.project-card .tile-secondary{position:relative;z-index:2}
+.project-card[hidden]{display:none}
+.project-detail-actions{flex-wrap:wrap}
+.portrait .image-fallback{min-height:200px;display:grid;place-items:center;font-size:3rem;color:var(--accent);background:var(--surface);border:1px solid var(--line)}
+.study .image-fallback{width:115px;min-height:75px;display:grid;place-items:center;background:#fff;color:#161a20;padding:10px;border-radius:3px;font-weight:700;font-size:.84rem}
+.direction-image{background:radial-gradient(circle at 28% 40%,#35556c 0,transparent 25%),radial-gradient(circle at 75% 62%,#75565d 0,transparent 28%),linear-gradient(140deg,#102331,#121921);position:relative}
+.direction-image .image-fallback{min-height:260px;display:grid;place-items:center;padding:28px;color:var(--ink);text-align:center;font-size:1.2rem}
+.demo-frame{max-width:100%}
+@media(max-width:900px){
+ header nav#primary-nav{display:none;position:absolute;top:100%;left:0;right:0;z-index:100;background:var(--bg);padding:12px 20px 20px;border-bottom:1px solid var(--line);box-shadow:0 16px 30px #0005;max-height:calc(100dvh - 76px);overflow-y:auto;overscroll-behavior:contain;flex-direction:column;align-items:stretch;gap:0}
+ header nav#primary-nav.open{display:flex}
+ header nav#primary-nav a{display:flex;align-items:center;width:100%;min-height:48px;padding:10px 12px;border-bottom:1px solid var(--line)}
+ #menu{display:inline-flex;align-items:center;justify-content:center;min-width:44px;min-height:44px}
+ .project-grid{grid-template-columns:minmax(0,1fr)}
+ .study{min-width:0;gap:16px;flex-wrap:wrap}.study>div{min-width:0;flex:1 1 180px}.study strong{display:block;overflow-wrap:anywhere}
+ .study img{height:auto;flex-shrink:0;object-fit:contain}
+ .direction-image{min-height:0;align-self:stretch;overflow:hidden}
+ .direction-image img{position:relative!important;inset:auto!important;display:block;width:100%;height:auto;max-height:370px;object-fit:contain;opacity:1}
+ .direction-image span{position:relative;display:block;bottom:auto;left:auto;right:auto;padding:15px;background:var(--surface)}
+}
+@media(max-width:560px){
+ .wrap{width:calc(100% - 32px)}header{padding-inline:16px}header .brand{gap:8px}header .brand>span{font-size:.8rem}
+ .tools{gap:2px}.tools #search-open{width:44px;padding:0}.tools #search-open span,.tools kbd{display:none}
+ .hero{padding-top:36px;gap:24px}.hero h1{font-size:clamp(2.35rem,10vw,3.25rem)}
+ .system-visual{height:auto!important;min-height:0;display:flex;flex-direction:column;overflow:hidden;padding:18px 16px 16px;gap:12px}
+ .system-visual .visual-top{position:relative;top:auto;left:auto;right:auto;gap:6px;justify-content:space-between}
+ .system-visual #network{height:128px;flex:none}
+ .system-visual .system-label{position:relative;left:auto;right:auto;bottom:auto;min-height:112px;padding:4px 0;pointer-events:auto}
+ .system-visual .system-label h2{font-size:1.35rem}.system-visual .system-label p{font-size:.85rem}
+ .system-visual .layer-controls{position:relative;left:auto;right:auto;bottom:auto;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px}
+ .system-visual .layer-controls button{min-width:0;min-height:44px;padding:6px 0}
+ .portrait{max-width:100%}.portrait .image-fallback{min-height:155px;width:120px;font-size:2rem}
+ .direction-image img{max-height:260px}
+ .project-card .card-bottom{display:flex;flex-direction:column;align-items:stretch;gap:8px}
+ .project-card .card-bottom a{width:100%;min-height:48px;border:1px solid var(--line);padding:10px 14px;border-radius:6px;justify-content:flex-start}
+ .project-card .card-bottom .status{width:100%}
+ .project-detail-actions .button{width:100%;justify-content:center}
+ .demo-frame{display:none}
+ .demo-frame-note{display:block;font-size:.9rem;color:var(--muted);margin-block:10px}
+}
+@media(min-width:561px){.demo-frame-note{display:none}}

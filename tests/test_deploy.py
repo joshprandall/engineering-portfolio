@@ -50,12 +50,19 @@ class DeploymentTest(unittest.TestCase):
     def test_new_scene_directories_are_web_readable_with_restrictive_umask(self):
         import os
         previous = os.umask(0o077)
+        original_chmod = Path.chmod
         try:
-            deploy.deploy(self.source, self.site)
+            with patch.object(Path, 'chmod', autospec=True, side_effect=original_chmod) as chmod:
+                deploy.deploy(self.source, self.site)
         finally:
             os.umask(previous)
-        self.assertEqual((self.site / 'assets/scenes').stat().st_mode & 0o777, 0o755)
-        self.assertEqual((self.site / 'assets/scenes/webb-cosmic-cliffs.webp').stat().st_mode & 0o777, 0o644)
+        self.assertIn(((self.site / 'assets/scenes', 0o755), {}), chmod.call_args_list)
+        self.assertIn(((self.site / 'assets/scenes/.webb-cosmic-cliffs.webp.deploying', 0o644), {}), chmod.call_args_list)
+        installed = self.site / 'assets/scenes/webb-cosmic-cliffs.webp'
+        self.assertEqual(installed.read_bytes(), (self.source / 'assets/scenes/webb-cosmic-cliffs.webp').read_bytes())
+        if os.name != 'nt':
+            self.assertEqual((self.site / 'assets/scenes').stat().st_mode & 0o777, 0o755)
+            self.assertEqual(installed.stat().st_mode & 0o777, 0o644)
 
     def test_failed_public_verification_restores_every_original_and_removes_new_files(self):
         def failed_check():
@@ -84,7 +91,27 @@ class DeploymentTest(unittest.TestCase):
     def test_destination_escape_changes_nothing(self):
         external = self.root / 'outside.js'
         self.write(external, 'outside')
-        (self.site / 'quantum-cube.js').symlink_to(external)
+        before = self.snapshot()
+        # Exercise the escape guard on every platform, independent of symlink privilege.
+        original_resolve = Path.resolve
+        target = self.site / 'quantum-cube.js'
+        def resolved(path, *args, **kwargs):
+            return external if path == target else original_resolve(path, *args, **kwargs)
+        with patch.object(Path, 'resolve', autospec=True, side_effect=resolved):
+            with self.assertRaisesRegex(RuntimeError, 'outside public_html'):
+                deploy.deploy(self.source, self.site)
+        self.assertEqual(self.snapshot(), before)
+        self.assertEqual(external.read_text(), 'outside')
+
+    def test_real_symlink_escape_changes_nothing(self):
+        external = self.root / 'outside.js'
+        self.write(external, 'outside')
+        try:
+            (self.site / 'quantum-cube.js').symlink_to(external)
+        except OSError as error:
+            if getattr(error, 'winerror', None) == 1314:
+                self.skipTest('Windows lacks symlink privilege; portable escape-policy test still runs')
+            raise
         before = self.snapshot()
         with self.assertRaisesRegex(RuntimeError, 'outside public_html'):
             deploy.deploy(self.source, self.site)

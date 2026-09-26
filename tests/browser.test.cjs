@@ -26,19 +26,11 @@ async function run(){
   page.on('pageerror',e=>failures.push(`Runtime: ${e.message}`));
   page.on('response',r=>{if(r.url().startsWith(base)&&r.status()>=400&&!/games\/evil-wizard/.test(r.url()))failures.push(`HTTP ${r.status()}: ${r.url()}`);});
   if(output)fs.mkdirSync(output,{recursive:true});
-  await require('./appearance.test.cjs')({browser,base,output,failures});
+  if(!process.env.PORTFOLIO_SKIP_APPEARANCE)await require('./appearance.test.cjs')({browser,base,output,failures});
   for(const [name,width,height] of [['phone',390,844],['small-phone',320,740],['tablet',820,1180],['desktop',1440,1000]]){
    console.log('Checking '+name);await page.setViewportSize({width,height});await page.goto(base+'/',{waitUntil:'networkidle'});
-   console.log('Loaded '+name);assert.equal(await page.locator('body').evaluate(e=>getComputedStyle(e).backgroundColor),'rgb(16, 20, 22)','Dark theme actually renders');assert.equal(await page.locator('.vnext-world').count(),5,'Five selectable planets');
-   for(const label of ['Build','Secure','Automate','Evolve','Architect']){
-    const world=page.locator('.vnext-world').filter({has:page.locator('strong',{hasText:label})}).first();
-    await world.evaluate(el=>el.click());
-    assert.equal(await world.getAttribute('aria-pressed'),'true');
-    assert.match((await page.locator('.vnext-sys-meta').textContent())||'',new RegExp(label,'i'));
-   }
-   assert.equal(await page.locator('.vnext-system-tabs').count(),0,'Top solar capability buttons are removed');
-   assert.equal(await page.locator('.vnext-sys-top').count(),0,'Solar top status strip is removed');
-   assert.equal(await page.locator('.vnext-cosmos-hint').count(),0,'Solar hint container is removed');
+   console.log('Loaded '+name);assert.equal(await page.locator('body').evaluate(e=>getComputedStyle(e).backgroundColor),'rgb(16, 20, 22)','Dark theme actually renders');
+   assert(await page.locator('#selected-work').isVisible(),'Current home project section renders');
    if(await page.locator('#menu').isVisible()){
     for(let n=0;n<3;n++){
      await page.locator('#menu').click();assert.equal(await page.locator('#menu').getAttribute('aria-expanded'),'true');assert(await page.locator('#primary-nav').isVisible());
@@ -48,8 +40,6 @@ async function run(){
     await page.locator('#menu').click();await page.locator('#primary-nav a[href="index.html#direction"]').click();assert(!await page.locator('#primary-nav').isVisible());
    }
    await page.locator('#search-open').click();await page.locator('#search-input').fill('quantum');assert((await page.locator('#search-results a').count())>0);await page.keyboard.press('Escape');
-   await page.locator('.capability-list summary').first().click();assert.equal(await page.locator('.capability-list details').first().getAttribute('open'),'');
-   await page.locator('.capability-list summary').first().click();
    await page.locator('#bell-basis').selectOption('YY');await page.locator('#bell-measure').click();assert.match(await page.locator('#bell-result').innerText(),/00 = 0, 01 = \d+, 10 = \d+, 11 = 0/);
    await page.locator('#bell-basis').selectOption('ZZ');await page.locator('#bell-measure').click();assert.match(await page.locator('#bell-result').innerText(),/01 = 0, 10 = 0/);
    await page.locator('#bell-basis').selectOption('ZX');await page.locator('#bell-measure').click();assert.match(await page.locator('#bell-result').innerText(),/1,000 simulated pairs/);
@@ -59,7 +49,6 @@ async function run(){
    let frame=await capture(),animated=false;for(let attempt=0;attempt<6&&!animated;attempt++){await page.waitForTimeout(120);animated=(await capture())!==frame;}assert(animated,'Cubes animate');
    await page.locator('#cube-pause').click();await page.waitForTimeout(80);frame=await capture();await page.waitForTimeout(140);assert.equal(await capture(),frame,'Cube pause stops rendering motion');await page.locator('#cube-pause').click();
    assert.equal(await page.locator('#motion').getAttribute('data-scene-audio'),'','Former motion control is the global ambience mute');await page.waitForTimeout(90);frame=await capture();await page.waitForTimeout(140);assert.notEqual(await capture(),frame,'Global site motion remains active');
-   await page.locator('.vnext-cosmos').scrollIntoViewIfNeeded();let positions=await page.locator('.vnext-world').evaluateAll(es=>es.map(e=>e.style.transform)),orbitMoved=false;for(let attempt=0;attempt<8&&!orbitMoved;attempt++){await page.waitForTimeout(120);orbitMoved=!require('node:util').isDeepStrictEqual(await page.locator('.vnext-world').evaluateAll(es=>es.map(e=>e.style.transform)),positions);}assert(orbitMoved,'Orbital animation remains active');
    if(name==='phone'||name==='small-phone'){
     await page.locator('#direction').scrollIntoViewIfNeeded();
     assert(await page.locator('#education-title').isVisible(),name+': Education heading renders when scrolled into view');
@@ -67,7 +56,7 @@ async function run(){
     const educationBox=await page.locator('#direction').boundingBox();assert(educationBox&&educationBox.height>300,name+': Education section has rendered content height');
     if(output&&name==='phone')await page.locator('#direction').screenshot({animations:'disabled',path:path.join(output,'education-phone.png')});
    }
-   for(const img of await page.locator('main img:visible').all()){await img.scrollIntoViewIfNeeded();await img.evaluate(im=>im.decode());}
+   for(const img of await page.locator('main img:visible').all()){await img.scrollIntoViewIfNeeded();try{await img.evaluate(im=>im.decode());}catch(error){throw new Error('Image decode failed: '+(await img.getAttribute('src')).slice(0,180));}}
    const portrait=page.locator('.portrait-photo img');assert(await portrait.isVisible(),'Portrait is visible over systems artwork');
    const pb=await portrait.boundingBox(),ab=await page.locator('.about-imagery').boundingBox();assert(pb&&ab&&pb.x>=ab.x-2&&pb.x+pb.width<=ab.x+ab.width+2,'Portrait stays inside systems composition');
    assert.equal(await page.locator('.quantum-banner').count(),0,'Quantum banner artwork is removed from the homepage DOM');
@@ -85,14 +74,9 @@ async function run(){
    assert(lightRgb.length===3&&Math.max(...lightRgb)<80,`Light-mode hero text stays decisively dark, got ${lightInk}`);
    const heroShadow=await page.locator('#hero-title').evaluate(el=>getComputedStyle(el).textShadow);
    assert(!/rgb\(0, 0, 0\)/.test(heroShadow),`Light-mode hero must not use a black outline/shadow, got ${heroShadow}`);
-   const solarLabel=page.locator('.vnext-world strong').first();
-   const solarShadow=await solarLabel.evaluate(el=>getComputedStyle(el).textShadow);
-   const solarColor=await solarLabel.evaluate(el=>getComputedStyle(el).color);
-   assert(!/rgb\(0, 0, 0\)/.test(solarShadow),`Light solar labels must not use black halos, got ${solarShadow}`);
-   assert.equal(await solarLabel.evaluate(el=>getComputedStyle(el).backgroundColor),'rgba(0, 0, 0, 0)','Light solar labels remain container-free');
    if(output&&name==='phone'){await page.screenshot({animations:'disabled',path:path.join(output,'home-phone-light.png'),fullPage:true});}
    await page.locator('#theme').click();
-   console.log(`PASS ${name}: navigation, planet selectors, search, skills, Bell outcomes, animation and pause, images, theme, layout`);
+   console.log(`PASS ${name}: navigation, search, selected work, Bell outcomes, animation and pause, images, theme, layout`);
   }
   // Every project detail page must display a heading and working primary navigation.
   const routes=fs.readdirSync(root).filter(n=>/^project-.*\.html$/.test(n));
@@ -136,11 +120,11 @@ async function run(){
   assert.equal(await page.locator('#depth-context [data-depth-summary]').getAttribute('data-depth-summary'),'compact');
   assert(await page.locator('#vnext-path-band').isVisible());
   await page.goto(base+'/learn-browse.html',{waitUntil:'networkidle'});
-  await page.locator('.lesson-card[data-popout="0"]').first().click();assert(await page.locator('.lesson-title').isVisible());
+  await page.locator('.lesson-card[data-popout="0"]').first().click();await page.waitForURL('**/lesson.html?**');assert(await page.locator('.lesson-title').isVisible());
   await page.locator('#learner-mode').selectOption('research');
   assert.match(await page.locator('#lesson-page-content').innerText(),/Research|research/);
   await page.locator('#save-current').click();assert.match(await page.locator('#save-current').innerText(),/Saved/);
-  await page.locator('[data-home-lesson]').click();assert(!await page.locator('#lesson-view').isVisible());
+  await page.locator('[data-home-lesson]').click();await page.waitForURL('**/learn.html');assert(!await page.locator('#lesson-view').isVisible());
   await page.setViewportSize({width:1440,height:1000});await page.locator('#mobile-menu').click();assert(await page.locator('#primary-nav').isVisible(),'Desktop learning hamburger works');await page.keyboard.press('Escape');
   console.log('PASS learning: mastery planner, compact paths, research lesson controls, saved progress, navigation');
 

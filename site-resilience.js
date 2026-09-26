@@ -96,16 +96,17 @@
   document.querySelectorAll('.handheld-only').forEach(link=>{link.hidden=!isHandheldDevice();});
 
   const fallbacks={
+    'MIT-logo-black-red-72x38.svg':'MIT',
     'portrait.jpg':'JR',
     'osu-logo.png':'Oregon State University',
     'quantum2.jpg':'Advanced computing · systems, physics and quantum engineering'
   };
-  document.querySelectorAll('img[src^="assets/"]').forEach(img=>{
+  document.querySelectorAll('img[src]').forEach(img=>{
     const name=img.getAttribute('src').split('/').pop();
     if(!fallbacks[name])return;
     const replace=()=>{
       if(!img.isConnected)return;
-      if(!img.dataset.remoteAttempted){
+      if(!img.dataset.remoteAttempted&&img.getAttribute('src').startsWith('assets/')){
         img.dataset.remoteAttempted='1';
         img.src='https://raw.githubusercontent.com/joshprandall/engineering-portfolio/main/assets/'+name;
         return;

@@ -338,7 +338,7 @@
       audioButton.title = ambientLockedByPage
         ? 'Background ambience pauses automatically while using projects'
         : 'Background sound';
-      audioButton.innerHTML =
+      if (!audioButton.querySelector('svg')) audioButton.innerHTML =
         '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10h4l5-4v12l-5-4H4z"></path><path d="M17 9c1 1 1 5 0 6"></path><path d="M19 7c2 2 2 8 0 10"></path></svg>' +
         '<span>Sound</span>';
       if (soundMuteButton) soundMuteButton.textContent = ambientMuted ? 'Unmute' : 'Mute';

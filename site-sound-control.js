@@ -15,7 +15,8 @@
 
   function storedVolume() {
     try {
-      const saved = Number(localStorage.getItem(VOLUME_KEY));
+      const raw = localStorage.getItem(VOLUME_KEY);
+      const saved = raw === null ? DEFAULT_VOLUME : Number(raw);
       if (Number.isFinite(saved)) return clampVolume(saved);
     } catch (_) {}
     return DEFAULT_VOLUME;
@@ -133,7 +134,7 @@
       button.setAttribute('aria-expanded', String(!panel.hidden));
       button.setAttribute('aria-pressed', String(!muted && pct > 0));
       button.title = window.SiteAudio?.autoplayBlocked ? 'Background sound — tap to start' : 'Background sound';
-      button.innerHTML =
+      if (!button.querySelector('svg')) button.innerHTML =
         '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10h4l5-4v12l-5-4H4z"></path><path d="M17 9c1 1 1 5 0 6"></path><path d="M19 7c2 2 2 8 0 10"></path></svg>' +
         '<span>Sound</span>';
     }

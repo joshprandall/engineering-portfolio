@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script src="site-theme.js?v=20260924-audio-v4"></script>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta name="color-scheme" content="dark light"/>
+<title>Defeat the Evil Wizard | Joshua Randall</title>
+<link href="styles.css?v=20260924-gameglass-v2" rel="stylesheet"/>
+<link href="site-resilience.css?v=20260924-scenes" rel="stylesheet"/>
+<style>
+.game-project{padding-top:clamp(28px,5vw,70px);padding-bottom:70px}
+.game-project .eyebrow{margin-bottom:12px}
+.game-project h1{font-size:clamp(3rem,8vw,7.5rem);line-height:.86;max-width:10ch;margin:0}
+.game-project .lead{max-width:760px;margin:24px 0 34px;color:var(--muted);font-size:clamp(1rem,2vw,1.35rem)}
+.game-launch{display:block;position:relative;overflow:hidden;border:1px solid var(--line);border-radius:18px;background:#05080d;text-decoration:none;color:var(--ink);box-shadow:0 28px 80px #0008;isolation:isolate}
+.game-launch::before{content:"";display:block;aspect-ratio:16/9;background:
+radial-gradient(circle at 50% 36%,#334052 0 8%,transparent 9%),
+radial-gradient(circle at 50% 49%,#171f2b 0 22%,transparent 23%),
+linear-gradient(180deg,#121a27 0 55%,#070a10 56% 100%)}
+.game-launch::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 25%,#03050933 54%,#030509e8 100%);pointer-events:none}
+.game-cover-art{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:.18;filter:saturate(.75);z-index:-1}
+.game-cover-copy{position:absolute;left:clamp(20px,4vw,56px);right:clamp(20px,4vw,56px);bottom:clamp(20px,4vw,48px);z-index:2;display:flex;align-items:end;justify-content:space-between;gap:24px}
+.game-cover-copy p{margin:0;color:#d0d7e0;max-width:52ch}
+.game-cover-copy strong{display:block;font-size:clamp(2rem,5vw,4.8rem);line-height:.9;margin-bottom:12px}
+.launch-button{flex:none;display:inline-flex;align-items:center;justify-content:center;min-height:54px;padding:12px 20px;border:1px solid #f2c67e;border-radius:10px;background:#6c4d2b;color:#fff5df;font-weight:900;letter-spacing:.06em}
+.game-launch:hover,.game-launch:focus-visible{border-color:var(--accent);transform:translateY(-2px)}
+.game-launch:focus-visible{outline:3px solid var(--accent);outline-offset:5px}
+.game-notes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:22px}
+.game-notes article{padding:18px;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+.game-notes h2{font-size:1rem;margin:0 0 8px}.game-notes p{margin:0;color:var(--muted);font-size:.9rem}
+#search-dialog{max-width:min(720px,calc(100vw - 24px))}
+@media(max-width:720px){
+ .game-project{padding-top:24px}
+ .game-cover-copy{align-items:flex-start;flex-direction:column}
+ .game-launch::before{aspect-ratio:4/3}
+ .launch-button{width:100%}
+ .game-notes{grid-template-columns:1fr}
+}
+</style>
+<link rel="stylesheet" href="site-scenes.css?v=20260924-light-type-v9-nohalo"/>
+<script defer src="site-scenes.js?v=20260924-site-audio-v12-1"></script>
+<script defer src="site-audio.js?v=20260924-audio-cap15-v1"></script>
+
+<style>
+/* JR-WIZARD-PROJECT-GLASS-20260924-V2 */
+.game-launch{
+    background:rgba(7,12,18,.44)!important;
+    border-radius:20px!important;
+    overflow:hidden!important;
+    -webkit-backdrop-filter:blur(16px) saturate(125%)!important;
+    backdrop-filter:blur(16px) saturate(125%)!important;
+}
+.game-launch::before,
+.game-launch::after{
+    border-radius:inherit!important;
+}
+.game-notes article{
+    background:color-mix(in srgb,var(--surface,#101820) 48%,transparent)!important;
+    border-radius:18px!important;
+    -webkit-backdrop-filter:blur(14px)!important;
+    backdrop-filter:blur(14px)!important;
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header>
+  <a aria-label="Joshua Randall home" class="brand" href="index.html">JR<span>Joshua Randall<small>Defeat the Evil Wizard</small></span></a>
+  <nav aria-label="Primary" id="primary-nav">
+    <a href="index.html#expertise">Expertise</a>
+    <a href="index.html#experience">Experience</a>
+    <a href="projects.html">Projects</a>
+    <a href="learn.html">Learn</a>
+    <a href="index.html#direction">Education</a>
+  </nav>
+  <div class="tools">
+    <button aria-label="Search portfolio" id="search-open">⌕ <span>Search</span><kbd>/</kbd></button>
+    <button id="theme" data-theme-toggle type="button" aria-label="Switch color theme">Night</button>
+    <button aria-controls="primary-nav" aria-expanded="false" aria-label="Open navigation" id="menu">☰</button>
+  </div>
+</header>
+
+<main class="wrap game-project" id="main">
+  <p class="eyebrow">GAME DEVELOPMENT / ADAPTIVE WEB RELEASE</p>
+  <h1>Defeat the Evil Wizard</h1>
+  <p class="lead">Choose from 15 champions and fight through an interconnected dark-fantasy campaign. The project page is only the showcase. Click the game below to open the dedicated setup menu and launch the actual game full-screen for your device.</p>
+
+  <a class="game-launch" href="games/evil-wizard/play.html" aria-label="Open Defeat the Evil Wizard game setup">
+    <img class="game-cover-art" src="games/evil-wizard/index.png" alt="" aria-hidden="true"/>
+    <div class="game-cover-copy">
+      <div>
+        <strong>Enter the realm.</strong>
+        <p>Open the full game menu to choose your champion, configure controls and settings, review How to Play, and start the game.</p>
+      </div>
+      <span class="launch-button">OPEN GAME ↗︎</span>
+    </div>
+  </a>
+
+  <div class="game-notes">
+    <article><h2>Phone / tablet</h2><p>Configure the game first. After Start, portrait devices ask you to rotate. Landscape gameplay fills the screen with floating controller-style touch controls.</p></article>
+    <article><h2>PC / large display</h2><p>The dedicated game loads full-screen with keyboard and mouse or a connected Xbox, PlayStation, or compatible controller. No virtual controls.</p></article>
+    <article><h2>Gaming handheld</h2><p>Steam Deck, ROG Ally, Legion Go and similar systems use their physical controls and full-screen landscape gameplay. No phone-style virtual controller.</p></article>
+  </div>
+</main>
+
+<dialog aria-labelledby="search-title" id="search-dialog">
+  <div class="dialog-head"><h2 id="search-title">Explore the portfolio</h2><button aria-label="Close search" data-close>✕</button></div>
+  <label for="search-input">Search skills, experience, and projects</label>
+  <input autocomplete="off" id="search-input" placeholder="Try quantum, games, Azure, or robotics…" type="search"/>
+  <div id="search-results"></div>
+  <p class="muted">Escape to close · Tab to navigate results</p>
+</dialog>
+<div aria-live="polite" id="toast" role="status"></div>
+<script defer src="site-resilience.js?v=20260924-scenes"></script>
+<script defer src="app.js?v=20260924-scenes"></script>
+</body>
+</html>

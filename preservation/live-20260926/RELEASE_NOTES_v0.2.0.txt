@@ -1,0 +1,39 @@
+JOSHUA RANDALL KNOWLEDGE PLATFORM — v0.2.0 RELEASE NOTES
+========================================================
+Release focus: deeper content, stronger navigation, smarter discovery, and more interactive teaching.
+
+CONTENT
+- 112 published learning objects (up from 77)
+- 12 guided paths (up from 8)
+- 71 glossary entries
+- 368 roadmap topics still mapped transparently
+
+NAVIGATION & DISCOVERY
+- Table-of-contents curriculum explorer
+- Weighted search with abbreviation/alias expansion
+- Glossary and roadmap suggestions in search
+- Searchable alphabetic glossary
+- Browser-local Continue Learning strip
+- Cross-domain knowledge graph
+
+LESSON EXPERIENCE
+- Focus reading mode
+- Adjustable narration speed
+- Guided-path previous/next context
+- Existing bookmarks, progress, quizzes, references, and deep links retained
+
+NEW INTERACTIVE MODELS
+- TCP handshake
+- Load balancing + backend health
+- Binary converter
+- Boolean logic gates
+- Memory-latency hierarchy
+- FIFO queue
+- RBAC permissions
+- Error budget calculator
+- Projectile motion
+- Doppler effect with optional sound
+
+DESIGN PRINCIPLE
+The interface is intentionally independent of content count. Adding lesson #5,001 should be
+an authoring/data operation, not a redesign.

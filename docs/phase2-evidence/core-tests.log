@@ -1,0 +1,23 @@
+Science-experiment release validation passed: 16 projects, 8,000 manifest records, orbital systems scene, deterministic science math and protected experience exclusions.
+(node:34624) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/joshp/Documents/engineering-portfolio/qubit-preview-20260921/qubit.js?test=1790411666276 is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to \\?\C:\Users\joshp\Documents\engineering-portfolio\package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:11544) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/joshp/Documents/engineering-portfolio/games/3d-battle-chess/engine.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to \\?\C:\Users\joshp\Documents\engineering-portfolio\package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+PASS chess rules: perft 20/400/8902, mate, castling, en passant, promotion, pins, draws, undo and all AI levels.
+Creating full backup: C:\Users\joshp\AppData\Local\Temp\tmpn_gxafms\public_html-before-20260926-013428-136222.tar.gz
+Verification failed. Previous files restored.
+Creating full backup: C:\Users\joshp\AppData\Local\Temp\tmpmuv4u4i7\public_html-before-20260926-013428-532975.tar.gz
+Verification failed. Previous files restored.
+Creating full backup: C:\Users\joshp\AppData\Local\Temp\tmpyvttunm7\public_html-before-20260926-013428-719355.tar.gz
+Installed and verified 57 files. Games, Geometry Lab calculation modules and fusion video are unchanged; the lab theme shell is updated.
+Creating full backup: C:\Users\joshp\AppData\Local\Temp\tmpk0lvbtwl\public_html-before-20260926-013429-111678.tar.gz
+Installed and verified 57 files. Games, Geometry Lab calculation modules and fusion video are unchanged; the lab theme shell is updated.
+.....s.
+----------------------------------------------------------------------
+Ran 7 tests in 1.373s
+
+OK (skipped=1)

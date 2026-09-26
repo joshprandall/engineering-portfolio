@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta name="theme-color" content="#12161d">
+<title>Defeat the Evil Wizard | Handheld Console</title>
+<style>
+:root{color-scheme:dark;--rail:clamp(112px,18vw,232px);--gold:#e6be76;--edge:#8795a8;--text:#f1ede5;--button:clamp(36px,5.3vh,53px)}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#06080d;color:var(--text);font:500 14px/1.3 system-ui,-apple-system,Segoe UI,sans-serif}button{font:inherit;color:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}button:focus-visible{outline:3px solid #fff;outline-offset:3px}button:disabled{opacity:.45;cursor:not-allowed}.console{position:fixed;inset:0;display:grid;grid-template-columns:var(--rail) minmax(0,1fr) var(--rail);align-items:center;min-width:0;padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);background:linear-gradient(145deg,#303943,#11151d 52%,#353e49);border:3px solid #0a0d12;border-radius:clamp(16px,4vw,48px);box-shadow:inset 0 0 0 2px #657080,inset 0 0 22px #07090d,0 0 0 3px #05070a}.rail{height:100%;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(6px,1.9vh,17px);padding:clamp(7px,1.8vw,20px);user-select:none;touch-action:none}.brand{font-weight:900;letter-spacing:.16em;color:var(--gold);font-size:clamp(9px,1.25vw,13px);text-align:center}.rail small{color:#c6cdd8;letter-spacing:.11em;font-size:10px;text-transform:uppercase}.screen-bezel{align-self:center;justify-self:stretch;width:100%;min-width:0;max-height:100%;aspect-ratio:16/9;padding:clamp(4px,.65vw,10px);border-radius:clamp(8px,1.4vw,20px);background:#07090d;border:2px solid #6d7786;box-shadow:0 0 0 4px #1e252e,inset 0 0 0 1px #020304;display:flex}.screen{position:relative;flex:1;min-width:0;overflow:hidden;border-radius:4px;background:#07090b}.screen iframe{display:block;width:100%;height:100%;border:0;background:#07090b}.status{position:absolute;top:5px;left:50%;transform:translateX(-50%);max-width:calc(100% - 10px);z-index:2;padding:3px 10px;border-radius:20px;background:#151922dd;color:#e5d3a4;text-align:center;font-size:clamp(9px,1.1vw,12px);pointer-events:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.status.ready{display:none}.round,.stick-knob{display:grid;place-items:center;border-radius:50%;background:radial-gradient(circle at 35% 23%,#343c49,#11161e 72%);border:2px solid #758297;box-shadow:inset 0 0 0 2px #1a202b,0 3px 3px #090b0f;color:#fff;touch-action:none}.round:active,.round.pressed{background:radial-gradient(circle at 35% 23%,#66512d,#28221b 72%);border-color:var(--gold);transform:scale(.96)}.round{height:var(--button);width:var(--button);font-size:clamp(17px,2.3vw,26px);font-weight:800;flex:none}.round svg{height:52%;width:52%;fill:currentColor;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round}.joy{position:relative;flex:none;width:clamp(83px,12vw,142px);height:clamp(83px,12vw,142px);border-radius:50%;border:3px solid #788499;background:radial-gradient(circle,#12171f 35%,#06090e 70%);box-shadow:inset 0 0 0 7px #26303c,inset 0 0 0 9px #05080c;touch-action:none;cursor:grab}.joy.active{border-color:var(--gold)}.stick-knob{position:absolute;width:42%;height:42%;top:29%;left:29%;pointer-events:none;background:radial-gradient(circle at 30% 30%,#505d6e,#202936 70%);will-change:transform}.dpad{display:flex;gap:clamp(5px,1vw,12px)}.dpad .round{width:clamp(30px,4.3vh,43px);height:clamp(30px,4.3vh,43px);font-size:18px}.right-head{display:flex;gap:8px;align-items:center;justify-content:center;flex-wrap:wrap}.pause{width:clamp(31px,4.2vh,43px);height:clamp(31px,4.2vh,43px);font-size:17px}.actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(7px,1.6vh,14px) clamp(4px,.9vw,14px);align-items:center;justify-items:center;width:100%;max-width:180px}.action{display:flex;flex-direction:column;align-items:center;gap:2px;min-width:0}.action span{font-size:clamp(8px,1.2vw,10px);line-height:1;text-align:center;color:#ded8ce;white-space:nowrap}.action .primary{border-color:var(--gold);box-shadow:inset 0 0 0 2px #222a35,0 0 6px #e6be7655}.rotate{position:fixed;inset:0;z-index:10;display:none;place-items:center;padding:24px;text-align:center;background:#090d15;color:#f6e0af;font-size:20px;font-weight:700}.hint{font-size:10px;text-align:center;color:#a5b0c1}.shell-help{position:absolute;bottom:5px;left:50%;transform:translateX(-50%);z-index:1;color:#bac2ceaa;pointer-events:none;white-space:nowrap;font-size:10px}@media(max-height:430px){:root{--button:clamp(34px,10vh,42px)}.rail{gap:5px;padding:6px}.brand{font-size:9px}.rail small,.hint{font-size:8px}.joy{width:clamp(80px,27vh,110px);height:clamp(80px,27vh,110px)}.actions{gap:6px 5px}.action span{font-size:8px}.screen-bezel{padding:4px}}@media(max-width:740px) and (orientation:landscape){:root{--rail:clamp(96px,18vw,132px)}.round{width:var(--button);height:var(--button)}.console{border-radius:18px}.action span{font-size:8px}.joy{width:clamp(76px,24vh,104px);height:clamp(76px,24vh,104px)}}@media(max-width:900px) and (orientation:portrait){.rotate{display:grid}}@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<main class="console" data-evil-wizard-console aria-label="Defeat the Evil Wizard handheld controls">
+  <section class="rail left" aria-label="Movement controls">
+    <div class="brand">JR · WIZARD</div><small>Movement</small>
+    <div id="joystick" class="joy" role="slider" aria-label="Movement joystick; drag left, right or down" aria-valuemin="-1" aria-valuemax="1" aria-valuenow="0" tabindex="0"><div id="knob" class="stick-knob"></div></div>
+    <div class="dpad"><button class="round" data-action="move_left" aria-label="Move left">←</button><button class="round" data-action="move_down" aria-label="Crouch">↓</button><button class="round" data-action="move_right" aria-label="Move right">→</button></div>
+    <div class="hint">Hold or drag to move</div>
+  </section>
+  <section class="screen-bezel" aria-label="Game screen"><div class="screen"><iframe id="game" title="Defeat the Evil Wizard game" src="./index.html" allow="gamepad; fullscreen" allowfullscreen tabindex="0"></iframe><div class="status" id="status" role="status" aria-live="polite">Loading the game…</div></div></section>
+  <section class="rail right" aria-label="Action controls">
+    <div class="right-head"><div class="brand">EVIL WIZARD</div><button class="round pause" data-action="pause" aria-label="Pause or resume">Ⅱ</button></div>
+    <div class="actions">
+      <div class="action"><button class="round primary" data-action="attack" aria-label="Punch or light attack" title="Attack"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M7 14V8a3 3 0 0 1 6 0V6a3 3 0 0 1 6 0v1a3 3 0 0 1 5 2v6a3 3 0 0 1 4 3v1c0 6-4 10-10 10h-4C7 29 4 24 4 19v-4a3 3 0 0 1 3-1Z" fill="none" stroke-width="2.8"/></svg></button><span>ATTACK</span></div>
+      <div class="action"><button class="round primary" data-action="jump" aria-label="Jump" title="Jump">↑</button><span>JUMP</span></div>
+      <div class="action"><button class="round" data-action="heavy_attack" aria-label="Heavy attack" title="Heavy attack">⚔</button><span>HEAVY</span></div>
+      <div class="action"><button class="round" data-action="dash" aria-label="Dash" title="Dash">»</button><span>DASH</span></div>
+      <div class="action"><button class="round" data-action="ability_one" aria-label="Class ability one" title="Ability one">✦</button><span>ABILITY 1</span></div>
+      <div class="action"><button class="round" data-action="ability_two" aria-label="Class ability two" title="Ability two">✧</button><span>ABILITY 2</span></div>
+      <div class="action"><button class="round" data-action="ultimate" aria-label="Ultimate ability" title="Ultimate">★</button><span>ULTIMATE</span></div>
+      <div class="action"><button class="round" data-action="interact" aria-label="Interact" title="Interact">✋</button><span>INTERACT</span></div>
+    </div><div class="hint">Keyboard &amp; gamepad still work</div>
+  </section>
+</main>
+<div class="rotate" role="status">↻ Turn your device sideways to play</div>
+<script>
+'use strict';
+(() => {
+  const channel='evil-wizard-console/v1', game=document.getElementById('game'), joystick=document.getElementById('joystick'), knob=document.getElementById('knob'), status=document.getElementById('status');
+  const held=new Map(); let joystickPointer=null; let armed=false;
+  const send=(kind,extra={})=>{if(armed&&game.contentWindow)game.contentWindow.postMessage({channel,kind,...extra},location.origin)};
+  function press(pointer,action){const key=`${pointer}:${action}`;if(held.has(key))return;held.set(key,action);send('button',{action,pressed:true,pointer:key})}
+  function release(pointer,action){const key=`${pointer}:${action}`;if(!held.delete(key))return;send('button',{action,pressed:false,pointer:key})}
+  function clearAll(){for(const key of held.keys()){const action=held.get(key);send('button',{action,pressed:false,pointer:key})}held.clear();knob.style.transform='';joystick.classList.remove('active');joystickPointer=null;document.querySelectorAll('.round.pressed').forEach(b=>b.classList.remove('pressed'));send('reset')}
+  function centerStick(e){const r=joystick.getBoundingClientRect();const x=(e.clientX-r.left-r.width/2)/(r.width*.33),y=(e.clientY-r.top-r.height/2)/(r.height*.33),length=Math.max(1,Math.hypot(x,y));const dx=x/length,dy=y/length;knob.style.transform=`translate(${dx*65}%,${dy*65}%)`;joystick.setAttribute('aria-valuenow',String(Math.round(dx*100)));const pointer=`stick-${e.pointerId}`;const active=new Set();if(dx<-.25)active.add('move_left');if(dx>.25)active.add('move_right');if(dy>.48)active.add('move_down');for(const name of ['move_left','move_right','move_down'])active.has(name)?press(pointer,name):release(pointer,name)}
+  joystick.addEventListener('pointerdown',e=>{if(joystickPointer!==null)return;e.preventDefault();joystickPointer=e.pointerId;joystick.classList.add('active');joystick.setPointerCapture(e.pointerId);centerStick(e)});
+  joystick.addEventListener('pointermove',e=>{if(e.pointerId===joystickPointer){e.preventDefault();centerStick(e)}});
+  function stopStick(e){if(e.pointerId!==joystickPointer)return;const pointer=`stick-${e.pointerId}`;for(const name of ['move_left','move_right','move_down'])release(pointer,name);joystickPointer=null;knob.style.transform='';joystick.classList.remove('active');joystick.setAttribute('aria-valuenow','0')}
+  ['pointerup','pointercancel','lostpointercapture'].forEach(type=>joystick.addEventListener(type,stopStick));
+  joystick.addEventListener('keydown',e=>{const mapping={ArrowLeft:'move_left',ArrowRight:'move_right',ArrowDown:'move_down'};if(mapping[e.key]){e.preventDefault();press('keyboard-stick',mapping[e.key])}});
+  joystick.addEventListener('keyup',e=>{const mapping={ArrowLeft:'move_left',ArrowRight:'move_right',ArrowDown:'move_down'};if(mapping[e.key]){e.preventDefault();release('keyboard-stick',mapping[e.key])}});
+  for(const button of document.querySelectorAll('button[data-action]')){
+    const action=button.dataset.action;
+    button.addEventListener('pointerdown',e=>{e.preventDefault();button.setPointerCapture(e.pointerId);button.classList.add('pressed');press(`button-${e.pointerId}`,action);if(action==='pause')release(`button-${e.pointerId}`,action)});
+    const stop=e=>{release(`button-${e.pointerId}`,action);button.classList.remove('pressed')};
+    ['pointerup','pointercancel','lostpointercapture'].forEach(type=>button.addEventListener(type,stop));
+    button.addEventListener('click',e=>{if(e.detail===0){press('keyboard-button',action);release('keyboard-button',action)}});
+    button.addEventListener('contextmenu',e=>e.preventDefault());
+  }
+  window.addEventListener('message',e=>{
+    if(e.source!==game.contentWindow||e.origin!==location.origin||!e.data)return;
+    if(e.data.type==='evil-wizard/hello'){game.contentWindow.postMessage({channel,kind:'init'},location.origin);return}
+    if(e.data.type==='evil-wizard/ready'){armed=true;status.textContent='Game ready — select a champion';status.classList.add('ready');return}
+  });
+  window.addEventListener('blur',clearAll);document.addEventListener('visibilitychange',()=>{if(document.hidden)clearAll()});
+  window.addEventListener('orientationchange',clearAll);
+  game.addEventListener('load',()=>{if(!armed)status.textContent='Loading Godot — select a champion when ready…'});
+  fetch('./index.html',{method:'HEAD',cache:'no-store'}).then(r=>{if(!r.ok){status.textContent=`Game file blocked by server (HTTP ${r.status})`;status.classList.remove('ready')}}).catch(()=>{status.textContent='Cannot reach the game file; check the website connection'});
+  window.setTimeout(()=>{if(!armed&&!status.textContent.includes('HTTP'))status.textContent='Game did not load — check the browser console or server permissions'},20000);
+})();
+</script>
+<script src="./console-champions.js"></script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+JOSHUA RANDALL KNOWLEDGE PLATFORM — v0.3.0 RELEASE NOTES
+2026-09-06
+
+CONTENT
+- 184 published learning objects (+72 from v0.2.0)
+- 24 guided learning paths
+- 122 searchable glossary terms
+- 316 mapped curriculum topics awaiting publication
+- 7 major domains
+
+This release adds a large cross-domain content pack focused on practical,
+connected explanations rather than isolated trivia. It includes new labs,
+troubleshooting guides, foundational lessons, and intermediate systems material.
+
+NAVIGATION / EXPERIENCE
+The existing v0.2.x platform capabilities remain intact: weighted full-text
+search, filters, curriculum explorer, knowledge graph, bookmarks, local progress,
+continue-learning state, lesson narration and audio summaries, reduced-motion
+support, quizzes, references, related lessons, glossary search, random lesson,
+and interactive visual demonstrations.
+
+DEPLOYMENT
+Copy the CONTENTS of public_html into the existing OSU public_html and replace
+matching files. Do not create public_html/public_html.

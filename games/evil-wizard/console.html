@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,viewport-fit=cover,user-scalable=no">
+<meta name="theme-color" content="#05070b">
+<title>Defeat the Evil Wizard | Touch Play</title>
+<style>
+:root{color-scheme:dark;--gold:#e6be76;--control:62px;--joy:128px;--alpha:.68;--edge:10px}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;min-height:100dvh;overflow:hidden;background:#05070b;touch-action:none;overscroll-behavior:none;-webkit-user-select:none;user-select:none;-webkit-text-size-adjust:100%}
+body{font:700 11px/1 system-ui,-apple-system,Segoe UI,sans-serif;color:#fff}
+.touch-stage{position:fixed;inset:0;background:#05070b;touch-action:none}
+#game{position:absolute;inset:0;display:block;width:100%;height:100%;border:0;background:#05070b;touch-action:none}
+#status{position:absolute;left:50%;top:max(6px,env(safe-area-inset-top));z-index:30;transform:translateX(-50%);max-width:60vw;padding:5px 10px;border:1px solid #746440;border-radius:999px;background:#080d14d9;color:#f2d9a2;text-align:center;font-size:9px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;pointer-events:none}#status.ready{display:none}
+.controls{position:absolute;inset:0;z-index:20;pointer-events:none}
+.left-zone,.right-zone,.top-left,.top-right,.pause-zone{position:absolute;pointer-events:none}
+.left-zone{left:max(var(--edge),env(safe-area-inset-left));bottom:max(var(--edge),env(safe-area-inset-bottom));width:var(--joy);height:var(--joy)}
+.right-zone{right:max(var(--edge),env(safe-area-inset-right));bottom:max(var(--edge),env(safe-area-inset-bottom));width:calc(var(--control)*3.15);height:calc(var(--control)*3.15)}
+.top-left{left:max(var(--edge),env(safe-area-inset-left));top:max(var(--edge),env(safe-area-inset-top));display:grid;grid-template-columns:repeat(2,minmax(68px,88px));gap:7px}
+.top-right{right:max(var(--edge),env(safe-area-inset-right));top:max(var(--edge),env(safe-area-inset-top));display:grid;grid-template-columns:repeat(2,minmax(68px,88px));gap:7px}
+.pause-zone{left:50%;top:max(var(--edge),env(safe-area-inset-top));transform:translateX(-50%)}
+.touch-stage[data-hand="left"] .left-zone{left:auto;right:max(var(--edge),env(safe-area-inset-right))}
+.touch-stage[data-hand="left"] .right-zone{right:auto;left:max(var(--edge),env(safe-area-inset-left))}
+.touch-stage[data-hand="left"] .top-left{left:auto;right:max(var(--edge),env(safe-area-inset-right))}
+.touch-stage[data-hand="left"] .top-right{right:auto;left:max(var(--edge),env(safe-area-inset-left))}
+.touch-stage[data-size="standard"]{--control:70px;--joy:144px}
+.pad,.joy,.stick-knob,.shoulder{pointer-events:auto;touch-action:none;-webkit-tap-highlight-color:transparent}
+.joy{position:absolute;left:0;bottom:0;width:var(--joy);height:var(--joy);border-radius:50%;border:2px solid #95a4b8;background:radial-gradient(circle,#111b28aa 34%,#05080da8 72%);box-shadow:inset 0 0 0 7px #29374a88,0 4px 14px #0008;opacity:var(--alpha)}
+.joy.active{opacity:1;border-color:var(--gold)}
+.stick-knob{position:absolute;left:29%;top:29%;width:42%;height:42%;border-radius:50%;pointer-events:none;border:1px solid #9cabbf;background:radial-gradient(circle at 30% 28%,#607189ee,#202b3ae8 72%)}
+.face .pad,.pause,.shoulder{display:grid;place-items:center;border:1.5px solid #9aa8ba;background:#111927c4;color:#fff;box-shadow:0 2px 7px #0008;opacity:var(--alpha);backdrop-filter:blur(3px)}
+.face .pad:active,.face .pad.pressed,.shoulder:active,.shoulder.pressed,.pause:active,.pause.pressed{opacity:1;border-color:#ffe0a2;transform:scale(.94);box-shadow:0 0 11px #e6be7675}
+.face{position:absolute;inset:0}
+.face .pad{position:absolute;width:var(--control);height:var(--control);border-radius:50%;font-size:calc(var(--control)*.36)}
+.face .north{left:50%;top:0;transform:translateX(-50%)}.face .south{left:50%;bottom:0;transform:translateX(-50%)}.face .west{left:0;top:50%;transform:translateY(-50%)}.face .east{right:0;top:50%;transform:translateY(-50%)}
+.face .pad:active,.face .pad.pressed{transform:scale(.94)}.face .north:active,.face .north.pressed,.face .south:active,.face .south.pressed{transform:translateX(-50%) scale(.94)}.face .west:active,.face .west.pressed,.face .east:active,.face .east.pressed{transform:translateY(-50%) scale(.94)}
+.face .xbox-a{color:#8de392}.face .xbox-b{color:#ff8b83}.face .xbox-x{color:#86c8ff}.face .xbox-y{color:#f5dc77}
+.shoulder{min-height:42px;border-radius:10px;padding:8px 12px;font-size:12px}.trigger{background:#0e1520d4;border-color:#79889c}.bumper{background:#172130d4}
+.pause{pointer-events:auto;width:48px;height:42px;border-radius:10px;font-size:19px}
+.legend{display:block;font-size:8px;font-weight:900;letter-spacing:.04em;text-shadow:0 1px 4px #000}
+.touch-stage[data-style="playstation"] .xbox-label{display:none}.touch-stage[data-style="xbox"] .ps-label{display:none}
+.orientation-gate{display:none;position:fixed;inset:0;z-index:100;align-items:center;justify-content:center;padding:28px;background:radial-gradient(circle at 50% 20%,#283548,#070a10 65%);text-align:center}
+.orientation-card{width:min(520px,100%);padding:28px 24px;border:1px solid #8694a7;border-radius:18px;background:#101722f4;box-shadow:0 24px 80px #000d}.orientation-icon{display:block;font-size:54px;line-height:1;margin-bottom:14px;color:var(--gold)}.orientation-card h1{margin:0 0 10px;font-size:clamp(26px,8vw,42px);line-height:1.03;color:#f5d399}.orientation-card p{margin:0;color:#cbd3de;font:500 15px/1.5 system-ui}.orientation-card strong{color:#fff}
+@media(orientation:portrait){.touch-stage{visibility:hidden;pointer-events:none}.orientation-gate{display:flex}}
+@media(max-height:430px) and (orientation:landscape){:root{--control:58px;--joy:118px;--edge:6px}.touch-stage[data-size="standard"]{--control:64px;--joy:130px}.left-zone{width:var(--joy);height:var(--joy)}.right-zone{width:calc(var(--control)*3);height:calc(var(--control)*3)}.shoulder{min-height:38px;padding:7px 9px;font-size:10px}.top-left,.top-right{grid-template-columns:repeat(2,minmax(66px,82px));gap:6px}.pause{width:44px;height:38px;font-size:18px}}
+@media(max-width:700px) and (orientation:landscape){:root{--alpha:.64}.legend{font-size:7px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<main class="touch-stage" id="touch-stage" data-evil-wizard-console data-size="compact" data-hand="right" data-style="xbox">
+  <iframe id="game" title="Defeat the Evil Wizard game" src="./index.html?build=20260924-stickfix1" allow="gamepad; fullscreen" allowfullscreen tabindex="0"></iframe>
+  <div id="status" role="status" aria-live="polite">Loading game…</div>
+  <div class="controls" aria-label="Floating controller">
+    <section class="top-left" aria-label="Left shoulder controls">
+      <button class="shoulder trigger" data-position="l2"><span class="xbox-label">LT</span><span class="ps-label">L2</span></button>
+      <button class="shoulder bumper" data-position="l1"><span class="xbox-label">LB</span><span class="ps-label">L1</span></button>
+    </section>
+    <section class="top-right" aria-label="Right shoulder controls">
+      <button class="shoulder bumper" data-position="r1"><span class="xbox-label">RB</span><span class="ps-label">R1</span></button>
+      <button class="shoulder trigger" data-position="r2"><span class="xbox-label">RT</span><span class="ps-label">R2</span></button>
+    </section>
+    <section class="pause-zone"><button class="pause" data-action="pause" aria-label="Pause">Ⅱ</button></section>
+    <section class="left-zone" aria-label="Movement">
+      <div id="joystick" class="joy" role="slider" aria-label="Left analog stick" aria-valuemin="-1" aria-valuemax="1" aria-valuenow="0" tabindex="0"><div id="knob" class="stick-knob"></div></div>
+    </section>
+    <section class="right-zone" aria-label="Face buttons">
+      <div class="face">
+        <button class="pad north xbox-y" data-position="north"><span class="xbox-label">Y</span><span class="ps-label">△</span></button>
+        <button class="pad east xbox-b" data-position="east"><span class="xbox-label">B</span><span class="ps-label">○</span></button>
+        <button class="pad south xbox-a" data-position="south"><span class="xbox-label">A</span><span class="ps-label">✕</span></button>
+        <button class="pad west xbox-x" data-position="west"><span class="xbox-label">X</span><span class="ps-label">□</span></button>
+      </div>
+    </section>
+  </div>
+</main>
+<div class="orientation-gate" role="status" aria-live="polite"><div class="orientation-card"><span class="orientation-icon" aria-hidden="true">↻</span><h1>Turn your screen sideways</h1><p>Phone and tablet play uses landscape so the game stays visible behind the floating controls. Rotate your device to continue. <strong>Your saved control layout will load automatically.</strong></p></div></div>
+<script src="./console-champions.js?v=20260924-stickfix1"></script>
+<script>
+'use strict';
+(() => {
+  const cfg=window.EvilWizardSetup,channel='evil-wizard-console/v1';
+  let saved={};try{saved=JSON.parse(localStorage.getItem('evil-wizard-launch-v3')||'{}')}catch(_){}
+  const clone=o=>JSON.parse(JSON.stringify(o)),merge=(base,src)=>{const out=clone(base);const walk=(t,s)=>{if(!s||typeof s!=='object')return;for(const[k,v]of Object.entries(s)){if(v&&typeof v==='object'&&!Array.isArray(v)&&t[k]&&typeof t[k]==='object')walk(t[k],v);else if(k in t)t[k]=v}};walk(out,src);return out};
+  const state=merge(cfg.defaults,saved);
+  const BUILD='20260924-stickfix1';
+  const params=new URLSearchParams(location.search),hero=params.get('hero')||state.champion||'warrior';
+  const ua=navigator.userAgent||'';
+  const embeddedWebView=/(FBAN|FBAV|FB_IAB|MessengerForiOS|Instagram|Line\/|MicroMessenger|; wv\)|\bwv\b|WebView)/i.test(ua);
+  if(embeddedWebView||params.get('compat')==='1'){
+    const q=new URLSearchParams({
+      ew_launch:'1',hero,difficulty:state.difficulty,camera_shake:state.cameraShake?'1':'0',
+      master_volume:String(state.masterVolume),brightness:String(state.brightness),build:BUILD
+    });
+    location.replace('./index.html?'+q.toString());
+    return;
+  }
+  const stage=document.getElementById('touch-stage'),game=document.getElementById('game'),joystick=document.getElementById('joystick'),knob=document.getElementById('knob'),status=document.getElementById('status');
+  stage.dataset.size=state.touch.size;stage.dataset.hand=state.touch.hand;stage.dataset.style=state.touch.style;stage.style.setProperty('--alpha',String(Math.max(.4,Math.min(.9,state.touch.opacity/100))));game.style.filter='brightness('+(state.brightness/100)+')';
+
+  for(const button of document.querySelectorAll('[data-position]')){
+    const action=state.touch.map[button.dataset.position];
+    button.dataset.action=action;
+    button.setAttribute('aria-label',(button.dataset.position||'button')+' · '+(Object.fromEntries(cfg.actions)[action]||action));
+    const legend=document.createElement('span');legend.className='legend';legend.textContent=Object.fromEntries(cfg.actions)[action]||action;button.append(legend);
+  }
+
+  const held=new Map();let joystickPointer=null,armed=false,started=false,bridgeReady=false;
+  const landscape=()=>matchMedia('(orientation:landscape)').matches;
+  const send=(kind,extra={})=>{if(armed&&game.contentWindow)game.contentWindow.postMessage({channel,kind,...extra},location.origin)};
+  function configure(){send('controls',{keyboard:state.keyboard,gamepad:state.gamepad});send('settings',{difficulty:state.difficulty,camera_shake:state.cameraShake,master_volume:state.masterVolume})}
+  function maybeStart(){if(started||!bridgeReady||!landscape())return;configure();started=true;send('start',{hero_class:hero});status.textContent='Opening story — use INTERACT to continue'}
+  function press(pointer,action){const key=`${pointer}:${action}`;if(held.has(key))return;held.set(key,action);send('button',{action,pressed:true,pointer:key})}
+  function release(pointer,action){const key=`${pointer}:${action}`;if(!held.delete(key))return;send('button',{action,pressed:false,pointer:key})}
+  function clearAll(){for(const[key,action]of held)send('button',{action,pressed:false,pointer:key});held.clear();knob.style.transform='';joystick.classList.remove('active');joystickPointer=null;document.querySelectorAll('.pressed').forEach(b=>b.classList.remove('pressed'));send('reset')}
+  const touchCapable=(navigator.maxTouchPoints||0)>0||('ontouchstart' in window);
+  function updateStick(clientX,clientY,id){
+    const r=joystick.getBoundingClientRect();
+    const x=(clientX-r.left-r.width/2)/(r.width*.34),y=(clientY-r.top-r.height/2)/(r.height*.34);
+    const len=Math.max(1,Math.hypot(x,y)),dx=x/len,dy=y/len;
+    knob.style.transform=`translate(${dx*62}%,${dy*62}%)`;
+    const pointer=`stick-${id}`,active=new Set();
+    if(dx<-.25)active.add('move_left');
+    if(dx>.25)active.add('move_right');
+    if(dy>.5)active.add('move_down');
+    for(const a of['move_left','move_right','move_down'])active.has(a)?press(pointer,a):release(pointer,a);
+  }
+  function startStick(id,clientX,clientY){
+    if(joystickPointer!==null)return false;
+    joystickPointer=id;
+    joystick.classList.add('active');
+    updateStick(clientX,clientY,id);
+    return true;
+  }
+  function stopStick(id){
+    if(id!==joystickPointer)return;
+    const p=`stick-${id}`;
+    for(const a of['move_left','move_right','move_down'])release(p,a);
+    joystickPointer=null;
+    knob.style.transform='';
+    joystick.classList.remove('active');
+  }
+
+  // Touch Events are the primary path on phones/tablets. They remain reliable in
+  // iOS Safari and embedded WebViews even when Pointer Capture is unavailable.
+  joystick.addEventListener('touchstart',e=>{
+    if(!e.changedTouches?.length)return;
+    const t=e.changedTouches[0];
+    if(startStick(`t${t.identifier}`,t.clientX,t.clientY))e.preventDefault();
+  },{passive:false});
+  joystick.addEventListener('touchmove',e=>{
+    if(typeof joystickPointer!=='string'||!joystickPointer.startsWith('t'))return;
+    const id=Number(joystickPointer.slice(1));
+    const t=[...e.touches].find(x=>x.identifier===id);
+    if(!t)return;
+    e.preventDefault();
+    updateStick(t.clientX,t.clientY,joystickPointer);
+  },{passive:false});
+  const endTouch=e=>{
+    if(typeof joystickPointer!=='string'||!joystickPointer.startsWith('t'))return;
+    const id=Number(joystickPointer.slice(1));
+    if([...e.changedTouches].some(x=>x.identifier===id)){
+      e.preventDefault();
+      stopStick(joystickPointer);
+    }
+  };
+  joystick.addEventListener('touchend',endTouch,{passive:false});
+  joystick.addEventListener('touchcancel',endTouch,{passive:false});
+
+  // Pointer Events remain the mouse/pen fallback and the path for browsers
+  // without Touch Events. setPointerCapture is best-effort, never required.
+  joystick.addEventListener('pointerdown',e=>{
+    if(e.pointerType==='touch'&&touchCapable)return;
+    const id=`p${e.pointerId}`;
+    if(!startStick(id,e.clientX,e.clientY))return;
+    e.preventDefault();
+    try{joystick.setPointerCapture?.(e.pointerId)}catch(_){}
+  });
+  joystick.addEventListener('pointermove',e=>{
+    const id=`p${e.pointerId}`;
+    if(id!==joystickPointer)return;
+    e.preventDefault();
+    updateStick(e.clientX,e.clientY,id);
+  });
+  const endPointer=e=>{
+    const id=`p${e.pointerId}`;
+    if(id!==joystickPointer)return;
+    e.preventDefault();
+    stopStick(id);
+  };
+  ['pointerup','pointercancel','lostpointercapture'].forEach(t=>joystick.addEventListener(t,endPointer));
+  window.addEventListener('pointerup',endPointer);
+  window.addEventListener('pointercancel',endPointer);
+  for(const button of document.querySelectorAll('button[data-action]')){const action=button.dataset.action;button.addEventListener('pointerdown',e=>{e.preventDefault();button.setPointerCapture(e.pointerId);button.classList.add('pressed');press(`button-${e.pointerId}`,action);if(action==='pause')release(`button-${e.pointerId}`,action);if(state.fullscreen){try{if(!document.fullscreenElement&&document.documentElement.requestFullscreen)document.documentElement.requestFullscreen({navigationUI:'hide'}).catch(()=>{})}catch(_){}}});const stop=e=>{release(`button-${e.pointerId}`,action);button.classList.remove('pressed')};['pointerup','pointercancel','lostpointercapture'].forEach(t=>button.addEventListener(t,stop));button.addEventListener('contextmenu',e=>e.preventDefault())}
+  window.addEventListener('message',e=>{if(e.source!==game.contentWindow||e.origin!==location.origin||!e.data)return;if(e.data.type==='evil-wizard/hello'){game.contentWindow.postMessage({channel,kind:'init'},location.origin);return}if(e.data.type==='evil-wizard/ready'){armed=true;bridgeReady=true;status.textContent=landscape()?'Game ready — starting…':'Game ready — rotate sideways';maybeStart();return}if(e.data.type==='evil-wizard/state'&&e.data.playing===true){status.classList.add('ready');game.focus()}else if(e.data.type==='evil-wizard/state'&&started){status.textContent='Opening story — use INTERACT to continue';status.classList.remove('ready')}});
+  const orient=()=>{clearAll();if(landscape()){status.classList.remove('ready');status.textContent=bridgeReady?'Game ready — starting…':'Loading game…';maybeStart()}};matchMedia('(orientation:landscape)').addEventListener?.('change',orient);window.addEventListener('orientationchange',orient);
+  for(const t of['gesturestart','gesturechange','gestureend'])document.addEventListener(t,e=>e.preventDefault(),{passive:false});document.addEventListener('touchmove',e=>{if(e.touches&&e.touches.length>1)e.preventDefault()},{passive:false});document.addEventListener('dblclick',e=>e.preventDefault(),{passive:false});window.addEventListener('blur',clearAll);document.addEventListener('visibilitychange',()=>{if(document.hidden)clearAll()});
+})();
+</script>
+</body>
+</html>

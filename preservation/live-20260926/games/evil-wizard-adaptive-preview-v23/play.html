@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<meta name="theme-color" content="#05070b">
+<title>Defeat the Evil Wizard</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;background:#05070b;overflow:hidden}
+body{width:100dvw;height:100dvh}
+#desktop-shell{position:fixed;inset:0;width:100dvw;height:100dvh;background:#05070b}
+#game{display:block;width:100%;height:100%;border:0;margin:0;background:#05070b}
+#enter{position:fixed;inset:0;z-index:5;display:grid;place-items:center;border:0;margin:0;padding:24px;background:linear-gradient(#05070bd9,#05070bf2);color:#f4ead6;font:700 clamp(16px,2vw,24px)/1.35 system-ui,-apple-system,Segoe UI,sans-serif;text-align:center;cursor:pointer}
+#enter[hidden]{display:none}
+#enter span{display:block;max-width:680px;padding:16px 22px;border:1px solid #6d7786;border-radius:12px;background:#11161ddd;box-shadow:0 12px 40px #0008}
+#enter small{display:block;margin-top:7px;color:#bfc7d4;font-size:.65em;font-weight:500}
+:fullscreen #desktop-shell,:fullscreen body,:fullscreen html{width:100%;height:100%}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<div id="desktop-shell">
+  <iframe id="game" title="Defeat the Evil Wizard" src="./index.html" allow="fullscreen; gamepad" allowfullscreen></iframe>
+</div>
+<button id="enter" type="button" aria-label="Enter fullscreen and play">
+  <span>DEFEND THE REALM<small>Press any key or tap/click to enter fullscreen. Esc exits fullscreen.</small></span>
+</button>
+<script>
+'use strict';
+(() => {
+  const params = new URLSearchParams(location.search);
+  const forced = params.get('mode');
+  const ua = navigator.userAgent || '';
+  const coarseOnly = matchMedia('(pointer:coarse)').matches && !matchMedia('(any-pointer:fine)').matches;
+  const mobileUA = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile|Tablet/i.test(ua);
+  const iPadDesktopUA = navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1;
+  const handheld = forced === 'handheld' || (forced !== 'desktop' && (mobileUA || iPadDesktopUA || (navigator.maxTouchPoints > 1 && coarseOnly)));
+
+  if (handheld) {
+    location.replace('./console.html');
+    return;
+  }
+
+  const frame = document.getElementById('game');
+  const enter = document.getElementById('enter');
+  let armed = false;
+
+  async function enterFullscreen() {
+    if (armed) return;
+    armed = true;
+    enter.hidden = true;
+    const root = document.documentElement;
+    try {
+      if (!document.fullscreenElement && root.requestFullscreen) {
+        await root.requestFullscreen({navigationUI:'hide'});
+      } else if (!document.webkitFullscreenElement && root.webkitRequestFullscreen) {
+        root.webkitRequestFullscreen();
+      }
+    } catch (_) {
+      // Browser policy may deny fullscreen; the game still occupies the full dynamic viewport.
+    }
+    try { frame.focus(); } catch (_) {}
+  }
+
+  enter.addEventListener('pointerdown', event => {
+    event.preventDefault();
+    void enterFullscreen();
+  });
+  window.addEventListener('keydown', event => {
+    if (event.key === 'Escape') return;
+    event.preventDefault();
+    void enterFullscreen();
+  }, {capture:true});
+})();
+</script>
+</body>
+</html>

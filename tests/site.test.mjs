@@ -44,11 +44,15 @@ assert.doesNotMatch(vnext,/const core=ctx\.createRadialGradient/,'Cosmos rendere
 assert.match(read('portfolio-next.css'),/vnext-cosmos-scene/,'Solar-system presentation styles missing');
 assert.match(vnext,/enhanceProjectNavigation/,'Project pager cleanup missing');
 assert.match(vnext,/\$\$\('\.vnext-project-nav'\)\.forEach\(nav=>nav\.remove\(\)\)/,'Stale project pagers must be removed by the shared experience layer');
-assert.match(vnext,/target='_blank'/,'Project-card pop-out behavior missing');
 
 const primaryTiles=[...projects.matchAll(/<a\b[^>]*class=["'][^"']*tile-open[^"']*["'][^>]*>/gi)].map(x=>x[0]);
 assert.equal(primaryTiles.length,16,'Every project card must have one primary tile link');
-for (const tile of primaryTiles) assert.match(tile,/target=["']_blank["']/i,'Every primary project tile must open its dedicated page in a new tab');
+for (const tile of primaryTiles) {
+ const href=tile.match(/href=["']([^"']+)["']/i)?.[1];
+ assert.ok(href && exists(href.split(/[?#]/)[0]), `Project tile must resolve locally: ${href}`);
+ // Same-tab navigation is supported. Explicit new-tab links must be isolated.
+ if (/target=["']_blank["']/i.test(tile)) assert.match(tile,/rel=["'][^"']*noopener/i,'New-tab tile must use noopener');
+}
 
 const detailPages=fs.readdirSync(root).filter(x=>/^project-.*\.html$/.test(x));
 assert.ok(detailPages.length>=15,'Expected dedicated project pages for the catalog');
@@ -187,6 +191,8 @@ assert.match(read('project-geometric-ai.html'),/<iframe\b[^>]*loading=["']lazy["
 
 
 const home=read('index.html');
+assert.doesNotMatch(home.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi,'').replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi,''),/\\n/,'Visible literal newline escapes must not return');
+assert.doesNotMatch(home, /Â·|â†’|â€”|\uFFFD/, 'Homepage must not render known encoding corruption');
 assert.doesNotMatch(home,/id="fusion"|Depth across the stack|Grounded in experience/,'Replaced homepage sections must not return');
 for(const asset of ['portfolio-home.css','quantum-cube.js','assets/systems-lab.jpg']) assert.ok(home.includes(asset)&&exists(asset),`Homepage asset missing: ${asset}`);
 assert.ok(exists('assets/quantum-field-notes.jpg'),'Quantum Field Notes artwork remains available as an optional asset');

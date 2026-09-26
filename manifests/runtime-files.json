@@ -1,0 +1,1543 @@
+{
+  "schemaVersion": 1,
+  "status": "candidate-only-not-deployed",
+  "sourceBranch": "website-2.0-reconciliation",
+  "files": [
+    {
+      "path": "agent-workbench.html",
+      "sha256": "6c84e0fba94e8992ee46f21abd7d97993682ad2231a4d6cfb70663c031213650",
+      "size": 5905,
+      "storage": "git-file"
+    },
+    {
+      "path": "agent-workbench.js",
+      "sha256": "74609320c2a89fc00776643e66b8c4093347dff68767ce6b0cf1a4c1ce4924c5",
+      "size": 5626,
+      "storage": "git-file"
+    },
+    {
+      "path": "app.js",
+      "sha256": "6e6e0088e9941af704a36b102c1b8653c7e23d9e70c362405eacf38eb346c651",
+      "size": 15418,
+      "storage": "git-file"
+    },
+    {
+      "path": "ASIMOV.jpg",
+      "sha256": "204c07dea9584fe664b8668dd81b7d4b27a9a452e13a692ae8aa601bee251c7c",
+      "size": 44143,
+      "storage": "git-file"
+    },
+    {
+      "path": "dark-music.js",
+      "sha256": "56b3eb99fcf3dfcdde47efbf583d321fc761fc55b754d4eb0dc7a203c83effca",
+      "size": 729,
+      "storage": "git-file"
+    },
+    {
+      "path": "expertise-experience.html",
+      "sha256": "ee2b01803aad5bbb070e2bce5b2fa54a054997d05c5434b6627dabb57a9d626e",
+      "size": 7648,
+      "storage": "git-file"
+    },
+    {
+      "path": "game-development.html",
+      "sha256": "d233d74d28edf53361de4fa68ffb9138adedc20f3f7e37b7a35d9b9ac8983eb3",
+      "size": 5273,
+      "storage": "git-file"
+    },
+    {
+      "path": "handheld-experience.css",
+      "sha256": "276001fbcc339f042e2991e6854f4b66b2558dd40895548140e5eb43facd4400",
+      "size": 4441,
+      "storage": "git-file"
+    },
+    {
+      "path": "handheld-experience.js",
+      "sha256": "881298b69e64d3f1345b1f9a7bbbcdd55430adbcafd33a096721d27f2ab58e86",
+      "size": 1368,
+      "storage": "git-file"
+    },
+    {
+      "path": "index.html",
+      "sha256": "9a007d2ca4bb95d7d876e5bb5e78009f0a1a3deb9761b4d6f3f4f7c3aec6f52c",
+      "size": 27394,
+      "storage": "git-file"
+    },
+    {
+      "path": "joshua-randall.jpg",
+      "sha256": "7887b098ca27e1ec77238381526fe042dc8ef1efe0d7a1d8519cced93e9dc8aa",
+      "size": 308295,
+      "storage": "git-file"
+    },
+    {
+      "path": "Joshua_Randall_MASTER_RESUME_L.docx",
+      "sha256": "073f02b97e2d60f86766b7ccf097f701b52a8fb39284f1277af2bfacc0612a64",
+      "size": 37409,
+      "storage": "git-file"
+    },
+    {
+      "path": "Joshua_Randall_Resume(2).pdf",
+      "sha256": "67a8e8fdad6be4beaa4346e1755c051f24d3ba0a13f1301ba429593bc49b37ff",
+      "size": 4253,
+      "storage": "git-file"
+    },
+    {
+      "path": "knowledge-data.js",
+      "sha256": "530165a5ed6e68cc418b4ddcecbc0f01c8e636c6d8fb6b772be48f400061d36a",
+      "size": 25408235,
+      "storage": "git-file"
+    },
+    {
+      "path": "knowledge.css",
+      "sha256": "e010ad4316876f06beeb5723fab1b67c9a8e0ab9892d8061513ab654ae762601",
+      "size": 93731,
+      "storage": "git-file"
+    },
+    {
+      "path": "knowledge.js",
+      "sha256": "e95fb548bbaae17fa373bb6f9f83fe96e9787bd81f86b6853bd40c9393b35718",
+      "size": 192235,
+      "storage": "git-file"
+    },
+    {
+      "path": "labs.css",
+      "sha256": "4aca264e74018890efbbdb4d6ea259d4b01ebb6d5eb4f819d9c6fdea8beeae05",
+      "size": 1205,
+      "storage": "git-file"
+    },
+    {
+      "path": "learn-browse.html",
+      "sha256": "71da65ce411a9cc1b48dc8b0ba2c830197bf1e806538469748760d977fd649b2",
+      "size": 21950,
+      "storage": "git-file"
+    },
+    {
+      "path": "learn-capstones.html",
+      "sha256": "d1012af48cb6ebea98413d5a2d58cf67f7ee9a29aad4d765f597c0e6bb18538e",
+      "size": 1583,
+      "storage": "git-file"
+    },
+    {
+      "path": "learn-glossary.html",
+      "sha256": "ba61c75fd4a888e338495618aa519b740dcb372763e771710da4c1b8d8dd4201",
+      "size": 21955,
+      "storage": "git-file"
+    },
+    {
+      "path": "learn-labs.html",
+      "sha256": "c175d0c7e2a25806761239c4a69529aebfb452d717dba1e6ecbd770c4fe7eef6",
+      "size": 21949,
+      "storage": "git-file"
+    },
+    {
+      "path": "learn-map.html",
+      "sha256": "c69382121d4301f85f80ae8b3a6a1533b79a2a60e6a3d152c468d01b64fda150",
+      "size": 21945,
+      "storage": "git-file"
+    },
+    {
+      "path": "learn-mastery.html",
+      "sha256": "739a2384ebe91f3a68843227d82c563e8a007a923579e6712d12e58ba2a1a735",
+      "size": 21944,
+      "storage": "git-file"
+    },
+    {
+      "path": "learn-paths.html",
+      "sha256": "b5fb5731ead1b01ade0d217bc8359fe07070d9f82ed6d51eb49fd54cc8465ba0",
+      "size": 20222,
+      "storage": "git-file"
+    },
+    {
+      "path": "learn-practice.html",
+      "sha256": "dd75fc1355f75ec2b787f369b0447eab6dd7fe0e5bddc32a77bdf42d2b77d7f1",
+      "size": 21945,
+      "storage": "git-file"
+    },
+    {
+      "path": "learn-verify.html",
+      "sha256": "26c2c7dd6db818de9029fcfcde8fd794f68806191be36f4c7182c2253b418e69",
+      "size": 21947,
+      "storage": "git-file"
+    },
+    {
+      "path": "learn.html",
+      "sha256": "8519e989b4e8c3c856b057fcd23874e5753156a1c31445ed24ec73ce347d5e09",
+      "size": 22047,
+      "storage": "git-file"
+    },
+    {
+      "path": "learning-capstones.css",
+      "sha256": "30f0e0baa9edf62054a145ec20666a1402858476885e576b3d014e59b3fecb1a",
+      "size": 2741,
+      "storage": "git-file"
+    },
+    {
+      "path": "learning-capstones.js",
+      "sha256": "8d3ecf7698eede6c0dddb5832e166066227ab8c61121de228769997ff675d31a",
+      "size": 4341,
+      "storage": "git-file"
+    },
+    {
+      "path": "learning-capstones.json",
+      "sha256": "0b5f30e71e7dbf94654674174c88cf62c0a5166232420b7fa4f188bd877b96f5",
+      "size": 18619,
+      "storage": "git-file"
+    },
+    {
+      "path": "learning-depth.css",
+      "sha256": "961a2a8353be1f2f2f881642121d4c259c91eb29c6439aa6a68503948983c161",
+      "size": 9257,
+      "storage": "git-file"
+    },
+    {
+      "path": "learning-depth.js",
+      "sha256": "2ff6b3baefed11249b16d0605060165af73f351c7202f1d07fec20c07ed6431c",
+      "size": 9502,
+      "storage": "git-file"
+    },
+    {
+      "path": "learning-next.css",
+      "sha256": "44a49ac202489f6eec939b98d4d304dbb7a004cb6997a4ffe7efd413a187e569",
+      "size": 2792,
+      "storage": "git-file"
+    },
+    {
+      "path": "learning-next.js",
+      "sha256": "2a0140e53da053d7b9f65c14f4843165af7f77e83b7d3f7c67cd13a158cbfe31",
+      "size": 7673,
+      "storage": "git-file"
+    },
+    {
+      "path": "lesson.html",
+      "sha256": "ce3018a0c847e199255078d8313449a295d1d7c9df75971f4cab3e330d49e635",
+      "size": 22054,
+      "storage": "git-file"
+    },
+    {
+      "path": "osu-logo.png",
+      "sha256": "c3fa4511073c80ddd4b10a567719b4860cacfd98a462080e6792b8050f47279f",
+      "size": 10683,
+      "storage": "git-file"
+    },
+    {
+      "path": "package-lock.json",
+      "sha256": "4fd18cc7932b05eecc054b75a32389ad9d31b5e61ff20a2ce2c11db40684675d",
+      "size": 1251,
+      "storage": "git-file"
+    },
+    {
+      "path": "package.json",
+      "sha256": "25cbb52dada9cf3e7198e8ef1a8c1490ee479b8e77b17787c507e3306c052a80",
+      "size": 441,
+      "storage": "git-file"
+    },
+    {
+      "path": "play-evil-wizard.html",
+      "sha256": "9872eca359efa25d44b1fa5f805872d70660129a5914aed4a6f67bf2ab3017b6",
+      "size": 7751,
+      "storage": "git-file"
+    },
+    {
+      "path": "portfolio-home.css",
+      "sha256": "7bd5771ee288bde7d06cabab8fc66d8c28363f2a338ee446c9872d7f5e6b9871",
+      "size": 28905,
+      "storage": "git-file"
+    },
+    {
+      "path": "portfolio-next.css",
+      "sha256": "c30e781a3f3d803b3a7fc5025ff4ca9131609a6cad44cfb25eeb4d6163af19b2",
+      "size": 32745,
+      "storage": "git-file"
+    },
+    {
+      "path": "portfolio-next.js",
+      "sha256": "c77be2df9be61f7f63d96e60fbde10c252c1ad213962ad7248a1b98950396c0b",
+      "size": 18887,
+      "storage": "git-file"
+    },
+    {
+      "path": "project-advanced-computing.html",
+      "sha256": "6c6de05a451a75fa4acffc60c82adc292255096c1d505df0936c9bae23cc7f02",
+      "size": 4997,
+      "storage": "git-file"
+    },
+    {
+      "path": "project-asset-inventory.html",
+      "sha256": "e2162b3a9c3cb89e1ba760a7b9d4ecd53796b42df703fad0f28999979bbe99e5",
+      "size": 4714,
+      "storage": "git-file"
+    },
+    {
+      "path": "project-battle-chess.html",
+      "sha256": "37e8b8f960dd9bec4e1959784a6353c9f0c97def6e3c09c496efa25908b0c4f9",
+      "size": 8848,
+      "storage": "git-file"
+    },
+    {
+      "path": "project-dependency.html",
+      "sha256": "c2db69883a68b37c9a86a607d29e9e8ff1cb8e9d8849c13a8076e09da1f36ded",
+      "size": 6142,
+      "storage": "git-file"
+    },
+    {
+      "path": "project-emergent.html",
+      "sha256": "1f536dc5ad007550aab16857e5e783a66b28edddafd44eca29852a7fb5cf62d4",
+      "size": 5970,
+      "storage": "git-file"
+    },
+    {
+      "path": "project-fusion.html",
+      "sha256": "756f22da5b7e400f744e72354f3af1ae6c28b863495d0a8d7a7d7bfdc196d81d",
+      "size": 5258,
+      "storage": "git-file"
+    },
+    {
+      "path": "project-geometric-ai.html",
+      "sha256": "a158bb94e3e4138389310f02873aad062e5be7a5d908a1bbbe65ec633edc2d02",
+      "size": 5378,
+      "storage": "git-file"
+    },
+    {
+      "path": "project-kubernetes-lab.html",
+      "sha256": "62af1b58043ca5a2c5f5c825c65bf634afd82819bd22e8236e612ce21f4bf8f6",
+      "size": 4703,
+      "storage": "git-file"
+    },
+    {
+      "path": "project-learning-library.html",
+      "sha256": "8d7b4adcf99f10102774e67522c558cd09617b9902dbf8c52df7d77924f69338",
+      "size": 4924,
+      "storage": "git-file"
+    },
+    {
+      "path": "project-lifecycle.html",
+      "sha256": "d1ed17c258c30af604e13c5fa69a10fdc2fde734ee6dabf1d6b0cfaf349f460e",
+      "size": 6215,
+      "storage": "git-file"
+    },
+    {
+      "path": "project-mind.html",
+      "sha256": "040ac122d889d4dbf3023f004a20eeaf9af61dedb55ecfda34971dddedbf184f",
+      "size": 5268,
+      "storage": "git-file"
+    },
+    {
+      "path": "project-portfolio.html",
+      "sha256": "942b7e888294f553d24a826b6bb3a6244ea30c7b707013e9e81bab8ca101e94d",
+      "size": 5367,
+      "storage": "git-file"
+    },
+    {
+      "path": "project-qpe.html",
+      "sha256": "9397c9149d8b9e7ba0dfeb0ccc182a08d4a1a69556b9686355d4d809efb2282b",
+      "size": 6112,
+      "storage": "git-file"
+    },
+    {
+      "path": "project-qubit.html",
+      "sha256": "8a1b85721cef5cb25c3723f5932ee8527afb3140f402a5c978d99fe5200734b6",
+      "size": 5030,
+      "storage": "git-file"
+    },
+    {
+      "path": "project-recovery.html",
+      "sha256": "197be1bc9604dce1fca2fcf78fa041e7fd902c576a5259732d61bb3382b5e18f",
+      "size": 5816,
+      "storage": "git-file"
+    },
+    {
+      "path": "projects.html",
+      "sha256": "32d48ed2579eadd51c3887eb989e5062ac1341f0d592fe9f41f4c4da0f78642e",
+      "size": 14941,
+      "storage": "git-file"
+    },
+    {
+      "path": "quantum-cube.js",
+      "sha256": "82f7033dd298ca33c938d82cfa97a721861634a8ec1b2a9201e293bd9245d727",
+      "size": 6555,
+      "storage": "git-file"
+    },
+    {
+      "path": "resume.html",
+      "sha256": "b1e1b0cc017b3bf03f5be59690a24eb53707f2b041f0b4300ca9061c3b348c49",
+      "size": 19293,
+      "storage": "git-file"
+    },
+    {
+      "path": "science-experiments.css",
+      "sha256": "9d24b2dbe275ad6909c802fbe495f1129a8fe1fca61f130095af226f444085e2",
+      "size": 8901,
+      "storage": "git-file"
+    },
+    {
+      "path": "science-experiments.js",
+      "sha256": "c53dbc4beef68168d16d835627fbf7a09e61c053e635093ee18452b1bcd6ed3c",
+      "size": 15427,
+      "storage": "git-file"
+    },
+    {
+      "path": "site-audio.js",
+      "sha256": "1a310a69c73b89c33e1a263d890fbd51079144fd1b6976235359e567ec9d4c8c",
+      "size": 19311,
+      "storage": "git-file"
+    },
+    {
+      "path": "site-resilience.css",
+      "sha256": "fbe68ec05386a529a2743203039d85d2af058459e5cb2a23ac7e2ae034139fcd",
+      "size": 10536,
+      "storage": "git-file"
+    },
+    {
+      "path": "site-resilience.js",
+      "sha256": "4d463183f5dd2972f0c0af2a60d17c510fd31f65c792574b3cc8d2bb8c47b21f",
+      "size": 6160,
+      "storage": "git-file"
+    },
+    {
+      "path": "site-scenes.css",
+      "sha256": "bab2b5bbb7c98358850d1024cdc3a9a3378f33c6e628e0c2c1d420a67b90c45e",
+      "size": 54529,
+      "storage": "git-file"
+    },
+    {
+      "path": "site-scenes.js",
+      "sha256": "d99881a32d63c34bcbbf74e51ffb6d23317a87d63042c8ff255bac2a86bd4f8b",
+      "size": 45274,
+      "storage": "git-file"
+    },
+    {
+      "path": "site-sound-control.js",
+      "sha256": "7c0c7e3b851d9efc89ef23e67d9c15a8179adab218c9e3517301f5f48f290379",
+      "size": 7406,
+      "storage": "git-file"
+    },
+    {
+      "path": "site-theme.js",
+      "sha256": "37bdc340e977e0975ee8ac6a2d012ad5222319e1d2fe0d2ba7fa160ebacdbc2d",
+      "size": 5610,
+      "storage": "git-file"
+    },
+    {
+      "path": "SITE_IMPORT_REPORT.json",
+      "sha256": "98478213e9eaf2347d3b4bf102d1331f35c7d530ebf4d14226f59c91551ca50f",
+      "size": 170,
+      "storage": "git-file"
+    },
+    {
+      "path": "styles.css",
+      "sha256": "23e0d289d9e8207563a3881f7dfd6d114ceb57af0890ea45f8cbae1d93623d4f",
+      "size": 20065,
+      "storage": "git-file"
+    },
+    {
+      "path": "verification-manifest.json",
+      "sha256": "8d51355eda4bc63272ec0ebd6473d6db245d1b4bebd2357fed4fa37305e5a2dc",
+      "size": 4209914,
+      "storage": "git-file"
+    },
+    {
+      "path": "assets/favicon.svg",
+      "sha256": "6f2dd56788a65cec0c2fe9180e5970672833d000c81daf9ffb3f7b17c97179b6",
+      "size": 198,
+      "storage": "git-file"
+    },
+    {
+      "path": "assets/fusion-presentation.mp4",
+      "sha256": "eefc852a3a5d12eeedf8a217fc2cb68d6d0476612ad4d8744a8e6febd99361e8",
+      "size": 168678432,
+      "storage": "release-asset"
+    },
+    {
+      "path": "assets/joshua-randall-cutout.svg",
+      "sha256": "9e1c0d5fa906f612d3de88ae26ef64078e35b97dd697a1277e316b371107d269",
+      "size": 839,
+      "storage": "git-file"
+    },
+    {
+      "path": "assets/joshua-randall-cutout.webp",
+      "sha256": "5b2193fa0d3ba8c8f3282a41e3ff014f75a3ca2ac5b9707d0002aae2e9a87ba3",
+      "size": 15007,
+      "storage": "git-file"
+    },
+    {
+      "path": "assets/joshua-randall-headshot.jpg",
+      "sha256": "24d61be42c1564b120360abaec9fcfa6c4d55736fbe888eb0cadaffe42ad64d4",
+      "size": 89637,
+      "storage": "git-file"
+    },
+    {
+      "path": "assets/Joshua_Randall_Master_Resume.docx",
+      "sha256": "073f02b97e2d60f86766b7ccf097f701b52a8fb39284f1277af2bfacc0612a64",
+      "size": 37409,
+      "storage": "git-file"
+    },
+    {
+      "path": "assets/osu-logo.png",
+      "sha256": "c3fa4511073c80ddd4b10a567719b4860cacfd98a462080e6792b8050f47279f",
+      "size": 10683,
+      "storage": "git-file"
+    },
+    {
+      "path": "assets/portrait.jpg",
+      "sha256": "7887b098ca27e1ec77238381526fe042dc8ef1efe0d7a1d8519cced93e9dc8aa",
+      "size": 308295,
+      "storage": "git-file"
+    },
+    {
+      "path": "assets/quantum-field-notes.jpg",
+      "sha256": "8f1bfd5e06e49a134469afc74dc1627b0e4a3230eca1ab1761c81dfb5095d6d0",
+      "size": 385329,
+      "storage": "git-file"
+    },
+    {
+      "path": "assets/quantum-lab-reference.jpg",
+      "sha256": "4acca836897fb49de0e614643ba2471853c60f3412e4a7e1354be517909f8175",
+      "size": 521152,
+      "storage": "git-file"
+    },
+    {
+      "path": "assets/quantum2.jpg",
+      "sha256": "eb592e766a3ee0bde46b83232feca76f7ee964dd4ef7d949df4ae5d2db8a7138",
+      "size": 147787,
+      "storage": "git-file"
+    },
+    {
+      "path": "assets/Recovery_Readiness_Auditor.zip",
+      "sha256": "8205c4c2b1102398c53d4de315522bb3b92ef154d0f4c40bf4d5da1a1647e1e9",
+      "size": 8597,
+      "storage": "git-file"
+    },
+    {
+      "path": "assets/systems-lab.jpg",
+      "sha256": "e20d07fbeb7363703f3e7c46ada25f0e59c45fc433805da81db04c6cecf542d1",
+      "size": 279447,
+      "storage": "git-file"
+    },
+    {
+      "path": "deep-learning/index.json",
+      "sha256": "efc670a456e393b2f7b3a2f7229f7017d337e9ad99729bfff059f8ed0d5a6d17",
+      "size": 3407,
+      "storage": "git-file"
+    },
+    {
+      "path": "deep-learning/video-profiles.json",
+      "sha256": "59812cd1239bf9ce6987c7f11163feb01d30d1b4ffe3e831a91675282480d39a",
+      "size": 2103,
+      "storage": "git-file"
+    },
+    {
+      "path": "geometric-lab/app.js",
+      "sha256": "439ba6dac5cf7404dec9e831dac8f4c3f4ef28cd76539bc2f95af1948178928a",
+      "size": 40301,
+      "storage": "git-file"
+    },
+    {
+      "path": "geometric-lab/benchmarks.js",
+      "sha256": "767cab94c123d975cb819c4105e579b1649a3e88730f960902d8685d80d01c9f",
+      "size": 604369,
+      "storage": "git-file"
+    },
+    {
+      "path": "geometric-lab/CREDITS.md",
+      "sha256": "4c69b05da70434ea5fb42ca18dc5c319f9b3c984919ed7f2b8df2ec55815a5a7",
+      "size": 3241,
+      "storage": "git-file"
+    },
+    {
+      "path": "geometric-lab/index.html",
+      "sha256": "aef5f5aed4f8b8ddcd1176fd18c231054085cc409c43b60f2cb4dea8262d9d2a",
+      "size": 4992,
+      "storage": "git-file"
+    },
+    {
+      "path": "geometric-lab/math.js",
+      "sha256": "df1a24d5d19d16986887b4ddae4b6d63745f758555c4cb423f48334edc43fb90",
+      "size": 4680,
+      "storage": "git-file"
+    },
+    {
+      "path": "geometric-lab/METHODS.md",
+      "sha256": "df606e5bfeac9efb0072d5fc64da6aaff9b6b3c48aa7b4e1c3eeea9138079b13",
+      "size": 6824,
+      "storage": "git-file"
+    },
+    {
+      "path": "geometric-lab/styles.css",
+      "sha256": "4e8545c844c98a1374e54756e69c0888e4db6819eb22637ed59ba18bb77b508f",
+      "size": 11408,
+      "storage": "git-file"
+    },
+    {
+      "path": "geometric-lab/worker.js",
+      "sha256": "4b51505a591bcc0af88f379ef85e76ac7918349a57a1125d914186419f1f7969",
+      "size": 259,
+      "storage": "git-file"
+    },
+    {
+      "path": "labs/emergent.js",
+      "sha256": "34c3644e34ca624ce4b2d696c28d69fd4c3f733e1c1568ec98eed1d65d655d9c",
+      "size": 4790,
+      "storage": "git-file"
+    },
+    {
+      "path": "labs/qpe.js",
+      "sha256": "2b468b4421571972d64f91a961188e621dd820cc00876c55e20e3ab9a1cf69d4",
+      "size": 3915,
+      "storage": "git-file"
+    },
+    {
+      "path": "qubit-preview-20260921/app.js",
+      "sha256": "e1a3c05dac32856ff2c0565c33fefdc5948038d08bb90a9f4e565ecef9aeafd9",
+      "size": 5406,
+      "storage": "git-file"
+    },
+    {
+      "path": "qubit-preview-20260921/index.html",
+      "sha256": "4fc73aa2c3dc624d4684a72684a8bee681fc01bf1028002477c5f8382fd96e6b",
+      "size": 9361,
+      "storage": "git-file"
+    },
+    {
+      "path": "qubit-preview-20260921/qubit.js",
+      "sha256": "18a10df71f4c3073228e90946767d851a8613fdda1fb56f5db94991b64f1860c",
+      "size": 3028,
+      "storage": "git-file"
+    },
+    {
+      "path": "qubit-preview-20260921/styles.css",
+      "sha256": "2ef97cb0a67746a2254c46bd900c2be31b3f7596746adfe6a6252c73efdb35f7",
+      "size": 8814,
+      "storage": "git-file"
+    },
+    {
+      "path": "assets/audio/beach-birds.mp3",
+      "sha256": "b44bebff290a7140d36bce16c78012f0a8f51ffd1865b885fbb3e502568741c1",
+      "size": 1579968,
+      "storage": "git-file"
+    },
+    {
+      "path": "assets/audio/beach-waves.mp3",
+      "sha256": "fd505dbd43cb1c3508f884279bf5d3e060bb14f2bc3d9b4cce334eb7a75b5d7f",
+      "size": 4107072,
+      "storage": "git-file"
+    },
+    {
+      "path": "assets/audio/beach.mp3",
+      "sha256": "28c937dfdd2b5fbabe542d6802f4aadbaa2b092576ab90813b12109e0ea189a3",
+      "size": 2303040,
+      "storage": "git-file"
+    },
+    {
+      "path": "assets/audio/dark-theme-user.mp3",
+      "sha256": "7bb6e261c7de036ee9ebffeafaf5bba2befdeabe0580d2701088505f33300eb4",
+      "size": 483831,
+      "storage": "git-file"
+    },
+    {
+      "path": "assets/audio/dark-theme-user.wav",
+      "sha256": "e5e1144506681a091b98975016b48992443cc93ccf6898e203864fab90e1bb6d",
+      "size": 3002348,
+      "storage": "git-file"
+    },
+    {
+      "path": "assets/audio/dark-theme.mp3",
+      "sha256": "d8b2e11b03041ca1e8423f573a64b4c6eedb1b04b097644cefcadae647954cff",
+      "size": 8477884,
+      "storage": "git-file"
+    },
+    {
+      "path": "assets/audio/README.txt",
+      "sha256": "4a66c2930fc8c810863fc281732fe8796e51908128c520900052235767006f10",
+      "size": 194,
+      "storage": "git-file"
+    },
+    {
+      "path": "assets/audio/river.mp3",
+      "sha256": "292d85cdf026ac4f02a248006facbf94a21b609f805a3ea92c9ef9309b3c0978",
+      "size": 352183,
+      "storage": "git-file"
+    },
+    {
+      "path": "assets/audio/waterfall.mp3",
+      "sha256": "685584b0df0f59da41fec8c14b04e3c639f0bad12cdb7a1ce5d5ee922907c30c",
+      "size": 280503,
+      "storage": "git-file"
+    },
+    {
+      "path": "assets/fonts/dm-sans-400.ttf",
+      "sha256": "b0ae3e89a7d3ef2b1838bb4b1ceb0b17cc3435af061eee809d76aa623ff116e9",
+      "size": 48280,
+      "storage": "git-file"
+    },
+    {
+      "path": "assets/fonts/dm-sans-500.ttf",
+      "sha256": "376427b5322148d8de1e03f263bcca4935a2d60ba71d9f94f4947ab664c711ae",
+      "size": 48308,
+      "storage": "git-file"
+    },
+    {
+      "path": "assets/fonts/dm-sans-600.ttf",
+      "sha256": "b79a2ea7a38f33fd96a282fadb9ce97626bb0724a44d21075859f0e50239993a",
+      "size": 48280,
+      "storage": "git-file"
+    },
+    {
+      "path": "assets/fonts/dm-sans-700.ttf",
+      "sha256": "2a8e7f713ee79fbccdef3cef5c787aff47580299f7da60144961e7db2ec08211",
+      "size": 48200,
+      "storage": "git-file"
+    },
+    {
+      "path": "assets/fonts/dmsans-OFL.txt",
+      "sha256": "9af36190332437f5ecd09974de43c1f7c77a310a996cdd8ceb25628b458840e1",
+      "size": 4482,
+      "storage": "git-file"
+    },
+    {
+      "path": "assets/fonts/fonts.css",
+      "sha256": "45c754971e512a32a8512684e6ee7e1b28f46bc891f0550dd1e2f5b8c3fdd7a8",
+      "size": 1440,
+      "storage": "git-file"
+    },
+    {
+      "path": "assets/fonts/manrope-400.ttf",
+      "sha256": "a13d9b41b0a471ce58f0e46d377fa3cc76615e4632c3b15eb397caadf7a13f0a",
+      "size": 94972,
+      "storage": "git-file"
+    },
+    {
+      "path": "assets/fonts/manrope-500.ttf",
+      "sha256": "f433e5d333be1128d8ec8a28b8aadd0314d10e14e4105406076666bc830fc15d",
+      "size": 95060,
+      "storage": "git-file"
+    },
+    {
+      "path": "assets/fonts/manrope-600.ttf",
+      "sha256": "6bad1a774228464cc88b8b0271555b266f7a3c64a7bedf15e165fdab4f6ac0ce",
+      "size": 95096,
+      "storage": "git-file"
+    },
+    {
+      "path": "assets/fonts/manrope-700.ttf",
+      "sha256": "b9584e099e0e7f1e1e914c3037aabb9010c50346a3ce8df5eeeeecc0563044d8",
+      "size": 94928,
+      "storage": "git-file"
+    },
+    {
+      "path": "assets/fonts/manrope-800.ttf",
+      "sha256": "b8f802f05b322a7345805f5b89f8bb976604cc719a91530918d5ce3c47160950",
+      "size": 95688,
+      "storage": "git-file"
+    },
+    {
+      "path": "assets/fonts/manrope-OFL.txt",
+      "sha256": "4b8929f05a122b7abb9059501dc7dc4df86f8c97d5a1769d60d82cf2d2795dde",
+      "size": 4480,
+      "storage": "git-file"
+    },
+    {
+      "path": "assets/scenes/CREDITS.md",
+      "sha256": "f48bfdf8a1be935d673e9962d139ff6b5797009b82c62728626a29f10c6d934b",
+      "size": 773,
+      "storage": "git-file"
+    },
+    {
+      "path": "assets/scenes/LIVING_SCENES_SOURCES.md",
+      "sha256": "0bdc0ccea6cd59e4df30a6ac9831484ac72528a77f9c3924d9e16108e70ef478",
+      "size": 1956,
+      "storage": "git-file"
+    },
+    {
+      "path": "assets/scenes/mountain-valley.svg",
+      "sha256": "48570ef27335781b0a73f625d730d373366bb850d119d38f4b3387f5b5b0718e",
+      "size": 34619,
+      "storage": "git-file"
+    },
+    {
+      "path": "assets/scenes/webb-cosmic-cliffs.webp",
+      "sha256": "53a489512d6e91e5b6859ce5bc9818bb9fdb8031bf5f822f07b220893dec5d8c",
+      "size": 295192,
+      "storage": "git-file"
+    },
+    {
+      "path": "deep-learning/advanced/architecture.json",
+      "sha256": "491328eab8ee81fd86e0cc2c214879dcb8172ff9712fd7aa34eb45c013436732",
+      "size": 663461,
+      "storage": "git-file"
+    },
+    {
+      "path": "deep-learning/advanced/distributed-systems.json",
+      "sha256": "3b4d38de89a29bdd9eab3d1a972e9c906040176c4566056b59251c4be706c6cb",
+      "size": 485228,
+      "storage": "git-file"
+    },
+    {
+      "path": "deep-learning/advanced/gpu-computing.json",
+      "sha256": "5c3c642d8869fded4130bf6307608acb1f1f23954de1c9e11a3a8a93495d958b",
+      "size": 587364,
+      "storage": "git-file"
+    },
+    {
+      "path": "deep-learning/advanced/gpu.json",
+      "sha256": "5582e1ba9344d30ea505ebbae1752ed7a2352de3173e20c85b6ca1a5602d4505",
+      "size": 443012,
+      "storage": "git-file"
+    },
+    {
+      "path": "deep-learning/advanced/hpc.json",
+      "sha256": "b4a417b055d60a3c49df8d293cb279bc2224baf3f1a41ddb8e378dd3196cb819",
+      "size": 607486,
+      "storage": "git-file"
+    },
+    {
+      "path": "deep-learning/advanced/lab.json",
+      "sha256": "3385a0b11b8dba13c54004a2f45f9a914ec84591eca2627f06480af93b86f63b",
+      "size": 444704,
+      "storage": "git-file"
+    },
+    {
+      "path": "deep-learning/advanced/memory.json",
+      "sha256": "d952e89df09ce7f9093eddaa16df6afa1f98aad18699ae93ac5bd73b9d3f2532",
+      "size": 601305,
+      "storage": "git-file"
+    },
+    {
+      "path": "deep-learning/advanced/operating-systems.json",
+      "sha256": "91822f287c29c01a321f533a74320fe356a63be10e0ef879b9a5c0531dc218fb",
+      "size": 471515,
+      "storage": "git-file"
+    },
+    {
+      "path": "deep-learning/advanced/parallel-computing.json",
+      "sha256": "6b5876c2f46ea299e32dde847a91eeaade664dee8d534c0de1ae5a41522c97b9",
+      "size": 564017,
+      "storage": "git-file"
+    },
+    {
+      "path": "deep-learning/advanced/quantum.json",
+      "sha256": "282f16dccafdb4e9dd2262339ca38b4fd7e164f84157ec5e0f9e5352b594fd78",
+      "size": 512518,
+      "storage": "git-file"
+    },
+    {
+      "path": "deep-learning/cloud/automation.json",
+      "sha256": "babc4a5c685df71d9003ee3185cda93acab0f5075db4d8e5ff9bcc8fbd8aa5bc",
+      "size": 445270,
+      "storage": "git-file"
+    },
+    {
+      "path": "deep-learning/cloud/cloud.json",
+      "sha256": "e0a38a43fe8b3044d97d0c8ef5591fac36e81f3aa60ed0e85603bc2ef68f489b",
+      "size": 731495,
+      "storage": "git-file"
+    },
+    {
+      "path": "deep-learning/cloud/identity.json",
+      "sha256": "68756cbec6008c95c1531b1628efcb213ce96a13733eabeeb16f4abc07aa22a9",
+      "size": 413129,
+      "storage": "git-file"
+    },
+    {
+      "path": "deep-learning/cloud/kubernetes.json",
+      "sha256": "a20580d9e0253958364d66b14464b620d3f5ea036eaa8156bec60eb73779ad81",
+      "size": 424010,
+      "storage": "git-file"
+    },
+    {
+      "path": "deep-learning/cloud/lab.json",
+      "sha256": "88e6a6c83d06a8c9b77395f8d7f21c6df8ac376110168db8cf1fa4b1d6fa392d",
+      "size": 415462,
+      "storage": "git-file"
+    },
+    {
+      "path": "deep-learning/cloud/linux.json",
+      "sha256": "f703438c4b56539932136a19eeccb1fb6c74f92b597b93a29d43a675410a60b3",
+      "size": 617619,
+      "storage": "git-file"
+    },
+    {
+      "path": "deep-learning/cloud/networking.json",
+      "sha256": "485cdd8e5d71943285027edfd87c055ab224a1dbb08833b01196c2bef72895c1",
+      "size": 809311,
+      "storage": "git-file"
+    },
+    {
+      "path": "deep-learning/cloud/observability.json",
+      "sha256": "683701477b97ba675a72c4d12718dae6922b06ff63f38834732e9ac6af4759ff",
+      "size": 439586,
+      "storage": "git-file"
+    },
+    {
+      "path": "deep-learning/cloud/recovery.json",
+      "sha256": "b4c3bf7e1220636f17376812354739363f0d0246f65d01110f382793d153dba7",
+      "size": 422741,
+      "storage": "git-file"
+    },
+    {
+      "path": "deep-learning/cloud/windows-identity.json",
+      "sha256": "8f86f2a8d881ca782086783ebeab3e7a53ce093171a85707c3c045002483e340",
+      "size": 515719,
+      "storage": "git-file"
+    },
+    {
+      "path": "deep-learning/cyber/application-security.json",
+      "sha256": "bb18b19b5dc2fdbbe8525b9e8c945c9a67dd5fc01da8531f4202e677a2f03cae",
+      "size": 496613,
+      "storage": "git-file"
+    },
+    {
+      "path": "deep-learning/cyber/architecture.json",
+      "sha256": "c42c5ca9d1e87703d0f67f5daa3be5f286f06d3cfa6d0e748af8e63a8000f0e3",
+      "size": 489921,
+      "storage": "git-file"
+    },
+    {
+      "path": "deep-learning/cyber/detection.json",
+      "sha256": "06f3c0e3556101e706f9d0c453ae2a60f7c210b732b22eedc0572aff191aec7a",
+      "size": 452516,
+      "storage": "git-file"
+    },
+    {
+      "path": "deep-learning/cyber/endpoint.json",
+      "sha256": "761c732a1a20015f4bfdc00812ecc179e2338aab485a644a643bd5e1e2998fa9",
+      "size": 392451,
+      "storage": "git-file"
+    },
+    {
+      "path": "deep-learning/cyber/foundations.json",
+      "sha256": "3771dd1db0dc517d357b8c3b642fb95a6d0c72957b32fc7ad9ff896a4c3ab6f2",
+      "size": 400903,
+      "storage": "git-file"
+    },
+    {
+      "path": "deep-learning/cyber/governance.json",
+      "sha256": "93bd92bb83231493750ad6e5a0a4e2c8d2d4dfca3cf7a8d4364be2dedb6c4c4d",
+      "size": 481935,
+      "storage": "git-file"
+    },
+    {
+      "path": "deep-learning/cyber/identity.json",
+      "sha256": "929321488d8761978bcf9124ed97c2d7c80655abd9e38508af41460972a4fea1",
+      "size": 563371,
+      "storage": "git-file"
+    },
+    {
+      "path": "deep-learning/cyber/lab.json",
+      "sha256": "dcbd12ac22cd942ce2d3836682fcce6d728aa0b852ff17a9b2aeaf26cd0a302d",
+      "size": 436359,
+      "storage": "git-file"
+    },
+    {
+      "path": "deep-learning/cyber/network-security.json",
+      "sha256": "af45d2da7ce33ff90cf02463985aeefdcb34c85ce031c997568a814af9ca7192",
+      "size": 431281,
+      "storage": "git-file"
+    },
+    {
+      "path": "deep-learning/cyber/recovery.json",
+      "sha256": "2c1106dfad90821134a753fe9c81436ae564e434f1a3c4787b413e7e553bb308",
+      "size": 441851,
+      "storage": "git-file"
+    },
+    {
+      "path": "deep-learning/cyber/risk.json",
+      "sha256": "d1ad816d5f762e16aace290d1fda6dbb36ae33b0ce76fa4bae424b9474be76f4",
+      "size": 481320,
+      "storage": "git-file"
+    },
+    {
+      "path": "deep-learning/leadership/capacity.json",
+      "sha256": "5c74562d376986be1f4bb02e8ac5532b8cec439c39a5e58c79a55304d08f7ba7",
+      "size": 312560,
+      "storage": "git-file"
+    },
+    {
+      "path": "deep-learning/leadership/finance.json",
+      "sha256": "8c380731f088677e67d646c0f0b51b30d58622130938d5390a92422c795fa5f0",
+      "size": 311678,
+      "storage": "git-file"
+    },
+    {
+      "path": "deep-learning/leadership/governance.json",
+      "sha256": "9e310435920c71002067bc93867c6f1d05a0716c496fbea499b72dfacc854f59",
+      "size": 320848,
+      "storage": "git-file"
+    },
+    {
+      "path": "deep-learning/leadership/incidents.json",
+      "sha256": "1c8446e1d1bf834e093e56f40b3d68afebc4835efddc86c98b8eab1232f2146b",
+      "size": 355705,
+      "storage": "git-file"
+    },
+    {
+      "path": "deep-learning/leadership/itsm.json",
+      "sha256": "b10b7d46402a3dc9e9829436758f43e60f71810b167cd043583f39af15b4acfa",
+      "size": 319050,
+      "storage": "git-file"
+    },
+    {
+      "path": "deep-learning/leadership/lab.json",
+      "sha256": "42f86d72ad3942ad28c9f584108cf81f724fdb7aa93499186fa517e6667fff95",
+      "size": 319352,
+      "storage": "git-file"
+    },
+    {
+      "path": "deep-learning/leadership/leadership.json",
+      "sha256": "099defed73f004db5c713b948e7fa1b8b92bb6eea5eb3f729c6226a3e054c156",
+      "size": 307025,
+      "storage": "git-file"
+    },
+    {
+      "path": "deep-learning/leadership/operations.json",
+      "sha256": "55af73fdfd4c350eeeaea941776aa9f55858af1b0d7a0a3a2f4c2f6b3e7e9f6c",
+      "size": 410481,
+      "storage": "git-file"
+    },
+    {
+      "path": "deep-learning/leadership/projects.json",
+      "sha256": "b69d6a54fa78e1822712de25b2ea1f8ff15f17becb57499a22b48d987b2ff941",
+      "size": 269760,
+      "storage": "git-file"
+    },
+    {
+      "path": "deep-learning/leadership/recovery.json",
+      "sha256": "1efe47bbf2378dc545e5bf63d7a97dea272511b3c7b9272fcd3ff6c73ccd156d",
+      "size": 329857,
+      "storage": "git-file"
+    },
+    {
+      "path": "deep-learning/leadership/reliability.json",
+      "sha256": "c456ed84d12933bf55e67afeff2b85ea19c2ed0d6f374092764fda0fac129ae1",
+      "size": 419342,
+      "storage": "git-file"
+    },
+    {
+      "path": "deep-learning/leadership/risk.json",
+      "sha256": "428041f870ba5aa78a6943d5df4a8631750b511d9e143a6024c67333b8a9a501",
+      "size": 311832,
+      "storage": "git-file"
+    },
+    {
+      "path": "deep-learning/leadership/strategy.json",
+      "sha256": "92ae7dd1b8af9adfef0ebd53e3082753bf461c44f2c735e0b2e2d3355d0e81c9",
+      "size": 293769,
+      "storage": "git-file"
+    },
+    {
+      "path": "deep-learning/leadership/teams.json",
+      "sha256": "0ad19762c4df011328b22bcc6573e6ea2a1fd2183c64ad75e26a5fe2f057b843",
+      "size": 281926,
+      "storage": "git-file"
+    },
+    {
+      "path": "deep-learning/leadership/vendors.json",
+      "sha256": "bc96aa21bea291450f8b54180b9ff75ac67b0d241321a3990ad7a88f050e9f7d",
+      "size": 320103,
+      "storage": "git-file"
+    },
+    {
+      "path": "deep-learning/math/algebra.json",
+      "sha256": "3b04dcdb82702b8d5bb188f335c5852f247000b8482b9fc4fb513477ab94b7eb",
+      "size": 436510,
+      "storage": "git-file"
+    },
+    {
+      "path": "deep-learning/math/calculus.json",
+      "sha256": "9e1534b5dbe700347026c4632db173259c5537dc07055e60f8fd71e50ef5c453",
+      "size": 537994,
+      "storage": "git-file"
+    },
+    {
+      "path": "deep-learning/math/discrete-math.json",
+      "sha256": "6b15f770f7d48311046aa46890c5794ab425542e58eff24b91d9298c17c225c3",
+      "size": 389585,
+      "storage": "git-file"
+    },
+    {
+      "path": "deep-learning/math/functions.json",
+      "sha256": "4d2c20139db32135446cf164f4fcccb88770ec03146cb9a88d453637adaccc18",
+      "size": 431273,
+      "storage": "git-file"
+    },
+    {
+      "path": "deep-learning/math/lab.json",
+      "sha256": "738c2e48da0f8f329b2e968b8799c924004e3c8d1fe289d481eda4ea1c459a11",
+      "size": 436017,
+      "storage": "git-file"
+    },
+    {
+      "path": "deep-learning/math/linear-algebra.json",
+      "sha256": "93df4ab18ba91cded0688c9144619e0d9542805f08f2508fe008c02b35e1b315",
+      "size": 489949,
+      "storage": "git-file"
+    },
+    {
+      "path": "deep-learning/math/numerical-methods.json",
+      "sha256": "3daa918194c1b275e920fc62c68cad745c9d53a2abea3b7a5d29f3736ac0d4cf",
+      "size": 377458,
+      "storage": "git-file"
+    },
+    {
+      "path": "deep-learning/math/probability.json",
+      "sha256": "ba6ee11568c12d5877381001314673fbfc5f24d1f82b048d0248949f8b2f2038",
+      "size": 435503,
+      "storage": "git-file"
+    },
+    {
+      "path": "deep-learning/math/sequences.json",
+      "sha256": "fc78bd84e4e239e44a49b252275470dceb97e2de415037ecbb48a2a6e6161728",
+      "size": 372200,
+      "storage": "git-file"
+    },
+    {
+      "path": "deep-learning/math/trigonometry.json",
+      "sha256": "f963913aae01ecc70bafe8aa7e525eca94869c5a0f5154225de910000f6fbcfd",
+      "size": 351053,
+      "storage": "git-file"
+    },
+    {
+      "path": "deep-learning/physics/electricity.json",
+      "sha256": "eefb647e11dbfdd1695f51a64b22a5c5d6933d85cb90cc2c246b2ce4fc9cf9fc",
+      "size": 440597,
+      "storage": "git-file"
+    },
+    {
+      "path": "deep-learning/physics/energy.json",
+      "sha256": "abc25702c14dc1d04dc084ab768a046e33259f496f04066387b6d6cdd5774be2",
+      "size": 463902,
+      "storage": "git-file"
+    },
+    {
+      "path": "deep-learning/physics/lab.json",
+      "sha256": "1d826ecc19f84373907289906824681bc22ea0e6a1cbd0c0d103f52279c173ec",
+      "size": 400653,
+      "storage": "git-file"
+    },
+    {
+      "path": "deep-learning/physics/magnetism.json",
+      "sha256": "add6dd76fb79846f89c2b42c35e7f4109b32a564c768c94688f4471a2c29e635",
+      "size": 395017,
+      "storage": "git-file"
+    },
+    {
+      "path": "deep-learning/physics/mechanics.json",
+      "sha256": "b49fc76019ae94c264f5b92e77268d03010c6a0aa4766077ae4f764c51357873",
+      "size": 462808,
+      "storage": "git-file"
+    },
+    {
+      "path": "deep-learning/physics/modern-physics.json",
+      "sha256": "06b58ed673fda17092d24214f70d2000e1b05b3c3b89957a46dd6fa34621ac04",
+      "size": 390014,
+      "storage": "git-file"
+    },
+    {
+      "path": "deep-learning/physics/momentum.json",
+      "sha256": "c35b96074d2fd4290280dabebbeace1be692bd1bf2388af1bb7e51c728ad1c2e",
+      "size": 411651,
+      "storage": "git-file"
+    },
+    {
+      "path": "deep-learning/physics/quantum.json",
+      "sha256": "8195bb9b274313504a416b11ce0fa2a225088cabb95748eda0ffd55855fc4dab",
+      "size": 373974,
+      "storage": "git-file"
+    },
+    {
+      "path": "deep-learning/physics/rotation.json",
+      "sha256": "c029916c090b8569fdeed8330c00d80882bb3618381e6906b6b1b657ae4820e5",
+      "size": 355351,
+      "storage": "git-file"
+    },
+    {
+      "path": "deep-learning/physics/thermodynamics.json",
+      "sha256": "1d2b5de62eb711f24007fc6739cdd0e442bb0c8f49ffd38288c2c8feec5e44a9",
+      "size": 383586,
+      "storage": "git-file"
+    },
+    {
+      "path": "deep-learning/physics/waves.json",
+      "sha256": "61b75219de97b8d90b7dabfd38aa31b058976f162184f1f331f59536d1bb6a08",
+      "size": 411962,
+      "storage": "git-file"
+    },
+    {
+      "path": "deep-learning/software/algorithms.json",
+      "sha256": "740397218431c74e1eac568bca891dc80fd885a27d795af06194b966ff9f7038",
+      "size": 425282,
+      "storage": "git-file"
+    },
+    {
+      "path": "deep-learning/software/apis.json",
+      "sha256": "18e2a0ef49272a047b271abb301f78fe5c6dae00d19c2dd810ddabcc0fe26de7",
+      "size": 536397,
+      "storage": "git-file"
+    },
+    {
+      "path": "deep-learning/software/architecture.json",
+      "sha256": "c06bdc9d57dbdce5de4a24bbd029e6071a22eaa3d012d53c5d575f8f7c8e5232",
+      "size": 449665,
+      "storage": "git-file"
+    },
+    {
+      "path": "deep-learning/software/data-structures.json",
+      "sha256": "9ecb8a226511370e1cf68708cc5224625520c6be1d6330bc93abc4623a7d7086",
+      "size": 481473,
+      "storage": "git-file"
+    },
+    {
+      "path": "deep-learning/software/databases.json",
+      "sha256": "f6f2518c5e467f47a49f9f26dafd05a5e93660f3cf36fbfb288ea5217a8d41a5",
+      "size": 627022,
+      "storage": "git-file"
+    },
+    {
+      "path": "deep-learning/software/devops.json",
+      "sha256": "44f402aa3a0cf348ce9d1c58189072d798ef0496bbf503e87974e03f040467d8",
+      "size": 553589,
+      "storage": "git-file"
+    },
+    {
+      "path": "deep-learning/software/lab.json",
+      "sha256": "c6bb8ec2682c0a4d99837c98214cc9fa09e4ed88fd5445151a6b5215f4dc0923",
+      "size": 502500,
+      "storage": "git-file"
+    },
+    {
+      "path": "deep-learning/software/programming.json",
+      "sha256": "3bc7e5a5656304bc7b2b87cac51b7e70ab0767ee0c6b8255b0ce2411fac5a1cb",
+      "size": 606071,
+      "storage": "git-file"
+    },
+    {
+      "path": "deep-learning/software/testing.json",
+      "sha256": "a57237747ec4fdc3b7122f2cbdf7718464bc6adda21650853e2f0443853c0b1d",
+      "size": 430625,
+      "storage": "git-file"
+    },
+    {
+      "path": "games/3d-battle-chess/attacks.js",
+      "sha256": "20053d3c55bce7d3d1a851b9f8b6464a1aa4258802efe1c3e79607bf00eea1d6",
+      "size": 6036,
+      "storage": "git-file"
+    },
+    {
+      "path": "games/3d-battle-chess/audio.js",
+      "sha256": "70f5090b9f9f12bd3e31dfa341a97ab8dcfa3e7546b470e5a54af357f44dde35",
+      "size": 4786,
+      "storage": "git-file"
+    },
+    {
+      "path": "games/3d-battle-chess/battle.js",
+      "sha256": "93f109011fe30de669427d058584e3dd73f01d9e4aad105c97e4c7a97fb4f831",
+      "size": 24228,
+      "storage": "git-file"
+    },
+    {
+      "path": "games/3d-battle-chess/boot.js",
+      "sha256": "bd7a8cd14d32171ca2a1f97e8dcc39f9d299b2926be9019c4d108201b5569a77",
+      "size": 814,
+      "storage": "git-file"
+    },
+    {
+      "path": "games/3d-battle-chess/castle-controls.js",
+      "sha256": "056e22fe6caa35f867d0698212fef6203db9b2b8e7c05f0d6a844c6c64d06b4d",
+      "size": 1413,
+      "storage": "git-file"
+    },
+    {
+      "path": "games/3d-battle-chess/characters.js",
+      "sha256": "c3aaf617f8e0c2863c76089c62a6cd4f0b09c5dd7ba100e04f23d105a4ef72c0",
+      "size": 4942,
+      "storage": "git-file"
+    },
+    {
+      "path": "games/3d-battle-chess/combat-physics.js",
+      "sha256": "ba2016e33324b286d16b586d05ea4f3729d5725752863c8a051dea126d654251",
+      "size": 3278,
+      "storage": "git-file"
+    },
+    {
+      "path": "games/3d-battle-chess/combatants-v6.js",
+      "sha256": "b7ab65361e6d8b30e373581aadf4894cf1268cb9b990027c3275f5f9d8c87e49",
+      "size": 8144,
+      "storage": "git-file"
+    },
+    {
+      "path": "games/3d-battle-chess/combatants.js",
+      "sha256": "d5a8c1db0364f923df04a6c05a408dfaa4e399d0d1000427a38091659d36aef7",
+      "size": 4441,
+      "storage": "git-file"
+    },
+    {
+      "path": "games/3d-battle-chess/CREDITS.md",
+      "sha256": "59078b3bfd98c870966c39e7d0fc08f729acd0b5b90f2e3796036ce648bbb864",
+      "size": 954,
+      "storage": "git-file"
+    },
+    {
+      "path": "games/3d-battle-chess/DEPLOYMENT.md",
+      "sha256": "bb774c239a546bf83ce622e54b7b91a6a0223710cd77eaf659fe56687189cf72",
+      "size": 3571,
+      "storage": "git-file"
+    },
+    {
+      "path": "games/3d-battle-chess/duels-physics.js",
+      "sha256": "1d4317f928baba86f4b848bdcbb3e16da92675fd3e861f189d0248672159d3d4",
+      "size": 12238,
+      "storage": "git-file"
+    },
+    {
+      "path": "games/3d-battle-chess/duels-v6.js",
+      "sha256": "d1d7a535c4f7ddce9f6cd143699f2323a899e4b8236e6d6babe4673a749a5a1d",
+      "size": 13240,
+      "storage": "git-file"
+    },
+    {
+      "path": "games/3d-battle-chess/duels-v8.js",
+      "sha256": "e8b853482fbc255cf13528db0cf1916f5db1e2328fbfd5b655bb426cf1b74800",
+      "size": 5858,
+      "storage": "git-file"
+    },
+    {
+      "path": "games/3d-battle-chess/duels.js",
+      "sha256": "176249e9d7ce63703f531379c884d85b826418bfe2f86d4ca265e4afb32e06a3",
+      "size": 126,
+      "storage": "git-file"
+    },
+    {
+      "path": "games/3d-battle-chess/engine.js",
+      "sha256": "8bb5b2502e9fdbc05fe154d716a7948564da28fea965f5d56e4698f5fcc8d32c",
+      "size": 10244,
+      "storage": "git-file"
+    },
+    {
+      "path": "games/3d-battle-chess/fallback-board.js",
+      "sha256": "f59947a715c8509a53fd1ed6834f0b1e16f642fe4c6cc9126fb9c972ebb9c1cd",
+      "size": 6648,
+      "storage": "git-file"
+    },
+    {
+      "path": "games/3d-battle-chess/fallback.css",
+      "sha256": "abcc2242c426e2fc83116ea7235dd1a534bff816e0445f65a8ac6c2379854e7e",
+      "size": 2023,
+      "storage": "git-file"
+    },
+    {
+      "path": "games/3d-battle-chess/index.html",
+      "sha256": "99700c7238caa36099605aae417429b733bacbcae9e2d082c2f5709779242573",
+      "size": 8423,
+      "storage": "git-file"
+    },
+    {
+      "path": "games/3d-battle-chess/pieces.js",
+      "sha256": "3b528cf2a96e139c0a992c735ebe3c5fe2ace67d2852cd4d11d25e3f50444db7",
+      "size": 7432,
+      "storage": "git-file"
+    },
+    {
+      "path": "games/3d-battle-chess/README.md",
+      "sha256": "7dc8796a510f0ba8cd1ba0e1f214b734a9ab7e5ca4d96185d16ddbbacb767e96",
+      "size": 2070,
+      "storage": "git-file"
+    },
+    {
+      "path": "games/3d-battle-chess/shared-game.js",
+      "sha256": "3c63c3b2dd45572dd99a70397b53785c3132522a0f8c3f0be85f649a2a61ca99",
+      "size": 74,
+      "storage": "git-file"
+    },
+    {
+      "path": "games/3d-battle-chess/SOURCE_COMMIT.txt",
+      "sha256": "cfabb7f92013a274114623a58fcd8534cdf3c190cd12ea40d8bfa023c7cf5cda",
+      "size": 302,
+      "storage": "git-file"
+    },
+    {
+      "path": "games/3d-battle-chess/STEAM-ROADMAP.md",
+      "sha256": "80cca868647e61b291e05fa58a254ca4d3f05ffb724b52628c19108c1eb400bd",
+      "size": 8156,
+      "storage": "git-file"
+    },
+    {
+      "path": "games/3d-battle-chess/styles.css",
+      "sha256": "390d3fff1a374ccff93d32d3a48564650e23e3d118cf850f641a4d685eb33b03",
+      "size": 13038,
+      "storage": "git-file"
+    },
+    {
+      "path": "games/battle-chess/index.html",
+      "sha256": "9f2e86c640c28832ce11aa1b8777d16b0861dc3b8676e53dc5fb2be7d745798b",
+      "size": 373,
+      "storage": "git-file"
+    },
+    {
+      "path": "games/evil-wizard/.htaccess",
+      "sha256": "092929636313b35dfc5f1fae97a59aad91f7bec44971997a0a8e74921b1bed25",
+      "size": 476,
+      "storage": "git-file"
+    },
+    {
+      "path": "games/evil-wizard/console-champions.js",
+      "sha256": "b3fc5fba19f1ea579f5c3e59d9152cef38d8168ef0cc30d7d4ea8ba9b97d6138",
+      "size": 3323,
+      "storage": "git-file"
+    },
+    {
+      "path": "games/evil-wizard/console.html",
+      "sha256": "3267ca05361444d359b150e88dcad5db6605a988e91bba50d876712099a5f359",
+      "size": 18101,
+      "storage": "git-file"
+    },
+    {
+      "path": "games/evil-wizard/index.apple-touch-icon.png",
+      "sha256": "01d4f63e525941e06ce74f5187dad030d20a8d52a07ce365ae4e94af97a3b1f5",
+      "size": 11944,
+      "storage": "git-file"
+    },
+    {
+      "path": "games/evil-wizard/index.audio.position.worklet.js",
+      "sha256": "be33985bc7160d6bf9646f259cd86b259cd67b02ccb297ee5c44f8ac84327bc8",
+      "size": 2973,
+      "storage": "git-file"
+    },
+    {
+      "path": "games/evil-wizard/index.audio.worklet.js",
+      "sha256": "5b476a9c9ce642c0ee4256436d1bc31d9c38f868aca0f9a8e2a57c18d2dec2a3",
+      "size": 7298,
+      "storage": "git-file"
+    },
+    {
+      "path": "games/evil-wizard/index.html",
+      "sha256": "9cc6e2fdddf17e095751162ed1c41e1927f84ceb456cd69b2613441962b59906",
+      "size": 5454,
+      "storage": "git-file"
+    },
+    {
+      "path": "games/evil-wizard/index.icon.png",
+      "sha256": "ad3c35ad0facf487c618204bd98db543034fc95224eadc7f08c7a9ff38d5b3b5",
+      "size": 5700,
+      "storage": "git-file"
+    },
+    {
+      "path": "games/evil-wizard/index.js",
+      "sha256": "33c94cb3175f3333b82e2a3be5e8e86f77986f0aa2042b1631f6367a4e5bb6ba",
+      "size": 279815,
+      "storage": "git-file"
+    },
+    {
+      "path": "games/evil-wizard/index.pck",
+      "sha256": "ad3ca9d384f87565bc792945aa884dd20c6f2a84782257939f7a5fc756026588",
+      "size": 4398232,
+      "storage": "git-file"
+    },
+    {
+      "path": "games/evil-wizard/index.png",
+      "sha256": "3cb4495c0b98dfbe4b663cbf2b6836473572339beb66d902367893162a70be0e",
+      "size": 21443,
+      "storage": "git-file"
+    },
+    {
+      "path": "games/evil-wizard/index.wasm",
+      "sha256": "fc74679e3b97f76878947fcd4fbe1268cbfa6188182a2e33bbc3f5dc9bfa57d0",
+      "size": 39514754,
+      "storage": "release-asset"
+    },
+    {
+      "path": "games/evil-wizard/play.html",
+      "sha256": "b59d7b932b4402c9ff17a6189355d5c7aa7ba5a4466684e3ace1d62c4bbbe5ed",
+      "size": 23930,
+      "storage": "git-file"
+    },
+    {
+      "path": "games/3d-battle-chess/combat-v8/animation-runtime.js",
+      "sha256": "d667e023d2d2e400e427f885f8fa11e8ee479ec17b5c32d25a5463e8bc1619ba",
+      "size": 2346,
+      "storage": "git-file"
+    },
+    {
+      "path": "games/3d-battle-chess/combat-v8/attack-executor.js",
+      "sha256": "3f2243937b8eb38bf34af35777706d9da5a8484cd91f8d31c62b1f36bb616a3c",
+      "size": 3583,
+      "storage": "git-file"
+    },
+    {
+      "path": "games/3d-battle-chess/combat-v8/attacks.js",
+      "sha256": "89a3b71c0404d76978c23b9f4b879cc9ceb1481d5d923cd68ef7536b1d310d67",
+      "size": 5715,
+      "storage": "git-file"
+    },
+    {
+      "path": "games/3d-battle-chess/combat-v8/character-definitions.js",
+      "sha256": "61bedcff6f51dc9348ecfaa7d52af2887b83eca3a0c2f30eac631832901de595",
+      "size": 5459,
+      "storage": "git-file"
+    },
+    {
+      "path": "games/3d-battle-chess/combat-v8/character-factory.js",
+      "sha256": "271c0f6fe514cfa6cbfbaf253eccdb3bd691e2461b9f2c2ed48b143c20d33c19",
+      "size": 3696,
+      "storage": "git-file"
+    },
+    {
+      "path": "games/3d-battle-chess/combat-v8/character-visuals.js",
+      "sha256": "fdf14eb6c277aba2fd3c6e930671609ffc4f17200593585611b5fd64445f5afd",
+      "size": 8994,
+      "storage": "git-file"
+    },
+    {
+      "path": "games/3d-battle-chess/combat-v8/choreography.js",
+      "sha256": "6bf37f880bdae778a9ea12cd77b0e852480ca05fbb608b9d001ddb7ed772303d",
+      "size": 5641,
+      "storage": "git-file"
+    },
+    {
+      "path": "games/3d-battle-chess/combat-v8/collision.js",
+      "sha256": "315fc1172a94d2f6142d75043529e36d644f398e64e5693c7b02ef8a08c33d17",
+      "size": 1112,
+      "storage": "git-file"
+    },
+    {
+      "path": "games/3d-battle-chess/combat-v8/combat-director.js",
+      "sha256": "124d46dc7f5167ee89a29593cd430fc315f9c00159406a4fe8fe2146e1240f7f",
+      "size": 4225,
+      "storage": "git-file"
+    },
+    {
+      "path": "games/3d-battle-chess/combat-v8/defeat-choreography.js",
+      "sha256": "5457ca9c0b84450c61a53949aa616f0ce2236acfb967bea42e2b52c2bc6a1c25",
+      "size": 1004,
+      "storage": "git-file"
+    },
+    {
+      "path": "games/3d-battle-chess/combat-v8/effects.js",
+      "sha256": "9c670b87df4b4ed28d7090bdf08d0b361769facf28db8045ed26cd896d6b3c6f",
+      "size": 9255,
+      "storage": "git-file"
+    },
+    {
+      "path": "games/3d-battle-chess/combat-v8/physics.js",
+      "sha256": "2a31e61d5680c101ab1cb6c7730cdbb94d9c5cd0fb9052db778029f512db27c7",
+      "size": 783,
+      "storage": "git-file"
+    },
+    {
+      "path": "games/3d-battle-chess/combat-v8/reactions.js",
+      "sha256": "6242b5d9bb717b5821f13f12a38e26915e2d9d052380c4f64693d89adec4edce",
+      "size": 1519,
+      "storage": "git-file"
+    },
+    {
+      "path": "games/3d-battle-chess/combat-v8/rig-types.js",
+      "sha256": "0e63690a3bca25a4bd5a94f3b8fdab902855d6fdecf891b750b8823cb9fff467",
+      "size": 8183,
+      "storage": "git-file"
+    },
+    {
+      "path": "geometric-lab/assets/favicon.svg",
+      "sha256": "87720f9bbde71d13a1eafea826c3a5b5b68c145398dc0323f5d62deac861f704",
+      "size": 323,
+      "storage": "git-file"
+    }
+  ]
+}

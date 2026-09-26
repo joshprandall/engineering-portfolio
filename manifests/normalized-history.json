@@ -1,0 +1,8 @@
+{
+  "original": "preservation/live-20260926/projects-qubit-backup-20260921-224301.html",
+  "originalSha256": "73eb149ead6793f864327db3ed28553b9d582b003e8a8833f4313ac1f37f618e",
+  "normalized": "preservation/normalized/projects-qubit-backup-20260921-224301.html",
+  "normalizedSha256": "c707cd7bf17c6923d9534f95127dc230bd683f387c12fd229fa2231f5d018c06",
+  "runtime": false,
+  "reason": "Readable derivative only; original preserved byte-for-byte."
+}
