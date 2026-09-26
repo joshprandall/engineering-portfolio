@@ -63,7 +63,7 @@
   const AMBIENT_AUDIO_KEY = 'jr-site-ambient-muted-v3';
   const AMBIENT_VOLUME_KEY = 'jr-site-ambient-volume-v2';
   const LIGHT_SCENE_KEY = 'jr-site-light-scene-v1';
-  const MAIN_PAGE_RE = /(?:^|\/)(?:index\.html|expertise-experience\.html|projects\.html|game-development\.html|learn(?:-(?:browse|paths|practice|mastery|labs|glossary|map|verify))?\.html)?$/i;
+  const MAIN_PAGE_RE = /(?:^|\/)(?:index\.html|expertise-experience\.html|projects\.html|game-development\.html|learn(?:-[a-z0-9-]+)?\.html)?$/i;
   const MAIN_PAGE = MAIN_PAGE_RE.test(location.pathname);
 
   function storedLightSceneIndex() {
