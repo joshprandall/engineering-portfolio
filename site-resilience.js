@@ -10,19 +10,34 @@
     if(!nav||!menu||menu.dataset.navOwner==='resilience')return;
     document.body.classList.add('header-menu');
 
-    // One intentional game-development category replaces legacy standalone game links.
-    nav.querySelectorAll(':scope > a[href="project-battle-chess.html"]').forEach(link=>link.remove());
-    if(!nav.querySelector('.nav-games')){
-      const games=document.createElement('details');
-      games.className='nav-games';
-      games.innerHTML='<summary>Game Development</summary><div class="nav-games-menu"><a href="project-battle-chess.html">Crown &amp; Ash</a><a href="play-evil-wizard.html">Defeat the Evil Wizard</a></div>';
-      nav.append(games);
-    }
+    const path=(location.pathname.split('/').pop()||'index.html').toLowerCase();
+    const projectPage=/^(?:project-[^/]+|resume)\.html$/.test(path);
+    const gamePage=path==='play-evil-wizard.html'||path==='project-battle-chess.html'||/\/games\//i.test(location.pathname);
+    const current=gamePage?'game-development.html':
+      projectPage?'projects.html':
+      path.startsWith('learn')||path==='lesson.html'?'learn.html':
+      path==='expertise-experience.html'?'expertise-experience.html':
+      path==='projects.html'?'projects.html':
+      path==='game-development.html'?'game-development.html':
+      path==='index.html'?'index.html':'';
 
-    const games=nav.querySelector('.nav-games');
+    const links=[
+      ['index.html','Home'],
+      ['expertise-experience.html','Expertise & Experience'],
+      ['projects.html','Projects'],
+      ['learn.html','Learn'],
+      ['game-development.html','Game Development'],
+      ['index.html#direction','Direction']
+    ];
+
+    nav.innerHTML=links.map(([href,label])=>{
+      const base=href.split('#')[0];
+      const active=current===base&&href.indexOf('#')<0;
+      return '<a href="'+href+'"'+(active?' aria-current="page"':'')+'>'+label+'</a>';
+    }).join('');
+
     const close=()=>{
       nav.classList.remove('open');
-      games?.removeAttribute('open');
       menu.setAttribute('aria-expanded','false');
       menu.setAttribute('aria-label','Open navigation');
     };
@@ -32,19 +47,16 @@
     menu.setAttribute('aria-expanded',String(nav.classList.contains('open')));
     menu.setAttribute('aria-label',nav.classList.contains('open')?'Close navigation':'Open navigation');
 
-    // app.js delegates navigation here; initialize once per document.
     menu.onclick=event=>{
       event.preventDefault();
       event.stopPropagation();
       const opened=nav.classList.toggle('open');
-      if(!opened)games?.removeAttribute('open');
       menu.setAttribute('aria-expanded',String(opened));
       menu.setAttribute('aria-label',opened?'Close navigation':'Open navigation');
     };
 
     nav.addEventListener('click',event=>{if(event.target.closest('a'))close();});
     document.addEventListener('click',event=>{
-      if(games?.open&&!games.contains(event.target))games.removeAttribute('open');
       if(nav.classList.contains('open')&&!nav.contains(event.target)&&!menu.contains(event.target))close();
     });
     document.addEventListener('keydown',event=>{if(event.key==='Escape'&&nav.classList.contains('open')){close();menu.focus();}});
