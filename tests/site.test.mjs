@@ -136,7 +136,7 @@ assert.match(overlayWorkflow,/forbidden_prefixes=\('games\/',\s*'geometric-lab\/
 assert.match(overlayWorkflow,/protected_root\s*=\s*set\(\)/,'OSU overlay must allow project wrapper HTML to receive navigation fixes');
 assert.match(overlayWorkflow,/forbidden_prefixes=\('games\/',\s*'geometric-lab\/'\)/,'OSU overlay must continue protecting actual game and Geometry Lab trees');
 const deployScript=read('tools/deploy_osu_live.py');
-assert.match(deployScript,/parser\.add_argument\('--commit',required=True/,'Deployments must explicitly select the exact tested commit');
+assert.match(deployScript,/parser\.add_argument\('commit'/,'Deployments must explicitly select the exact tested commit as a positional full SHA');
 assert.doesNotMatch(deployScript,/WEB_COMMIT =/,'A stale hardcoded deploy pin must not override the tested release');
 const webDirs=deployScript.match(/WEB_DIRS = \(([^)]*)\)/)?.[1]||'';
 assert.ok(!/games\/|geometric-lab|project-sources/.test(webDirs),'OSU deploy WEB_DIRS must not overwrite protected or repository-only trees');
