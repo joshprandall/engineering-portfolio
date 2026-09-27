@@ -10,6 +10,14 @@
 
   const LIGHT_SCENES = [
     {
+      id: 'forest-waterfall',
+      src: 'https://videos.pexels.com/video-files/7351460/7351460-hd_1920_1080_24fps.mp4',
+      poster: 'https://images.pexels.com/videos/7351460/pexels-photo-7351460.jpeg?auto=compress&cs=tinysrgb&w=1600',
+      page: 'https://www.pexels.com/video/waterfall-in-the-forest-7351460/',
+      creator: 'K',
+      label: 'Forest waterfall'
+    },
+    {
       id: 'forest-river',
       src: 'https://videos.pexels.com/video-files/33886656/14381142_1920_1080_25fps.mp4',
       poster: 'https://images.pexels.com/videos/33886656/pexels-photo-33886656.jpeg?auto=compress&cs=tinysrgb&w=1600',
@@ -23,20 +31,14 @@
       poster: 'https://images.pexels.com/videos/9982425/pexels-photo-9982425.jpeg?auto=compress&cs=tinysrgb&w=1600',
       page: 'https://www.pexels.com/video/birds-flying-above-beach-at-sunset-9982425/',
       creator: 'Daniel Feldman',
-      label: 'Birds over water'
-    },
-    {
-      id: 'forest-waterfall',
-      src: 'https://videos.pexels.com/video-files/7351460/7351460-hd_1920_1080_24fps.mp4',
-      poster: 'https://images.pexels.com/videos/7351460/pexels-photo-7351460.jpeg?auto=compress&cs=tinysrgb&w=1600',
-      page: 'https://www.pexels.com/video/waterfall-in-the-forest-7351460/',
-      creator: 'K',
-      label: 'Forest waterfall'
+      label: 'Beach at sunset'
     }
   ];
 
-  const ROTATE_AFTER = Infinity; // Background scene remains stable until the user explicitly changes it.
-  const LIGHT_SCENE_KEY = 'jr-site-light-scene-v1';
+  // Cycle the light-mode scenes while keeping each scene spatially fixed.
+  const ROTATE_AFTER = 28;
+  // Version bump resets old saved ordering so light mode starts with waterfall.
+  const LIGHT_SCENE_KEY = 'jr-site-light-scene-v2';
   function storedLightSceneIndex() {
     try {
       const id = localStorage.getItem(LIGHT_SCENE_KEY);
