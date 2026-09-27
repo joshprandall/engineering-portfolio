@@ -92,6 +92,39 @@ def copy_file(source, target):
         if temp.exists():
             temp.unlink()
 
+def create_backup(site, partial):
+    """Create the broadest possible site backup without failing on host-owned unreadable paths."""
+    skipped = []
+    def remember(error):
+        name = getattr(error, 'filename', None) or str(error)
+        if name not in skipped:
+            skipped.append(name)
+
+    with tarfile.open(partial, 'w:gz') as archive:
+        archive.add(site, arcname=site.name, recursive=False)
+        for root, dirs, files in os.walk(site, topdown=True, followlinks=False, onerror=remember):
+            root = Path(root)
+            rel_root = root.relative_to(site)
+            for name in list(dirs):
+                path = root/name
+                arcname = Path(site.name)/rel_root/name
+                try:
+                    archive.add(path, arcname=arcname.as_posix(), recursive=False)
+                except (PermissionError, OSError) as error:
+                    remember(error)
+                    dirs.remove(name)
+            for name in files:
+                path = root/name
+                arcname = Path(site.name)/rel_root/name
+                try:
+                    archive.add(path, arcname=arcname.as_posix(), recursive=False)
+                except (PermissionError, OSError) as error:
+                    remember(error)
+    if skipped:
+        print('Backup skipped host-inaccessible paths that deployment will not modify:', flush=True)
+        for name in skipped:
+            print('  -', name, flush=True)
+
 def protected_hashes(site):
     return {p.relative_to(site).as_posix():digest(p) for p in site.rglob('*')
             if p.is_file() and protected(p.relative_to(site).as_posix())}
@@ -113,8 +146,7 @@ def deploy(source, site, verify_public=None):
     partial = Path(str(backup)+'.part')
     try:
         print('Creating full backup:', backup, flush=True)
-        with tarfile.open(partial,'w:gz') as archive:
-            archive.add(site,arcname=site.name)
+        create_backup(site, partial)
         os.replace(partial,backup)
     except PermissionError:
         if partial.exists():
@@ -122,8 +154,7 @@ def deploy(source, site, verify_public=None):
         backup = Path(tempfile.gettempdir())/backup_name
         partial = Path(str(backup)+'.part')
         print('Home directory blocks backup creation; using temporary backup:', backup, flush=True)
-        with tarfile.open(partial,'w:gz') as archive:
-            archive.add(site,arcname=site.name)
+        create_backup(site, partial)
         os.replace(partial,backup)
     installed = []
     with tempfile.TemporaryDirectory(prefix='portfolio-rollback-') as undo_name:
