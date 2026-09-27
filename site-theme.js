@@ -1,6 +1,21 @@
 /* Shared appearance preference. Load before styles so navigation never flashes the wrong theme. */
 (() => {
   'use strict';
+
+  // Keep the visible portfolio URL canonical by removing referral/campaign tracking only.
+  // Functional query parameters are preserved.
+  try {
+    const current = new URL(window.location.href);
+    const removable = [];
+    current.searchParams.forEach((_, key) => {
+      if (/^utm_/i.test(key) || /^(?:gclid|dclid|fbclid|msclkid|mc_cid|mc_eid)$/i.test(key)) removable.push(key);
+    });
+    if (removable.length) {
+      removable.forEach(key => current.searchParams.delete(key));
+      const query = current.searchParams.toString();
+      history.replaceState(history.state, '', current.pathname + (query ? '?' + query : '') + current.hash);
+    }
+  } catch {}
   if (window.PortfolioTheme) return;
   const root = document.documentElement;
   const THEME_KEY = 'jr-site-theme';
