@@ -277,17 +277,18 @@ Controls remain full-width and usable.
 Update education/technical-development content to show clearly:
 
 - Oregon State University
-- B.S. Electrical & Computer Engineering, in progress
-- current/planned interdisciplinary direction involving Computer Science and Data Science
+- Dual major: Electrical & Computer Engineering and Computer Science, in progress
+- Data Science minor
 - Mathematics minor
 - Physics minor
-- MIT online Quantum Engineering studies/program
+- Honors College
+- MIT online Quantum Engineering Program, tuition-based professional study, in progress
+- MIT online professional quantum curriculum is offered through the MIT Center for Quantum Engineering / MIT xPRO
 
 Do not bury minors in a long sentence.
+Do not omit Honors College.
 Do not omit MIT.
-Do not present an undeclared second major as already official/completed.
-
-Use accurate wording such as planned interdisciplinary path / planned additional major or focus where appropriate.
+Do not downgrade the confirmed Computer Science second major to a planned focus.
 
 Hero/profile education and the full education section should consume the same source of truth where practical.
 
