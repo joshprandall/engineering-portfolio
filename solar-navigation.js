@@ -28,12 +28,21 @@
 
   const config={
     portfolio:{
-      viewBox:'0 0 760 560',cx:380,cy:280,sun:38,speed:.105,
-      rings:[{rx:245,ry:118}]
+      // Match the AI solar's richer multi-orbit composition while preserving
+      // six top-level website destinations and large tap targets.
+      viewBox:'0 0 820 620',cx:410,cy:310,sun:42,speed:.075,
+      rings:[
+        {rx:160,ry:78,count:3,offset:0},
+        {rx:285,ry:158,count:3,offset:.52}
+      ]
     },
     learning:{
-      viewBox:'0 0 760 560',cx:380,cy:280,sun:38,speed:.10,
-      rings:[{rx:245,ry:118}]
+      // Same cinematic visual language as AI, with seven subject planets.
+      viewBox:'0 0 820 620',cx:410,cy:310,sun:42,speed:.075,
+      rings:[
+        {rx:160,ry:78,count:3,offset:0},
+        {rx:285,ry:158,count:4,offset:.39}
+      ]
     },
     'ai-builds':{
       viewBox:'0 0 820 620',cx:410,cy:310,sun:42,speed:.075,
@@ -244,13 +253,19 @@
   }
 
   function ringAssignments(kind,count,cfg){
-    if(kind!=='ai-builds')return Array.from({length:count},(_,i)=>({ring:0,index:i,total:count,offset:0}));
     const out=[];let cursor=0;
     cfg.rings.forEach((ring,ri)=>{
-      const total=Math.min(ring.count,count-cursor);
+      const requested=Number.isFinite(ring.count)?ring.count:(count-cursor);
+      const total=Math.min(requested,count-cursor);
       for(let i=0;i<total;i++)out.push({ring:ri,index:i,total,offset:ring.offset||0});
       cursor+=total;
     });
+    // Defensive fallback if a future page adds more planets than its ring plan.
+    while(cursor<count){
+      const ri=cfg.rings.length-1,ring=cfg.rings[ri],i=cursor-(count-(count-cursor));
+      out.push({ring:ri,index:cursor,total:count,offset:ring.offset||0});
+      cursor++;
+    }
     return out;
   }
 
@@ -292,7 +307,9 @@
       const destination=link.getAttribute('href')||'#';
       const ringInfo=assigns[i];
       const ring=cfg.rings[ringInfo.ring];
-      const size=kind==='ai-builds'?(ringInfo.ring===0?21:ringInfo.ring===1?19:18):22;
+      const size=kind==='ai-builds'
+        ?(ringInfo.ring===0?21:ringInfo.ring===1?19:18)
+        :(ringInfo.ring===0?23:21);
       const group=E('g',{'class':'approved-planet-link','role':'button','tabindex':'0','aria-label':`Select ${name}`,'aria-pressed':'false'});
       const body=E('circle',{r:size,fill:`url(#approved-planet-${sectionIndex}-${i%palettes.length})`,'class':'approved-planet-body'});
       group.append(body);
