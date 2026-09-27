@@ -107,7 +107,7 @@ jobs:
         run: |
           CHROME=$(command -v google-chrome || command -v chromium || command -v chromium-browser || true)
           if [ -z "$CHROME" ]; then npx playwright install --with-deps chromium; fi
-          PORTFOLIO_BROWSER_EXECUTABLE="$CHROME" PORTFOLIO_QA_DIR=visual-qa npm run test:browser
+          PORTFOLIO_RUNTIME_ROOT=. PORTFOLIO_BROWSER_EXECUTABLE="$CHROME" PORTFOLIO_QA_DIR=visual-qa npm run test:browser
       - name: Capture optional desktop and phone-sized screenshots
         shell: bash
         run: |
