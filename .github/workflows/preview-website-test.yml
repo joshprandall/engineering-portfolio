@@ -27,7 +27,7 @@ jobs:
             npx playwright install --with-deps chromium
             CHROME=""
           fi
-          cat > /tmp/capture-preview.cjs <<'NODE'
+          cat > capture-preview.cjs <<'NODE'
           const { chromium } = require('playwright');
           const path = require('node:path');
           (async()=>{
@@ -53,7 +53,7 @@ jobs:
             await browser.close();
           })().catch(e=>{console.error(e);process.exit(1)});
           NODE
-          CHROME="$CHROME" node /tmp/capture-preview.cjs
+          CHROME="$CHROME" node capture-preview.cjs
       - uses: actions/upload-artifact@v4
         with:
           name: website-test-preview
