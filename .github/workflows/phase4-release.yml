@@ -1,0 +1,77 @@
+name: Website 2.0 Phase 4 release candidate
+
+on:
+  push:
+    branches: [release/website-2.0-phase4]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  phase4:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install JavaScript dependencies
+        run: npm ci
+
+      - name: Reproduce and refresh exact runtime manifest on Linux
+        run: python tools/build_runtime.py --commit "$GITHUB_SHA" --refresh-manifest
+
+      - name: Commit exact Linux runtime manifest when changed
+        shell: bash
+        run: |
+          if ! git diff --quiet -- manifests/runtime-files.json; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add manifests/runtime-files.json
+            git commit -m "phase4: refresh exact Linux runtime manifest"
+            git push origin HEAD:"$GITHUB_REF_NAME"
+          fi
+
+      - name: Validate isolated runtime closure
+        run: python tools/validate_runtime.py
+
+      - name: Static, manifest, and deployment rollback tests
+        run: |
+          npm test
+          python -m unittest discover -s tests -p 'test_*.py' -v
+
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Browser and ownership acceptance
+        run: |
+          npm run test:browser
+          npm run test:runtime-browser
+          npm run test:ownership-browser
+          npm run test:chess-browser
+          npm run test:evil-wizard-browser
+          npm run test:media-downloads
+
+      - name: Full responsive matrix
+        run: |
+          npm run test:responsive
+          npm run test:responsive-components
+
+      - name: Record exact candidate
+        shell: bash
+        run: |
+          echo "candidate_input_sha=$GITHUB_SHA" >> "$GITHUB_STEP_SUMMARY"
+          echo "branch=$GITHUB_REF_NAME" >> "$GITHUB_STEP_SUMMARY"
+          echo "runtime_manifest_sha256=$(sha256sum manifests/runtime-files.json | awk '{print $1}')" >> "$GITHUB_STEP_SUMMARY"
+          git status --short >> "$GITHUB_STEP_SUMMARY"
