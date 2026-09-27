@@ -201,3 +201,201 @@ body .vnext-cosmos .vnext-world strong{display:block!important;font-size:16px!im
 
 /* About is one continuous reading page; render every section so anchor jumps and full-page previews never show intrinsic-size placeholders. */
 .about-unified-page main>section{content-visibility:visible!important;contain-intrinsic-size:auto!important}
+
+/* Universal glass contract — all content tiles/panels remain translucent so the
+   living background is visible through the interface. */
+:root{
+  --glass:rgba(7,13,17,.34);
+  --glass-soft:rgba(7,13,17,.24);
+  --glass-strong:rgba(7,13,17,.48);
+  --surface:rgba(12,19,23,.34);
+  --surface2:rgba(18,27,31,.40);
+  --panel:rgba(12,19,23,.34);
+  --panel2:rgba(18,27,31,.40);
+  --panel3:rgba(24,34,38,.44);
+  --bg2:rgba(12,19,23,.22);
+  --inset:rgba(6,12,16,.32);
+}
+:root[data-theme="light"]{
+  --glass:rgba(246,248,244,.38);
+  --glass-soft:rgba(246,248,244,.26);
+  --glass-strong:rgba(246,248,244,.56);
+  --surface:rgba(246,248,244,.38);
+  --surface2:rgba(237,241,236,.44);
+  --panel:rgba(246,248,244,.38);
+  --panel2:rgba(237,241,236,.44);
+  --panel3:rgba(229,235,230,.50);
+  --bg2:rgba(246,248,244,.24);
+  --inset:rgba(239,243,238,.36);
+}
+
+/* Full-width bands never hide the scene. */
+:is(.signal-strip,.feature-band,.quantum-section,.discover,.atlas,.stat-band,.depth-system,.section.alt){
+  background:transparent!important;
+}
+
+/* Tile/card/panel surfaces. */
+:is(
+  .system-visual,[role="tabpanel"],.project-card,.home-project,.education-cards article,
+  .resume-education article,.destination-card,.constellation-panel,.domain-card,
+  .search-box,.lesson-card,.path-card,.atlas-card,.principle-grid article,
+  .sidebar-card,.rail-card,.misconception,.interactive,.visual-stage,.diagram-node,.metric,
+  .quiz-options button,.practice-card,.mastery-card,.depth-coverage,.depth-ladder button,
+  .depth-planner,.depth-integrity,.research-bridge,.vnext-path-intro,.vnext-path-check,
+  #cap-selector a,#cap-detail,.cap-example,.cap-check,.science-console,.science-stage,
+  .science-output,.science-node-grid button,.science-probes button,.science-paths span,
+  .lab-workspace .lab-grid,#lab .lab-grid,.lab-workspace form,#lab form,.app-panel,
+  .agent-metric,#agent-tasks li,#agent-ledger,.vnext-system,.vnext-quantum,
+  .vnext-quantum-floor,.portrait-card,.contact,.quantum-stage
+){
+  background:var(--glass)!important;
+  -webkit-backdrop-filter:blur(10px) saturate(1.08);
+  backdrop-filter:blur(10px) saturate(1.08);
+}
+
+/* Controls that previously appeared as solid blocks. */
+:is(
+  .search-stage,.filters select,.check-label,.depth-controls select,.depth-context select,
+  .vnext-path-intro input[type="search"],.vnext-path-intro select,
+  .science-form input[type="number"],.science-form select,
+  .science-node-grid button,.science-probes button,
+  .ai-lab-controls input:not([type="checkbox"]),.ai-lab-controls select,
+  .lab-workspace input,.lab-workspace select,.lab-workspace textarea,
+  #lab input,#lab select,#lab textarea
+){
+  background:var(--glass-strong)!important;
+  -webkit-backdrop-filter:blur(8px) saturate(1.06);
+  backdrop-filter:blur(8px) saturate(1.06);
+}
+
+/* Keep hover/selected states visible without becoming opaque. */
+:is(.project-card,.home-project,.domain-card,.lesson-card,.path-card,.atlas-card,.depth-ladder button):hover{
+  background:var(--glass-strong)!important;
+}
+.depth-ladder button.active{
+  background:linear-gradient(155deg,color-mix(in srgb,var(--accent) 15%,transparent),var(--glass-strong))!important;
+}
+
+/* Existing scene-specific rules had several high-opacity light-mode surfaces. */
+:root[data-theme="light"] body.living-scenes :is(
+  .project-card,.home-project,.education-cards article,.domain-card,.stats>div,
+  .verification-inner,.constellation-panel,.lesson-card,.path-card,.atlas-card
+){
+  background:var(--glass)!important;
+}
+
+/* Navigation overlays are glass too, but slightly stronger for legibility. */
+body .site-global-header #primary-nav,
+body .site-global-header .scene-sound-panel,
+dialog{
+  background:var(--glass-strong)!important;
+  -webkit-backdrop-filter:blur(18px) saturate(1.08);
+  backdrop-filter:blur(18px) saturate(1.08);
+}
+
+/* Universal tile geometry — every card/panel/tile uses the same rounded language. */
+:root{--tile-radius:14px;--tile-radius-small:10px}
+
+:is(
+  .system-visual,[role="tabpanel"],.project-card,.home-project,.education-cards article,
+  .resume-education article,.destination-card,.constellation-panel,.domain-card,
+  .search-box,.lesson-card,.path-card,.atlas-card,.principle-grid article,
+  .sidebar-card,.rail-card,.misconception,.interactive,.visual-stage,.diagram-node,.metric,
+  .quiz-options button,.practice-card,.mastery-card,.depth-coverage,.depth-ladder button,
+  .depth-planner,.depth-integrity,.research-bridge,.vnext-path-intro,.vnext-path-check,
+  #cap-selector a,#cap-detail,.cap-example,.cap-check,.science-console,.science-stage,
+  .science-output,.science-node-grid button,.science-probes button,.science-paths span,
+  .lab-workspace .lab-grid,#lab .lab-grid,.lab-workspace form,#lab form,.app-panel,
+  .agent-metric,#agent-tasks li,#agent-ledger,.vnext-system,.vnext-quantum,
+  .vnext-quantum-floor,.portrait-card,.contact,.quantum-stage,
+  body.living-scenes[data-library-page="home"] .stats>div,
+  body.living-scenes[data-library-page="home"] .verification-inner
+){
+  border-radius:var(--tile-radius)!important;
+}
+
+/* Nested controls stay rounded, but slightly tighter than their parent tile. */
+:is(
+  .search-stage,.filters select,.check-label,.depth-controls select,.depth-context select,
+  .vnext-path-intro input[type="search"],.vnext-path-intro select,
+  .science-form input[type="number"],.science-form select,
+  .ai-lab-controls input:not([type="checkbox"]),.ai-lab-controls select,
+  .lab-workspace input,.lab-workspace select,.lab-workspace textarea,
+  #lab input,#lab select,#lab textarea,.button,.tools button,.icon-button
+){
+  border-radius:var(--tile-radius-small)!important;
+}
+
+/* Grouped layouts keep rounded outer corners instead of square grid edges. */
+.domain-grid,.lesson-grid,.principle-grid,.depth-ladder,.research-grid{
+  border-radius:var(--tile-radius)!important;
+  overflow:hidden;
+}
+
+/* Universal viewport containment — no card, panel, lab, or grid may extend past
+   the available screen width on phones or in-app browsers. */
+html,body{max-width:100%;overflow-x:clip}
+
+:is(
+  main,main>section,.wrap,.shell,.cap-wrap,.lesson-shell,.lesson-article,
+  .destination-grid,.project-grid,.home-projects,.education-cards,.resume-education,
+  .domain-grid,.lesson-grid,.path-grid,.atlas-grid,.principle-grid,.research-grid,
+  .metric-grid,.agent-metrics,.science-console,.science-console-grid,.science-stage,
+  .lab-grid,.lab-workspace,.app-panel,.depth-system,.depth-planner,.depth-coverage,
+  .depth-ladder,.research-bridge,.vnext-path-intro,.vnext-system,.vnext-quantum,
+  .solar-navigation,.solar-descriptor
+){
+  min-width:0!important;
+  max-width:100%!important;
+  box-sizing:border-box;
+}
+
+:is(
+  .system-visual,[role="tabpanel"],.project-card,.home-project,.education-cards article,
+  .resume-education article,.destination-card,.constellation-panel,.domain-card,
+  .search-box,.lesson-card,.path-card,.atlas-card,.principle-grid article,
+  .sidebar-card,.rail-card,.misconception,.interactive,.visual-stage,.diagram-node,.metric,
+  .quiz-options button,.practice-card,.mastery-card,.depth-coverage,.depth-ladder button,
+  .depth-planner,.depth-integrity,.research-bridge,.vnext-path-intro,.vnext-path-check,
+  #cap-selector a,#cap-detail,.cap-example,.cap-check,.science-console,.science-stage,
+  .science-output,.science-node-grid button,.science-probes button,.science-paths span,
+  .lab-workspace .lab-grid,#lab .lab-grid,.lab-workspace form,#lab form,.app-panel,
+  .agent-metric,#agent-tasks li,#agent-ledger,.vnext-system,.vnext-quantum,
+  .vnext-quantum-floor,.portrait-card,.contact,.quantum-stage
+){
+  min-width:0!important;
+  max-width:100%!important;
+  box-sizing:border-box!important;
+  overflow-wrap:anywhere;
+}
+
+:is(
+  .destination-grid,.project-grid,.home-projects,.education-cards,.resume-education,
+  .domain-grid,.lesson-grid,.path-grid,.atlas-grid,.principle-grid,.research-grid,
+  .metric-grid,.agent-metrics,.science-node-grid,.science-check-list,.science-pods,
+  .depth-ladder,.depth-controls,.research-grid
+)>*{min-width:0!important;max-width:100%!important}
+
+/* Scroll only the content that genuinely needs horizontal room, never the page. */
+:is(.table-scroll,pre,.code-sample,.responsive-table){max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
+img,video,canvas,svg,iframe{max-width:100%}
+
+/* Several older learning/science components had desktop-width assumptions. */
+@media(max-width:700px){
+  .science-console{width:100%!important;margin-inline:0!important}
+  .vnext-path-intro{width:100%!important;margin-inline:0!important}
+  .depth-heading,.depth-planner,.depth-context,.science-console-grid,.science-stage,
+  .lab-grid,.agent-metrics{grid-template-columns:minmax(0,1fr)!important}
+  .destination-grid,.project-grid,.home-projects,.education-cards,.resume-education,
+  .domain-grid,.lesson-grid,.path-grid,.atlas-grid,.principle-grid,.research-grid{
+    grid-template-columns:minmax(0,1fr)!important;
+  }
+  .depth-ladder{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .stats{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .about-contact-list>div,.education-line{min-width:0}
+}
+
+@media(max-width:390px){
+  .depth-ladder,.stats{grid-template-columns:minmax(0,1fr)!important}
+  .site-global-header,.site-global-header *{min-width:0}
+}
