@@ -108,12 +108,23 @@ def deploy(source, site, verify_public=None):
             raise RuntimeError('A destination resolves outside public_html.')
     protected_before = protected_hashes(site)
     stamp = datetime.datetime.now().strftime('%Y%m%d-%H%M%S-%f')
-    backup = site.parent/('public_html-before-'+stamp+'.tar.gz')
+    backup_name = 'public_html-before-'+stamp+'.tar.gz'
+    backup = site.parent/backup_name
     partial = Path(str(backup)+'.part')
-    print('Creating full backup:', backup, flush=True)
-    with tarfile.open(partial,'w:gz') as archive:
-        archive.add(site,arcname=site.name)
-    os.replace(partial,backup)
+    try:
+        print('Creating full backup:', backup, flush=True)
+        with tarfile.open(partial,'w:gz') as archive:
+            archive.add(site,arcname=site.name)
+        os.replace(partial,backup)
+    except PermissionError:
+        if partial.exists():
+            partial.unlink()
+        backup = Path(tempfile.gettempdir())/backup_name
+        partial = Path(str(backup)+'.part')
+        print('Home directory blocks backup creation; using temporary backup:', backup, flush=True)
+        with tarfile.open(partial,'w:gz') as archive:
+            archive.add(site,arcname=site.name)
+        os.replace(partial,backup)
     installed = []
     with tempfile.TemporaryDirectory(prefix='portfolio-rollback-') as undo_name:
         undo = Path(undo_name)
