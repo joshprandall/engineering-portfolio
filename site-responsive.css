@@ -331,3 +331,71 @@ dialog{
   border-radius:var(--tile-radius)!important;
   overflow:hidden;
 }
+
+/* Universal viewport containment — no card, panel, lab, or grid may extend past
+   the available screen width on phones or in-app browsers. */
+html,body{max-width:100%;overflow-x:clip}
+
+:is(
+  main,main>section,.wrap,.shell,.cap-wrap,.lesson-shell,.lesson-article,
+  .destination-grid,.project-grid,.home-projects,.education-cards,.resume-education,
+  .domain-grid,.lesson-grid,.path-grid,.atlas-grid,.principle-grid,.research-grid,
+  .metric-grid,.agent-metrics,.science-console,.science-console-grid,.science-stage,
+  .lab-grid,.lab-workspace,.app-panel,.depth-system,.depth-planner,.depth-coverage,
+  .depth-ladder,.research-bridge,.vnext-path-intro,.vnext-system,.vnext-quantum,
+  .solar-navigation,.solar-descriptor
+){
+  min-width:0!important;
+  max-width:100%!important;
+  box-sizing:border-box;
+}
+
+:is(
+  .system-visual,[role="tabpanel"],.project-card,.home-project,.education-cards article,
+  .resume-education article,.destination-card,.constellation-panel,.domain-card,
+  .search-box,.lesson-card,.path-card,.atlas-card,.principle-grid article,
+  .sidebar-card,.rail-card,.misconception,.interactive,.visual-stage,.diagram-node,.metric,
+  .quiz-options button,.practice-card,.mastery-card,.depth-coverage,.depth-ladder button,
+  .depth-planner,.depth-integrity,.research-bridge,.vnext-path-intro,.vnext-path-check,
+  #cap-selector a,#cap-detail,.cap-example,.cap-check,.science-console,.science-stage,
+  .science-output,.science-node-grid button,.science-probes button,.science-paths span,
+  .lab-workspace .lab-grid,#lab .lab-grid,.lab-workspace form,#lab form,.app-panel,
+  .agent-metric,#agent-tasks li,#agent-ledger,.vnext-system,.vnext-quantum,
+  .vnext-quantum-floor,.portrait-card,.contact,.quantum-stage
+){
+  min-width:0!important;
+  max-width:100%!important;
+  box-sizing:border-box!important;
+  overflow-wrap:anywhere;
+}
+
+:is(
+  .destination-grid,.project-grid,.home-projects,.education-cards,.resume-education,
+  .domain-grid,.lesson-grid,.path-grid,.atlas-grid,.principle-grid,.research-grid,
+  .metric-grid,.agent-metrics,.science-node-grid,.science-check-list,.science-pods,
+  .depth-ladder,.depth-controls,.research-grid
+)>*{min-width:0!important;max-width:100%!important}
+
+/* Scroll only the content that genuinely needs horizontal room, never the page. */
+:is(.table-scroll,pre,.code-sample,.responsive-table){max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
+img,video,canvas,svg,iframe{max-width:100%}
+
+/* Several older learning/science components had desktop-width assumptions. */
+@media(max-width:700px){
+  .science-console{width:100%!important;margin-inline:0!important}
+  .vnext-path-intro{width:100%!important;margin-inline:0!important}
+  .depth-heading,.depth-planner,.depth-context,.science-console-grid,.science-stage,
+  .lab-grid,.agent-metrics{grid-template-columns:minmax(0,1fr)!important}
+  .destination-grid,.project-grid,.home-projects,.education-cards,.resume-education,
+  .domain-grid,.lesson-grid,.path-grid,.atlas-grid,.principle-grid,.research-grid{
+    grid-template-columns:minmax(0,1fr)!important;
+  }
+  .depth-ladder{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .stats{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .about-contact-list>div,.education-line{min-width:0}
+}
+
+@media(max-width:390px){
+  .depth-ladder,.stats{grid-template-columns:minmax(0,1fr)!important}
+  .site-global-header,.site-global-header *{min-width:0}
+}
