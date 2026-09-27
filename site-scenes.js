@@ -35,7 +35,7 @@
     }
   ];
 
-  const ROTATE_AFTER = 28;
+  const ROTATE_AFTER = Infinity; // Background scene remains stable until the user explicitly changes it.
   const LIGHT_SCENE_KEY = 'jr-site-light-scene-v1';
   function storedLightSceneIndex() {
     try {
@@ -191,9 +191,21 @@
     }
 
     function resize() {
-      width = innerWidth;
-      height = innerHeight;
-      dpr = Math.min(devicePixelRatio || 1, constrainedMedia ? (width < 700 ? 1.15 : 1.35) : (width < 700 ? 1.35 : 1.7));
+      // Measure the fixed scene itself instead of innerHeight. On iOS Safari,
+      // browser chrome changes innerHeight while scrolling and used to make the
+      // cover media recalculate, visibly jump/zoom, and re-seed the star field.
+      const rect = backdrop.getBoundingClientRect();
+      const nextWidth = Math.max(1, Math.round(rect.width || innerWidth));
+      const nextHeight = Math.max(1, Math.round(rect.height || innerHeight));
+      const nextDpr = Math.min(devicePixelRatio || 1, constrainedMedia ? (nextWidth < 700 ? 1.15 : 1.35) : (nextWidth < 700 ? 1.35 : 1.7));
+
+      // Ignore dynamic-toolbar height notifications when the stable backdrop
+      // geometry has not actually changed.
+      if (width === nextWidth && height === nextHeight && Math.abs(dpr - nextDpr) < .01) return;
+
+      width = nextWidth;
+      height = nextHeight;
+      dpr = nextDpr;
       canvas.width = Math.max(1, Math.round(width * dpr));
       canvas.height = Math.max(1, Math.round(height * dpr));
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
@@ -415,21 +427,12 @@
     }
 
     function universe(dt) {
-      const driftX = Math.sin(time / 10.5) * 26 + Math.sin(time / 24) * 12;
-      const driftY = Math.cos(time / 14.5) * 16 + Math.sin(time / 31) * 7;
-      const scale = 1.092 + Math.sin(time / 18) * .014;
-
-      night.style.transform =
-        'translate3d(' + driftX.toFixed(2) + 'px,' + driftY.toFixed(2) + 'px,0) scale(' + scale.toFixed(4) + ')';
-
-      nightDepth.style.transform =
-        'translate3d(' + (-driftX * .46).toFixed(2) + 'px,' + (-driftY * .34).toFixed(2) + 'px,0) scale(' +
-        (1.126 - Math.sin(time / 22) * .012).toFixed(4) + ')';
-
-      nightGlow.style.transform =
-        'translate3d(' + (Math.sin(time / 8.5) * 38).toFixed(2) + 'px,' + (Math.cos(time / 12.5) * 24).toFixed(2) + 'px,0)';
-
-      drawStars(driftX, driftY);
+      // Keep the astronomical background spatially locked to the viewport.
+      // Tiny particle animation can remain, but the actual image never pans or zooms.
+      night.style.transform = 'none';
+      nightDepth.style.transform = 'none';
+      nightGlow.style.transform = 'none';
+      drawStars(0, 0);
       drawDust();
       drawStreak(dt);
     }
