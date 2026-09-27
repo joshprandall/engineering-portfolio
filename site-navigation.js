@@ -8,7 +8,7 @@
     document.querySelector('[data-learning-search]')?.addEventListener('click',()=>{
       const input=[...document.querySelectorAll('#knowledge-search,#glossary-search,#vnext-path-search')].find(node=>node.getClientRects().length&&!node.disabled);
       if(input){input.scrollIntoView({block:'center'});input.focus();return;}
-      location.assign(new URL('learn.html?focus=search',base));
+      location.assign(new URL('learn-browse.html?focus=search',base));
     });
     if(new URL(location.href).searchParams.get('focus')==='search'){
       const focusLearning=()=>document.querySelector('#knowledge-search')?.focus();
