@@ -77,3 +77,6 @@ main>.section,main>section,.contact{content-visibility:visible!important;contain
 .solar-map .solar-planet-link g{transform-box:fill-box;transform-origin:center;transition:filter .16s ease,opacity .16s ease}
 .solar-map .solar-planet-link:hover g,.solar-map .solar-planet-link:focus-visible g{filter:brightness(1.18) drop-shadow(0 0 10px rgba(140,200,209,.55))}
 .solar-map .solar-planet-link:focus-visible{outline:3px solid var(--accent);outline-offset:4px}
+
+.ai-build-card{scroll-margin-top:calc(var(--header-height,96px) + 1rem)}
+.ai-build-card:target{outline:2px solid color-mix(in srgb,var(--accent) 70%,transparent);outline-offset:4px}
