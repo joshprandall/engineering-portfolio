@@ -4,7 +4,14 @@
   const install=()=>{
     const nav=document.querySelector('header #primary-nav, header.site-header nav'),menu=document.querySelector('header #menu, header #mobile-menu');
     if(!nav||!menu||menu.dataset.navOwner)return;
-    const header=menu.closest('header');new ResizeObserver(()=>document.documentElement.style.setProperty('--header-height',header.getBoundingClientRect().height+'px')).observe(header);
+    const header=menu.closest('header');
+    // The Learn library historically carried its own header classes. Normalize
+    // every global header to the portfolio shell so appearance and controls are identical.
+    header?.classList.remove('site-header');
+    header?.classList.add('site-global-header');
+    const tools=menu.closest('.global-controls,.header-tools,.tools');
+    tools?.classList.remove('header-tools');
+    tools?.classList.add('global-controls','tools');new ResizeObserver(()=>document.documentElement.style.setProperty('--header-height',header.getBoundingClientRect().height+'px')).observe(header);
     document.querySelector('[data-learning-search]')?.addEventListener('click',()=>{
       const input=[...document.querySelectorAll('#knowledge-search,#glossary-search,#vnext-path-search')].find(node=>node.getClientRects().length&&!node.disabled);
       if(input){input.scrollIntoView({block:'center'});input.focus();return;}
