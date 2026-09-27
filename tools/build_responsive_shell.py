@@ -34,11 +34,11 @@ def main():
   osu=education['osu'];mit_data=education['mit']
   minor_spans=''.join('<span>'+html.escape(x)+' minor</span>' for x in osu['minors'])
   osu_badge=html.escape(osu['institution'])+' · '+html.escape(osu['program'])+' · '+html.escape(osu['status'])+'<br>'+minor_spans+'<span>'+html.escape(osu['honors'])+'</span>'
-  mit_badge='MIT · '+html.escape(mit_data['provider'])+' · '+html.escape(mit_data['delivery'])+' · '+html.escape(mit_data['status'])
+    mit_badge='MIT · '+html.escape(mit_data['provider'])+' · '+html.escape(mit_data['delivery'])+' · '+html.escape(mit_data['status'])
   s=re.sub(r'(<span class="credential-text">).*?(</span>\s*</div>)',lambda m:m[1]+(osu_badge if 'Oregon' in m[0] else mit_badge)+m[2],s,flags=re.S)
   osu_items=''.join('<li>'+html.escape(x)+' minor</li>' for x in osu['minors'])+'<li>'+html.escape(osu['honors'])+'</li>'
   s=re.sub(r'(<h3>Oregon State University</h3>).*?(?=</article>)',lambda m:m[1]+'<p>'+html.escape(osu['program'])+' · '+html.escape(osu['status'])+'</p><ul>'+osu_items+'</ul>',s,flags=re.S)
-  mit_detail=html.escape(mit_data['provider'])+' · '+html.escape(mit_data['delivery'])+' · '+html.escape(mit_data['status'])
+    mit_detail=html.escape(mit_data['provider'])+' · '+html.escape(mit_data['delivery'])+' · '+html.escape(mit_data['status'])
   s=s.replace('MIT online Quantum Engineering studies/program — in progress',mit_detail)
   s=s.replace('Online, tuition-based Quantum Engineering program · in progress.',mit_detail)
   if p.name == 'resume.html':
