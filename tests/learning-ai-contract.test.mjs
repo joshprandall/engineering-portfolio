@@ -13,6 +13,7 @@ assert.equal(D.lessons.filter(l=>l.interactive||l.kind==='Lab').length,4000,'rel
 assert.equal((D.glossary||[]).length,1600,'release must contain 1,600 glossary terms');
 assert.equal((D.paths||[]).length,300,'release must contain 300 guided paths');
 assert.equal(D.lessons.filter(l=>l.verification?.status==='verified').length,D.lessons.length,'every published lesson must be verified');
+const deepPackCache=new Map();
 for(const l of D.lessons){
  for(const k of ['id','title','domain','category','kind','difficulty','minutes','summary','takeaway','example'])assert(l[k]!==undefined&&l[k]!==null&&l[k]!=='',l.id+': missing '+k);
  assert(l.verifiedClaims?.length,l.id+': missing verified claim');
@@ -20,7 +21,8 @@ for(const l of D.lessons){
  const slug=String(l.category||'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'')||'general';
  const packPath=path.join(root,'deep-learning',l.domain,slug+'.json');
  assert(fs.existsSync(packPath),l.id+': missing deep-learning pack '+packPath);
- const pack=JSON.parse(fs.readFileSync(packPath,'utf8'));
+ let pack=deepPackCache.get(packPath);
+ if(!pack){pack=JSON.parse(fs.readFileSync(packPath,'utf8'));deepPackCache.set(packPath,pack);}
  assert(pack[l.id],l.id+': missing deep-learning guide');
  assert(pack[l.id].labPlan?.length>=4,l.id+': deep-learning guide missing lab plan');
 }
