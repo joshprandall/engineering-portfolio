@@ -20,6 +20,10 @@ jobs:
         with:
           node-version: '22'
       - run: npm ci
+      - name: Build isolated runtime for browser acceptance
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python3 tools/build_runtime.py --commit "$GITHUB_SHA"
       - name: Validate reconciled website
         run: npm test
       - name: Verify protected experiences remain complete in source
