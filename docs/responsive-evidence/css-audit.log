@@ -1,0 +1,38 @@
+{
+  "rules": 2506,
+  "files": {
+    "games/3d-battle-chess/fallback.css": 15,
+    "games/3d-battle-chess/styles.css": 119,
+    "games/evil-wizard/console.html": 42,
+    "games/evil-wizard/index.html": 5,
+    "games/evil-wizard/play.html": 72,
+    "geometric-lab/styles.css": 140,
+    "handheld-experience.css": 36,
+    "knowledge.css": 945,
+    "labs.css": 14,
+    "learning-capstones.css": 31,
+    "learning-depth.css": 59,
+    "learning-next.css": 31,
+    "play-evil-wizard.html": 22,
+    "portfolio-home.css": 179,
+    "portfolio-next.css": 112,
+    "project-battle-chess.html": 15,
+    "qubit-preview-20260921/styles.css": 91,
+    "science-experiments.css": 91,
+    "site-resilience.css": 58,
+    "site-responsive.css": 85,
+    "site-scenes.css": 77,
+    "site-sections.css": 13,
+    "styles.css": 254
+  },
+  "flags": {
+    "spacing": 1394,
+    "dimension": 548,
+    "grid": 333,
+    "offset": 72,
+    "clipping": 58,
+    "positioned": 88,
+    "nowrap": 16,
+    "viewport-unit": 15
+  }
+}

@@ -17,3 +17,9 @@ Ownership remains: route manifest and `site-navigation.js` for navigation; `site
 ## Phase 4 recommendation
 
 Create a release candidate from the reviewed branch and reproduce its exact manifest on a clean Linux environment using authenticated artifact restoration. Then perform physical iPhone/Android/tablet acceptance, audio gesture checks, screen-reader/contrast review and longer game sessions; verify external contracts and outstanding preservation gaps (two unreadable live files and the unenumerated `.codex/` content). Resolve those items or record explicit release dispositions. Prepare and test a hash-verified deployment/rollback plan against a disposable production-shaped directory. Review the production cleanup manifest against that candidate; do not execute cleanup. Deployment, main merge and production deletion require a separate authorized phase.
+
+## Responsive architecture phase
+
+The authoritative responsive contract was added at `cdbac7c`. The implementation consolidates shared responsive ownership in `site-responsive.css`, generates the global header and education content, replaces independently positioned destination planets with contained SVG maps, and gives the animated capability solar one logical coordinate system with parent-measured uniform scaling. It removes competing portrait/solar/header rules from legacy shared styles while leaving isolated games and labs independently owned.
+
+Responsive completion does not authorize deployment. The next release-candidate review must use the final exact-commit runtime manifest and retain the physical-device, native WebKit, accessibility, external-contract and rollback gates described above.

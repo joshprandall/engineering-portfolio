@@ -1,6 +1,6 @@
 {
   "sourceCommit": "281d854d924fbdff40e70754ae5e14df05fc92e8",
-  "routes": [
+  "headerRoutes": [
     "about.html",
     "agent-workbench.html",
     "ai-development.html",
@@ -8,12 +8,6 @@
     "engine-development.html",
     "expertise-experience.html",
     "game-development.html",
-    "games/3d-battle-chess/index.html",
-    "games/battle-chess/index.html",
-    "games/evil-wizard/console.html",
-    "games/evil-wizard/index.html",
-    "games/evil-wizard/play.html",
-    "geometric-lab/index.html",
     "index.html",
     "learn-advanced.html",
     "learn-browse.html",
@@ -50,39 +44,22 @@
     "project-qubit.html",
     "project-recovery.html",
     "projects.html",
-    "qubit-preview-20260921/index.html",
     "resume.html"
   ],
   "viewports": [
     [
-      1440,
-      1000
-    ],
-    [
-      1920,
-      1080
-    ],
-    [
-      820,
-      1180
-    ],
-    [
-      1180,
-      820
-    ],
-    [
-      390,
-      844
-    ],
-    [
       320,
-      740
+      568
     ],
     [
-      844,
-      390
+      768,
+      1024
+    ],
+    [
+      1440,
+      900
     ]
   ],
-  "failures": [],
-  "physicalHardware": false
+  "solarExtrema": "all phases, parallax and conservative 90px paint radius",
+  "education": true
 }

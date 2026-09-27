@@ -32,3 +32,11 @@ The first closure run flagged a valid Qubit directory URL because the new JavaSc
 One full responsive sweep under concurrent browser load reported `learn-cyber.html` at 844px in light mode. Eight targeted seven-viewport/two-theme repetitions did not reproduce it. Element-level failure diagnostics were added before repeating the full sweep; the repeated full sweep passed with no failures. The original isolated timing failure remains disclosed here, and diagnostics remain in the test. No speculative CSS change was made.
 
 These are Chromium simulations, not physical iOS/Android or native WebKit acceptance. Browser tests do not certify full WCAG conformance: they cover skip links, keyboard/focus behavior, control semantics, layout and appearance, not a comprehensive screen-reader or contrast audit. Long game sessions, every character/combat variant, physical audio activation, gamepads, native Linux reproduction, third-party terms/provider outages and preservation gaps remain release-review concerns. Node emits a module-type inference warning; the chess browser can log an implicit favicon 404. These do not fail the asserted runtime/game contracts.
+
+## Responsive architecture phase
+
+The responsive acceptance commands are `npm run test:responsive` and `npm run test:responsive-components`. They use the same strict isolated-runtime server as Phase 3 and write evidence to `docs/responsive-evidence/`.
+
+The route matrix covers 320x568, 360x800, 375x812, 390x844, 393x852, 412x915, 430x932, 768x1024, 820x1180, 1024x768, 1152x864, 1280x720, 1366x768, 1440x900, 1536x864, 1920x1080, 2560x1440, 3440x1440 and 3840x2160, plus 844x390 and 568x320 landscape cases. It checks both themes, every HTML route, horizontal document overflow, key foreground bounds, clipped card content, header control collisions, solar bounds and light/dark portrait parity. Continuous resizing covers widths from 320 to 1600 CSS pixels in 37-pixel increments on Home, Learn, Projects and Direction.
+
+Zoom testing uses Chromium's native profile zoom preference and verifies the resulting `devicePixelRatio`; levels are 80%, 90%, 100%, 110%, 125%, 150% and 200%. Component acceptance exercises the global menu, Sound panel and Search behavior at phone, tablet and desktop sizes, all eight learning depths, the route builder, education content and solar extrema.

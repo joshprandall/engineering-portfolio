@@ -3909,16 +3909,6 @@
     },
     {
       "file": "geometric-lab/styles.css",
-      "selector": "html,body",
-      "property": "overflow-x",
-      "value": "hidden",
-      "flags": [
-        "clipping"
-      ],
-      "component": "isolated game/lab"
-    },
-    {
-      "file": "geometric-lab/styles.css",
       "selector": ".brand",
       "property": "max-width",
       "value": "calc(100% - 74px)",
@@ -3939,11 +3929,11 @@
     },
     {
       "file": "geometric-lab/styles.css",
-      "selector": "main",
-      "property": "overflow-x",
-      "value": "hidden",
+      "selector": "header",
+      "property": "gap",
+      "value": ".75rem",
       "flags": [
-        "clipping"
+        "spacing"
       ],
       "component": "isolated game/lab"
     },
@@ -4315,16 +4305,6 @@
       "value": "min(1480px,calc(100vw - 64px))",
       "flags": [
         "viewport-unit"
-      ],
-      "component": "shared UI"
-    },
-    {
-      "file": "knowledge.css",
-      "selector": "body",
-      "property": "overflow-x",
-      "value": "hidden",
-      "flags": [
-        "clipping"
       ],
       "component": "shared UI"
     },
@@ -13235,16 +13215,6 @@
     },
     {
       "file": "knowledge.css",
-      "selector": "body.standalone-experience",
-      "property": "overflow-x",
-      "value": "hidden",
-      "flags": [
-        "clipping"
-      ],
-      "component": "shared UI"
-    },
-    {
-      "file": "knowledge.css",
       "selector": "body.standalone-experience .lesson-shell",
       "property": "width",
       "value": "min(1500px,calc(100% - 28px))",
@@ -20238,16 +20208,6 @@
     },
     {
       "file": "site-resilience.css",
-      "selector": "html,body",
-      "property": "overflow-x",
-      "value": "clip",
-      "flags": [
-        "clipping"
-      ],
-      "component": "shared UI"
-    },
-    {
-      "file": "site-resilience.css",
       "selector": ".nav-games summary",
       "property": "gap",
       "value": "7px",
@@ -21300,6 +21260,26 @@
     {
       "file": "site-responsive.css",
       "selector": ".education-cards article",
+      "property": "padding",
+      "value": "clamp(1rem,3vw,1.5rem)",
+      "flags": [
+        "spacing"
+      ],
+      "component": "shared UI"
+    },
+    {
+      "file": "site-responsive.css",
+      "selector": ".resume-education",
+      "property": "grid-template-columns",
+      "value": "repeat(auto-fit,minmax(min(100%,20rem),1fr))",
+      "flags": [
+        "grid"
+      ],
+      "component": "shared UI"
+    },
+    {
+      "file": "site-responsive.css",
+      "selector": ".resume-education article",
       "property": "padding",
       "value": "clamp(1rem,3vw,1.5rem)",
       "flags": [
