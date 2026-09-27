@@ -132,3 +132,9 @@ body .vnext-cosmos .vnext-world strong{display:block!important;font-size:16px!im
   .portrait-photo{width:min(84%,22rem)}
   .portrait-card{width:calc(100% - 2rem)}
 }
+
+/* Light-mode quantum glass remains readable while still showing the scene behind it. */
+:root[data-theme="light"] .quantum-stage{color:#f6fdff!important}
+:root[data-theme="light"] .quantum-stage :is(.quantum-stage-label,.quantum-controls label,.bell-bars>div,.bell-bars output,#bell-result){color:#f6fdff!important;text-shadow:none!important}
+:root[data-theme="light"] .quantum-stage .quantum-controls select{color:#f6fdff!important;background:rgba(8,28,38,.62)!important;border-color:rgba(130,220,234,.56)!important}
+:root[data-theme="light"] .quantum-stage .quantum-stage-label button{color:#f6fdff!important;background:rgba(8,28,38,.38)!important;border-color:rgba(130,220,234,.48)!important}
