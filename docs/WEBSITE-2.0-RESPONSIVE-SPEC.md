@@ -282,7 +282,7 @@ Update education/technical-development content to show clearly:
 - Mathematics minor
 - Physics minor
 - Honors College
-- MIT online Quantum Engineering Program, tuition-based professional study, in progress
+- MIT Center for Quantum Engineering; online professional development quantum curriculum via MIT xPRO; tuition-based professional study, in progress
 
 Do not bury minors in a long sentence.
 Do not omit Honors College.
