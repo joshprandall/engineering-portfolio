@@ -31,21 +31,27 @@ def main():
     s=s.replace('</body>',search_dialog+'</body>')
   # Ensure geometry owner loads after all legacy component styles.
   s=s.replace('<link rel="stylesheet" href="site-responsive.css">','');s=s.replace('</head>','<link rel="stylesheet" href="site-responsive.css"></head>')
-  osu=html.escape(education['osu']['degree'])+'<br>'+html.escape(education['osu']['direction'])+'<span>Mathematics minor</span><span>Physics minor</span>'
-  mit=html.escape(education['mit']['study'])
-  s=re.sub(r'(<span class="credential-text">).*?(</span>\s*</div>)',lambda m:m[1]+('Oregon State University · '+osu if 'Oregon' in m[0] else mit)+m[2],s,flags=re.S)
-  s=re.sub(r'(<h3>Oregon State University</h3>).*?(?=</article>)',lambda m:m[1]+'<p>'+html.escape(education['osu']['degree'])+'</p><p>'+html.escape(education['osu']['direction'])+'</p><ul><li>Mathematics minor</li><li>Physics minor</li></ul>',s,flags=re.S)
-  s=s.replace('Online, tuition-based Quantum Engineering program · in progress.',mit)
+  osu=education['osu'];mit_data=education['mit']
+  minor_spans=''.join('<span>'+html.escape(x)+' minor</span>' for x in osu['minors'])
+  osu_badge=html.escape(osu['institution'])+' · '+html.escape(osu['program'])+' · '+html.escape(osu['status'])+'<br>'+minor_spans+'<span>'+html.escape(osu['honors'])+'</span>'
+  mit_badge='MIT · '+html.escape(mit_data['program'])+' · '+html.escape(mit_data['status'])
+  s=re.sub(r'(<span class="credential-text">).*?(</span>\s*</div>)',lambda m:m[1]+(osu_badge if 'Oregon' in m[0] else mit_badge)+m[2],s,flags=re.S)
+  osu_items=''.join('<li>'+html.escape(x)+' minor</li>' for x in osu['minors'])+'<li>'+html.escape(osu['honors'])+'</li>'
+  s=re.sub(r'(<h3>Oregon State University</h3>).*?(?=</article>)',lambda m:m[1]+'<p>'+html.escape(osu['program'])+' · '+html.escape(osu['status'])+'</p><ul>'+osu_items+'</ul>',s,flags=re.S)
+  mit_detail=html.escape(mit_data['provider'])+' · '+html.escape(mit_data['program'])+' · '+html.escape(mit_data['status'])
+  s=s.replace('MIT online Quantum Engineering studies/program — in progress',mit_detail)
+  s=s.replace('Online, tuition-based Quantum Engineering program · in progress.',mit_detail)
   if p.name == 'resume.html':
    education_html=(
     '<h2>EDUCATION &amp; TECHNICAL DEVELOPMENT</h2>'
     '<div class="resume-education">'
-    '<article><h3>'+html.escape(education['osu']['institution'])+'</h3>'
-    '<p>'+html.escape(education['osu']['degree'])+'</p>'
-    '<p>'+html.escape(education['osu']['direction'])+'</p>'
-    '<ul><li>Mathematics minor</li><li>Physics minor</li></ul></article>'
-    '<article><h3>MIT</h3><p>'+mit+'</p></article></div>'
+    '<article><h3>'+html.escape(osu['institution'])+'</h3>'
+    '<p>'+html.escape(osu['program'])+' · '+html.escape(osu['status'])+'</p>'
+    '<ul>'+osu_items+'</ul></article>'
+    '<article><h3>'+html.escape(mit_data['institution'])+'</h3>'
+    '<p>'+html.escape(mit_data['provider'])+'</p>'
+    '<p>'+html.escape(mit_data['program'])+' · '+html.escape(mit_data['status'])+'</p></article></div>'
    )
-   s=re.sub(r'<h2>EDUCATION &amp; TECHNICAL DEVELOPMENT</h2><p>Oregon State University.*?(?=<p>Pioneer Pacific College)',education_html,s,flags=re.S)
+   s=re.sub(r'<h2>EDUCATION &amp; TECHNICAL DEVELOPMENT</h2>(?:<div class="resume-education">.*?</div>|<p>Oregon State University.*?)(?=<p>Pioneer Pacific College)',education_html,s,flags=re.S)
   p.write_text(s,encoding='utf-8',newline='\n')
 if __name__=='__main__':main()
