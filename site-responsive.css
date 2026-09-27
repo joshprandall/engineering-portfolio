@@ -72,3 +72,8 @@ body .vnext-cosmos .vnext-world strong{display:block!important;font-size:16px!im
 :is(.destination-card,.home-project,.project-card,.resume,.study){background:var(--glass)}
 main>.section,main>section,.contact{content-visibility:visible!important;contain-intrinsic-size:none!important}
 @media(prefers-reduced-motion:reduce){.solar-navigation *{animation:none!important}}
+
+.solar-map .solar-planet-link{cursor:pointer;outline:none}
+.solar-map .solar-planet-link g{transform-box:fill-box;transform-origin:center;transition:filter .16s ease,opacity .16s ease}
+.solar-map .solar-planet-link:hover g,.solar-map .solar-planet-link:focus-visible g{filter:brightness(1.18) drop-shadow(0 0 10px rgba(140,200,209,.55))}
+.solar-map .solar-planet-link:focus-visible{outline:3px solid var(--accent);outline-offset:4px}
