@@ -1,162 +1,237 @@
-/* Cinematic animated solar navigation for portfolio, learning, and AI build routes. */
+/* Approved cinematic solar navigation: equal spacing, realistic front/back depth,
+   large tap targets, and route-specific destinations. */
 (() => {
   'use strict';
+
   const NS='http://www.w3.org/2000/svg';
   const reduced=matchMedia('(prefers-reduced-motion: reduce)');
   const palettes=[
-    ['#f4f9ff','#56d8e8','#0d5267'],
-    ['#fff2df','#e36f49','#7f2d22'],
-    ['#fbf2ff','#b45ee2','#54256f'],
-    ['#f3fbff','#76d9e7','#265c72'],
-    ['#fff8d9','#e6b94e','#7b5717'],
-    ['#e9fbff','#68b8ce','#23485e'],
-    ['#fce7ff','#b363d6','#4d255f'],
-    ['#f7efe4','#c27655','#5f3025'],
-    ['#f1fbef','#7cc891','#2d5b39']
+    ['#e9fcff','#37cce2','#13576a'],
+    ['#fff1dc','#e26c45','#762a21'],
+    ['#f8eaff','#b255df','#542269'],
+    ['#eaf8ff','#5db3d2','#234e69'],
+    ['#fff5c9','#d9aa35','#755116'],
+    ['#edf8ef','#69b77d','#295539'],
+    ['#fae8ff','#a65bd0','#4b235f'],
+    ['#f8ede4','#c16e4d','#5b3025'],
+    ['#eaf7ff','#5d9ec2','#234258']
   ];
 
-  function svgEl(name,attrs={}){
+  const q=(s,r=document)=>r.querySelector(s);
+  const qa=(s,r=document)=>[...r.querySelectorAll(s)];
+  const E=(name,attrs={})=>{
     const el=document.createElementNS(NS,name);
     Object.entries(attrs).forEach(([k,v])=>el.setAttribute(k,String(v)));
     return el;
-  }
-  function paused(){
-    return reduced.matches || document.documentElement.dataset.sceneMotion==='paused';
-  }
-  function config(section,count){
-    const kind=section.dataset.solar;
-    if(kind==='portfolio'){
-      return {cx:400,cy:325,lanes:Math.max(count,1),lane:i=>i,
-        radii:i=>({rx:88+i*23,ry:44+i*16}),
-        phase:i=>-1.45+i*2.399963,
-        speed:i=>0.082-i*0.0052};
+  };
+  const paused=()=>reduced.matches||document.documentElement.dataset.sceneMotion==='paused';
+
+  const config={
+    portfolio:{
+      viewBox:'0 0 760 560',cx:380,cy:280,sun:38,speed:.105,
+      rings:[{rx:245,ry:118}]
+    },
+    learning:{
+      viewBox:'0 0 760 560',cx:380,cy:280,sun:38,speed:.10,
+      rings:[{rx:245,ry:118}]
+    },
+    'ai-builds':{
+      viewBox:'0 0 820 620',cx:410,cy:310,sun:42,speed:.075,
+      rings:[
+        {rx:145,ry:70,count:6,offset:0},
+        {rx:235,ry:128,count:6,offset:.33},
+        {rx:325,ry:205,count:7,offset:.66}
+      ]
     }
-    if(kind==='learning'){
-      return {cx:400,cy:325,lanes:Math.max(count,1),lane:i=>i,
-        radii:i=>({rx:98+i*27,ry:50+i*22}),
-        phase:i=>-1.35+i*2.399963,
-        speed:i=>0.078-i*0.006};
-    }
-    return {cx:450,cy:360,lanes:6,lane:i=>i%6,
-      radii:i=>({rx:105+i*48,ry:58+i*37}),
-      phase:i=>-1.45+i*2.399963,
-      speed:i=>(0.07-i*0.007)*(i%2?-1:1)};
+  };
+
+  function labelLines(name){
+    const special={
+      'Expertise & Experience':['Expertise &','Experience'],
+      'Game Development':['Game','Development'],
+      'AI Development':['AI','Development'],
+      'Cloud & Systems':['Cloud &','Systems'],
+      'Advanced Computing':['Advanced','Computing'],
+      'Software Engineering':['Software','Engineering'],
+      'Leadership & IT Management':['Leadership &','IT Management'],
+      'Machine Learning':['Machine','Learning'],
+      'Deep Learning':['Deep','Learning'],
+      'Generative AI':['Generative','AI'],
+      'Multimodal AI':['Multimodal','AI'],
+      'Computer Vision':['Computer','Vision'],
+      'Reinforcement Learning':['Reinforcement','Learning'],
+      'Graph Neural Networks':['Graph Neural','Networks'],
+      'Neuro-symbolic AI':['Neuro-symbolic','AI'],
+      'Multi-agent systems':['Multi-agent','systems'],
+      'Embodied / Robotic AI':['Embodied /','Robotic AI'],
+      'AI memory / retrieval':['AI memory /','retrieval'],
+      'Build Your Own AI':['Build Your','Own AI'],
+      'Project MIND':['Project','MIND'],
+      'Personal development agent':['Personal','development','agent']
+    };
+    return special[name]||[name];
   }
 
-  function init(section,index){
-    const svg=section.querySelector('.solar-map');
-    const links=[...svg.querySelectorAll('.solar-planet-link')];
-    if(!svg||!links.length||section.dataset.cinematicSolar==='1')return;
-    section.dataset.cinematicSolar='1';
-    section.classList.add('cinematic-solar');
-    const kind=section.dataset.solar;
-    const cfg=config(section,links.length);
-    const defs=svg.querySelector('defs')||svg.insertBefore(svgEl('defs'),svg.firstChild);
-    const core=svg.querySelector(':scope > circle[data-solar-body]');
-    const coreText=svg.querySelector(':scope > text');
-
-    [...svg.querySelectorAll(':scope > ellipse[data-solar-body]')].forEach(e=>e.remove());
-
-    const orbitLayer=svgEl('g',{'class':'cinematic-orbit-layer','aria-hidden':'true'});
-    const coreAnchor=core||coreText;
-    if(coreAnchor)svg.insertBefore(orbitLayer,coreAnchor);
-    else svg.append(orbitLayer);
-    for(let lane=0;lane<cfg.lanes;lane++){
-      const r=cfg.radii(lane);
-      orbitLayer.append(svgEl('ellipse',{cx:cfg.cx,cy:cfg.cy,rx:r.rx,ry:r.ry,'class':'cinematic-orbit'}));
-    }
-
-    const sunId=`cinematic-sun-${index}`;
-    const sun=svgEl('radialGradient',{id:sunId,cx:'35%',cy:'30%',r:'68%'});
-    sun.append(svgEl('stop',{offset:'0%','stop-color':'#fff9df'}));
-    sun.append(svgEl('stop',{offset:'18%','stop-color':'#ffd58a'}));
-    sun.append(svgEl('stop',{offset:'52%','stop-color':'#ef963f'}));
-    sun.append(svgEl('stop',{offset:'100%','stop-color':'#8a351b'}));
+  function ensureDefs(svg,id){
+    let defs=q('defs',svg);
+    if(!defs){defs=E('defs');svg.insertBefore(defs,svg.firstChild);}
+    const sunId=`approved-sun-${id}`;
+    const sun=E('radialGradient',{id:sunId,cx:'34%',cy:'29%',r:'70%'});
+    [['0%','#fffbe9'],['16%','#ffd98e'],['49%','#f19a42'],['100%','#7e2b18']].forEach(([o,c])=>sun.append(E('stop',{offset:o,'stop-color':c})));
     defs.append(sun);
-    if(core){
-      core.setAttribute('fill',`url(#${sunId})`);
-      core.classList.add('cinematic-sun');
-    }
-    if(coreText)coreText.classList.add('cinematic-core-label');
 
+    palettes.forEach((p,i)=>{
+      const gid=`approved-planet-${id}-${i}`;
+      const g=E('radialGradient',{id:gid,cx:'30%',cy:'24%',r:'72%'});
+      [['0%',p[0]],['28%',p[1]],['100%',p[2]]].forEach(([o,c])=>g.append(E('stop',{offset:o,'stop-color':c})));
+      defs.append(g);
+    });
+    return {sunId};
+  }
+
+  function ringAssignments(kind,count,cfg){
+    if(kind!=='ai-builds')return Array.from({length:count},(_,i)=>({ring:0,index:i,total:count,offset:0}));
+    const out=[];let cursor=0;
+    cfg.rings.forEach((ring,ri)=>{
+      const total=Math.min(ring.count,count-cursor);
+      for(let i=0;i<total;i++)out.push({ring:ri,index:i,total,offset:ring.offset||0});
+      cursor+=total;
+    });
+    return out;
+  }
+
+  function init(section,sectionIndex){
+    if(section.dataset.approvedSolar==='1')return;
+    const kind=section.dataset.solar;
+    const cfg=config[kind];
+    const svg=q('.solar-map',section);
+    const links=qa('.solar-planet-link',svg);
+    if(!cfg||!svg||!links.length)return;
+
+    section.dataset.approvedSolar='1';
+    section.classList.add('approved-cinematic-solar');
+    svg.setAttribute('viewBox',cfg.viewBox);
+
+    const {sunId}=ensureDefs(svg,sectionIndex);
+
+    // Replace static orbit geometry with the approved cinematic structure.
+    qa(':scope > ellipse[data-solar-body]',svg).forEach(n=>n.remove());
+    const oldCore=q(':scope > circle[data-solar-body]',svg);
+    const oldCoreText=q(':scope > text',svg);
+    if(oldCore)oldCore.remove();
+    if(oldCoreText)oldCoreText.remove();
+
+    const orbitLayer=E('g',{'class':'approved-orbit-layer','aria-hidden':'true'});
+    const backLayer=E('g',{'class':'approved-depth approved-depth-back'});
+    const sunGlow=E('circle',{cx:cfg.cx,cy:cfg.cy,r:cfg.sun+30,'class':'approved-sun-glow','aria-hidden':'true'});
+    const sun=E('circle',{cx:cfg.cx,cy:cfg.cy,r:cfg.sun,fill:`url(#${sunId})`,'class':'approved-sun','aria-hidden':'true'});
+    const frontLayer=E('g',{'class':'approved-depth approved-depth-front'});
+
+    cfg.rings.forEach(r=>orbitLayer.append(E('ellipse',{cx:cfg.cx,cy:cfg.cy,rx:r.rx,ry:r.ry,'class':'approved-orbit'})));
+    svg.append(orbitLayer,backLayer,sunGlow,sun,frontLayer);
+
+    const assigns=ringAssignments(kind,links.length,cfg);
     const planets=links.map((link,i)=>{
-      const group=link.querySelector('g');
-      const circle=group?.querySelector('circle');
-      const label=group?.querySelector('text');
-      if(!group||!circle)return null;
-      const bx=parseFloat(circle.getAttribute('cx'))||cfg.cx;
-      const by=parseFloat(circle.getAttribute('cy'))||cfg.cy;
-      const radius=parseFloat(circle.getAttribute('r'))||45;
-      const [hi,mid,lo]=palettes[i%palettes.length];
-      const gid=`cinematic-planet-${index}-${i}`;
-      const grad=svgEl('radialGradient',{id:gid,cx:'30%',cy:'24%',r:'72%'});
-      grad.append(svgEl('stop',{offset:'0%','stop-color':hi}));
-      grad.append(svgEl('stop',{offset:'24%','stop-color':mid}));
-      grad.append(svgEl('stop',{offset:'100%','stop-color':lo}));
-      defs.append(grad);
-      circle.setAttribute('fill',`url(#${gid})`);
-      circle.setAttribute('stroke','rgba(255,255,255,.42)');
-      circle.setAttribute('stroke-width','1');
-      circle.classList.add('cinematic-planet');
+      const oldGroup=q('g',link);
+      const oldCircle=q('circle',oldGroup);
+      const name=link.getAttribute('aria-label')||(q('text',oldGroup)?.textContent||'').replace(/\s+/g,' ').trim();
+      const destination=link.getAttribute('href')||'#';
+      const ringInfo=assigns[i];
+      const ring=cfg.rings[ringInfo.ring];
+      const size=kind==='ai-builds'?(ringInfo.ring===0?21:ringInfo.ring===1?19:18):22;
+      const group=E('g',{'class':'approved-planet-link','role':'link','tabindex':'0','aria-label':name});
+      const body=E('circle',{r:size,fill:`url(#approved-planet-${sectionIndex}-${i%palettes.length})`,'class':'approved-planet-body'});
+      group.append(body);
 
-      if(i%4===2){
-        const ring=svgEl('ellipse',{cx:bx,cy:by,rx:radius*1.38,ry:radius*.30,'class':'cinematic-planet-ring',transform:`rotate(-14 ${bx} ${by})`});
-        group.insertBefore(ring,label||null);
+      if((i+ringInfo.ring)%4===2){
+        group.append(E('ellipse',{rx:size*1.48,ry:size*.34,'class':'approved-ring',transform:'rotate(-16)'}));
       }
-      if(label){
-        const tspans=[...label.querySelectorAll('tspan')];
-        const lines=tspans.length||1;
-        label.classList.add('cinematic-planet-label');
-        label.setAttribute('x',bx);
-        label.setAttribute('y',by+radius+14);
-        label.setAttribute('dominant-baseline','hanging');
-        if(tspans.length){
-          tspans.forEach((t,j)=>{
-            t.setAttribute('x',bx);
-            t.setAttribute('dy',j===0?'0':(kind==='ai-builds'?'15':'17'));
-          });
+
+      // Deliberately larger invisible interaction target for phones/tablets.
+      group.append(E('circle',{r:Math.max(30,size+12),'class':'approved-hit','aria-hidden':'true'}));
+
+      const text=E('text',{y:size+10,'class':`approved-label${kind==='ai-builds'?' approved-ai-label':''}`});
+      labelLines(name).forEach((line,j)=>{
+        const t=E('tspan',{x:0,dy:j===0?0:(kind==='ai-builds'?12:15)});
+        t.textContent=line;text.append(t);
+      });
+      group.append(text);
+
+      const activate=()=>{
+        if(destination.startsWith('#')){
+          const target=document.querySelector(destination);
+          if(target){
+            history.replaceState(null,'',destination);
+            target.scrollIntoView({behavior:reduced.matches?'auto':'smooth',block:'start'});
+            return;
+          }
         }
-        label.style.setProperty('--label-lines',String(lines));
-      }
-      link.dataset.solarPlanet=String(i);
-      return {link,group,circle,label,bx,by,lane:cfg.lane(i),phase:cfg.phase(i)};
-    }).filter(Boolean);
+        location.assign(destination);
+      };
+      group.addEventListener('click',activate);
+      group.addEventListener('keydown',e=>{
+        if(e.key==='Enter'||e.key===' '){e.preventDefault();activate();}
+      });
+
+      // Keep semantic link as a fallback, but move it off the painted layer.
+      link.setAttribute('aria-hidden','true');
+      link.setAttribute('tabindex','-1');
+      link.style.display='none';
+
+      backLayer.append(group);
+      return {
+        link,group,name,destination,ringInfo,ring,size,
+        phase:-Math.PI/2+(Math.PI*2*ringInfo.index/ringInfo.total)+ringInfo.offset
+      };
+    });
 
     let raf=0,last=performance.now(),elapsed=0,visible=true;
+
     function draw(){
-      planets.forEach((p,i)=>{
-        const r=cfg.radii(p.lane);
-        const speed=cfg.speed(p.lane);
-        const a=p.phase+elapsed*speed;
-        const depth=(Math.sin(a)+1)/2;
-        const x=cfg.cx+Math.cos(a)*r.rx;
-        const y=cfg.cy+Math.sin(a)*r.ry;
-        const scale=.82+depth*.22+(p.link.matches(':hover,:focus-visible')?.08:0);
-        p.group.setAttribute('transform',`translate(${(x-p.bx).toFixed(2)} ${(y-p.by).toFixed(2)}) scale(${scale.toFixed(3)})`);
-        p.group.style.transformOrigin=`${p.bx}px ${p.by}px`;
-        p.group.style.opacity=String(.78+depth*.22);
+      const positioned=planets.map((p,index)=>{
+        const direction=kind==='ai-builds'&&p.ringInfo.ring===1?-1:1;
+        const a=p.phase+elapsed*cfg.speed*direction;
+        const x=cfg.cx+Math.cos(a)*p.ring.rx;
+        const y=cfg.cy+Math.sin(a)*p.ring.ry;
+        const depth=Math.sin(a);
+        const selected=p.group.matches(':hover,:focus-visible');
+        const scale=.90+(depth+1)*.08+(selected?.06:0);
+        return {...p,index,x,y,depth,scale};
+      });
+
+      // Same-ring planets keep equal angular spacing forever. Ring offsets are fixed,
+      // so different rings also maintain stable clearance instead of drifting into collisions.
+      const behind=positioned.filter(p=>p.depth<0).sort((a,b)=>a.y-b.y);
+      const ahead=positioned.filter(p=>p.depth>=0).sort((a,b)=>a.y-b.y);
+
+      behind.forEach(p=>{
+        p.group.setAttribute('transform',`translate(${p.x.toFixed(2)} ${p.y.toFixed(2)}) scale(${p.scale.toFixed(3)})`);
+        p.group.style.opacity=String(.72+(p.depth+1)*.16);
+        backLayer.append(p.group);
+      });
+      ahead.forEach(p=>{
+        p.group.setAttribute('transform',`translate(${p.x.toFixed(2)} ${p.y.toFixed(2)}) scale(${p.scale.toFixed(3)})`);
+        p.group.style.opacity='1';
+        frontLayer.append(p.group);
       });
     }
+
+    function stop(){if(raf)cancelAnimationFrame(raf);raf=0;}
     function frame(now){
       raf=0;
-      const dt=Math.min(50,now-last);last=now;
+      const dt=Math.min(40,now-last);last=now;
       if(!paused())elapsed+=dt/1000;
       draw();
       if(visible&&!document.hidden&&!paused())raf=requestAnimationFrame(frame);
     }
     function start(){
       if(raf||!visible||document.hidden||paused())return;
-      last=performance.now();raf=requestAnimationFrame(frame);
+      last=performance.now();
+      raf=requestAnimationFrame(frame);
     }
-    function stop(){if(raf)cancelAnimationFrame(raf);raf=0;}
+
     draw();start();
 
-    links.forEach(link=>{
-      link.addEventListener('focus',draw);
-      link.addEventListener('blur',draw);
-      link.addEventListener('pointerenter',draw);
-      link.addEventListener('pointerleave',draw);
-    });
     if('IntersectionObserver' in window){
       const io=new IntersectionObserver(entries=>{
         visible=Boolean(entries[0]?.isIntersecting);
@@ -170,6 +245,6 @@
     new MutationObserver(()=>{draw();start()}).observe(document.documentElement,{attributes:true,attributeFilter:['data-scene-motion']});
   }
 
-  function run(){document.querySelectorAll('.solar-navigation[data-solar]').forEach(init);}
+  function run(){qa('.solar-navigation[data-solar]').forEach(init);}
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run,{once:true});else run();
 })();
