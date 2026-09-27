@@ -29,7 +29,7 @@ async function run(){
   if(!process.env.PORTFOLIO_SKIP_APPEARANCE)await require('./appearance.test.cjs')({browser,base,output,failures});
   for(const [name,width,height] of [['phone',390,844],['small-phone',320,740],['tablet',820,1180],['desktop',1440,1000]]){
    console.log('Checking '+name);await page.setViewportSize({width,height});await page.goto(base+'/',{waitUntil:'domcontentloaded'});
-   console.log('Loaded '+name);assert.equal(await page.locator('body').evaluate(e=>getComputedStyle(e).backgroundColor),'rgb(16, 20, 22)','Dark theme actually renders');
+   console.log('Loaded '+name);assert.equal(await page.locator('body').evaluate(e=>getComputedStyle(e).backgroundColor),'rgba(0, 0, 0, 0)','Living-scene body stays transparent');assert(await page.locator('.scene-backdrop').isVisible(),'Living background renders behind glass UI');
    assert(await page.locator('#selected-work').isVisible(),'Current home project section renders');
    if(await page.locator('#menu').isVisible()){
     for(let n=0;n<3;n++){
@@ -49,6 +49,18 @@ async function run(){
    let frame=await capture(),animated=false;for(let attempt=0;attempt<6&&!animated;attempt++){await page.waitForTimeout(120);animated=(await capture())!==frame;}assert(animated,'Cubes animate');
    await page.locator('#cube-pause').click();await page.waitForTimeout(80);frame=await capture();await page.waitForTimeout(140);assert.equal(await capture(),frame,'Cube pause stops rendering motion');await page.locator('#cube-pause').click();
    assert.equal(await page.locator('header [data-scene-audio]').count(),1,'Header owns the only ambient sound control');await page.waitForTimeout(90);frame=await capture();await page.waitForTimeout(140);assert.notEqual(await capture(),frame,'Global site motion remains active');
+   if(name==='phone'){
+    const glassCases=[['/','.home-project'],['/projects.html','.project-card'],['/learn.html','.domain-card'],['/learn-browse.html','.lesson-card'],['/learn-paths.html','.path-card'],['/learn-capstones.html','#cap-detail']];
+    for(const [route,selector] of glassCases){
+     await page.goto(base+route,{waitUntil:'domcontentloaded'});
+     const loc=page.locator(selector).first();if(!(await loc.count()))continue;
+     const bg=await loc.evaluate(e=>getComputedStyle(e).backgroundColor);
+     const m=bg.match(/rgba?\(([^)]+)\)/);assert(m,route+' '+selector+' has a parseable background');
+     const parts=m[1].split(',').map(x=>Number(x.trim()));const alpha=parts.length>3?parts[3]:1;
+     assert(alpha>0&&alpha<.6,route+' '+selector+' remains genuinely translucent, got '+bg);
+    }
+    await page.goto(base+'/',{waitUntil:'domcontentloaded'});
+   }
    if(name==='phone'||name==='small-phone'){
     await page.locator('#direction').scrollIntoViewIfNeeded();
     assert(await page.locator('#education-title').isVisible(),name+': Education heading renders when scrolled into view');
