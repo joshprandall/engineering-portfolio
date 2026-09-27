@@ -188,25 +188,25 @@ def deploy(source, site, verify_public=None):
     print(f'Installed and verified {len(files)} files. Games, Geometry Lab calculation modules and fusion video are unchanged; the lab theme shell is updated.',flush=True)
     return backup
 
-def http_smoke(commit):
-    checks = [('site-theme.js','jr-site-theme'),('site-scenes.js','LIGHT_SCENE_KEY'),('site-audio.js','MAIN_PAGE_RE'),
-              ('site-sound-control.js','scene-sound-control'),
-              ('site-scenes.css','mountain-valley.svg'),('geometric-lab/index.html','site-theme.js'),
-              ('geometric-lab/app.js','PortfolioTheme'),('index.html','site-audio.js'),('learn.html','site-audio.js'),
-              ('expertise-experience.html','TECHNICAL EXPERTISE'),('game-development.html','Games deserve'),
-              ('lesson.html','lesson-view'),('knowledge.js','dedicatedLessonPage'),('projects.html','Crown &amp; Ash'),
-              ('portfolio-home.css','.home-page'),('quantum-cube.js','Bell-state'),
-              ('labs/qpe.js','function distribution'),('labs/emergent.js','function create'),
-              ('agent-workbench.js','requiresApproval'),('handheld-experience.js','removeLegacyFloatingNavigation'),
-              ('science-experiments.js','project-qpe.html'),
-              ('learning-depth.js','Doctoral / Research'),('site-resilience.js','Game Development')]
-    for name,marker in checks:
+def http_smoke(commit, site):
+    """Verify that the public site is serving the exact deployed bytes."""
+    checks = (
+        'site-theme.js', 'site-scenes.js', 'site-audio.js', 'site-sound-control.js',
+        'site-scenes.css', 'geometric-lab/index.html', 'geometric-lab/app.js',
+        'index.html', 'learn.html', 'expertise-experience.html', 'game-development.html',
+        'lesson.html', 'knowledge.js', 'projects.html', 'portfolio-home.css',
+        'quantum-cube.js', 'labs/qpe.js', 'labs/emergent.js', 'agent-workbench.js',
+        'handheld-experience.js', 'science-experiments.js', 'learning-depth.js',
+        'site-resilience.js'
+    )
+    for name in checks:
         request = Request(PUBLIC_URL+name+'?release='+commit,headers={'Cache-Control':'no-cache'})
         with urlopen(request,timeout=20) as response:
             content_type = response.headers.get('Content-Type','')
-            text = response.read().decode('utf-8')
-            if marker not in text:
-                raise RuntimeError('Public URL returned an older or incomplete file: '+name)
+            public_bytes = response.read()
+            expected_bytes = (site/name).read_bytes()
+            if hashlib.sha256(public_bytes).digest() != hashlib.sha256(expected_bytes).digest():
+                raise RuntimeError('Public URL returned bytes that differ from the deployed file: '+name)
             if name.endswith('.js') and 'javascript' not in content_type:
                 raise RuntimeError('Server is not serving JavaScript correctly: '+name)
         print('Verified public URL:',name,flush=True)
@@ -232,7 +232,7 @@ def main():
         source = temp/'source'/('engineering-portfolio-'+args.commit)
         if not source.is_dir():
             raise RuntimeError('Archive does not contain the requested commit.')
-        backup = deploy(source,site,lambda:http_smoke(args.commit))
+        backup = deploy(source,site,lambda:http_smoke(args.commit,site))
     print('Website updated:',PUBLIC_URL)
     print('Commit:',args.commit)
     print('Backup:',backup)
