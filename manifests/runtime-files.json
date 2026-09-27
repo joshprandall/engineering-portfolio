@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "sourceCommit": "d96e46f5637745e3d7dc7283da7bfd1fb549a03a",
+  "sourceCommit": "9a8fe980ecef60cd0926baef5f9d84ea42711fb6",
   "bytePolicy": "Exact Git blobs; artifacts verified against committed SHA-256 and size.",
   "files": [
     {
@@ -16,22 +16,22 @@
     },
     {
       "path": "agent-workbench.html",
-      "size": 6347,
-      "sha256": "7304d64423d9dc4ba5f5e2fa76e694b965e62d4864085b036711a657bd86a0f2",
+      "size": 6340,
+      "sha256": "0afc5eb24c594f9112d2af853b7e9e8868a2bc75850f91fba42f4f10efe39bc3",
       "source": {
         "kind": "git-blob",
-        "blob": "5b6c842ee68eede942fd74e9b80937a4cde57b2c"
+        "blob": "5db7c626c531e2b1318d7cad7c38b8407ca1d22c"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "agent-workbench.js",
-      "size": 5626,
-      "sha256": "74609320c2a89fc00776643e66b8c4093347dff68767ce6b0cf1a4c1ce4924c5",
+      "size": 5599,
+      "sha256": "175101b7c904065190983acf1cd6c490fede8248310e49d0795445cbab16adff",
       "source": {
         "kind": "git-blob",
-        "blob": "6021b2c4985cbd33f9b95ed3ccc3d4c10559e31c"
+        "blob": "120742befebf23ec440290ed51d3c2285c58c067"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -49,11 +49,11 @@
     },
     {
       "path": "app.js",
-      "size": 12754,
-      "sha256": "687cd8dccfc7d39ef71037d8d38fae60d062e616542416f404960149e41ac5af",
+      "size": 12476,
+      "sha256": "3abe0b817169143508c46501ac482effbb663c4468769f41ee997ff48c166d2f",
       "source": {
         "kind": "git-blob",
-        "blob": "93269549dd5d514aac5f12c4afd24f91e457b80e"
+        "blob": "a7f96b3941a81468ee88ca9f3f18bfc2944663a2"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -160,11 +160,11 @@
     },
     {
       "path": "assets/fonts/fonts.css",
-      "size": 1440,
-      "sha256": "45c754971e512a32a8512684e6ee7e1b28f46bc891f0550dd1e2f5b8c3fdd7a8",
+      "size": 1377,
+      "sha256": "588be790488200a6bab410e3900a7c8049cb0ea5a1b3623fd985348dd8ac6c88",
       "source": {
         "kind": "git-blob",
-        "blob": "cb81c2b14bfc457873392775b32a6de3bd1b9b09"
+        "blob": "07328647331673500fc165aefefee982c5247f5b"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -272,33 +272,33 @@
     },
     {
       "path": "assets/site-navigation.json",
-      "size": 2268,
-      "sha256": "d92e67b6d78c17481a8b0a69734ead9825d0a419d4c54a387b51f0e8664171bf",
+      "size": 2192,
+      "sha256": "4717a36ce21d12bd1bc1106bca8d7a49a7c824891b2ef2356437237110354915",
       "source": {
         "kind": "git-blob",
-        "blob": "064d648ab3dc039e7591539839c1dee048d093ed"
+        "blob": "0b7d92291f07afed197e313e26265b4de9958d60"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "assets/site-search.json",
-      "size": 2301371,
-      "sha256": "9012c3671063592b40f8c9f2f1ed229984bc400af918adc53b14a151023e4c8e",
+      "size": 2301370,
+      "sha256": "5191a83c7ce83eba0ec469482ea2f03576de4df8a5e3ab54268fdd468abebdab",
       "source": {
         "kind": "git-blob",
-        "blob": "b15e3bf94632bec6ab4960233eb6315adb659b5a"
+        "blob": "298324c547815c1ce02d4e3aec5b85cd2afbbe27"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "assets/site-subjects.json",
-      "size": 1390906,
-      "sha256": "4bd7e81b72bc3e7f620f235477fb84e905bd99b461d107218537e3a5a90cc6d5",
+      "size": 1390905,
+      "sha256": "a56171086606634459f811d4574e46211b92474cc61a8c8333790355c836da46",
       "source": {
         "kind": "git-blob",
-        "blob": "f1004e6123a1f5f834b5ac3b85669d750c40dfa4"
+        "blob": "ca073565d58b52ab174b9569bf460af09e2d3f83"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -1174,11 +1174,11 @@
     },
     {
       "path": "direction.html",
-      "size": 4776,
-      "sha256": "4d30cc2b3b08887edffb32568a86f0ca42e520a7de9f4dc56dac3d40d189643d",
+      "size": 4767,
+      "sha256": "bc088102c193db7305180bfa4381fa115ae6ef5e70ba78df8d851d114923ffdb",
       "source": {
         "kind": "git-blob",
-        "blob": "ff78ee82e5a2d2df011f8455a6e9741a93c78026"
+        "blob": "9dc07da2025c29a01b855ce8985be0518ee014d5"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -1196,385 +1196,385 @@
     },
     {
       "path": "expertise-experience.html",
-      "size": 7914,
-      "sha256": "76b20a93bbc271c13d0e7a7c9aac6418cd3b52c465ecd8cc750a321304b99250",
+      "size": 7837,
+      "sha256": "35650c1fe68b50de56c0d678b0a51039e481cfdb3e88496c3da6872957446831",
       "source": {
         "kind": "git-blob",
-        "blob": "3dba16928efd5acf5f2ceeb2e386fcc04bb34568"
+        "blob": "e9a140798daaea3b0920c896ac95a51c22a53681"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "game-development.html",
-      "size": 8474,
-      "sha256": "023746aab35e0491f8f02df6ef8fca32588f69cd7196fdb21b49f81d439783c8",
+      "size": 8406,
+      "sha256": "59ba55962a9e24011e118763ef03c266b116a48f152c4111ec818bfbeaac9894",
       "source": {
         "kind": "git-blob",
-        "blob": "4d58b700eecb18aea44fd5392071f49b03948c91"
+        "blob": "2597749e3c6724471f54bcb3ceb78bb5cc351bf7"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "games/3d-battle-chess/CREDITS.md",
-      "size": 954,
-      "sha256": "59078b3bfd98c870966c39e7d0fc08f729acd0b5b90f2e3796036ce648bbb864",
+      "size": 945,
+      "sha256": "981e2a89f484b45efc1c7eaa7976c1c634199c323b6acadc6a5805115afce774",
       "source": {
         "kind": "git-blob",
-        "blob": "04b8ba04ffc64e142908ee11f8dadc82d88389cd"
+        "blob": "d5b8c7905c3c4fc8ed19a663ee71edb26ce89e91"
       },
       "owningComponent": "games/3d-battle-chess",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "games/3d-battle-chess/attacks.js",
-      "size": 6036,
-      "sha256": "20053d3c55bce7d3d1a851b9f8b6464a1aa4258802efe1c3e79607bf00eea1d6",
+      "size": 5990,
+      "sha256": "63ec73ff942260f056bb0ea6f78a5535543400ef5a83dbfeb051c6cc5c8f55fd",
       "source": {
         "kind": "git-blob",
-        "blob": "b640c55d2171a7c6f08a4419ad43684b501bda91"
+        "blob": "1f4b7e21c33a9da23ed37b2bcfd2f63cc516ff8f"
       },
       "owningComponent": "games/3d-battle-chess",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "games/3d-battle-chess/audio.js",
-      "size": 4786,
-      "sha256": "70f5090b9f9f12bd3e31dfa341a97ab8dcfa3e7546b470e5a54af357f44dde35",
+      "size": 4684,
+      "sha256": "ac54d2b6cb32d066f0340fca0049cca811c90c632b6d110298a90a82a9817180",
       "source": {
         "kind": "git-blob",
-        "blob": "ace4686058b154def4af02dbdf8f6cb6e2c60585"
+        "blob": "e31d5037d5b8229172ae8bada5d22405194fa09f"
       },
       "owningComponent": "games/3d-battle-chess",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "games/3d-battle-chess/battle.js",
-      "size": 24228,
-      "sha256": "93f109011fe30de669427d058584e3dd73f01d9e4aad105c97e4c7a97fb4f831",
+      "size": 23824,
+      "sha256": "559a06cb6fb958d0605778737bf2f34dca0a9712deb86321d70d38a691fd6738",
       "source": {
         "kind": "git-blob",
-        "blob": "c22a011e711ee65a7b406f42ec243fd4ae4cd216"
+        "blob": "6d8723e95783ff2232fe80704ee01a96430ef605"
       },
       "owningComponent": "games/3d-battle-chess",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "games/3d-battle-chess/boot.js",
-      "size": 830,
-      "sha256": "feb83d2449e6987b6888d4b16cc358684cbbf9a9da2beb2f853313d5c313c342",
+      "size": 814,
+      "sha256": "bd7a8cd14d32171ca2a1f97e8dcc39f9d299b2926be9019c4d108201b5569a77",
       "source": {
         "kind": "git-blob",
-        "blob": "6e2ea735024bb42dd6955e782af1784c63785edb"
+        "blob": "8e86cd0e642fa22589df4a122e97adc39b2fe4df"
       },
       "owningComponent": "games/3d-battle-chess",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "games/3d-battle-chess/castle-controls.js",
-      "size": 1413,
-      "sha256": "056e22fe6caa35f867d0698212fef6203db9b2b8e7c05f0d6a844c6c64d06b4d",
+      "size": 1388,
+      "sha256": "e206e836e9a90c8e31a4206e5d608b5b204c48a16beb8dd157f98d5371aff774",
       "source": {
         "kind": "git-blob",
-        "blob": "c7afdfd420c2675fe44009e24bb18a4ed75f5f35"
+        "blob": "d194e368b68f2efb1592706e7a8f4c118a378be8"
       },
       "owningComponent": "games/3d-battle-chess",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "games/3d-battle-chess/characters.js",
-      "size": 4942,
-      "sha256": "c3aaf617f8e0c2863c76089c62a6cd4f0b09c5dd7ba100e04f23d105a4ef72c0",
+      "size": 4859,
+      "sha256": "cb362d6e43bbc97b795e584fec3aa67c19af898f8ba50ca02ef395b4bdcf5163",
       "source": {
         "kind": "git-blob",
-        "blob": "40ace373080d6084e72d05deaa40a206721a4918"
+        "blob": "6182474ab7600039b5f815dd15090cc60c08971a"
       },
       "owningComponent": "games/3d-battle-chess",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "games/3d-battle-chess/combat-physics.js",
-      "size": 3278,
-      "sha256": "ba2016e33324b286d16b586d05ea4f3729d5725752863c8a051dea126d654251",
+      "size": 3215,
+      "sha256": "fe08a83b275b307c97da7af3ad79310fef4b66cea96663d42b95c53d0b88f56c",
       "source": {
         "kind": "git-blob",
-        "blob": "ae47c9ac57995987e9a550d85164a9f4042bcaf6"
+        "blob": "3d9c94f5928c748bce45e532403a7714f574f504"
       },
       "owningComponent": "games/3d-battle-chess",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "games/3d-battle-chess/combat-v8/animation-runtime.js",
-      "size": 2346,
-      "sha256": "d667e023d2d2e400e427f885f8fa11e8ee479ec17b5c32d25a5463e8bc1619ba",
+      "size": 2287,
+      "sha256": "f50f06818c1cf06049c7e5f342fee3e9631b93f650a35fff54deb6f7d030ba0e",
       "source": {
         "kind": "git-blob",
-        "blob": "5ee9c2fea7d7c3e8af4eab4024801fe2984b07b1"
+        "blob": "7366aaf0951d1cbe156890763702db06477b8937"
       },
       "owningComponent": "games/3d-battle-chess",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "games/3d-battle-chess/combat-v8/attack-executor.js",
-      "size": 3583,
-      "sha256": "3f2243937b8eb38bf34af35777706d9da5a8484cd91f8d31c62b1f36bb616a3c",
+      "size": 3501,
+      "sha256": "879dee6bb22cecf30dd5a2b1efe45caf576bdb5ea6a31741c89ad31074d0d287",
       "source": {
         "kind": "git-blob",
-        "blob": "30a58ed472582ff346081936d08b6e56d2d201b3"
+        "blob": "1e4ba15e790a56de27340bb4cc20e2e291d7edeb"
       },
       "owningComponent": "games/3d-battle-chess",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "games/3d-battle-chess/combat-v8/attacks.js",
-      "size": 5715,
-      "sha256": "89a3b71c0404d76978c23b9f4b879cc9ceb1481d5d923cd68ef7536b1d310d67",
+      "size": 5672,
+      "sha256": "7c26b5151852c149a91bc91a7097fab14a4a26d385a45741ddaf9a07cac28f35",
       "source": {
         "kind": "git-blob",
-        "blob": "90f3bbfbdd8cfae28ea901282276944fc3c460d6"
+        "blob": "aa3a0e77950e8e33362c352bec8891c37d42d479"
       },
       "owningComponent": "games/3d-battle-chess",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "games/3d-battle-chess/combat-v8/character-definitions.js",
-      "size": 5459,
-      "sha256": "61bedcff6f51dc9348ecfaa7d52af2887b83eca3a0c2f30eac631832901de595",
+      "size": 5385,
+      "sha256": "488885ee9d1b625316959738c95db3ed226981bedeb9ca2293654d0c1a817a8e",
       "source": {
         "kind": "git-blob",
-        "blob": "46cf289aa8104fc9ae610636c1aa1ace3aad3e83"
+        "blob": "c614ab308a4a53545b171d66f0eb8886872cc3ce"
       },
       "owningComponent": "games/3d-battle-chess",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "games/3d-battle-chess/combat-v8/character-factory.js",
-      "size": 3696,
-      "sha256": "271c0f6fe514cfa6cbfbaf253eccdb3bd691e2461b9f2c2ed48b143c20d33c19",
+      "size": 3640,
+      "sha256": "9a33a663ff1ece5bf2a73c4e151e20e00a2227d2541ce585b4b6e6b7df58e390",
       "source": {
         "kind": "git-blob",
-        "blob": "44d115abc561e187f7ae5eb1b031c894430ac914"
+        "blob": "a0a30b0b9ee1cf32931d00ffe57c4dd8920207fa"
       },
       "owningComponent": "games/3d-battle-chess",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "games/3d-battle-chess/combat-v8/character-visuals.js",
-      "size": 8994,
-      "sha256": "fdf14eb6c277aba2fd3c6e930671609ffc4f17200593585611b5fd64445f5afd",
+      "size": 8879,
+      "sha256": "1575dd520ae9e4e0b436747bc5bb56a718e21ad60e3436aa08c111a9b5bc637a",
       "source": {
         "kind": "git-blob",
-        "blob": "232097b879e8bf0b32e97745bd3026121daafb45"
+        "blob": "8bbf4ad8b83d07c8388861637c41cdd6553c4036"
       },
       "owningComponent": "games/3d-battle-chess",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "games/3d-battle-chess/combat-v8/choreography.js",
-      "size": 5641,
-      "sha256": "6bf37f880bdae778a9ea12cd77b0e852480ca05fbb608b9d001ddb7ed772303d",
+      "size": 5591,
+      "sha256": "156d981a3b7ff8c6a0fab0afbaa5679c2a3d0626d83b06f65bad81f9a1cce766",
       "source": {
         "kind": "git-blob",
-        "blob": "bdd1d85f66f41fc42187597d5d21c5cfc8726d31"
+        "blob": "2987faf130c66b5d3b8cb9da1ede7443c32e190a"
       },
       "owningComponent": "games/3d-battle-chess",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "games/3d-battle-chess/combat-v8/collision.js",
-      "size": 1112,
-      "sha256": "315fc1172a94d2f6142d75043529e36d644f398e64e5693c7b02ef8a08c33d17",
+      "size": 1084,
+      "sha256": "61d2647eadfe979c987b999c45784c26bab835e3ef1a7a4185414d07d594068b",
       "source": {
         "kind": "git-blob",
-        "blob": "98064740106535985e02fb07c2a7cef4665a73f5"
+        "blob": "421985a88c422466724a0fe800008c588daf2239"
       },
       "owningComponent": "games/3d-battle-chess",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "games/3d-battle-chess/combat-v8/combat-director.js",
-      "size": 4225,
-      "sha256": "124d46dc7f5167ee89a29593cd430fc315f9c00159406a4fe8fe2146e1240f7f",
+      "size": 4152,
+      "sha256": "af4536764025a0cb361e8b70f9a794f8afcfc0cbf4cd0f6f3f32e37d46942c71",
       "source": {
         "kind": "git-blob",
-        "blob": "3bfb21cb3b276d5f12656c29c2a93cc6260dc9ef"
+        "blob": "1e0d2dbc192ed432572b4558933f756121009d6f"
       },
       "owningComponent": "games/3d-battle-chess",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "games/3d-battle-chess/combat-v8/defeat-choreography.js",
-      "size": 1004,
-      "sha256": "5457ca9c0b84450c61a53949aa616f0ce2236acfb967bea42e2b52c2bc6a1c25",
+      "size": 976,
+      "sha256": "9d9d80ac948b996038346e9b1f2c266d86975c6326b0f5bdd2be7ba2f00fa1d2",
       "source": {
         "kind": "git-blob",
-        "blob": "dbb1530b1c1f71484ca1893f14d6e3cd52ced4e3"
+        "blob": "aa9bb0860f751c71c7e3ee6c79080549d533fec6"
       },
       "owningComponent": "games/3d-battle-chess",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "games/3d-battle-chess/combat-v8/effects.js",
-      "size": 9255,
-      "sha256": "9c670b87df4b4ed28d7090bdf08d0b361769facf28db8045ed26cd896d6b3c6f",
+      "size": 9126,
+      "sha256": "7a84f001202a989ebd48090dede064d3a0b2073f49419b2670c22db292de7d05",
       "source": {
         "kind": "git-blob",
-        "blob": "f9eccc09b04db9c5b088fb7daa8136bbe24a361c"
+        "blob": "87ab2e5fd5a92162e4a7e3aeed2cdadcd0d42036"
       },
       "owningComponent": "games/3d-battle-chess",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "games/3d-battle-chess/combat-v8/physics.js",
-      "size": 783,
-      "sha256": "2a31e61d5680c101ab1cb6c7730cdbb94d9c5cd0fb9052db778029f512db27c7",
+      "size": 765,
+      "sha256": "e0b2fdfba12b5cf6a964d3055816c1adda4cc2543505434e155a76b0c92fc2dd",
       "source": {
         "kind": "git-blob",
-        "blob": "0521b27513afc44f45a0d3184cc01522747261e5"
+        "blob": "f843e720f52f849ca8c5be30e23999a46556838c"
       },
       "owningComponent": "games/3d-battle-chess",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "games/3d-battle-chess/combat-v8/reactions.js",
-      "size": 1519,
-      "sha256": "6242b5d9bb717b5821f13f12a38e26915e2d9d052380c4f64693d89adec4edce",
+      "size": 1492,
+      "sha256": "31a3ec60002b2783a0e75ca1001e2bd9df767ba38d9e9e5c0eb5fb03f30e5038",
       "source": {
         "kind": "git-blob",
-        "blob": "47d64304f57d4b577e080e87cc1631028c5ebe0f"
+        "blob": "6350971c94eb2f1cc57bf840f4e0ef8602f78753"
       },
       "owningComponent": "games/3d-battle-chess",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "games/3d-battle-chess/combat-v8/rig-types.js",
-      "size": 8183,
-      "sha256": "0e63690a3bca25a4bd5a94f3b8fdab902855d6fdecf891b750b8823cb9fff467",
+      "size": 8049,
+      "sha256": "495aaa6baa866f1cb360193579d2296ad6c34b20bfa5a47aff1c18b277d34f8e",
       "source": {
         "kind": "git-blob",
-        "blob": "58ee9b6670cd20444a116f47e1a98fa012efa4ec"
+        "blob": "72240b52fcfda90ae55487e63e944273649dd306"
       },
       "owningComponent": "games/3d-battle-chess",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "games/3d-battle-chess/combatants-v6.js",
-      "size": 8144,
-      "sha256": "b7ab65361e6d8b30e373581aadf4894cf1268cb9b990027c3275f5f9d8c87e49",
+      "size": 8012,
+      "sha256": "b44671056fbf3847afec4bce0426c4f0fbf0582e09fee8b03014fed4c7c7e1ab",
       "source": {
         "kind": "git-blob",
-        "blob": "d8c41726424c66e51f9be227dc6ec8601df7a2d4"
+        "blob": "8bd625288c438794f5963187e6aa6e65297fde55"
       },
       "owningComponent": "games/3d-battle-chess",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "games/3d-battle-chess/combatants.js",
-      "size": 4441,
-      "sha256": "d5a8c1db0364f923df04a6c05a408dfaa4e399d0d1000427a38091659d36aef7",
+      "size": 4368,
+      "sha256": "33e7a11507d498c69059bf213174cb5c897dc6468bed4181bf7b93ebcfef7b3f",
       "source": {
         "kind": "git-blob",
-        "blob": "e3eede3e1c59a826a232a12beecabdb065e8083e"
+        "blob": "63bb4faca48d5a2ef0dbc2a8aa6c3df31c5c37de"
       },
       "owningComponent": "games/3d-battle-chess",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "games/3d-battle-chess/duels-physics.js",
-      "size": 12238,
-      "sha256": "1d4317f928baba86f4b848bdcbb3e16da92675fd3e861f189d0248672159d3d4",
+      "size": 12085,
+      "sha256": "35a4b6f2572d0bd5ab5eef71ba3e17b8559040c389dfc9cc1316e565d9789eb6",
       "source": {
         "kind": "git-blob",
-        "blob": "cf4d6d508c38e2114ea97097e07a42e9b48a4d51"
+        "blob": "d597a9b5e7e08d649d5a94507dea5498f5981f66"
       },
       "owningComponent": "games/3d-battle-chess",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "games/3d-battle-chess/duels-v6.js",
-      "size": 13240,
-      "sha256": "d1d7a535c4f7ddce9f6cd143699f2323a899e4b8236e6d6babe4673a749a5a1d",
+      "size": 13046,
+      "sha256": "ae974fbb7a8cbf06b15e26549c618211f79fc3a90a93bb57af124c87ce42d73f",
       "source": {
         "kind": "git-blob",
-        "blob": "04020e68ab36353bcee01a3a50f21ec15a51a6f7"
+        "blob": "2a3532fdca3d90e03195eb5b63d3eacd7770c028"
       },
       "owningComponent": "games/3d-battle-chess",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "games/3d-battle-chess/duels-v8.js",
-      "size": 5858,
-      "sha256": "e8b853482fbc255cf13528db0cf1916f5db1e2328fbfd5b655bb426cf1b74800",
+      "size": 5789,
+      "sha256": "b25c22386f831104329c30b1bec1ccc1a1485d9330d29a16589491a2996a5146",
       "source": {
         "kind": "git-blob",
-        "blob": "8518261b42a710ea82c81d00b17ace253103f82b"
+        "blob": "dab9831d7660b5e69399704c53be9f62d1eaac62"
       },
       "owningComponent": "games/3d-battle-chess",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "games/3d-battle-chess/duels.js",
-      "size": 126,
-      "sha256": "176249e9d7ce63703f531379c884d85b826418bfe2f86d4ca265e4afb32e06a3",
+      "size": 124,
+      "sha256": "0e805b78370823520184458e6b1e17d79d297e003e4b470ebe73e04bd4c89ece",
       "source": {
         "kind": "git-blob",
-        "blob": "798f35f156ab2401eb490e200c3d824cd449216b"
+        "blob": "87025a76814679b7cc9321382b84e5e81d292b4c"
       },
       "owningComponent": "games/3d-battle-chess",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "games/3d-battle-chess/engine.js",
-      "size": 10244,
-      "sha256": "8bb5b2502e9fdbc05fe154d716a7948564da28fea965f5d56e4698f5fcc8d32c",
+      "size": 10149,
+      "sha256": "27f719589e18853220c505f8b4acd98128adb4a30485648246ae74c227bf351e",
       "source": {
         "kind": "git-blob",
-        "blob": "f795c19a3bfb61a28b07d4283b88c85dcebfcd89"
+        "blob": "cd2735964edd442c28c8c8d15d91a053ca408698"
       },
       "owningComponent": "games/3d-battle-chess",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "games/3d-battle-chess/fallback-board.js",
-      "size": 6659,
-      "sha256": "079c9c21e48a8c02820708043d370e795198df95419e03227cb0e9652054014d",
+      "size": 6581,
+      "sha256": "8f449d447093cc587dcb899a81fabcdc9f147ba1d4a886f467cae260f01879e4",
       "source": {
         "kind": "git-blob",
-        "blob": "4a33adb35c09242a93724bf0009052dbb12600d4"
+        "blob": "e6bf6c2cf6a253f36d9802177bb6ca3502ca8ae2"
       },
       "owningComponent": "games/3d-battle-chess",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "games/3d-battle-chess/fallback.css",
-      "size": 2023,
-      "sha256": "abcc2242c426e2fc83116ea7235dd1a534bff816e0445f65a8ac6c2379854e7e",
+      "size": 2006,
+      "sha256": "dc97a7d3afc519cedb268cd524d0b39a3c71d5509512fb25866009afa01557c4",
       "source": {
         "kind": "git-blob",
-        "blob": "2e689db986c25201dfb4ef2fe95598dfeb3238d5"
+        "blob": "d852c14a2ba784794c41c83b379b5cd0f11fc702"
       },
       "owningComponent": "games/3d-battle-chess",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "games/3d-battle-chess/index.html",
-      "size": 8423,
-      "sha256": "99700c7238caa36099605aae417429b733bacbcae9e2d082c2f5709779242573",
+      "size": 8331,
+      "sha256": "ff150ac84eeedf3a0d4f2b2ff5601fe72d20260cae29cdb486c90470f47b8314",
       "source": {
         "kind": "git-blob",
-        "blob": "c752a6a0b17ebf6cd5c2f164b38c0716bfd3b4fc"
+        "blob": "2a8dab90b16d635726787992d561a631af1251cb"
       },
       "owningComponent": "games/3d-battle-chess",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "games/3d-battle-chess/pieces.js",
-      "size": 7432,
-      "sha256": "3b528cf2a96e139c0a992c735ebe3c5fe2ace67d2852cd4d11d25e3f50444db7",
+      "size": 7347,
+      "sha256": "c85f824b464639b365644c0f183a2c7d976f71fea19b43d3f0de2d43dbd5a3cc",
       "source": {
         "kind": "git-blob",
-        "blob": "130a3a15c5241b0d6c1abf2a0eef6a2aede7c381"
+        "blob": "0662831fe26bead6eb344456991566303239a82a"
       },
       "owningComponent": "games/3d-battle-chess",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -1593,22 +1593,22 @@
     },
     {
       "path": "games/3d-battle-chess/styles.css",
-      "size": 13038,
-      "sha256": "390d3fff1a374ccff93d32d3a48564650e23e3d118cf850f641a4d685eb33b03",
+      "size": 12967,
+      "sha256": "146aa2e1345f566e516fdd851987210196a71c9bfefb80384c4ae69b829cf821",
       "source": {
         "kind": "git-blob",
-        "blob": "ed1d53f779b36e2101af376e5959d2eb46e98834"
+        "blob": "2616bd46cc7d9df41c19993ec95002eba4c33fc1"
       },
       "owningComponent": "games/3d-battle-chess",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "games/battle-chess/index.html",
-      "size": 373,
-      "sha256": "9f2e86c640c28832ce11aa1b8777d16b0861dc3b8676e53dc5fb2be7d745798b",
+      "size": 369,
+      "sha256": "bb214b1fe46c37c5e35382452082128cd164907e6d35890e34f55b4208d17464",
       "source": {
         "kind": "git-blob",
-        "blob": "fcf7ecdc2af7dc658d9f99ea931e4266776201f0"
+        "blob": "bc60a4c69c3b8ba31836b7c6509b796c1664ad23"
       },
       "owningComponent": "games/battle-chess",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -1772,165 +1772,165 @@
     },
     {
       "path": "geometric-lab/CREDITS.md",
-      "size": 3241,
-      "sha256": "4c69b05da70434ea5fb42ca18dc5c319f9b3c984919ed7f2b8df2ec55815a5a7",
+      "size": 3209,
+      "sha256": "9fd555c80e9aa33a4ef7b39271a447f4f21f53e06d7dd5a182be965a7df2de90",
       "source": {
         "kind": "git-blob",
-        "blob": "1323321ed53c80adcb3476f7b2ff9738f516370c"
+        "blob": "999592b49dbc9b051f645334bd53b8982cfa8e57"
       },
       "owningComponent": "geometric-lab",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "geometric-lab/METHODS.md",
-      "size": 6824,
-      "sha256": "df606e5bfeac9efb0072d5fc64da6aaff9b6b3c48aa7b4e1c3eeea9138079b13",
+      "size": 6779,
+      "sha256": "656257883c770195b21fe3a238ede19f065e42a4aec16e94b5ad3cc17d9dab27",
       "source": {
         "kind": "git-blob",
-        "blob": "eac781d5f7d50d3f5c0f7b4a92a711319ef51a40"
+        "blob": "4c7c05fa7037a78e5d2472b7fa41a2948be137d5"
       },
       "owningComponent": "geometric-lab",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "geometric-lab/app.js",
-      "size": 40301,
-      "sha256": "439ba6dac5cf7404dec9e831dac8f4c3f4ef28cd76539bc2f95af1948178928a",
+      "size": 40180,
+      "sha256": "70d16437c136527b3069c34c62a8bcf40ee3b3d95d1b907805226fa44063ed3e",
       "source": {
         "kind": "git-blob",
-        "blob": "7385458d772633b2632dd5102931eb7cd4763c3d"
+        "blob": "a82f66279fee1d8fdc3d62aecd72bc248b59f0c1"
       },
       "owningComponent": "geometric-lab",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "geometric-lab/assets/favicon.svg",
-      "size": 323,
-      "sha256": "87720f9bbde71d13a1eafea826c3a5b5b68c145398dc0323f5d62deac861f704",
+      "size": 322,
+      "sha256": "83d090b6b58da6183a24c4b6087f015ee13c9c9b7740196ffb6f33f37d1bbe19",
       "source": {
         "kind": "git-blob",
-        "blob": "146d3d8ef8ab67befe15e850b184b3574783a558"
+        "blob": "a0ce62a043ec47dbe99d499e484b3ed8cf607598"
       },
       "owningComponent": "geometric-lab",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "geometric-lab/benchmarks.js",
-      "size": 604369,
-      "sha256": "767cab94c123d975cb819c4105e579b1649a3e88730f960902d8685d80d01c9f",
+      "size": 604368,
+      "sha256": "43b50f155e41531c10409009c2db1de9f167d8e0df93de03e0a244801788920d",
       "source": {
         "kind": "git-blob",
-        "blob": "f964dc2d611d0b4beb395d0eb89296a69f77f7a4"
+        "blob": "6e413c843bdbecf635e604c7f5eaf2d9f7fdd018"
       },
       "owningComponent": "geometric-lab",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "geometric-lab/index.html",
-      "size": 4992,
-      "sha256": "aef5f5aed4f8b8ddcd1176fd18c231054085cc409c43b60f2cb4dea8262d9d2a",
+      "size": 4972,
+      "sha256": "ba5c895527e21787158d4a405773bdf3f49e4b153959b58c8659b79c271cee55",
       "source": {
         "kind": "git-blob",
-        "blob": "5949630c0fb50551660c60303d05c1011e50b0a5"
+        "blob": "c9b617822e2b830b178c90188155bff2e5d86c15"
       },
       "owningComponent": "geometric-lab",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "geometric-lab/math.js",
-      "size": 4680,
-      "sha256": "df1a24d5d19d16986887b4ddae4b6d63745f758555c4cb423f48334edc43fb90",
+      "size": 4644,
+      "sha256": "21ac72d6ff6c98bd4f3f10e5d579b2e84365871f703787d8feb75c2256ba4fd5",
       "source": {
         "kind": "git-blob",
-        "blob": "3444be36b7713b2e8e91294d6f08ecf83b161dfb"
+        "blob": "4cde0e254712d60527940fa01e8b5546743c7112"
       },
       "owningComponent": "geometric-lab",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "geometric-lab/styles.css",
-      "size": 11618,
-      "sha256": "066ea9c20046e305c95e566db75131f2aeb93f8323ad78da14ad31d8206606f2",
+      "size": 11587,
+      "sha256": "1fd2b5c3c539a441400fa7ac418c5a8be296b353305748d6aa9544f884ccdf68",
       "source": {
         "kind": "git-blob",
-        "blob": "7944bf05e7a43b243bf1548eb07fc861f30b14b7"
+        "blob": "52ba64dde00588667434518910770d6833ac4ef6"
       },
       "owningComponent": "geometric-lab",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "geometric-lab/worker.js",
-      "size": 259,
-      "sha256": "4b51505a591bcc0af88f379ef85e76ac7918349a57a1125d914186419f1f7969",
+      "size": 257,
+      "sha256": "52aabf440594d58bc31497e63fa811b1fd0368dd9fde39a587d17e9464318223",
       "source": {
         "kind": "git-blob",
-        "blob": "e8da4fc3cbf5e3bc17d2de5677efc4494357fad6"
+        "blob": "b6b9a29a6fd1b30344d51358d539ca0a61643e70"
       },
       "owningComponent": "geometric-lab",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "handheld-experience.css",
-      "size": 4441,
-      "sha256": "276001fbcc339f042e2991e6854f4b66b2558dd40895548140e5eb43facd4400",
+      "size": 4397,
+      "sha256": "e2ec639ce18cca414ae9b816f24b0b3d6299d8d512935f3fddb396d2252a9918",
       "source": {
         "kind": "git-blob",
-        "blob": "aa4d3dd87d44474e10b90497b69f3bdbc5b67804"
+        "blob": "56b71a13aca88cf12c0c953623e022cfafa4dbfb"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "handheld-experience.js",
-      "size": 1368,
-      "sha256": "881298b69e64d3f1345b1f9a7bbbcdd55430adbcafd33a096721d27f2ab58e86",
+      "size": 1335,
+      "sha256": "9fc7f0a2db61707411df76672aabf4603ffc4501f3755ac64a706fef574fac4b",
       "source": {
         "kind": "git-blob",
-        "blob": "2141158e64ef3ee46ac2bda8a5b9587d5d12383f"
+        "blob": "853e437ce47118bed34ef9e8b77f9662df1b7969"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "index.html",
-      "size": 32027,
-      "sha256": "b3dc60685e18667a1ebed1b22400bd64a9758ff8ce04f8c70b498442cb6c355b",
+      "size": 31934,
+      "sha256": "42b22496af35e34173ef728e199bdec60f3b52ee4c58f5584a4b8fbaac8081ce",
       "source": {
         "kind": "git-blob",
-        "blob": "3aeed0645edf6504fa6beee47cfe1137c731afea"
+        "blob": "0bf2b81bd3bd78bede6fe3038f87fc6feda07f9a"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "knowledge-data.js",
-      "size": 25408235,
-      "sha256": "530165a5ed6e68cc418b4ddcecbc0f01c8e636c6d8fb6b772be48f400061d36a",
+      "size": 25408234,
+      "sha256": "6cdd12e86d396121eb6b0d643c919d0e6b48d974714d3511a535ceb3e10fb930",
       "source": {
         "kind": "git-blob",
-        "blob": "3b14a45ffca9101943d0107bd29a9bc5d9f07383"
+        "blob": "490dde632480dba51e772a05d8246fd99ec23ef3"
       },
       "owningComponent": "learning",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "knowledge.css",
-      "size": 91129,
-      "sha256": "97ce2b0498224e1c8902b2f1bbd21cedee8e6d9c6fb9d4a1d70fd52c3cfa3a31",
+      "size": 90857,
+      "sha256": "7d24afa48a6f00f8694faca631eb76fb35d0ce3266ed538d9901482df45dc70c",
       "source": {
         "kind": "git-blob",
-        "blob": "f55c8b83eefc117386d36cbffb220bb60c779e58"
+        "blob": "49f55c53f18904ce5b70e87d73d4940ef0984445"
       },
       "owningComponent": "learning",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "knowledge.js",
-      "size": 191047,
-      "sha256": "4a9f67909258f2155203cc200ec16215709f96507b68c6632dec688c72bf0eb3",
+      "size": 190019,
+      "sha256": "aef13fd746110cd4eb7089ca25e850a43211086f512e2f58c5e65435733b0ecc",
       "source": {
         "kind": "git-blob",
-        "blob": "e6286198ae3e2824e2c6118ac034eeafbc19f3d1"
+        "blob": "6c3d296160e4f5251fbf354c7c9d2c3f2d354eb0"
       },
       "owningComponent": "learning",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -1948,22 +1948,22 @@
     },
     {
       "path": "labs/emergent.js",
-      "size": 4790,
-      "sha256": "34c3644e34ca624ce4b2d696c28d69fd4c3f733e1c1568ec98eed1d65d655d9c",
+      "size": 4780,
+      "sha256": "d17428421d6e23f78d6851fb6a2e22a883b9403312da21c1efdf1e1a4fec891a",
       "source": {
         "kind": "git-blob",
-        "blob": "4619adc0a778cbb9ae4f260ddf14b5dc09dc5fd6"
+        "blob": "2c34cc84cc97b61a134027a289014f5f52372f09"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "labs/qpe.js",
-      "size": 3915,
-      "sha256": "2b468b4421571972d64f91a961188e621dd820cc00876c55e20e3ab9a1cf69d4",
+      "size": 3883,
+      "sha256": "f230626678a14ff26b45578a8f1c3b379cdb48992416616cfe3a5ebd2b870a4d",
       "source": {
         "kind": "git-blob",
-        "blob": "417ed033b03bf39dc2342492a059ed0908ac720b"
+        "blob": "665191d52366215427d57efca99e18c870f79e27"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -1981,22 +1981,22 @@
     },
     {
       "path": "learn-browse.html",
-      "size": 22250,
-      "sha256": "c4cd0354b7561e8f12ad6d2acf9d3cb68f547203d8c7403102660b105d0ecc3b",
+      "size": 21953,
+      "sha256": "8653f5a3167fcdd8b79ecf88815da8549ff4c3f6af3317a46986b8201f4dabbe",
       "source": {
         "kind": "git-blob",
-        "blob": "ab25f0f62c06c67037111c46c9936cf66fb8321a"
+        "blob": "bd02de0a3b828ed19b24cb1c493c65ca3a15262f"
       },
       "owningComponent": "learning",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "learn-capstones.html",
-      "size": 2953,
-      "sha256": "5d5748d9b100e1479a75f916fa56b68bbb802d6428a4a0d6330eb76e1c21a01b",
+      "size": 2948,
+      "sha256": "695cce6fc5c59837bb1f1f162e2f7e616180ffb459781a6feb4db1a34caa1ba8",
       "source": {
         "kind": "git-blob",
-        "blob": "b828829854ffd22beaec9c68a5579261b9ce6467"
+        "blob": "ca47d89bf4eeebfbba917988d093f0016cd178f9"
       },
       "owningComponent": "learning",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -2025,22 +2025,22 @@
     },
     {
       "path": "learn-glossary.html",
-      "size": 22255,
-      "sha256": "85bf251febfdb9eed2f0329a86e5860fdc955930c87016c1e068a90a7261440f",
+      "size": 21958,
+      "sha256": "ade799d69641e047a59ac99a85c5414ae592254bedcf27aba07e6ea6c7b34656",
       "source": {
         "kind": "git-blob",
-        "blob": "57570f415da5761d73ec61da79d8a6bad57c715a"
+        "blob": "c85bd3f6a2c73e3151b9609b24c42763478df5f0"
       },
       "owningComponent": "learning",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "learn-labs.html",
-      "size": 22249,
-      "sha256": "9b55b045676a8491f51dcd8ad9e021e0382a04918361ee3522b3335326bddd07",
+      "size": 21952,
+      "sha256": "2959d428301e4096f5e1052bda122179af120484a36a9d3f91a4f28207409ec0",
       "source": {
         "kind": "git-blob",
-        "blob": "5cb5c61ba9fd8cdcdd04b42bc5ee1eaf2276dd1f"
+        "blob": "7c2f1883e607d47f71b8ab7ab72d6b02d55e4f98"
       },
       "owningComponent": "learning",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -2058,22 +2058,22 @@
     },
     {
       "path": "learn-map.html",
-      "size": 22245,
-      "sha256": "2a8d1af77d40491241653565be2fc6bea32bce4bf7c2ab2c82a9ef67b1b62550",
+      "size": 21948,
+      "sha256": "54a2746796c0922de021376e36c998c02c1f82cc727704e2003c5372da31930c",
       "source": {
         "kind": "git-blob",
-        "blob": "ef08f5b8f559c1fec18bdbe12b3ebbcf89ee8bba"
+        "blob": "97dbf4148f8b9b13b9f516791389d47f7ea9ad6a"
       },
       "owningComponent": "learning",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "learn-mastery.html",
-      "size": 22244,
-      "sha256": "f818b2867dccd0b3440955925ec03f883fb6b41bbb774d5fd0ae810d434d3041",
+      "size": 21947,
+      "sha256": "c9d9a3bbd5484e23ff8256911b535b99c39d79f6fe851870923af362741fbec9",
       "source": {
         "kind": "git-blob",
-        "blob": "6fe9795c8bf142051926ca34ea76aabd4d17047e"
+        "blob": "fdb13bbdd6e10590f5e12078a6a92a87dfe87f4c"
       },
       "owningComponent": "learning",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -2091,11 +2091,11 @@
     },
     {
       "path": "learn-paths.html",
-      "size": 20552,
-      "sha256": "c3fb246e231fd614b1c5680710f88986fbe555a293633a515e1beeae27f80fcb",
+      "size": 20275,
+      "sha256": "a08a274b5c7499e91bc62091ef5995096a41135de9e8bd5354341789a68e27da",
       "source": {
         "kind": "git-blob",
-        "blob": "b7857b8033a10e9b9f9b4b5eaab3cf2ca8b0265e"
+        "blob": "33f84bda8369736a968822e7520f083a4f93fdc2"
       },
       "owningComponent": "learning",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -2113,11 +2113,11 @@
     },
     {
       "path": "learn-practice.html",
-      "size": 22245,
-      "sha256": "ab4945a2f643274f3e5275328973dba27b0f43c3827f745c5c8388487cea1cfa",
+      "size": 21948,
+      "sha256": "54573c8e701b31d80b3031652c4528b97c2e07a8ef8c312fed1b6742ab5576b4",
       "source": {
         "kind": "git-blob",
-        "blob": "e29b099ff2a1f1347b8838785c05939df870f33f"
+        "blob": "bc582f22221ff364e8e98a50db03dc64c89c85be"
       },
       "owningComponent": "learning",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -2135,566 +2135,566 @@
     },
     {
       "path": "learn-verify.html",
-      "size": 22247,
-      "sha256": "3acffc2e9819564d372cf7a2adb737f04d1d19dc0291ce3a5dd4eedeb8ce82b9",
+      "size": 21950,
+      "sha256": "d70ac82e6ab742b7de467983186c3b78b551a0c08a983c4b65f9e977db905247",
       "source": {
         "kind": "git-blob",
-        "blob": "3027a8f91b984cb1597f8ae4d935da3c34a4a225"
+        "blob": "294371b64147a68112f01552df85dea14e09cdb3"
       },
       "owningComponent": "learning",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "learn.html",
-      "size": 26056,
-      "sha256": "fbb902d44ff7bcb504393d485210a7688cc390def32e557c10eaeb63e10ec796",
+      "size": 25757,
+      "sha256": "6c9433629ff3fc3a40b16ae1c65a6d5dfbefb061a177fb27607d51f9f25db275",
       "source": {
         "kind": "git-blob",
-        "blob": "1922c7c0602ea4af17f77f71c325fb37d8330c8c"
+        "blob": "60c1915a74328c49d1f909f49a591155cb9de1ee"
       },
       "owningComponent": "learning",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "learning-capstones.css",
-      "size": 2741,
-      "sha256": "30f0e0baa9edf62054a145ec20666a1402858476885e576b3d014e59b3fecb1a",
+      "size": 2740,
+      "sha256": "e94b8be0c8b8c8f3facb9600481dd4c2dc7197c36e6fb3b0bacb886cb514fa3f",
       "source": {
         "kind": "git-blob",
-        "blob": "79845265fccfd7e94da455cadd09167b5d5ef2c1"
+        "blob": "edd04c2c200b3f4f8ea4cd1e98a0f9c5212e1d84"
       },
       "owningComponent": "learning",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "learning-capstones.js",
-      "size": 4341,
-      "sha256": "8d3ecf7698eede6c0dddb5832e166066227ab8c61121de228769997ff675d31a",
+      "size": 4310,
+      "sha256": "cbbd523cab105b6be202ddc729a793be6345ae2fbe6897f6c980a003280e7d22",
       "source": {
         "kind": "git-blob",
-        "blob": "e770e2d4cfd02c3cf390be01f15c9bca04695acc"
+        "blob": "523d2ec45753d5b02382f909badae27c1f05b7a2"
       },
       "owningComponent": "learning",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "learning-capstones.json",
-      "size": 18619,
-      "sha256": "0b5f30e71e7dbf94654674174c88cf62c0a5166232420b7fa4f188bd877b96f5",
+      "size": 18541,
+      "sha256": "ceed50df5b7ba67be378dc82c8cb5a7993b972da12fd8758586f9b2b56f72605",
       "source": {
         "kind": "git-blob",
-        "blob": "15bb235ede06642828ac67d675bb49db8ec52765"
+        "blob": "9349442c80b8440e4d53af1d37bf3b32333259c8"
       },
       "owningComponent": "learning",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "learning-depth.css",
-      "size": 5948,
-      "sha256": "2cb4a371f74ae9696c292dfbd092e1f2d312b9ad171c0b8935124659c47bd5b9",
+      "size": 5942,
+      "sha256": "d29ce133361c5624201fbf297e169274b8ca42ac04dbb5f2e1f0b28488b21a29",
       "source": {
         "kind": "git-blob",
-        "blob": "cbf14919207b00557aac3a16740a502d4efda534"
+        "blob": "c4d914c9d29b1b3fbcec0c776d776cd6a16210f9"
       },
       "owningComponent": "learning",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "learning-depth.js",
-      "size": 9502,
-      "sha256": "2ff6b3baefed11249b16d0605060165af73f351c7202f1d07fec20c07ed6431c",
+      "size": 9413,
+      "sha256": "e5a448c9e625f7bd7fc7494da4738a7de176387931ab84b03ccd0d867b015c51",
       "source": {
         "kind": "git-blob",
-        "blob": "5edadefb98b4f67f29d651af753e5643bd8d9426"
+        "blob": "8bee2cf8169365f8bd96bae7c42c8309321a460f"
       },
       "owningComponent": "learning",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "learning-next.css",
-      "size": 2792,
-      "sha256": "44a49ac202489f6eec939b98d4d304dbb7a004cb6997a4ffe7efd413a187e569",
+      "size": 2781,
+      "sha256": "e05d670aa437afe2faf73a567a64a11d7bf3413efb56419e4bc61683cddd23a2",
       "source": {
         "kind": "git-blob",
-        "blob": "4b4798e995e188df358fa1e32c7e4b7916ea6719"
+        "blob": "fac948a5fae0f0cf469ce96d1eaffc03c06f3207"
       },
       "owningComponent": "learning",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "learning-next.js",
-      "size": 7673,
-      "sha256": "2a0140e53da053d7b9f65c14f4843165af7f77e83b7d3f7c67cd13a158cbfe31",
+      "size": 7601,
+      "sha256": "4022294b21e2c0308ea45ea839ddaf1ce81207a6f314d4737066c453c2a1a8ae",
       "source": {
         "kind": "git-blob",
-        "blob": "80a4b4cf18f0974e6e5f6cb614ea57796e0f9ec4"
+        "blob": "6dd53a9cdd02e5aee9da0c83d7d30a0ef6234d71"
       },
       "owningComponent": "learning",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "lesson.html",
-      "size": 22354,
-      "sha256": "374abd1bef2a596bb90a110c7108459e7ab7af3750d8911e3fe0ced3bee78b9d",
+      "size": 22055,
+      "sha256": "8411a3978cac2f902706d70e0f196c5df1714cc958d2864ef092615ef7e1e592",
       "source": {
         "kind": "git-blob",
-        "blob": "5a74c5509fec97523724f3e94456e876e3823917"
+        "blob": "472d880bc99c1ab4fa4c25fbfa8f36059b0169fc"
       },
       "owningComponent": "learning",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "play-evil-wizard.html",
-      "size": 8113,
-      "sha256": "ff680127aae32022edf638326596be4152ebde900c2f1198e8da201a06656254",
+      "size": 8016,
+      "sha256": "7c8df0cf05139fd8df405035ec78aa9a4911c54c1fbe581c676831d096eb1cd3",
       "source": {
         "kind": "git-blob",
-        "blob": "f80bddd67b4429108ab0c5591c7c420b7389f3bf"
+        "blob": "4d7806f9ccba54d29d54e4b5a040e0a9b991f50e"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "portfolio-home.css",
-      "size": 18511,
-      "sha256": "235c1de7d4b468940a194158a220c37327f41516943349b42509d39a677cae53",
+      "size": 18202,
+      "sha256": "93f84a980ead7485a4f278953c2fa5eb9e67f2363c37a4d89f4f373e8a6bfaac",
       "source": {
         "kind": "git-blob",
-        "blob": "3a006606828df09e8ac076e6a7bb32d0f4e134e7"
+        "blob": "f82b628ad3a3717cf9c23969b5e6a5d4e7776f84"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "portfolio-next.css",
-      "size": 30486,
-      "sha256": "230d1b54fe21926dc231a196a5794f8e2dd6fa0dab6fc7ff4eb4af3eeba22d59",
+      "size": 30009,
+      "sha256": "cc290c42821cb3e843de93020b1f43c1a890926b4f909532d266b9e380fbe173",
       "source": {
         "kind": "git-blob",
-        "blob": "80e78c58a2b87cc1e18598722b4d5b9f76edef3b"
+        "blob": "5eb353e91b589fae0f18b4593947f30d30c034d0"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "portfolio-next.js",
-      "size": 17231,
-      "sha256": "5b56bc0534b55a3e43cbe8f2a2c229d9c5f67525a10a661612be546d6d473f11",
+      "size": 16962,
+      "sha256": "cec1a750a977fa9bf13f7cc77b1055a3cfc9d8e16da668a093e302237065812f",
       "source": {
         "kind": "git-blob",
-        "blob": "fe12406bbe40f7c267e922ba10201a3e341e86a1"
+        "blob": "84a5464291195290e609a7094e08b89cc2d5dcd0"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "project-advanced-computing.html",
-      "size": 5402,
-      "sha256": "8d88008c60d30854451c04e9258d77562359a3380f38357245310885e0dc2a73",
+      "size": 5397,
+      "sha256": "11acf274d2b67152fb86e1289d681171f07349164e3ac5293a87fa447d4b7899",
       "source": {
         "kind": "git-blob",
-        "blob": "7b0c58e05a489997c2d065235eb0da6122cf2869"
+        "blob": "ec68939f1a0d1993f46a7aee42ae3d5b487f4ffd"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "project-asset-inventory.html",
-      "size": 5119,
-      "sha256": "fbab16a91328e2328550293dee68b5333ccff18029c8f1f06dfcdad1dda270d2",
+      "size": 5114,
+      "sha256": "53e1980f8db7911210c4a576a0be5da7451b5bac8eeb598f2dd7461a9c31fc48",
       "source": {
         "kind": "git-blob",
-        "blob": "fe4b85c6180962ec552cab3566fc6e4facf98f55"
+        "blob": "1eaa9d9bf14eefeefc6dc82217c1e3beece77e93"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "project-battle-chess.html",
-      "size": 9342,
-      "sha256": "f49c4c6764170d574b2b0a6e9e83f4c0c3779c2f6d90265e08a66b072fc1b0f8",
+      "size": 9308,
+      "sha256": "b06bef55d3f30526deace8a40ab18f3af49d43496fdfd1fa0e4db4064f5aec9c",
       "source": {
         "kind": "git-blob",
-        "blob": "bc5067e2452ee00c3c04831d900635d7da33fd29"
+        "blob": "f6cd415eaa9d4361e86ccc97b649f3f4ffbd4ca0"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "project-dependency.html",
-      "size": 6547,
-      "sha256": "712e79ea713632c59e395e15ea802883d2880123cc993c3027cb7593821072ad",
+      "size": 6542,
+      "sha256": "212c6850a74e6b35677a6e75cc5a5e43a1eeb5cb4086113aeed259cf7cf5a3dc",
       "source": {
         "kind": "git-blob",
-        "blob": "a19b09b2a96d66b626370135c9d9f5f9eb86b95a"
+        "blob": "4fbd3ccb1533091da16b7b0d90bb512bedda618f"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "project-emergent.html",
-      "size": 6375,
-      "sha256": "d462ba35155595e731be39745d44ac8c5a1e02a8fa3e046618c8d75ddc187923",
+      "size": 6370,
+      "sha256": "48fad50275b5d8cfb85b2700adea52a08a6b5648002a445cb998c8853d4e056d",
       "source": {
         "kind": "git-blob",
-        "blob": "35349f9f098fc3c228113d8d431524444fb32d27"
+        "blob": "261a7ee0e6d70bb1ec0388e7d8c38ddac403e052"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "project-fusion.html",
-      "size": 5534,
-      "sha256": "8d80c03743c0250abb5fe3176fa3942498f5d0280b6a1711b0949500e4d888a7",
+      "size": 5529,
+      "sha256": "72909e52b03485d7fcfb1d38b9fadc4552c047859f63db3e08a9fcde33d110a2",
       "source": {
         "kind": "git-blob",
-        "blob": "d0eaec4e4f3a3ed82a428dbd815ad7c56f330f36"
+        "blob": "66f4818b8cefd4a4d715d967d2cea789a036571f"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "project-geometric-ai.html",
-      "size": 5783,
-      "sha256": "394c895e2f1e6f4f4e227d51f681b5d21026c99cbbabb30ee55107e95d4ab9c3",
+      "size": 5778,
+      "sha256": "68d39de18bcce40248ae896e3445c746d71e3f42d1af1eab3b6fbaf393a14c56",
       "source": {
         "kind": "git-blob",
-        "blob": "a4492290e536076449cf3663aa5ffedad7bf176c"
+        "blob": "9204c604f8b5c435a5cbcc64921cb0fe3a2aae05"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "project-kubernetes-lab.html",
-      "size": 5108,
-      "sha256": "1f1729d91396477f682fa89486dddbd80b3dcaaa3ae0b6bf0047d011c7ee278b",
+      "size": 5103,
+      "sha256": "fb574ff3161c5535a6906b9bdf1124546cbfbc713fcd182c62cdd1fd1c00d1a6",
       "source": {
         "kind": "git-blob",
-        "blob": "9be2f61e16af96006d7690561a15384ac7e6cefc"
+        "blob": "99994e40a1f615bd28107bae31721282a7dce8aa"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "project-learning-library.html",
-      "size": 5329,
-      "sha256": "ca73a52bd240e59da48adbdcfe99e5a35e60679e94cd3539e5d9ada033a327ba",
+      "size": 5324,
+      "sha256": "16f6f37a611565a9ace263ff1d63f0181863f17dbb247feb730b53a9966d1a74",
       "source": {
         "kind": "git-blob",
-        "blob": "0cf8d16877162ce331055b3e1e2390644230b1a7"
+        "blob": "6ce9db0466572a407f8629612f35833633e911c0"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "project-lifecycle.html",
-      "size": 6620,
-      "sha256": "0addc321650e73f766479c33bd6ad4482bbee927c4e8399d101adcb0a79b70ea",
+      "size": 6615,
+      "sha256": "c35e8f9b643b6f7f2e54277ba29de260046f960df189c6bdd0d4b0bc628c2068",
       "source": {
         "kind": "git-blob",
-        "blob": "5e0bcc66d83d9dfba869a42c9053d19be0ba5493"
+        "blob": "fdaba6b9f8916b8b373c03d8573f0f70faafcad9"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "project-mind.html",
-      "size": 5673,
-      "sha256": "861b44c0229af58282549be92988818ec2ab887a13a26aaf60cb057dd79f12af",
+      "size": 5668,
+      "sha256": "7c2e0b3f90081bdbb064646c51d783aa473fa49b51b203701b4cffb2c890807e",
       "source": {
         "kind": "git-blob",
-        "blob": "bfc80c5b010ff413f398016d183c6c967e1c9e8a"
+        "blob": "b88ceacaa693dda80d7e3686df2704a8a5ca768a"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "project-portfolio.html",
-      "size": 5772,
-      "sha256": "5784e9d59a7f024486e212ba6e3d9d72f387b349d3089e1d54d1c394e3f39d5f",
+      "size": 5767,
+      "sha256": "9d75a30fa34e9a32c1c73ec6c6611ecf593b510e05d26156a3673023d5966ef6",
       "source": {
         "kind": "git-blob",
-        "blob": "f614f753a65adf0de21ee64c754edab940aff6d0"
+        "blob": "67f19c7395672483c7de2d6627067b40a0b088b8"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "project-qpe.html",
-      "size": 6517,
-      "sha256": "69b28abddfa6a6991540d74c5e4c0cc84993c485ffa9e772e023162050b381af",
+      "size": 6512,
+      "sha256": "66c465324b2781a2bdce59b9459e484608665a76d768092c9cca3b86c220aba7",
       "source": {
         "kind": "git-blob",
-        "blob": "2c40adf27b356fcb82684d01479b26674bd39fc8"
+        "blob": "e0f2a2d1917c253b575c780ed8be095d77049461"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "project-qubit.html",
-      "size": 5435,
-      "sha256": "8ae81a4e4d2020cd759c9b48d88cadb467f5fca6e7c7eec21a86579ff6c11712",
+      "size": 5430,
+      "sha256": "bfa9e3d4ad92ef51c5daf0d02b8c02ccd2d7f15cfbcc214e031bded3f7d967a9",
       "source": {
         "kind": "git-blob",
-        "blob": "98eab9089c448944fec547baeb87be7d415a2686"
+        "blob": "a15bb5cbc4202f4b8183c7539673ae75ea471a52"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "project-recovery.html",
-      "size": 6361,
-      "sha256": "32f1daa77fa46cccbec5c8afd8d795230772a3cc23997fd01cb3641b5cee0207",
+      "size": 6356,
+      "sha256": "b9eb2bddb6b11624596d59aea6ccc3af096b4146063d9b9a434d3303d8e9a19a",
       "source": {
         "kind": "git-blob",
-        "blob": "596ccad4948c718af1b2cf16613ef859dbe0553b"
+        "blob": "7aeef69e8cd3c66bf4e75702507f9ead58c4a263"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "projects.html",
-      "size": 15283,
-      "sha256": "23eea8d7806d1a2e2edbd47976c428f4c7cb3e226e8b85c8d4b8c4fcbeeae368",
+      "size": 15261,
+      "sha256": "30d19e9baa56fc56047fbe572489a8756ae098b02568a30debb1c33d045c4253",
       "source": {
         "kind": "git-blob",
-        "blob": "6ee92f9424aa5e415ee7e43af769c993d790701c"
+        "blob": "9cb8b558b3c65676e47c1425c3791dd0d3383e86"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "quantum-cube.js",
-      "size": 6555,
-      "sha256": "82f7033dd298ca33c938d82cfa97a721861634a8ec1b2a9201e293bd9245d727",
+      "size": 6470,
+      "sha256": "e841b335e77b7745d11cdf11963601681276aa750a8efc79da9ff3eefd776c16",
       "source": {
         "kind": "git-blob",
-        "blob": "51c18e9b04ced740b71a1b05302c06cddaca269f"
+        "blob": "efe98f84283fd94433378cc4ce2dead33f18d73e"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "qubit-preview-20260921/app.js",
-      "size": 5615,
-      "sha256": "85841d3f1e9f65d4787f4977b5436cdc9de55e44d556aedcc7d9d35a8fbb334e",
+      "size": 5578,
+      "sha256": "37b11a6bcc9a8502b22cd48b71b97e9efec835d789e88d478fbf73df723852c4",
       "source": {
         "kind": "git-blob",
-        "blob": "471267b82331af50436ce613407171fe92581494"
+        "blob": "45236cce8f2a1929b8d73a3fbf5bf5d72ac81cf8"
       },
       "owningComponent": "qubit-preview-20260921",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "qubit-preview-20260921/index.html",
-      "size": 9361,
-      "sha256": "4fc73aa2c3dc624d4684a72684a8bee681fc01bf1028002477c5f8382fd96e6b",
+      "size": 9151,
+      "sha256": "059ac7feecec9aa101fc51fcfd3a283f265dfafe271727386e8dc9a76795f24b",
       "source": {
         "kind": "git-blob",
-        "blob": "300a8c92497090ffc91d6574a354414b93982529"
+        "blob": "d2d10a6298d491dd788826d32b54b77f4da1e2d2"
       },
       "owningComponent": "qubit-preview-20260921",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "qubit-preview-20260921/qubit.js",
-      "size": 3028,
-      "sha256": "18a10df71f4c3073228e90946767d851a8613fdda1fb56f5db94991b64f1860c",
+      "size": 2987,
+      "sha256": "747349bfd3735c247e603fe6646f635a533443c67f765cb78894d9be4229d993",
       "source": {
         "kind": "git-blob",
-        "blob": "b13d293dfce971b10748b08214fac44e792f2563"
+        "blob": "f28e74a4b00b5b9e137a99761aad313c249bc3cc"
       },
       "owningComponent": "qubit-preview-20260921",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "qubit-preview-20260921/styles.css",
-      "size": 8985,
-      "sha256": "4bc98d9608488444bbcdb64d90f6bdcb8bfec9544ecdfed171378f725202d5f8",
+      "size": 8849,
+      "sha256": "7c0ed3f4c4af6cdb54c86ac65fbc1869f11c18772ccd5e7f7a9e7f442a5376fe",
       "source": {
         "kind": "git-blob",
-        "blob": "fbf834a8149520797f32f82cce1cf77b0159e98f"
+        "blob": "e3bbf90d9c957393c28d0ff50471dd0a201212bc"
       },
       "owningComponent": "qubit-preview-20260921",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "resume.html",
-      "size": 19945,
-      "sha256": "dba920d170cc84dc47507f5c33088f61fc6ac7de15ed901db8548a49f8d93f55",
+      "size": 19941,
+      "sha256": "157b654b0f60eb5675838924cc0f0578d5c572b630713409c444e0aeebff5123",
       "source": {
         "kind": "git-blob",
-        "blob": "2af4d1ea46090efac8daaf541797b35a899f0901"
+        "blob": "37134c793614a148c8f43dc8abda8a301c1558dc"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "science-experiments.css",
-      "size": 8901,
-      "sha256": "9d24b2dbe275ad6909c802fbe495f1129a8fe1fca61f130095af226f444085e2",
+      "size": 8886,
+      "sha256": "ad011d0f2b8dcd1070e673a38973f59884fd104695b851d0b41ae90f538e37ca",
       "source": {
         "kind": "git-blob",
-        "blob": "6a95c4f61f53e2864f66e3415c8029d11d925a3b"
+        "blob": "cf7b0613543d65149c283c23e8be529ace03c6ef"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "science-experiments.js",
-      "size": 15427,
-      "sha256": "c53dbc4beef68168d16d835627fbf7a09e61c053e635093ee18452b1bcd6ed3c",
+      "size": 15397,
+      "sha256": "832a3dc24864ac343f711dcab4d07b9b586577ee9fa5a45f24f47e9de054617a",
       "source": {
         "kind": "git-blob",
-        "blob": "26842857957235dcc33b907de2736735d301e299"
+        "blob": "c29d41b6a31e5ac89a057080720a356fe8827a6a"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "site-audio.js",
-      "size": 19628,
-      "sha256": "13e4fb98eb1f518b95ed6ce8a2869bea608d1f0b68e610acc2470a350f5f94fd",
+      "size": 19023,
+      "sha256": "60bb0ba3e8c70d5f9704ffad5d0ab7f5dd1ef9751953e70a63c678fca5f3bb72",
       "source": {
         "kind": "git-blob",
-        "blob": "70033625d030fc25a12812ae159ee83369e67458"
+        "blob": "97a69b884c94ffb2bfd51a3cbebcc06b014ec2f2"
       },
       "owningComponent": "site-audio",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "site-navigation.js",
-      "size": 3037,
-      "sha256": "b8c200716d1baca17c8f3ba34cdb23266f5226a407234210406a5adf69a2c333",
+      "size": 3352,
+      "sha256": "cbd34d6fcc74a9d06df5853b8e4fbe2d12820b064d2eff9f871d6abceb635d6d",
       "source": {
         "kind": "git-blob",
-        "blob": "e7fb899efe6f18ccce95aca4b10046dcfbc28557"
+        "blob": "205706945b5cc9cd7e98fcfdd47256b1976981c9"
       },
       "owningComponent": "site-navigation",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "site-resilience.css",
-      "size": 7215,
-      "sha256": "7047f5cc02bf11ac900131702f3b9765c2f0859cad43b6c816b234c6b25cca78",
+      "size": 7091,
+      "sha256": "a38ceceb3b8f840622d0f4918314187e876aef91b6b3d30406dce48deab3bbb0",
       "source": {
         "kind": "git-blob",
-        "blob": "3d58d1788266d1a15e8121eb4fb9676638c499d8"
+        "blob": "9eefb2d0570772ffbfffa2ac9fb2c30f8ac0facb"
       },
       "owningComponent": "site-resilience",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "site-resilience.js",
-      "size": 2996,
-      "sha256": "d877c8682771f34907cfd8e6f57bde62df5f80b234f21b19134ea3d01f941834",
+      "size": 2942,
+      "sha256": "077816ae996d55dbaff4efbebc1487921d31e693230eeebd6afe484f8c3968d6",
       "source": {
         "kind": "git-blob",
-        "blob": "3232189ebb91da1691351d8c3f2b290855e492b0"
+        "blob": "0a43b2d1d5c23be4427fc00f6a88ee39e17a043f"
       },
       "owningComponent": "site-resilience",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "site-responsive.css",
-      "size": 10531,
-      "sha256": "309aaa9e5939be842beff6bb616787eee26af5dd2ca6d98c959baee8c61d1712",
+      "size": 10457,
+      "sha256": "d4ca56fdc8d53a25f4595762de8ac49616cd7af7d08f33dac7e7f9e63b65725d",
       "source": {
         "kind": "git-blob",
-        "blob": "a1368a9799f3fa84f61869715956b4d28f4aa655"
+        "blob": "3b239b83b666c2bf92d77fe34079e1fad26e1b8e"
       },
       "owningComponent": "site-responsive",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "site-scenes.css",
-      "size": 54260,
-      "sha256": "8f1cca072869dcfa862c5e495a1edb9e2c58a92e900869534b8a1db4411ca6e6",
+      "size": 53000,
+      "sha256": "bd4d27000112b14e7c0d992e8fdb6fafa019c3a1cbb78045138d2d8185e212de",
       "source": {
         "kind": "git-blob",
-        "blob": "d961128d66a574a43a7cf45bc79e918e90e8d771"
+        "blob": "2167fd7837bea6402409a0497d4abbcc159b2aff"
       },
       "owningComponent": "site-scenes",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "site-scenes.js",
-      "size": 20668,
-      "sha256": "f9df3f838a81898bafa0d00a56b32b7d238985afd648d1bedd4435619e7dc0df",
+      "size": 20107,
+      "sha256": "3b7e33118cd7588ae800e517641f9fa664b049bab5218524e33ac4caca194c5b",
       "source": {
         "kind": "git-blob",
-        "blob": "20120dfcc293716be65e4bd09a1347abfa9a4de7"
+        "blob": "5667ee3aa4361b022468d16b6589d7fae747e370"
       },
       "owningComponent": "site-scenes",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "site-search.js",
-      "size": 2047,
-      "sha256": "3568c12141f4692ff36eff618b83df4d0acd0bfd23150995a6e16be7a9ca3eee",
+      "size": 2035,
+      "sha256": "d8834677b6ef99e73aa6ab99b400f5d0c29bcb16f9bfe4b934f39e06a561de02",
       "source": {
         "kind": "git-blob",
-        "blob": "458f2b3941e7edbe71c79df125dba92f37d32388"
+        "blob": "cb6d1351b55b77234c78b9f55b9dac589c8440cc"
       },
       "owningComponent": "site-search",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "site-sections.css",
-      "size": 979,
-      "sha256": "d58e8d294dfafbcafc1c9f8153c91aa06db8586aaebc7e4d1669537900e6712c",
+      "size": 978,
+      "sha256": "88ff08221e614def1f0a8fbaeeafe6f2d255bb643243b025c88ab0ec5eaa289a",
       "source": {
         "kind": "git-blob",
-        "blob": "f05f6b3e5d1d1820e0f3b44dd240c4b355b7f021"
+        "blob": "da3319ab9ff1ee22cd5b879196faa84c59e158ca"
       },
       "owningComponent": "site-sections",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "site-sound-control.js",
-      "size": 2858,
-      "sha256": "55e5f104c24e40fc8d76561c1d527edd6149c61db6da0ae571678d6358df6bc5",
+      "size": 2838,
+      "sha256": "9a0d3707e004196a9aad4afa4cce99447f4ec56b882a8743722a37ba722b9ed3",
       "source": {
         "kind": "git-blob",
-        "blob": "f7f50d2e567809a1d555df7b2a3bb4698855cc47"
+        "blob": "40ff3efcc9c7832bb195b925602036055e4427a8"
       },
       "owningComponent": "site-sound-control",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "site-subject.js",
-      "size": 2544,
-      "sha256": "74662c0e81b8c0d9f48978119833ebcd8d14e5cf2a1d10cd5eb6911f7dae3d7f",
+      "size": 2534,
+      "sha256": "2ef61e53883e86b034ac53bd19580e148d9e3a8eef8de820d1ad91bf9467cd65",
       "source": {
         "kind": "git-blob",
-        "blob": "cd08beecd1f3d50b5df08e46e8d3bb79f25dabdb"
+        "blob": "df6bc5e23fcc9fc5c3c089ce6a95368c9110c9f3"
       },
       "owningComponent": "site-subject",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "site-theme.js",
-      "size": 5605,
-      "sha256": "08c43cc25273ea87605229ae2e944a4691e8cf36b7519c98a27c326e1eb5572e",
+      "size": 6175,
+      "sha256": "40b7f5aab427409ce4a2daa7da12aaf8fc77e6324b078495d260dc7086d863a4",
       "source": {
         "kind": "git-blob",
-        "blob": "730e745ba8e99decd948b0a38d13cc86ac7f7fe9"
+        "blob": "ffc01c978d8aedbabcea4e433bb7fb0639dffb4b"
       },
       "owningComponent": "site-theme",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "styles.css",
-      "size": 19562,
-      "sha256": "01552fb06960c79772113971271e8a8307fe1a32e5be58746eb8d0c00c60f9af",
+      "size": 19530,
+      "sha256": "1302db176b50a2a48a0136a79fca499bfa6612c534d1eddeb84221cdc0f76100",
       "source": {
         "kind": "git-blob",
-        "blob": "70b1ca9fd2449b1069f67261311e41e5fa9452d9"
+        "blob": "9ae861adae46c22260d30ecb0991af59605d6c2e"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
     }
   ],
   "fileCount": 243,
-  "byteSize": 282873240
+  "byteSize": 282861151
 }
