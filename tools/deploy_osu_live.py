@@ -190,7 +190,7 @@ def deploy(source, site, verify_public=None):
 
 def http_smoke(commit):
     checks = [('site-theme.js','jr-site-theme'),('site-scenes.js','LIGHT_SCENE_KEY'),('site-audio.js','MAIN_PAGE_RE'),
-              ('site-sound-control.js','JR_HEADER_SOUND_CONTROL_V25'),
+              ('site-sound-control.js','scene-sound-control'),
               ('site-scenes.css','mountain-valley.svg'),('geometric-lab/index.html','site-theme.js'),
               ('geometric-lab/app.js','PortfolioTheme'),('index.html','site-audio.js'),('learn.html','site-audio.js'),
               ('expertise-experience.html','TECHNICAL EXPERTISE'),('game-development.html','Games deserve'),
