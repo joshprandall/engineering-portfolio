@@ -11,7 +11,7 @@
 .home-page .hero-note{gap:14px;font-size:.7rem;margin-top:22px}
 .home-page .hero-note span+span{padding-left:14px}
 .home-page .vnext-cosmos{border-radius:14px;max-width:none;align-self:center;box-shadow:0 20px 65px #0004}
-.home-page .vnext-cosmos-scene{height:350px;min-height:350px}
+.home-page .vnext-cosmos-scene{}
 .home-page .vnext-cosmos .vnext-system-tabs{grid-template-columns:repeat(5,minmax(0,1fr));padding:10px;gap:5px;border-right:0}
 .home-page .vnext-cosmos .vnext-system-tabs button{font-size:.69rem;padding:9px 3px;min-height:42px;border-radius:5px;gap:4px;text-align:center}
 .home-page .vnext-cosmos .vnext-system-tabs button:last-child{grid-column:auto}
@@ -25,13 +25,13 @@
 .home-page .vnext-cosmos .vnext-sys-detail p{font-size:.78rem;line-height:1.65}
 .home-page .vnext-cosmos .vnext-cta{font-size:.75rem;min-height:36px;padding-block:5px}
 .home-page .vnext-sys-meta{font-size:.56rem;letter-spacing:.13em}
-.home-page .vnext-world{min-height:68px;width:68px}
-.home-page .vnext-world strong{display:none}
-.home-page .vnext-world small{display:none}
+.home-page .vnext-world{}
+.home-page .vnext-world strong{}
+.home-page .vnext-world small{}
 .home-page .vnext-cosmos-hint{font-size:.45rem;letter-spacing:.1em}
-.home-page .vnext-cosmos-core{width:66px;height:66px}
-.home-page .vnext-cosmos-core span{font-size:.93rem}
-.home-page .vnext-cosmos-core small{font-size:.37rem}
+.home-page .vnext-cosmos-core{}
+.home-page .vnext-cosmos-core span{}
+.home-page .vnext-cosmos-core small{}
 .home-section{padding-block:76px;border-top:1px solid var(--line)}
 .home-page h2{font-size:clamp(1.9rem,3.05vw,3rem);line-height:1.13;letter-spacing:-.045em}
 .home-page .section-heading{margin-bottom:32px;align-items:flex-end}
@@ -110,7 +110,7 @@
  .home-page .wrap{width:calc(100% - 44px)}
  .home-page .hero{grid-template-columns:1fr;gap:34px;padding-block:46px}
  .home-page .hero-copy{max-width:660px}.home-page .hero h1{font-size:clamp(2.65rem,7.5vw,4rem)}
- .home-page .vnext-cosmos-scene{height:370px;min-height:370px}
+ .home-page .vnext-cosmos-scene{}
  .home-page .vnext-cosmos .vnext-sys-detail{min-height:0}
  .home-section{padding-block:52px}
  .about-story{grid-template-columns:1fr;gap:40px}.systems-photo{height:350px;object-position:center 40%}
@@ -129,14 +129,14 @@
  .home-page .hero .eyebrow{font-size:.51rem;letter-spacing:.07em}
  .home-page .actions{margin-block:24px;gap:10px}.home-page .hero .button{font-size:.75rem;padding-inline:14px;gap:12px}
  .home-page .hero-note{font-size:.61rem;gap:10px;flex-wrap:nowrap}.home-page .hero-note span+span{padding-left:10px}
- .home-page .vnext-cosmos-scene{height:280px;min-height:280px}
+ .home-page .vnext-cosmos-scene{}
  .home-page .vnext-cosmos .vnext-sys-top{font-size:.5rem;letter-spacing:.06em;padding:12px}
  .home-page .vnext-cosmos .vnext-system-tabs{padding:8px;gap:4px}
  .home-page .vnext-cosmos .vnext-system-tabs button{font-size:.58rem;padding:8px 2px}
  .home-page .vnext-cosmos .vnext-sys-detail{padding:16px}.home-page .vnext-cosmos .vnext-sys-detail h2{font-size:1.09rem}
  .home-page .vnext-cosmos .vnext-sys-detail p{font-size:.74rem}
  .home-page .vnext-cosmos .vnext-cta{font-size:.72rem}
- .home-page .vnext-cosmos-core{width:54px;height:54px}.home-page .vnext-cosmos-core::before{inset:-9px}
+ .home-page .vnext-cosmos-core{}.home-page .vnext-cosmos-core::before{}
  .home-section{padding-block:40px}
  .home-page .section-heading{display:block;margin-bottom:25px}.home-page .section-heading>p{margin-top:18px;max-width:42ch;font-size:.84rem}
  .home-page .section-heading .text-link{margin-top:17px}

@@ -3263,11 +3263,11 @@
       "fallbackContract": "Resolve same-site absolute media to preserved local bytes when available. Preserve existing URL until route migration and consumer checks pass.",
       "localCounterpart": {
         "path": "play-evil-wizard.html",
-        "size": 7843,
-        "sha256": "f080d0a1f8e5c72f926d62769af5482620351bb350d275c83aff0d841ab4f954",
+        "size": 8113,
+        "sha256": "f912660a7862a361186c699907e81b4b0de13d73b69081234ef60471112944d8",
         "source": {
           "kind": "git-blob",
-          "blob": "2cb216ce3387c6c4a5fa02e782dfd1daa7b79b78"
+          "blob": "16a17ec1eead86e975e070af382451029572e8b8"
         },
         "owningComponent": "portfolio",
         "deploymentClassification": "KEEP_PRODUCTION"
@@ -3288,11 +3288,11 @@
       "fallbackContract": "Resolve same-site absolute media to preserved local bytes when available. Preserve existing URL until route migration and consumer checks pass.",
       "localCounterpart": {
         "path": "project-battle-chess.html",
-        "size": 9029,
-        "sha256": "65b7588cfc19386736649cb15b97d04c5f5989c7d83d93383466875d4d178d12",
+        "size": 9342,
+        "sha256": "7e29f826e862ed927e4468f046184cdc28a07e7f848055bd46e85225d9c8ccd3",
         "source": {
           "kind": "git-blob",
-          "blob": "c2a3901dbe3bd8f598e8ea4319fc7389e2729490"
+          "blob": "020f8b6e99020ea2f27217cf81ae7e74d3a72d90"
         },
         "owningComponent": "portfolio",
         "deploymentClassification": "KEEP_PRODUCTION"
@@ -3313,11 +3313,11 @@
       "fallbackContract": "Resolve same-site absolute media to preserved local bytes when available. Preserve existing URL until route migration and consumer checks pass.",
       "localCounterpart": {
         "path": "projects.html",
-        "size": 15033,
-        "sha256": "8b4295096859a01a2482d9d42650cae3136dc6f13805ec1b425717d468c20623",
+        "size": 15283,
+        "sha256": "23eea8d7806d1a2e2edbd47976c428f4c7cb3e226e8b85c8d4b8c4fcbeeae368",
         "source": {
           "kind": "git-blob",
-          "blob": "3523cd2e70b882331cc8766893caddcf08a4544f"
+          "blob": "6ee92f9424aa5e415ee7e43af769c993d790701c"
         },
         "owningComponent": "portfolio",
         "deploymentClassification": "KEEP_PRODUCTION"
