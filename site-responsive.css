@@ -56,27 +56,17 @@ body .vnext-cosmos .vnext-cosmos-core{position:absolute;left:50%;top:45%;width:6
 body .vnext-cosmos .vnext-world{position:absolute;left:0;top:0;width:110px!important;height:112px;min-height:112px!important;margin:0;padding:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
 body .vnext-cosmos .vnext-world strong{display:block!important;font-size:16px!important;line-height:1.2;letter-spacing:0;max-width:110px;white-space:normal}
 .solar-capabilities{display:flex;flex-wrap:wrap;gap:.5rem;padding:1rem}.solar-capabilities button{min-height:44px;flex:1 1 7rem;border:1px solid var(--line);border-radius:8px;background:var(--glass);font-size:1rem}
-.solar-navigation{padding:clamp(.75rem,3vw,2rem);border:1px solid var(--line);border-radius:24px;background:var(--glass)}
-.solar-navigation svg{display:block;width:100%;height:auto;max-width:50rem;margin:auto;overflow:visible}
-.solar-orbits{display:flex;flex-wrap:wrap;gap:.6rem;justify-content:center}.solar-link{display:flex;align-items:center;justify-content:center;flex:1 1 10rem;min-height:44px;padding:.6rem;border:1px solid var(--line);border-radius:12px;background:var(--glass);color:var(--ink,var(--text));text-align:center}
-/* The ladder and route form are one adaptive learning component, never hidden. */
-.depth-system{background:transparent;container-type:inline-size;padding-block:clamp(2rem,5vw,5rem)}
-.depth-ladder{display:grid!important;grid-template-columns:repeat(8,minmax(0,1fr));gap:.75rem;border:0}
-.depth-ladder button{min-width:0;min-height:14rem;padding:1rem;overflow:visible;border:1px solid var(--line);border-radius:12px;background:var(--glass)}
-.depth-ladder strong{font-size:1.05rem;line-height:1.3;overflow-wrap:anywhere}.depth-ladder p{font-size:.85rem;margin-top:1rem}.depth-ladder button.active{outline:2px solid var(--accent);outline-offset:-2px}
-.depth-planner{background:var(--glass);padding:clamp(1rem,3vw,2rem)}.depth-controls select{width:100%;max-width:100%}
-@container(max-width:75rem){.depth-ladder{grid-template-columns:repeat(4,minmax(0,1fr))}}
-@container(max-width:42rem){.depth-ladder{grid-template-columns:repeat(2,minmax(0,1fr))}.depth-ladder button{min-height:0}.depth-planner,.depth-controls,.depth-integrity{grid-template-columns:minmax(0,1fr)}}
-/* Reading widths and intrinsic grid items. */
-:is(.destination-grid,.home-projects,.project-grid,.credential-grid,.research-grid)>*{min-width:0}
-:is(.destination-card,.home-project,.project-card,.resume,.study){background:var(--glass)}
-main>.section,main>section,.contact{content-visibility:visible!important;contain-intrinsic-size:none!important}
-@media(prefers-reduced-motion:reduce){.solar-navigation *{animation:none!important}}
-
-.solar-map .solar-planet-link{cursor:pointer;outline:none}
-.solar-map .solar-planet-link g{transform-box:fill-box;transform-origin:center;transition:filter .16s ease,opacity .16s ease}
-.solar-map .solar-planet-link:hover g,.solar-map .solar-planet-link:focus-visible g{filter:brightness(1.18) drop-shadow(0 0 10px rgba(140,200,209,.55))}
-.solar-map .solar-planet-link:focus-visible{outline:3px solid var(--accent);outline-offset:4px}
+.solar-navigation{position:relative;padding:clamp(1.25rem,4vw,3rem) 0;border:0!important;border-radius:0;background:transparent!important;backdrop-filter:none!important;overflow:visible}
+.solar-navigation>h2{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.solar-navigation svg{display:block;width:100%;height:auto;max-width:52rem;margin:auto;overflow:visible}
+.ai-build-solar svg{max-width:60rem}
+.cinematic-orbit{fill:none;stroke:rgba(130,184,196,.20);stroke-width:1}
+.cinematic-sun{filter:drop-shadow(0 0 10px rgba(255,177,88,.78)) drop-shadow(0 0 28px rgba(240,119,47,.40))}
+.cinematic-core-label{opacity:0;pointer-events:none}
+.cinematic-planet{filter:drop-shadow(0 5px 8px rgba(0,0,0,.46)) drop-shadow(0 0 7px rgba(128,210,225,.22))}
+.cinematic-planet-ring{fill:none;stroke:rgba(222,230,226,.55);stroke-width:3;opacity:.72;pointer-events:none}
+.cinematic-planet-label{fill:#f8fbfc!important;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:14px!important;font-weight:800;letter-spacing:-.01em;text-anchor:middle;paint-order:stroke;stroke:rgba(3,9,13,.92);stroke-width:4px;stroke-linejoin:round;pointer-events:none}
+.ai-build-solar .cinematic-planet-label{font-size:11px!important}
 
 .ai-build-card{scroll-margin-top:calc(var(--header-height,96px) + 1rem)}
 .ai-build-card:target{outline:2px solid color-mix(in srgb,var(--accent) 70%,transparent);outline-offset:4px}
