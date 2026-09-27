@@ -60,13 +60,20 @@ body .vnext-cosmos .vnext-world strong{display:block!important;font-size:16px!im
 .solar-navigation>h2{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 .solar-navigation svg{display:block;width:100%;height:auto;max-width:52rem;margin:auto;overflow:visible}
 .ai-build-solar svg{max-width:60rem}
-.cinematic-orbit{fill:none;stroke:rgba(130,184,196,.20);stroke-width:1}
-.cinematic-sun{filter:drop-shadow(0 0 10px rgba(255,177,88,.78)) drop-shadow(0 0 28px rgba(240,119,47,.40))}
-.cinematic-core-label{opacity:0;pointer-events:none}
-.cinematic-planet{filter:drop-shadow(0 5px 8px rgba(0,0,0,.46)) drop-shadow(0 0 7px rgba(128,210,225,.22))}
-.cinematic-planet-ring{fill:none;stroke:rgba(222,230,226,.55);stroke-width:3;opacity:.72;pointer-events:none}
-.cinematic-planet-label{fill:#f8fbfc!important;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:14px!important;font-weight:800;letter-spacing:-.01em;text-anchor:middle;paint-order:stroke;stroke:rgba(3,9,13,.92);stroke-width:4px;stroke-linejoin:round;pointer-events:none}
-.ai-build-solar .cinematic-planet-label{font-size:11px!important}
+.approved-orbit{fill:none;stroke:rgba(130,184,196,.24);stroke-width:1.1}
+.approved-sun{filter:drop-shadow(0 0 10px rgba(255,177,88,.82)) drop-shadow(0 0 28px rgba(240,119,47,.46))}
+.approved-sun-glow{fill:rgba(245,157,69,.10);pointer-events:none}
+.approved-planet-body{stroke:rgba(255,255,255,.50);stroke-width:1;filter:drop-shadow(0 5px 8px rgba(0,0,0,.46)) drop-shadow(0 0 7px rgba(128,210,225,.22))}
+.approved-ring{fill:none;stroke:rgba(222,230,226,.60);stroke-width:2.4;opacity:.78;pointer-events:none}
+.approved-label{fill:#f8fbfc!important;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:14px!important;font-weight:800;letter-spacing:-.01em;text-anchor:middle;paint-order:stroke;stroke:rgba(3,9,13,.94);stroke-width:4px;stroke-linejoin:round;pointer-events:none}
+.ai-build-solar .approved-label{fill:#f8fbfc!important;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:14px!important;font-weight:800;letter-spacing:-.01em;text-anchor:middle;paint-order:stroke;stroke:rgba(3,9,13,.94);stroke-width:4px;stroke-linejoin:round;pointer-events:none}
 
 .ai-build-card{scroll-margin-top:calc(var(--header-height,96px) + 1rem)}
 .ai-build-card:target{outline:2px solid color-mix(in srgb,var(--accent) 70%,transparent);outline-offset:4px}
+
+.approved-planet-link{cursor:pointer;outline:none}
+.approved-hit{fill:transparent;stroke:transparent;pointer-events:all}
+.approved-planet-link:focus-visible .approved-planet-body,.approved-planet-link:hover .approved-planet-body{stroke:var(--accent)!important;stroke-width:3!important;filter:brightness(1.14) drop-shadow(0 0 9px rgba(255,184,114,.70))}
+.approved-depth-back .approved-planet-link{pointer-events:auto}
+.approved-depth-front .approved-planet-link{pointer-events:auto}
+@media(max-width:42rem){.approved-label{font-size:13px!important}.ai-build-solar .approved-ai-label{font-size:10px!important}}
