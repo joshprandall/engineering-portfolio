@@ -3264,10 +3264,10 @@
       "localCounterpart": {
         "path": "play-evil-wizard.html",
         "size": 8113,
-        "sha256": "f912660a7862a361186c699907e81b4b0de13d73b69081234ef60471112944d8",
+        "sha256": "ff680127aae32022edf638326596be4152ebde900c2f1198e8da201a06656254",
         "source": {
           "kind": "git-blob",
-          "blob": "16a17ec1eead86e975e070af382451029572e8b8"
+          "blob": "f80bddd67b4429108ab0c5591c7c420b7389f3bf"
         },
         "owningComponent": "portfolio",
         "deploymentClassification": "KEEP_PRODUCTION"
@@ -3289,10 +3289,10 @@
       "localCounterpart": {
         "path": "project-battle-chess.html",
         "size": 9342,
-        "sha256": "7e29f826e862ed927e4468f046184cdc28a07e7f848055bd46e85225d9c8ccd3",
+        "sha256": "f49c4c6764170d574b2b0a6e9e83f4c0c3779c2f6d90265e08a66b072fc1b0f8",
         "source": {
           "kind": "git-blob",
-          "blob": "020f8b6e99020ea2f27217cf81ae7e74d3a72d90"
+          "blob": "bc5067e2452ee00c3c04831d900635d7da33fd29"
         },
         "owningComponent": "portfolio",
         "deploymentClassification": "KEEP_PRODUCTION"

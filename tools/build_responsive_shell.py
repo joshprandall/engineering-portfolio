@@ -23,6 +23,12 @@ def main():
    if resource not in s:s=s.replace('</head>',tag+'</head>')
   s=re.sub(r'<script[^>]*src="site-sound-control.js[^"]*"[^>]*></script>','',s)
   s=s.replace('</head>','<script defer src="site-sound-control.js"></script></head>')
+  if not learning:
+   if 'site-search.js' not in s:
+    s=s.replace('</head>','<script defer src="site-search.js"></script></head>')
+   if 'id="search-dialog"' not in s:
+    search_dialog='<dialog aria-labelledby="search-title" id="search-dialog"><div class="dialog-head"><h2 id="search-title">Explore the portfolio</h2><button aria-label="Close search" data-close>✕</button></div><label for="search-input">Search sections, projects and lessons</label><input autocomplete="off" id="search-input" placeholder="Try Azure, leadership, or fusion…" type="search"><div id="search-results"></div><p class="muted">Escape to close · Tab to navigate results</p></dialog>'
+    s=s.replace('</body>',search_dialog+'</body>')
   # Ensure geometry owner loads after all legacy component styles.
   s=s.replace('<link rel="stylesheet" href="site-responsive.css">','');s=s.replace('</head>','<link rel="stylesheet" href="site-responsive.css"></head>')
   osu=html.escape(education['osu']['degree'])+'<br>'+html.escape(education['osu']['direction'])+'<span>Mathematics minor</span><span>Physics minor</span>'
