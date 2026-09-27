@@ -399,3 +399,115 @@ img,video,canvas,svg,iframe{max-width:100%}
   .depth-ladder,.stats{grid-template-columns:minmax(0,1fr)!important}
   .site-global-header,.site-global-header *{min-width:0}
 }
+
+/* Scene-visibility contract v2 — opaque legacy shells may not sit behind glass.
+   The moving/static scene must remain visibly present through all UI surfaces. */
+html{background:#06121c}
+body.living-scenes{
+  background:transparent!important;
+}
+
+/* Page-sized and section-sized legacy shells must not paint an opaque layer
+   underneath otherwise-translucent cards. */
+body.living-scenes :is(
+  main,.home-page,.lesson-view,.curriculum,.glossary,.labs,.practice,.connections,
+  .evidence-guide,.verification-strip,.resume-strip,.discover,.atlas,.stat-band,
+  .feature-band,.quantum-section,.depth-system,.section.alt,.project-detail,.cap-wrap
+){
+  background:transparent!important;
+  background-image:none!important;
+}
+
+/* Make the glass visibly transparent rather than merely softened. */
+:root{
+  --glass:rgba(7,13,17,.18);
+  --glass-soft:rgba(7,13,17,.10);
+  --glass-strong:rgba(7,13,17,.30);
+  --surface:rgba(10,17,21,.20);
+  --surface2:rgba(14,23,27,.26);
+  --panel:rgba(10,17,21,.20);
+  --panel2:rgba(14,23,27,.26);
+  --panel3:rgba(20,30,34,.30);
+  --bg2:rgba(10,17,21,.12);
+  --inset:rgba(5,10,14,.22);
+}
+:root[data-theme="light"]{
+  --glass:rgba(247,249,245,.20);
+  --glass-soft:rgba(247,249,245,.12);
+  --glass-strong:rgba(247,249,245,.34);
+  --surface:rgba(247,249,245,.20);
+  --surface2:rgba(239,243,238,.26);
+  --panel:rgba(247,249,245,.20);
+  --panel2:rgba(239,243,238,.26);
+  --panel3:rgba(231,237,232,.30);
+  --bg2:rgba(247,249,245,.12);
+  --inset:rgba(241,245,240,.22);
+}
+
+/* Legacy learning/library cards and interactive panels that were still opaque. */
+:is(
+  .curriculum-layout,.curriculum-tabs,.search-extras>div,.extra-links button,
+  .graph-panel,.graph-detail,.glossary-search,.glossary-letters button,.glossary-card,
+  .narration-rate select,.lb-client,.lb-core,.lb-backends button,.binary-bits span,
+  .logic-stage button,.logic-gate,.latency-ladder button,.queue-stage>div span,
+  .rbac-roles button,.recall-options button,.flashcard,.lab-card,.lab-visual,
+  .evidence-steps article,.verification-box,.route-row.head,.route-result,
+  .kube-service,.kube-pod,.reconcile-summary>div,.cache-set,.mpi-rank,.state-vector,
+  .prob-bars i,.btree-node,.zt-flow>div,.lesson-page-tabs,.lesson-page-tabs button,
+  .lesson-dashboard article,.hands-on-card,.practice-prompt,.lab-filter-tools select,
+  .switch-hosts button,.scheduler-nodes>div,.claim-ledger,.mastery-domain,.mastery-card,
+  .mastery-bar,.mastery-list button,.evidence-lab .lab-checks label,.lab-notes textarea,
+  .evidence-reveal,.workflow-grid article,.teachback label,.workflow-claim,
+  .learning-mode-bar,.learning-mode-bar select,.essential-question,.lesson-route article,
+  .starter-card,.analogy-card,.technical-scope,.teach-prompt,.claim-focus,
+  .vocab-grid details,.vocab-empty,.reasoning-steps li,.connection-columns article,
+  .concept-visual,.concept-center-node,.concept-node,.visual-detail,.video-curator,
+  .video-pin-row input,.video-missing,.watch-prompts article,.lab-blueprint,
+  .memory-ladder article,.teachback-studio,.teachback-studio textarea,.review-planner,
+  .source-reading-guide article,.probabilities,.vnext-school,.vnext-project-nav,
+  .nav-games-menu,.direction-image span
+){
+  background:var(--glass)!important;
+  background-image:none!important;
+  -webkit-backdrop-filter:blur(5px) saturate(1.05)!important;
+  backdrop-filter:blur(5px) saturate(1.05)!important;
+}
+
+/* Slightly stronger glass only where text/control contrast genuinely needs it. */
+:is(
+  .curriculum-tabs,.lesson-page-tabs,.search-stage,.vnext-project-nav,.cap-header,
+  .glossary-search,.learning-mode-bar,.nav-games-menu
+){
+  background:var(--glass-strong)!important;
+}
+
+/* Capstone pages carried their own fully opaque theme. */
+:is(#cap-selector a,#cap-detail,.cap-example,.cap-check){
+  background:var(--glass)!important;
+  background-image:none!important;
+  -webkit-backdrop-filter:blur(5px) saturate(1.05)!important;
+  backdrop-filter:blur(5px) saturate(1.05)!important;
+}
+
+/* Preserve accent meaning without turning selected tiles opaque. */
+:is(
+  #cap-selector a[aria-current="page"],.glossary-letters button.active,
+  .lesson-page-tabs button.active,.curriculum-tabs button.active,
+  .lb-backends button.selected,.cache-set.selected,.btree-node.active,
+  .scheduler-nodes>div.chosen
+){
+  background:color-mix(in srgb,var(--accent) 16%,var(--glass-strong))!important;
+}
+
+/* Glass should show detail, not smear the scene into a flat color. */
+:is(
+  .project-card,.home-project,.education-cards article,.destination-card,.domain-card,
+  .lesson-card,.path-card,.atlas-card,.practice-card,.mastery-card,.portrait-card,
+  .system-visual,.constellation-panel,.depth-planner,.research-bridge,.science-console,
+  .science-output,.app-panel,.cap-check,.cap-example,.curriculum-layout,.graph-panel,
+  .graph-detail,.glossary-card,.lab-card,.verification-box,.lesson-dashboard article,
+  .hands-on-card,.teachback-studio,.review-planner
+){
+  -webkit-backdrop-filter:blur(4px) saturate(1.04)!important;
+  backdrop-filter:blur(4px) saturate(1.04)!important;
+}
