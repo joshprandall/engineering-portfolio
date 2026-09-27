@@ -146,7 +146,7 @@ body .vnext-cosmos .vnext-world strong{display:block!important;font-size:16px!im
 .about-lede{max-width:66ch;color:var(--ink,var(--text));font-size:clamp(1.15rem,2.4vw,1.5rem);line-height:1.55}
 .about-hero-copy>p:not(.eyebrow):not(.about-lede){max-width:70ch}
 .about-profile-photo{margin:0;align-self:center}
-.about-profile-photo img{display:block;width:100%;max-width:26rem;margin-inline:auto;aspect-ratio:4/5;object-fit:cover;object-position:50% 33%;border:1px solid var(--line);border-radius:16px;filter:none}
+.about-profile-photo img{display:block;width:min(100%,24rem);height:auto;margin-inline:auto;object-fit:contain;object-position:center;border:1px solid var(--line);border-radius:16px;filter:none}
 .about-profile-photo figcaption{margin-top:.65rem;text-align:center;color:var(--muted);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase}
 .about-facts{display:flex;flex-wrap:wrap;gap:.45rem 1rem;margin:1.4rem 0;color:var(--muted);font-size:.86rem}
 .about-facts span+span::before{content:"•";margin-right:1rem;color:var(--accent)}
@@ -198,3 +198,6 @@ body .vnext-cosmos .vnext-world strong{display:block!important;font-size:16px!im
 .about-contact-section>p{max-width:62ch}
 @media(max-width:58rem){.about-hero{grid-template-columns:1fr}.about-profile-photo{grid-row:1}.about-profile-photo img{max-width:22rem}.about-prose{grid-template-columns:1fr}.career-timeline details>div{padding-left:0}.about-principles li{grid-template-columns:1fr;gap:.4rem}}
 @media(max-width:38rem){.about-hero{padding-top:2rem}.about-facts{display:grid;gap:.35rem}.about-facts span+span::before{content:"";margin:0}.career-timeline summary{grid-template-columns:1fr auto}.career-timeline summary .career-years{grid-column:1/-1}.education-line{grid-template-columns:1fr}.about-contact-list>div{grid-template-columns:1fr;gap:.2rem}.about-capabilities details>p{padding-left:0}}
+
+/* About is one continuous reading page; render every section so anchor jumps and full-page previews never show intrinsic-size placeholders. */
+.about-unified-page main>section{content-visibility:visible!important;contain-intrinsic-size:auto!important}
