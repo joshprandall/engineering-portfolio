@@ -116,7 +116,7 @@
   }
   $("#copy-email")?.addEventListener("click", async () => {
     try {
-      await navigator.clipboard.writeText("randall.joshua@gmail.com");
+      await navigator.clipboard.writeText("joshprandall@gmail.com");
       notify("Email copied");
     } catch {
       notify("Copy unavailable");
