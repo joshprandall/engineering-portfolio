@@ -10,7 +10,10 @@
       if(input){input.scrollIntoView({block:'center'});input.focus();return;}
       location.assign(new URL('learn.html?focus=search',base));
     });
-    if(new URL(location.href).searchParams.get('focus')==='search')requestAnimationFrame(()=>document.querySelector('#knowledge-search')?.focus());
+    if(new URL(location.href).searchParams.get('focus')==='search'){
+      const focusLearning=()=>document.querySelector('#knowledge-search')?.focus();
+      requestAnimationFrame(focusLearning);addEventListener('load',()=>setTimeout(focusLearning,150),{once:true});
+    }
     nav.id=nav.id||'primary-nav';
     menu.dataset.navOwner='site-navigation';document.body.classList.add('header-menu');
     const close=(restore=false)=>{nav.classList.remove('open');menu.setAttribute('aria-expanded','false');menu.setAttribute('aria-label','Open navigation');if(restore)menu.focus();};
