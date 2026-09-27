@@ -54,10 +54,11 @@ async function run(){
     for(const [route,selector] of glassCases){
      await page.goto(base+route,{waitUntil:'domcontentloaded'});
      const loc=page.locator(selector).first();if(!(await loc.count()))continue;
-     const bg=await loc.evaluate(e=>getComputedStyle(e).backgroundColor);
-     const m=bg.match(/rgba?\(([^)]+)\)/);assert(m,route+' '+selector+' has a parseable background');
-     const parts=m[1].split(',').map(x=>Number(x.trim()));const alpha=parts.length>3?parts[3]:1;
-     assert(alpha>0&&alpha<.6,route+' '+selector+' remains genuinely translucent, got '+bg);
+     const paint=await loc.evaluate(e=>{const c=getComputedStyle(e);return {color:c.backgroundColor,image:c.backgroundImage}});
+     const m=paint.color.match(/rgba?\(([^)]+)\)/);let translucent=false;
+     if(m){const parts=m[1].split(',').map(x=>Number(x.trim()));const alpha=parts.length>3?parts[3]:1;translucent=alpha>0&&alpha<.6;}
+     if(!translucent&&paint.image!=='none'){const alphas=[...paint.image.matchAll(/rgba\([^)]*,\s*([0-9.]+)\)/g)].map(x=>Number(x[1]));translucent=alphas.length>0&&alphas.every(a=>a<.6);}
+     assert(translucent,route+' '+selector+' remains genuinely translucent, got '+JSON.stringify(paint));
     }
     await page.goto(base+'/',{waitUntil:'domcontentloaded'});
    }
