@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "sourceCommit": "984feb055001bcb2a2a9f15240d6554ae74e3de6",
+  "sourceCommit": "c56160cf58db36ffa3cabb5f6747cdcbedd23c95",
   "bytePolicy": "Exact Git blobs; artifacts verified against committed SHA-256 and size.",
   "files": [
     {
@@ -1827,11 +1827,11 @@
     },
     {
       "path": "geometric-lab/index.html",
-      "size": 4972,
-      "sha256": "ba5c895527e21787158d4a405773bdf3f49e4b153959b58c8659b79c271cee55",
+      "size": 5816,
+      "sha256": "970013bf0515b7cb097bbabd7ce1b07b38773fa191ba9666dcfa96ce09da1a7d",
       "source": {
         "kind": "git-blob",
-        "blob": "c9b617822e2b830b178c90188155bff2e5d86c15"
+        "blob": "a6ea6e2144aa1996ea95c297b70689c3f141b2df"
       },
       "owningComponent": "geometric-lab",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -1849,11 +1849,11 @@
     },
     {
       "path": "geometric-lab/styles.css",
-      "size": 12413,
-      "sha256": "34247dac0468117b09e866789779685db96bbf24d33009b96a6b5f54ddefa5f4",
+      "size": 11587,
+      "sha256": "1fd2b5c3c539a441400fa7ac418c5a8be296b353305748d6aa9544f884ccdf68",
       "source": {
         "kind": "git-blob",
-        "blob": "68544400d7bbcfd91b35fdac69b0a383f57d21e1"
+        "blob": "52ba64dde00588667434518910770d6833ac4ef6"
       },
       "owningComponent": "geometric-lab",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -2696,5 +2696,5 @@
     }
   ],
   "fileCount": 243,
-  "byteSize": 282861977
+  "byteSize": 282861995
 }
