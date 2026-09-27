@@ -245,6 +245,6 @@
     new MutationObserver(()=>{draw();start()}).observe(document.documentElement,{attributes:true,attributeFilter:['data-scene-motion']});
   }
 
-  function run(){qa('.solar-navigation[data-solar]').forEach(init);}
+  function run(){qa('.solar-orbits,.solar-capabilities').forEach(n=>n.remove());qa('.solar-navigation[data-solar]').forEach(init);}
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run,{once:true});else run();
 })();
