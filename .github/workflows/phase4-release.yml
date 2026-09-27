@@ -30,6 +30,8 @@ jobs:
         run: npm ci
 
       - name: Reproduce and refresh exact runtime manifest on Linux
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python tools/build_runtime.py --commit "$GITHUB_SHA" --refresh-manifest
 
       - name: Commit exact Linux runtime manifest when changed
