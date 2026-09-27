@@ -292,3 +292,42 @@ dialog{
   -webkit-backdrop-filter:blur(18px) saturate(1.08);
   backdrop-filter:blur(18px) saturate(1.08);
 }
+
+/* Universal tile geometry — every card/panel/tile uses the same rounded language. */
+:root{--tile-radius:14px;--tile-radius-small:10px}
+
+:is(
+  .system-visual,[role="tabpanel"],.project-card,.home-project,.education-cards article,
+  .resume-education article,.destination-card,.constellation-panel,.domain-card,
+  .search-box,.lesson-card,.path-card,.atlas-card,.principle-grid article,
+  .sidebar-card,.rail-card,.misconception,.interactive,.visual-stage,.diagram-node,.metric,
+  .quiz-options button,.practice-card,.mastery-card,.depth-coverage,.depth-ladder button,
+  .depth-planner,.depth-integrity,.research-bridge,.vnext-path-intro,.vnext-path-check,
+  #cap-selector a,#cap-detail,.cap-example,.cap-check,.science-console,.science-stage,
+  .science-output,.science-node-grid button,.science-probes button,.science-paths span,
+  .lab-workspace .lab-grid,#lab .lab-grid,.lab-workspace form,#lab form,.app-panel,
+  .agent-metric,#agent-tasks li,#agent-ledger,.vnext-system,.vnext-quantum,
+  .vnext-quantum-floor,.portrait-card,.contact,.quantum-stage,
+  body.living-scenes[data-library-page="home"] .stats>div,
+  body.living-scenes[data-library-page="home"] .verification-inner
+){
+  border-radius:var(--tile-radius)!important;
+}
+
+/* Nested controls stay rounded, but slightly tighter than their parent tile. */
+:is(
+  .search-stage,.filters select,.check-label,.depth-controls select,.depth-context select,
+  .vnext-path-intro input[type="search"],.vnext-path-intro select,
+  .science-form input[type="number"],.science-form select,
+  .ai-lab-controls input:not([type="checkbox"]),.ai-lab-controls select,
+  .lab-workspace input,.lab-workspace select,.lab-workspace textarea,
+  #lab input,#lab select,#lab textarea,.button,.tools button,.icon-button
+){
+  border-radius:var(--tile-radius-small)!important;
+}
+
+/* Grouped layouts keep rounded outer corners instead of square grid edges. */
+.domain-grid,.lesson-grid,.principle-grid,.depth-ladder,.research-grid{
+  border-radius:var(--tile-radius)!important;
+  overflow:hidden;
+}
