@@ -1,11 +1,10 @@
 /* Sole site ambience UI; playback/preferences belong to SiteAudio. */
 (() => {
   const boot=()=>{
-    if(!/(?:^|\/)(?:index\.html|learn\.html)?$/.test(location.pathname))return;
     const tools=document.querySelector('header .tools, header .header-tools'),audio=window.SiteAudio;
     if(!tools||!audio||document.querySelector('.scene-sound-control'))return;
     const wrapper=document.createElement('div');wrapper.className='scene-sound-control';
-    wrapper.innerHTML='<button type="button" data-scene-audio aria-label="Background sound control" aria-expanded="false" aria-controls="ambient-panel">♫ <span>Sound</span></button><div id="ambient-panel" class="scene-sound-panel" hidden><label for="ambient-volume">Ambient sound <output>5%</output></label><input id="ambient-volume" type="range" min="0" max="10" step="5" value="5" aria-label="Ambient sound volume, zero to ten percent"><button type="button" class="scene-sound-mute">Mute</button><small data-audio-status></small></div>';
+    wrapper.innerHTML='<button type="button" data-scene-audio aria-label="Background sound control" aria-expanded="false" aria-controls="ambient-panel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4zM16 8q6 4 0 8"/></svg><span>Sound</span></button><div id="ambient-panel" class="scene-sound-panel" hidden><label for="ambient-volume">Ambient sound <output>5%</output></label><input id="ambient-volume" type="range" min="0" max="10" step="5" value="5" aria-label="Ambient sound volume, zero to ten percent"><button type="button" class="scene-sound-mute">Mute</button><small data-audio-status></small></div>';
     tools.insertBefore(wrapper,tools.querySelector('[data-theme-toggle]')||tools.lastElementChild);
     const button=wrapper.querySelector('[data-scene-audio]'),panel=wrapper.querySelector('.scene-sound-panel'),slider=wrapper.querySelector('input'),mute=wrapper.querySelector('.scene-sound-mute');
     const render=()=>{slider.value=String(audio.volume*100);wrapper.querySelector('output').textContent=audio.muted?'Muted':Math.round(audio.volume*100)+'%';mute.textContent=audio.muted?'Unmute':'Mute';button.setAttribute('aria-pressed',String(!audio.muted&&audio.volume>0));button.setAttribute('aria-expanded',String(!panel.hidden));wrapper.querySelector('[data-audio-status]').textContent=audio.autoplayBlocked?'Tap Sound to allow playback.':audio.suppressed?'Ambient sound paused for this activity.':'';};

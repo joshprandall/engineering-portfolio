@@ -141,7 +141,7 @@ body.living-scenes{position:relative;isolation:isolate;min-height:100vh;backgrou
 /* Let the living background read through the existing interface without sacrificing contrast. */
 .living-scenes>header{background:var(--scene-surface);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
 .living-scenes .site-header{background:var(--scene-surface);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
-.living-scenes .project-card,.living-scenes .home-project,.living-scenes .education-cards article,.living-scenes .portrait-card{background:var(--scene-surface);border-color:var(--scene-border);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.living-scenes .project-card,.living-scenes .home-project,.living-scenes .education-cards article{background:var(--scene-surface);border-color:var(--scene-border);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
 .living-scenes .stat-band,.living-scenes .home-spotlight,.living-scenes .section.alt{background:var(--scene-soft)}
 .living-scenes .home-section,.living-scenes .contact{border-color:var(--scene-border)}
 .living-scenes .home-project:hover{background:var(--surface)}
@@ -151,8 +151,7 @@ body.living-scenes{position:relative;isolation:isolate;min-height:100vh;backgrou
 /* Light mode deliberately exposes more of the real landscape color. */
 :root[data-theme=light] .living-scenes .project-card,
 :root[data-theme=light] .living-scenes .home-project,
-:root[data-theme=light] .living-scenes .education-cards article,
-:root[data-theme=light] .living-scenes .portrait-card{background:rgba(250,252,247,.84)}
+:root[data-theme=light] .living-scenes .education-cards article{background:rgba(250,252,247,.84)}
 :root[data-theme=light] .living-scenes>header,
 :root[data-theme=light] .living-scenes .site-header{background:rgba(248,251,246,.82)}
 
@@ -287,8 +286,7 @@ button.appearance-toggle:focus-visible{outline:3px solid var(--blue,var(--accent
 :root[data-theme=light] .living-scenes .education-cards p,
 :root[data-theme=light] .living-scenes .credentials-content p,
 :root[data-theme=light] .living-scenes .quantum-intro>p,
-:root[data-theme=light] .living-scenes .quantum-intro .quantum-note,
-:root[data-theme=light] .living-scenes .portrait-card-copy span{
+:root[data-theme=light] .living-scenes .quantum-intro .quantum-note{
   color:#0b1812!important
 }
 :root[data-theme=light] .living-scenes .quantum-intro .quantum-formula{
@@ -310,8 +308,7 @@ button.appearance-toggle:focus-visible{outline:3px solid var(--blue,var(--accent
    This is CSS-only: the existing background loading and animation pipeline is intentionally unchanged. */
 .living-scenes .project-card,
 .living-scenes .home-project,
-.living-scenes .education-cards article,
-.living-scenes .portrait-card{
+.living-scenes .education-cards article{
   border-radius:8px;
   background:rgba(11,17,20,.50);
   border-color:rgba(183,215,221,.22);
@@ -324,8 +321,7 @@ button.appearance-toggle:focus-visible{outline:3px solid var(--blue,var(--accent
 }
 :root[data-theme=light] .living-scenes .project-card,
 :root[data-theme=light] .living-scenes .home-project,
-:root[data-theme=light] .living-scenes .education-cards article,
-:root[data-theme=light] .living-scenes .portrait-card{
+:root[data-theme=light] .living-scenes .education-cards article{
   background:rgba(247,251,245,.38);
   border-color:rgba(31,75,57,.24);
   -webkit-backdrop-filter:blur(9px) brightness(1.07) saturate(.92);
@@ -339,10 +335,8 @@ button.appearance-toggle:focus-visible{outline:3px solid var(--blue,var(--accent
 /* Main-page artwork lets the living environment remain visible; the portrait stays nearly opaque. */
 .living-scenes .systems-photo{opacity:.46}
 .living-scenes .direction-image img{opacity:.54}
-.living-scenes .portrait-photo{opacity:.98}
 :root[data-theme=light] .living-scenes .systems-photo{opacity:.43;filter:brightness(.78) saturate(.9) contrast(.96)}
 :root[data-theme=light] .living-scenes .direction-image img{opacity:.50}
-:root[data-theme=light] .living-scenes .portrait-photo{opacity:1}
 
 /* The learning landing page is glass. Labs and opened learning experiences remain solid. */
 body.living-scenes[data-library-page="home"] .constellation-panel,
@@ -414,8 +408,7 @@ body.living-scenes[data-library-page="labs"] .lab-visual{background:var(--bg2)}
 /* 2026-09-24 visual correction — unmistakable glass, rounded tiles, orderly learning landing. */
 .living-scenes .project-card,
 .living-scenes .home-project,
-.living-scenes .education-cards article,
-.living-scenes .portrait-card{
+.living-scenes .education-cards article{
   background:rgba(7,12,15,.18)!important;
   border:1px solid rgba(176,214,222,.24)!important;
   border-radius:20px!important;
@@ -434,8 +427,7 @@ body.living-scenes[data-library-page="labs"] .lab-visual{background:var(--bg2)}
 }
 :root[data-theme=light] .living-scenes .project-card,
 :root[data-theme=light] .living-scenes .home-project,
-:root[data-theme=light] .living-scenes .education-cards article,
-:root[data-theme=light] .living-scenes .portrait-card{
+:root[data-theme=light] .living-scenes .education-cards article{
   background:rgba(248,251,246,.22)!important;
   border-color:rgba(27,71,53,.24)!important;
   box-shadow:0 18px 48px rgba(34,55,42,.10)!important;
@@ -559,7 +551,6 @@ body.living-scenes[data-library-page="home"] .domain-card:hover{
 :root[data-theme=light] .living-scenes .project-card,
 :root[data-theme=light] .living-scenes .home-project,
 :root[data-theme=light] .living-scenes .education-cards article,
-:root[data-theme=light] .living-scenes .portrait-card,
 :root[data-theme=light] body.living-scenes[data-library-page="home"] .stats>div,
 :root[data-theme=light] body.living-scenes[data-library-page="home"] .verification-inner,
 :root[data-theme=light] body.living-scenes[data-library-page="home"] .domain-card{
@@ -1095,7 +1086,6 @@ body[data-library-page="home"]{
   .project-card,
   .home-project,
   .education-cards article,
-  .portrait-card,
   .game-notes article,
   .game-launch,
   .battle-launch,
@@ -1142,7 +1132,6 @@ body[data-library-page="home"]{
   .project-card,
   .home-project,
   .education-cards article,
-  .portrait-card,
   .game-notes article,
   .game-launch,
   .battle-launch,

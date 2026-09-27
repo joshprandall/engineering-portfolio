@@ -1,0 +1,72 @@
+/* Shared responsive ownership: flow content; contain foreground scenes; crop only backgrounds. */
+:root{--layout-max:88rem;--layout-gutter:clamp(1rem,3vw,3rem);--layout-gap:clamp(1rem,3vw,3rem);--glass:color-mix(in srgb,var(--bg,#101416) 72%,transparent)}
+html,body{min-width:0;max-width:100%;overflow-x:visible!important}
+body{width:100%}
+main,section,article,aside,form,fieldset,figure,nav,main div,header div{min-width:0;box-sizing:border-box}
+main :is(h1,h2,h3,p,a,strong,label){overflow-wrap:break-word}
+body .wrap,body.home-page .wrap{width:calc(100% - 2 * var(--layout-gutter));max-width:var(--layout-max);margin-inline:auto}
+main img,main video,main iframe,main canvas{max-width:100%}
+select,input,textarea{min-width:0;max-width:100%;box-sizing:border-box}
+dialog{box-sizing:border-box;max-width:calc(100% - 2rem);max-height:calc(100dvh - 2rem);overflow:auto}
+/* One generated header, including learning shells. Local learning sound/motion controls stay in main. */
+body .site-global-header{display:flex!important;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.75rem;position:sticky;top:0;width:100%;min-height:0;padding:calc(.75rem + env(safe-area-inset-top)) max(var(--layout-gutter),env(safe-area-inset-right)) .75rem max(var(--layout-gutter),env(safe-area-inset-left));background:var(--glass)!important;backdrop-filter:blur(16px);border-bottom:1px solid var(--line);z-index:100}
+.site-global-header .brand{display:flex!important;min-width:0;gap:.6rem;white-space:normal;line-height:1.3;letter-spacing:0}
+.site-global-header .brand>strong{font-size:1.7rem;color:var(--accent);flex:none}
+.site-global-header .brand>span{font-size:.9rem;line-height:1.3;white-space:normal}
+.site-global-header .brand small{display:block!important;font-size:.68rem;line-height:1.4;white-space:normal}
+body .site-global-header .global-controls{display:flex!important;align-items:center;flex-wrap:wrap;gap:.5rem;margin:0;min-width:0}
+body .site-global-header .global-controls>button,body .site-global-header .global-controls [data-scene-audio]{display:inline-flex!important;align-items:center;justify-content:center;gap:.4rem;min-width:44px!important;width:auto;height:44px!important;min-height:44px;padding:.4rem .65rem!important;margin:0!important;font:600 .8rem/1.1 system-ui!important;letter-spacing:0;border:1px solid var(--line)!important;border-radius:9px!important;background:var(--glass)!important;color:var(--ink,var(--text))!important;box-sizing:border-box;transition:background .15s,border-color .15s;white-space:nowrap}
+body .site-global-header .global-controls [data-theme-toggle]{width:6rem!important}
+.site-global-header .global-controls svg{width:18px!important;height:18px!important;flex:none}
+.site-global-header .global-controls span{display:inline!important;font:inherit!important}
+.site-global-header kbd{font-size:.65rem;margin-left:.4rem}
+body .site-global-header #primary-nav{display:none!important;position:absolute;inset:100% var(--layout-gutter) auto auto;width:min(26rem,calc(100% - 2 * var(--layout-gutter)));max-height:calc(100dvh - var(--header-height,120px) - 1rem);overflow-y:auto;flex-direction:column;align-items:stretch;gap:0;padding:.75rem;border:1px solid var(--line);border-radius:12px;background:color-mix(in srgb,var(--bg) 90%,transparent)!important;backdrop-filter:blur(18px)}
+body .site-global-header #primary-nav.open{display:flex!important}
+.site-global-header #primary-nav a{width:100%;min-height:44px;padding:.6rem!important;white-space:normal}
+body .site-global-header .scene-sound-panel{position:absolute;inset:100% 0 auto auto;width:min(18rem,calc(100vw - 2 * var(--layout-gutter)));max-width:none;max-height:calc(100dvh - var(--header-height,120px) - 1rem);overflow:auto;padding:1rem;background:color-mix(in srgb,var(--bg) 90%,transparent);color:var(--ink,var(--text));border:1px solid var(--line);border-radius:12px;z-index:150}
+.scene-sound-control{position:relative;flex:none}
+.learning-local-controls{display:flex;flex-wrap:wrap;gap:.75rem;margin:1rem auto;max-width:var(--layout-max);padding-inline:var(--layout-gutter)}
+@media(max-width:42rem){body .site-global-header .global-controls{width:100%;justify-content:space-between;gap:.35rem}body .site-global-header .global-controls>button,body .site-global-header .global-controls [data-scene-audio]{font-size:.75rem!important;padding:.4rem!important}body .site-global-header .global-controls [data-theme-toggle]{width:5rem!important}.site-global-header kbd{display:none}.site-global-header .scene-sound-control{position:static}body .site-global-header .scene-sound-panel{right:var(--layout-gutter)}}
+/* Profile is flow layout. The illustration alone is a cover background. Neither theme owns geometry. */
+.home-page .hero{gap:var(--layout-gap);grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+.about-imagery{position:relative;isolation:isolate;display:grid;justify-items:center;align-content:end;gap:0;width:100%;max-width:38rem;margin:0 auto;padding:clamp(1rem,3vw,2rem);border-radius:16px;container-type:inline-size}
+.about-imagery .systems-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.3;z-index:-1}
+.portrait-photo{position:relative;width:min(85%,22rem);margin:0;padding:0;border:0;transform:none;pointer-events:none}
+.portrait-photo img{display:block;width:100%;height:auto;aspect-ratio:300/268;object-fit:contain;object-position:50% 50%;transform:none;filter:drop-shadow(0 12px 18px #0005)}
+.portrait-card{position:relative;display:block;width:100%;margin:0;padding:clamp(.8rem,3cqi,1.5rem);border:1px solid var(--line);border-radius:14px;background:var(--glass);backdrop-filter:blur(14px);text-align:left;z-index:2}
+.portrait-card-copy{min-width:0}.portrait-name{display:block;font-size:1.15rem;margin-bottom:.75rem}
+.credential-row{display:grid;grid-template-columns:4rem minmax(0,1fr);gap:.75rem;margin-top:.75rem;align-items:start}
+.credential-logo{display:grid;place-items:center;background:#fff;border-radius:6px;padding:.35rem;width:4rem;min-width:0;height:2.6rem}
+.credential-logo img{width:100%;height:100%;object-fit:contain}
+.credential-text{font-size:.85rem;line-height:1.55;color:var(--ink,var(--text))}.credential-text span{display:block}
+@container(max-width:22rem){.credential-row{grid-template-columns:1fr;gap:.4rem}}
+.education-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,19rem),1fr));gap:var(--layout-gap)}
+.education-cards article{container-type:inline-size;min-width:0;padding:clamp(1rem,3vw,1.5rem);background:var(--glass)!important}
+.education-cards .school-top{flex-wrap:wrap}.education-cards li{font-size:1rem}
+@media(max-width:64rem){.home-page .hero{grid-template-columns:minmax(0,1fr)}.home-page .hero>.about-imagery{grid-row:1}.home-page .hero-note{flex-wrap:wrap}}
+/* Logical scene dimensions include all foreground paint. Only .solar-scene scales. */
+body .vnext-cosmos{min-width:0;max-width:100%;overflow:visible!important}
+body .vnext-cosmos .vnext-cosmos-scene{position:relative;width:100%;height:auto!important;min-height:0!important;aspect-ratio:800/560;overflow:visible!important;background:transparent!important}
+body .vnext-cosmos .solar-scene{position:absolute;left:0;top:0;width:800px;height:560px;max-width:none;transform-origin:0 0}
+body .vnext-cosmos .vnext-cosmos-canvas{position:absolute;inset:0;width:800px!important;height:560px!important;max-width:none!important}
+body .vnext-cosmos .vnext-cosmos-worlds{position:absolute;inset:0}
+body .vnext-cosmos .vnext-cosmos-core{position:absolute;left:50%;top:45%;width:66px;height:66px}
+body .vnext-cosmos .vnext-world{position:absolute;left:0;top:0;width:110px!important;height:112px;min-height:112px!important;margin:0;padding:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+body .vnext-cosmos .vnext-world strong{display:block!important;font-size:16px!important;line-height:1.2;letter-spacing:0;max-width:110px;white-space:normal}
+.solar-capabilities{display:flex;flex-wrap:wrap;gap:.5rem;padding:1rem}.solar-capabilities button{min-height:44px;flex:1 1 7rem;border:1px solid var(--line);border-radius:8px;background:var(--glass);font-size:1rem}
+.solar-navigation{padding:clamp(.75rem,3vw,2rem);border:1px solid var(--line);border-radius:24px;background:var(--glass)}
+.solar-navigation svg{display:block;width:100%;height:auto;max-width:50rem;margin:auto;overflow:visible}
+.solar-orbits{display:flex;flex-wrap:wrap;gap:.6rem;justify-content:center}.solar-link{display:flex;align-items:center;justify-content:center;flex:1 1 10rem;min-height:44px;padding:.6rem;border:1px solid var(--line);border-radius:12px;background:var(--glass);color:var(--ink,var(--text));text-align:center}
+/* The ladder and route form are one adaptive learning component, never hidden. */
+.depth-system{background:transparent;container-type:inline-size;padding-block:clamp(2rem,5vw,5rem)}
+.depth-ladder{display:grid!important;grid-template-columns:repeat(8,minmax(0,1fr));gap:.75rem;border:0}
+.depth-ladder button{min-width:0;min-height:14rem;padding:1rem;overflow:visible;border:1px solid var(--line);border-radius:12px;background:var(--glass)}
+.depth-ladder strong{font-size:1.05rem;line-height:1.3;overflow-wrap:anywhere}.depth-ladder p{font-size:.85rem;margin-top:1rem}.depth-ladder button.active{outline:2px solid var(--accent);outline-offset:-2px}
+.depth-planner{background:var(--glass);padding:clamp(1rem,3vw,2rem)}.depth-controls select{width:100%;max-width:100%}
+@container(max-width:75rem){.depth-ladder{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@container(max-width:42rem){.depth-ladder{grid-template-columns:repeat(2,minmax(0,1fr))}.depth-ladder button{min-height:0}.depth-planner,.depth-controls,.depth-integrity{grid-template-columns:minmax(0,1fr)}}
+/* Reading widths and intrinsic grid items. */
+:is(.destination-grid,.home-projects,.project-grid,.credential-grid,.research-grid)>*{min-width:0}
+:is(.destination-card,.home-project,.project-card,.resume,.study){background:var(--glass)}
+main>.section,main>section,.contact{content-visibility:visible!important;contain-intrinsic-size:none!important}
+@media(prefers-reduced-motion:reduce){.solar-navigation *{animation:none!important}}

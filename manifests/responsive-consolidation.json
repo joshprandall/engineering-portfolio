@@ -1,0 +1,477 @@
+[
+  {
+    "file": "portfolio-home.css",
+    "selector": ".about-imagery",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  },
+  {
+    "file": "portfolio-home.css",
+    "selector": ".portrait-card",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  },
+  {
+    "file": "portfolio-home.css",
+    "selector": ".portrait-card img",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  },
+  {
+    "file": "portfolio-home.css",
+    "selector": ".portrait-card strong",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  },
+  {
+    "file": "portfolio-home.css",
+    "selector": ".portrait-card span",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  },
+  {
+    "file": "portfolio-home.css",
+    "selector": ".portrait-card img",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  },
+  {
+    "file": "portfolio-home.css",
+    "selector": ".portrait-card",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  },
+  {
+    "file": "portfolio-home.css",
+    "selector": ".about-imagery",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  },
+  {
+    "file": "portfolio-home.css",
+    "selector": ".portrait-card",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  },
+  {
+    "file": "portfolio-home.css",
+    "selector": ".portrait-card img",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  },
+  {
+    "file": "portfolio-home.css",
+    "selector": ".portrait-card",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  },
+  {
+    "file": "portfolio-home.css",
+    "selector": ".portrait-card strong",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  },
+  {
+    "file": "portfolio-home.css",
+    "selector": ".portrait-card span",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  },
+  {
+    "file": "portfolio-home.css",
+    "selector": "/* September 23 academic profile refinement */\n.about-imagery",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  },
+  {
+    "file": "portfolio-home.css",
+    "selector": ".portrait-photo",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  },
+  {
+    "file": "portfolio-home.css",
+    "selector": ".portrait-photo::after",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  },
+  {
+    "file": "portfolio-home.css",
+    "selector": ".portrait-photo img",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  },
+  {
+    "file": "portfolio-home.css",
+    "selector": ".portrait-card",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  },
+  {
+    "file": "portfolio-home.css",
+    "selector": ".portrait-card-copy",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  },
+  {
+    "file": "portfolio-home.css",
+    "selector": ".portrait-card-copy strong",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  },
+  {
+    "file": "portfolio-home.css",
+    "selector": ".portrait-card-copy span",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  },
+  {
+    "file": "portfolio-home.css",
+    "selector": ".portrait-card-copy span+span",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  },
+  {
+    "file": "portfolio-home.css",
+    "selector": ".about-imagery",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  },
+  {
+    "file": "portfolio-home.css",
+    "selector": ".portrait-photo",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  },
+  {
+    "file": "portfolio-home.css",
+    "selector": ".portrait-card",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  },
+  {
+    "file": "portfolio-home.css",
+    "selector": ".about-imagery",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  },
+  {
+    "file": "portfolio-home.css",
+    "selector": ".portrait-photo",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  },
+  {
+    "file": "portfolio-home.css",
+    "selector": ".portrait-card",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  },
+  {
+    "file": "portfolio-home.css",
+    "selector": ".portrait-card-copy strong",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  },
+  {
+    "file": "portfolio-home.css",
+    "selector": ".portrait-card-copy span",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  },
+  {
+    "file": "portfolio-home.css",
+    "selector": ".about-imagery",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  },
+  {
+    "file": "portfolio-home.css",
+    "selector": ".portrait-photo",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  },
+  {
+    "file": "portfolio-home.css",
+    "selector": ".portrait-card",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  },
+  {
+    "file": "portfolio-home.css",
+    "selector": ".portrait-card-copy span",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  },
+  {
+    "file": "portfolio-home.css",
+    "selector": "/* Astra continuation \u2014 portrait hierarchy over the living scene. */\n.about-imagery",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  },
+  {
+    "file": "portfolio-home.css",
+    "selector": ".about-imagery .systems-photo",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  },
+  {
+    "file": "portfolio-home.css",
+    "selector": ".portrait-photo",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  },
+  {
+    "file": "portfolio-home.css",
+    "selector": ".portrait-photo img",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  },
+  {
+    "file": "portfolio-home.css",
+    "selector": ".portrait-card",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  },
+  {
+    "file": "portfolio-home.css",
+    "selector": ".portrait-photo",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  },
+  {
+    "file": "portfolio-home.css",
+    "selector": ".portrait-photo",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  },
+  {
+    "file": "portfolio-home.css",
+    "selector": ".about-imagery .systems-photo",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  },
+  {
+    "file": "portfolio-home.css",
+    "selector": "/* 2026-09-24 composition correction \u2014 portrait belongs over the systems image, not in its own tile. */\n.about-imagery",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  },
+  {
+    "file": "portfolio-home.css",
+    "selector": ".about-imagery .systems-photo",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  },
+  {
+    "file": "portfolio-home.css",
+    "selector": ".portrait-photo",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  },
+  {
+    "file": "portfolio-home.css",
+    "selector": ".portrait-photo::after",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  },
+  {
+    "file": "portfolio-home.css",
+    "selector": ".portrait-photo img",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  },
+  {
+    "file": "portfolio-home.css",
+    "selector": ".portrait-card",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  },
+  {
+    "file": "portfolio-home.css",
+    "selector": ".about-imagery",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  },
+  {
+    "file": "portfolio-home.css",
+    "selector": ".portrait-photo",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  },
+  {
+    "file": "portfolio-home.css",
+    "selector": ".about-imagery",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  },
+  {
+    "file": "portfolio-home.css",
+    "selector": ".portrait-photo",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  },
+  {
+    "file": "portfolio-home.css",
+    "selector": ".portrait-card",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  },
+  {
+    "file": "portfolio-home.css",
+    "selector": "/* Visual correction v4 \u2014 real transparent portrait and open quantum composition. */\n.about-imagery",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  },
+  {
+    "file": "portfolio-home.css",
+    "selector": ".about-imagery .systems-photo",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  },
+  {
+    "file": "portfolio-home.css",
+    "selector": ".portrait-photo",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  },
+  {
+    "file": "portfolio-home.css",
+    "selector": ".portrait-photo img",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  },
+  {
+    "file": "portfolio-home.css",
+    "selector": ".portrait-card",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  },
+  {
+    "file": "portfolio-home.css",
+    "selector": ".about-imagery",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  },
+  {
+    "file": "portfolio-home.css",
+    "selector": ".portrait-photo",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  },
+  {
+    "file": "portfolio-home.css",
+    "selector": "/* Portrait v5 \u2014 inline SVG cutout avoids external-SVG and WebP decoding edge cases. */\n.portrait-photo svg",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  },
+  {
+    "file": "portfolio-home.css",
+    "selector": "/* Hero/profile swap v1 \u2014 portrait at top, solar in About. */\n.home-page .hero>.about-imagery",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  },
+  {
+    "file": "portfolio-home.css",
+    "selector": ".portrait-card-copy",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  },
+  {
+    "file": "portfolio-home.css",
+    "selector": ".portrait-card-copy .portrait-name",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  },
+  {
+    "file": "portfolio-home.css",
+    "selector": ".portrait-card-copy .credential-row",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  },
+  {
+    "file": "portfolio-home.css",
+    "selector": ".portrait-card-copy .credential-text",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  },
+  {
+    "file": "portfolio-home.css",
+    "selector": ".credential-logo",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  },
+  {
+    "file": "portfolio-home.css",
+    "selector": ".credential-logo-osu",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  },
+  {
+    "file": "portfolio-home.css",
+    "selector": ".credential-logo-osu img",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  },
+  {
+    "file": "portfolio-home.css",
+    "selector": ".credential-logo-mit",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  },
+  {
+    "file": "portfolio-home.css",
+    "selector": ".credential-logo-mit img",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  },
+  {
+    "file": "portfolio-home.css",
+    "selector": ".home-page .hero>.about-imagery",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  },
+  {
+    "file": "portfolio-home.css",
+    "selector": ".portrait-card-copy .credential-row",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  },
+  {
+    "file": "portfolio-home.css",
+    "selector": ".credential-logo",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  },
+  {
+    "file": "portfolio-home.css",
+    "selector": ".credential-logo-osu img",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  },
+  {
+    "file": "portfolio-home.css",
+    "selector": ".credential-logo-mit img",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  },
+  {
+    "file": "portfolio-home.css",
+    "selector": ".portrait-card-copy .credential-text",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  },
+  {
+    "file": "portfolio-home.css",
+    "selector": ".portrait-card-copy .credential-row",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  },
+  {
+    "file": "portfolio-home.css",
+    "selector": ".credential-logo",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  },
+  {
+    "file": "portfolio-home.css",
+    "selector": ".credential-logo-osu img",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  },
+  {
+    "file": "portfolio-home.css",
+    "selector": ".credential-logo-mit img",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  },
+  {
+    "file": "portfolio-home.css",
+    "selector": ".portrait-card-copy .credential-text",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  },
+  {
+    "file": "portfolio-home.css",
+    "selector": ".home-page .hero>.about-imagery .portrait-photo",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  },
+  {
+    "file": "site-scenes.css",
+    "selector": ".living-scenes .project-card,.living-scenes .home-project,.living-scenes .education-cards article,.living-scenes .portrait-card",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  },
+  {
+    "file": "site-scenes.css",
+    "selector": "/* Light mode deliberately exposes more of the real landscape color. */\n:root[data-theme=light] .living-scenes .project-card,\n:root[data-theme=light] .living-scenes .home-project,\n:root[data-theme=light] .living-scenes .education-cards article,\n:root[data-theme=light] .living-scenes .portrait-card",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  },
+  {
+    "file": "site-scenes.css",
+    "selector": ":root[data-theme=light] .living-scenes .hero-intro,\n:root[data-theme=light] .living-scenes .hero-note,\n:root[data-theme=light] .living-scenes .section-heading>p,\n:root[data-theme=light] .living-scenes .about-copy>p,\n:root[data-theme=light] .living-scenes .education-cards p,\n:root[data-theme=light] .living-scenes .credentials-content p,\n:root[data-theme=light] .living-scenes .quantum-intro>p,\n:root[data-theme=light] .living-scenes .quantum-intro .quantum-note,\n:root[data-theme=light] .living-scenes .portrait-card-copy span",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  },
+  {
+    "file": "site-scenes.css",
+    "selector": "/* Astra continuation \u2014 adaptive glass tiles, solid destinations, and artwork hierarchy.\n   This is CSS-only: the existing background loading and animation pipeline is intentionally unchanged. */\n.living-scenes .project-card,\n.living-scenes .home-project,\n.living-scenes .education-cards article,\n.living-scenes .portrait-card",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  },
+  {
+    "file": "site-scenes.css",
+    "selector": ":root[data-theme=light] .living-scenes .project-card,\n:root[data-theme=light] .living-scenes .home-project,\n:root[data-theme=light] .living-scenes .education-cards article,\n:root[data-theme=light] .living-scenes .portrait-card",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  },
+  {
+    "file": "site-scenes.css",
+    "selector": ".living-scenes .portrait-photo",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  },
+  {
+    "file": "site-scenes.css",
+    "selector": ":root[data-theme=light] .living-scenes .portrait-photo",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  },
+  {
+    "file": "site-scenes.css",
+    "selector": "/* 2026-09-24 visual correction \u2014 unmistakable glass, rounded tiles, orderly learning landing. */\n.living-scenes .project-card,\n.living-scenes .home-project,\n.living-scenes .education-cards article,\n.living-scenes .portrait-card",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  },
+  {
+    "file": "site-scenes.css",
+    "selector": ":root[data-theme=light] .living-scenes .project-card,\n:root[data-theme=light] .living-scenes .home-project,\n:root[data-theme=light] .living-scenes .education-cards article,\n:root[data-theme=light] .living-scenes .portrait-card",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  },
+  {
+    "file": "site-scenes.css",
+    "selector": ":root[data-theme=light] .living-scenes .project-card,\n:root[data-theme=light] .living-scenes .home-project,\n:root[data-theme=light] .living-scenes .education-cards article,\n:root[data-theme=light] .living-scenes .portrait-card,\n:root[data-theme=light] body.living-scenes[data-library-page=\"home\"] .stats>div,\n:root[data-theme=light] body.living-scenes[data-library-page=\"home\"] .verification-inner,\n:root[data-theme=light] body.living-scenes[data-library-page=\"home\"] .domain-card",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  },
+  {
+    "file": "site-scenes.css",
+    "selector": "/* 2026-09-24 glass system v11 \u2014 translucent tiles across labs, learning, projects, and game showcases. */\n.living-scenes :is(\n  .project-card,\n  .home-project,\n  .education-cards article,\n  .portrait-card,\n  .game-notes article,\n  .game-launch,\n  .battle-launch,\n  .app-panel,\n  .science-console,\n  .science-output,\n  .agent-metric,\n  #agent-tasks li,\n  .domain-card,\n  .lesson-card,\n  .practice-card,\n  .mastery-card,\n  .lab-card,\n  .path-card,\n  .atlas-card,\n  .glossary-card,\n  .analogy-card,\n  .hands-on-card,\n  .sidebar-card,\n  .starter-card,\n  .rail-card,\n  .standalone-tile,\n  .verification-box,\n  .provenance-box,\n  .curriculum-panel,\n  .graph-panel,\n  .graph-detail,\n  .guide-card,\n  .note-card,\n  .probability-panel,\n  .experiment-controls,\n  .results,\n  .callout\n)",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  },
+  {
+    "file": "site-scenes.css",
+    "selector": ":root[data-theme=\"light\"] .living-scenes :is(\n  .project-card,\n  .home-project,\n  .education-cards article,\n  .portrait-card,\n  .game-notes article,\n  .game-launch,\n  .battle-launch,\n  .app-panel,\n  .science-console,\n  .science-output,\n  .agent-metric,\n  #agent-tasks li,\n  .domain-card,\n  .lesson-card,\n  .practice-card,\n  .mastery-card,\n  .lab-card,\n  .path-card,\n  .atlas-card,\n  .glossary-card,\n  .analogy-card,\n  .hands-on-card,\n  .sidebar-card,\n  .starter-card,\n  .rail-card,\n  .standalone-tile,\n  .verification-box,\n  .provenance-box,\n  .curriculum-panel,\n  .graph-panel,\n  .graph-detail,\n  .guide-card,\n  .note-card,\n  .probability-panel,\n  .experiment-controls,\n  .results,\n  .callout\n)",
+    "reason": "Portrait component consolidated in site-responsive.css"
+  }
+]

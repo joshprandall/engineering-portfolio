@@ -4,6 +4,8 @@
   const install=()=>{
     const nav=document.querySelector('header #primary-nav, header.site-header nav'),menu=document.querySelector('header #menu, header #mobile-menu');
     if(!nav||!menu||menu.dataset.navOwner)return;
+    const header=menu.closest('header');new ResizeObserver(()=>document.documentElement.style.setProperty('--header-height',header.getBoundingClientRect().height+'px')).observe(header);
+    document.querySelector('[data-learning-search]')?.addEventListener('click',()=>{const input=document.querySelector('#knowledge-search');input?.scrollIntoView({block:'center'});input?.focus();});
     nav.id=nav.id||'primary-nav';
     menu.dataset.navOwner='site-navigation';document.body.classList.add('header-menu');
     const close=(restore=false)=>{nav.classList.remove('open');menu.setAttribute('aria-expanded','false');menu.setAttribute('aria-label','Open navigation');if(restore)menu.focus();};

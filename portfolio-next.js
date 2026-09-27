@@ -57,28 +57,15 @@
     $$('.vnext-project-nav').forEach(nav=>nav.remove());
   }
 
-  function restoreEducation(){
-    const section=$('#direction'); if(!section)return;
-    const existing=$('.study',section);if(!existing)return;
-    const education=document.createElement('div');education.className='vnext-education';
-    education.innerHTML=`<div class="vnext-school"><div class="vnext-school-mark vnext-osu" role="img" aria-label="OSU monogram"><img src="assets/osu-logo.png" alt="Oregon State University logo" width="150" height="50" onerror="this.replaceWith(document.createTextNode('OSU'))"></div><div><strong>Oregon State University</strong><p>Bachelor’s studies in Computer Science and Electrical &amp; Computer Engineering</p><small>Minors: Data Science, Mathematics and Physics · Ecampus</small></div></div>
-      <div class="vnext-school"><div class="vnext-school-mark vnext-mit" role="img" aria-label="MIT wordmark">MIT</div><div><strong>Massachusetts Institute of Technology</strong><p>Quantum Engineering program · concurrent enrollment</p><small>Program participation; credit and degree status not stated</small></div></div>`;
-    existing.replaceWith(education);
-    const next=education.nextElementSibling;
-    if(next && next.tagName==='P' && /Planned study includes/i.test(next.textContent)){
-      next.textContent='My focus combines computer science, electrical and computer engineering, mathematics, physics and data science with quantum engineering study. The academic programs listed above are in progress.';
-    }
-  }
-
   function interactiveSystems(){
     const old=$('.system-visual');if(!old)return;
     const stage=document.createElement('section');
     stage.className='vnext-system vnext-cosmos';
     stage.setAttribute('aria-label','Interactive Connected Systems solar-system model');
     stage.innerHTML=`<div class="vnext-cosmos-scene" aria-label="Animated solar-system capability scene">
-        <canvas class="vnext-cosmos-canvas" role="img" aria-label="Five linked capability nodes orbiting a central systems core"></canvas>
+        <div class="solar-scene"><canvas class="vnext-cosmos-canvas" role="img" aria-label="Five linked capability nodes orbiting a central systems core"></canvas>
         <div class="vnext-cosmos-core" aria-hidden="true"></div>
-        <div class="vnext-cosmos-worlds" role="group" aria-label="Select a connected-systems capability"></div>
+        <div class="vnext-cosmos-worlds" role="group" aria-label="Select a connected-systems capability"></div></div>
       </div>
       <div class="vnext-sys-detail" id="vnext-detail" aria-live="polite">
         <div class="vnext-sys-meta">ACTIVE CAPABILITY</div>
@@ -89,6 +76,7 @@
     old.replaceWith(stage);
 
     const scene=$('.vnext-cosmos-scene',stage);
+    const logical=$('.solar-scene',stage);
     const canvas=$('.vnext-cosmos-canvas',stage);
     const worlds=$('.vnext-cosmos-worlds',stage);
     const coreEl=$('.vnext-cosmos-core',stage);
@@ -141,38 +129,23 @@
       draw();
     }
 
-    function resize(){
-      const r=scene.getBoundingClientRect();
-      width=Math.max(2,r.width);height=Math.max(2,r.height);
-      dpr=Math.min(window.devicePixelRatio||1,constrained?(width<700?1.2:1.4):(width<700?1.4:1.75));
-      canvas.width=Math.round(width*dpr);canvas.height=Math.round(height*dpr);
-      canvas.style.width=width+'px';canvas.style.height=height+'px';
-      ctx.setTransform(dpr,0,0,dpr,0,0);
-      draw();
-    }
-
-    // Solar orbit v11: restore the original cinematic angle and motion.
-    // The old desktop clamp made the outer tracks share the same horizontal
-    // endpoints. These radii preserve the original perspective while widening
-    // every lane so the drawn orbit paths remain distinct.
-    function orbitRadius(o){
-      const i=orbit.indexOf(o);
-      if(width<520){
-        const mobileRx=[.24,.31,.38,.45,.52];
-        const mobileRy=[.105,.145,.185,.225,.265];
-        return {rx:mobileRx[i]??o.rx,ry:mobileRy[i]??o.ry};
-      }
-      return {rx:o.rx,ry:o.ry};
-    }
-
-    // Solar orbit v12: collision-safe phone/tablet choreography.
-    // Smaller screens cannot provide enough radial lane spacing for five independently
-    // rotating worlds. Keep their relative angular spacing locked below 760px so the
-    // planets never converge, while retaining the original independent desktop motion.
+    // 800x560 includes maximum orbital excursion, labels, selected glow and parallax.
+    // Outer radius 264 + 10 parallax + 90 paint extent < half the scene width.
     const collisionSafePhases=[0,2.16308613,3.82658988,5.03588269,.91318652];
+    function resize(){
+      width=800;height=560;
+      const available=scene.getBoundingClientRect(),scale=Math.min(available.width/width,available.height/height);
+      logical.style.transform=`translate(${(available.width-width*scale)/2}px,${(available.height-height*scale)/2}px) scale(${scale})`;
+      logical.dataset.scale=scale;
+      dpr=Math.min(window.devicePixelRatio||1,2);
+      canvas.width=Math.round(width*dpr);canvas.height=Math.round(height*dpr);
+      ctx.setTransform(dpr,0,0,dpr,0,0);draw();
+    }
+    function orbitRadius(o){const i=orbit.indexOf(o);return {rx:[.14,.19,.24,.285,.33][i],ry:[.09,.13,.17,.21,.25][i]};}
+
     function worldPosition(i,time){
       const o=orbit[i],r=orbitRadius(o);
-      const collisionSafe=width<760;
+      const collisionSafe=true;
       const phase=collisionSafe?collisionSafePhases[i]:o.phase;
       const speed=collisionSafe?.12:o.speed;
       const motion=reduced.matches?0:time*speed;
@@ -242,7 +215,7 @@
       if(!stage.isConnected||document.hidden||!sceneVisible)return;
       if(now-lastPaint<frameInterval){raf=requestAnimationFrame(frame);return;}
       const dt=Math.min(50,now-last||16);last=now;lastPaint=now;
-      const orbitMoving=!reduced.matches&&document.body.dataset.motion!=='paused';
+      const orbitMoving=!reduced.matches&&!window.PortfolioTheme?.isPaused();
       if(orbitMoving)t+=dt/1000;
       parallaxX+=(targetX-parallaxX)*.07;parallaxY+=(targetY-parallaxY)*.07;
       draw();
@@ -269,7 +242,7 @@
     addEventListener('pagehide',stop,{once:true});
     if(typeof ResizeObserver!=='undefined')new ResizeObserver(()=>{resize();start()}).observe(scene);
     else addEventListener('resize',()=>{resize();start()},{passive:true});
-    select(0);resize();start();
+    const controls=document.createElement('div');controls.className='solar-capabilities';modes.forEach((m,i)=>{const b=document.createElement('button');b.textContent=m.name;b.addEventListener('click',()=>select(i));controls.append(b);});scene.after(controls);document.addEventListener('portfolio:motion',()=>{draw();start()});select(0);resize();start();
   }
 
   function strengthenNavigation(){
@@ -286,7 +259,7 @@
     if(!document.querySelector('script[src="science-experiments.js?v=20260924-release"]')){const s=document.createElement('script');s.src='science-experiments.js?v=20260924-release';s.defer=true;document.body.append(s);}
   }
   function init(){
-    const steps=[loadScienceExperiments,strengthenNavigation,enhanceProjectCards,enhanceProjectNavigation,restoreEducation,interactiveSystems];
+    const steps=[loadScienceExperiments,strengthenNavigation,enhanceProjectCards,enhanceProjectNavigation,interactiveSystems];
     steps.forEach(step=>{
       try{step();}
       catch(error){console.error('[portfolio enhancement]',step.name,error);}
