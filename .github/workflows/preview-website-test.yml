@@ -1,0 +1,62 @@
+name: Website test preview
+
+on:
+  push:
+    branches: [website-test]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm ci
+      - name: Capture current test website
+        shell: bash
+        run: |
+          mkdir -p preview-qa
+          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/preview-server.log 2>&1 &
+          CHROME=$(command -v google-chrome || command -v chromium || command -v chromium-browser || true)
+          if [ -z "$CHROME" ]; then
+            npx playwright install --with-deps chromium
+            CHROME=""
+          fi
+          cat > /tmp/capture-preview.cjs <<'NODE'
+          const { chromium } = require('playwright');
+          const path = require('node:path');
+          (async()=>{
+            const browser = await chromium.launch({headless:true, executablePath:process.env.CHROME || undefined, args:['--no-sandbox','--disable-dev-shm-usage']});
+            const pages = [
+              ['home','index.html'],
+              ['learn','learn.html'],
+              ['ai','ai-development.html'],
+              ['projects','projects.html'],
+              ['resume','resume.html'],
+              ['about','about.html']
+            ];
+            for (const [name,route] of pages) {
+              for (const [mode,width,height] of [['phone',390,844],['desktop',1440,1000]]) {
+                const context = await browser.newContext({viewport:{width,height},deviceScaleFactor:1,isMobile:mode==='phone',hasTouch:mode==='phone'});
+                const page = await context.newPage();
+                await page.goto('http://127.0.0.1:8765/'+route,{waitUntil:'domcontentloaded',timeout:30000});
+                await page.waitForTimeout(3500);
+                await page.screenshot({path:path.join('preview-qa',name+'-'+mode+'.png'),fullPage:true,animations:'disabled'});
+                await context.close();
+              }
+            }
+            await browser.close();
+          })().catch(e=>{console.error(e);process.exit(1)});
+          NODE
+          CHROME="$CHROME" node /tmp/capture-preview.cjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: website-test-preview
+          path: preview-qa/
+          if-no-files-found: error
+          retention-days: 7
