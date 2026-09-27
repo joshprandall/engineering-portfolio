@@ -242,7 +242,7 @@
     addEventListener('pagehide',stop,{once:true});
     if(typeof ResizeObserver!=='undefined')new ResizeObserver(()=>{resize();start()}).observe(scene);
     else addEventListener('resize',()=>{resize();start()},{passive:true});
-    const controls=document.createElement('div');controls.className='solar-capabilities';modes.forEach((m,i)=>{const b=document.createElement('button');b.textContent=m.name;b.addEventListener('click',()=>select(i));controls.append(b);});scene.after(controls);document.addEventListener('portfolio:motion',()=>{draw();start()});select(0);resize();start();
+    document.addEventListener('portfolio:motion',()=>{draw();start()});select(0);resize();start();
   }
 
   function strengthenNavigation(){
