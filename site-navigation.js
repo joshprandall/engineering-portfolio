@@ -2,6 +2,11 @@
 (() => {
   const script=document.currentScript,base=new URL('./',script.src);
   const install=()=>{
+    // Remove accidental literal "\\n" text nodes that can appear before the site header after deployment.
+    // Scope this only to direct <body> text nodes so legitimate page content is untouched.
+    for(const node of [...document.body.childNodes]){
+      if(node.nodeType===Node.TEXT_NODE&&node.textContent.trim()==='\\n')node.remove();
+    }
     const nav=document.querySelector('header #primary-nav, header.site-header nav'),menu=document.querySelector('header #menu, header #mobile-menu');
     if(!nav||!menu||menu.dataset.navOwner)return;
     const header=menu.closest('header');new ResizeObserver(()=>document.documentElement.style.setProperty('--header-height',header.getBoundingClientRect().height+'px')).observe(header);
