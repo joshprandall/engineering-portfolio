@@ -1,0 +1,17 @@
+[
+  {
+    "label": "live",
+    "path": ".codex",
+    "error": "EPERM: operation not permitted, scandir 'Z:\\public_html\\.codex'"
+  },
+  {
+    "label": "live",
+    "path": "_shellfish_uploading_4336159125157019876",
+    "error": "EPERM: operation not permitted, open 'Z:\\public_html\\_shellfish_uploading_4336159125157019876'"
+  },
+  {
+    "label": "live",
+    "path": "quantum2.jpg",
+    "error": "EPERM: operation not permitted, open 'Z:\\public_html\\quantum2.jpg'"
+  }
+]

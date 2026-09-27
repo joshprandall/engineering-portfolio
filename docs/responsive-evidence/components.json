@@ -1,0 +1,65 @@
+{
+  "sourceCommit": "281d854d924fbdff40e70754ae5e14df05fc92e8",
+  "headerRoutes": [
+    "about.html",
+    "agent-workbench.html",
+    "ai-development.html",
+    "direction.html",
+    "engine-development.html",
+    "expertise-experience.html",
+    "game-development.html",
+    "index.html",
+    "learn-advanced.html",
+    "learn-browse.html",
+    "learn-capstones.html",
+    "learn-cloud.html",
+    "learn-cyber.html",
+    "learn-glossary.html",
+    "learn-labs.html",
+    "learn-leadership.html",
+    "learn-map.html",
+    "learn-mastery.html",
+    "learn-math.html",
+    "learn-paths.html",
+    "learn-physics.html",
+    "learn-practice.html",
+    "learn-software.html",
+    "learn-verify.html",
+    "learn.html",
+    "lesson.html",
+    "play-evil-wizard.html",
+    "project-advanced-computing.html",
+    "project-asset-inventory.html",
+    "project-battle-chess.html",
+    "project-dependency.html",
+    "project-emergent.html",
+    "project-fusion.html",
+    "project-geometric-ai.html",
+    "project-kubernetes-lab.html",
+    "project-learning-library.html",
+    "project-lifecycle.html",
+    "project-mind.html",
+    "project-portfolio.html",
+    "project-qpe.html",
+    "project-qubit.html",
+    "project-recovery.html",
+    "projects.html",
+    "resume.html"
+  ],
+  "viewports": [
+    [
+      320,
+      568
+    ],
+    [
+      768,
+      1024
+    ],
+    [
+      1440,
+      900
+    ]
+  ],
+  "solarExtrema": "all phases, parallax and conservative 90px paint radius",
+  "education": true
+}

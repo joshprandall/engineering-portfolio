@@ -1,43 +1,4 @@
 <!doctype html>
-<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#101319"><meta name="description" content="A playable 3D chess arena with animated capture battles. Two players, one device."><title>Crown & Ash — 3D Battle Chess</title>
-<!-- Social preview metadata -->
-<meta property="og:type" content="website"/>
-<meta property="og:site_name" content="Joshua Randall Engineering Portfolio"/>
-<meta property="og:title" content="Crown &amp; Ash — 3D Battle Chess"/>
-<meta property="og:description" content="Play Joshua Randall’s 3D battle chess arena with animated capture battles."/>
-<meta property="og:url" content="https://web.engr.oregonstate.edu/~randjosh/games/battle-chess/"/>
-<meta property="og:image" content="https://web.engr.oregonstate.edu/~randjosh/assets/joshua-randall-headshot.jpg"/>
-<meta property="og:image:secure_url" content="https://web.engr.oregonstate.edu/~randjosh/assets/joshua-randall-headshot.jpg"/>
-<meta property="og:image:type" content="image/jpeg"/>
-<meta property="og:image:alt" content="Joshua Randall"/>
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:title" content="Crown &amp; Ash — 3D Battle Chess"/>
-<meta name="twitter:description" content="Play Joshua Randall’s 3D battle chess arena with animated capture battles."/>
-<meta name="twitter:image" content="https://web.engr.oregonstate.edu/~randjosh/assets/joshua-randall-headshot.jpg"/>
-<link rel="canonical" href="https://web.engr.oregonstate.edu/~randjosh/games/battle-chess/"/>
-<link rel="icon" href="data:,"><link rel="stylesheet" href="styles.css"><script type="importmap">{"imports":{"three":"./vendor/three.module.js"}}</script></head>
-<body>
-<header class="masthead"><div class="brand"><span class="brand-mark" aria-hidden="true">♜</span><div><span class="eyebrow">THE BATTLE CHESS ARENA</span><h1>Crown <i>&</i> Ash</h1></div></div><div class="header-actions"><span class="local-label">Two players · one device</span><button id="help" class="quiet">How to play</button></div></header>
-<main class="workspace">
-<section class="arena-panel" aria-label="3D chess arena">
-<div class="arena-top"><div><span class="eyebrow" id="game-mode">STANDARD CHESS</span><h2 id="turn">Ivory to move</h2></div><div class="turn-seal" id="turn-seal" aria-hidden="true">♔</div></div>
-<div id="viewport"><div id="loading" class="loading">Preparing the arena…</div><div id="webgl-error" class="fallback" hidden><h2>3D view unavailable</h2><p>Your browser could not start WebGL 2. You can still play using the tactical board.</p></div></div>
-<div class="arena-bottom"><p id="instruction" role="status" aria-live="polite">Select an ivory piece to see its legal moves.</p><div class="camera-controls" aria-label="Camera controls"><button id="flip" title="View from the other side">Flip view</button><button id="camera-reset">Reset view</button><button id="zoom-in" aria-label="Zoom in">＋</button><button id="zoom-out" aria-label="Zoom out">−</button></div></div>
-<div class="battle-banner" id="battle-banner" hidden aria-live="polite"><span class="eyebrow">CAPTURE</span><strong id="battle-text"></strong></div>
-</section>
-<aside class="command-panel" aria-label="Game controls">
-<section class="settings"><h2>Choose your armies</h2><label>White army<select id="white-set"></select></label><label>Black army<select id="black-set"></select></label><label>Animation<select id="speed"><option value="cinematic">Cinematic</option><option value="quick">Quick</option><option value="instant">Instant</option></select></label><label><input type="checkbox" id="dark-effects"> Dark fantasy effects</label><button id="skip">Skip animation</button><button id="return-game" hidden>Return to match</button><button id="save-game">Download saved match</button><label>Load saved match<input id="load-game" type="file" accept="application/json,.json"></label></section>
-<section class="army"><div class="army-heading"><span class="swatch ivory"></span><h2>The Ivory Crown</h2><span>WHITE</span></div><p id="white-captures" class="captures">No captures yet</p></section>
-<section class="army"><div class="army-heading"><span class="swatch ash"></span><h2>The Ash Legion</h2><span>BLACK</span></div><p id="black-captures" class="captures">No captures yet</p></section>
-<div class="action-grid"><button id="new-game" class="primary">New game</button><button id="undo">Undo move</button><button id="showcase" class="wide">Battle gallery</button></div>
-<section class="chronicle"><div class="section-heading"><h2>Move chronicle</h2><span id="move-count">0 moves</span></div><div id="history" class="history" tabindex="0" aria-label="Move history"><p class="empty">Every battle starts with a move.</p></div></section>
-<div class="preferences"><label><input type="checkbox" id="sound"> Sound effects</label><label><input type="checkbox" id="motion"> Reduce motion</label></div>
-<details id="tactical"><summary>Tactical board & keyboard play</summary><p class="small">Choose a piece, then a highlighted square. Arrow keys move focus; Enter selects.</p><div id="tactical-board" class="tactical-board" role="group" aria-label="Playable tactical chessboard"></div></details>
-<p class="footnote">Drag to orbit · scroll or pinch to zoom<br>Captures change the battle, never the rules.</p>
-</aside></main>
-<dialog id="help-dialog"><div class="dialog-heading"><h2>Command your army</h2><button data-close="help-dialog" aria-label="Close instructions">✕</button></div><p>Play against someone on the same device. Ivory moves first.</p><ol><li>Select one of your pieces on the arena or tactical board.</li><li>Choose a highlighted destination. A ring marks a capture.</li><li>When armies meet, watch the capture battle before the next turn.</li></ol><p>Castling, en passant, promotion, check, and checkmate follow standard chess moves. A king is never captured—the game ends at checkmate.</p><p>This casual version ends draws automatically on threefold repetition, the fifty-move rule, stalemate, or the engine’s insufficient-material detection. It has no tournament clocks or draw-claim procedure.</p><p>Use <strong>Undo move</strong> to step back. <strong>Battle gallery</strong> opens a staged position; it replaces the current game only after you choose a demonstration.</p><button class="primary" data-close="help-dialog">Enter the arena</button></dialog>
-<dialog id="new-dialog"><h2>Start a new game?</h2><p>This clears the current board and move history.</p><div class="dialog-actions"><button data-close="new-dialog">Keep playing</button><button id="confirm-new" class="primary">Start new game</button></div></dialog>
-<dialog id="promotion-dialog"><h2>A new power rises</h2><p>Choose your pawn’s promotion.</p><div class="promotion-options"><button data-promote="q">♕<span>Queen</span></button><button data-promote="r">♖<span>Rook</span></button><button data-promote="b">♗<span>Bishop</span></button><button data-promote="n">♘<span>Knight</span></button></div><button data-close="promotion-dialog">Cancel move</button></dialog>
-<dialog id="showcase-dialog"><div class="dialog-heading"><h2>Choose your champion</h2><button data-close="showcase-dialog" aria-label="Close capture showcase">✕</button></div><p>Load a staged capture and watch the pieces fight. Your match is held while you preview. Use Return to match afterward.</p><label class="gallery-victim">Opponent piece<select id="victim"><option value="p">Pawn</option><option value="n">Knight</option><option value="b">Bishop</option><option value="r" selected>Rook</option><option value="q">Queen</option></select></label><div class="showcase-options"><button data-demo="p">♙<span>Pawn</span><small>Shield & blade</small></button><button data-demo="n">♘<span>Knight</span><small>Mounted charge</small></button><button data-demo="b">♗<span>Bishop</span><small>Arcane strike</small></button><button data-demo="r">♖<span>Rook</span><small>Golem smash</small></button><button data-demo="q">♕<span>Queen</span><small>Royal spell</small></button><button data-demo="k">♔<span>King</span><small>Crown’s judgement</small></button></div></dialog>
-<noscript><p class="noscript">JavaScript is required to play this game.</p></noscript>
-<script type="module" src="main.js"></script></body></html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="refresh" content="0;url=../3d-battle-chess/"><title>Crown &amp; Ash has moved</title>
+</head><body><main><h1>Crown &amp; Ash</h1><p><a href="../3d-battle-chess/">Open the current playable game</a>.</p></main></body></html>

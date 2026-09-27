@@ -1,0 +1,3 @@
+Source: https://github.com/joshprandall/3d-battle-chess
+Pinned source commit: b88b32afb25e6074889a1aadd0df535515b4a784
+Historical games/battle-chess/ is incomplete and should not be deployed.

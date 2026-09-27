@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "assets": [
+    {
+      "kind": "release-asset",
+      "filename": "fusion-presentation-eefc852a3a5d12eeedf8a217fc2cb68d6d0476612ad4d8744a8e6febd99361e8.mp4",
+      "sha256": "eefc852a3a5d12eeedf8a217fc2cb68d6d0476612ad4d8744a8e6febd99361e8",
+      "size": 168678432,
+      "canonicalPath": "assets/fusion-presentation.mp4",
+      "releaseTag": "website-2.0-preservation-20260926",
+      "state": "uploaded-and-server-digest-verified",
+      "canonicalFilename": "fusion-presentation.mp4",
+      "expectedDeployedPath": "assets/fusion-presentation.mp4",
+      "provenance": "Z:/public_html/assets/fusion-presentation.mp4",
+      "ownership": "Fusion: Joshua Randall / OSU team; redistribution terms not independently documented",
+      "sourceUrl": "https://web.engr.oregonstate.edu/~randjosh/assets/fusion-presentation.mp4",
+      "releaseId": 397149099,
+      "assetId": 590222021,
+      "apiUrl": "https://api.github.com/repos/joshprandall/engineering-portfolio/releases/assets/590222021",
+      "downloadUrl": "https://github.com/joshprandall/engineering-portfolio/releases/download/untagged-e644a6348fdcd9aef65d/fusion-presentation-eefc852a3a5d12eeedf8a217fc2cb68d6d0476612ad4d8744a8e6febd99361e8.mp4",
+      "releaseUrl": "https://github.com/joshprandall/engineering-portfolio/releases/tag/untagged-e644a6348fdcd9aef65d",
+      "requiresRepositoryReadAccess": true
+    },
+    {
+      "kind": "release-asset",
+      "filename": "evil-wizard-engine-fc74679e3b97f76878947fcd4fbe1268cbfa6188182a2e33bbc3f5dc9bfa57d0.wasm",
+      "sha256": "fc74679e3b97f76878947fcd4fbe1268cbfa6188182a2e33bbc3f5dc9bfa57d0",
+      "size": 39514754,
+      "canonicalPath": "games/evil-wizard/index.wasm",
+      "releaseTag": "website-2.0-preservation-20260926",
+      "state": "uploaded-and-server-digest-verified",
+      "canonicalFilename": "index.wasm",
+      "expectedDeployedPath": "games/evil-wizard/index.wasm",
+      "provenance": "Z:/public_html/games/evil-wizard-adaptive-preview-v23/index.wasm",
+      "ownership": "Godot engine web export; preserve Godot and bundled third-party notices; project content separately owned",
+      "sourceUrl": "https://web.engr.oregonstate.edu/~randjosh/games/evil-wizard/index.wasm",
+      "releaseId": 397149099,
+      "assetId": 590223347,
+      "apiUrl": "https://api.github.com/repos/joshprandall/engineering-portfolio/releases/assets/590223347",
+      "downloadUrl": "https://github.com/joshprandall/engineering-portfolio/releases/download/untagged-e644a6348fdcd9aef65d/evil-wizard-engine-fc74679e3b97f76878947fcd4fbe1268cbfa6188182a2e33bbc3f5dc9bfa57d0.wasm",
+      "releaseUrl": "https://github.com/joshprandall/engineering-portfolio/releases/tag/untagged-e644a6348fdcd9aef65d",
+      "requiresRepositoryReadAccess": true
+    }
+  ]
+}

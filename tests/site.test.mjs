@@ -44,11 +44,15 @@ assert.doesNotMatch(vnext,/const core=ctx\.createRadialGradient/,'Cosmos rendere
 assert.match(read('portfolio-next.css'),/vnext-cosmos-scene/,'Solar-system presentation styles missing');
 assert.match(vnext,/enhanceProjectNavigation/,'Project pager cleanup missing');
 assert.match(vnext,/\$\$\('\.vnext-project-nav'\)\.forEach\(nav=>nav\.remove\(\)\)/,'Stale project pagers must be removed by the shared experience layer');
-assert.match(vnext,/target='_blank'/,'Project-card pop-out behavior missing');
 
 const primaryTiles=[...projects.matchAll(/<a\b[^>]*class=["'][^"']*tile-open[^"']*["'][^>]*>/gi)].map(x=>x[0]);
 assert.equal(primaryTiles.length,16,'Every project card must have one primary tile link');
-for (const tile of primaryTiles) assert.match(tile,/target=["']_blank["']/i,'Every primary project tile must open its dedicated page in a new tab');
+for (const tile of primaryTiles) {
+ const href=tile.match(/href=["']([^"']+)["']/i)?.[1];
+ assert.ok(href && exists(href.split(/[?#]/)[0]), `Project tile must resolve locally: ${href}`);
+ // Same-tab navigation is supported. Explicit new-tab links must be isolated.
+ if (/target=["']_blank["']/i.test(tile)) assert.match(tile,/rel=["'][^"']*noopener/i,'New-tab tile must use noopener');
+}
 
 const detailPages=fs.readdirSync(root).filter(x=>/^project-.*\.html$/.test(x));
 assert.ok(detailPages.length>=15,'Expected dedicated project pages for the catalog');
@@ -81,17 +85,18 @@ assert.doesNotMatch(handheldCss,/\.hx-tablet-rail\{position:fixed/,'Floating tab
 assert.match(handheldJs,/removeLegacyFloatingNavigation/,'Handheld layer must actively remove stale floating navigation');
 assert.match(read('styles.css'),/:focus-visible/,'Visible keyboard focus styling missing');
 const resilience=read('site-resilience.js');
-assert.match(resilience,/Game Development/,'Primary navigation must include the Game Development category');
-assert.match(resilience,/project-battle-chess\.html/,'Game Development navigation must include 3D Battle Chess');
-assert.match(resilience,/play-evil-wizard\.html/,'Game Development navigation must include Defeat the Evil Wizard');
-assert.match(resilience,/menu\.onclick=/,'Shared header must have a single explicit hamburger owner');
+const navigation=JSON.parse(read('assets/site-navigation.json'));
+assert(navigation.items.some(x=>x.path==='game-development.html'));
+assert.equal(navigation.parents['project-battle-chess.html'],'game-development.html');
+assert.equal(navigation.parents['play-evil-wizard.html'],'game-development.html');
+assert.doesNotMatch(resilience,/menu\.onclick=/,'Resilience must not own navigation');
 assert.match(resilience,/project-shell/,'Project pages must be marked for hamburger-only header navigation');
 assert.match(read('site-resilience.css'),/body\.project-shell #menu\{display:inline-flex!important/,'Project pages must expose the hamburger at all viewport sizes');
 assert.match(read('site-scenes.css'),/body\.project-shell \.tools #theme\.appearance-toggle/,'Project pages must expose the shared appearance control');
 assert.doesNotMatch(read('app.js'),/menu\.addEventListener\("click"/,'app.js must not register a competing hamburger handler');
 assert.match(read('site-resilience.css'),/\.nav-games-menu/,'Game Development submenu styling is missing');
-assert.match(read('knowledge.js'),/closePrimaryNav/,'Knowledge Library must use robust top navigation close behavior');
-assert.match(read('knowledge.js'),/Game Development/,'Knowledge Library top navigation must include Game Development');
+assert(read('learn.html').includes('site-navigation.js'),'Learning header uses shared navigation owner');
+assert.doesNotMatch(read('knowledge.js'),/closePrimaryNav/,'Learning must not retain a competing primary menu owner');
 assert.match(read('play-evil-wizard.html'),/id="primary-nav"/,'Evil Wizard wrapper must use the shared top navigation');
 assert.match(read('play-evil-wizard.html'),/site-resilience\.js\?v=[A-Za-z0-9._-]+/,'Evil Wizard wrapper must load the versioned shared navigation asset');
 assert.ok(!projects.includes('id="roadmap"'),'Removed projects roadmap must not return');
@@ -131,7 +136,7 @@ assert.match(overlayWorkflow,/forbidden_prefixes=\('games\/',\s*'geometric-lab\/
 assert.match(overlayWorkflow,/protected_root\s*=\s*set\(\)/,'OSU overlay must allow project wrapper HTML to receive navigation fixes');
 assert.match(overlayWorkflow,/forbidden_prefixes=\('games\/',\s*'geometric-lab\/'\)/,'OSU overlay must continue protecting actual game and Geometry Lab trees');
 const deployScript=read('tools/deploy_osu_live.py');
-assert.match(deployScript,/parser\.add_argument\('--commit',required=True/,'Deployments must explicitly select the exact tested commit');
+assert.match(deployScript,/parser\.add_argument\('commit'/,'Deployments must explicitly select the exact tested commit as a positional full SHA');
 assert.doesNotMatch(deployScript,/WEB_COMMIT =/,'A stale hardcoded deploy pin must not override the tested release');
 const webDirs=deployScript.match(/WEB_DIRS = \(([^)]*)\)/)?.[1]||'';
 assert.ok(!/games\/|geometric-lab|project-sources/.test(webDirs),'OSU deploy WEB_DIRS must not overwrite protected or repository-only trees');
@@ -187,6 +192,8 @@ assert.match(read('project-geometric-ai.html'),/<iframe\b[^>]*loading=["']lazy["
 
 
 const home=read('index.html');
+assert.doesNotMatch(home.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi,'').replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi,''),/\\n/,'Visible literal newline escapes must not return');
+assert.doesNotMatch(home, /Â·|â†’|â€”|\uFFFD/, 'Homepage must not render known encoding corruption');
 assert.doesNotMatch(home,/id="fusion"|Depth across the stack|Grounded in experience/,'Replaced homepage sections must not return');
 for(const asset of ['portfolio-home.css','quantum-cube.js','assets/systems-lab.jpg']) assert.ok(home.includes(asset)&&exists(asset),`Homepage asset missing: ${asset}`);
 assert.ok(exists('assets/quantum-field-notes.jpg'),'Quantum Field Notes artwork remains available as an optional asset');

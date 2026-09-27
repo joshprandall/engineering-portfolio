@@ -1,0 +1,8 @@
+# Preservation snapshots and exported game files retain the audited bytes.
+preservation/** -text
+games/evil-wizard/** -text
+*.wasm binary
+*.pck binary
+*.pdf binary
+assets/audio/README.txt -text
+games/3d-battle-chess/shared-game.js -text

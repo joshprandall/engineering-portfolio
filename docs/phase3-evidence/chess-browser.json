@@ -1,0 +1,22 @@
+[
+  {
+    "case": "desktop",
+    "passed": true
+  },
+  {
+    "case": "touch-landscape-portrait",
+    "passed": true
+  },
+  {
+    "case": "module-failure-retry-state-handoff",
+    "passed": true
+  },
+  {
+    "case": "webgl-unavailable-keyboard",
+    "passed": true
+  },
+  {
+    "case": "offline-touch-move-undo-responsive",
+    "passed": true
+  }
+]

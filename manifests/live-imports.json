@@ -1,0 +1,201 @@
+{
+  "schemaVersion": 1,
+  "files": [
+    {
+      "path": "ASIMOV.jpg",
+      "sha256": "204c07dea9584fe664b8668dd81b7d4b27a9a452e13a692ae8aa601bee251c7c",
+      "size": 44143,
+      "storage": "git-file",
+      "source": "Z:/public_html/ASIMOV.jpg"
+    },
+    {
+      "path": "Joshua_Randall_MASTER_RESUME_L.docx",
+      "sha256": "073f02b97e2d60f86766b7ccf097f701b52a8fb39284f1277af2bfacc0612a64",
+      "size": 37409,
+      "storage": "git-file",
+      "source": "Z:/public_html/Joshua_Randall_MASTER_RESUME_L.docx"
+    },
+    {
+      "path": "Joshua_Randall_Resume(2).pdf",
+      "sha256": "67a8e8fdad6be4beaa4346e1755c051f24d3ba0a13f1301ba429593bc49b37ff",
+      "size": 4253,
+      "storage": "git-file",
+      "source": "Z:/public_html/Joshua_Randall_Resume(2).pdf"
+    },
+    {
+      "path": "assets/Recovery_Readiness_Auditor.zip",
+      "sha256": "8205c4c2b1102398c53d4de315522bb3b92ef154d0f4c40bf4d5da1a1647e1e9",
+      "size": 8597,
+      "storage": "git-file",
+      "source": "Z:/public_html/assets/Recovery_Readiness_Auditor.zip"
+    },
+    {
+      "path": "assets/audio/README.txt",
+      "sha256": "4a66c2930fc8c810863fc281732fe8796e51908128c520900052235767006f10",
+      "size": 194,
+      "storage": "git-file",
+      "source": "Z:/public_html/assets/audio/README.txt"
+    },
+    {
+      "path": "assets/audio/beach-birds.mp3",
+      "sha256": "b44bebff290a7140d36bce16c78012f0a8f51ffd1865b885fbb3e502568741c1",
+      "size": 1579968,
+      "storage": "git-file",
+      "source": "Z:/public_html/assets/audio/beach-birds.mp3"
+    },
+    {
+      "path": "assets/audio/beach-waves.mp3",
+      "sha256": "fd505dbd43cb1c3508f884279bf5d3e060bb14f2bc3d9b4cce334eb7a75b5d7f",
+      "size": 4107072,
+      "storage": "git-file",
+      "source": "Z:/public_html/assets/audio/beach-waves.mp3"
+    },
+    {
+      "path": "assets/audio/beach.mp3",
+      "sha256": "28c937dfdd2b5fbabe542d6802f4aadbaa2b092576ab90813b12109e0ea189a3",
+      "size": 2303040,
+      "storage": "git-file",
+      "source": "Z:/public_html/assets/audio/beach.mp3"
+    },
+    {
+      "path": "assets/audio/dark-theme.mp3",
+      "sha256": "d8b2e11b03041ca1e8423f573a64b4c6eedb1b04b097644cefcadae647954cff",
+      "size": 8477884,
+      "storage": "git-file",
+      "source": "Z:/public_html/assets/audio/dark-theme.mp3"
+    },
+    {
+      "path": "assets/audio/river.mp3",
+      "sha256": "292d85cdf026ac4f02a248006facbf94a21b609f805a3ea92c9ef9309b3c0978",
+      "size": 352183,
+      "storage": "git-file",
+      "source": "Z:/public_html/assets/audio/river.mp3"
+    },
+    {
+      "path": "assets/audio/waterfall.mp3",
+      "sha256": "685584b0df0f59da41fec8c14b04e3c639f0bad12cdb7a1ce5d5ee922907c30c",
+      "size": 280503,
+      "storage": "git-file",
+      "source": "Z:/public_html/assets/audio/waterfall.mp3"
+    },
+    {
+      "path": "assets/fusion-presentation.mp4",
+      "sha256": "eefc852a3a5d12eeedf8a217fc2cb68d6d0476612ad4d8744a8e6febd99361e8",
+      "size": 168678432,
+      "storage": "external-restored",
+      "source": "Z:/public_html/assets/fusion-presentation.mp4"
+    },
+    {
+      "path": "games/3d-battle-chess/shared-game.js",
+      "sha256": "3c63c3b2dd45572dd99a70397b53785c3132522a0f8c3f0be85f649a2a61ca99",
+      "size": 74,
+      "storage": "git-file",
+      "source": "Z:/public_html/games/3d-battle-chess/shared-game.js"
+    },
+    {
+      "path": "games/evil-wizard/.htaccess",
+      "sha256": "092929636313b35dfc5f1fae97a59aad91f7bec44971997a0a8e74921b1bed25",
+      "size": 476,
+      "storage": "git-file",
+      "source": "Z:/public_html/games/evil-wizard/.htaccess"
+    },
+    {
+      "path": "games/evil-wizard/console-champions.js",
+      "sha256": "b3fc5fba19f1ea579f5c3e59d9152cef38d8168ef0cc30d7d4ea8ba9b97d6138",
+      "size": 3323,
+      "storage": "git-file",
+      "source": "Z:/public_html/games/evil-wizard/console-champions.js"
+    },
+    {
+      "path": "games/evil-wizard/console.html",
+      "sha256": "3267ca05361444d359b150e88dcad5db6605a988e91bba50d876712099a5f359",
+      "size": 18101,
+      "storage": "git-file",
+      "source": "Z:/public_html/games/evil-wizard/console.html"
+    },
+    {
+      "path": "games/evil-wizard/index.apple-touch-icon.png",
+      "sha256": "01d4f63e525941e06ce74f5187dad030d20a8d52a07ce365ae4e94af97a3b1f5",
+      "size": 11944,
+      "storage": "git-file",
+      "source": "Z:/public_html/games/evil-wizard/index.apple-touch-icon.png"
+    },
+    {
+      "path": "games/evil-wizard/index.audio.position.worklet.js",
+      "sha256": "be33985bc7160d6bf9646f259cd86b259cd67b02ccb297ee5c44f8ac84327bc8",
+      "size": 2973,
+      "storage": "git-file",
+      "source": "Z:/public_html/games/evil-wizard/index.audio.position.worklet.js"
+    },
+    {
+      "path": "games/evil-wizard/index.audio.worklet.js",
+      "sha256": "5b476a9c9ce642c0ee4256436d1bc31d9c38f868aca0f9a8e2a57c18d2dec2a3",
+      "size": 7298,
+      "storage": "git-file",
+      "source": "Z:/public_html/games/evil-wizard/index.audio.worklet.js"
+    },
+    {
+      "path": "games/evil-wizard/index.html",
+      "sha256": "9cc6e2fdddf17e095751162ed1c41e1927f84ceb456cd69b2613441962b59906",
+      "size": 5454,
+      "storage": "git-file",
+      "source": "Z:/public_html/games/evil-wizard/index.html"
+    },
+    {
+      "path": "games/evil-wizard/index.icon.png",
+      "sha256": "ad3c35ad0facf487c618204bd98db543034fc95224eadc7f08c7a9ff38d5b3b5",
+      "size": 5700,
+      "storage": "git-file",
+      "source": "Z:/public_html/games/evil-wizard/index.icon.png"
+    },
+    {
+      "path": "games/evil-wizard/index.js",
+      "sha256": "33c94cb3175f3333b82e2a3be5e8e86f77986f0aa2042b1631f6367a4e5bb6ba",
+      "size": 279815,
+      "storage": "git-file",
+      "source": "Z:/public_html/games/evil-wizard/index.js"
+    },
+    {
+      "path": "games/evil-wizard/index.pck",
+      "sha256": "ad3ca9d384f87565bc792945aa884dd20c6f2a84782257939f7a5fc756026588",
+      "size": 4398232,
+      "storage": "git-file",
+      "source": "Z:/public_html/games/evil-wizard/index.pck"
+    },
+    {
+      "path": "games/evil-wizard/index.png",
+      "sha256": "3cb4495c0b98dfbe4b663cbf2b6836473572339beb66d902367893162a70be0e",
+      "size": 21443,
+      "storage": "git-file",
+      "source": "Z:/public_html/games/evil-wizard/index.png"
+    },
+    {
+      "path": "games/evil-wizard/index.wasm",
+      "sha256": "fc74679e3b97f76878947fcd4fbe1268cbfa6188182a2e33bbc3f5dc9bfa57d0",
+      "size": 39514754,
+      "storage": "external-restored",
+      "source": "Z:/public_html/games/evil-wizard/index.wasm"
+    },
+    {
+      "path": "games/evil-wizard/play.html",
+      "sha256": "b59d7b932b4402c9ff17a6189355d5c7aa7ba5a4466684e3ace1d62c4bbbe5ed",
+      "size": 23930,
+      "storage": "git-file",
+      "source": "Z:/public_html/games/evil-wizard/play.html"
+    },
+    {
+      "path": "joshua-randall.jpg",
+      "sha256": "7887b098ca27e1ec77238381526fe042dc8ef1efe0d7a1d8519cced93e9dc8aa",
+      "size": 308295,
+      "storage": "git-file",
+      "source": "Z:/public_html/joshua-randall.jpg"
+    },
+    {
+      "path": "osu-logo.png",
+      "sha256": "c3fa4511073c80ddd4b10a567719b4860cacfd98a462080e6792b8050f47279f",
+      "size": 10683,
+      "storage": "git-file",
+      "source": "Z:/public_html/osu-logo.png"
+    }
+  ]
+}

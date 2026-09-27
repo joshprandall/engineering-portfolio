@@ -1,0 +1,29 @@
+JOSHUA RANDALL KNOWLEDGE PLATFORM v0.2.0 — VALIDATION
+=====================================================
+
+Validated before packaging:
+- knowledge.js JavaScript syntax: PASS (node --check)
+- knowledge-data.js JavaScript syntax: PASS (node --check)
+- build_data.py Python syntax: PASS (py_compile)
+- Structured content version: 0.2.0
+- Domains: 7
+- Published learning objects: 112
+- Guided paths: 12
+- Roadmap topics: 368
+- Glossary terms: 71
+- Published lessons per domain: 16 each
+- Duplicate lesson IDs: 0
+- Missing prerequisite/related/path/glossary lesson references: 0
+- Duplicate HTML IDs in index.html: 0
+- Duplicate HTML IDs in projects.html: 0
+- Duplicate HTML IDs in learn.html: 0
+- Missing overlay-local references in index/projects/learn: 0
+
+Deployment note:
+This is an overlay. Existing styles.css, app.js, resume.html, and assets/ are intentionally
+not duplicated in this package and must remain in the existing OSU public_html directory.
+
+QA boundary:
+Static/code/data validation was completed in the build environment. Final visual and
+interaction QA should be performed in a real browser after upload, especially responsive
+layout, browser SpeechSynthesis voices, Web Audio behavior, and OSU-hosted asset paths.

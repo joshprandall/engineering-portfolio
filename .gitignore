@@ -2,4 +2,8 @@ node_modules/
 __pycache__/
 *.pyc
 visual-qa/
+.asset-cache/
+staging/
+/games/evil-wizard/index.wasm
+/assets/fusion-presentation.mp4
 Joshua_Randall_OSU_Science_Safe_Overlay.zip

@@ -1,14 +1,7 @@
 /* Responsive and accessible corrections, September 2026. Add after styles.css. */
-html,body{max-width:100%;overflow-x:clip}
-header{isolation:isolate}header nav#primary-nav{min-width:0}
+html,body{max-width:100%;}
+header{isolation:isolate}
 body.project-shell #menu{display:inline-flex!important;align-items:center;justify-content:center}
-body.project-shell header nav#primary-nav{display:none;position:absolute;top:100%;left:0;right:0;z-index:120;background:var(--bg);padding:12px 20px 20px;border-bottom:1px solid var(--line);box-shadow:0 16px 30px #0005;max-height:calc(100dvh - 76px);overflow-y:auto;overscroll-behavior:contain;flex-direction:column;align-items:stretch;gap:0}
-body.project-shell header nav#primary-nav.open{display:flex}
-body.project-shell header nav#primary-nav>a{display:flex;align-items:center;width:100%;min-height:48px;padding:10px 12px;border-bottom:1px solid var(--line)}
-body.project-shell header nav#primary-nav .nav-games{width:100%;border-bottom:1px solid var(--line)}
-body.project-shell header nav#primary-nav .nav-games summary{width:100%;min-height:54px;padding:10px 12px;justify-content:space-between}
-body.project-shell header nav#primary-nav .nav-games-menu{position:static;min-width:0;width:100%;padding:0 0 8px 18px;border:0;box-shadow:none;background:transparent}
-body.project-shell header nav#primary-nav .nav-games-menu a{min-height:46px;padding:8px 12px;border-bottom:0;color:var(--muted)}
 
 .nav-games{position:relative;font-size:.9rem}
 .nav-games summary{display:flex;align-items:center;gap:7px;min-height:44px;cursor:pointer;list-style:none;white-space:nowrap;color:var(--ink);user-select:none}
@@ -33,14 +26,6 @@ body.project-shell header nav#primary-nav .nav-games-menu a{min-height:46px;padd
 .direction-image .image-fallback{min-height:260px;display:grid;place-items:center;padding:28px;color:var(--ink);text-align:center;font-size:1.2rem}
 .demo-frame{max-width:100%}
 @media(max-width:900px){
- header nav#primary-nav{display:none;position:absolute;top:100%;left:0;right:0;z-index:100;background:var(--bg);padding:12px 20px 20px;border-bottom:1px solid var(--line);box-shadow:0 16px 30px #0005;max-height:calc(100dvh - 76px);overflow-y:auto;overscroll-behavior:contain;flex-direction:column;align-items:stretch;gap:0}
- header nav#primary-nav.open{display:flex}
- header nav#primary-nav a{display:flex;align-items:center;width:100%;min-height:48px;padding:10px 12px;border-bottom:1px solid var(--line)}
- header nav#primary-nav .nav-games{width:100%;border-bottom:1px solid var(--line)}
- header nav#primary-nav .nav-games summary{width:100%;min-height:54px;padding:10px 12px;font-size:1rem;justify-content:space-between}
- header nav#primary-nav .nav-games-menu{position:static;min-width:0;width:100%;padding:0 0 8px 18px;border:0;box-shadow:none;background:transparent}
- header nav#primary-nav .nav-games-menu a{min-height:46px;padding:8px 12px;font-size:.94rem;border-bottom:0;color:var(--muted)}
- header nav#primary-nav .nav-games-menu a::before{content:"↳";margin-right:10px;color:var(--accent)}
  #menu{display:inline-flex;align-items:center;justify-content:center;min-width:44px;min-height:44px}
  .project-grid{grid-template-columns:minmax(0,1fr)}
  .study{min-width:0;gap:16px;flex-wrap:wrap}.study>div{min-width:0;flex:1 1 180px}.study strong{display:block;overflow-wrap:anywhere}
@@ -62,7 +47,7 @@ body.project-shell header nav#primary-nav .nav-games-menu a{min-height:46px;padd
  .system-visual .layer-controls button{min-width:0;min-height:44px;padding:6px 0}
  .portrait{max-width:100%}.portrait .image-fallback{min-height:155px;width:120px;font-size:2rem}
  .direction-image img{max-height:260px}
- .project-card .card-bottom{display:flex;flex-direction:column;align-items:stretch;gap:8px}
+ .project-card .card-bottom{display:flex;flex-direction:column;flex-wrap:nowrap;flex-shrink:0;align-items:stretch;gap:8px}
  .project-card .card-bottom a{width:100%;min-height:48px;border:1px solid var(--line);padding:10px 14px;border-radius:6px;justify-content:flex-start}
  .project-card .card-bottom .status{width:100%}
  .project-detail-actions .button{width:100%;justify-content:center}
@@ -125,13 +110,6 @@ body.project-shell header nav#primary-nav .nav-games-menu a{min-height:46px;padd
 
 /* One consistent top navigation across the portfolio. */
 body.header-menu #menu{display:inline-flex!important;align-items:center;justify-content:center}
-body.header-menu header nav#primary-nav{display:none;position:absolute;top:100%;left:0;right:0;z-index:120;background:var(--bg);padding:12px 20px 20px;border-bottom:1px solid var(--line);box-shadow:0 16px 30px #0005;max-height:calc(100dvh - 76px);overflow-y:auto;overscroll-behavior:contain;flex-direction:column;align-items:stretch;gap:0}
-body.header-menu header nav#primary-nav.open{display:flex}
-body.header-menu header nav#primary-nav>a{display:flex;align-items:center;width:100%;min-height:48px;padding:10px 12px;border-bottom:1px solid var(--line)}
-body.header-menu header nav#primary-nav .nav-games{width:100%;border-bottom:1px solid var(--line)}
-body.header-menu header nav#primary-nav .nav-games summary{width:100%;min-height:54px;padding:10px 12px;justify-content:space-between}
-body.header-menu header nav#primary-nav .nav-games-menu{position:static;min-width:0;width:100%;padding:0 0 8px 18px;border:0;box-shadow:none;background:transparent}
-body.header-menu header nav#primary-nav .nav-games-menu a{min-height:46px;padding:8px 12px;border-bottom:0;color:var(--muted)}
 
 
 /* Performance containment: defer off-screen section layout/paint without changing semantics. */

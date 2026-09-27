@@ -1,0 +1,86 @@
+{
+  "items": [
+    {
+      "path": "index.html",
+      "label": "Home"
+    },
+    {
+      "path": "about.html",
+      "label": "About Me"
+    },
+    {
+      "path": "projects.html",
+      "label": "Projects"
+    },
+    {
+      "path": "learn.html",
+      "label": "Learn"
+    },
+    {
+      "path": "game-development.html",
+      "label": "Game Development"
+    },
+    {
+      "path": "ai-development.html",
+      "label": "AI Development"
+    }
+  ],
+  "parents": {
+    "learn-advanced.html": "learn.html",
+    "learn-browse.html": "learn.html",
+    "learn-capstones.html": "learn.html",
+    "learn-cloud.html": "learn.html",
+    "learn-cyber.html": "learn.html",
+    "learn-glossary.html": "learn.html",
+    "learn-labs.html": "learn.html",
+    "learn-leadership.html": "learn.html",
+    "learn-map.html": "learn.html",
+    "learn-mastery.html": "learn.html",
+    "learn-math.html": "learn.html",
+    "learn-paths.html": "learn.html",
+    "learn-physics.html": "learn.html",
+    "learn-practice.html": "learn.html",
+    "learn-software.html": "learn.html",
+    "learn-verify.html": "learn.html",
+    "learn.html": "learn.html",
+    "lesson.html": "learn.html",
+    "play-evil-wizard.html": "game-development.html",
+    "project-advanced-computing.html": "projects.html",
+    "project-asset-inventory.html": "projects.html",
+    "project-battle-chess.html": "game-development.html",
+    "project-dependency.html": "projects.html",
+    "project-emergent.html": "projects.html",
+    "project-fusion.html": "projects.html",
+    "project-geometric-ai.html": "projects.html",
+    "project-kubernetes-lab.html": "projects.html",
+    "project-learning-library.html": "projects.html",
+    "project-lifecycle.html": "projects.html",
+    "project-mind.html": "projects.html",
+    "project-portfolio.html": "projects.html",
+    "project-qpe.html": "projects.html",
+    "project-qubit.html": "projects.html",
+    "project-recovery.html": "projects.html",
+    "ai-geometric.html": "ai-development.html",
+    "ai-llm.html": "ai-development.html",
+    "ai-agentic.html": "ai-development.html",
+    "ai-machine-learning.html": "ai-development.html",
+    "ai-deep-learning.html": "ai-development.html",
+    "ai-reinforcement-learning.html": "ai-development.html",
+    "ai-computer-vision.html": "ai-development.html",
+    "ai-graph-neural-networks.html": "ai-development.html",
+    "ai-multimodal.html": "ai-development.html",
+    "ai-generative.html": "ai-development.html",
+    "ai-symbolic.html": "ai-development.html",
+    "ai-neuro-symbolic.html": "ai-development.html",
+    "ai-multi-agent.html": "ai-development.html",
+    "ai-game.html": "ai-development.html",
+    "ai-embodied.html": "ai-development.html",
+    "ai-memory.html": "ai-development.html",
+    "ai-build-your-own.html": "ai-development.html",
+    "ai-project-mind.html": "ai-development.html",
+    "ai-personal-agent.html": "ai-development.html",
+    "expertise-experience.html": "about.html",
+    "resume.html": "about.html",
+    "direction.html": "about.html"
+  }
+}

@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<meta name="theme-color" content="#05070b">
+<title>Defeat the Evil Wizard</title>
+<style>
+:root{color-scheme:dark;--gold:#e6be76;--ink:#f5f1e8;--muted:#aeb8c8;--line:#526071;--panel:#101722;--panel2:#182231}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;background:#05070b;overflow:hidden}
+body{width:100dvw;height:100dvh;color:var(--ink);font:500 14px/1.45 system-ui,-apple-system,Segoe UI,sans-serif}
+button,select,input{font:inherit}button{cursor:pointer;color:inherit}
+#game-shell{position:fixed;inset:0;background:#05070b}#game{display:block;width:100%;height:100%;border:0;background:#05070b}
+#status{position:fixed;left:50%;top:max(8px,env(safe-area-inset-top));z-index:30;transform:translateX(-50%);padding:6px 12px;border:1px solid #716345;border-radius:999px;background:#0b1018e8;color:#ead9b2;font-size:11px;pointer-events:none}#status[hidden]{display:none}
+#menu{position:fixed;inset:0;z-index:50;display:grid;grid-template-columns:minmax(190px,240px) minmax(0,1fr);background:radial-gradient(circle at 50% 0,#24314588,transparent 42%),linear-gradient(155deg,#070a0f,#101823 58%,#06080c)}
+#menu[hidden]{display:none}
+.menu-rail{padding:clamp(18px,3vw,34px);border-right:1px solid #2d3948;background:#080d14db;display:flex;flex-direction:column;gap:20px}
+.eyebrow{margin:0;color:var(--gold);font-size:10px;font-weight:900;letter-spacing:.18em}.logo{font-size:clamp(27px,4vw,46px);font-weight:900;line-height:.9;letter-spacing:-.04em}.logo small{display:block;margin-top:10px;color:#aeb8c8;font-size:10px;line-height:1.4;letter-spacing:.04em;font-weight:600}
+.nav{display:grid;gap:7px}.nav button{min-height:46px;text-align:left;border:1px solid transparent;border-radius:9px;background:transparent;padding:9px 12px;font-weight:800}.nav button[aria-selected="true"]{border-color:#796747;background:#33291c;color:#ffe7b4}.nav button:hover,.nav button:focus-visible{border-color:#536176;background:#121b27}
+.device{margin-top:auto;padding:10px;border:1px solid #334154;border-radius:10px;background:#111925;color:#cdd5df;font-size:10px}
+.menu-content{overflow:auto;padding:clamp(18px,4vw,42px)}.screen{display:none;max-width:1050px;margin:0 auto}.screen.active{display:block}
+.screen h1{margin:0;font-size:clamp(34px,6vw,66px);line-height:.94;letter-spacing:-.045em}.lede{max-width:780px;color:#c5ced9;font-size:14px;margin:12px 0 24px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.panel{border:1px solid #374557;border-radius:14px;background:#0b1119;padding:16px}.panel h2{margin:0 0 12px;font-size:17px;color:#f4d291}
+.field{display:grid;gap:5px;margin-bottom:12px}.field label,.field>span{font-size:10px;font-weight:900;letter-spacing:.06em;color:#d6deea}.field select,.field input[type="range"]{width:100%}.field select{min-height:42px;border:1px solid #637188;border-radius:8px;background:#111925;color:#f8f4ea;padding:7px 9px}
+.inline{display:flex;align-items:center;gap:9px;margin:10px 0;color:#d4dbe5}.inline input{width:18px;height:18px}
+.start{width:100%;min-height:54px;border:1px solid #f0c774;border-radius:10px;background:linear-gradient(#72512a,#392817);font-weight:900;letter-spacing:.09em}
+.guide-tabs{display:flex;flex-wrap:wrap;gap:6px}.guide-tabs button{min-height:36px;border:1px solid #526176;border-radius:8px;background:#141d29;padding:6px 9px;font-size:11px}.guide-tabs button[aria-selected="true"]{border-color:var(--gold);background:#3a3022}.guide-text{margin-top:9px;min-height:72px;padding:11px;border:1px solid #303d4d;border-radius:9px;background:#080d14;color:#dce2ea}
+.mapping-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 12px}.mapping-row{display:grid;grid-template-columns:minmax(100px,.8fr) minmax(130px,1.2fr);align-items:center;gap:8px}.mapping-row span{font-size:11px;color:#d9e0e8}.mapping-row select{min-height:38px;border:1px solid #55647a;border-radius:7px;background:#101824;color:#fff;padding:5px}
+.subtabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}.subtabs button{min-height:38px;border:1px solid #4b5a6f;border-radius:8px;background:#131c28;padding:7px 10px;font-size:11px}.subtabs button[aria-selected="true"]{border-color:#e6be76;background:#3a3022}
+.control-pane{display:none}.control-pane.active{display:block}.touch-settings{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.reset{min-height:40px;border:1px solid #637188;border-radius:8px;background:#182230;padding:8px 11px}.value{color:#f3d69a;font-weight:800}
+.how-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.how-card{padding:14px;border:1px solid #354355;border-radius:12px;background:#0d141e}.how-card strong{color:#f4d291}.how-card p{color:#c6cfda;font-size:12px}
+.note{color:#929eae;font-size:10px}
+@media(max-width:780px){#menu{grid-template-columns:1fr;grid-template-rows:auto minmax(0,1fr)}.menu-rail{border-right:0;border-bottom:1px solid #2d3948;padding:12px 14px;gap:10px}.logo{font-size:25px}.logo small,.device{display:none}.nav{grid-template-columns:repeat(4,1fr);gap:4px}.nav button{text-align:center;min-height:40px;padding:6px;font-size:11px}.menu-content{padding:14px}.grid,.how-grid{grid-template-columns:1fr}.mapping-grid{grid-template-columns:1fr}.screen h1{font-size:36px}.touch-settings{grid-template-columns:1fr 1fr}}
+@media(max-height:500px) and (orientation:landscape){#menu{grid-template-columns:190px 1fr}.menu-rail{border-right:1px solid #2d3948;border-bottom:0;padding:12px}.nav{grid-template-columns:1fr}.menu-content{padding:12px 18px}.screen h1{font-size:32px}.lede{margin:7px 0 12px}.panel{padding:11px}.field{margin-bottom:7px}}
+</style>
+<script src="./console-champions.js"></script>
+</head>
+<body>
+<div id="game-shell" aria-hidden="true"><iframe id="game" title="Defeat the Evil Wizard" src="about:blank" allow="fullscreen; gamepad" allowfullscreen tabindex="0"></iframe></div>
+<div id="status" hidden role="status" aria-live="polite">Loading game…</div>
+<main id="menu">
+  <aside class="menu-rail">
+    <div><p class="eyebrow">JR · WIZARD</p><div class="logo">Defeat the<br>Evil Wizard<small>Complete rough draft · adaptive web build</small></div></div>
+    <nav class="nav" aria-label="Game menu">
+      <button type="button" data-screen="play" aria-selected="true">Play</button>
+      <button type="button" data-screen="controls">Controls</button>
+      <button type="button" data-screen="settings">Settings</button>
+      <button type="button" data-screen="how">How to Play</button>
+    </nav>
+    <div class="device" id="device">Detecting input…</div>
+  </aside>
+  <section class="menu-content">
+    <section class="screen active" id="screen-play">
+      <p class="eyebrow">PLAY</p><h1>Choose your champion.</h1>
+      <p class="lede">Set your character and start. Your saved Controls and Settings are applied automatically when the game loads.</p>
+      <div class="grid">
+        <div class="panel"><h2>Champion</h2><div class="field"><label for="champion">Character</label><select id="champion"></select></div><p class="note">All fifteen champions can complete the campaign. Their combat identities and class abilities differ.</p></div>
+        <div class="panel"><h2>Ready</h2><p id="ready-summary">Preparing your input profile…</p><button class="start" id="start" type="button">START GAME</button></div>
+      </div>
+    </section>
+
+    <section class="screen" id="screen-controls">
+      <p class="eyebrow">CONTROLS</p><h1>Make the controls yours.</h1>
+      <p class="lede">Choose your input mode and remap touch, keyboard, or controller actions. Movement sticks and right-stick aiming follow standard game conventions.</p>
+      <div class="panel">
+        <div class="field"><label for="input-mode">Input mode</label><select id="input-mode"><option value="auto">Auto detect</option><option value="touch">Phone / tablet touch controls</option><option value="keyboard">Keyboard + mouse</option><option value="gamepad">Xbox / PlayStation / compatible controller</option><option value="handheld">Gaming handheld physical controls</option></select></div>
+        <div class="subtabs"><button type="button" data-control-pane="touch" aria-selected="true">Phone / Tablet</button><button type="button" data-control-pane="keyboard">Keyboard / Mouse</button><button type="button" data-control-pane="gamepad">Controller</button></div>
+
+        <div class="control-pane active" id="control-touch">
+          <div class="touch-settings">
+            <div class="field"><label for="touch-style">Controller appearance</label><select id="touch-style"><option value="xbox">Xbox-style ABXY</option><option value="playstation">PlayStation-style symbols</option></select></div>
+            <div class="field"><label for="touch-size">Floating control size</label><select id="touch-size"><option value="compact">Large</option><option value="standard">Extra large</option></select></div>
+            <div class="field"><label for="touch-hand">Layout</label><select id="touch-hand"><option value="right">Stick left / face buttons right</option><option value="left">Stick right / face buttons left</option></select></div>
+            <div class="field"><label for="touch-opacity">Control visibility · <span class="value" id="opacity-value">68%</span></label><input id="touch-opacity" type="range" min="40" max="90" step="2"></div>
+          </div>
+          <h2>Virtual controller mapping</h2><div class="mapping-grid" id="touch-map"></div>
+        </div>
+
+        <div class="control-pane" id="control-keyboard"><h2>Keyboard actions</h2><p class="note">A/D or arrows remain movement; S/Q crouch. Left mouse remains Attack and right mouse remains Heavy Attack.</p><div class="mapping-grid" id="keyboard-map"></div></div>
+        <div class="control-pane" id="control-gamepad"><h2>Physical controller actions</h2><p class="note">Left stick/D-pad movement and right-stick aiming remain standard. These mappings apply to Xbox, PlayStation, and compatible gamepads.</p><div class="mapping-grid" id="gamepad-map"></div></div>
+        <button class="reset" id="reset-controls" type="button">Reset controls to defaults</button>
+      </div>
+    </section>
+
+    <section class="screen" id="screen-settings">
+      <p class="eyebrow">SETTINGS</p><h1>Game settings.</h1>
+      <p class="lede">These settings are applied when the game starts and saved on this device.</p>
+      <div class="grid">
+        <div class="panel">
+          <div class="field"><label for="difficulty">Difficulty</label><select id="difficulty"><option value="story">Story · reduced incoming damage</option><option value="adventurer">Adventurer · intended balance</option><option value="legend">Legend · harder incoming damage</option></select></div>
+          <label class="inline"><input id="camera-shake" type="checkbox"> Camera shake</label>
+          <label class="inline"><input id="fullscreen" type="checkbox"> Use fullscreen when supported</label>
+        </div>
+        <div class="panel">
+          <div class="field"><label for="master-volume">Master volume · <span class="value" id="volume-value">85%</span></label><input id="master-volume" type="range" min="0" max="100" step="5"></div>
+          <div class="field"><label for="brightness">Game brightness · <span class="value" id="brightness-value">100%</span></label><input id="brightness" type="range" min="75" max="135" step="5"></div>
+          <button class="reset" id="reset-settings" type="button">Reset settings to defaults</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen" id="screen-how">
+      <p class="eyebrow">HOW TO PLAY</p><h1>Learn the realm before you enter it.</h1>
+      <p class="lede">Explore, fight, interact with the world, solve environmental challenges, activate checkpoints, and build your champion toward the Evil Wizard.</p>
+      <div class="how-grid"><div class="how-card"><strong>Explore</strong><p>Move through connected regions, find shrines, gates, routes, story beats and hidden resources.</p></div><div class="how-card"><strong>Fight</strong><p>Use light/heavy attacks, movement, dash, class abilities and your ultimate. Different champions reward different combat rhythms.</p></div><div class="how-card"><strong>Interact &amp; progress</strong><p>Use Interact for dialogue, mechanisms and environmental puzzles. Checkpoints preserve progress and bosses unlock the road ahead.</p></div></div>
+      <div class="panel" style="margin-top:16px"><h2>Control guides</h2><div class="guide-tabs"><button type="button" data-guide="touch">Phone / Tablet</button><button type="button" data-guide="keyboard">Keyboard / Mouse</button><button type="button" data-guide="xbox">Xbox / Gamepad</button><button type="button" data-guide="playstation">PlayStation</button></div><div class="guide-text" id="guide-text"></div></div>
+    </section>
+  </section>
+</main>
+<script>
+'use strict';
+(() => {
+  const cfg=window.EvilWizardSetup;
+  const clone=o=>JSON.parse(JSON.stringify(o));
+  const merge=(base,saved)=>{
+    const out=clone(base);
+    const walk=(target,src)=>{if(!src||typeof src!=='object')return;for(const [k,v] of Object.entries(src)){if(v&&typeof v==='object'&&!Array.isArray(v)&&target[k]&&typeof target[k]==='object')walk(target[k],v);else if(k in target)target[k]=v}};
+    walk(out,saved);return out;
+  };
+  let saved={};try{saved=JSON.parse(localStorage.getItem('evil-wizard-launch-v3')||'{}')}catch(_){}
+  let state=merge(cfg.defaults,saved);
+
+  const menu=document.getElementById('menu'),frame=document.getElementById('game'),status=document.getElementById('status'),device=document.getElementById('device');
+  const champion=document.getElementById('champion'),mode=document.getElementById('input-mode');
+  const ua=navigator.userAgent||'',mobileUA=/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile|Tablet/i.test(ua),iPadDesktop=navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1,knownHandheld=/Steam Deck|SteamOS|ROG Ally|Legion Go|AYANEO|OneXPlayer|GPD WIN/i.test(ua),consoleUA=/Xbox|PlayStation/i.test(ua);
+  const gamepad=()=>{try{return [...(navigator.getGamepads?.()||[])].find(p=>p&&p.connected)||null}catch(_){return null}};
+  const autoMode=()=>mobileUA||iPadDesktop?'touch':knownHandheld?'handheld':consoleUA||gamepad()?'gamepad':'keyboard';
+  const resolvedMode=()=>state.mode==='auto'?autoMode():state.mode;
+  const modeName=m=>m==='touch'?'Phone / tablet floating controller':m==='handheld'?'Gaming handheld physical controls':m==='gamepad'?'Physical gamepad':m==='keyboard'?'Keyboard + mouse':'Auto detect';
+
+  for(const [v,l] of cfg.champions){const o=document.createElement('option');o.value=v;o.textContent=l;champion.append(o)}
+  champion.value=state.champion;mode.value=state.mode;
+
+  function save(){try{localStorage.setItem('evil-wizard-launch-v3',JSON.stringify(state))}catch(_){} updateSummary()}
+  function updateSummary(){const m=resolvedMode();device.innerHTML='<strong>'+modeName(m)+'</strong><br>'+(gamepad()?gamepad().id.slice(0,55):'No external controller detected');document.getElementById('ready-summary').textContent='Champion: '+(champion.selectedOptions[0]?.textContent||'Warrior')+' · '+modeName(m)+' · '+state.difficulty[0].toUpperCase()+state.difficulty.slice(1)+' difficulty';}
+  window.addEventListener('gamepadconnected',updateSummary);window.addEventListener('gamepaddisconnected',updateSummary);
+
+  document.querySelectorAll('[data-screen]').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('[data-screen]').forEach(x=>x.setAttribute('aria-selected',String(x===b)));document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('active',s.id==='screen-'+b.dataset.screen))}));
+  document.querySelectorAll('[data-control-pane]').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('[data-control-pane]').forEach(x=>x.setAttribute('aria-selected',String(x===b)));document.querySelectorAll('.control-pane').forEach(p=>p.classList.toggle('active',p.id==='control-'+b.dataset.controlPane))}));
+  document.querySelectorAll('[data-guide]').forEach(b=>b.addEventListener('click',()=>showGuide(b.dataset.guide)));
+  function showGuide(name){document.getElementById('guide-text').textContent=cfg.guides[name]||'';document.querySelectorAll('[data-guide]').forEach(b=>b.setAttribute('aria-selected',String(b.dataset.guide===name)))}
+  showGuide('touch');
+
+  const actionLabel=Object.fromEntries(cfg.actions);
+  const touchPositions=[['south','South face'],['east','East face'],['west','West face'],['north','North face'],['l1','Left shoulder'],['r1','Right shoulder'],['l2','Left trigger'],['r2','Right trigger']];
+  const touchMap=document.getElementById('touch-map');
+  for(const [pos,label] of touchPositions){const row=document.createElement('label');row.className='mapping-row';const span=document.createElement('span');span.textContent=label;const sel=document.createElement('select');for(const [a,l] of cfg.actions.filter(([a])=>a!=='pause')){const o=document.createElement('option');o.value=a;o.textContent=l;sel.append(o)}sel.value=state.touch.map[pos];sel.addEventListener('change',()=>{state.touch.map[pos]=sel.value;save()});row.append(span,sel);touchMap.append(row)}
+
+  function buildMap(containerId,options,store){
+    const el=document.getElementById(containerId);
+    for(const [a,l] of cfg.actions){const row=document.createElement('label');row.className='mapping-row';const span=document.createElement('span');span.textContent=l;const sel=document.createElement('select');for(const [v,n] of options){const o=document.createElement('option');o.value=String(v);o.textContent=n;sel.append(o)}sel.value=String(store[a]);sel.addEventListener('change',()=>{store[a]=typeof [...options][0][0]==='number'?Number(sel.value):sel.value;save()});row.append(span,sel);el.append(row)}
+  }
+  buildMap('keyboard-map',cfg.keyOptions,state.keyboard);buildMap('gamepad-map',cfg.gamepadOptions,state.gamepad);
+
+  const bindSelect=(id,obj,key)=>{const el=document.getElementById(id);el.value=obj[key];el.addEventListener('change',()=>{obj[key]=el.value;save()})};
+  bindSelect('touch-style',state.touch,'style');bindSelect('touch-size',state.touch,'size');bindSelect('touch-hand',state.touch,'hand');
+  document.getElementById('touch-opacity').value=state.touch.opacity;document.getElementById('opacity-value').textContent=state.touch.opacity+'%';document.getElementById('touch-opacity').addEventListener('input',e=>{state.touch.opacity=Number(e.target.value);document.getElementById('opacity-value').textContent=state.touch.opacity+'%';save()});
+  mode.addEventListener('change',()=>{state.mode=mode.value;save()});champion.addEventListener('change',()=>{state.champion=champion.value;save()});
+
+  const difficulty=document.getElementById('difficulty'),shake=document.getElementById('camera-shake'),fullscreen=document.getElementById('fullscreen'),volume=document.getElementById('master-volume'),brightness=document.getElementById('brightness');
+  difficulty.value=state.difficulty;shake.checked=state.cameraShake;fullscreen.checked=state.fullscreen;volume.value=state.masterVolume;brightness.value=state.brightness;
+  const refreshValues=()=>{document.getElementById('volume-value').textContent=state.masterVolume+'%';document.getElementById('brightness-value').textContent=state.brightness+'%'};
+  refreshValues();
+  difficulty.addEventListener('change',()=>{state.difficulty=difficulty.value;save()});shake.addEventListener('change',()=>{state.cameraShake=shake.checked;save()});fullscreen.addEventListener('change',()=>{state.fullscreen=fullscreen.checked;save()});volume.addEventListener('input',()=>{state.masterVolume=Number(volume.value);refreshValues();save()});brightness.addEventListener('input',()=>{state.brightness=Number(brightness.value);refreshValues();save()});
+  document.getElementById('reset-controls').addEventListener('click',()=>{state.mode=cfg.defaults.mode;state.touch=clone(cfg.defaults.touch);state.keyboard=clone(cfg.defaults.keyboard);state.gamepad=clone(cfg.defaults.gamepad);save();location.reload()});
+  document.getElementById('reset-settings').addEventListener('click',()=>{state.difficulty=cfg.defaults.difficulty;state.cameraShake=cfg.defaults.cameraShake;state.masterVolume=cfg.defaults.masterVolume;state.brightness=cfg.defaults.brightness;state.fullscreen=cfg.defaults.fullscreen;save();location.reload()});
+
+  const params=new URLSearchParams(location.search);if(['touch','keyboard','gamepad','handheld'].includes(params.get('mode'))){state.mode=params.get('mode');mode.value=state.mode;save()}
+  updateSummary();
+
+  let ready=false,started=false;
+  const send=(kind,extra={})=>frame.contentWindow?.postMessage({channel:'evil-wizard-console/v1',kind,...extra},location.origin);
+  function sendConfiguration(){send('controls',{keyboard:state.keyboard,gamepad:state.gamepad});send('settings',{difficulty:state.difficulty,camera_shake:state.cameraShake,master_volume:state.masterVolume})}
+  window.addEventListener('message',e=>{if(e.source!==frame.contentWindow||e.origin!==location.origin||!e.data)return;if(e.data.type==='evil-wizard/hello'){send('init');return}if(e.data.type==='evil-wizard/ready'){ready=true;sendConfiguration();if(!started){started=true;send('start',{hero_class:state.champion});status.textContent='Opening the last road…'}return}if(e.data.type==='evil-wizard/state'&&e.data.playing===true){status.hidden=true;frame.focus()}});
+
+  async function requestFullscreen(){if(!state.fullscreen)return;try{const root=document.documentElement;if(!document.fullscreenElement&&root.requestFullscreen)await root.requestFullscreen({navigationUI:'hide'});else if(!document.webkitFullscreenElement&&root.webkitRequestFullscreen)root.webkitRequestFullscreen()}catch(_){}}
+  document.getElementById('start').addEventListener('click',async()=>{state.champion=champion.value;save();const m=resolvedMode();if(m==='touch'){location.href='./console.html?hero='+encodeURIComponent(state.champion);return}await requestFullscreen();menu.hidden=true;status.hidden=false;status.textContent='Loading game…';frame.style.filter='brightness('+(state.brightness/100)+')';frame.src='./index.html';frame.closest('#game-shell').setAttribute('aria-hidden','false')});
+})();
+</script>
+</body>
+</html>

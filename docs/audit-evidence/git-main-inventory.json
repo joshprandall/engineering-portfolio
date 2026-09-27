@@ -1,0 +1,1718 @@
+[
+  {
+    "blob": "aaa27da0f10abcb60190e7aa17e61bcd5b49d265",
+    "size": 7969,
+    "path": ".github/workflows/build-osu-overlay.yml",
+    "sha256": "55c7c933e1c1c105552aaf92862ffe6a247091b8d8c56766b74fae327cb7de54"
+  },
+  {
+    "blob": "75f702df7222c2d921c15110f30b02efada3e80d",
+    "size": 1341,
+    "path": ".github/workflows/import-knowledge-release.yml",
+    "sha256": "ba405e718e202ec51bd2bd3cc46f037f75ce0fecc72ff59ceb696e8649257bda"
+  },
+  {
+    "blob": "b4efb6c26fecf40277df7061793186adae606bbc",
+    "size": 5885,
+    "path": ".github/workflows/import-verified-battle-chess.yml",
+    "sha256": "51944f95809bb59b31f2241cba0fe75ce626d29909d6b8cf748ee4a71fb230d0"
+  },
+  {
+    "blob": "c66b8525f5a0564f2b2a2d9402ae4d69d5d4a8f3",
+    "size": 1673,
+    "path": ".github/workflows/import-vnext-foundations.yml",
+    "sha256": "da131505249b8662b322f0aae4dd04ea8e6bd6ff201e60a3e148fdb60fb03829"
+  },
+  {
+    "blob": "71bc283fa5526fbfaded952664b19e7044189bdb",
+    "size": 384,
+    "path": ".github/workflows/validate.yml",
+    "sha256": "b5280d4d47217e22a55f5b5d0144f767fedc07f49e59b56900b2e7327a63df07"
+  },
+  {
+    "blob": "517a5bc3531474c7204ac6875f9e97f60b20d694",
+    "size": 88,
+    "path": ".gitignore",
+    "sha256": "204291fa4e8cc80cd30214c917749b330b3191a36dd669dd3850aa84415429b9"
+  },
+  {
+    "blob": "2a4699e6e9ab0efe93bac6b4aba0cf4ae26b5f17",
+    "size": 3062,
+    "path": "DEPLOYMENT.md",
+    "sha256": "f7f5fe07528842ac3e2865f94187d8c1acdf18a81593181cda0d93b8a1413869"
+  },
+  {
+    "blob": "a1f8830adc1cef39b2608df12f85b540bd38860d",
+    "size": 5711,
+    "path": "NEXT-RELEASE-NOTES.md",
+    "sha256": "05b896352acdba6fc550aa506d57da4e0a49e32db79c289e5d458c8a9834b3f7"
+  },
+  {
+    "blob": "bb36bb4e6aee3cd73d558289f4d9c8f28e1ab566",
+    "size": 4772,
+    "path": "README.md",
+    "sha256": "169e811a0b08a9819f078025cf0cb939a73446c29993a2aabed6b11ec943d4f1"
+  },
+  {
+    "blob": "d0e34d7694efab199a8ec41b2c941c77c2a0c87a",
+    "size": 1248,
+    "path": "README_KNOWLEDGE_PLATFORM.txt",
+    "sha256": "0558ef9e3c2c3e1ae335cd85dd243ebb6a77687e738de0acb2ef6bf04cdf4894"
+  },
+  {
+    "blob": "3f6e5c69c5a2c2d7ecb34add0516bb20865fa419",
+    "size": 1279,
+    "path": "RECONCILIATION_NOTES.md",
+    "sha256": "834936572acd6d9771e4e10f81366fe45c681f5f26688827cc6997b585b331c4"
+  },
+  {
+    "blob": "31493fd62a253c6d0ae21bff90adfee335059be2",
+    "size": 1230,
+    "path": "RELEASE_SYNC_STEPS.md",
+    "sha256": "befbd4f25321abf256a5fdedc1b317b118ea87ca1f63081528e93f21112556e6"
+  },
+  {
+    "blob": "34686e1aa5c815f24d90eb5f6d8ff99496802db4",
+    "size": 160,
+    "path": "SITE_IMPORT_REPORT.json",
+    "sha256": "5f70ea89a9a93b159d365684d1a19471d8282fb61d6d7601ca3fb29644497397"
+  },
+  {
+    "blob": "3a6f8dcf4bcf385f3833fdd248b79be2a889fc51",
+    "size": 5898,
+    "path": "agent-workbench.html",
+    "sha256": "1ff2a4a74857411b3a17b91c8f4af5044352c9c8a368f43b7f05c476c68e7113"
+  },
+  {
+    "blob": "120742befebf23ec440290ed51d3c2285c58c067",
+    "size": 5599,
+    "path": "agent-workbench.js",
+    "sha256": "175101b7c904065190983acf1cd6c490fede8248310e49d0795445cbab16adff"
+  },
+  {
+    "blob": "dc4c811b115682652f60a614a44e6fe2d091caba",
+    "size": 15097,
+    "path": "app.js",
+    "sha256": "35891487252343b5061a27172e50c107c467de910279d59e931734f10bc2a7e9"
+  },
+  {
+    "blob": "728c3da400f58bab92d3e71aff7f953e43ca79e7",
+    "size": 37409,
+    "path": "assets/Joshua_Randall_Master_Resume.docx",
+    "sha256": "073f02b97e2d60f86766b7ccf097f701b52a8fb39284f1277af2bfacc0612a64"
+  },
+  {
+    "blob": "6e1722b15220c5d696af496f435b008e0b9711c6",
+    "size": 483831,
+    "path": "assets/audio/dark-theme-user.mp3",
+    "sha256": "7bb6e261c7de036ee9ebffeafaf5bba2befdeabe0580d2701088505f33300eb4"
+  },
+  {
+    "blob": "1ed8a7037eeb1cc7bc9d0d4f872f16e9e45f183a",
+    "size": 3002348,
+    "path": "assets/audio/dark-theme-user.wav",
+    "sha256": "e5e1144506681a091b98975016b48992443cc93ccf6898e203864fab90e1bb6d"
+  },
+  {
+    "blob": "19cf3b1b22c56f0b83a2b11fa9ef15df3caf481a",
+    "size": 198,
+    "path": "assets/favicon.svg",
+    "sha256": "6f2dd56788a65cec0c2fe9180e5970672833d000c81daf9ffb3f7b17c97179b6"
+  },
+  {
+    "blob": "6c789eadb84764a2d7f75fc989ccb78873ec1540",
+    "size": 48280,
+    "path": "assets/fonts/dm-sans-400.ttf",
+    "sha256": "b0ae3e89a7d3ef2b1838bb4b1ceb0b17cc3435af061eee809d76aa623ff116e9"
+  },
+  {
+    "blob": "dc447543b7d04d75f68cf303ea911f539c244922",
+    "size": 48308,
+    "path": "assets/fonts/dm-sans-500.ttf",
+    "sha256": "376427b5322148d8de1e03f263bcca4935a2d60ba71d9f94f4947ab664c711ae"
+  },
+  {
+    "blob": "ec5dcf3e2f8f1c4e8a3e68370d8537147c9df2ad",
+    "size": 48280,
+    "path": "assets/fonts/dm-sans-600.ttf",
+    "sha256": "b79a2ea7a38f33fd96a282fadb9ce97626bb0724a44d21075859f0e50239993a"
+  },
+  {
+    "blob": "811136c6dafecfa0880718f2709ef86e71dc2ff8",
+    "size": 48200,
+    "path": "assets/fonts/dm-sans-700.ttf",
+    "sha256": "2a8e7f713ee79fbccdef3cef5c787aff47580299f7da60144961e7db2ec08211"
+  },
+  {
+    "blob": "4430b85ac62998e2edb914360f9ebdfe43f4deaa",
+    "size": 4482,
+    "path": "assets/fonts/dmsans-OFL.txt",
+    "sha256": "9af36190332437f5ecd09974de43c1f7c77a310a996cdd8ceb25628b458840e1"
+  },
+  {
+    "blob": "07328647331673500fc165aefefee982c5247f5b",
+    "size": 1377,
+    "path": "assets/fonts/fonts.css",
+    "sha256": "588be790488200a6bab410e3900a7c8049cb0ea5a1b3623fd985348dd8ac6c88"
+  },
+  {
+    "blob": "8594569243efb72d1c156a8d8acb9b5f4eb28e4a",
+    "size": 94972,
+    "path": "assets/fonts/manrope-400.ttf",
+    "sha256": "a13d9b41b0a471ce58f0e46d377fa3cc76615e4632c3b15eb397caadf7a13f0a"
+  },
+  {
+    "blob": "2a169e6b902fc2d8fe470d0da04162de933de134",
+    "size": 95060,
+    "path": "assets/fonts/manrope-500.ttf",
+    "sha256": "f433e5d333be1128d8ec8a28b8aadd0314d10e14e4105406076666bc830fc15d"
+  },
+  {
+    "blob": "595e7dc699c8e2a30e765691fe70174bb388ce73",
+    "size": 95096,
+    "path": "assets/fonts/manrope-600.ttf",
+    "sha256": "6bad1a774228464cc88b8b0271555b266f7a3c64a7bedf15e165fdab4f6ac0ce"
+  },
+  {
+    "blob": "746764de030c95266dd33fa1f440795ed80bbc90",
+    "size": 94928,
+    "path": "assets/fonts/manrope-700.ttf",
+    "sha256": "b9584e099e0e7f1e1e914c3037aabb9010c50346a3ce8df5eeeeecc0563044d8"
+  },
+  {
+    "blob": "d324b62f053c0aa0061d35298d14cdbeb6274847",
+    "size": 95688,
+    "path": "assets/fonts/manrope-800.ttf",
+    "sha256": "b8f802f05b322a7345805f5b89f8bb976604cc719a91530918d5ce3c47160950"
+  },
+  {
+    "blob": "e271172a9ed0cddc895aabb6509f1c7d880b492d",
+    "size": 4387,
+    "path": "assets/fonts/manrope-OFL.txt",
+    "sha256": "58172e0c0fac2cda8a37b348164bb55e44b0e69051e557e92b1d3f6910141f7b"
+  },
+  {
+    "blob": "2421d541b0a25362fc48ac73257cc8931163926b",
+    "size": 822,
+    "path": "assets/joshua-randall-cutout.svg",
+    "sha256": "34bbd4754bd20d5d9d51e72407a49c1cbbf6d84c7c5c014fa8faccbd4a35d5cd"
+  },
+  {
+    "blob": "4bb0ddef8dd01c4a840957b60f7f0c16bcb7b489",
+    "size": 15007,
+    "path": "assets/joshua-randall-cutout.webp",
+    "sha256": "5b2193fa0d3ba8c8f3282a41e3ff014f75a3ca2ac5b9707d0002aae2e9a87ba3"
+  },
+  {
+    "blob": "65e334ec4874e47355b74d45ca1e6c2b418bc306",
+    "size": 89637,
+    "path": "assets/joshua-randall-headshot.jpg",
+    "sha256": "24d61be42c1564b120360abaec9fcfa6c4d55736fbe888eb0cadaffe42ad64d4"
+  },
+  {
+    "blob": "9ed5bb41a22cabed2b9c976c394383006e514ec7",
+    "size": 10683,
+    "path": "assets/osu-logo.png",
+    "sha256": "c3fa4511073c80ddd4b10a567719b4860cacfd98a462080e6792b8050f47279f"
+  },
+  {
+    "blob": "fd0f816552cef6a244eaa93958c1625bdf3c08ee",
+    "size": 308295,
+    "path": "assets/portrait.jpg",
+    "sha256": "7887b098ca27e1ec77238381526fe042dc8ef1efe0d7a1d8519cced93e9dc8aa"
+  },
+  {
+    "blob": "bc263dfe9377a6d7fc1cd8f17aa06d6d33c1f274",
+    "size": 385329,
+    "path": "assets/quantum-field-notes.jpg",
+    "sha256": "8f1bfd5e06e49a134469afc74dc1627b0e4a3230eca1ab1761c81dfb5095d6d0"
+  },
+  {
+    "blob": "2f043f3f8c0a0cad0f0069a28ec851a1dac31212",
+    "size": 521152,
+    "path": "assets/quantum-lab-reference.jpg",
+    "sha256": "4acca836897fb49de0e614643ba2471853c60f3412e4a7e1354be517909f8175"
+  },
+  {
+    "blob": "767243aeecde9b1ea0a46c8fbaf01f7028eb269b",
+    "size": 147787,
+    "path": "assets/quantum2.jpg",
+    "sha256": "eb592e766a3ee0bde46b83232feca76f7ee964dd4ef7d949df4ae5d2db8a7138"
+  },
+  {
+    "blob": "c729deea4cdbfa4aa3c10d9d0a1e3ccc12678ed8",
+    "size": 762,
+    "path": "assets/scenes/CREDITS.md",
+    "sha256": "d86111eff00a752fc9a7c9d344c86215137db4a6ea403aec4f4920b9177bfedc"
+  },
+  {
+    "blob": "4e40ac9af17460fb726b92dc70f13adc9b26271d",
+    "size": 1915,
+    "path": "assets/scenes/LIVING_SCENES_SOURCES.md",
+    "sha256": "52753b3548e93befc1d02bbd0808b0002143168bff5f13c37029e76017e6274b"
+  },
+  {
+    "blob": "d88f598fa267cbda3b4602d77405d6b6689330e5",
+    "size": 34308,
+    "path": "assets/scenes/mountain-valley.svg",
+    "sha256": "b3836d759eee36fc332f5e38e1ae7faa2a47a7d7bf8d45ce827936dc5ad0f3b8"
+  },
+  {
+    "blob": "2bd73189aca10d76a924166f667c94da3ecfa9dd",
+    "size": 295192,
+    "path": "assets/scenes/webb-cosmic-cliffs.webp",
+    "sha256": "53a489512d6e91e5b6859ce5bc9818bb9fdb8031bf5f822f07b220893dec5d8c"
+  },
+  {
+    "blob": "fd7f4c54b5166a9973eb942bb1c91cbd36440bb8",
+    "size": 279447,
+    "path": "assets/systems-lab.jpg",
+    "sha256": "e20d07fbeb7363703f3e7c46ada25f0e59c45fc433805da81db04c6cecf542d1"
+  },
+  {
+    "blob": "af825fea6e217cbd39ea5f7a877e4179fb7fbeae",
+    "size": 709,
+    "path": "dark-music.js",
+    "sha256": "58b840595789bbedd360a2fa61080bd664e7e78547c536556ae440787ca33c5e"
+  },
+  {
+    "blob": "a4e764e6c7b798b1eb843a135914c9f90b1301c1",
+    "size": 663461,
+    "path": "deep-learning/advanced/architecture.json",
+    "sha256": "491328eab8ee81fd86e0cc2c214879dcb8172ff9712fd7aa34eb45c013436732"
+  },
+  {
+    "blob": "779c03d9dc5cb7c79cbae330ebefca71cabd9f49",
+    "size": 485228,
+    "path": "deep-learning/advanced/distributed-systems.json",
+    "sha256": "3b4d38de89a29bdd9eab3d1a972e9c906040176c4566056b59251c4be706c6cb"
+  },
+  {
+    "blob": "455e1e32a3f6cc5f021c01cc00b04fca6fafc550",
+    "size": 587364,
+    "path": "deep-learning/advanced/gpu-computing.json",
+    "sha256": "5c3c642d8869fded4130bf6307608acb1f1f23954de1c9e11a3a8a93495d958b"
+  },
+  {
+    "blob": "28b867c3211fd04b7322d683ac40c0fa2f14843f",
+    "size": 443012,
+    "path": "deep-learning/advanced/gpu.json",
+    "sha256": "5582e1ba9344d30ea505ebbae1752ed7a2352de3173e20c85b6ca1a5602d4505"
+  },
+  {
+    "blob": "49b0767fbf8086645d7ad726f33a77d1fd381dae",
+    "size": 607486,
+    "path": "deep-learning/advanced/hpc.json",
+    "sha256": "b4a417b055d60a3c49df8d293cb279bc2224baf3f1a41ddb8e378dd3196cb819"
+  },
+  {
+    "blob": "8ba0613a9f8e9c4ea5f3e7618d37d571886b4d21",
+    "size": 444704,
+    "path": "deep-learning/advanced/lab.json",
+    "sha256": "3385a0b11b8dba13c54004a2f45f9a914ec84591eca2627f06480af93b86f63b"
+  },
+  {
+    "blob": "612f8403ff8ebf3a5f78759b25775d1476e3b3b0",
+    "size": 601305,
+    "path": "deep-learning/advanced/memory.json",
+    "sha256": "d952e89df09ce7f9093eddaa16df6afa1f98aad18699ae93ac5bd73b9d3f2532"
+  },
+  {
+    "blob": "e5392eefcec420e0125f883901835c79c2412bf0",
+    "size": 471515,
+    "path": "deep-learning/advanced/operating-systems.json",
+    "sha256": "91822f287c29c01a321f533a74320fe356a63be10e0ef879b9a5c0531dc218fb"
+  },
+  {
+    "blob": "4277de505bcb2e94451f19b89f1fdc06b557adba",
+    "size": 564017,
+    "path": "deep-learning/advanced/parallel-computing.json",
+    "sha256": "6b5876c2f46ea299e32dde847a91eeaade664dee8d534c0de1ae5a41522c97b9"
+  },
+  {
+    "blob": "c5e9835678edbbcc78756b13fa3b6ceb981a6654",
+    "size": 512518,
+    "path": "deep-learning/advanced/quantum.json",
+    "sha256": "282f16dccafdb4e9dd2262339ca38b4fd7e164f84157ec5e0f9e5352b594fd78"
+  },
+  {
+    "blob": "1771fe0401ee27fce507d0f777fe9dc27d14097a",
+    "size": 445270,
+    "path": "deep-learning/cloud/automation.json",
+    "sha256": "babc4a5c685df71d9003ee3185cda93acab0f5075db4d8e5ff9bcc8fbd8aa5bc"
+  },
+  {
+    "blob": "7ba363dd863b6cdddbfe1711f82366794ed5c23d",
+    "size": 731495,
+    "path": "deep-learning/cloud/cloud.json",
+    "sha256": "e0a38a43fe8b3044d97d0c8ef5591fac36e81f3aa60ed0e85603bc2ef68f489b"
+  },
+  {
+    "blob": "cb71d683c52d4f39161ed41a9bde7bd64d61f382",
+    "size": 413129,
+    "path": "deep-learning/cloud/identity.json",
+    "sha256": "68756cbec6008c95c1531b1628efcb213ce96a13733eabeeb16f4abc07aa22a9"
+  },
+  {
+    "blob": "3f31d226e92f9707c40f87e3c9f2383facba0f89",
+    "size": 424010,
+    "path": "deep-learning/cloud/kubernetes.json",
+    "sha256": "a20580d9e0253958364d66b14464b620d3f5ea036eaa8156bec60eb73779ad81"
+  },
+  {
+    "blob": "3b1ac2296265d9fc50a8210d8b6b1b78baa106d1",
+    "size": 415462,
+    "path": "deep-learning/cloud/lab.json",
+    "sha256": "88e6a6c83d06a8c9b77395f8d7f21c6df8ac376110168db8cf1fa4b1d6fa392d"
+  },
+  {
+    "blob": "6f611076d9a5fdddca61101e9492ac02d09a3182",
+    "size": 617619,
+    "path": "deep-learning/cloud/linux.json",
+    "sha256": "f703438c4b56539932136a19eeccb1fb6c74f92b597b93a29d43a675410a60b3"
+  },
+  {
+    "blob": "2973744d46db9c22f87f58cbe749b875df711975",
+    "size": 809311,
+    "path": "deep-learning/cloud/networking.json",
+    "sha256": "485cdd8e5d71943285027edfd87c055ab224a1dbb08833b01196c2bef72895c1"
+  },
+  {
+    "blob": "7aeb482a0e8a3c9b2c6886b86caef9c98adcbe0b",
+    "size": 439586,
+    "path": "deep-learning/cloud/observability.json",
+    "sha256": "683701477b97ba675a72c4d12718dae6922b06ff63f38834732e9ac6af4759ff"
+  },
+  {
+    "blob": "51d8f34486d27936653b824208148d7f0deb8e71",
+    "size": 422741,
+    "path": "deep-learning/cloud/recovery.json",
+    "sha256": "b4c3bf7e1220636f17376812354739363f0d0246f65d01110f382793d153dba7"
+  },
+  {
+    "blob": "6995295122f75d5c012cfff34a4212d362c301bd",
+    "size": 515719,
+    "path": "deep-learning/cloud/windows-identity.json",
+    "sha256": "8f86f2a8d881ca782086783ebeab3e7a53ce093171a85707c3c045002483e340"
+  },
+  {
+    "blob": "c380c543136fbea27450c3fa6fa96efa38f13d87",
+    "size": 496613,
+    "path": "deep-learning/cyber/application-security.json",
+    "sha256": "bb18b19b5dc2fdbbe8525b9e8c945c9a67dd5fc01da8531f4202e677a2f03cae"
+  },
+  {
+    "blob": "807a74d46b946f31dd5d9c41a0143352d881a726",
+    "size": 489921,
+    "path": "deep-learning/cyber/architecture.json",
+    "sha256": "c42c5ca9d1e87703d0f67f5daa3be5f286f06d3cfa6d0e748af8e63a8000f0e3"
+  },
+  {
+    "blob": "787450170279fc77d625f7e4534e2879fe7b2ab7",
+    "size": 452516,
+    "path": "deep-learning/cyber/detection.json",
+    "sha256": "06f3c0e3556101e706f9d0c453ae2a60f7c210b732b22eedc0572aff191aec7a"
+  },
+  {
+    "blob": "cf45f265fe4e8d72f1124b691a4a86a5633ed8ef",
+    "size": 392451,
+    "path": "deep-learning/cyber/endpoint.json",
+    "sha256": "761c732a1a20015f4bfdc00812ecc179e2338aab485a644a643bd5e1e2998fa9"
+  },
+  {
+    "blob": "a12644f727ba57e31165dd8c43d8e8d6446c48c3",
+    "size": 400903,
+    "path": "deep-learning/cyber/foundations.json",
+    "sha256": "3771dd1db0dc517d357b8c3b642fb95a6d0c72957b32fc7ad9ff896a4c3ab6f2"
+  },
+  {
+    "blob": "b704008c6f1fe2c7a79d663e9a8689df2db50c87",
+    "size": 481935,
+    "path": "deep-learning/cyber/governance.json",
+    "sha256": "93bd92bb83231493750ad6e5a0a4e2c8d2d4dfca3cf7a8d4364be2dedb6c4c4d"
+  },
+  {
+    "blob": "4f17638d59b9b1eece3a91e77a01236cd4aa7a0b",
+    "size": 563371,
+    "path": "deep-learning/cyber/identity.json",
+    "sha256": "929321488d8761978bcf9124ed97c2d7c80655abd9e38508af41460972a4fea1"
+  },
+  {
+    "blob": "36ef3e62c07faaac285537a041a6b2991525fb8e",
+    "size": 436359,
+    "path": "deep-learning/cyber/lab.json",
+    "sha256": "dcbd12ac22cd942ce2d3836682fcce6d728aa0b852ff17a9b2aeaf26cd0a302d"
+  },
+  {
+    "blob": "52a0eceb2577be2df283d00d7d57f6c074ca100a",
+    "size": 431281,
+    "path": "deep-learning/cyber/network-security.json",
+    "sha256": "af45d2da7ce33ff90cf02463985aeefdcb34c85ce031c997568a814af9ca7192"
+  },
+  {
+    "blob": "3972d918112b3159bf72d4db6b767c215c9ead79",
+    "size": 441851,
+    "path": "deep-learning/cyber/recovery.json",
+    "sha256": "2c1106dfad90821134a753fe9c81436ae564e434f1a3c4787b413e7e553bb308"
+  },
+  {
+    "blob": "5b4474ae63dd401931044e38b2e0d4efc0508e8d",
+    "size": 481320,
+    "path": "deep-learning/cyber/risk.json",
+    "sha256": "d1ad816d5f762e16aace290d1fda6dbb36ae33b0ce76fa4bae424b9474be76f4"
+  },
+  {
+    "blob": "1216e72b5363063933672d8c97e4d55f8c6288c3",
+    "size": 3407,
+    "path": "deep-learning/index.json",
+    "sha256": "efc670a456e393b2f7b3a2f7229f7017d337e9ad99729bfff059f8ed0d5a6d17"
+  },
+  {
+    "blob": "d3cdffab115802fb9926249442599b343623f16b",
+    "size": 312560,
+    "path": "deep-learning/leadership/capacity.json",
+    "sha256": "5c74562d376986be1f4bb02e8ac5532b8cec439c39a5e58c79a55304d08f7ba7"
+  },
+  {
+    "blob": "c3ff43d696d692537bf4180f09931ab553a4b681",
+    "size": 311678,
+    "path": "deep-learning/leadership/finance.json",
+    "sha256": "8c380731f088677e67d646c0f0b51b30d58622130938d5390a92422c795fa5f0"
+  },
+  {
+    "blob": "c3101bbe435eb003c6b25e4fa626fc40a298c6f2",
+    "size": 320848,
+    "path": "deep-learning/leadership/governance.json",
+    "sha256": "9e310435920c71002067bc93867c6f1d05a0716c496fbea499b72dfacc854f59"
+  },
+  {
+    "blob": "96ad54deb89633eac7e512097cbc9ed5a5c08741",
+    "size": 355705,
+    "path": "deep-learning/leadership/incidents.json",
+    "sha256": "1c8446e1d1bf834e093e56f40b3d68afebc4835efddc86c98b8eab1232f2146b"
+  },
+  {
+    "blob": "ab9227fd483852238dcf65a4db2a2008dbf490f0",
+    "size": 319050,
+    "path": "deep-learning/leadership/itsm.json",
+    "sha256": "b10b7d46402a3dc9e9829436758f43e60f71810b167cd043583f39af15b4acfa"
+  },
+  {
+    "blob": "2b5ddf2e494c77c9fcbfc6f093d0eb53704fa0b3",
+    "size": 319352,
+    "path": "deep-learning/leadership/lab.json",
+    "sha256": "42f86d72ad3942ad28c9f584108cf81f724fdb7aa93499186fa517e6667fff95"
+  },
+  {
+    "blob": "43cb5766f83acefda21050260c4b817a6cd77e19",
+    "size": 307025,
+    "path": "deep-learning/leadership/leadership.json",
+    "sha256": "099defed73f004db5c713b948e7fa1b8b92bb6eea5eb3f729c6226a3e054c156"
+  },
+  {
+    "blob": "1613d817d9f1ea6ac24463a54a8f2775e4575177",
+    "size": 410481,
+    "path": "deep-learning/leadership/operations.json",
+    "sha256": "55af73fdfd4c350eeeaea941776aa9f55858af1b0d7a0a3a2f4c2f6b3e7e9f6c"
+  },
+  {
+    "blob": "a5db71da4542ec4cc0a1920920c2eded283f7ace",
+    "size": 269760,
+    "path": "deep-learning/leadership/projects.json",
+    "sha256": "b69d6a54fa78e1822712de25b2ea1f8ff15f17becb57499a22b48d987b2ff941"
+  },
+  {
+    "blob": "80a1c632fbc8edbb22ae87e4eb51a4adbc257a68",
+    "size": 329857,
+    "path": "deep-learning/leadership/recovery.json",
+    "sha256": "1efe47bbf2378dc545e5bf63d7a97dea272511b3c7b9272fcd3ff6c73ccd156d"
+  },
+  {
+    "blob": "495fdfa2088d717e178ed716102b35dbe160bad8",
+    "size": 419342,
+    "path": "deep-learning/leadership/reliability.json",
+    "sha256": "c456ed84d12933bf55e67afeff2b85ea19c2ed0d6f374092764fda0fac129ae1"
+  },
+  {
+    "blob": "86d1b8d1a3824473d67179a345183339382c6e91",
+    "size": 311832,
+    "path": "deep-learning/leadership/risk.json",
+    "sha256": "428041f870ba5aa78a6943d5df4a8631750b511d9e143a6024c67333b8a9a501"
+  },
+  {
+    "blob": "057dc83100256c26c90f399268a0c0f607464ab0",
+    "size": 293769,
+    "path": "deep-learning/leadership/strategy.json",
+    "sha256": "92ae7dd1b8af9adfef0ebd53e3082753bf461c44f2c735e0b2e2d3355d0e81c9"
+  },
+  {
+    "blob": "a60f15467078503292abcff065cb9e2d4721c844",
+    "size": 281926,
+    "path": "deep-learning/leadership/teams.json",
+    "sha256": "0ad19762c4df011328b22bcc6573e6ea2a1fd2183c64ad75e26a5fe2f057b843"
+  },
+  {
+    "blob": "3fec1c7c85f401ed1066155cf3a478ccbce59825",
+    "size": 320103,
+    "path": "deep-learning/leadership/vendors.json",
+    "sha256": "bc96aa21bea291450f8b54180b9ff75ac67b0d241321a3990ad7a88f050e9f7d"
+  },
+  {
+    "blob": "05a0c0032dd93dc3417e2ce39386864e9897fbbe",
+    "size": 436510,
+    "path": "deep-learning/math/algebra.json",
+    "sha256": "3b04dcdb82702b8d5bb188f335c5852f247000b8482b9fc4fb513477ab94b7eb"
+  },
+  {
+    "blob": "5a1983eb991d436e74b7e600c65e56a9e48b8f22",
+    "size": 537994,
+    "path": "deep-learning/math/calculus.json",
+    "sha256": "9e1534b5dbe700347026c4632db173259c5537dc07055e60f8fd71e50ef5c453"
+  },
+  {
+    "blob": "23b0a831bfb696b17b35fd2ff6c5cce5dd8c66c9",
+    "size": 389585,
+    "path": "deep-learning/math/discrete-math.json",
+    "sha256": "6b15f770f7d48311046aa46890c5794ab425542e58eff24b91d9298c17c225c3"
+  },
+  {
+    "blob": "0f408bc220b4cc226cca3eaee70f40b6be3208c7",
+    "size": 431273,
+    "path": "deep-learning/math/functions.json",
+    "sha256": "4d2c20139db32135446cf164f4fcccb88770ec03146cb9a88d453637adaccc18"
+  },
+  {
+    "blob": "499e6e69f2aaafb4ba62c5148069d5d5e15d6081",
+    "size": 436017,
+    "path": "deep-learning/math/lab.json",
+    "sha256": "738c2e48da0f8f329b2e968b8799c924004e3c8d1fe289d481eda4ea1c459a11"
+  },
+  {
+    "blob": "b801fbab25d0d46f1e08edddb567cfb791e59fa8",
+    "size": 489949,
+    "path": "deep-learning/math/linear-algebra.json",
+    "sha256": "93df4ab18ba91cded0688c9144619e0d9542805f08f2508fe008c02b35e1b315"
+  },
+  {
+    "blob": "39cb58a9cbba37fc81fb2d191b3086d8eca4b84a",
+    "size": 377458,
+    "path": "deep-learning/math/numerical-methods.json",
+    "sha256": "3daa918194c1b275e920fc62c68cad745c9d53a2abea3b7a5d29f3736ac0d4cf"
+  },
+  {
+    "blob": "524aa1cf3b9321713994d914c97ca2741c499d82",
+    "size": 435503,
+    "path": "deep-learning/math/probability.json",
+    "sha256": "ba6ee11568c12d5877381001314673fbfc5f24d1f82b048d0248949f8b2f2038"
+  },
+  {
+    "blob": "9f9afdca7984380f018d14d9623f4352baf0173b",
+    "size": 372200,
+    "path": "deep-learning/math/sequences.json",
+    "sha256": "fc78bd84e4e239e44a49b252275470dceb97e2de415037ecbb48a2a6e6161728"
+  },
+  {
+    "blob": "4c3f4d9c85723b5f3c0f03cbb5264d5e442b6042",
+    "size": 351053,
+    "path": "deep-learning/math/trigonometry.json",
+    "sha256": "f963913aae01ecc70bafe8aa7e525eca94869c5a0f5154225de910000f6fbcfd"
+  },
+  {
+    "blob": "f4d7d14c4b9d785e4fefbd0b77768e0a7bfb5480",
+    "size": 440597,
+    "path": "deep-learning/physics/electricity.json",
+    "sha256": "eefb647e11dbfdd1695f51a64b22a5c5d6933d85cb90cc2c246b2ce4fc9cf9fc"
+  },
+  {
+    "blob": "123ac41fd9babdfdf81ed7e4a24669c9b1d4fc23",
+    "size": 463902,
+    "path": "deep-learning/physics/energy.json",
+    "sha256": "abc25702c14dc1d04dc084ab768a046e33259f496f04066387b6d6cdd5774be2"
+  },
+  {
+    "blob": "849f3dce873217f79654d355b867ec958c945475",
+    "size": 400653,
+    "path": "deep-learning/physics/lab.json",
+    "sha256": "1d826ecc19f84373907289906824681bc22ea0e6a1cbd0c0d103f52279c173ec"
+  },
+  {
+    "blob": "df64b8d0020899947b1ee76e3bbeacf3a92fbd7c",
+    "size": 395017,
+    "path": "deep-learning/physics/magnetism.json",
+    "sha256": "add6dd76fb79846f89c2b42c35e7f4109b32a564c768c94688f4471a2c29e635"
+  },
+  {
+    "blob": "a1cdc05bb25e6200f33317607a0d25bf9c5ee823",
+    "size": 462808,
+    "path": "deep-learning/physics/mechanics.json",
+    "sha256": "b49fc76019ae94c264f5b92e77268d03010c6a0aa4766077ae4f764c51357873"
+  },
+  {
+    "blob": "a1de22ad846f6d7a662bf8fdff4652ce9db739af",
+    "size": 390014,
+    "path": "deep-learning/physics/modern-physics.json",
+    "sha256": "06b58ed673fda17092d24214f70d2000e1b05b3c3b89957a46dd6fa34621ac04"
+  },
+  {
+    "blob": "ed9aec6a6ed3fb6f4e30682576d9e5e0a0c1ffdf",
+    "size": 411651,
+    "path": "deep-learning/physics/momentum.json",
+    "sha256": "c35b96074d2fd4290280dabebbeace1be692bd1bf2388af1bb7e51c728ad1c2e"
+  },
+  {
+    "blob": "03c4ef1ffb2612870da58e4c74a31a2373ed8235",
+    "size": 373974,
+    "path": "deep-learning/physics/quantum.json",
+    "sha256": "8195bb9b274313504a416b11ce0fa2a225088cabb95748eda0ffd55855fc4dab"
+  },
+  {
+    "blob": "b00e0bbf37aceecdea9075b71130fa9040439202",
+    "size": 355351,
+    "path": "deep-learning/physics/rotation.json",
+    "sha256": "c029916c090b8569fdeed8330c00d80882bb3618381e6906b6b1b657ae4820e5"
+  },
+  {
+    "blob": "3fb4a9ff1ab3051f4d6818e6a7981ca7089d7f87",
+    "size": 383586,
+    "path": "deep-learning/physics/thermodynamics.json",
+    "sha256": "1d2b5de62eb711f24007fc6739cdd0e442bb0c8f49ffd38288c2c8feec5e44a9"
+  },
+  {
+    "blob": "6dc3a04b591f4cc240a9afda166355ba7563d6a8",
+    "size": 411962,
+    "path": "deep-learning/physics/waves.json",
+    "sha256": "61b75219de97b8d90b7dabfd38aa31b058976f162184f1f331f59536d1bb6a08"
+  },
+  {
+    "blob": "f7e2923ec900e28997265dd6be88f3e454bb4ec5",
+    "size": 425282,
+    "path": "deep-learning/software/algorithms.json",
+    "sha256": "740397218431c74e1eac568bca891dc80fd885a27d795af06194b966ff9f7038"
+  },
+  {
+    "blob": "9d6256f8c5886bbda2939a2f1a410ee9ccaddd76",
+    "size": 536397,
+    "path": "deep-learning/software/apis.json",
+    "sha256": "18e2a0ef49272a047b271abb301f78fe5c6dae00d19c2dd810ddabcc0fe26de7"
+  },
+  {
+    "blob": "81b447def5de78368d1916a1046283faa89c08cd",
+    "size": 449665,
+    "path": "deep-learning/software/architecture.json",
+    "sha256": "c06bdc9d57dbdce5de4a24bbd029e6071a22eaa3d012d53c5d575f8f7c8e5232"
+  },
+  {
+    "blob": "5e14bf1eacf5065f13a6ec3320fcc20ccda72c4c",
+    "size": 481473,
+    "path": "deep-learning/software/data-structures.json",
+    "sha256": "9ecb8a226511370e1cf68708cc5224625520c6be1d6330bc93abc4623a7d7086"
+  },
+  {
+    "blob": "635a32e96c5c0c5191d5150f3294c44e2a6a6162",
+    "size": 627022,
+    "path": "deep-learning/software/databases.json",
+    "sha256": "f6f2518c5e467f47a49f9f26dafd05a5e93660f3cf36fbfb288ea5217a8d41a5"
+  },
+  {
+    "blob": "5ef6a915287d235eb3412acb18fbcb9e22922d48",
+    "size": 553589,
+    "path": "deep-learning/software/devops.json",
+    "sha256": "44f402aa3a0cf348ce9d1c58189072d798ef0496bbf503e87974e03f040467d8"
+  },
+  {
+    "blob": "383acb6d9b1b4820ce7c2df42caa21b218e61b12",
+    "size": 502500,
+    "path": "deep-learning/software/lab.json",
+    "sha256": "c6bb8ec2682c0a4d99837c98214cc9fa09e4ed88fd5445151a6b5215f4dc0923"
+  },
+  {
+    "blob": "0dff9d8eb95da3663e532a0a6596a6c9ce850e78",
+    "size": 606071,
+    "path": "deep-learning/software/programming.json",
+    "sha256": "3bc7e5a5656304bc7b2b87cac51b7e70ab0767ee0c6b8255b0ce2411fac5a1cb"
+  },
+  {
+    "blob": "8a5faa52387cee06d51879558c04aa80c24a5d13",
+    "size": 430625,
+    "path": "deep-learning/software/testing.json",
+    "sha256": "a57237747ec4fdc3b7122f2cbdf7718464bc6adda21650853e2f0443853c0b1d"
+  },
+  {
+    "blob": "ece338aa285b095eaf41435d2b045b9e74fc746a",
+    "size": 2103,
+    "path": "deep-learning/video-profiles.json",
+    "sha256": "59812cd1239bf9ce6987c7f11163feb01d30d1b4ffe3e831a91675282480d39a"
+  },
+  {
+    "blob": "72e0a97782f6cfac4c176039df4e3615742dc74f",
+    "size": 7556,
+    "path": "expertise-experience.html",
+    "sha256": "5b769379583f0cf1b167d1f7642a6a4b2267646cb172b087cbfa755ff241c8a0"
+  },
+  {
+    "blob": "2e959f90aa4890448db8f354dcc347e3bd4db27d",
+    "size": 5190,
+    "path": "game-development.html",
+    "sha256": "e9e7eddb94b70a0cfd60965e4c08a31d092c3efc5588645bd9a48110c09e084c"
+  },
+  {
+    "blob": "d5b8c7905c3c4fc8ed19a663ee71edb26ce89e91",
+    "size": 945,
+    "path": "games/3d-battle-chess/CREDITS.md",
+    "sha256": "981e2a89f484b45efc1c7eaa7976c1c634199c323b6acadc6a5805115afce774"
+  },
+  {
+    "blob": "e21127cc885186407b97e09fb66c29069a072537",
+    "size": 3531,
+    "path": "games/3d-battle-chess/DEPLOYMENT.md",
+    "sha256": "c7c339faef64e6183c6102e8f4e1e06d54ce7de1a2f54a2d473962cb6adaf3e9"
+  },
+  {
+    "blob": "a48f3699e1d7f7371d09b0285a901596d2e872f5",
+    "size": 2043,
+    "path": "games/3d-battle-chess/README.md",
+    "sha256": "13bc59e45109343f3d9fdb523be1447f671ccd16793b20fa39148a38550d7a21"
+  },
+  {
+    "blob": "931eee46f56e328778e72b4f2e2916d3de1756ac",
+    "size": 298,
+    "path": "games/3d-battle-chess/SOURCE_COMMIT.txt",
+    "sha256": "b10250e355faa25044c40b675330ac25d1ba746f857cf15f9e061cd9a15c26ba"
+  },
+  {
+    "blob": "8e1eb82424748a2c0366839a6912de3952ae4e05",
+    "size": 7994,
+    "path": "games/3d-battle-chess/STEAM-ROADMAP.md",
+    "sha256": "71e8df1916cb157bf9bb8f9d618ce0222cc96f01b84d2564c9ab884a841ffc86"
+  },
+  {
+    "blob": "1f4b7e21c33a9da23ed37b2bcfd2f63cc516ff8f",
+    "size": 5990,
+    "path": "games/3d-battle-chess/attacks.js",
+    "sha256": "63ec73ff942260f056bb0ea6f78a5535543400ef5a83dbfeb051c6cc5c8f55fd"
+  },
+  {
+    "blob": "e31d5037d5b8229172ae8bada5d22405194fa09f",
+    "size": 4684,
+    "path": "games/3d-battle-chess/audio.js",
+    "sha256": "ac54d2b6cb32d066f0340fca0049cca811c90c632b6d110298a90a82a9817180"
+  },
+  {
+    "blob": "0ed7649792fa30f3b915e29ae6d28643efa1b5b8",
+    "size": 23066,
+    "path": "games/3d-battle-chess/battle.js",
+    "sha256": "52abef33b58b5d760c78b6c48a3b4ab5f88863461256c4baf56aa1031c43838a"
+  },
+  {
+    "blob": "29e0810d9999f30cb3fdbda38a756506bef3bf4d",
+    "size": 595,
+    "path": "games/3d-battle-chess/boot.js",
+    "sha256": "413dabca7618b169eac790fbdb9a596a7fe4591f7a41c672ecba27608a5b6a50"
+  },
+  {
+    "blob": "d194e368b68f2efb1592706e7a8f4c118a378be8",
+    "size": 1388,
+    "path": "games/3d-battle-chess/castle-controls.js",
+    "sha256": "e206e836e9a90c8e31a4206e5d608b5b204c48a16beb8dd157f98d5371aff774"
+  },
+  {
+    "blob": "6182474ab7600039b5f815dd15090cc60c08971a",
+    "size": 4859,
+    "path": "games/3d-battle-chess/characters.js",
+    "sha256": "cb362d6e43bbc97b795e584fec3aa67c19af898f8ba50ca02ef395b4bdcf5163"
+  },
+  {
+    "blob": "3d9c94f5928c748bce45e532403a7714f574f504",
+    "size": 3215,
+    "path": "games/3d-battle-chess/combat-physics.js",
+    "sha256": "fe08a83b275b307c97da7af3ad79310fef4b66cea96663d42b95c53d0b88f56c"
+  },
+  {
+    "blob": "7366aaf0951d1cbe156890763702db06477b8937",
+    "size": 2287,
+    "path": "games/3d-battle-chess/combat-v8/animation-runtime.js",
+    "sha256": "f50f06818c1cf06049c7e5f342fee3e9631b93f650a35fff54deb6f7d030ba0e"
+  },
+  {
+    "blob": "1e4ba15e790a56de27340bb4cc20e2e291d7edeb",
+    "size": 3501,
+    "path": "games/3d-battle-chess/combat-v8/attack-executor.js",
+    "sha256": "879dee6bb22cecf30dd5a2b1efe45caf576bdb5ea6a31741c89ad31074d0d287"
+  },
+  {
+    "blob": "aa3a0e77950e8e33362c352bec8891c37d42d479",
+    "size": 5672,
+    "path": "games/3d-battle-chess/combat-v8/attacks.js",
+    "sha256": "7c26b5151852c149a91bc91a7097fab14a4a26d385a45741ddaf9a07cac28f35"
+  },
+  {
+    "blob": "c614ab308a4a53545b171d66f0eb8886872cc3ce",
+    "size": 5385,
+    "path": "games/3d-battle-chess/combat-v8/character-definitions.js",
+    "sha256": "488885ee9d1b625316959738c95db3ed226981bedeb9ca2293654d0c1a817a8e"
+  },
+  {
+    "blob": "a0a30b0b9ee1cf32931d00ffe57c4dd8920207fa",
+    "size": 3640,
+    "path": "games/3d-battle-chess/combat-v8/character-factory.js",
+    "sha256": "9a33a663ff1ece5bf2a73c4e151e20e00a2227d2541ce585b4b6e6b7df58e390"
+  },
+  {
+    "blob": "8bbf4ad8b83d07c8388861637c41cdd6553c4036",
+    "size": 8879,
+    "path": "games/3d-battle-chess/combat-v8/character-visuals.js",
+    "sha256": "1575dd520ae9e4e0b436747bc5bb56a718e21ad60e3436aa08c111a9b5bc637a"
+  },
+  {
+    "blob": "2987faf130c66b5d3b8cb9da1ede7443c32e190a",
+    "size": 5591,
+    "path": "games/3d-battle-chess/combat-v8/choreography.js",
+    "sha256": "156d981a3b7ff8c6a0fab0afbaa5679c2a3d0626d83b06f65bad81f9a1cce766"
+  },
+  {
+    "blob": "421985a88c422466724a0fe800008c588daf2239",
+    "size": 1084,
+    "path": "games/3d-battle-chess/combat-v8/collision.js",
+    "sha256": "61d2647eadfe979c987b999c45784c26bab835e3ef1a7a4185414d07d594068b"
+  },
+  {
+    "blob": "1e0d2dbc192ed432572b4558933f756121009d6f",
+    "size": 4152,
+    "path": "games/3d-battle-chess/combat-v8/combat-director.js",
+    "sha256": "af4536764025a0cb361e8b70f9a794f8afcfc0cbf4cd0f6f3f32e37d46942c71"
+  },
+  {
+    "blob": "aa9bb0860f751c71c7e3ee6c79080549d533fec6",
+    "size": 976,
+    "path": "games/3d-battle-chess/combat-v8/defeat-choreography.js",
+    "sha256": "9d9d80ac948b996038346e9b1f2c266d86975c6326b0f5bdd2be7ba2f00fa1d2"
+  },
+  {
+    "blob": "87ab2e5fd5a92162e4a7e3aeed2cdadcd0d42036",
+    "size": 9126,
+    "path": "games/3d-battle-chess/combat-v8/effects.js",
+    "sha256": "7a84f001202a989ebd48090dede064d3a0b2073f49419b2670c22db292de7d05"
+  },
+  {
+    "blob": "f843e720f52f849ca8c5be30e23999a46556838c",
+    "size": 765,
+    "path": "games/3d-battle-chess/combat-v8/physics.js",
+    "sha256": "e0b2fdfba12b5cf6a964d3055816c1adda4cc2543505434e155a76b0c92fc2dd"
+  },
+  {
+    "blob": "6350971c94eb2f1cc57bf840f4e0ef8602f78753",
+    "size": 1492,
+    "path": "games/3d-battle-chess/combat-v8/reactions.js",
+    "sha256": "31a3ec60002b2783a0e75ca1001e2bd9df767ba38d9e9e5c0eb5fb03f30e5038"
+  },
+  {
+    "blob": "72240b52fcfda90ae55487e63e944273649dd306",
+    "size": 8049,
+    "path": "games/3d-battle-chess/combat-v8/rig-types.js",
+    "sha256": "495aaa6baa866f1cb360193579d2296ad6c34b20bfa5a47aff1c18b277d34f8e"
+  },
+  {
+    "blob": "8bd625288c438794f5963187e6aa6e65297fde55",
+    "size": 8012,
+    "path": "games/3d-battle-chess/combatants-v6.js",
+    "sha256": "b44671056fbf3847afec4bce0426c4f0fbf0582e09fee8b03014fed4c7c7e1ab"
+  },
+  {
+    "blob": "63bb4faca48d5a2ef0dbc2a8aa6c3df31c5c37de",
+    "size": 4368,
+    "path": "games/3d-battle-chess/combatants.js",
+    "sha256": "33e7a11507d498c69059bf213174cb5c897dc6468bed4181bf7b93ebcfef7b3f"
+  },
+  {
+    "blob": "d597a9b5e7e08d649d5a94507dea5498f5981f66",
+    "size": 12085,
+    "path": "games/3d-battle-chess/duels-physics.js",
+    "sha256": "35a4b6f2572d0bd5ab5eef71ba3e17b8559040c389dfc9cc1316e565d9789eb6"
+  },
+  {
+    "blob": "2a3532fdca3d90e03195eb5b63d3eacd7770c028",
+    "size": 13046,
+    "path": "games/3d-battle-chess/duels-v6.js",
+    "sha256": "ae974fbb7a8cbf06b15e26549c618211f79fc3a90a93bb57af124c87ce42d73f"
+  },
+  {
+    "blob": "dab9831d7660b5e69399704c53be9f62d1eaac62",
+    "size": 5789,
+    "path": "games/3d-battle-chess/duels-v8.js",
+    "sha256": "b25c22386f831104329c30b1bec1ccc1a1485d9330d29a16589491a2996a5146"
+  },
+  {
+    "blob": "87025a76814679b7cc9321382b84e5e81d292b4c",
+    "size": 124,
+    "path": "games/3d-battle-chess/duels.js",
+    "sha256": "0e805b78370823520184458e6b1e17d79d297e003e4b470ebe73e04bd4c89ece"
+  },
+  {
+    "blob": "cd2735964edd442c28c8c8d15d91a053ca408698",
+    "size": 10149,
+    "path": "games/3d-battle-chess/engine.js",
+    "sha256": "27f719589e18853220c505f8b4acd98128adb4a30485648246ae74c227bf351e"
+  },
+  {
+    "blob": "249ffab911ce68d299498b4c78aadd82ed64f92b",
+    "size": 4999,
+    "path": "games/3d-battle-chess/fallback-board.js",
+    "sha256": "5835906dece04de9f592c8fdcd2427504ec4e0d114c84eecd9b0c3c08910fbd2"
+  },
+  {
+    "blob": "d852c14a2ba784794c41c83b379b5cd0f11fc702",
+    "size": 2006,
+    "path": "games/3d-battle-chess/fallback.css",
+    "sha256": "dc97a7d3afc519cedb268cd524d0b39a3c71d5509512fb25866009afa01557c4"
+  },
+  {
+    "blob": "2a8dab90b16d635726787992d561a631af1251cb",
+    "size": 8331,
+    "path": "games/3d-battle-chess/index.html",
+    "sha256": "ff150ac84eeedf3a0d4f2b2ff5601fe72d20260cae29cdb486c90470f47b8314"
+  },
+  {
+    "blob": "0662831fe26bead6eb344456991566303239a82a",
+    "size": 7347,
+    "path": "games/3d-battle-chess/pieces.js",
+    "sha256": "c85f824b464639b365644c0f183a2c7d976f71fea19b43d3f0de2d43dbd5a3cc"
+  },
+  {
+    "blob": "2616bd46cc7d9df41c19993ec95002eba4c33fc1",
+    "size": 12967,
+    "path": "games/3d-battle-chess/styles.css",
+    "sha256": "146aa2e1345f566e516fdd851987210196a71c9bfefb80384c4ae69b829cf821"
+  },
+  {
+    "blob": "e05e5701ec3849f1f7d886267a20db14e47f8a0c",
+    "size": 20236,
+    "path": "games/battle-chess/arena.js",
+    "sha256": "ebe0dd9c413a9a4d1e9befb56475f4f0fb6b4dfb8d0308be2a760fbbf9a39251"
+  },
+  {
+    "blob": "0b4149cadc5decd7ff05baf072349eb4981a25e2",
+    "size": 8364,
+    "path": "games/battle-chess/index.html",
+    "sha256": "f96891ef03b12acd6c65a5dc0c9ba5ea8a7dc3de196a1c70e78c57acd797faca"
+  },
+  {
+    "blob": "999592b49dbc9b051f645334bd53b8982cfa8e57",
+    "size": 3209,
+    "path": "geometric-lab/CREDITS.md",
+    "sha256": "9fd555c80e9aa33a4ef7b39271a447f4f21f53e06d7dd5a182be965a7df2de90"
+  },
+  {
+    "blob": "4c7c05fa7037a78e5d2472b7fa41a2948be137d5",
+    "size": 6779,
+    "path": "geometric-lab/METHODS.md",
+    "sha256": "656257883c770195b21fe3a238ede19f065e42a4aec16e94b5ad3cc17d9dab27"
+  },
+  {
+    "blob": "a82f66279fee1d8fdc3d62aecd72bc248b59f0c1",
+    "size": 40180,
+    "path": "geometric-lab/app.js",
+    "sha256": "70d16437c136527b3069c34c62a8bcf40ee3b3d95d1b907805226fa44063ed3e"
+  },
+  {
+    "blob": "a0ce62a043ec47dbe99d499e484b3ed8cf607598",
+    "size": 322,
+    "path": "geometric-lab/assets/favicon.svg",
+    "sha256": "83d090b6b58da6183a24c4b6087f015ee13c9c9b7740196ffb6f33f37d1bbe19"
+  },
+  {
+    "blob": "6e413c843bdbecf635e604c7f5eaf2d9f7fdd018",
+    "size": 604368,
+    "path": "geometric-lab/benchmarks.js",
+    "sha256": "43b50f155e41531c10409009c2db1de9f167d8e0df93de03e0a244801788920d"
+  },
+  {
+    "blob": "c9b617822e2b830b178c90188155bff2e5d86c15",
+    "size": 4972,
+    "path": "geometric-lab/index.html",
+    "sha256": "ba5c895527e21787158d4a405773bdf3f49e4b153959b58c8659b79c271cee55"
+  },
+  {
+    "blob": "4cde0e254712d60527940fa01e8b5546743c7112",
+    "size": 4644,
+    "path": "geometric-lab/math.js",
+    "sha256": "21ac72d6ff6c98bd4f3f10e5d579b2e84365871f703787d8feb75c2256ba4fd5"
+  },
+  {
+    "blob": "612c655953d52e5586202361c2e10f68f6b049fe",
+    "size": 11381,
+    "path": "geometric-lab/styles.css",
+    "sha256": "5bc61efa47480908255d9312a031f5101368f86f42c9374d821d42c861503192"
+  },
+  {
+    "blob": "b6b9a29a6fd1b30344d51358d539ca0a61643e70",
+    "size": 257,
+    "path": "geometric-lab/worker.js",
+    "sha256": "52aabf440594d58bc31497e63fa811b1fd0368dd9fde39a587d17e9464318223"
+  },
+  {
+    "blob": "56b71a13aca88cf12c0c953623e022cfafa4dbfb",
+    "size": 4397,
+    "path": "handheld-experience.css",
+    "sha256": "e2ec639ce18cca414ae9b816f24b0b3d6299d8d512935f3fddb396d2252a9918"
+  },
+  {
+    "blob": "853e437ce47118bed34ef9e8b77f9662df1b7969",
+    "size": 1335,
+    "path": "handheld-experience.js",
+    "sha256": "9fc7f0a2db61707411df76672aabf4603ffc4501f3755ac64a706fef574fac4b"
+  },
+  {
+    "blob": "022d834ea918d387d15a5b639fd75d11ebf07681",
+    "size": 27301,
+    "path": "index.html",
+    "sha256": "15d99f040c7ab856d71122a915b32c0a6ecf308603a785b5d4a6c9535874f687"
+  },
+  {
+    "blob": "490dde632480dba51e772a05d8246fd99ec23ef3",
+    "size": 25408234,
+    "path": "knowledge-data.js",
+    "sha256": "6cdd12e86d396121eb6b0d643c919d0e6b48d974714d3511a535ceb3e10fb930"
+  },
+  {
+    "blob": "519515188b158ae2d3bdfded3afbfec90dbd73ce",
+    "size": 93452,
+    "path": "knowledge.css",
+    "sha256": "028de4b6c41af43e1c525f857481225171623a8282278503611a9fd62bd73db2"
+  },
+  {
+    "blob": "3d35f321b9ce857ff20e23e47bf0cfcf8d4c9eb2",
+    "size": 191179,
+    "path": "knowledge.js",
+    "sha256": "0b1c902e6aa91a64746b5356d9cd4b6f8cf85093d54720d563baa334d348ec65"
+  },
+  {
+    "blob": "80bcf675c3484c41b7e1b82bb5975ac68aa97787",
+    "size": 1205,
+    "path": "labs.css",
+    "sha256": "4aca264e74018890efbbdb4d6ea259d4b01ebb6d5eb4f819d9c6fdea8beeae05"
+  },
+  {
+    "blob": "2c34cc84cc97b61a134027a289014f5f52372f09",
+    "size": 4780,
+    "path": "labs/emergent.js",
+    "sha256": "d17428421d6e23f78d6851fb6a2e22a883b9403312da21c1efdf1e1a4fec891a"
+  },
+  {
+    "blob": "665191d52366215427d57efca99e18c870f79e27",
+    "size": 3883,
+    "path": "labs/qpe.js",
+    "sha256": "f230626678a14ff26b45578a8f1c3b379cdb48992416616cfe3a5ebd2b870a4d"
+  },
+  {
+    "blob": "548a009758da0a59bd0c9c7b61865ceebfacbe90",
+    "size": 21635,
+    "path": "learn-browse.html",
+    "sha256": "119fece97d054a90afc0df8354afbc98cdbbbb378c629f88af361be14f38a9be"
+  },
+  {
+    "blob": "a5f3e58459d9d8e10e54d366c19972d25cdd1835",
+    "size": 1578,
+    "path": "learn-capstones.html",
+    "sha256": "7c49bc329894be9c968ed28f86a0a0cde93c99f44707db98d1178b047c93b08f"
+  },
+  {
+    "blob": "d955baa03af57005593aa51fd836f17f0d056f51",
+    "size": 21640,
+    "path": "learn-glossary.html",
+    "sha256": "bd77b9841c8e8c3e058287a32d5a3c2a996f3451df474aa2d2c98876c2196aa2"
+  },
+  {
+    "blob": "ee45e1f1c1acef9cd1c0473a04173de33c5e8129",
+    "size": 21634,
+    "path": "learn-labs.html",
+    "sha256": "612b072fe476c44c2e8b7da9178d3dd43c2d93c84c3d597ed7c12af6a0e6ef93"
+  },
+  {
+    "blob": "e1e1b12d854136c91f5a51207fc2a6d3a2457a8d",
+    "size": 21630,
+    "path": "learn-map.html",
+    "sha256": "4fccf173d0698b0bfeef48fc42586bf9faf65c7e4e3e381dddc996bf92f826d1"
+  },
+  {
+    "blob": "5e9d8a3d2406ef77b631260e2b77a3231d934bab",
+    "size": 21629,
+    "path": "learn-mastery.html",
+    "sha256": "eb2368a2f766a9f1752b5577319afb298ebe14aeb06530e4fcc2897183bb1081"
+  },
+  {
+    "blob": "67a7aad880f6580e5f63f13dda9eb2486b60f754",
+    "size": 19927,
+    "path": "learn-paths.html",
+    "sha256": "9c6e242ac2f54ab80f20504c79bc1d785823e298ebb288eb749e622679ff7821"
+  },
+  {
+    "blob": "84417b45449f9927653d5577846752bb5aedfd48",
+    "size": 21630,
+    "path": "learn-practice.html",
+    "sha256": "0d85e830df08949467efe0fad28574f8875427e2c98d6613cece8c51b5132de7"
+  },
+  {
+    "blob": "264d84baac4ad54a151cbf12e206a959f8933d21",
+    "size": 21632,
+    "path": "learn-verify.html",
+    "sha256": "89c9f9ac2dc483c2facf48f15c425baefc89891a3f347e66aa6be114e6ca5939"
+  },
+  {
+    "blob": "68fdbdf4aaad5b7ed69fc499933c8cefc7c64578",
+    "size": 21730,
+    "path": "learn.html",
+    "sha256": "e8fdc75cc49f037d3f8c8939f2f7cef9a5a262b2966a263c375e532dbb477b3e"
+  },
+  {
+    "blob": "edd04c2c200b3f4f8ea4cd1e98a0f9c5212e1d84",
+    "size": 2740,
+    "path": "learning-capstones.css",
+    "sha256": "e94b8be0c8b8c8f3facb9600481dd4c2dc7197c36e6fb3b0bacb886cb514fa3f"
+  },
+  {
+    "blob": "523d2ec45753d5b02382f909badae27c1f05b7a2",
+    "size": 4310,
+    "path": "learning-capstones.js",
+    "sha256": "cbbd523cab105b6be202ddc729a793be6345ae2fbe6897f6c980a003280e7d22"
+  },
+  {
+    "blob": "9349442c80b8440e4d53af1d37bf3b32333259c8",
+    "size": 18541,
+    "path": "learning-capstones.json",
+    "sha256": "ceed50df5b7ba67be378dc82c8cb5a7993b972da12fd8758586f9b2b56f72605"
+  },
+  {
+    "blob": "d1329a40c6c58e4349a2c672c5ae722552c08655",
+    "size": 9190,
+    "path": "learning-depth.css",
+    "sha256": "2d8f2bb3e429f32562a741e0a4238f985bdaebbb49151a4fcd1f0f675b770e95"
+  },
+  {
+    "blob": "8bee2cf8169365f8bd96bae7c42c8309321a460f",
+    "size": 9413,
+    "path": "learning-depth.js",
+    "sha256": "e5a448c9e625f7bd7fc7494da4738a7de176387931ab84b03ccd0d867b015c51"
+  },
+  {
+    "blob": "fac948a5fae0f0cf469ce96d1eaffc03c06f3207",
+    "size": 2781,
+    "path": "learning-next.css",
+    "sha256": "e05d670aa437afe2faf73a567a64a11d7bf3413efb56419e4bc61683cddd23a2"
+  },
+  {
+    "blob": "6dd53a9cdd02e5aee9da0c83d7d30a0ef6234d71",
+    "size": 7601,
+    "path": "learning-next.js",
+    "sha256": "4022294b21e2c0308ea45ea839ddaf1ce81207a6f314d4737066c453c2a1a8ae"
+  },
+  {
+    "blob": "745d8747ee0e20d2f9b0d9524885556444a074db",
+    "size": 21737,
+    "path": "lesson.html",
+    "sha256": "99e0f0cd894079ecbc7eb537f87e3a6f204bfb0b1e145339f25df930a49a2543"
+  },
+  {
+    "blob": "61f58e650edda1b0d5c9643e73208f17f480e0d1",
+    "size": 1207,
+    "path": "package-lock.json",
+    "sha256": "f56616f6cfc12e5401371895c54e4b5a60d452d3e2d707c3ffcf20da065c49bd"
+  },
+  {
+    "blob": "ee985a79c5e7871c37213ad4821ea248764138b5",
+    "size": 510,
+    "path": "package.json",
+    "sha256": "e0317a0195399435128dc2b9369188d92f288683f08deae3f721d5e1a3a4be93"
+  },
+  {
+    "blob": "bc458173a364ca517f0a33428583a72c9a9c4e0f",
+    "size": 7646,
+    "path": "play-evil-wizard.html",
+    "sha256": "82625ea7ba983c23f414ddd0ef41051bc6bed2dbd425092c1e36bd8bfd8cb317"
+  },
+  {
+    "blob": "2d6a2dc3d071ee7e52eb303446ba6f0f93becffd",
+    "size": 28255,
+    "path": "portfolio-home.css",
+    "sha256": "6d2e92b1ea13f900585adda2e11bfdd31d172e3f4f650aed9c551b57b1238bcd"
+  },
+  {
+    "blob": "3b8224f594f6fe7637981b5964580bf037b4bfe8",
+    "size": 32226,
+    "path": "portfolio-next.css",
+    "sha256": "a400f3e0ba0a1f53315c9aa167fe85002645084911d3777dc4e6a87557c5da26"
+  },
+  {
+    "blob": "3fa22e1d985c7bd36c73c2a56455c3cd6ec4a98b",
+    "size": 18591,
+    "path": "portfolio-next.js",
+    "sha256": "0279dbfcdd2ab07e2e58a2de343472223aa693aee9663bc3eb5dc90b7b4bcab5"
+  },
+  {
+    "blob": "bce873bc8c45749748adc0a3faeeececa9cc1e76",
+    "size": 4992,
+    "path": "project-advanced-computing.html",
+    "sha256": "ed36602a7d6f50e75ed2e827c8f7b566235ee4d1c516d1ae16bd8442b4b421b5"
+  },
+  {
+    "blob": "0f2f02e1eccd521b89b84325643e0997d659c6e1",
+    "size": 4709,
+    "path": "project-asset-inventory.html",
+    "sha256": "20c86e5d5a8e458910eac8e2089171f3fb8e58369bffda64e55612f4f92bf84e"
+  },
+  {
+    "blob": "60422ac73dd4dfcd48d4f3ed87191206a03c76a6",
+    "size": 8814,
+    "path": "project-battle-chess.html",
+    "sha256": "4443e3b2587b9cd9b6477e3638189353062936ab64dbaf638fa23bb1f51a6947"
+  },
+  {
+    "blob": "04ad7de9b0924129cd02d6f8c3d1adfa1e5668a2",
+    "size": 6137,
+    "path": "project-dependency.html",
+    "sha256": "0d7960f699ae6957aa57f2628dc56d79fa6046ef37b1d7f9cbab3c82644e6151"
+  },
+  {
+    "blob": "436b26192dcd4abfbe835a5f902c6ce363a9dea9",
+    "size": 5965,
+    "path": "project-emergent.html",
+    "sha256": "1488bc295d97e8741aa8bbaa142c004271f13cf62fa9550b890a65f383b89049"
+  },
+  {
+    "blob": "71f34ffc93eb361d1ed8de4ba291e30a21c793c8",
+    "size": 5253,
+    "path": "project-fusion.html",
+    "sha256": "b214e57d0ed507341d0c0fa7a1d1b69ea67ef3e8e682b6486f0b3e05a617c5cf"
+  },
+  {
+    "blob": "cf61f17d8a09f9296fb3f14e40231c6a0e3f5552",
+    "size": 5373,
+    "path": "project-geometric-ai.html",
+    "sha256": "651f7ecb2509505a31fdb52013564f4fb564a970a9a28a44834c36312280dc20"
+  },
+  {
+    "blob": "eeeaeed2c9f2ba0da9ba598949dbec9a43fef237",
+    "size": 4698,
+    "path": "project-kubernetes-lab.html",
+    "sha256": "15fad0fe7b318fd81e1a868c00a3f642abe2504c5bfb89072a33125444b8092f"
+  },
+  {
+    "blob": "3845542be171bfb1a9f3a05ab09c73c82b2f7192",
+    "size": 4919,
+    "path": "project-learning-library.html",
+    "sha256": "46c804e41e72d4acd8b5608df7c8b258f1612b5dab3ae8cdaef759f3880435e7"
+  },
+  {
+    "blob": "f54c776ea1839d094725ebedc646ca18b3fa9a8a",
+    "size": 6210,
+    "path": "project-lifecycle.html",
+    "sha256": "f23f81bb7d9e45072f886c19dd52f2739b95f5fcbd866c5d335d8b49a7c392a5"
+  },
+  {
+    "blob": "9660aacf286c705e58522e20b1b89903d9c7f013",
+    "size": 5263,
+    "path": "project-mind.html",
+    "sha256": "2f572bf898ec1617276145ee239f7be1b634d43cb98ed51a545ea941a680d55c"
+  },
+  {
+    "blob": "3aff7aa207beabfa512368de60a3760a2f104056",
+    "size": 5362,
+    "path": "project-portfolio.html",
+    "sha256": "2f286c262147b693853392b45bbf0c3d4c3095fd7274b26996faddfa26b9ada2"
+  },
+  {
+    "blob": "ee2c80d876862fd81b80a540a295a495a5460d1a",
+    "size": 6107,
+    "path": "project-qpe.html",
+    "sha256": "2ebd7ae0b05c669c9db0138bed47cdd3a92adaa70cd5c4e36b81a430c0559cc5"
+  },
+  {
+    "blob": "5c5d7efa9d4c613c4ba03b6662b6de6bf1e47945",
+    "size": 5025,
+    "path": "project-qubit.html",
+    "sha256": "00be039615aec89374d2aa376861bc6133e195d457ac9a5232a21a5de3e8393f"
+  },
+  {
+    "blob": "5821c25ad7aea1c38301be5a8fc6dd90aabeff66",
+    "size": 5811,
+    "path": "project-recovery.html",
+    "sha256": "20ebf0f7ac0b3fff4f2dab5920cc1e1917188ee052f9f02675def210423a3a54"
+  },
+  {
+    "blob": "21a08efc57a1ac47b354dbfd85f0c7d7a84597e8",
+    "size": 23478,
+    "path": "project-sources/evil-wizard/README-source.md",
+    "sha256": "014f83b12ed04c90284b8825fb7d99690899e0a13d66fb0bd85bafb4a523607c"
+  },
+  {
+    "blob": "047861cada126e157e8188eb523702d73f955251",
+    "size": 960,
+    "path": "project-sources/evil-wizard/README.md",
+    "sha256": "0b518123db6e292984ef09755c01decee9a7c54490ac33c250512a6334637765"
+  },
+  {
+    "blob": "d0946285682667dfbdaed679615dc0e1d73c4d79",
+    "size": 8169,
+    "path": "project-sources/evil-wizard/project.godot",
+    "sha256": "60daa9d2a3265824299a02a8a6afa5cdee458b73d7fe39138f0995c52b33c668"
+  },
+  {
+    "blob": "4271d0f895cff71247798356efe8116c10bbeeaf",
+    "size": 95806,
+    "path": "project-sources/evil-wizard/scripts/game.gd",
+    "sha256": "3a6aec54fd9e64d12b8cbee9e5de5a12086c621949d678f68c18f059635e38fd"
+  },
+  {
+    "blob": "b7350f14e40b632d2cde8b965ebe1726fc791f06",
+    "size": 6549,
+    "path": "project-sources/evil-wizard/scripts/movement_lab.gd",
+    "sha256": "558021d675731d8cac7a8eabcfdf81495079024882af227053a08d77ba925ad2"
+  },
+  {
+    "blob": "a132eab0a053b1adbbbf393e4e60674c1ef5312d",
+    "size": 115701,
+    "path": "project-sources/evil-wizard/scripts/player.gd",
+    "sha256": "ca0cc3229a74e104da1b96b0deab8fd342b772f6de47a63e2eb959f41b469849"
+  },
+  {
+    "blob": "8856c6c19cc158ae87645ba6c11849807a9905e5",
+    "size": 14919,
+    "path": "projects.html",
+    "sha256": "0218facf029fd225fbc067bfe7bb0d6aaee3847424b6c6d7c8d61946b2f963c7"
+  },
+  {
+    "blob": "efe98f84283fd94433378cc4ce2dead33f18d73e",
+    "size": 6470,
+    "path": "quantum-cube.js",
+    "sha256": "e841b335e77b7745d11cdf11963601681276aa750a8efc79da9ff3eefd776c16"
+  },
+  {
+    "blob": "85d0a41443fb8a4421afd9c6d5deaf15a44ddb05",
+    "size": 5373,
+    "path": "qubit-preview-20260921/app.js",
+    "sha256": "e427229af2310aff525b6089f02dc7dcb23ef9a199e6072a2f05e93ec3b083f7"
+  },
+  {
+    "blob": "d2d10a6298d491dd788826d32b54b77f4da1e2d2",
+    "size": 9151,
+    "path": "qubit-preview-20260921/index.html",
+    "sha256": "059ac7feecec9aa101fc51fcfd3a283f265dfafe271727386e8dc9a76795f24b"
+  },
+  {
+    "blob": "f28e74a4b00b5b9e137a99761aad313c249bc3cc",
+    "size": 2987,
+    "path": "qubit-preview-20260921/qubit.js",
+    "sha256": "747349bfd3735c247e603fe6646f635a533443c67f765cb78894d9be4229d993"
+  },
+  {
+    "blob": "f52a6b81705528f4be8b9e87d0d5c14b297f9228",
+    "size": 8681,
+    "path": "qubit-preview-20260921/styles.css",
+    "sha256": "ae8cd481920c7b2d307d6547d02667de41b6336bc9846855d713044993efbf18"
+  },
+  {
+    "blob": "39917daea7853502c07239dd3ce12bef801e3c62",
+    "size": 236,
+    "path": "release-upload/.gitkeep",
+    "sha256": "b455438a90fa1cd4dde4198711c683fa7db910f40dcbb546b79589fb32eb2835"
+  },
+  {
+    "blob": "7d10979637120d5e105029cdd5d1facbf62f0c80",
+    "size": 5401268,
+    "path": "release-upload/Joshua_Randall_Knowledge_Platform_v1.1.0_DEEP_LEARNING_EDITION.zip",
+    "sha256": "80e63e31f51595f94680d486014ac79d440583337d390ba3c3975784d14d4b0a"
+  },
+  {
+    "blob": "2290953de11b7c81c62db263b60d0ab1968a1679",
+    "size": 651326,
+    "path": "release-upload/Joshua_Randall_Portfolio_vNext_Foundations_RC_20260922.zip",
+    "sha256": "23ea365a6a1cd446ac490ac5d1f129103d07e60878d12bcdbce5775c9b4deef7"
+  },
+  {
+    "blob": "8ba11c15ae2d7b9fd271ce1b3bf34b133ddb8f90",
+    "size": 19289,
+    "path": "resume.html",
+    "sha256": "fd683874525f2749c6afff1a2d0d178aec838d0af80870010cffb722f687784b"
+  },
+  {
+    "blob": "cf7b0613543d65149c283c23e8be529ace03c6ef",
+    "size": 8886,
+    "path": "science-experiments.css",
+    "sha256": "ad011d0f2b8dcd1070e673a38973f59884fd104695b851d0b41ae90f538e37ca"
+  },
+  {
+    "blob": "c29d41b6a31e5ac89a057080720a356fe8827a6a",
+    "size": 15397,
+    "path": "science-experiments.js",
+    "sha256": "832a3dc24864ac343f711dcab4d07b9b586577ee9fa5a45f24f47e9de054617a"
+  },
+  {
+    "blob": "7dde1b7b6e670b8e6d8c41d796dac0b256e1cc4d",
+    "size": 18710,
+    "path": "site-audio.js",
+    "sha256": "7c72af629f970a61e05e67d4950b888c195189d0c55e6b82c026145510dbc15a"
+  },
+  {
+    "blob": "b55b8bc54ddc94a0340467fc80a76bd22ef2f106",
+    "size": 1748,
+    "path": "site-repair/site-resilience.css",
+    "sha256": "3d07cf0bf55f625128b082feb749cbab16e10e1a96251c829590586ad621615e"
+  },
+  {
+    "blob": "c654db3f4954f66b2d79918963e2816a9585157c",
+    "size": 2785,
+    "path": "site-repair/site-resilience.js",
+    "sha256": "9748000c43543560091e940f60f0cb4d9cf95c6128983c529b5dc2bc9e51fdc8"
+  },
+  {
+    "blob": "06912236c250647d2259eb2caad4982add6eb078",
+    "size": 10390,
+    "path": "site-resilience.css",
+    "sha256": "6a85e7a86b645f8494e6e2e3cbac3d1cd8f07fc0e32a9d6f8bc6442a5e170150"
+  },
+  {
+    "blob": "67a95b18769ba9f19c7ad180de8b90ffd0bb7019",
+    "size": 5965,
+    "path": "site-resilience.js",
+    "sha256": "130d1fed9af6347b70dc1a3e78eb4146152a6f114299215c5fcd5baeb97db7ea"
+  },
+  {
+    "blob": "373de93dd20d2e06f6bf2f073d2ee513fb05758c",
+    "size": 53262,
+    "path": "site-scenes.css",
+    "sha256": "db4c49c81543f5dbcf8270c6abb013ab5cb29442cc3d8812d304136594056ee1"
+  },
+  {
+    "blob": "baa44d1769142f397f2bbdaa5a030bf48bb29848",
+    "size": 44070,
+    "path": "site-scenes.js",
+    "sha256": "314d957204c5dddb4a52ee4304664dd3b852603f61b8cef8f23be3ef3226d0df"
+  },
+  {
+    "blob": "c5f3ffa213eaa032f767fa059d54fd8e921200e3",
+    "size": 7101,
+    "path": "site-sound-control.js",
+    "sha256": "a86effa0dfaf808b9e1b2239d095a449d38ccbe3b95cbd62ba432837f7d5420e"
+  },
+  {
+    "blob": "bc5c339c76ec342aad9daf492c9873c499645e47",
+    "size": 5506,
+    "path": "site-theme.js",
+    "sha256": "0b9b7b88fc1c6a59df5ca23a2faf8b81be8a739730f2db78f9f5e90368940ab4"
+  },
+  {
+    "blob": "c14b07d8daf1b9f273bb858cc278d026da8a9e0e",
+    "size": 20030,
+    "path": "styles.css",
+    "sha256": "8e3f425b37d4a44f0324932581fe130a7ff1e5bd418e2cea689c15a73ab65f1b"
+  },
+  {
+    "blob": "0eefde21cf36000249cbd722574e6a0eae147cb4",
+    "size": 6824,
+    "path": "tests/appearance.test.cjs",
+    "sha256": "0a1003dd8481cb6c2b12c46d4f59f591f0b5fe9549b24e6ebf81f4999f65239f"
+  },
+  {
+    "blob": "9a1c9e79ced134c86b98be4429d420903ee403a2",
+    "size": 18530,
+    "path": "tests/browser.test.cjs",
+    "sha256": "d8c1ffcc86c088a1aa66fdb39b0d2a269a36e39dc64b41a8d52dc157ed8d4760"
+  },
+  {
+    "blob": "3efaeff262c6c211fb7dd846fbb1bfc0695547ce",
+    "size": 19789,
+    "path": "tests/site.test.mjs",
+    "sha256": "16eec0aa561ec79bd9d5513c194d70396a2758bdb98e5b95d0d3fc5844f958ac"
+  },
+  {
+    "blob": "5c29576642b3eea50475d8a0261697ee24f22c96",
+    "size": 4795,
+    "path": "tests/test_deploy.py",
+    "sha256": "6026a64834cadfcc5493e594eb6fceaf1e05c05a840595ce1459623ce7517024"
+  },
+  {
+    "blob": "dd6d09cc6a1b5de3f91d7f0496971fbde3c95f95",
+    "size": 7562,
+    "path": "tools/deploy-osu-vnext.py",
+    "sha256": "7cdb947fca204a69e6e3682f0f7fcf3dee5e0f74a4639a409b4a9b04c5e82321"
+  },
+  {
+    "blob": "11ba7a0825993535fc351f39a74a99afc9823829",
+    "size": 7799,
+    "path": "tools/deploy-vnext-osu.py",
+    "sha256": "58fe918ca561116bc5ffb7a598ee032c0653c73dafee0cb9c43b04267c48dad1"
+  },
+  {
+    "blob": "94e8bd1f9461d067d89ce51baabeb451763135bc",
+    "size": 4249,
+    "path": "tools/deploy_education_logos_live.py",
+    "sha256": "5ae1a1dc4bc33d5e9201a00abed1795fd204c4f7e223c683c32dd1d6155d0003"
+  },
+  {
+    "blob": "e2592da0f49a1ffb0961ecf5a0beb66b291b6734",
+    "size": 10665,
+    "path": "tools/deploy_osu_live.py",
+    "sha256": "1ad5ceb2684113107f9aaef0ba6f94e8bfc4608edeeae6dff42faf444875ebc3"
+  },
+  {
+    "blob": "9b15220676bc06a97a0c0bcd6fc3ce7b3f31353c",
+    "size": 10921,
+    "path": "tools/deploy_osu_vnext.py",
+    "sha256": "0ebc576282124a8bb2a47c541eddc7e97485bebc5c7a0606d1e5943327c294ba"
+  },
+  {
+    "blob": "05609abf3517dc882d2104d673a770dea47b6ac6",
+    "size": 2420,
+    "path": "tools/deploy_vnext_complete_20260922.sh",
+    "sha256": "957f2512995b8f76cceaa6333fb36c10de4d472bac030dd403123aabe6d2e015"
+  },
+  {
+    "blob": "d200d49863f00a6589af64975a27ed18222cefc1",
+    "size": 7848,
+    "path": "tools/deploy_vnext_osu.py",
+    "sha256": "614c4e49c1ea549f32c532dc34955b71aeac28cbd5eb0d254fa91454b580fd42"
+  },
+  {
+    "blob": "078b16f4d3f9897ce4eb81b55169ccf479a220a6",
+    "size": 7729,
+    "path": "tools/deploy_vnext_osu_verified.py",
+    "sha256": "3cba09a3aa3ef7ad0941c2e44cb5549ae129b493e13f09dbb792380e0c0460ce"
+  },
+  {
+    "blob": "bc3003e61fcfe1e51b3fd2ce8a45d76beaacbfe5",
+    "size": 3965,
+    "path": "tools/fix_dark_audio_ios_v8.py",
+    "sha256": "72bb22987cfa21c80b8f2a5244748360cfefda90e566c1845cc35156e0c2c563"
+  },
+  {
+    "blob": "f7950a690b0287abf7f52261e748bc90ae483abf",
+    "size": 4772,
+    "path": "tools/fix_global_audio_motion_v4.py",
+    "sha256": "15863bf30e7731ec932ce774ebbea856753a1a8ed978ee356f258309be742f0e"
+  },
+  {
+    "blob": "f78570b6e87a6493a51bc4e7d61674f11447e392",
+    "size": 1964,
+    "path": "tools/fix_mobile_headshot_position_v2.py",
+    "sha256": "bb0cce9cefb428458a82a5ad468581264cde3a9b5d084fc12522ef4b005c55e6"
+  },
+  {
+    "blob": "913194e1555737fa6a9f343341976cc99272be0c",
+    "size": 3384,
+    "path": "tools/fix_persistent_ambient_v5.py",
+    "sha256": "a40e19751c774b6e0974ec4f164be28d477ab5c4f1cc140bd218f417e06920d6"
+  },
+  {
+    "blob": "ce3fe85a73584a31b5027098d6d445c78623dee0",
+    "size": 3797,
+    "path": "tools/fix_real_theme_audio_v6.py",
+    "sha256": "35676c6915ef8eebb3d280c9c16e3bd259d45fd5848a95aeb374b2171aeabdab"
+  },
+  {
+    "blob": "3eb0deec57f056f5b0e4aa70ede08eb7694a3ee3",
+    "size": 6910,
+    "path": "tools/fix_solar_orbits_v10.py",
+    "sha256": "93316bcdd0cb6232f05ab080859e6151fe0b46443668c847243c42915ab05086"
+  },
+  {
+    "blob": "8900d24f3e579a682f4dc29526b1d4f064f9c09e",
+    "size": 5456,
+    "path": "tools/fix_solar_orbits_v11.py",
+    "sha256": "ae047a4e3759c594276f08fd5d051e528f7605faeb41dc53462d04cb2f510233"
+  },
+  {
+    "blob": "5e1090d6e76c397396ba2589b372cf15d03449cf",
+    "size": 6668,
+    "path": "tools/import_knowledge_release.py",
+    "sha256": "020336bd8cc72a0e029dd93f0764843472bb86c61adcd6ee7ea9297710dbd681"
+  },
+  {
+    "blob": "5ca18ffa32b372af0af1866ad0646b80041de0f7",
+    "size": 4421,
+    "path": "tools/import_vnext_foundations.py",
+    "sha256": "b0e39e978cf90c79f76513c9f47ded5a697895d8953fc595bb631817fb2fddc8"
+  },
+  {
+    "blob": "70470316d71644535a519cf01e6521bde6c288a4",
+    "size": 2420,
+    "path": "tools/install_audio_cap15.py",
+    "sha256": "f8bb7c286569b9af9f6600360b7a4089b33f08e64946b3d95e8b83d200b443c4"
+  },
+  {
+    "blob": "9d095e8cbda73a5950b34087117e67ab1d9aef19",
+    "size": 1113,
+    "path": "tools/install_audio_diagnostic.py",
+    "sha256": "d3f62b288aa8820a09a68879b9270f1f9a358178dace1b986a775fa1831cc813"
+  },
+  {
+    "blob": "9bb81d1354a262d782c13f0a75739af8b3918b29",
+    "size": 3738,
+    "path": "tools/install_cc0_dark_space_audio_v7.py",
+    "sha256": "a4290c102b2d1484b0e1ead3ac93dfe14c0367dc87ff19f811893e1c264c65b6"
+  },
+  {
+    "blob": "489c6e370fdaa9035165cd519528ad0c600491fa",
+    "size": 5237,
+    "path": "tools/install_dark_audio_v11.py",
+    "sha256": "8065edeea91fc47fcb7957c381c22bd57f5f8b686490dfd6c66a5d1682e3ff54"
+  },
+  {
+    "blob": "a3213e426352797f0434ab47aa8cf36ef53cad97",
+    "size": 4349,
+    "path": "tools/install_dark_music_v10.py",
+    "sha256": "ff0d0fcf9e194f6c6049732fd3b59a4fca7794b636f07c27ddefad29082e5f7e"
+  },
+  {
+    "blob": "9f8484738721231e3fb530d5bce00a9f29578792",
+    "size": 4488,
+    "path": "tools/install_dark_music_v9.py",
+    "sha256": "09eb482b868b0b11c501b876f612e6fc07bb590805709b152fcb0419b3238e36"
+  },
+  {
+    "blob": "cad7f2df09bde62dd42bb078ddf830b0eceba59e",
+    "size": 6707,
+    "path": "tools/install_site_audio_v12.py",
+    "sha256": "291448498f4cc0706245136424ae68e93435186e06e8f9f0f39414f2ca4c4067"
+  },
+  {
+    "blob": "ce388c9a5e048df8b11bfcf5ffd78351078d9fb9",
+    "size": 6805,
+    "path": "tools/install_site_audio_v12_1.py",
+    "sha256": "89315e66fdde36456fac8e81ef9465adb400cbecd6b0e2850e3c539ed76b32a5"
+  },
+  {
+    "blob": "1d1c5086174bbea22a1d25c9b000274fc4c51008",
+    "size": 5469,
+    "path": "tools/install_site_audio_v13.py",
+    "sha256": "add4566f1708b0cb702a1807a8238b5d7f64c8585f89a8bdd6376a0f9a82f6bd"
+  },
+  {
+    "blob": "2b39b0ce7d987f3c9cfb86dc71e2a129a9bc1927",
+    "size": 6019,
+    "path": "tools/patch_social_previews_osu.py",
+    "sha256": "f2d30482535e040624b02db40e7d852197d3d6343196902fcacc14af95029d54"
+  },
+  {
+    "blob": "e2bcff6810bfc161b0926648eb3e1a75fddcc7cd",
+    "size": 11587,
+    "path": "tools/repair-osu-portfolio.py",
+    "sha256": "ede02ec9c6c1efcb4e22be6107ff9cd788a660a6da0dd6880e3853f94632a880"
+  },
+  {
+    "blob": "528f4384fd27252593b436b69fd0943849a9357d",
+    "size": 4250,
+    "path": "tools/repair_audio_v13_1.py",
+    "sha256": "60c11c691183438f046438dee46c2be3f9dfb11f62acf56c920a34bb8b99bb84"
+  },
+  {
+    "blob": "c5eb0f6f4dbd7161820c48ffbcdfe9ddc7a338a2",
+    "size": 8625,
+    "path": "tools/swap_portrait_solar_v1.py",
+    "sha256": "222d5c748b95f1c1c83937d083fc256323b9650669f99f32da7d4987f1949998"
+  },
+  {
+    "blob": "63e0484a0535e9c665184fb58f52758dba451c59",
+    "size": 4209914,
+    "path": "verification-manifest.json",
+    "sha256": "8d51355eda4bc63272ec0ebd6473d6db245d1b4bebd2357fed4fa37305e5a2dc"
+  }
+]

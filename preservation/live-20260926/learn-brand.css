@@ -1,0 +1,38 @@
+@import url("assets/fonts/fonts.css");
+/* Match the portfolio homepage brand without changing lesson typography. */
+body[data-library-page] .site-header .brand,
+body[data-library-page] .site-header .brand strong,
+body[data-library-page] .site-header .brand span,
+body[data-library-page] .site-header .brand small {
+  font-family: 'DM Sans', Arial, sans-serif !important;
+  font-style: normal !important;
+  text-shadow: none !important;
+  -webkit-text-stroke: 0 transparent !important;
+}
+body[data-library-page] .site-header .brand strong {
+  font-size: 1.9rem !important;
+  font-weight: 700 !important;
+  letter-spacing: -.08em !important;
+  line-height: 1 !important;
+}
+body[data-library-page] .site-header .brand span {
+  font-size: .92rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0 !important;
+  line-height: 1.4 !important;
+}
+body[data-library-page] .site-header .brand small {
+  font-size: .72rem !important;
+  font-weight: 400 !important;
+  letter-spacing: 0 !important;
+}
+@media(max-width:800px){
+  body[data-library-page] .site-header .brand strong{font-size:1.65rem!important}
+  body[data-library-page] .site-header .brand span{font-size:.85rem!important}
+}
+@media(max-width:700px){
+  body[data-library-page] .site-header .brand span{font-size:.8rem!important}
+}
+@media(max-width:1100px){
+  body[data-library-page] .site-header .brand small{display:none!important}
+}

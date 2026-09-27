@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
-import {ChessGame,chooseComputerMove,computerProfile} from './engine.js';
+import {chooseComputerMove,computerProfile} from './engine.js';
+import {game} from './shared-game.js';
 import {PALETTES} from './pieces.js';
 import {createCharacter} from './characters.js';
 import {createV8BoardPiece} from './combat-v8/character-factory.js';
@@ -11,7 +12,7 @@ import {ATTACK_NAMES} from './attacks.js';
 import {GameAudio} from './audio.js';
 
 const $=s=>document.querySelector(s);
-const sceneEl=$('#scene'),board2d=$('#board2d'),logEl=$('#log'),turnEl=$('#turn'),stateEl=$('#state'),gameShell=$('#gameShell'),setupScreen=$('#setupScreen'),rotateGate=$('#rotateGate'),game=new ChessGame(),audio=new GameAudio();
+const sceneEl=$('#scene'),board2d=$('#board2d'),logEl=$('#log'),turnEl=$('#turn'),stateEl=$('#state'),gameShell=$('#gameShell'),setupScreen=$('#setupScreen'),rotateGate=$('#rotateGate'),audio=new GameAudio();
 const themes=PALETTES;
 let theme='classic',selected=null,legal=[],busy=false,soundOn=true,aiTimer=null,generation=0,toastTimer=null,scene,camera,renderer,orbit,boardGroup,pieceGroup,fxGroup;
 let viewMode='3d',flipped=false,handCursor={x:4,y:6},keyboardCursor=false,fullscreenStarted=false,webglReady=false,initialized=false,started=false;
@@ -74,6 +75,7 @@ async function launchFromSetup(){
 }
 async function exitToSetup(){
  if(busy)return;
+ generation++;clearTimeout(aiTimer);
  await exitFullscreen();
  started=false;fullscreenStarted=false;
  document.body.classList.remove('playing','immersive-lock');
@@ -185,7 +187,7 @@ async function applyMove(m,computer=false,promotion=null){
 function queueComputer(){
  clearTimeout(aiTimer);const ticket=++generation;
  aiTimer=setTimeout(async()=>{
-  if(ticket!==generation||busy||game.turn!=='b'||$('#mode').value!=='ai'||game.status().over)return;
+  if(ticket!==generation||!started||busy||game.turn!=='b'||$('#mode').value!=='ai'||game.status().over)return;
   const strength=Number($('#difficulty').value),profile=computerProfile(strength);
   stateEl.textContent=`Computer thinking · ${profile.name}…`;
   await new Promise(resolve=>requestAnimationFrame(resolve));
@@ -239,7 +241,7 @@ function chooseSquare(x,y){
  selected=null;legal=[];highlight();
 }
 function connectPointers(){
- if(!renderer)return;
+ if(renderer){
  const raycaster=new THREE.Raycaster(),pointer=new THREE.Vector2();let down=null;
  renderer.domElement.addEventListener('pointerdown',e=>{down={x:e.clientX,y:e.clientY};void audio.ensure()});
  renderer.domElement.addEventListener('pointerup',e=>{
@@ -249,6 +251,7 @@ function connectPointers(){
   raycaster.setFromCamera(pointer,camera);const hits=raycaster.intersectObjects([...pieceGroup.children,...boardGroup.children],true);if(!hits.length)return;
   const obj=hits[0].object,root=obj.userData.root||obj,d=root.userData;if(d.piece||d.square)chooseSquare(d.x,d.y);
  });
+ }
  const form=$('#moveForm');if(form)form.noValidate=true;
  if(form)form.addEventListener('submit',e=>{
   e.preventDefault();beginPlayFullscreen();void audio.ensure();
@@ -284,6 +287,7 @@ async function toggleSound(){
  $('#handSound').textContent=soundOn?'Sound on':'Sound off';
 }
 function setView(mode,announce=true){
+ if(busy){if(announce)notice('Wait for the current move to finish.');return;}
  const wanted=mode==='2d'?'2d':'3d';
  if(wanted==='3d'&&!webglReady){notice('3D graphics are unavailable; staying in 2D.');viewMode='2d'}else viewMode=wanted;
  audio.setMode(viewMode);
@@ -353,7 +357,7 @@ function connectButtons(){
  $('#mode').onchange=newGame;
  $('#difficulty').onchange=e=>{const p=computerProfile(Number(e.target.value));notice(`Computer strength: ${p.name} · search depth ${p.depth}`);if($('#mode').value==='ai'&&game.turn==='b'&&!busy)queueComputer()};
  $('#menuBtn').onclick=e=>{const c=$('#controls'),open=c.classList.toggle('open');e.currentTarget.setAttribute('aria-expanded',String(open))};
- $('#handUndo').onclick=undoMove;$('#handFlip').onclick=flipBoard;$('#handView').onclick=e=>{void audio.ensure();setView(e.currentTarget.dataset.targetView||viewMode==='3d'?'2d':'3d')};
+ $('#handUndo').onclick=undoMove;$('#handFlip').onclick=flipBoard;$('#handView').onclick=e=>{void audio.ensure();setView(e.currentTarget.dataset.targetView||(viewMode==='3d'?'2d':'3d'))};
  $('#handSound').onclick=()=>{void toggleSound()};$('#handNew').onclick=newGame;$('#handFullscreen').onclick=()=>{void toggleFullscreen()};
  document.addEventListener('fullscreenchange',syncFullscreenUI);
  document.addEventListener('webkitfullscreenchange',syncFullscreenUI);
@@ -374,9 +378,9 @@ function init3D(){
  const light=new THREE.DirectionalLight(0xffedd3,2.0);light.position.set(6,12,5);light.castShadow=true;light.shadow.mapSize.set(1024,1024);light.shadow.bias=-.00012;light.shadow.normalBias=.018;light.shadow.radius=2.4;scene.add(light);
  const rim=new THREE.DirectionalLight(0xb2ecff,1.15);rim.position.set(-5,8,-7);scene.add(rim);const fill=new THREE.DirectionalLight(0xffffff,.40);fill.position.set(-6,4,6);scene.add(fill);
  boardGroup=new THREE.Group();pieceGroup=new THREE.Group();fxGroup=new THREE.Group();scene.add(boardGroup,pieceGroup,fxGroup);webglReady=true;
- createBoard();connectPointers();
+ createBoard();
  const resize=()=>{if(viewMode!=='3d')return;const w=Math.max(1,sceneEl.clientWidth),h=Math.max(1,sceneEl.clientHeight);renderer.setSize(w,h,false);camera.aspect=w/h;camera.fov=camera.aspect<.85?62:43;camera.updateProjectionMatrix()};
- new ResizeObserver(resize).observe(sceneEl);resize();renderer.setAnimationLoop(()=>{orbit.update();renderer.render(scene,camera)});
+ new ResizeObserver(resize).observe(sceneEl);resize();renderer.setAnimationLoop(()=>{if(started&&viewMode==='3d'&&!document.hidden){orbit.update();renderer.render(scene,camera)}});
  return true;
 }
 function init(){
@@ -385,7 +389,16 @@ function init(){
  document.body.classList.toggle('handheld-active',handheldActive());
  window.addEventListener('resize',()=>{document.body.classList.toggle('handheld-active',handheldActive());render2D();updateRotateGate()});
  audio.setTheme(theme);audio.setMode(viewMode);connectButtons();
- const ok=init3D();drawPieces();renderStatus();
+ const ok=init3D();connectPointers();drawPieces();renderStatus();
  if(!ok)setView('2d',false);else setView(viewMode,false);
 }
 connectSetup();
+
+// Adopt the singleton used by the emergency renderer; never reset during handoff.
+export function resumePreservedGame(){
+ theme=$('#theme').value;viewMode='3d';soundOn=$('#setupSound').checked;
+ setupScreen.classList.add('hidden');gameShell.classList.remove('hidden');gameShell.setAttribute('aria-hidden','false');
+ document.body.classList.add('playing');started=true;fullscreenStarted=true;
+ init();void audio.setEnabled(soundOn);syncSoundUI();drawPieces();renderStatus();setView('3d',false);updateRotateGate();
+ if($('#mode').value==='ai'&&game.turn==='b')queueComputer();
+}

@@ -27,15 +27,15 @@
 }
 body.living-scenes{position:relative;isolation:isolate;min-height:100vh;background:var(--bg)}
 .living-scenes>.ambient{display:none}
-.scene-backdrop{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none;contain:strict;background:#06121c}
+.scene-backdrop{position:fixed;top:0;left:0;width:100vw;height:100vh;height:100lvh;z-index:-1;overflow:hidden;pointer-events:none;contain:strict;background:#06121c}
 .scene-night-wrap,.scene-day-wrap,.scene-image,.scene-video,.scene-canvas,.scene-atmosphere,.scene-veil,.scene-night-depth,.scene-night-glow{position:absolute;inset:0;width:100%;height:100%}
 
 /* Dark / living cosmos */
 .scene-night-wrap{opacity:1;overflow:hidden;background:#071621;transition:opacity 1.1s ease}
 .scene-night{
   background:#071621 url('assets/scenes/webb-cosmic-cliffs.webp') center center/cover no-repeat;
-  transform:scale(1.078);
-  will-change:transform
+  transform:none;
+  will-change:auto
 }
 .scene-night-depth{
   background:url('assets/scenes/webb-cosmic-cliffs.webp') 48% 48%/cover no-repeat;
@@ -44,8 +44,8 @@ body.living-scenes{position:relative;isolation:isolate;min-height:100vh;backgrou
   filter:contrast(1.1) saturate(1.18) brightness(.9);
   -webkit-mask-image:radial-gradient(ellipse at 66% 36%,#000 0%,rgba(0,0,0,.78) 28%,transparent 68%);
   mask-image:radial-gradient(ellipse at 66% 36%,#000 0%,rgba(0,0,0,.78) 28%,transparent 68%);
-  transform:scale(1.112);
-  will-change:transform
+  transform:none;
+  will-change:auto
 }
 .scene-night-glow{
   inset:-15%;
@@ -69,7 +69,7 @@ body.living-scenes{position:relative;isolation:isolate;min-height:100vh;backgrou
   background-position:center;
   background-size:cover;
   background-repeat:no-repeat;
-  transform:scale(1.025);
+  transform:none;
   opacity:1;
   filter:saturate(1.12) contrast(1.02) brightness(.75);
   transition:opacity 1s ease
@@ -82,12 +82,12 @@ body.living-scenes{position:relative;isolation:isolate;min-height:100vh;backgrou
   object-fit:cover;
   object-position:center;
   opacity:0;
-  transform:translate3d(0,0,0) scale(1.015);
+  transform:none;
   transition:opacity 1.7s ease;
   filter:saturate(1.16) contrast(1.04) brightness(.75);
   will-change:opacity,transform
 }
-.scene-video.is-active{opacity:1;animation:scene-earth-camera 20s ease-in-out infinite alternate}
+.scene-video.is-active{opacity:1;animation:none}
 .scene-day-wrap::after{
   content:'';
   position:absolute;
@@ -109,7 +109,7 @@ body.living-scenes{position:relative;isolation:isolate;min-height:100vh;backgrou
     radial-gradient(circle at 82% 77%,rgba(81,145,163,.04),transparent 30%);
   mix-blend-mode:screen;
   pointer-events:none;
-  animation:scene-atmosphere-drift 18s ease-in-out infinite alternate
+  animation:none
 }
 :root[data-theme=light] .scene-atmosphere{
   background:
@@ -141,7 +141,7 @@ body.living-scenes{position:relative;isolation:isolate;min-height:100vh;backgrou
 /* Let the living background read through the existing interface without sacrificing contrast. */
 .living-scenes>header{background:var(--scene-surface);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
 .living-scenes .site-header{background:var(--scene-surface);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
-.living-scenes .project-card,.living-scenes .home-project,.living-scenes .education-cards article,.living-scenes .portrait-card{background:var(--scene-surface);border-color:var(--scene-border);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.living-scenes .project-card,.living-scenes .home-project,.living-scenes .education-cards article{background:var(--scene-surface);border-color:var(--scene-border);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
 .living-scenes .stat-band,.living-scenes .home-spotlight,.living-scenes .section.alt{background:var(--scene-soft)}
 .living-scenes .home-section,.living-scenes .contact{border-color:var(--scene-border)}
 .living-scenes .home-project:hover{background:var(--surface)}
@@ -151,8 +151,7 @@ body.living-scenes{position:relative;isolation:isolate;min-height:100vh;backgrou
 /* Light mode deliberately exposes more of the real landscape color. */
 :root[data-theme=light] .living-scenes .project-card,
 :root[data-theme=light] .living-scenes .home-project,
-:root[data-theme=light] .living-scenes .education-cards article,
-:root[data-theme=light] .living-scenes .portrait-card{background:rgba(250,252,247,.84)}
+:root[data-theme=light] .living-scenes .education-cards article{background:rgba(250,252,247,.84)}
 :root[data-theme=light] .living-scenes>header,
 :root[data-theme=light] .living-scenes .site-header{background:rgba(248,251,246,.82)}
 
@@ -287,8 +286,7 @@ button.appearance-toggle:focus-visible{outline:3px solid var(--blue,var(--accent
 :root[data-theme=light] .living-scenes .education-cards p,
 :root[data-theme=light] .living-scenes .credentials-content p,
 :root[data-theme=light] .living-scenes .quantum-intro>p,
-:root[data-theme=light] .living-scenes .quantum-intro .quantum-note,
-:root[data-theme=light] .living-scenes .portrait-card-copy span{
+:root[data-theme=light] .living-scenes .quantum-intro .quantum-note{
   color:#0b1812!important
 }
 :root[data-theme=light] .living-scenes .quantum-intro .quantum-formula{
@@ -310,8 +308,7 @@ button.appearance-toggle:focus-visible{outline:3px solid var(--blue,var(--accent
    This is CSS-only: the existing background loading and animation pipeline is intentionally unchanged. */
 .living-scenes .project-card,
 .living-scenes .home-project,
-.living-scenes .education-cards article,
-.living-scenes .portrait-card{
+.living-scenes .education-cards article{
   border-radius:8px;
   background:rgba(11,17,20,.50);
   border-color:rgba(183,215,221,.22);
@@ -324,8 +321,7 @@ button.appearance-toggle:focus-visible{outline:3px solid var(--blue,var(--accent
 }
 :root[data-theme=light] .living-scenes .project-card,
 :root[data-theme=light] .living-scenes .home-project,
-:root[data-theme=light] .living-scenes .education-cards article,
-:root[data-theme=light] .living-scenes .portrait-card{
+:root[data-theme=light] .living-scenes .education-cards article{
   background:rgba(247,251,245,.38);
   border-color:rgba(31,75,57,.24);
   -webkit-backdrop-filter:blur(9px) brightness(1.07) saturate(.92);
@@ -339,10 +335,8 @@ button.appearance-toggle:focus-visible{outline:3px solid var(--blue,var(--accent
 /* Main-page artwork lets the living environment remain visible; the portrait stays nearly opaque. */
 .living-scenes .systems-photo{opacity:.46}
 .living-scenes .direction-image img{opacity:.54}
-.living-scenes .portrait-photo{opacity:.98}
 :root[data-theme=light] .living-scenes .systems-photo{opacity:.43;filter:brightness(.78) saturate(.9) contrast(.96)}
 :root[data-theme=light] .living-scenes .direction-image img{opacity:.50}
-:root[data-theme=light] .living-scenes .portrait-photo{opacity:1}
 
 /* The learning landing page is glass. Labs and opened learning experiences remain solid. */
 body.living-scenes[data-library-page="home"] .constellation-panel,
@@ -414,8 +408,7 @@ body.living-scenes[data-library-page="labs"] .lab-visual{background:var(--bg2)}
 /* 2026-09-24 visual correction — unmistakable glass, rounded tiles, orderly learning landing. */
 .living-scenes .project-card,
 .living-scenes .home-project,
-.living-scenes .education-cards article,
-.living-scenes .portrait-card{
+.living-scenes .education-cards article{
   background:rgba(7,12,15,.18)!important;
   border:1px solid rgba(176,214,222,.24)!important;
   border-radius:20px!important;
@@ -434,8 +427,7 @@ body.living-scenes[data-library-page="labs"] .lab-visual{background:var(--bg2)}
 }
 :root[data-theme=light] .living-scenes .project-card,
 :root[data-theme=light] .living-scenes .home-project,
-:root[data-theme=light] .living-scenes .education-cards article,
-:root[data-theme=light] .living-scenes .portrait-card{
+:root[data-theme=light] .living-scenes .education-cards article{
   background:rgba(248,251,246,.22)!important;
   border-color:rgba(27,71,53,.24)!important;
   box-shadow:0 18px 48px rgba(34,55,42,.10)!important;
@@ -559,7 +551,6 @@ body.living-scenes[data-library-page="home"] .domain-card:hover{
 :root[data-theme=light] .living-scenes .project-card,
 :root[data-theme=light] .living-scenes .home-project,
 :root[data-theme=light] .living-scenes .education-cards article,
-:root[data-theme=light] .living-scenes .portrait-card,
 :root[data-theme=light] body.living-scenes[data-library-page="home"] .stats>div,
 :root[data-theme=light] body.living-scenes[data-library-page="home"] .verification-inner,
 :root[data-theme=light] body.living-scenes[data-library-page="home"] .domain-card{
@@ -1095,7 +1086,6 @@ body[data-library-page="home"]{
   .project-card,
   .home-project,
   .education-cards article,
-  .portrait-card,
   .game-notes article,
   .game-launch,
   .battle-launch,
@@ -1142,7 +1132,6 @@ body[data-library-page="home"]{
   .project-card,
   .home-project,
   .education-cards article,
-  .portrait-card,
   .game-notes article,
   .game-launch,
   .battle-launch,
@@ -1265,3 +1254,17 @@ header .scene-sound-panel{
   header .scene-sound-control>button span{display:none}
   header .scene-sound-panel{right:-46px}
 }
+
+/* Decorative scenery honors the shared motion preference. */
+body.motion-paused .scene-backdrop *{animation:none!important;transition:none!important}
+@media(prefers-reduced-motion:reduce){.scene-backdrop *{animation:none!important;transition:none!important}}
+
+/* Stable background lock — prevents iOS dynamic browser chrome from resizing
+   cover media and eliminates synthetic camera zoom/pan while scrolling. */
+.scene-backdrop,
+.scene-night-wrap,.scene-day-wrap,
+.scene-image,.scene-video,.scene-canvas,.scene-atmosphere,.scene-veil,
+.scene-night-depth,.scene-night-glow{transform-origin:center center}
+.scene-night,.scene-night-depth,.scene-day-fallback,.scene-video{transform:none!important}
+.scene-video.is-active,.scene-atmosphere{animation:none!important}
+@supports(height:100lvh){.scene-backdrop{height:100lvh}}

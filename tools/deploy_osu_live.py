@@ -92,6 +92,39 @@ def copy_file(source, target):
         if temp.exists():
             temp.unlink()
 
+def create_backup(site, partial):
+    """Create the broadest possible site backup without failing on host-owned unreadable paths."""
+    skipped = []
+    def remember(error):
+        name = getattr(error, 'filename', None) or str(error)
+        if name not in skipped:
+            skipped.append(name)
+
+    with tarfile.open(partial, 'w:gz') as archive:
+        archive.add(site, arcname=site.name, recursive=False)
+        for root, dirs, files in os.walk(site, topdown=True, followlinks=False, onerror=remember):
+            root = Path(root)
+            rel_root = root.relative_to(site)
+            for name in list(dirs):
+                path = root/name
+                arcname = Path(site.name)/rel_root/name
+                try:
+                    archive.add(path, arcname=arcname.as_posix(), recursive=False)
+                except (PermissionError, OSError) as error:
+                    remember(error)
+                    dirs.remove(name)
+            for name in files:
+                path = root/name
+                arcname = Path(site.name)/rel_root/name
+                try:
+                    archive.add(path, arcname=arcname.as_posix(), recursive=False)
+                except (PermissionError, OSError) as error:
+                    remember(error)
+    if skipped:
+        print('Backup skipped host-inaccessible paths that deployment will not modify:', flush=True)
+        for name in skipped:
+            print('  -', name, flush=True)
+
 def protected_hashes(site):
     return {p.relative_to(site).as_posix():digest(p) for p in site.rglob('*')
             if p.is_file() and protected(p.relative_to(site).as_posix())}
@@ -108,14 +141,23 @@ def deploy(source, site, verify_public=None):
             raise RuntimeError('A destination resolves outside public_html.')
     protected_before = protected_hashes(site)
     stamp = datetime.datetime.now().strftime('%Y%m%d-%H%M%S-%f')
-    backup = site.parent/('public_html-before-'+stamp+'.tar.gz')
+    backup_name = 'public_html-before-'+stamp+'.tar.gz'
+    backup = site.parent/backup_name
     partial = Path(str(backup)+'.part')
-    print('Creating full backup:', backup, flush=True)
-    with tarfile.open(partial,'w:gz') as archive:
-        archive.add(site,arcname=site.name)
-    os.replace(partial,backup)
+    try:
+        print('Creating full backup:', backup, flush=True)
+        create_backup(site, partial)
+        os.replace(partial,backup)
+    except PermissionError:
+        if partial.exists():
+            partial.unlink()
+        backup = Path(tempfile.gettempdir())/backup_name
+        partial = Path(str(backup)+'.part')
+        print('Home directory blocks backup creation; using temporary backup:', backup, flush=True)
+        create_backup(site, partial)
+        os.replace(partial,backup)
     installed = []
-    with tempfile.TemporaryDirectory(prefix='portfolio-rollback-',dir=site.parent) as undo_name:
+    with tempfile.TemporaryDirectory(prefix='portfolio-rollback-') as undo_name:
         undo = Path(undo_name)
         try:
             # Publish supporting files first; switch page HTML last.
@@ -146,39 +188,39 @@ def deploy(source, site, verify_public=None):
     print(f'Installed and verified {len(files)} files. Games, Geometry Lab calculation modules and fusion video are unchanged; the lab theme shell is updated.',flush=True)
     return backup
 
-def http_smoke(commit):
-    checks = [('site-theme.js','jr-site-theme'),('site-scenes.js','LIGHT_SCENE_KEY'),('site-audio.js','MAIN_PAGE_RE'),
-              ('site-sound-control.js','JR_HEADER_SOUND_CONTROL_V25'),
-              ('site-scenes.css','mountain-valley.svg'),('geometric-lab/index.html','site-theme.js'),
-              ('geometric-lab/app.js','PortfolioTheme'),('index.html','site-audio.js'),('learn.html','site-audio.js'),
-              ('expertise-experience.html','TECHNICAL EXPERTISE'),('game-development.html','Games deserve'),
-              ('lesson.html','lesson-view'),('knowledge.js','dedicatedLessonPage'),('projects.html','Crown &amp; Ash'),
-              ('portfolio-home.css','.home-page'),('quantum-cube.js','Bell-state'),
-              ('labs/qpe.js','function distribution'),('labs/emergent.js','function create'),
-              ('agent-workbench.js','requiresApproval'),('handheld-experience.js','removeLegacyFloatingNavigation'),
-              ('science-experiments.js','project-qpe.html'),
-              ('learning-depth.js','Doctoral / Research'),('site-resilience.js','Game Development')]
-    for name,marker in checks:
+def http_smoke(commit, site):
+    """Verify that the public site is serving the exact deployed bytes."""
+    checks = (
+        'site-theme.js', 'site-scenes.js', 'site-audio.js', 'site-sound-control.js',
+        'site-scenes.css', 'geometric-lab/index.html', 'geometric-lab/app.js',
+        'index.html', 'learn.html', 'expertise-experience.html', 'game-development.html',
+        'lesson.html', 'knowledge.js', 'projects.html', 'portfolio-home.css',
+        'quantum-cube.js', 'labs/qpe.js', 'labs/emergent.js', 'agent-workbench.js',
+        'handheld-experience.js', 'science-experiments.js', 'learning-depth.js',
+        'site-resilience.js'
+    )
+    for name in checks:
         request = Request(PUBLIC_URL+name+'?release='+commit,headers={'Cache-Control':'no-cache'})
         with urlopen(request,timeout=20) as response:
             content_type = response.headers.get('Content-Type','')
-            text = response.read().decode('utf-8')
-            if marker not in text:
-                raise RuntimeError('Public URL returned an older or incomplete file: '+name)
+            public_bytes = response.read()
+            expected_bytes = (site/name).read_bytes()
+            if hashlib.sha256(public_bytes).digest() != hashlib.sha256(expected_bytes).digest():
+                raise RuntimeError('Public URL returned bytes that differ from the deployed file: '+name)
             if name.endswith('.js') and 'javascript' not in content_type:
                 raise RuntimeError('Server is not serving JavaScript correctly: '+name)
         print('Verified public URL:',name,flush=True)
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--commit',required=True,help='Full 40-character SHA of the tested GitHub commit')
+    parser.add_argument('commit', help='Full 40-character SHA of the tested GitHub commit')
     args = parser.parse_args()
-    if not re.fullmatch(r'[0-9a-f]{40}',args.commit):
-        parser.error('--commit must be a full lowercase SHA, not a branch name.')
+    if not re.fullmatch(r'[0-9a-f]{40}', args.commit):
+        parser.error('commit must be a full lowercase SHA, not a branch name.')
     site = Path.home()/'public_html'
     if not (site/'index.html').is_file():
         parser.error('Run in your authenticated OSU shell; public_html was not found.')
-    with tempfile.TemporaryDirectory(prefix='portfolio-release-',dir=site.parent) as temporary:
+    with tempfile.TemporaryDirectory(prefix='portfolio-release-') as temporary:
         temp = Path(temporary)
         archive_path = temp/'release.zip'
         url = f'https://github.com/joshprandall/engineering-portfolio/archive/{args.commit}.zip'
@@ -190,7 +232,7 @@ def main():
         source = temp/'source'/('engineering-portfolio-'+args.commit)
         if not source.is_dir():
             raise RuntimeError('Archive does not contain the requested commit.')
-        backup = deploy(source,site,lambda:http_smoke(args.commit))
+        backup = deploy(source,site,lambda:http_smoke(args.commit,site))
     print('Website updated:',PUBLIC_URL)
     print('Commit:',args.commit)
     print('Backup:',backup)

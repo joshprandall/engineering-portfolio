@@ -1,0 +1,15 @@
+/* Keep the learning brand aligned with its adjacent header text. */
+body[data-library-page] .site-header .brand strong {
+  color: #f4a575 !important;
+}
+:root[data-theme="light"] body[data-library-page] .site-header .brand strong {
+  color: #06150d !important;
+}
+body[data-library-page] .site-header .brand span {
+  color: var(--ink, var(--text)) !important;
+}
+/* Lesson preferences belong with lesson controls, not the site header. */
+.site-header .header-tools #sound-mode,
+.site-header .header-tools #motion-mode { display: none !important; }
+/* The project collection is shown in full, without the floating filter bar. */
+#project-list > .filter-bar { display: none !important; }

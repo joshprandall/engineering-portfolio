@@ -1,0 +1,43 @@
+{
+  "capturedAt": "2026-09-26T06:55:00.880Z",
+  "repository": "C:\\Users\\joshp\\Documents\\engineering-portfolio",
+  "live": "Z:/public_html",
+  "repositoryFiles": 287,
+  "liveFiles": 397,
+  "repositoryBytes": 78420123,
+  "liveBytes": 612169069,
+  "counts": {
+    "identical": 103,
+    "live-only": 167,
+    "repository-only": 57,
+    "different": 127
+  },
+  "duplicateGroups": 42,
+  "dependencyEdges": 2287,
+  "missingCandidates": 411,
+  "textIssues": 15,
+  "cleanupCandidates": 99,
+  "errors": [
+    {
+      "label": "live",
+      "path": ".codex",
+      "error": "EPERM: operation not permitted, scandir 'Z:\\public_html\\.codex'"
+    },
+    {
+      "label": "live",
+      "path": "_shellfish_uploading_4336159125157019876",
+      "error": "EPERM: operation not permitted, open 'Z:\\public_html\\_shellfish_uploading_4336159125157019876'"
+    },
+    {
+      "label": "live",
+      "path": "quantum2.jpg",
+      "error": "EPERM: operation not permitted, open 'Z:\\public_html\\quantum2.jpg'"
+    }
+  ],
+  "liveHashedFiles": 395,
+  "unhashedFiles": [
+    "_shellfish_uploading_4336159125157019876",
+    "quantum2.jpg"
+  ],
+  "directoryCount": 55
+}

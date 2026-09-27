@@ -1,0 +1,45 @@
+JOSHUA RANDALL KNOWLEDGE PLATFORM v0.3.0 — VALIDATION
+2026-09-06
+
+PASS — Python source compiles.
+PASS — knowledge.js passes Node JavaScript syntax validation.
+PASS — knowledge-data.js passes Node JavaScript syntax validation.
+PASS — 184 lesson IDs are unique.
+PASS — All lesson domains resolve to one of the seven declared domains.
+PASS — All prerequisite and related-lesson references resolve.
+PASS — All 24 guided learning paths resolve only to published lesson IDs.
+PASS — All 122 glossary lesson links resolve.
+PASS — index.html contains no duplicate element IDs.
+PASS — projects.html contains no duplicate element IDs.
+PASS — learn.html contains no duplicate element IDs.
+
+DATA COUNTS
+Published learning objects: 184
+Guided learning paths: 24
+Searchable glossary terms: 122
+Mapped-next curriculum topics: 316
+Major domains: 7
+
+PUBLISHED BY DOMAIN
+Cloud & Systems: 26
+Advanced Computing: 26
+Software Engineering: 26
+Cybersecurity: 26
+Leadership & IT Management: 27
+Mathematics: 26
+Physics: 27
+
+CONTENT TYPES
+Lessons: 135
+Quick Concepts: 35
+Labs: 12
+Troubleshooting Guides: 2
+
+DIFFICULTY
+Foundation: 164
+Intermediate: 20
+
+NOTE
+This validation checks static structure, internal references, data integrity,
+and JavaScript/Python syntax in the available runtime. It does not replace
+live-browser interaction testing after deployment to OSU hosting.

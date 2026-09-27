@@ -1,0 +1,1379 @@
+[
+  {
+    "path": "_before_game_learning_patch_20260924-060952/games/3d-battle-chess/index.html",
+    "size": 3447,
+    "mtimeUtc": "2026-09-24T12:51:13.572Z",
+    "sha256": "06ea43512e56553f36ee818bfc0f1d9122513df199d43b455dc650139c6d4047",
+    "changedDuringRead": false,
+    "incoming": [
+      {
+        "source": "_before_game_learning_patch_20260924-060952/project-battle-chess.html",
+        "line": 20
+      },
+      {
+        "source": "_before_game_learning_patch_20260924-060952/projects.html",
+        "line": 7
+      },
+      {
+        "source": "_before_game_learning_patch_20260924-060952/projects.html",
+        "line": 7
+      }
+    ],
+    "comparison": "live-only"
+  },
+  {
+    "path": "_before_game_learning_patch_20260924-060952/games/3d-battle-chess/styles.css",
+    "size": 3868,
+    "mtimeUtc": "2026-09-23T11:45:27.190Z",
+    "sha256": "ccc6d4b1e7007e0fc5ad456ba24f40aa01d8fc691c1a7b9e720c6337574757f5",
+    "changedDuringRead": false,
+    "incoming": [
+      {
+        "source": "_before_game_learning_patch_20260924-060952/games/3d-battle-chess/index.html",
+        "line": 6
+      }
+    ],
+    "comparison": "live-only"
+  },
+  {
+    "path": "_before_game_learning_patch_20260924-060952/games/evil-wizard/play.html",
+    "size": 22376,
+    "mtimeUtc": "2026-09-23T23:45:16.902Z",
+    "sha256": "74182fa975f9e3dff72d8d4bcc746b0baa06aae8f310525a1fe942a6d49aedda",
+    "changedDuringRead": false,
+    "incoming": [
+      {
+        "source": "_before_game_learning_patch_20260924-060952/projects.html",
+        "line": 7
+      },
+      {
+        "source": "_before_game_learning_patch_20260924-060952/play-evil-wizard.html",
+        "line": 68
+      }
+    ],
+    "comparison": "live-only"
+  },
+  {
+    "path": "_before_game_learning_patch_20260924-060952/knowledge.css",
+    "size": 93255,
+    "mtimeUtc": "2026-09-24T11:52:23.568Z",
+    "sha256": "ab6fe7f2b9269ec9df2a163fdbab5faebbef4eda377598388837a02c37c02ed4",
+    "changedDuringRead": false,
+    "incoming": [
+      {
+        "source": "_before_game_learning_patch_20260924-060952/learn.html",
+        "line": 11
+      }
+    ],
+    "comparison": "live-only"
+  },
+  {
+    "path": "_before_game_learning_patch_20260924-060952/learn.html",
+    "size": 21124,
+    "mtimeUtc": "2026-09-24T18:30:50.309Z",
+    "sha256": "97da360e44a21d2a9c29b5c082ba3f73808af9f8e2e77161cd7c831893a0be4a",
+    "changedDuringRead": false,
+    "incoming": [
+      {
+        "source": "_before_game_learning_patch_20260924-060952/project-battle-chess.html",
+        "line": 20
+      },
+      {
+        "source": "_before_game_learning_patch_20260924-060952/projects.html",
+        "line": 7
+      },
+      {
+        "source": "_before_game_learning_patch_20260924-060952/play-evil-wizard.html",
+        "line": 53
+      },
+      {
+        "source": "_before_game_learning_patch_20260924-060952/learn.html",
+        "line": 28
+      },
+      {
+        "source": "_before_game_learning_patch_20260924-060952/learn.html",
+        "line": 72
+      }
+    ],
+    "comparison": "live-only"
+  },
+  {
+    "path": "_before_game_learning_patch_20260924-060952/play-evil-wizard.html",
+    "size": 6248,
+    "mtimeUtc": "2026-09-24T18:30:50.307Z",
+    "sha256": "bfcf367eb25b496b8bc51dfc5805bc11ae5f58675e5c372a2a995ff3e7a3fc4a",
+    "changedDuringRead": false,
+    "incoming": [
+      {
+        "source": "_before_game_learning_patch_20260924-060952/projects.html",
+        "line": 7
+      }
+    ],
+    "comparison": "live-only"
+  },
+  {
+    "path": "_before_game_learning_patch_20260924-060952/project-battle-chess.html",
+    "size": 7436,
+    "mtimeUtc": "2026-09-24T18:30:50.302Z",
+    "sha256": "c6051e4df96de0e7145dc7b6525ddf77a1f18851e55856c9d914912bf85fa409",
+    "changedDuringRead": false,
+    "incoming": [
+      {
+        "source": "_before_game_learning_patch_20260924-060952/projects.html",
+        "line": 7
+      }
+    ],
+    "comparison": "live-only"
+  },
+  {
+    "path": "_before_game_learning_patch_20260924-060952/projects.html",
+    "size": 14767,
+    "mtimeUtc": "2026-09-24T18:30:50.305Z",
+    "sha256": "03633c2e7b6f274f2af2bc9bf68299948b1eae17e6bae14edcbb88b9599e39dc",
+    "changedDuringRead": false,
+    "incoming": [
+      {
+        "source": "_before_game_learning_patch_20260924-060952/project-battle-chess.html",
+        "line": 20
+      },
+      {
+        "source": "_before_game_learning_patch_20260924-060952/games/3d-battle-chess/index.html",
+        "line": 9
+      },
+      {
+        "source": "_before_game_learning_patch_20260924-060952/projects.html",
+        "line": 7
+      },
+      {
+        "source": "_before_game_learning_patch_20260924-060952/play-evil-wizard.html",
+        "line": 52
+      },
+      {
+        "source": "_before_game_learning_patch_20260924-060952/learn.html",
+        "line": 27
+      },
+      {
+        "source": "_before_game_learning_patch_20260924-060952/learn.html",
+        "line": 56
+      },
+      {
+        "source": "_before_game_learning_patch_20260924-060952/learn.html",
+        "line": 305
+      }
+    ],
+    "comparison": "live-only"
+  },
+  {
+    "path": "_before_game_learning_patch_20260924-060952/styles.css",
+    "size": 20030,
+    "mtimeUtc": "2026-09-24T11:52:23.893Z",
+    "sha256": "8e3f425b37d4a44f0324932581fe130a7ff1e5bd418e2cea689c15a73ab65f1b",
+    "changedDuringRead": false,
+    "incoming": [
+      {
+        "source": "_before_game_learning_patch_20260924-060952/project-battle-chess.html",
+        "line": 4
+      },
+      {
+        "source": "_before_game_learning_patch_20260924-060952/projects.html",
+        "line": 4
+      },
+      {
+        "source": "_before_game_learning_patch_20260924-060952/play-evil-wizard.html",
+        "line": 9
+      }
+    ],
+    "comparison": "live-only"
+  },
+  {
+    "path": "_before_true_glass_20260924-061812/games/3d-battle-chess/index.html",
+    "size": 4767,
+    "mtimeUtc": "2026-09-24T13:09:52.287Z",
+    "sha256": "e1f60f769b0c779987179f805617cd8310d42d83e0a17e854c1efac9bdfaa011",
+    "changedDuringRead": false,
+    "incoming": [
+      {
+        "source": "_before_true_glass_20260924-061812/project-battle-chess.html",
+        "line": 34
+      },
+      {
+        "source": "_before_true_glass_20260924-061812/projects.html",
+        "line": 7
+      },
+      {
+        "source": "_before_true_glass_20260924-061812/projects.html",
+        "line": 7
+      }
+    ],
+    "comparison": "live-only"
+  },
+  {
+    "path": "_before_true_glass_20260924-061812/games/3d-battle-chess/styles.css",
+    "size": 4324,
+    "mtimeUtc": "2026-09-24T13:09:52.264Z",
+    "sha256": "e1fcf3b38b3ec9375f7ee675241eb9222d79cccb46ca3bcd59fbf0c0442794f6",
+    "changedDuringRead": false,
+    "incoming": [
+      {
+        "source": "_before_true_glass_20260924-061812/games/3d-battle-chess/index.html",
+        "line": 6
+      }
+    ],
+    "comparison": "live-only"
+  },
+  {
+    "path": "_before_true_glass_20260924-061812/games/evil-wizard/play.html",
+    "size": 22883,
+    "mtimeUtc": "2026-09-24T13:09:52.270Z",
+    "sha256": "740d0794f47386323921b33beaf57722d871e527937b9cffd1e4d40b3edf0087",
+    "changedDuringRead": false,
+    "incoming": [
+      {
+        "source": "_before_true_glass_20260924-061812/projects.html",
+        "line": 7
+      },
+      {
+        "source": "_before_true_glass_20260924-061812/play-evil-wizard.html",
+        "line": 89
+      }
+    ],
+    "comparison": "live-only"
+  },
+  {
+    "path": "_before_true_glass_20260924-061812/play-evil-wizard.html",
+    "size": 6871,
+    "mtimeUtc": "2026-09-24T18:30:50.319Z",
+    "sha256": "34a45f4b597ff0b02b05a43acc8d0fca64ec5b471a5efd0c811470371b5dda07",
+    "changedDuringRead": false,
+    "incoming": [
+      {
+        "source": "_before_true_glass_20260924-061812/projects.html",
+        "line": 7
+      }
+    ],
+    "comparison": "live-only"
+  },
+  {
+    "path": "_before_true_glass_20260924-061812/project-battle-chess.html",
+    "size": 7813,
+    "mtimeUtc": "2026-09-24T18:30:50.314Z",
+    "sha256": "7e44c53967208f79b08cff8fdfa96c8aed335d773382931d5768f7aa094007e9",
+    "changedDuringRead": false,
+    "incoming": [
+      {
+        "source": "_before_true_glass_20260924-061812/projects.html",
+        "line": 7
+      }
+    ],
+    "comparison": "live-only"
+  },
+  {
+    "path": "_before_true_glass_20260924-061812/projects.html",
+    "size": 14768,
+    "mtimeUtc": "2026-09-24T18:30:50.317Z",
+    "sha256": "8bc208249aab695015a7a7ce8905679ee7012e8586ef99daeeb96242006e7603",
+    "changedDuringRead": false,
+    "incoming": [
+      {
+        "source": "_before_true_glass_20260924-061812/project-battle-chess.html",
+        "line": 34
+      },
+      {
+        "source": "_before_true_glass_20260924-061812/games/3d-battle-chess/index.html",
+        "line": 9
+      },
+      {
+        "source": "_before_true_glass_20260924-061812/projects.html",
+        "line": 7
+      },
+      {
+        "source": "_before_true_glass_20260924-061812/play-evil-wizard.html",
+        "line": 73
+      }
+    ],
+    "comparison": "live-only"
+  },
+  {
+    "path": "_safe_patch_backup_20260924-060626/games/3d-battle-chess/battle.js",
+    "size": 12557,
+    "mtimeUtc": "2026-09-24T12:51:35.573Z",
+    "sha256": "6715c7f20435a85375be74a44e6c04dc8b42009f0b1ab8fb4a8bd185f322738c",
+    "changedDuringRead": false,
+    "incoming": [],
+    "comparison": "live-only"
+  },
+  {
+    "path": "_safe_patch_backup_20260924-060626/games/3d-battle-chess/index.html",
+    "size": 3447,
+    "mtimeUtc": "2026-09-24T12:51:13.572Z",
+    "sha256": "06ea43512e56553f36ee818bfc0f1d9122513df199d43b455dc650139c6d4047",
+    "changedDuringRead": false,
+    "incoming": [
+      {
+        "source": "_safe_patch_backup_20260924-060626/project-battle-chess.html",
+        "line": 20
+      },
+      {
+        "source": "_safe_patch_backup_20260924-060626/projects.html",
+        "line": 7
+      },
+      {
+        "source": "_safe_patch_backup_20260924-060626/projects.html",
+        "line": 7
+      }
+    ],
+    "comparison": "live-only"
+  },
+  {
+    "path": "_safe_patch_backup_20260924-060626/games/3d-battle-chess/styles.css",
+    "size": 3868,
+    "mtimeUtc": "2026-09-23T11:45:27.190Z",
+    "sha256": "ccc6d4b1e7007e0fc5ad456ba24f40aa01d8fc691c1a7b9e720c6337574757f5",
+    "changedDuringRead": false,
+    "incoming": [
+      {
+        "source": "_safe_patch_backup_20260924-060626/games/3d-battle-chess/index.html",
+        "line": 6
+      }
+    ],
+    "comparison": "live-only"
+  },
+  {
+    "path": "_safe_patch_backup_20260924-060626/games/evil-wizard/play.html",
+    "size": 22376,
+    "mtimeUtc": "2026-09-23T23:45:16.902Z",
+    "sha256": "74182fa975f9e3dff72d8d4bcc746b0baa06aae8f310525a1fe942a6d49aedda",
+    "changedDuringRead": false,
+    "incoming": [
+      {
+        "source": "_safe_patch_backup_20260924-060626/projects.html",
+        "line": 7
+      },
+      {
+        "source": "_safe_patch_backup_20260924-060626/play-evil-wizard.html",
+        "line": 68
+      }
+    ],
+    "comparison": "live-only"
+  },
+  {
+    "path": "_safe_patch_backup_20260924-060626/knowledge.css",
+    "size": 93255,
+    "mtimeUtc": "2026-09-24T11:52:23.568Z",
+    "sha256": "ab6fe7f2b9269ec9df2a163fdbab5faebbef4eda377598388837a02c37c02ed4",
+    "changedDuringRead": false,
+    "incoming": [
+      {
+        "source": "_safe_patch_backup_20260924-060626/learn.html",
+        "line": 11
+      }
+    ],
+    "comparison": "live-only"
+  },
+  {
+    "path": "_safe_patch_backup_20260924-060626/learn.html",
+    "size": 21124,
+    "mtimeUtc": "2026-09-24T18:30:50.297Z",
+    "sha256": "97da360e44a21d2a9c29b5c082ba3f73808af9f8e2e77161cd7c831893a0be4a",
+    "changedDuringRead": false,
+    "incoming": [
+      {
+        "source": "_safe_patch_backup_20260924-060626/project-battle-chess.html",
+        "line": 20
+      },
+      {
+        "source": "_safe_patch_backup_20260924-060626/projects.html",
+        "line": 7
+      },
+      {
+        "source": "_safe_patch_backup_20260924-060626/play-evil-wizard.html",
+        "line": 53
+      },
+      {
+        "source": "_safe_patch_backup_20260924-060626/learn.html",
+        "line": 28
+      },
+      {
+        "source": "_safe_patch_backup_20260924-060626/learn.html",
+        "line": 72
+      }
+    ],
+    "comparison": "live-only"
+  },
+  {
+    "path": "_safe_patch_backup_20260924-060626/play-evil-wizard.html",
+    "size": 6248,
+    "mtimeUtc": "2026-09-24T18:30:50.295Z",
+    "sha256": "bfcf367eb25b496b8bc51dfc5805bc11ae5f58675e5c372a2a995ff3e7a3fc4a",
+    "changedDuringRead": false,
+    "incoming": [
+      {
+        "source": "_safe_patch_backup_20260924-060626/projects.html",
+        "line": 7
+      }
+    ],
+    "comparison": "live-only"
+  },
+  {
+    "path": "_safe_patch_backup_20260924-060626/project-battle-chess.html",
+    "size": 7436,
+    "mtimeUtc": "2026-09-24T18:30:50.290Z",
+    "sha256": "c6051e4df96de0e7145dc7b6525ddf77a1f18851e55856c9d914912bf85fa409",
+    "changedDuringRead": false,
+    "incoming": [
+      {
+        "source": "_safe_patch_backup_20260924-060626/projects.html",
+        "line": 7
+      }
+    ],
+    "comparison": "live-only"
+  },
+  {
+    "path": "_safe_patch_backup_20260924-060626/projects.html",
+    "size": 14767,
+    "mtimeUtc": "2026-09-24T18:30:50.293Z",
+    "sha256": "03633c2e7b6f274f2af2bc9bf68299948b1eae17e6bae14edcbb88b9599e39dc",
+    "changedDuringRead": false,
+    "incoming": [
+      {
+        "source": "_safe_patch_backup_20260924-060626/project-battle-chess.html",
+        "line": 20
+      },
+      {
+        "source": "_safe_patch_backup_20260924-060626/games/3d-battle-chess/index.html",
+        "line": 9
+      },
+      {
+        "source": "_safe_patch_backup_20260924-060626/projects.html",
+        "line": 7
+      },
+      {
+        "source": "_safe_patch_backup_20260924-060626/play-evil-wizard.html",
+        "line": 52
+      },
+      {
+        "source": "_safe_patch_backup_20260924-060626/learn.html",
+        "line": 27
+      },
+      {
+        "source": "_safe_patch_backup_20260924-060626/learn.html",
+        "line": 56
+      },
+      {
+        "source": "_safe_patch_backup_20260924-060626/learn.html",
+        "line": 305
+      }
+    ],
+    "comparison": "live-only"
+  },
+  {
+    "path": "_safe_patch_backup_20260924-060626/styles.css",
+    "size": 20030,
+    "mtimeUtc": "2026-09-24T11:52:23.893Z",
+    "sha256": "8e3f425b37d4a44f0324932581fe130a7ff1e5bd418e2cea689c15a73ab65f1b",
+    "changedDuringRead": false,
+    "incoming": [
+      {
+        "source": "_safe_patch_backup_20260924-060626/project-battle-chess.html",
+        "line": 4
+      },
+      {
+        "source": "_safe_patch_backup_20260924-060626/projects.html",
+        "line": 4
+      },
+      {
+        "source": "_safe_patch_backup_20260924-060626/play-evil-wizard.html",
+        "line": 9
+      }
+    ],
+    "comparison": "live-only"
+  },
+  {
+    "path": "3d-battle-chess-osu-deploy.zip",
+    "size": 11368,
+    "mtimeUtc": "2026-09-22T10:02:28.000Z",
+    "sha256": "1349e0188578db18e6291bd4d214dd08d0ce600dbd25ef778c60a7b3cf3364e2",
+    "changedDuringRead": false,
+    "incoming": [],
+    "comparison": "live-only"
+  },
+  {
+    "path": "agent-workbench.mjs",
+    "size": 5227,
+    "mtimeUtc": "2026-09-23T22:50:20.074Z",
+    "sha256": "581fd9f9f2c40e38c5a02df94ce9786e2cc27da2a430b9c214d2c55e50f4cad0",
+    "changedDuringRead": false,
+    "incoming": [],
+    "comparison": "live-only"
+  },
+  {
+    "path": "assets/audio/README.txt",
+    "size": 194,
+    "mtimeUtc": "2026-09-24T16:19:40.159Z",
+    "sha256": "4a66c2930fc8c810863fc281732fe8796e51908128c520900052235767006f10",
+    "changedDuringRead": false,
+    "incoming": [],
+    "comparison": "live-only"
+  },
+  {
+    "path": "assets/Recovery_Readiness_Auditor.zip",
+    "size": 8597,
+    "mtimeUtc": "2026-09-06T21:38:09.500Z",
+    "sha256": "8205c4c2b1102398c53d4de315522bb3b92ef154d0f4c40bf4d5da1a1647e1e9",
+    "changedDuringRead": false,
+    "incoming": [],
+    "comparison": "live-only"
+  },
+  {
+    "path": "assets/scenes/CREDITS.md",
+    "size": 762,
+    "mtimeUtc": "2026-09-26T01:55:46.115Z",
+    "sha256": "d86111eff00a752fc9a7c9d344c86215137db4a6ea403aec4f4920b9177bfedc",
+    "changedDuringRead": false,
+    "incoming": [],
+    "comparison": "different"
+  },
+  {
+    "path": "assets/scenes/LIVING_SCENES_SOURCES.md",
+    "size": 1915,
+    "mtimeUtc": "2026-09-26T01:55:46.130Z",
+    "sha256": "52753b3548e93befc1d02bbd0808b0002143168bff5f13c37029e76017e6274b",
+    "changedDuringRead": false,
+    "incoming": [],
+    "comparison": "different"
+  },
+  {
+    "path": "backup-20260923-1119/site-resilience.css",
+    "size": 4613,
+    "mtimeUtc": "2026-09-23T11:45:27.985Z",
+    "sha256": "77269147df98e6878683eff83e49b4acb46b91d7f6d37298e00e54dc1105bd82",
+    "changedDuringRead": false,
+    "incoming": [],
+    "comparison": "live-only"
+  },
+  {
+    "path": "backup-20260923-1119/site-resilience.js",
+    "size": 2250,
+    "mtimeUtc": "2026-09-23T11:45:27.993Z",
+    "sha256": "77a093cbb79f3aaa3a5ae4de858aa694f2d60785c0373a09655cea2ed1508751",
+    "changedDuringRead": false,
+    "incoming": [],
+    "comparison": "live-only"
+  },
+  {
+    "path": "backup-cosmos-20260923/index.html",
+    "size": 16701,
+    "mtimeUtc": "2026-09-23T18:33:08.393Z",
+    "sha256": "cbd100f850d61f98f6a2d8007d71351968800763b58c51a74a0cf26c6c825531",
+    "changedDuringRead": false,
+    "incoming": [
+      {
+        "source": "backup-cosmos-20260923/index.html",
+        "line": 3
+      },
+      {
+        "source": "backup-cosmos-20260923/index.html",
+        "line": 3
+      },
+      {
+        "source": "backup-cosmos-20260923/index.html",
+        "line": 3
+      },
+      {
+        "source": "backup-cosmos-20260923/index.html",
+        "line": 3
+      }
+    ],
+    "comparison": "live-only"
+  },
+  {
+    "path": "backup-cosmos-20260923/portfolio-next.css",
+    "size": 16733,
+    "mtimeUtc": "2026-09-23T18:33:08.691Z",
+    "sha256": "29da054dcc67fa6d7f26c3493577164fe7aaa0ed818bf678e4f9581396194e1a",
+    "changedDuringRead": false,
+    "incoming": [
+      {
+        "source": "backup-cosmos-20260923/index.html",
+        "line": 3
+      }
+    ],
+    "comparison": "live-only"
+  },
+  {
+    "path": "backup-cosmos-20260923/portfolio-next.js",
+    "size": 25240,
+    "mtimeUtc": "2026-09-23T18:33:08.819Z",
+    "sha256": "047a63201ee33800a5c9925543a3b83f060a520f04299a31d97905072f6dd199",
+    "changedDuringRead": false,
+    "incoming": [
+      {
+        "source": "backup-cosmos-20260923/index.html",
+        "line": 3
+      }
+    ],
+    "comparison": "live-only"
+  },
+  {
+    "path": "backup-cosmos-labels-20260923/index.html",
+    "size": 16701,
+    "mtimeUtc": "2026-09-23T18:48:09.432Z",
+    "sha256": "178ef284753a837bc75dddc1b9ea46c3910bc3e011584d0ed7e0b7eb3fa576f7",
+    "changedDuringRead": false,
+    "incoming": [
+      {
+        "source": "backup-cosmos-labels-20260923/index.html",
+        "line": 3
+      },
+      {
+        "source": "backup-cosmos-labels-20260923/index.html",
+        "line": 3
+      },
+      {
+        "source": "backup-cosmos-labels-20260923/index.html",
+        "line": 3
+      },
+      {
+        "source": "backup-cosmos-labels-20260923/index.html",
+        "line": 3
+      }
+    ],
+    "comparison": "live-only"
+  },
+  {
+    "path": "backup-cosmos-labels-20260923/portfolio-next.css",
+    "size": 17648,
+    "mtimeUtc": "2026-09-23T18:48:09.595Z",
+    "sha256": "17684a8d1391e654b1580d31812e87fc614ce3e0ac801ab743a796a00d76bffa",
+    "changedDuringRead": false,
+    "incoming": [
+      {
+        "source": "backup-cosmos-labels-20260923/index.html",
+        "line": 3
+      }
+    ],
+    "comparison": "live-only"
+  },
+  {
+    "path": "backup-cosmos-labels-20260923/portfolio-next.js",
+    "size": 25468,
+    "mtimeUtc": "2026-09-23T18:48:09.795Z",
+    "sha256": "4305a88226170c522e749aaed137cc46748c67a2258422f7298a6833b4c6112c",
+    "changedDuringRead": false,
+    "incoming": [
+      {
+        "source": "backup-cosmos-labels-20260923/index.html",
+        "line": 3
+      }
+    ],
+    "comparison": "live-only"
+  },
+  {
+    "path": "backup-theme-20260923/app.js",
+    "size": 11403,
+    "mtimeUtc": "2026-09-23T18:33:08.837Z",
+    "sha256": "599a2d4bc1dab942b85b427171a60a94ccad1381b9e77289a5c2204bba63654a",
+    "changedDuringRead": false,
+    "incoming": [
+      {
+        "source": "backup-theme-20260923/index.html",
+        "line": 3
+      }
+    ],
+    "comparison": "live-only"
+  },
+  {
+    "path": "backup-theme-20260923/index.html",
+    "size": 16629,
+    "mtimeUtc": "2026-09-23T18:33:08.831Z",
+    "sha256": "1e6d630070d700b16e6d86613d0a720cbd87cf5c2ebb5f4f9a0f52f9ab32cd4e",
+    "changedDuringRead": false,
+    "incoming": [
+      {
+        "source": "backup-theme-20260923/index.html",
+        "line": 3
+      },
+      {
+        "source": "backup-theme-20260923/index.html",
+        "line": 3
+      },
+      {
+        "source": "backup-theme-20260923/index.html",
+        "line": 3
+      },
+      {
+        "source": "backup-theme-20260923/index.html",
+        "line": 3
+      }
+    ],
+    "comparison": "live-only"
+  },
+  {
+    "path": "backup-theme-20260923/portfolio-next.css",
+    "size": 6917,
+    "mtimeUtc": "2026-09-23T18:33:08.842Z",
+    "sha256": "2e0f5d825831793befaff15cbf214df8845285eb2084dc3686b5dfe267af57d5",
+    "changedDuringRead": false,
+    "incoming": [
+      {
+        "source": "backup-theme-20260923/index.html",
+        "line": 3
+      }
+    ],
+    "comparison": "live-only"
+  },
+  {
+    "path": "backup-theme-20260923/portfolio-next.js",
+    "size": 17618,
+    "mtimeUtc": "2026-09-23T18:33:08.847Z",
+    "sha256": "160d6845b35688a896643e955364869733f2a6bdc18d02be629771fca434c390",
+    "changedDuringRead": false,
+    "incoming": [
+      {
+        "source": "backup-theme-20260923/index.html",
+        "line": 3
+      }
+    ],
+    "comparison": "live-only"
+  },
+  {
+    "path": "build_data.py",
+    "size": 161308,
+    "mtimeUtc": "2026-09-07T06:16:27.440Z",
+    "sha256": "cdf6e7419ec353f44b06ae1f763f207fd45da7dff3bb6c30d89cda0732bef0e9",
+    "changedDuringRead": false,
+    "incoming": [],
+    "comparison": "live-only"
+  },
+  {
+    "path": "DEPLOYMENT_READ_FIRST.txt",
+    "size": 2373,
+    "mtimeUtc": "2026-09-22T17:46:10.000Z",
+    "sha256": "96171ebee0ee4f5ec6d19b849fef089f1b96fa7c8dd0dea14bf593a765a2b5fd",
+    "changedDuringRead": false,
+    "incoming": [],
+    "comparison": "live-only"
+  },
+  {
+    "path": "games/3d-battle-chess/_before_2d3d_fix_20260924-064833/battle.js",
+    "size": 12557,
+    "mtimeUtc": "2026-09-24T12:51:35.573Z",
+    "sha256": "6715c7f20435a85375be74a44e6c04dc8b42009f0b1ab8fb4a8bd185f322738c",
+    "changedDuringRead": false,
+    "incoming": [],
+    "comparison": "live-only"
+  },
+  {
+    "path": "games/3d-battle-chess/_before_2d3d_fix_20260924-064833/index.html",
+    "size": 4767,
+    "mtimeUtc": "2026-09-24T13:18:12.196Z",
+    "sha256": "07e5203fef8e8e40cc72e87b15b8fd3a59631975eef5afc1fcd70f94d0871e0b",
+    "changedDuringRead": false,
+    "incoming": [],
+    "comparison": "live-only"
+  },
+  {
+    "path": "games/3d-battle-chess/_before_2d3d_fix_20260924-064922/battle.js",
+    "size": 12557,
+    "mtimeUtc": "2026-09-24T12:51:35.573Z",
+    "sha256": "6715c7f20435a85375be74a44e6c04dc8b42009f0b1ab8fb4a8bd185f322738c",
+    "changedDuringRead": false,
+    "incoming": [],
+    "comparison": "live-only"
+  },
+  {
+    "path": "games/3d-battle-chess/_before_2d3d_fix_20260924-064922/index.html",
+    "size": 4767,
+    "mtimeUtc": "2026-09-24T13:18:12.196Z",
+    "sha256": "07e5203fef8e8e40cc72e87b15b8fd3a59631975eef5afc1fcd70f94d0871e0b",
+    "changedDuringRead": false,
+    "incoming": [],
+    "comparison": "live-only"
+  },
+  {
+    "path": "games/3d-battle-chess/battle.js.bak",
+    "size": 12557,
+    "mtimeUtc": "2026-09-24T12:35:51.757Z",
+    "sha256": "6715c7f20435a85375be74a44e6c04dc8b42009f0b1ab8fb4a8bd185f322738c",
+    "changedDuringRead": false,
+    "incoming": [],
+    "comparison": "live-only"
+  },
+  {
+    "path": "games/3d-battle-chess/CREDITS.md",
+    "size": 949,
+    "mtimeUtc": "2026-09-23T11:45:27.094Z",
+    "sha256": "8f1dcb9b05f2abe899c3c356944855e5c914ef0ca45ba2ec6df4e27192dfb44b",
+    "changedDuringRead": false,
+    "incoming": [],
+    "comparison": "different"
+  },
+  {
+    "path": "games/3d-battle-chess/DEPLOYMENT.md",
+    "size": 3539,
+    "mtimeUtc": "2026-09-23T11:45:27.104Z",
+    "sha256": "a584d8f374114a6a26a8ee61ab8bf9fa008e91e29dc63086f4d26b4075c8ac63",
+    "changedDuringRead": false,
+    "incoming": [],
+    "comparison": "different"
+  },
+  {
+    "path": "games/3d-battle-chess/index.before-navigation.html",
+    "size": 3104,
+    "mtimeUtc": "2026-09-22T09:44:27.000Z",
+    "sha256": "308c766c0b66510e9773cf23257d1806188fb9b5e2aa107840b622646c488f2e",
+    "changedDuringRead": false,
+    "incoming": [],
+    "comparison": "live-only"
+  },
+  {
+    "path": "games/3d-battle-chess/index.html.bak",
+    "size": 3447,
+    "mtimeUtc": "2026-09-24T12:35:51.750Z",
+    "sha256": "06ea43512e56553f36ee818bfc0f1d9122513df199d43b455dc650139c6d4047",
+    "changedDuringRead": false,
+    "incoming": [],
+    "comparison": "live-only"
+  },
+  {
+    "path": "games/3d-battle-chess/README.md",
+    "size": 1982,
+    "mtimeUtc": "2026-09-23T11:45:27.114Z",
+    "sha256": "29b736db8746237945e74151a1d964401050d71e5ddcf7f8740bcb479cea9687",
+    "changedDuringRead": false,
+    "incoming": [],
+    "comparison": "different"
+  },
+  {
+    "path": "games/3d-battle-chess/styles.before-navigation.css",
+    "size": 3868,
+    "mtimeUtc": "2026-09-22T09:44:27.000Z",
+    "sha256": "ccc6d4b1e7007e0fc5ad456ba24f40aa01d8fc691c1a7b9e720c6337574757f5",
+    "changedDuringRead": false,
+    "incoming": [],
+    "comparison": "live-only"
+  },
+  {
+    "path": "geometric-lab/CREDITS.md",
+    "size": 3209,
+    "mtimeUtc": "2026-09-23T11:45:27.221Z",
+    "sha256": "9fd555c80e9aa33a4ef7b39271a447f4f21f53e06d7dd5a182be965a7df2de90",
+    "changedDuringRead": false,
+    "incoming": [
+      {
+        "source": "project-geometric-ai.html",
+        "line": 6
+      },
+      {
+        "source": "geometric-lab/app.js",
+        "line": 97
+      }
+    ],
+    "comparison": "different"
+  },
+  {
+    "path": "geometric-lab/METHODS.md",
+    "size": 6779,
+    "mtimeUtc": "2026-09-23T11:45:27.230Z",
+    "sha256": "656257883c770195b21fe3a238ede19f065e42a4aec16e94b5ad3cc17d9dab27",
+    "changedDuringRead": false,
+    "incoming": [
+      {
+        "source": "geometric-lab/app.js",
+        "line": 98
+      }
+    ],
+    "comparison": "different"
+  },
+  {
+    "path": "Joshua_Randall_Knowledge_Platform_v0.3.0/build_data.py",
+    "size": 261822,
+    "mtimeUtc": "2026-09-07T07:16:03.145Z",
+    "sha256": "33c5372edda8dc5fa02f0f6579bef7d5f5d6e4cef229f07aa688a9afd891bd8d",
+    "changedDuringRead": false,
+    "incoming": [],
+    "comparison": "live-only"
+  },
+  {
+    "path": "Joshua_Randall_Knowledge_Platform_v0.3.0/public_html/index.html",
+    "size": 15585,
+    "mtimeUtc": "2026-09-07T07:16:04.014Z",
+    "sha256": "d5056a639ce1c2e130a0ad8f29755e91f12702f59bf84274a98a740cb6c72b7b",
+    "changedDuringRead": false,
+    "incoming": [
+      {
+        "source": "Joshua_Randall_Knowledge_Platform_v0.3.0/public_html/index.html",
+        "line": 1
+      },
+      {
+        "source": "Joshua_Randall_Knowledge_Platform_v0.3.0/public_html/index.html",
+        "line": 1
+      },
+      {
+        "source": "Joshua_Randall_Knowledge_Platform_v0.3.0/public_html/index.html",
+        "line": 1
+      },
+      {
+        "source": "Joshua_Randall_Knowledge_Platform_v0.3.0/public_html/index.html",
+        "line": 1
+      },
+      {
+        "source": "Joshua_Randall_Knowledge_Platform_v0.3.0/public_html/projects.html",
+        "line": 1
+      },
+      {
+        "source": "Joshua_Randall_Knowledge_Platform_v0.3.0/public_html/projects.html",
+        "line": 1
+      },
+      {
+        "source": "Joshua_Randall_Knowledge_Platform_v0.3.0/public_html/projects.html",
+        "line": 1
+      },
+      {
+        "source": "Joshua_Randall_Knowledge_Platform_v0.3.0/public_html/projects.html",
+        "line": 1
+      },
+      {
+        "source": "Joshua_Randall_Knowledge_Platform_v0.3.0/public_html/learn.html",
+        "line": 16
+      },
+      {
+        "source": "Joshua_Randall_Knowledge_Platform_v0.3.0/public_html/learn.html",
+        "line": 20
+      },
+      {
+        "source": "Joshua_Randall_Knowledge_Platform_v0.3.0/public_html/learn.html",
+        "line": 21
+      },
+      {
+        "source": "Joshua_Randall_Knowledge_Platform_v0.3.0/public_html/learn.html",
+        "line": 198
+      }
+    ],
+    "comparison": "live-only"
+  },
+  {
+    "path": "Joshua_Randall_Knowledge_Platform_v0.3.0/public_html/knowledge-data.js",
+    "size": 329354,
+    "mtimeUtc": "2026-09-07T07:16:06.001Z",
+    "sha256": "34b5faa0de7f7e86969604aa420c2d8c6023c78b39672e12ac7db41a62e9e2e0",
+    "changedDuringRead": false,
+    "incoming": [
+      {
+        "source": "Joshua_Randall_Knowledge_Platform_v0.3.0/public_html/learn.html",
+        "line": 203
+      }
+    ],
+    "comparison": "live-only"
+  },
+  {
+    "path": "Joshua_Randall_Knowledge_Platform_v0.3.0/public_html/knowledge.css",
+    "size": 32910,
+    "mtimeUtc": "2026-09-07T07:16:06.468Z",
+    "sha256": "435c507034ea0ac2d6db5c83c1a22404bb8f1a2d4e9c27254dc6074fb19fae4b",
+    "changedDuringRead": false,
+    "incoming": [
+      {
+        "source": "Joshua_Randall_Knowledge_Platform_v0.3.0/public_html/learn.html",
+        "line": 10
+      }
+    ],
+    "comparison": "live-only"
+  },
+  {
+    "path": "Joshua_Randall_Knowledge_Platform_v0.3.0/public_html/knowledge.js",
+    "size": 70936,
+    "mtimeUtc": "2026-09-07T07:16:04.537Z",
+    "sha256": "770a63a0947525f4476b93e725189e7ac5cbc2f48ca05bb682ac734b10b0ccdd",
+    "changedDuringRead": false,
+    "incoming": [
+      {
+        "source": "Joshua_Randall_Knowledge_Platform_v0.3.0/public_html/learn.html",
+        "line": 204
+      }
+    ],
+    "comparison": "live-only"
+  },
+  {
+    "path": "Joshua_Randall_Knowledge_Platform_v0.3.0/public_html/learn.html",
+    "size": 12448,
+    "mtimeUtc": "2026-09-24T16:05:37.382Z",
+    "sha256": "ded1025796b4c670ee0de940de00d203919857f4d2b806b2ec921461e82c7af5",
+    "changedDuringRead": false,
+    "incoming": [
+      {
+        "source": "Joshua_Randall_Knowledge_Platform_v0.3.0/public_html/index.html",
+        "line": 1
+      },
+      {
+        "source": "Joshua_Randall_Knowledge_Platform_v0.3.0/public_html/index.html",
+        "line": 1
+      },
+      {
+        "source": "Joshua_Randall_Knowledge_Platform_v0.3.0/public_html/projects.html",
+        "line": 1
+      },
+      {
+        "source": "Joshua_Randall_Knowledge_Platform_v0.3.0/public_html/projects.html",
+        "line": 1
+      },
+      {
+        "source": "Joshua_Randall_Knowledge_Platform_v0.3.0/public_html/projects.html",
+        "line": 1
+      },
+      {
+        "source": "Joshua_Randall_Knowledge_Platform_v0.3.0/public_html/learn.html",
+        "line": 23
+      }
+    ],
+    "comparison": "live-only"
+  },
+  {
+    "path": "Joshua_Randall_Knowledge_Platform_v0.3.0/public_html/projects.html",
+    "size": 19175,
+    "mtimeUtc": "2026-09-07T07:16:05.000Z",
+    "sha256": "0b9d483c77ff7619cc1e8aeba1cc1b61adc6ca23e2ea62bb44cd9b92c3c8c8b8",
+    "changedDuringRead": false,
+    "incoming": [
+      {
+        "source": "Joshua_Randall_Knowledge_Platform_v0.3.0/public_html/index.html",
+        "line": 1
+      },
+      {
+        "source": "Joshua_Randall_Knowledge_Platform_v0.3.0/public_html/index.html",
+        "line": 1
+      },
+      {
+        "source": "Joshua_Randall_Knowledge_Platform_v0.3.0/public_html/index.html",
+        "line": 1
+      },
+      {
+        "source": "Joshua_Randall_Knowledge_Platform_v0.3.0/public_html/index.html",
+        "line": 1
+      },
+      {
+        "source": "Joshua_Randall_Knowledge_Platform_v0.3.0/public_html/index.html",
+        "line": 1
+      },
+      {
+        "source": "Joshua_Randall_Knowledge_Platform_v0.3.0/public_html/projects.html",
+        "line": 1
+      },
+      {
+        "source": "Joshua_Randall_Knowledge_Platform_v0.3.0/public_html/learn.html",
+        "line": 22
+      },
+      {
+        "source": "Joshua_Randall_Knowledge_Platform_v0.3.0/public_html/learn.html",
+        "line": 198
+      }
+    ],
+    "comparison": "live-only"
+  },
+  {
+    "path": "Joshua_Randall_Knowledge_Platform_v0.3.0/public_html/README_KNOWLEDGE_PLATFORM.txt",
+    "size": 2943,
+    "mtimeUtc": "2026-09-07T07:16:05.418Z",
+    "sha256": "5bf9b6977c3707e75680822cffd08edf7e7c9da5abb74b5ebd077b4ab3d2e9a6",
+    "changedDuringRead": false,
+    "incoming": [],
+    "comparison": "live-only"
+  },
+  {
+    "path": "Joshua_Randall_Knowledge_Platform_v0.3.0/README_FIRST.txt",
+    "size": 2943,
+    "mtimeUtc": "2026-09-07T07:16:02.123Z",
+    "sha256": "5bf9b6977c3707e75680822cffd08edf7e7c9da5abb74b5ebd077b4ab3d2e9a6",
+    "changedDuringRead": false,
+    "incoming": [],
+    "comparison": "live-only"
+  },
+  {
+    "path": "Joshua_Randall_Knowledge_Platform_v0.3.0/RELEASE_NOTES_v0.3.0.txt",
+    "size": 1014,
+    "mtimeUtc": "2026-09-07T07:16:02.527Z",
+    "sha256": "4eb312529a8a2d857067bd0f7dd38fefc2d6192b8cf9c430364093dd956d5e95",
+    "changedDuringRead": false,
+    "incoming": [],
+    "comparison": "live-only"
+  },
+  {
+    "path": "Joshua_Randall_Knowledge_Platform_v0.3.0/VALIDATION_v0.3.0.txt",
+    "size": 1373,
+    "mtimeUtc": "2026-09-07T07:16:03.556Z",
+    "sha256": "e8674d0f0a40ec757a13bc4f172ec24d0feaf0f492c0e6fae85a371e648843cc",
+    "changedDuringRead": false,
+    "incoming": [],
+    "comparison": "live-only"
+  },
+  {
+    "path": "Joshua_Randall_OSU_Reconciled_Site_Overlay_FINAL.zip",
+    "size": 5151787,
+    "mtimeUtc": "2026-09-22T11:17:11.000Z",
+    "sha256": "19d376ce63a902ff1cc443a2a48f3f797345914356bf4fef461676ae932f3683",
+    "changedDuringRead": false,
+    "incoming": [],
+    "comparison": "live-only"
+  },
+  {
+    "path": "Joshua_Randall_Portfolio_vNext_Review_Overlay.zip",
+    "size": 634699,
+    "mtimeUtc": "2026-09-22T13:46:47.000Z",
+    "sha256": "7ad4f39e6a2ac5473b1cbd8d3e0ed59586f7713ffd8fc94eb2fa295a817c1f59",
+    "changedDuringRead": false,
+    "incoming": [],
+    "comparison": "live-only"
+  },
+  {
+    "path": "knowledge.js.bak",
+    "size": 187562,
+    "mtimeUtc": "2026-09-24T12:35:01.517Z",
+    "sha256": "e8196e1783981be83faf339afd74ac4df3df54441a9b2ac9040c274e9341e632",
+    "changedDuringRead": false,
+    "incoming": [],
+    "comparison": "live-only"
+  },
+  {
+    "path": "labs/emergent.mjs",
+    "size": 4780,
+    "mtimeUtc": "2026-09-23T22:50:20.639Z",
+    "sha256": "d17428421d6e23f78d6851fb6a2e22a883b9403312da21c1efdf1e1a4fec891a",
+    "changedDuringRead": false,
+    "incoming": [],
+    "comparison": "live-only"
+  },
+  {
+    "path": "labs/qpe.mjs",
+    "size": 3883,
+    "mtimeUtc": "2026-09-23T22:50:20.641Z",
+    "sha256": "f230626678a14ff26b45578a8f1c3b379cdb48992416616cfe3a5ebd2b870a4d",
+    "changedDuringRead": false,
+    "incoming": [],
+    "comparison": "live-only"
+  },
+  {
+    "path": "learn.html.bak",
+    "size": 21048,
+    "mtimeUtc": "2026-09-24T12:35:01.533Z",
+    "sha256": "de6a15dfa3c7f7e60fc21f970016f13acf8c6556b15e57a8031ce0f5049f3d26",
+    "changedDuringRead": false,
+    "incoming": [],
+    "comparison": "live-only"
+  },
+  {
+    "path": "learn.html.before-header-type-20260924-062338",
+    "size": 21045,
+    "mtimeUtc": "2026-09-24T13:09:52.273Z",
+    "sha256": "a08f0d33b709e6a88c57e6eae9d4717fa5be252e8ec03fca85cc191a03916b92",
+    "changedDuringRead": false,
+    "incoming": [],
+    "comparison": "live-only"
+  },
+  {
+    "path": "learning-depth.js.bak",
+    "size": 9733,
+    "mtimeUtc": "2026-09-24T12:35:01.525Z",
+    "sha256": "aba97dca8539982ddd9f62a366757585366c46afeff173af00680ec8dc4ed414",
+    "changedDuringRead": false,
+    "incoming": [],
+    "comparison": "live-only"
+  },
+  {
+    "path": "NEXT-RELEASE-NOTES.md",
+    "size": 5711,
+    "mtimeUtc": "2026-09-22T20:33:59.875Z",
+    "sha256": "05b896352acdba6fc550aa506d57da4e0a49e32db79c289e5d458c8a9834b3f7",
+    "changedDuringRead": false,
+    "incoming": [],
+    "comparison": "different"
+  },
+  {
+    "path": "project-battle-chess.html.before-clear-glass-20260924-062614",
+    "size": 8854,
+    "mtimeUtc": "2026-09-24T13:18:12.188Z",
+    "sha256": "ee23f9ed6844b9d142c7b81125b2bd4bb464bf596fb87b94ac745f777eb61806",
+    "changedDuringRead": false,
+    "incoming": [],
+    "comparison": "live-only"
+  },
+  {
+    "path": "project-sources/evil-wizard/project.godot",
+    "size": 8169,
+    "mtimeUtc": "2026-09-23T11:45:27.873Z",
+    "sha256": "60daa9d2a3265824299a02a8a6afa5cdee458b73d7fe39138f0995c52b33c668",
+    "changedDuringRead": false,
+    "incoming": [],
+    "comparison": "different"
+  },
+  {
+    "path": "project-sources/evil-wizard/README-source.md",
+    "size": 23478,
+    "mtimeUtc": "2026-09-23T11:45:27.857Z",
+    "sha256": "014f83b12ed04c90284b8825fb7d99690899e0a13d66fb0bd85bafb4a523607c",
+    "changedDuringRead": false,
+    "incoming": [],
+    "comparison": "different"
+  },
+  {
+    "path": "project-sources/evil-wizard/README.md",
+    "size": 960,
+    "mtimeUtc": "2026-09-23T11:45:27.865Z",
+    "sha256": "0b518123db6e292984ef09755c01decee9a7c54490ac33c250512a6334637765",
+    "changedDuringRead": false,
+    "incoming": [],
+    "comparison": "different"
+  },
+  {
+    "path": "project-sources/evil-wizard/scripts/game.gd",
+    "size": 95806,
+    "mtimeUtc": "2026-09-23T11:45:27.883Z",
+    "sha256": "3a6aec54fd9e64d12b8cbee9e5de5a12086c621949d678f68c18f059635e38fd",
+    "changedDuringRead": false,
+    "incoming": [],
+    "comparison": "different"
+  },
+  {
+    "path": "project-sources/evil-wizard/scripts/movement_lab.gd",
+    "size": 6549,
+    "mtimeUtc": "2026-09-23T11:45:27.893Z",
+    "sha256": "558021d675731d8cac7a8eabcfdf81495079024882af227053a08d77ba925ad2",
+    "changedDuringRead": false,
+    "incoming": [],
+    "comparison": "different"
+  },
+  {
+    "path": "project-sources/evil-wizard/scripts/player.gd",
+    "size": 115701,
+    "mtimeUtc": "2026-09-23T11:45:27.900Z",
+    "sha256": "ca0cc3229a74e104da1b96b0deab8fd342b772f6de47a63e2eb959f41b469849",
+    "changedDuringRead": false,
+    "incoming": [],
+    "comparison": "different"
+  },
+  {
+    "path": "projects-before-battle-chess.html",
+    "size": 11242,
+    "mtimeUtc": "2026-09-22T12:30:37.006Z",
+    "sha256": "cbcb53cb25b9a514189700eaeae2f5cb73ccc200742c13261e59548b529881d5",
+    "changedDuringRead": false,
+    "incoming": [],
+    "comparison": "live-only"
+  },
+  {
+    "path": "projects-before-chess-source.html",
+    "size": 11718,
+    "mtimeUtc": "2026-09-22T12:30:37.014Z",
+    "sha256": "1b46e79675c90fbeb8232278a18019dc83a69513658e5f42476cab1cb3c8f3b5",
+    "changedDuringRead": false,
+    "incoming": [],
+    "comparison": "live-only"
+  },
+  {
+    "path": "projects-before-source-arrow.html",
+    "size": 11851,
+    "mtimeUtc": "2026-09-22T12:30:37.022Z",
+    "sha256": "d76d06dd4649681c7677ce54ddfef6588d4e884fa2939ab2ad6ca46d81775ba7",
+    "changedDuringRead": false,
+    "incoming": [],
+    "comparison": "live-only"
+  },
+  {
+    "path": "projects-qubit-backup-20260921-224301.html",
+    "size": 19934,
+    "mtimeUtc": "2026-09-22T05:37:38.341Z",
+    "sha256": "73eb149ead6793f864327db3ed28553b9d582b003e8a8833f4313ac1f37f618e",
+    "changedDuringRead": false,
+    "incoming": [],
+    "comparison": "live-only"
+  },
+  {
+    "path": "projects.backup-before-game-20260913-110537.html",
+    "size": 19193,
+    "mtimeUtc": "2026-09-13T17:50:48.798Z",
+    "sha256": "7ff4baa013424683be3c80ddc1a4ab02c1be909f047d7797176c9dc49313b3c7",
+    "changedDuringRead": false,
+    "incoming": [],
+    "comparison": "live-only"
+  },
+  {
+    "path": "projects.backup-before-web-game-20260913-114339.html",
+    "size": 19814,
+    "mtimeUtc": "2026-09-13T18:05:38.881Z",
+    "sha256": "09496d911a75ae2d6c69ffbcf212beb695f5f4714e8d0bc6bc6116d21d2796a9",
+    "changedDuringRead": false,
+    "incoming": [],
+    "comparison": "live-only"
+  },
+  {
+    "path": "README_DEPLOY_THIS_EXACTLY.txt",
+    "size": 1207,
+    "mtimeUtc": "2026-09-07T06:19:54.856Z",
+    "sha256": "9b76e195ec736182e4358c0822e6f5f4e80f310959a08f5bf246a13b7854fbe7",
+    "changedDuringRead": false,
+    "incoming": [],
+    "comparison": "live-only"
+  },
+  {
+    "path": "README_FIRST.txt",
+    "size": 6121,
+    "mtimeUtc": "2026-09-07T06:16:26.672Z",
+    "sha256": "609c27463483129b7405c88785cde2769ad3485443b740ed01289428f6d7d6b9",
+    "changedDuringRead": false,
+    "incoming": [],
+    "comparison": "live-only"
+  },
+  {
+    "path": "README_KNOWLEDGE_PLATFORM.txt",
+    "size": 1248,
+    "mtimeUtc": "2026-09-26T01:55:45.621Z",
+    "sha256": "0558ef9e3c2c3e1ae335cd85dd243ebb6a77687e738de0acb2ef6bf04cdf4894",
+    "changedDuringRead": false,
+    "incoming": [],
+    "comparison": "different"
+  },
+  {
+    "path": "RELEASE_NOTES_v0.2.0.txt",
+    "size": 1232,
+    "mtimeUtc": "2026-09-07T06:16:26.919Z",
+    "sha256": "fa12b2e81528da89366a8d6c92ba878d67dba48ffd7a4ef00023eef9881f6e1b",
+    "changedDuringRead": false,
+    "incoming": [],
+    "comparison": "live-only"
+  },
+  {
+    "path": "site-repair/site-resilience.css",
+    "size": 1748,
+    "mtimeUtc": "2026-09-23T11:45:27.970Z",
+    "sha256": "3d07cf0bf55f625128b082feb749cbab16e10e1a96251c829590586ad621615e",
+    "changedDuringRead": false,
+    "incoming": [],
+    "comparison": "different"
+  },
+  {
+    "path": "site-repair/site-resilience.js",
+    "size": 2785,
+    "mtimeUtc": "2026-09-23T11:45:27.978Z",
+    "sha256": "9748000c43543560091e940f60f0cb4d9cf95c6128983c529b5dc2bc9e51fdc8",
+    "changedDuringRead": false,
+    "incoming": [],
+    "comparison": "different"
+  },
+  {
+    "path": "Thumbs.db",
+    "size": 46080,
+    "mtimeUtc": "2026-06-09T01:06:15.035Z",
+    "sha256": "c265fa19c1b974b07a1f0378ed992b9680bdd75f84776ab1d7f0e8ca4f68a898",
+    "changedDuringRead": false,
+    "incoming": [],
+    "comparison": "live-only"
+  },
+  {
+    "path": "VALIDATION_v0.2.0.txt",
+    "size": 1233,
+    "mtimeUtc": "2026-09-07T06:16:27.165Z",
+    "sha256": "6de463878c90f7612cf25659a26bc4894c96bd52a8a195889231d178ac1b186d",
+    "changedDuringRead": false,
+    "incoming": [],
+    "comparison": "live-only"
+  }
+]

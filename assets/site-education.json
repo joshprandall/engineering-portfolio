@@ -1,0 +1,20 @@
+{
+  "osu": {
+    "institution": "Oregon State University",
+    "program": "Dual major: Electrical & Computer Engineering + Computer Science",
+    "status": "In progress",
+    "minors": [
+      "Data Science",
+      "Mathematics",
+      "Physics"
+    ],
+    "honors": "Honors College"
+  },
+  "mit": {
+    "institution": "Massachusetts Institute of Technology",
+    "provider": "MIT Center for Quantum Engineering",
+    "delivery": "Online professional development quantum curriculum via MIT xPRO",
+    "status": "Tuition-based professional study · In progress"
+  },
+  "provenance": "Joshua Randall confirmed OSU enrollment details and MIT paid enrollment status. MIT institutional/program naming follows the MIT Center for Quantum Engineering's official description of its online professional development quantum curriculum via MIT xPRO."
+}
