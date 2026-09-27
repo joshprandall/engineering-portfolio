@@ -53,7 +53,7 @@
     ],
     "About Me": [
       "About Me",
-      "The story behind the work: background, systems thinking, technical curiosity, and how the pieces connect."
+      "My story, technical expertise, professional experience, résumé, education, and long-term engineering direction—all in one place."
     ],
     "Expertise & Experience": [
       "Expertise & Experience",

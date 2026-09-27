@@ -138,3 +138,63 @@ body .vnext-cosmos .vnext-world strong{display:block!important;font-size:16px!im
 :root[data-theme="light"] .quantum-stage :is(.quantum-stage-label,.quantum-controls label,.bell-bars>div,.bell-bars output,#bell-result){color:#f6fdff!important;text-shadow:none!important}
 :root[data-theme="light"] .quantum-stage .quantum-controls select{color:#f6fdff!important;background:rgba(8,28,38,.62)!important;border-color:rgba(130,220,234,.56)!important}
 :root[data-theme="light"] .quantum-stage .quantum-stage-label button{color:#f6fdff!important;background:rgba(8,28,38,.38)!important;border-color:rgba(130,220,234,.48)!important}
+
+/* Unified About page: one continuous profile, not a dashboard of tiles. */
+.about-unified-page main{display:block}
+.about-hero{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(16rem,.7fr);gap:clamp(2rem,6vw,6rem);align-items:center;padding-block:clamp(3rem,7vw,7rem);border-bottom:1px solid var(--line)}
+.about-hero h1{max-width:12ch;margin-bottom:1.2rem}
+.about-lede{max-width:66ch;color:var(--ink,var(--text));font-size:clamp(1.15rem,2.4vw,1.5rem);line-height:1.55}
+.about-hero-copy>p:not(.eyebrow):not(.about-lede){max-width:70ch}
+.about-profile-photo{margin:0;align-self:center}
+.about-profile-photo img{display:block;width:100%;max-width:26rem;margin-inline:auto;aspect-ratio:4/5;object-fit:cover;object-position:50% 33%;border:1px solid var(--line);border-radius:16px;filter:none}
+.about-profile-photo figcaption{margin-top:.65rem;text-align:center;color:var(--muted);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase}
+.about-facts{display:flex;flex-wrap:wrap;gap:.45rem 1rem;margin:1.4rem 0;color:var(--muted);font-size:.86rem}
+.about-facts span+span::before{content:"•";margin-right:1rem;color:var(--accent)}
+.about-local-nav{display:flex;flex-wrap:wrap;gap:.3rem .7rem;padding-block:1.15rem;border-bottom:1px solid var(--line);font-size:.9rem}
+.about-local-nav a{color:var(--ink,var(--text));text-decoration:underline;text-decoration-color:color-mix(in srgb,var(--accent) 55%,transparent);text-underline-offset:4px}
+.about-local-nav span{color:var(--muted)}
+.about-flow-section{padding-block:clamp(3.5rem,7vw,7rem);border-bottom:1px solid var(--line);background:transparent!important}
+.about-flow-section>h2{max-width:22ch}
+.about-flow-section .section-intro{max-width:68ch;font-size:1.08rem}
+.about-prose{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(1.2rem,3vw,2.5rem);margin-top:2rem}
+.about-prose p{margin:0;line-height:1.8}
+.about-capabilities{margin-top:2rem;border-top:1px solid var(--line)}
+.about-capabilities details{border-bottom:1px solid var(--line);background:transparent!important}
+.about-capabilities summary{display:grid;grid-template-columns:3rem minmax(0,1fr) auto;gap:1rem;align-items:center;min-height:64px;padding:1rem 0;cursor:pointer;list-style:none}
+.about-capabilities summary::-webkit-details-marker{display:none}
+.about-capabilities summary>span:first-child{color:var(--accent);font-size:.78rem;letter-spacing:.12em}
+.about-capabilities summary>span:last-child{font-size:1.25rem;color:var(--accent);transition:transform .18s}
+.about-capabilities details[open] summary>span:last-child{transform:rotate(45deg)}
+.about-capabilities details>p{max-width:72ch;padding:0 0 1.35rem 4rem;margin:0;line-height:1.75}
+.career-timeline{margin-top:2rem;border-top:1px solid var(--line)}
+.career-timeline details{border-bottom:1px solid var(--line);background:transparent!important}
+.career-timeline summary{display:grid;grid-template-columns:7rem minmax(0,1fr) auto;gap:1rem;align-items:start;padding:1.25rem 0;cursor:pointer;list-style:none}
+.career-timeline summary::-webkit-details-marker{display:none}
+.career-years{color:var(--accent);font-size:.82rem;letter-spacing:.08em}
+.career-timeline summary strong{display:block;font-size:1.05rem}
+.career-timeline summary small{display:block;margin-top:.25rem;color:var(--muted);font-size:.84rem}
+.career-timeline details>div{max-width:76ch;padding:0 0 1.5rem 8rem}
+.career-timeline details>div p{line-height:1.75}
+.career-timeline details>div ul{display:grid;gap:.6rem;color:var(--muted)}
+.about-contact-list{margin:2rem 0 0;border-top:1px solid var(--line)}
+.about-contact-list>div{display:grid;grid-template-columns:7rem minmax(0,1fr);gap:1rem;padding:.9rem 0;border-bottom:1px solid var(--line)}
+.about-contact-list dt{color:var(--muted);font-size:.8rem;text-transform:uppercase;letter-spacing:.1em}
+.about-contact-list dd{margin:0;overflow-wrap:anywhere}
+.about-contact-list a,.direction-links a{color:var(--accent);text-decoration:underline;text-underline-offset:4px}
+.credential-lines{margin-top:2rem}
+.credential-lines p{padding:.75rem 0;margin:0;border-bottom:1px solid color-mix(in srgb,var(--line) 65%,transparent);line-height:1.7}
+.education-lines{margin-top:2rem;border-top:1px solid var(--line)}
+.education-line{display:grid;grid-template-columns:7rem minmax(0,1fr);gap:1.5rem;align-items:start;padding:1.5rem 0;border-bottom:1px solid var(--line);background:transparent!important}
+.education-line img{display:block;width:6rem;height:auto;background:#fff;padding:.45rem;border-radius:7px}
+.education-line h3{margin:0 0 .4rem}
+.education-line p{margin:.2rem 0}
+.mit-wordmark{display:flex;align-items:center;justify-content:center;width:6rem;height:3.5rem;border-radius:7px;background:#fff;color:#111;font:800 1.45rem/1 system-ui;letter-spacing:-.08em;border-left:.45rem solid #a31f34}
+.foundation-glyph{display:grid;place-items:center;width:4rem;height:4rem;font-size:2rem;color:var(--accent)}
+.direction-links{display:flex;flex-wrap:wrap;gap:.75rem 1.5rem;margin-top:2rem;padding-top:1.25rem;border-top:1px solid var(--line)}
+.about-principles{counter-reset:principle;display:grid;gap:0;margin:2rem 0 0;padding:0;list-style:none;border-top:1px solid var(--line)}
+.about-principles li{display:grid;grid-template-columns:minmax(12rem,.7fr) minmax(0,1.3fr);gap:2rem;padding:1.2rem 0;border-bottom:1px solid var(--line)}
+.about-principles span{color:var(--muted)}
+.about-contact-section{padding-block:clamp(3rem,6vw,5rem);border-bottom:1px solid var(--line);background:transparent!important}
+.about-contact-section>p{max-width:62ch}
+@media(max-width:58rem){.about-hero{grid-template-columns:1fr}.about-profile-photo{grid-row:1}.about-profile-photo img{max-width:22rem}.about-prose{grid-template-columns:1fr}.career-timeline details>div{padding-left:0}.about-principles li{grid-template-columns:1fr;gap:.4rem}}
+@media(max-width:38rem){.about-hero{padding-top:2rem}.about-facts{display:grid;gap:.35rem}.about-facts span+span::before{content:"";margin:0}.career-timeline summary{grid-template-columns:1fr auto}.career-timeline summary .career-years{grid-column:1/-1}.education-line{grid-template-columns:1fr}.about-contact-list>div{grid-template-columns:1fr;gap:.2rem}.about-capabilities details>p{padding-left:0}}

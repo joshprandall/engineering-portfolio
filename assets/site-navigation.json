@@ -9,18 +9,6 @@
       "label": "About Me"
     },
     {
-      "path": "expertise-experience.html",
-      "label": "Expertise & Experience"
-    },
-    {
-      "path": "resume.html",
-      "label": "Résumé"
-    },
-    {
-      "path": "direction.html",
-      "label": "Direction"
-    },
-    {
       "path": "projects.html",
       "label": "Projects"
     },
@@ -90,6 +78,9 @@
     "ai-memory.html": "ai-development.html",
     "ai-build-your-own.html": "ai-development.html",
     "ai-project-mind.html": "ai-development.html",
-    "ai-personal-agent.html": "ai-development.html"
+    "ai-personal-agent.html": "ai-development.html",
+    "expertise-experience.html": "about.html",
+    "resume.html": "about.html",
+    "direction.html": "about.html"
   }
 }
