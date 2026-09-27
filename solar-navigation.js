@@ -367,7 +367,7 @@
         const y=cfg.cy+Math.sin(a)*p.ring.ry;
         const depth=Math.sin(a);
         const selected=p.group.matches(':hover,:focus-visible')||p.group.classList.contains('selected');
-        const scale=.90+(depth+1)*.08+(selected?.06:0);
+        const scale=.90+(depth+1)*.08+(selected ? .06 : 0);
         return {...p,index,x,y,depth,scale};
       });
 
