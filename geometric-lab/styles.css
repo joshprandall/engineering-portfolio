@@ -29,19 +29,3 @@ body{font-size:17px}
 /* Foreground identity wraps; only the 3D drawing stage clips its render surface. */
 .brand>span:last-child{overflow:visible;text-overflow:clip;white-space:normal;min-width:0}
 header{flex-wrap:wrap;gap:.75rem}.header-links{flex-wrap:wrap}
-
-/* Phase 4 smallest-phone containment: keep authored controls in layout rather than hiding overflow. */
-@media(max-width:640px){
-  html,body{width:100%;min-width:0}
-  body>*,header,main,.intro,.lab-nav,.workspace,.controls,.view-column,.stage,.legend,.metrics,.explanation,footer{min-width:0;max-width:100%}
-  .brand,.brand>span:last-child,.brand small,.header-links,footer,footer>*{min-width:0;max-width:100%;overflow-wrap:anywhere}
-  .header-links{margin-left:auto}
-  button,input,select,textarea{max-width:100%;min-width:0}
-}
-@media(max-width:360px){
-  #control-body{grid-template-columns:minmax(0,1fr)}
-  .legend-scale{width:100%;min-width:0}
-  .metrics{grid-template-columns:minmax(0,1fr)}
-  .metric,.metric:not(:first-child){padding:10px 0;border-left:0}
-  .metric:not(:first-child){border-top:1px solid var(--line)}
-}
