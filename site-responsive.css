@@ -1,5 +1,5 @@
 /* Shared responsive ownership: flow content; contain foreground scenes; crop only backgrounds. */
-:root{--layout-max:88rem;--layout-gutter:clamp(1rem,3vw,3rem);--layout-gap:clamp(1rem,3vw,3rem);--glass:color-mix(in srgb,var(--bg,#101416) 72%,transparent)}
+:root{--layout-max:88rem;--layout-gutter:clamp(1rem,3vw,3rem);--layout-gap:clamp(1rem,3vw,3rem);--glass:rgba(8,14,17,.42)}:root[data-theme="light"]{--glass:rgba(242,245,240,.46)}
 html,body{min-width:0;max-width:100%;overflow-x:visible!important}
 body{width:100%}
 main,section,article,aside,form,fieldset,figure,nav,main div,header div{min-width:0;box-sizing:border-box}
@@ -29,11 +29,12 @@ body .site-global-header .scene-sound-panel{position:absolute;inset:100% 0 auto 
 @media(max-width:42rem){body .site-global-header .global-controls{width:100%;justify-content:space-between;gap:.35rem}body .site-global-header .global-controls>button,body .site-global-header .global-controls [data-scene-audio]{font-size:.75rem!important;padding:.4rem!important}body .site-global-header .global-controls [data-theme-toggle]{width:5rem!important}.site-global-header kbd{display:none}.site-global-header .scene-sound-control{position:static}body .site-global-header .scene-sound-panel{right:var(--layout-gutter)}}
 /* Profile is flow layout. The illustration alone is a cover background. Neither theme owns geometry. */
 .home-page .hero{gap:var(--layout-gap);grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
-.about-imagery{position:relative;isolation:isolate;display:grid;justify-items:center;align-content:end;gap:0;width:100%;max-width:38rem;margin:0 auto;padding:clamp(1rem,3vw,2rem);border-radius:16px;container-type:inline-size}
-.about-imagery .systems-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.3;z-index:-1}
+.about-imagery{position:relative;isolation:isolate;display:block;width:100%;max-width:38rem;margin:0 auto;padding:0;overflow:visible;container-type:inline-size}
+.portrait-stage{position:relative;isolation:isolate;display:flex;align-items:flex-end;justify-content:center;width:100%;min-height:clamp(30rem,48vw,38rem);padding:clamp(7rem,12vw,10rem) clamp(1rem,3vw,2rem) 0;border-radius:16px;overflow:hidden}
+.portrait-stage .systems-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 42%;opacity:.30;z-index:-1}
 .portrait-photo{position:relative;width:min(85%,22rem);margin:0;padding:0;border:0;transform:none;pointer-events:none}
 .portrait-photo img{display:block;width:100%;height:auto;aspect-ratio:300/268;object-fit:contain;object-position:50% 50%;transform:none;filter:drop-shadow(0 12px 18px #0005)}
-.portrait-card{position:relative;display:block;width:100%;margin:0;padding:clamp(.8rem,3cqi,1.5rem);border:1px solid var(--line);border-radius:14px;background:var(--glass);backdrop-filter:blur(14px);text-align:left;z-index:2}
+.portrait-card{position:relative;display:block;width:calc(100% - clamp(1rem,4vw,2.5rem));margin:-1px auto 0;padding:clamp(.8rem,3cqi,1.5rem);border:1px solid color-mix(in srgb,var(--line) 78%,transparent);border-radius:14px;background:var(--glass)!important;-webkit-backdrop-filter:blur(14px) saturate(1.08);backdrop-filter:blur(14px) saturate(1.08);text-align:left;z-index:2}
 .portrait-card-copy{min-width:0}.portrait-name{display:block;font-size:1.15rem;margin-bottom:.75rem}
 .credential-row{display:grid;grid-template-columns:4rem minmax(0,1fr);gap:.75rem;margin-top:.75rem;align-items:start}
 .credential-logo{display:grid;place-items:center;background:#fff;border-radius:6px;padding:.35rem;width:4rem;min-width:0;height:2.6rem}
@@ -115,3 +116,19 @@ body .vnext-cosmos .vnext-world strong{display:block!important;font-size:16px!im
 .ai-lab-bars i{height:.7rem;border-radius:999px;background:linear-gradient(90deg,var(--accent) var(--p),color-mix(in srgb,var(--line) 70%,transparent) var(--p))}
 .ai-lab-bars output{text-align:right;font-variant-numeric:tabular-nums}
 @media(max-width:38rem){.ai-build-sequence{grid-template-columns:1fr}.ai-build-sequence a,.ai-build-sequence a:last-child{justify-content:flex-start;text-align:left}.ai-lab-bars>div{grid-template-columns:1fr}.ai-lab-bars output{text-align:left}}
+
+/* Sitewide glass contract: tile surfaces must reveal the scene behind them. */
+:is(.home-project,.education-cards article,.resume-education article,.project-card,.destination-card,.domain-card,.lesson-card,.path-card,.practice-card,.mastery-card,.atlas-card,.principle-grid article,.contact,.quantum-stage){
+  background:var(--glass)!important;
+  -webkit-backdrop-filter:blur(12px) saturate(1.08);
+  backdrop-filter:blur(12px) saturate(1.08);
+}
+:root[data-theme="dark"] .quantum-stage{background:rgba(4,12,17,.36)!important}
+:root[data-theme="light"] .quantum-stage{background:rgba(5,18,24,.52)!important}
+.quantum-stage-label,.quantum-controls,#bell-result{background:transparent!important}
+@media(max-width:42rem){
+  .portrait-stage{min-height:29rem;padding-top:8.5rem}
+  .portrait-stage .systems-photo{object-position:50% 40%}
+  .portrait-photo{width:min(84%,22rem)}
+  .portrait-card{width:calc(100% - 2rem)}
+}
