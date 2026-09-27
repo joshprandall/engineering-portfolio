@@ -201,3 +201,94 @@ body .vnext-cosmos .vnext-world strong{display:block!important;font-size:16px!im
 
 /* About is one continuous reading page; render every section so anchor jumps and full-page previews never show intrinsic-size placeholders. */
 .about-unified-page main>section{content-visibility:visible!important;contain-intrinsic-size:auto!important}
+
+/* Universal glass contract — all content tiles/panels remain translucent so the
+   living background is visible through the interface. */
+:root{
+  --glass:rgba(7,13,17,.34);
+  --glass-soft:rgba(7,13,17,.24);
+  --glass-strong:rgba(7,13,17,.48);
+  --surface:rgba(12,19,23,.34);
+  --surface2:rgba(18,27,31,.40);
+  --panel:rgba(12,19,23,.34);
+  --panel2:rgba(18,27,31,.40);
+  --panel3:rgba(24,34,38,.44);
+  --bg2:rgba(12,19,23,.22);
+  --inset:rgba(6,12,16,.32);
+}
+:root[data-theme="light"]{
+  --glass:rgba(246,248,244,.38);
+  --glass-soft:rgba(246,248,244,.26);
+  --glass-strong:rgba(246,248,244,.56);
+  --surface:rgba(246,248,244,.38);
+  --surface2:rgba(237,241,236,.44);
+  --panel:rgba(246,248,244,.38);
+  --panel2:rgba(237,241,236,.44);
+  --panel3:rgba(229,235,230,.50);
+  --bg2:rgba(246,248,244,.24);
+  --inset:rgba(239,243,238,.36);
+}
+
+/* Full-width bands never hide the scene. */
+:is(.signal-strip,.feature-band,.quantum-section,.discover,.atlas,.stat-band,.depth-system,.section.alt){
+  background:transparent!important;
+}
+
+/* Tile/card/panel surfaces. */
+:is(
+  .system-visual,[role="tabpanel"],.project-card,.home-project,.education-cards article,
+  .resume-education article,.destination-card,.constellation-panel,.domain-card,
+  .search-box,.lesson-card,.path-card,.atlas-card,.principle-grid article,
+  .sidebar-card,.rail-card,.misconception,.interactive,.visual-stage,.diagram-node,.metric,
+  .quiz-options button,.practice-card,.mastery-card,.depth-coverage,.depth-ladder button,
+  .depth-planner,.depth-integrity,.research-bridge,.vnext-path-intro,.vnext-path-check,
+  #cap-selector a,#cap-detail,.cap-example,.cap-check,.science-console,.science-stage,
+  .science-output,.science-node-grid button,.science-probes button,.science-paths span,
+  .lab-workspace .lab-grid,#lab .lab-grid,.lab-workspace form,#lab form,.app-panel,
+  .agent-metric,#agent-tasks li,#agent-ledger,.vnext-system,.vnext-quantum,
+  .vnext-quantum-floor,.portrait-card,.contact,.quantum-stage
+){
+  background:var(--glass)!important;
+  -webkit-backdrop-filter:blur(10px) saturate(1.08);
+  backdrop-filter:blur(10px) saturate(1.08);
+}
+
+/* Controls that previously appeared as solid blocks. */
+:is(
+  .search-stage,.filters select,.check-label,.depth-controls select,.depth-context select,
+  .vnext-path-intro input[type="search"],.vnext-path-intro select,
+  .science-form input[type="number"],.science-form select,
+  .science-node-grid button,.science-probes button,
+  .ai-lab-controls input:not([type="checkbox"]),.ai-lab-controls select,
+  .lab-workspace input,.lab-workspace select,.lab-workspace textarea,
+  #lab input,#lab select,#lab textarea
+){
+  background:var(--glass-strong)!important;
+  -webkit-backdrop-filter:blur(8px) saturate(1.06);
+  backdrop-filter:blur(8px) saturate(1.06);
+}
+
+/* Keep hover/selected states visible without becoming opaque. */
+:is(.project-card,.home-project,.domain-card,.lesson-card,.path-card,.atlas-card,.depth-ladder button):hover{
+  background:var(--glass-strong)!important;
+}
+.depth-ladder button.active{
+  background:linear-gradient(155deg,color-mix(in srgb,var(--accent) 15%,transparent),var(--glass-strong))!important;
+}
+
+/* Existing scene-specific rules had several high-opacity light-mode surfaces. */
+:root[data-theme="light"] body.living-scenes :is(
+  .project-card,.home-project,.education-cards article,.domain-card,.stats>div,
+  .verification-inner,.constellation-panel,.lesson-card,.path-card,.atlas-card
+){
+  background:var(--glass)!important;
+}
+
+/* Navigation overlays are glass too, but slightly stronger for legibility. */
+body .site-global-header #primary-nav,
+body .site-global-header .scene-sound-panel,
+dialog{
+  background:var(--glass-strong)!important;
+  -webkit-backdrop-filter:blur(18px) saturate(1.08);
+  backdrop-filter:blur(18px) saturate(1.08);
+}
