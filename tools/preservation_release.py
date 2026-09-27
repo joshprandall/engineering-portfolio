@@ -2,12 +2,14 @@
 
 Uses the repository's existing Git credential helper in memory, never logs credentials.
 """
-import hashlib,json,subprocess,urllib.request,urllib.error,urllib.parse
+import hashlib,json,os,subprocess,urllib.request,urllib.error,urllib.parse
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 API='https://api.github.com/repos/joshprandall/engineering-portfolio'
 TAG='website-2.0-preservation-20260926'
 def credentials():
+    token=os.environ.get('GITHUB_TOKEN') or os.environ.get('GH_TOKEN')
+    if token:return token
     r=subprocess.run(['git','credential','fill'],input='protocol=https\nhost=github.com\n\n',text=True,capture_output=True,check=True)
     values=dict(line.split('=',1) for line in r.stdout.splitlines() if '=' in line)
     return values['password']
