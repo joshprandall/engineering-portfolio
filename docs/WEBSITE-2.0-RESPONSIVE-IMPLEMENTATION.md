@@ -15,7 +15,7 @@ Implementation date: 2026-09-27. Authoritative contract: `docs/WEBSITE-2.0-RESPO
 
 ## Shared ownership
 
-`site-responsive.css` owns the shared layout contract: shrinkable wrappers and grid/flex children, fluid gutters and spacing, bounded reading width, the global header/control family, portrait flow, education/resume cards, contained solar surfaces, learning ladder and route form, and foreground bounds. `tools/build_responsive_shell.py` generates the shared header and education markup. `assets/site-education.json` is the source for the confirmed OSU dual major in Electrical & Computer Engineering and Computer Science, Data Science/Mathematics/Physics minors, Honors College status, and MIT tuition-based online Quantum Engineering study through the MIT Center for Quantum Engineering / MIT xPRO.
+`site-responsive.css` owns the shared layout contract: shrinkable wrappers and grid/flex children, fluid gutters and spacing, bounded reading width, the global header/control family, portrait flow, education/resume cards, contained solar surfaces, learning ladder and route form, and foreground bounds. `tools/build_responsive_shell.py` generates the shared header and education markup. `assets/site-education.json` is the source for the confirmed OSU dual major in Electrical & Computer Engineering and Computer Science, Data Science/Mathematics/Physics minors, Honors College status, and MIT Online Quantum Engineering Program tuition-based professional study.
 
 The existing behavior owners remain intact: `site-navigation.js`, `site-search.js`, `site-theme.js`, `site-audio.js`, `site-sound-control.js`, `site-scenes.js`, and learning's detailed search in `knowledge.js`. Sound playback policy and persisted settings were not moved into presentation code.
 
