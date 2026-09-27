@@ -15,7 +15,7 @@
 
 
 /* Readability + smallest-phone containment v9. */
-html,body{max-width:100%;overflow-x:hidden}
+html,body{max-width:100%;}
 body{font-size:17px}
 @media(max-width:640px){
   header{min-width:0;max-width:100%}
@@ -23,5 +23,9 @@ body{font-size:17px}
   .brand>span:last-child{min-width:0;overflow:hidden;text-overflow:ellipsis}
   .header-links{flex:0 0 auto;min-width:0}
   .lab-nav{max-width:100%;min-width:0}
-  main{max-width:100%;overflow-x:hidden}
+  main{max-width:100%;}
 }
+
+/* Foreground identity wraps; only the 3D drawing stage clips its render surface. */
+.brand>span:last-child{overflow:visible;text-overflow:clip;white-space:normal;min-width:0}
+header{flex-wrap:wrap;gap:.75rem}.header-links{flex-wrap:wrap}

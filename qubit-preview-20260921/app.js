@@ -5,7 +5,8 @@ const alpha=$('#alpha'),beta=$('#beta'),normalization=$('#normalization'),bx=$('
 const outcome0Label=$('#outcome0-label'),outcome1Label=$('#outcome1-label'),formula0=$('#formula0'),formula1=$('#formula1'),shots=$('#shots'),seed=$('#sample-seed'),count0=$('#count0'),count1=$('#count1'),observed0=$('#observed0'),observed1=$('#observed1'),delta=$('#sample-delta'),sigma=$('#sample-sigma'),chart=$('#convergence-chart');
 const percent=v=>`${(v*100).toFixed(1)}%`,labels={Z:['|0⟩','|1⟩','z'],X:['|+⟩','|−⟩','x'],Y:['|+i⟩','|−i⟩','y']};
 function snapshot(){const state=stateFromAngles(Number(theta.value),Number(phi.value)),prob=measurementProbabilities(state,basis.value);return {state,prob}}
-function clearResults(){[count0,count1,observed0,observed1,delta,sigma].forEach(x=>{if(x)x.textContent='—'});const ctx=chart?.getContext('2d');if(ctx)ctx.clearRect(0,0,chart.width,chart.height)}
+let chartActive=false;
+function clearResults(){chartActive=false;[count0,count1,observed0,observed1,delta,sigma].forEach(x=>{if(x)x.textContent='—'});const ctx=chart?.getContext('2d');if(ctx)ctx.clearRect(0,0,chart.width,chart.height)}
 function render(){
   const {state,prob}=snapshot(),axis=labels[prob.basis];
   thetaValue.textContent=`${state.thetaDegrees}°`;phiValue.textContent=`${state.phiDegrees}°`;angleOutput.textContent=`${state.thetaDegrees}°`;phaseOutput.textContent=`${state.phiDegrees}°`;
@@ -24,11 +25,13 @@ function measure(){
   count0.textContent=result.count0.toLocaleString();count1.textContent=result.count1.toLocaleString();observed0.textContent=percent(obs);observed1.textContent=percent(result.count1/result.shots);delta.textContent=((obs-prob.p0)*100).toFixed(2)+' pp';sigma.textContent=(se*100).toFixed(2)+' pp';
 }
 function convergence(){
-  const {prob}=snapshot(),sizes=[10,30,100,300,1000,3000,10000],values=sizes.map((n,i)=>{const r=sampleMeasurements(prob.p0,n,seededRng((Number(seed.value)||1)+i));return r.count0/n}),ctx=chart.getContext('2d'),d=Math.min(devicePixelRatio||1,2),w=Math.max(280,chart.clientWidth),h=240;chart.width=w*d;chart.height=h*d;ctx.setTransform(d,0,0,d,0,0);ctx.clearRect(0,0,w,h);
+  chartActive=true;
+  const {prob}=snapshot(),sizes=[10,30,100,300,1000,3000,10000],values=sizes.map((n,i)=>{const r=sampleMeasurements(prob.p0,n,seededRng((Number(seed.value)||1)+i));return r.count0/n}),ctx=chart.getContext('2d'),d=Math.min(devicePixelRatio||1,2),w=Math.max(1,chart.clientWidth),h=Math.max(1,chart.clientHeight);chart.width=w*d;chart.height=h*d;ctx.setTransform(d,0,0,d,0,0);ctx.clearRect(0,0,w,h);
   const bg=ctx.createLinearGradient(0,0,w,h);bg.addColorStop(0,'#09131a');bg.addColorStop(1,'#101416');ctx.fillStyle=bg;ctx.fillRect(0,0,w,h);ctx.strokeStyle='#354044';ctx.strokeRect(36,15,w-48,h-48);
   const y=v=>15+(1-v)*(h-48),x=i=>36+i*(w-48)/(sizes.length-1);ctx.strokeStyle='#f4a575';ctx.setLineDash([5,5]);ctx.beginPath();ctx.moveTo(36,y(prob.p0));ctx.lineTo(w-12,y(prob.p0));ctx.stroke();ctx.setLineDash([]);ctx.strokeStyle='#8cc8d1';ctx.lineWidth=2;ctx.beginPath();values.forEach((v,i)=>i?ctx.lineTo(x(i),y(v)):ctx.moveTo(x(i),y(v)));ctx.stroke();
-  values.forEach((v,i)=>{ctx.fillStyle='#8cc8d1';ctx.shadowColor='#8cc8d1';ctx.shadowBlur=8;ctx.beginPath();ctx.arc(x(i),y(v),4,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;ctx.fillStyle='#a7b1b3';ctx.font='10px sans-serif';ctx.fillText(String(sizes[i]),x(i)-8,h-15)});ctx.fillStyle='#a7b1b3';ctx.font='11px sans-serif';ctx.fillText(`Observed first outcome in ${prob.basis} basis · orange = expected`,38,12);
+  values.forEach((v,i)=>{ctx.fillStyle='#8cc8d1';ctx.shadowColor='#8cc8d1';ctx.shadowBlur=8;ctx.beginPath();ctx.arc(x(i),y(v),4,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;ctx.fillStyle='#a7b1b3';ctx.font='10px sans-serif';if(w>400||i%3===0)ctx.fillText(String(sizes[i]),Math.min(w-34,x(i)-8),h-15)});ctx.fillStyle='#a7b1b3';ctx.font='11px sans-serif';ctx.fillText(`Observed first outcome in ${prob.basis} basis · orange = expected`,38,12);
 }
 theta.addEventListener('input',render);phi.addEventListener('input',render);basis.addEventListener('change',render);
 document.querySelectorAll('[data-angle]').forEach(button=>button.addEventListener('click',()=>{theta.value=button.dataset.angle;phi.value=button.dataset.phase||0;render();theta.focus()}));
 $('#measure').addEventListener('click',measure);$('#reset-results').addEventListener('click',clearResults);$('#run-convergence').addEventListener('click',convergence);render();
+new ResizeObserver(()=>{if(chartActive)convergence()}).observe(chart.parentElement);

@@ -131,3 +131,6 @@ footer a{text-decoration:none}
 :root[data-theme=light] .site-header{background:rgba(245,249,243,.95)}
 :root[data-theme=light] .state-visual{background:var(--panel)}
 .site-header>[data-theme-toggle]{margin-left:auto;flex-shrink:0}
+
+/* Parent-owned display size; render resolution follows the measured chart. */
+.convergence-chart{width:100%;height:auto;aspect-ratio:15/8;min-width:0;max-width:100%}
