@@ -115,7 +115,7 @@ def deploy(source, site, verify_public=None):
         archive.add(site,arcname=site.name)
     os.replace(partial,backup)
     installed = []
-    with tempfile.TemporaryDirectory(prefix='portfolio-rollback-',dir=site.parent) as undo_name:
+    with tempfile.TemporaryDirectory(prefix='portfolio-rollback-') as undo_name:
         undo = Path(undo_name)
         try:
             # Publish supporting files first; switch page HTML last.
@@ -178,7 +178,7 @@ def main():
     site = Path.home()/'public_html'
     if not (site/'index.html').is_file():
         parser.error('Run in your authenticated OSU shell; public_html was not found.')
-    with tempfile.TemporaryDirectory(prefix='portfolio-release-',dir=site.parent) as temporary:
+    with tempfile.TemporaryDirectory(prefix='portfolio-release-') as temporary:
         temp = Path(temporary)
         archive_path = temp/'release.zip'
         url = f'https://github.com/joshprandall/engineering-portfolio/archive/{args.commit}.zip'
