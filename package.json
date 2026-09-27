@@ -10,7 +10,9 @@
     "test:runtime-browser": "node tests/runtime-browser.test.cjs",
     "test:ownership-browser": "node tests/ownership-browser.test.cjs",
     "test:evil-wizard-browser": "node tests/evil-wizard-browser.test.cjs",
-    "test:media-downloads": "node tests/media-downloads.test.cjs"
+    "test:media-downloads": "node tests/media-downloads.test.cjs",
+    "test:responsive": "node tests/responsive.test.cjs",
+    "test:responsive-components": "node tests/responsive-components.test.cjs"
   },
   "devDependencies": {
     "playwright": "1.63.0"

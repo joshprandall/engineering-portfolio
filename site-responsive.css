@@ -43,6 +43,8 @@ body .site-global-header .scene-sound-panel{position:absolute;inset:100% 0 auto 
 .education-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,19rem),1fr));gap:var(--layout-gap)}
 .education-cards article{container-type:inline-size;min-width:0;padding:clamp(1rem,3vw,1.5rem);background:var(--glass)!important}
 .education-cards .school-top{flex-wrap:wrap}.education-cards li{font-size:1rem}
+.resume-education{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,20rem),1fr));gap:var(--layout-gap)}
+.resume-education article{min-width:0;padding:clamp(1rem,3vw,1.5rem);border:1px solid var(--line);border-radius:14px;background:var(--glass)}
 @media(max-width:64rem){.home-page .hero{grid-template-columns:minmax(0,1fr)}.home-page .hero>.about-imagery{grid-row:1}.home-page .hero-note{flex-wrap:wrap}}
 /* Logical scene dimensions include all foreground paint. Only .solar-scene scales. */
 body .vnext-cosmos{min-width:0;max-width:100%;overflow:visible!important}

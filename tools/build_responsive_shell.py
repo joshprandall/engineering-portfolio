@@ -30,5 +30,16 @@ def main():
   s=re.sub(r'(<span class="credential-text">).*?(</span>\s*</div>)',lambda m:m[1]+('Oregon State University · '+osu if 'Oregon' in m[0] else mit)+m[2],s,flags=re.S)
   s=re.sub(r'(<h3>Oregon State University</h3>).*?(?=</article>)',lambda m:m[1]+'<p>'+html.escape(education['osu']['degree'])+'</p><p>'+html.escape(education['osu']['direction'])+'</p><ul><li>Mathematics minor</li><li>Physics minor</li></ul>',s,flags=re.S)
   s=s.replace('Online, tuition-based Quantum Engineering program · in progress.',mit)
+  if p.name == 'resume.html':
+   education_html=(
+    '<h2>EDUCATION &amp; TECHNICAL DEVELOPMENT</h2>'
+    '<div class="resume-education">'
+    '<article><h3>'+html.escape(education['osu']['institution'])+'</h3>'
+    '<p>'+html.escape(education['osu']['degree'])+'</p>'
+    '<p>'+html.escape(education['osu']['direction'])+'</p>'
+    '<ul><li>Mathematics minor</li><li>Physics minor</li></ul></article>'
+    '<article><h3>MIT</h3><p>'+mit+'</p></article></div>'
+   )
+   s=re.sub(r'<h2>EDUCATION &amp; TECHNICAL DEVELOPMENT</h2><p>Oregon State University.*?(?=<p>Pioneer Pacific College)',education_html,s,flags=re.S)
   p.write_text(s,encoding='utf-8',newline='\n')
 if __name__=='__main__':main()
