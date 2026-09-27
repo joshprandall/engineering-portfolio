@@ -283,7 +283,6 @@ Update education/technical-development content to show clearly:
 - Physics minor
 - Honors College
 - MIT online Quantum Engineering Program, tuition-based professional study, in progress
-- MIT online professional quantum curriculum is offered through the MIT Center for Quantum Engineering / MIT xPRO
 
 Do not bury minors in a long sentence.
 Do not omit Honors College.
