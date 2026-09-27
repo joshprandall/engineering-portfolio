@@ -9,18 +9,6 @@
       "label": "About Me"
     },
     {
-      "path": "expertise-experience.html",
-      "label": "Expertise & Experience"
-    },
-    {
-      "path": "resume.html",
-      "label": "Résumé"
-    },
-    {
-      "path": "direction.html",
-      "label": "Direction"
-    },
-    {
       "path": "projects.html",
       "label": "Projects"
     },
