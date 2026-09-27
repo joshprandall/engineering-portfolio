@@ -56,7 +56,20 @@ async function run(){
     const educationBox=await page.locator('#direction').boundingBox();assert(educationBox&&educationBox.height>300,name+': Education section has rendered content height');
     if(output&&name==='phone')await page.locator('#direction').screenshot({animations:'disabled',path:path.join(output,'education-phone.png')});
    }
-   for(const img of await page.locator('main img:visible').all()){await img.scrollIntoViewIfNeeded();try{await img.evaluate(im=>im.decode());}catch(error){throw new Error('Image decode failed: '+(await img.getAttribute('src')).slice(0,180));}}
+   for(const img of await page.locator('main img:visible').all()){
+    await img.scrollIntoViewIfNeeded();
+    const src=((await img.getAttribute('src'))||'').slice(0,180);
+    try{
+     await img.evaluate(async im=>{
+      if(im.complete&&im.naturalWidth>0)return;
+      await Promise.race([
+       im.decode(),
+       new Promise((_,reject)=>setTimeout(()=>reject(new Error('image decode timed out')),5000))
+      ]);
+      if(!im.naturalWidth)throw new Error('image has zero natural width');
+     });
+    }catch(error){throw new Error('Image decode failed: '+src+' · '+error.message);}
+   }
    const portrait=page.locator('.portrait-photo img');assert(await portrait.isVisible(),'Portrait is visible over systems artwork');
    const pb=await portrait.boundingBox(),ab=await page.locator('.about-imagery').boundingBox();assert(pb&&ab&&pb.x>=ab.x-2&&pb.x+pb.width<=ab.x+ab.width+2,'Portrait stays inside systems composition');
    assert.equal(await page.locator('.quantum-banner').count(),0,'Quantum banner artwork is removed from the homepage DOM');
