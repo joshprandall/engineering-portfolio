@@ -213,10 +213,10 @@ def http_smoke(commit, site):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--commit',required=True,help='Full 40-character SHA of the tested GitHub commit')
+    parser.add_argument('commit', help='Full 40-character SHA of the tested GitHub commit')
     args = parser.parse_args()
-    if not re.fullmatch(r'[0-9a-f]{40}',args.commit):
-        parser.error('--commit must be a full lowercase SHA, not a branch name.')
+    if not re.fullmatch(r'[0-9a-f]{40}', args.commit):
+        parser.error('commit must be a full lowercase SHA, not a branch name.')
     site = Path.home()/'public_html'
     if not (site/'index.html').is_file():
         parser.error('Run in your authenticated OSU shell; public_html was not found.')
