@@ -22,7 +22,7 @@ REQUIRED = THEME_SHELL_FILES + (
     'index.html', 'expertise-experience.html', 'projects.html', 'game-development.html', 'learn.html', 'lesson.html',
     'learn-browse.html', 'learn-capstones.html', 'learn-glossary.html', 'learn-labs.html', 'learn-map.html',
     'learn-mastery.html', 'learn-paths.html', 'learn-practice.html', 'learn-verify.html',
-    'app.js', 'styles.css', 'site-resilience.js',
+    'app.js', 'styles.css', 'site-navigation.js', 'site-search.js', 'site-responsive.css', 'site-sections.css', 'site-resilience.js',
     'site-resilience.css', 'portfolio-next.js', 'portfolio-next.css', 'portfolio-home.css',
     'quantum-cube.js', 'handheld-experience.js', 'handheld-experience.css',
     'science-experiments.js', 'science-experiments.css', 'knowledge.js', 'knowledge.css',
@@ -149,6 +149,7 @@ def deploy(source, site, verify_public=None):
 def http_smoke(commit):
     checks = [('site-theme.js','jr-site-theme'),('site-scenes.js','LIGHT_SCENE_KEY'),('site-audio.js','MAIN_PAGE_RE'),
               ('site-sound-control.js','JR_HEADER_SOUND_CONTROL_V25'),
+              ('site-navigation.js','site-navigation'),('site-responsive.css','site-global-header'),
               ('site-scenes.css','mountain-valley.svg'),('geometric-lab/index.html','site-theme.js'),
               ('geometric-lab/app.js','PortfolioTheme'),('index.html','site-audio.js'),('learn.html','site-audio.js'),
               ('expertise-experience.html','TECHNICAL EXPERTISE'),('game-development.html','Games deserve'),
