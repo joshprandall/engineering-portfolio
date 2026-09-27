@@ -56,19 +56,29 @@ jobs:
       - name: Install Chromium
         run: npx playwright install --with-deps chromium
 
-      - name: Browser and ownership acceptance
-        run: |
-          npm run test:browser
-          npm run test:runtime-browser
-          npm run test:ownership-browser
-          npm run test:chess-browser
-          npm run test:evil-wizard-browser
-          npm run test:media-downloads
+      - name: Browser regression acceptance
+        run: timeout 12m npm run test:browser
+
+      - name: Runtime closure browser acceptance
+        run: timeout 6m npm run test:runtime-browser
+
+      - name: Ownership browser acceptance
+        run: timeout 6m npm run test:ownership-browser
+
+      - name: Battle Chess browser acceptance
+        run: timeout 6m npm run test:chess-browser
+
+      - name: Evil Wizard browser acceptance
+        run: timeout 6m npm run test:evil-wizard-browser
+
+      - name: Media and interactive download acceptance
+        run: timeout 6m npm run test:media-downloads
 
       - name: Full responsive matrix
-        run: |
-          npm run test:responsive
-          npm run test:responsive-components
+        run: timeout 18m npm run test:responsive
+
+      - name: Responsive component matrix
+        run: timeout 10m npm run test:responsive-components
 
       - name: Record exact candidate
         shell: bash
