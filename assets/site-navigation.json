@@ -14,7 +14,7 @@
     },
     {
       "path": "resume.html",
-      "label": "R\u00e9sum\u00e9"
+      "label": "Résumé"
     },
     {
       "path": "direction.html",
@@ -71,6 +71,25 @@
     "project-portfolio.html": "projects.html",
     "project-qpe.html": "projects.html",
     "project-qubit.html": "projects.html",
-    "project-recovery.html": "projects.html"
+    "project-recovery.html": "projects.html",
+    "ai-geometric.html": "ai-development.html",
+    "ai-llm.html": "ai-development.html",
+    "ai-agentic.html": "ai-development.html",
+    "ai-machine-learning.html": "ai-development.html",
+    "ai-deep-learning.html": "ai-development.html",
+    "ai-reinforcement-learning.html": "ai-development.html",
+    "ai-computer-vision.html": "ai-development.html",
+    "ai-graph-neural-networks.html": "ai-development.html",
+    "ai-multimodal.html": "ai-development.html",
+    "ai-generative.html": "ai-development.html",
+    "ai-symbolic.html": "ai-development.html",
+    "ai-neuro-symbolic.html": "ai-development.html",
+    "ai-multi-agent.html": "ai-development.html",
+    "ai-game.html": "ai-development.html",
+    "ai-embodied.html": "ai-development.html",
+    "ai-memory.html": "ai-development.html",
+    "ai-build-your-own.html": "ai-development.html",
+    "ai-project-mind.html": "ai-development.html",
+    "ai-personal-agent.html": "ai-development.html"
   }
 }

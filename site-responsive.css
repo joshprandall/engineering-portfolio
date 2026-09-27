@@ -67,8 +67,6 @@ body .vnext-cosmos .vnext-world strong{display:block!important;font-size:16px!im
 .approved-label{fill:#f8fbfc!important;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:14px!important;font-weight:800;letter-spacing:-.01em;text-anchor:middle;paint-order:stroke;stroke:rgba(3,9,13,.94);stroke-width:4px;stroke-linejoin:round;pointer-events:none}
 .ai-build-solar .approved-label{fill:#f8fbfc!important;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:14px!important;font-weight:800;letter-spacing:-.01em;text-anchor:middle;paint-order:stroke;stroke:rgba(3,9,13,.94);stroke-width:4px;stroke-linejoin:round;pointer-events:none}
 
-.ai-build-card{scroll-margin-top:calc(var(--header-height,96px) + 1rem)}
-.ai-build-card:target{outline:2px solid color-mix(in srgb,var(--accent) 70%,transparent);outline-offset:4px}
 
 .approved-planet-link{cursor:pointer;outline:none}
 .approved-hit{fill:transparent;stroke:transparent;pointer-events:all}
@@ -76,3 +74,20 @@ body .vnext-cosmos .vnext-world strong{display:block!important;font-size:16px!im
 .approved-depth-back .approved-planet-link{pointer-events:auto}
 .approved-depth-front .approved-planet-link{pointer-events:auto}
 @media(max-width:42rem){.approved-label{font-size:13px!important}.ai-build-solar .approved-ai-label{font-size:10px!important}}
+
+.solar-descriptor{max-width:52rem;margin:clamp(.5rem,2vw,1.25rem) auto 0;padding:clamp(.75rem,2vw,1rem) 0 0;border-top:1px solid color-mix(in srgb,var(--line) 75%,transparent);background:transparent!important}
+.ai-build-solar .solar-descriptor{max-width:60rem}
+.solar-descriptor-meta{margin:0 0 .55rem;color:var(--accent);font-size:.72rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
+.solar-descriptor-title{position:static!important;width:auto!important;height:auto!important;margin:0 0 .55rem!important;clip:auto!important;overflow:visible!important;white-space:normal!important;font-size:clamp(1.45rem,3vw,2rem)!important}
+.solar-descriptor-copy{max-width:68ch;margin:0 0 .8rem;color:var(--ink,var(--text));font-size:clamp(.95rem,2vw,1.08rem);line-height:1.65}
+.solar-descriptor-link{display:inline-block;min-height:44px;padding:.65rem 0;color:var(--accent);font-weight:800;text-decoration-thickness:1px;text-underline-offset:4px}
+.approved-planet-link.selected .approved-planet-body{stroke:var(--accent)!important;stroke-width:3!important;filter:brightness(1.16) drop-shadow(0 0 10px rgba(255,184,114,.76))}
+.ai-development-intro{max-width:52rem;margin:clamp(2rem,5vw,4rem) auto 0;padding-top:clamp(1rem,3vw,2rem);border-top:1px solid var(--line)}
+.ai-build-detail{max-width:58rem!important;padding-block:clamp(2rem,5vw,5rem)}
+.ai-build-detail>.eyebrow{margin-bottom:.8rem}
+.ai-build-detail .hero-intro{max-width:60ch}
+.ai-detail-back{margin:1.4rem 0 2rem}
+.ai-detail-back a,.ai-related-link a{color:var(--accent);font-weight:800}
+.ai-build-detail>section{padding:clamp(1.25rem,3vw,2rem) 0;border-top:1px solid var(--line);background:transparent!important}
+.ai-build-detail>section h2{margin:0 0 .6rem}
+.ai-build-detail>section p{max-width:68ch;margin:0;line-height:1.7}

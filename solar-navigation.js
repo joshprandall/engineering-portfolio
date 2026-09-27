@@ -45,6 +45,160 @@
     }
   };
 
+  const descriptors={
+  "portfolio": {
+    "Home": [
+      "Portfolio home",
+      "Return to the central overview of Joshua Randall’s work, study, projects, and current direction."
+    ],
+    "About Me": [
+      "About Me",
+      "The story behind the work: background, systems thinking, technical curiosity, and how the pieces connect."
+    ],
+    "Expertise & Experience": [
+      "Expertise & Experience",
+      "Professional depth across infrastructure, cloud, automation, security, systems engineering, support, and technical leadership."
+    ],
+    "Résumé": [
+      "Résumé",
+      "The full professional record, experience history, certifications, technical scope, and downloadable résumé."
+    ],
+    "Direction": [
+      "Direction",
+      "Education, continuing study, and the path toward advanced computing, quantum engineering, HPC, AI, and systems research."
+    ],
+    "Projects": [
+      "Projects",
+      "Hands-on engineering work, interactive labs, automation, infrastructure analysis, games, and experimental computing projects."
+    ],
+    "Learn": [
+      "Learn",
+      "A structured technical learning system spanning systems, software, cybersecurity, mathematics, physics, leadership, and advanced computing."
+    ],
+    "Game Development": [
+      "Game Development",
+      "Playable projects, game engineering, interaction design, and the evolving game-development work."
+    ],
+    "AI Development": [
+      "AI Development",
+      "AI experiments and build paths spanning language models, agents, machine learning, neuro-symbolic systems, robotics, retrieval, and Project MIND."
+    ]
+  },
+  "learning": {
+    "Cloud & Systems": [
+      "Cloud & Systems",
+      "Infrastructure from packets to platforms: networking, operating systems, identity, cloud, Kubernetes, observability, recovery, and automation."
+    ],
+    "Advanced Computing": [
+      "Advanced Computing",
+      "Architecture, memory, parallelism, HPC, GPUs, operating systems, distributed systems, and quantum computing."
+    ],
+    "Software Engineering": [
+      "Software Engineering",
+      "How reliable software is designed, tested, shipped, maintained, and improved from algorithms through DevOps."
+    ],
+    "Cybersecurity": [
+      "Cybersecurity",
+      "Security principles, identity, hardening, detection, application security, risk, governance, recovery, and resilient architecture."
+    ],
+    "Leadership & IT Management": [
+      "Leadership & IT Management",
+      "The human and operational systems behind dependable technology: teams, strategy, incidents, capacity, governance, vendors, and reliability."
+    ],
+    "Mathematics": [
+      "Mathematics",
+      "The language underneath computing, engineering, and physics: algebra, calculus, discrete math, linear algebra, probability, and numerical methods."
+    ],
+    "Physics": [
+      "Physics",
+      "From mechanics and waves through electricity, magnetism, thermodynamics, modern physics, and quantum ideas."
+    ]
+  },
+  "ai-builds": {
+    "Geometric AI": [
+      "Geometric AI",
+      "Learn from distances, directions and symmetries."
+    ],
+    "LLM AI": [
+      "LLM AI",
+      "Predict and generate token sequences from learned context."
+    ],
+    "Agentic AI": [
+      "Agentic AI",
+      "Use a model inside a bounded observe-plan-act loop."
+    ],
+    "Machine Learning": [
+      "Machine Learning",
+      "Fit a predictive function from examples."
+    ],
+    "Deep Learning": [
+      "Deep Learning",
+      "Compose trainable layers to learn representations."
+    ],
+    "Reinforcement Learning": [
+      "Reinforcement Learning",
+      "Learn actions from rewards and transitions."
+    ],
+    "Computer Vision": [
+      "Computer Vision",
+      "Infer structure from images or video."
+    ],
+    "Graph Neural Networks": [
+      "Graph Neural Networks",
+      "Exchange learned messages along graph edges."
+    ],
+    "Multimodal AI": [
+      "Multimodal AI",
+      "Connect representations from different input types."
+    ],
+    "Generative AI": [
+      "Generative AI",
+      "Model distributions to produce new samples."
+    ],
+    "Symbolic AI": [
+      "Symbolic AI",
+      "Represent explicit facts and apply rules or search."
+    ],
+    "Neuro-symbolic AI": [
+      "Neuro-symbolic AI",
+      "Combine learned representations with explicit constraints."
+    ],
+    "Multi-agent systems": [
+      "Multi-agent systems",
+      "Coordinate agents with separate state and roles."
+    ],
+    "Game AI": [
+      "Game AI",
+      "Choose actions within game rules and objectives."
+    ],
+    "Embodied / Robotic AI": [
+      "Embodied / Robotic AI",
+      "Connect perception, planning and physical control."
+    ],
+    "AI memory / retrieval": [
+      "AI memory / retrieval",
+      "Retrieve relevant stored context for a task."
+    ],
+    "Build Your Own AI": [
+      "Build Your Own AI",
+      "Assemble a small system with measurable boundaries."
+    ],
+    "Project MIND": [
+      "Project MIND",
+      "Explore agent workbench and personal knowledge architecture."
+    ],
+    "Personal development agent": [
+      "Personal development agent",
+      "A future assistant for Joshua’s goals and learning plans."
+    ]
+  }
+};
+
+  function descriptorFor(kind,name,destination){
+    const item=descriptors[kind]?.[name]||[name,`Open the dedicated ${name} page.`];
+    return {title:item[0],description:item[1],destination};
+  }
+
   function labelLines(name){
     const special={
       'Expertise & Experience':['Expertise &','Experience'],
@@ -139,7 +293,7 @@
       const ringInfo=assigns[i];
       const ring=cfg.rings[ringInfo.ring];
       const size=kind==='ai-builds'?(ringInfo.ring===0?21:ringInfo.ring===1?19:18):22;
-      const group=E('g',{'class':'approved-planet-link','role':'link','tabindex':'0','aria-label':name});
+      const group=E('g',{'class':'approved-planet-link','role':'button','tabindex':'0','aria-label':`Select ${name}`,'aria-pressed':'false'});
       const body=E('circle',{r:size,fill:`url(#approved-planet-${sectionIndex}-${i%palettes.length})`,'class':'approved-planet-body'});
       group.append(body);
 
@@ -157,17 +311,7 @@
       });
       group.append(text);
 
-      const activate=()=>{
-        if(destination.startsWith('#')){
-          const target=document.querySelector(destination);
-          if(target){
-            history.replaceState(null,'',destination);
-            target.scrollIntoView({behavior:reduced.matches?'auto':'smooth',block:'start'});
-            return;
-          }
-        }
-        location.assign(destination);
-      };
+      const activate=()=>selectPlanet(i);
       group.addEventListener('click',activate);
       group.addEventListener('keydown',e=>{
         if(e.key==='Enter'||e.key===' '){e.preventDefault();activate();}
@@ -185,6 +329,34 @@
       };
     });
 
+    const descriptor=document.createElement('div');
+    descriptor.className='solar-descriptor';
+    descriptor.setAttribute('aria-live','polite');
+    descriptor.innerHTML='<div class="solar-descriptor-meta"></div><h2 class="solar-descriptor-title"></h2><p class="solar-descriptor-copy"></p><a class="solar-descriptor-link"></a>';
+    section.append(descriptor);
+
+    function selectPlanet(i){
+      const planet=planets[i];
+      if(!planet)return;
+      planets.forEach((p,j)=>{
+        const selected=j===i;
+        p.group.classList.toggle('selected',selected);
+        p.group.setAttribute('aria-pressed',String(selected));
+      });
+      const info=descriptorFor(kind,planet.name,planet.destination);
+      q('.solar-descriptor-meta',descriptor).textContent=
+        kind==='learning'?`ACTIVE SUBJECT / ${planet.name.toUpperCase()}`:
+        kind==='ai-builds'?`ACTIVE AI BUILD / ${planet.name.toUpperCase()}`:
+        `ACTIVE DESTINATION / ${planet.name.toUpperCase()}`;
+      q('.solar-descriptor-title',descriptor).textContent=info.title;
+      q('.solar-descriptor-copy',descriptor).textContent=info.description;
+      const cta=q('.solar-descriptor-link',descriptor);
+      cta.href=info.destination;
+      cta.textContent=(kind==='learning'?'Open subject':kind==='ai-builds'?'Open AI build':'Open page')+' →';
+    }
+
+    selectPlanet(0);
+
     let raf=0,last=performance.now(),elapsed=0,visible=true;
 
     function draw(){
@@ -194,7 +366,7 @@
         const x=cfg.cx+Math.cos(a)*p.ring.rx;
         const y=cfg.cy+Math.sin(a)*p.ring.ry;
         const depth=Math.sin(a);
-        const selected=p.group.matches(':hover,:focus-visible');
+        const selected=p.group.matches(':hover,:focus-visible')||p.group.classList.contains('selected');
         const scale=.90+(depth+1)*.08+(selected?.06:0);
         return {...p,index,x,y,depth,scale};
       });
