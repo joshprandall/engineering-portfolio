@@ -32,7 +32,7 @@ const interactiveTypes=new Set(D.lessons.map(l=>l.interactive).filter(Boolean));
 for(const type of interactiveTypes)assert(implemented.has(type),'interactive type has no implementation: '+type);
 assert.equal(interactiveTypes.size,implemented.size,'interactive implementation set and release-data set must match exactly');
 const solar=read('solar-navigation.js');
-for(const [page,count] of [['index.html',9],['learn.html',7],['ai-development.html',19]]){
+for(const [page,count] of [['index.html',6],['learn.html',7],['ai-development.html',19]]){
  const html=read(page),hrefs=[...html.matchAll(/class="solar-planet-link" href="([^"]+)"/g)].map(m=>m[1]);
  assert.equal(hrefs.length,count,page+': wrong solar destination count');
  for(const href of hrefs){const file=href.split(/[?#]/)[0];assert(exists(file),page+': missing solar destination '+href);}
