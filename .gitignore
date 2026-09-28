@@ -7,3 +7,6 @@ staging/
 /games/evil-wizard/index.wasm
 /assets/fusion-presentation.mp4
 Joshua_Randall_OSU_Science_Safe_Overlay.zip
+
+# Exact deployed Day bytes are hash-pinned in manifests/large-assets.json.
+/assets/scenes/day/*.mp4

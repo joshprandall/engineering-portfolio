@@ -2693,6 +2693,326 @@
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "ai-build-your-own.html",
+      "size": 6942,
+      "sha256": "e35ead3065abe431fd712b9675aa8bcdda5537168320bfd6813dc897f97832fe",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "security-research.html",
+      "size": 13651,
+      "sha256": "c8227abdd5cbbb9740f9160a8f7d47850d2a01f44a6c07b0026c35debd70851a",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "ai-neuro-symbolic.html",
+      "size": 6983,
+      "sha256": "7122a2700ff471054201c72a81310d6276c9837232c21797a149b9632422d480",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "ai-project-mind.html",
+      "size": 7367,
+      "sha256": "a0bc49c8c9b85ac1d5645f8f0e2a7e870d6b8b28896332beb06aa69bac657775",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "ai-computer-vision.html",
+      "size": 7079,
+      "sha256": "ce9d9afc41779eb65480b2c444ec1bd556bad956a6fe3ff39fed960bc963b9c7",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "ai-multimodal.html",
+      "size": 6977,
+      "sha256": "f9dcc256e3268208685e3aa26f41bdae02f9e7c75b80ea30429ef116cf3b21c9",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "ai-symbolic.html",
+      "size": 6687,
+      "sha256": "e069c94ff7ea472715d53e8dd52ad047cc79ea0d0f4d69c9245a4f47d4437119",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "ai-deep-learning.html",
+      "size": 7215,
+      "sha256": "1782ad3bbb8e5da79ebc6708065e6759003418a6e994923854561c4f7cbf323d",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "ai-reinforcement-learning.html",
+      "size": 7121,
+      "sha256": "c66be47811c37ecee72eef7589b8721cf355785c84c3c5a8ba2cf1e4a815308f",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "ai-llm.html",
+      "size": 7154,
+      "sha256": "9579a3ebe5ba699d623adb7fbfa71f9629988342cc5e2f4332c52d93d4f84b23",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "ai-game.html",
+      "size": 6757,
+      "sha256": "42adb80d6334b25309845f87d345df2ed89b7dd3eccac2b5a6529a32ec233851",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "ai-embodied.html",
+      "size": 6863,
+      "sha256": "80e0f2ff6c23cbf796edc6a2aad6bc93e06b494ddfa1bd60a760eef88cd857cb",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "ai-generative.html",
+      "size": 7046,
+      "sha256": "d268a360d544f452766764f53fed46ff5cccfb20f1121e638e01feb1363c4c23",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "ai-memory.html",
+      "size": 6820,
+      "sha256": "3f9c1d0bdf799190941179877034ca194bf4f3a644e04f0f55a459c985a6163c",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "ai-machine-learning.html",
+      "size": 7121,
+      "sha256": "c271cf16f2c6ac56b252c20ef3fa6e55097541ac821394a1697d0e164b22a8be",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "ai-graph-neural-networks.html",
+      "size": 7005,
+      "sha256": "ecacd1531b8cc8204b04711582c4dca8a50ef4bc27e56ae572d41a25a6efdef5",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "ai-multi-agent.html",
+      "size": 6883,
+      "sha256": "866ec2413a2b1713da75e6144588cf44ceba5d8f82b597f75e548e93f0777a89",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "ai-agentic.html",
+      "size": 7083,
+      "sha256": "cbe5df4abb9622320bf7cba6908c8030dc33c13e19944cf38de21335574f66b4",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "ai-personal-agent.html",
+      "size": 7389,
+      "sha256": "af1b839446c41dc555180441ab97942587cc08a82aa0b8200f0ba060669f1d4b",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "ai-geometric.html",
+      "size": 7322,
+      "sha256": "29a44005f7fc8c8593323dedf1fc3c95e1589501b3518711b35682e95bc25c84",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "learning-progress.js",
+      "size": 2257,
+      "sha256": "9f7c7a5e2b734e6c0a229d403e38306a2f78963ffb032fdeeda767b8b59b941f",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "learning-visuals.js",
+      "size": 25283,
+      "sha256": "31216c0c8a835a10ad986f7d0c2b98f85967c4737aec7e1b3a873773293cb93d",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "learning-visuals.css",
+      "size": 2353,
+      "sha256": "cc351557db755ababa4cdaa61010d094596d88e3a6a6cb04698d572371494ddf",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "ai-build-lab.js",
+      "size": 21171,
+      "sha256": "3df27e410c4e993a2f780cb908f7938882a92e23f051457482cf3ffa58f42252",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "ai-build-lab.css",
+      "size": 2146,
+      "sha256": "da7e9e7c7a71bc3117d6e2a5e6240c45f5fb1a9cc87972fcc37565c339833935",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "security-research.js",
+      "size": 19701,
+      "sha256": "d9c9eac63afbc6fcfaa86b58002b601db6be90b13fe250b63893e0bd5aa62162",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "security-research.css",
+      "size": 5396,
+      "sha256": "946d0ec673e0f9a5082e10fb03db65f2773409ca8603ed67db432916d130088d",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "assets/site-education.json",
+      "size": 841,
+      "sha256": "047994b48d49dac428e8abb449bac1c7e3103002da479ed01aae7c5282ba96b4",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "assets/scenes/day/waterfall.mp4",
+      "size": 38727837,
+      "sha256": "094e7c14ba2ca99feb637dabf2a57911be2c15b3743f1a1b7223d82f66f921bc",
+      "source": {
+        "kind": "public-preserved-asset"
+      },
+      "owningComponent": "site-scenes",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "assets/scenes/day/river.mp4",
+      "size": 56576105,
+      "sha256": "8a9222fb7ad01db00394c5c030e2861a5f94a299e3a80b1b23dab464e943a1f3",
+      "source": {
+        "kind": "public-preserved-asset"
+      },
+      "owningComponent": "site-scenes",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "assets/scenes/day/beach-birds.mp4",
+      "size": 16195422,
+      "sha256": "719ff6cb84b4e6a265e295d4f61cacc4f4a44f6d34ffd1a43c7bc1c3d5daf113",
+      "source": {
+        "kind": "public-preserved-asset"
+      },
+      "owningComponent": "site-scenes",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "solar-navigation.js",
+      "size": 17648,
+      "sha256": "2c6de979fbffa812cab6899647627a2944f3aa43b46dd752d679ba62c2a7af79",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
     }
   ],
   "fileCount": 243,

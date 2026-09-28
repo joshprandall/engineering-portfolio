@@ -40,6 +40,42 @@
       "downloadUrl": "https://github.com/joshprandall/engineering-portfolio/releases/download/untagged-e644a6348fdcd9aef65d/evil-wizard-engine-fc74679e3b97f76878947fcd4fbe1268cbfa6188182a2e33bbc3f5dc9bfa57d0.wasm",
       "releaseUrl": "https://github.com/joshprandall/engineering-portfolio/releases/tag/untagged-e644a6348fdcd9aef65d",
       "requiresRepositoryReadAccess": true
+    },
+    {
+      "kind": "public-preserved-asset",
+      "filename": "waterfall-094e7c14ba2ca99feb637dabf2a57911be2c15b3743f1a1b7223d82f66f921bc.mp4",
+      "sha256": "094e7c14ba2ca99feb637dabf2a57911be2c15b3743f1a1b7223d82f66f921bc",
+      "size": 38727837,
+      "canonicalPath": "assets/scenes/day/waterfall.mp4",
+      "sourceUrl": "https://web.engr.oregonstate.edu/~randjosh/assets/scenes/day/waterfall.mp4",
+      "state": "captured-and-digest-verified-20260928",
+      "provenance": "Read-only OSU production capture 2026-09-28; exact existing Day scene media.",
+      "ownership": "Existing Pexels scene media; preserve assets/scenes/CREDITS.md and original source references.",
+      "durability": "Public deployed URL is mutable. Hash verification prevents accepting changed bytes. Retain the OSU backup; immutable release-asset mirroring remains pending authenticated upload access."
+    },
+    {
+      "kind": "public-preserved-asset",
+      "filename": "river-8a9222fb7ad01db00394c5c030e2861a5f94a299e3a80b1b23dab464e943a1f3.mp4",
+      "sha256": "8a9222fb7ad01db00394c5c030e2861a5f94a299e3a80b1b23dab464e943a1f3",
+      "size": 56576105,
+      "canonicalPath": "assets/scenes/day/river.mp4",
+      "sourceUrl": "https://web.engr.oregonstate.edu/~randjosh/assets/scenes/day/river.mp4",
+      "state": "captured-and-digest-verified-20260928",
+      "provenance": "Read-only OSU production capture 2026-09-28; exact existing Day scene media.",
+      "ownership": "Existing Pexels scene media; preserve assets/scenes/CREDITS.md and original source references.",
+      "durability": "Public deployed URL is mutable. Hash verification prevents accepting changed bytes. Retain the OSU backup; immutable release-asset mirroring remains pending authenticated upload access."
+    },
+    {
+      "kind": "public-preserved-asset",
+      "filename": "beach-birds-719ff6cb84b4e6a265e295d4f61cacc4f4a44f6d34ffd1a43c7bc1c3d5daf113.mp4",
+      "sha256": "719ff6cb84b4e6a265e295d4f61cacc4f4a44f6d34ffd1a43c7bc1c3d5daf113",
+      "size": 16195422,
+      "canonicalPath": "assets/scenes/day/beach-birds.mp4",
+      "sourceUrl": "https://web.engr.oregonstate.edu/~randjosh/assets/scenes/day/beach-birds.mp4",
+      "state": "captured-and-digest-verified-20260928",
+      "provenance": "Read-only OSU production capture 2026-09-28; exact existing Day scene media.",
+      "ownership": "Existing Pexels scene media; preserve assets/scenes/CREDITS.md and original source references.",
+      "durability": "Public deployed URL is mutable. Hash verification prevents accepting changed bytes. Retain the OSU backup; immutable release-asset mirroring remains pending authenticated upload access."
     }
   ]
 }

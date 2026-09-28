@@ -40,6 +40,7 @@ REQUIRED = THEME_SHELL_FILES + (
     'quantum-cube.js', 'handheld-experience.js', 'handheld-experience.css',
     'science-experiments.js', 'science-experiments.css', 'knowledge.js', 'knowledge.css',
     'learning-depth.js', 'learning-depth.css', 'learning-next.js', 'learning-next.css',
+    'learning-progress.js', 'learning-visuals.js', 'learning-visuals.css', 'ai-build-lab.js', 'ai-build-lab.css',
     'project-battle-chess.html', 'project-geometric-ai.html', 'play-evil-wizard.html',
     'learning-capstones.json', 'labs/qpe.js', 'labs/emergent.js', 'agent-workbench.js',
     'qubit-preview-20260921/index.html', 'qubit-preview-20260921/app.js',

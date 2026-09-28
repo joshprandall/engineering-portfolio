@@ -57,7 +57,9 @@ def build(commit,refresh=False):
         if path in asset_by_path:
             asset=asset_by_path[path];data=read_bytes({'kind':'release-asset'},asset['sha256'],assets)
             if digest(data)!=asset['sha256'] or len(data)!=asset['size']:raise ValueError('Artifact checksum: '+path)
-            source={'kind':'release-asset','assetId':asset['assetId'],'sha256':asset['sha256'],'provenance':asset['provenance']}
+            source={'kind':asset.get('kind','release-asset'),'sha256':asset['sha256'],'provenance':asset['provenance']}
+            if asset.get('assetId'):source['assetId']=asset['assetId']
+            if asset.get('sourceUrl'):source['sourceUrl']=asset['sourceUrl']
         else:
             if path not in blobs:raise ValueError('Missing exact-case committed file: '+path)
             data=blobs[path];source={'kind':'git-blob','blob':hashlib.sha1(b'blob '+str(len(data)).encode()+b'\0'+data).hexdigest()}
