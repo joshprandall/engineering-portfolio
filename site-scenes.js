@@ -213,19 +213,19 @@
       canvas.height = Math.max(1, Math.round(height * dpr));
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-      const starCount = mediaDisabled ? 30 : constrainedMedia ? (width < 700 ? 42 : 72) : width < 700 ? 55 : 110;
+      const starCount = mediaDisabled ? 34 : constrainedMedia ? (width < 700 ? 56 : 84) : width < 700 ? 68 : 124;
       const dustCount = mediaDisabled ? 10 : constrainedMedia ? (width < 700 ? 14 : 28) : width < 700 ? 20 : 42;
 
       stars = Array.from({ length: starCount }, () => ({
         x: random(),
         y: random(),
-        r: .45 + random() * 1.25,
+        r: .58 + random() * 1.42,
         phase: random() * Math.PI * 2,
-        rate: .22 + random() * .48,
+        rate: .28 + random() * .58,
         depth: .18 + random() * .82,
-        twinkle: random() < .62,
-        twinkleRate: .72 + random() * 1.28,
-        twinkleStrength: .62 + random() * .58
+        twinkle: random() < .76,
+        twinkleRate: 1.8 + random() * 2.4,
+        twinkleStrength: .72 + random() * .72
       }));
 
       dust = Array.from({ length: dustCount }, () => ({
@@ -370,27 +370,37 @@
 
     function drawStars(driftX, driftY) {
       for (const star of stars) {
-        const slow = Math.sin(time * (star.rate * 1.2) + star.phase);
+        const slow = Math.sin(time * (star.rate * 1.15) + star.phase);
         const twinkleWave = Math.sin(time * star.twinkleRate + star.phase * 1.7);
-        // Most stars breathe almost imperceptibly; a subset gets brief,
-        // irregular-looking sparkle peaks rather than synchronized pulsing.
-        const sparkle = star.twinkle ? Math.pow(Math.max(0, twinkleWave), 7) : 0;
-        const baseAlpha = .22 + star.depth * .30;
-        const twinkleScale = reducedMotion() ? .58 : 1;
+        // Twinkling must read on a phone: frequent independent peaks, brighter
+        // contrast, and a small four-point flare at the top of each sparkle.
+        const sparkle = star.twinkle ? Math.pow(Math.max(0, twinkleWave), 4) : 0;
+        const baseAlpha = .26 + star.depth * .30;
+        const twinkleScale = reducedMotion() ? .46 : 1;
         const alpha = star.twinkle
-          ? baseAlpha + slow * .045 * twinkleScale + sparkle * (.42 + .26 * star.twinkleStrength) * twinkleScale
-          : baseAlpha + slow * .03 * twinkleScale;
-        const pulse = star.twinkle ? 1 + sparkle * (.34 + .22 * star.twinkleStrength) * twinkleScale : 1;
-        ctx.fillStyle = 'rgba(220,236,250,' + Math.max(.08, Math.min(.82, alpha)).toFixed(3) + ')';
+          ? baseAlpha + slow * .055 * twinkleScale + sparkle * (.56 + .30 * star.twinkleStrength) * twinkleScale
+          : baseAlpha + slow * .035 * twinkleScale;
+        const pulse = star.twinkle ? 1 + sparkle * (.58 + .28 * star.twinkleStrength) * twinkleScale : 1;
+        const x = star.x * width + driftX * star.depth * .42;
+        const y = star.y * height + driftY * star.depth * .34;
+        const radius = star.r * pulse;
+        const visibleAlpha = Math.max(.12, Math.min(.98, alpha));
+
+        ctx.fillStyle = 'rgba(232,244,255,' + visibleAlpha.toFixed(3) + ')';
         ctx.beginPath();
-        ctx.arc(
-          star.x * width + driftX * star.depth * .36,
-          star.y * height + driftY * star.depth * .28,
-          star.r * pulse,
-          0,
-          Math.PI * 2
-        );
+        ctx.arc(x, y, radius, 0, Math.PI * 2);
         ctx.fill();
+
+        if (star.twinkle && sparkle > .16) {
+          const flare = (2.4 + star.r * 2.3 + sparkle * 4.8) * twinkleScale;
+          const flareAlpha = Math.min(.92, .24 + sparkle * .68 * star.twinkleStrength) * twinkleScale;
+          ctx.strokeStyle = 'rgba(238,248,255,' + flareAlpha.toFixed(3) + ')';
+          ctx.lineWidth = Math.max(.65, .72 * twinkleScale);
+          ctx.beginPath();
+          ctx.moveTo(x - flare, y); ctx.lineTo(x + flare, y);
+          ctx.moveTo(x, y - flare); ctx.lineTo(x, y + flare);
+          ctx.stroke();
+        }
       }
     }
 
@@ -445,13 +455,13 @@
     function universe(dt) {
       // Visible but calm parallax. Reduced-motion keeps the starfield alive with
       // micro-motion instead of freezing the entire visual identity.
-      const scale = reducedMotion() ? .18 : 1;
-      const driftX = Math.sin(time / 13) * 22.0 * scale;
-      const driftY = Math.cos(time / 17) * 12.0 * scale;
-      const depthX = Math.sin(time / 21 + .9) * -30.0 * scale;
-      const depthY = Math.cos(time / 27 + .4) * -18.0 * scale;
-      const glowX = Math.sin(time / 12) * 28.0 * scale;
-      const glowY = Math.cos(time / 16) * 18.0 * scale;
+      const scale = reducedMotion() ? .16 : 1;
+      const driftX = Math.sin(time * .42) * 36.0 * scale;
+      const driftY = Math.cos(time * .31) * 22.0 * scale;
+      const depthX = Math.sin(time * .28 + .9) * -50.0 * scale;
+      const depthY = Math.cos(time * .23 + .4) * -30.0 * scale;
+      const glowX = Math.sin(time * .50) * 44.0 * scale;
+      const glowY = Math.cos(time * .37) * 28.0 * scale;
 
       night.style.transform = 'translate3d(' + driftX.toFixed(2) + 'px,' + driftY.toFixed(2) + 'px,0)';
       nightDepth.style.transform = 'translate3d(' + depthX.toFixed(2) + 'px,' + depthY.toFixed(2) + 'px,0)';
