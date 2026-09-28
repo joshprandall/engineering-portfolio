@@ -1,0 +1,21 @@
+{
+  "startingRemoteMain": "88d1980a0520dffc0d3f84699f684c472a7c6516",
+  "runtimeSourceCommit": "ef933364566107fae21c68280ce45af5a5efde7c",
+  "releaseState": {
+    "sourceImplemented": true,
+    "unitChecksCompleted": true,
+    "priorPreviewChecksCompleted": true,
+    "finalExactCommitBrowserChecks": "in progress",
+    "deployed": false,
+    "productionVerifiedAfterDeployment": false
+  },
+  "deploymentBoundary": "No authenticated OSU shell in this environment.",
+  "sourceChanges": [
+    "7 restored activity dispatcher routes",
+    "66 mental-model guides",
+    "19 AI experiments with valid controls/reset/compare",
+    "local notes/review scheduling and retry",
+    "six Security Research tools and MIND current-input export",
+    "stable audio fallback and transition/lifecycle cleanup"
+  ]
+}

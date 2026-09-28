@@ -1,0 +1,2420 @@
+[
+  {
+    "name": "home",
+    "width": 390,
+    "url": "http://127.0.0.1:32947/index.html",
+    "elapsedMs": 6955,
+    "errors": [],
+    "domNodes": 435,
+    "scrollWidth": 390,
+    "viewport": 390,
+    "resources": [
+      {
+        "name": "site-theme.js?v=20260928-day-audio-lock-v1",
+        "bytes": 8499,
+        "ms": 21
+      },
+      {
+        "name": "styles.css?v=20260924-readable-v9",
+        "bytes": 19530,
+        "ms": 21
+      },
+      {
+        "name": "site-resilience.css?v=20260924-perf-v1scenes",
+        "bytes": 7091,
+        "ms": 24
+      },
+      {
+        "name": "portfolio-next.css?v=20260924-solar-v11",
+        "bytes": 30009,
+        "ms": 27
+      },
+      {
+        "name": "portfolio-home.css?v=20260924-quantum-bold-light-v1",
+        "bytes": 18202,
+        "ms": 28
+      },
+      {
+        "name": "site-scenes.css?v=20260925-architecture-v28",
+        "bytes": 57092,
+        "ms": 29
+      },
+      {
+        "name": "site-scenes.js?v=20260928-day-audio-lock-v1",
+        "bytes": 24712,
+        "ms": 43
+      },
+      {
+        "name": "site-audio.js?v=20260928-day-audio-lock-v1",
+        "bytes": 22499,
+        "ms": 43
+      },
+      {
+        "name": "site-sections.css",
+        "bytes": 978,
+        "ms": 30
+      },
+      {
+        "name": "site-navigation.js",
+        "bytes": 4269,
+        "ms": 43
+      },
+      {
+        "name": "site-search.js",
+        "bytes": 2362,
+        "ms": 42
+      },
+      {
+        "name": "site-sound-control.js",
+        "bytes": 4353,
+        "ms": 44
+      },
+      {
+        "name": "site-responsive.css",
+        "bytes": 37919,
+        "ms": 30
+      },
+      {
+        "name": "MIT-logo-black-red-72x38.svg",
+        "bytes": 0,
+        "ms": 33
+      },
+      {
+        "name": "osu-logo.png",
+        "bytes": 10683,
+        "ms": 50
+      },
+      {
+        "name": "solar-navigation.js",
+        "bytes": 17648,
+        "ms": 48
+      },
+      {
+        "name": "site-resilience.js?v=20260925-architecture-v28",
+        "bytes": 2942,
+        "ms": 46
+      },
+      {
+        "name": "app.js?v=20260925-architecture-v28",
+        "bytes": 12474,
+        "ms": 50
+      },
+      {
+        "name": "portfolio-next.js?v=20260924-solar-v12solar-v11solar-v10solar-v4",
+        "bytes": 16707,
+        "ms": 50
+      },
+      {
+        "name": "quantum-cube.js?v=20260924-quantum-bold-light-v1",
+        "bytes": 6470,
+        "ms": 50
+      },
+      {
+        "name": "fonts.css",
+        "bytes": 1377,
+        "ms": 10
+      },
+      {
+        "name": "dm-sans-400.ttf",
+        "bytes": 48280,
+        "ms": 92
+      },
+      {
+        "name": "dm-sans-700.ttf",
+        "bytes": 48200,
+        "ms": 84
+      },
+      {
+        "name": "dm-sans-500.ttf",
+        "bytes": 48308,
+        "ms": 84
+      },
+      {
+        "name": "dm-sans-600.ttf",
+        "bytes": 48280,
+        "ms": 84
+      },
+      {
+        "name": "manrope-600.ttf",
+        "bytes": 95096,
+        "ms": 85
+      },
+      {
+        "name": "manrope-500.ttf",
+        "bytes": 95060,
+        "ms": 30
+      },
+      {
+        "name": "systems-lab.jpg",
+        "bytes": 279447,
+        "ms": 17
+      },
+      {
+        "name": "webb-cosmic-cliffs.webp",
+        "bytes": 295192,
+        "ms": 13
+      },
+      {
+        "name": "pexels-photo-7351460.jpeg?auto=compress&cs=tinysrgb&w=1600",
+        "bytes": 0,
+        "ms": 8
+      },
+      {
+        "name": "site-navigation.json",
+        "bytes": 3166,
+        "ms": 4
+      },
+      {
+        "name": "Cape%20May%20Shorebirds%20closer.ogg",
+        "bytes": 0,
+        "ms": 2
+      },
+      {
+        "name": "Cape%20May%20Shorebirds%20%28distant%29.ogg",
+        "bytes": 0,
+        "ms": 2
+      },
+      {
+        "name": "manrope-800.ttf",
+        "bytes": 95688,
+        "ms": 18
+      }
+    ],
+    "navigation": [
+      {
+        "domContentLoaded": 234,
+        "transfer": 31295
+      }
+    ]
+  },
+  {
+    "name": "home",
+    "width": 1440,
+    "url": "http://127.0.0.1:32947/index.html",
+    "elapsedMs": 15116,
+    "errors": [],
+    "domNodes": 435,
+    "scrollWidth": 1440,
+    "viewport": 1440,
+    "resources": [
+      {
+        "name": "site-theme.js?v=20260928-day-audio-lock-v1",
+        "bytes": 8499,
+        "ms": 3
+      },
+      {
+        "name": "styles.css?v=20260924-readable-v9",
+        "bytes": 19530,
+        "ms": 7
+      },
+      {
+        "name": "site-resilience.css?v=20260924-perf-v1scenes",
+        "bytes": 7091,
+        "ms": 8
+      },
+      {
+        "name": "portfolio-next.css?v=20260924-solar-v11",
+        "bytes": 30009,
+        "ms": 8
+      },
+      {
+        "name": "portfolio-home.css?v=20260924-quantum-bold-light-v1",
+        "bytes": 18202,
+        "ms": 14
+      },
+      {
+        "name": "site-scenes.css?v=20260925-architecture-v28",
+        "bytes": 57092,
+        "ms": 14
+      },
+      {
+        "name": "site-scenes.js?v=20260928-day-audio-lock-v1",
+        "bytes": 24712,
+        "ms": 15
+      },
+      {
+        "name": "site-audio.js?v=20260928-day-audio-lock-v1",
+        "bytes": 22499,
+        "ms": 15
+      },
+      {
+        "name": "site-navigation.js",
+        "bytes": 4269,
+        "ms": 24
+      },
+      {
+        "name": "site-sections.css",
+        "bytes": 978,
+        "ms": 14
+      },
+      {
+        "name": "site-responsive.css",
+        "bytes": 37919,
+        "ms": 14
+      },
+      {
+        "name": "site-search.js",
+        "bytes": 2362,
+        "ms": 23
+      },
+      {
+        "name": "site-sound-control.js",
+        "bytes": 4353,
+        "ms": 24
+      },
+      {
+        "name": "solar-navigation.js",
+        "bytes": 17648,
+        "ms": 25
+      },
+      {
+        "name": "MIT-logo-black-red-72x38.svg",
+        "bytes": 0,
+        "ms": 14
+      },
+      {
+        "name": "osu-logo.png",
+        "bytes": 10683,
+        "ms": 25
+      },
+      {
+        "name": "site-resilience.js?v=20260925-architecture-v28",
+        "bytes": 2942,
+        "ms": 33
+      },
+      {
+        "name": "app.js?v=20260925-architecture-v28",
+        "bytes": 12474,
+        "ms": 33
+      },
+      {
+        "name": "portfolio-next.js?v=20260924-solar-v12solar-v11solar-v10solar-v4",
+        "bytes": 16707,
+        "ms": 34
+      },
+      {
+        "name": "quantum-cube.js?v=20260924-quantum-bold-light-v1",
+        "bytes": 6470,
+        "ms": 35
+      },
+      {
+        "name": "fonts.css",
+        "bytes": 1377,
+        "ms": 14
+      },
+      {
+        "name": "webb-cosmic-cliffs.webp",
+        "bytes": 295192,
+        "ms": 9
+      },
+      {
+        "name": "pexels-photo-7351460.jpeg?auto=compress&cs=tinysrgb&w=1600",
+        "bytes": 0,
+        "ms": 8
+      },
+      {
+        "name": "dm-sans-400.ttf",
+        "bytes": 48280,
+        "ms": 68
+      },
+      {
+        "name": "dm-sans-700.ttf",
+        "bytes": 48200,
+        "ms": 41
+      },
+      {
+        "name": "dm-sans-500.ttf",
+        "bytes": 48308,
+        "ms": 64
+      },
+      {
+        "name": "manrope-600.ttf",
+        "bytes": 95096,
+        "ms": 64
+      },
+      {
+        "name": "dm-sans-600.ttf",
+        "bytes": 48280,
+        "ms": 64
+      },
+      {
+        "name": "manrope-500.ttf",
+        "bytes": 95060,
+        "ms": 62
+      },
+      {
+        "name": "systems-lab.jpg",
+        "bytes": 279447,
+        "ms": 19
+      },
+      {
+        "name": "site-navigation.json",
+        "bytes": 3166,
+        "ms": 18
+      },
+      {
+        "name": "Cape%20May%20Shorebirds%20closer.ogg",
+        "bytes": 0,
+        "ms": 7
+      },
+      {
+        "name": "Cape%20May%20Shorebirds%20%28distant%29.ogg",
+        "bytes": 0,
+        "ms": 9
+      },
+      {
+        "name": "manrope-800.ttf",
+        "bytes": 95688,
+        "ms": 37
+      }
+    ],
+    "navigation": [
+      {
+        "domContentLoaded": 221,
+        "transfer": 31295
+      }
+    ]
+  },
+  {
+    "name": "projects",
+    "width": 390,
+    "url": "http://127.0.0.1:32947/projects.html",
+    "elapsedMs": 2940,
+    "errors": [],
+    "domNodes": 267,
+    "scrollWidth": 390,
+    "viewport": 390,
+    "resources": [
+      {
+        "name": "site-theme.js?v=20260924-scenes",
+        "bytes": 8499,
+        "ms": 12
+      },
+      {
+        "name": "styles.css?v=20260924-readable-v9",
+        "bytes": 19530,
+        "ms": 12
+      },
+      {
+        "name": "site-resilience.css?v=20260924-perf-v1scenes",
+        "bytes": 7091,
+        "ms": 12
+      },
+      {
+        "name": "portfolio-next.css?v=20260924-light-type-v9-nohalo",
+        "bytes": 30009,
+        "ms": 12
+      },
+      {
+        "name": "site-scenes.css?v=20260925-architecture-v28",
+        "bytes": 57092,
+        "ms": 13
+      },
+      {
+        "name": "site-scenes.js?v=20260925-architecture-v28",
+        "bytes": 24712,
+        "ms": 27
+      },
+      {
+        "name": "site-audio.js?v=20260925-architecture-v28",
+        "bytes": 22499,
+        "ms": 27
+      },
+      {
+        "name": "site-search.js",
+        "bytes": 2362,
+        "ms": 27
+      },
+      {
+        "name": "site-navigation.js",
+        "bytes": 4269,
+        "ms": 27
+      },
+      {
+        "name": "site-sound-control.js",
+        "bytes": 4353,
+        "ms": 28
+      },
+      {
+        "name": "site-responsive.css",
+        "bytes": 37919,
+        "ms": 12
+      },
+      {
+        "name": "site-resilience.js?v=20260925-architecture-v28",
+        "bytes": 2942,
+        "ms": 31
+      },
+      {
+        "name": "app.js?v=20260925-architecture-v28",
+        "bytes": 12474,
+        "ms": 31
+      },
+      {
+        "name": "portfolio-next.js?v=20260924-perf-v1solar-v4",
+        "bytes": 16707,
+        "ms": 31
+      },
+      {
+        "name": "fonts.css",
+        "bytes": 1377,
+        "ms": 9
+      },
+      {
+        "name": "webb-cosmic-cliffs.webp",
+        "bytes": 295192,
+        "ms": 5
+      },
+      {
+        "name": "pexels-photo-7351460.jpeg?auto=compress&cs=tinysrgb&w=1600",
+        "bytes": 0,
+        "ms": 1
+      },
+      {
+        "name": "dm-sans-400.ttf",
+        "bytes": 48280,
+        "ms": 41
+      },
+      {
+        "name": "dm-sans-700.ttf",
+        "bytes": 48200,
+        "ms": 41
+      },
+      {
+        "name": "dm-sans-500.ttf",
+        "bytes": 48308,
+        "ms": 41
+      },
+      {
+        "name": "manrope-600.ttf",
+        "bytes": 95096,
+        "ms": 42
+      },
+      {
+        "name": "site-navigation.json",
+        "bytes": 3166,
+        "ms": 4
+      },
+      {
+        "name": "dm-sans-600.ttf",
+        "bytes": 48280,
+        "ms": 44
+      },
+      {
+        "name": "manrope-500.ttf",
+        "bytes": 95060,
+        "ms": 44
+      },
+      {
+        "name": "handheld-experience.css?v=20260924-release",
+        "bytes": 4397,
+        "ms": 17
+      },
+      {
+        "name": "handheld-experience.js?v=20260924-release",
+        "bytes": 1335,
+        "ms": 17
+      },
+      {
+        "name": "Cape%20May%20Shorebirds%20closer.ogg",
+        "bytes": 0,
+        "ms": 5
+      },
+      {
+        "name": "Cape%20May%20Shorebirds%20%28distant%29.ogg",
+        "bytes": 0,
+        "ms": 5
+      },
+      {
+        "name": "manrope-800.ttf",
+        "bytes": 95688,
+        "ms": 42
+      }
+    ],
+    "navigation": [
+      {
+        "domContentLoaded": 148,
+        "transfer": 15561
+      }
+    ]
+  },
+  {
+    "name": "projects",
+    "width": 1440,
+    "url": "http://127.0.0.1:32947/projects.html",
+    "elapsedMs": 6683,
+    "errors": [],
+    "domNodes": 267,
+    "scrollWidth": 1440,
+    "viewport": 1440,
+    "resources": [
+      {
+        "name": "site-theme.js?v=20260924-scenes",
+        "bytes": 8499,
+        "ms": 7
+      },
+      {
+        "name": "styles.css?v=20260924-readable-v9",
+        "bytes": 19530,
+        "ms": 7
+      },
+      {
+        "name": "site-resilience.css?v=20260924-perf-v1scenes",
+        "bytes": 7091,
+        "ms": 7
+      },
+      {
+        "name": "portfolio-next.css?v=20260924-light-type-v9-nohalo",
+        "bytes": 30009,
+        "ms": 7
+      },
+      {
+        "name": "site-scenes.css?v=20260925-architecture-v28",
+        "bytes": 57092,
+        "ms": 7
+      },
+      {
+        "name": "site-scenes.js?v=20260925-architecture-v28",
+        "bytes": 24712,
+        "ms": 11
+      },
+      {
+        "name": "site-audio.js?v=20260925-architecture-v28",
+        "bytes": 22499,
+        "ms": 11
+      },
+      {
+        "name": "site-navigation.js",
+        "bytes": 4269,
+        "ms": 22
+      },
+      {
+        "name": "site-search.js",
+        "bytes": 2362,
+        "ms": 22
+      },
+      {
+        "name": "site-sound-control.js",
+        "bytes": 4353,
+        "ms": 22
+      },
+      {
+        "name": "site-responsive.css",
+        "bytes": 37919,
+        "ms": 7
+      },
+      {
+        "name": "site-resilience.js?v=20260925-architecture-v28",
+        "bytes": 2942,
+        "ms": 21
+      },
+      {
+        "name": "app.js?v=20260925-architecture-v28",
+        "bytes": 12474,
+        "ms": 22
+      },
+      {
+        "name": "portfolio-next.js?v=20260924-perf-v1solar-v4",
+        "bytes": 16707,
+        "ms": 22
+      },
+      {
+        "name": "fonts.css",
+        "bytes": 1377,
+        "ms": 4
+      },
+      {
+        "name": "webb-cosmic-cliffs.webp",
+        "bytes": 295192,
+        "ms": 7
+      },
+      {
+        "name": "pexels-photo-7351460.jpeg?auto=compress&cs=tinysrgb&w=1600",
+        "bytes": 0,
+        "ms": 3
+      },
+      {
+        "name": "dm-sans-400.ttf",
+        "bytes": 48280,
+        "ms": 40
+      },
+      {
+        "name": "dm-sans-700.ttf",
+        "bytes": 48200,
+        "ms": 40
+      },
+      {
+        "name": "dm-sans-500.ttf",
+        "bytes": 48308,
+        "ms": 40
+      },
+      {
+        "name": "manrope-600.ttf",
+        "bytes": 95096,
+        "ms": 40
+      },
+      {
+        "name": "manrope-500.ttf",
+        "bytes": 95060,
+        "ms": 30
+      },
+      {
+        "name": "dm-sans-600.ttf",
+        "bytes": 48280,
+        "ms": 30
+      },
+      {
+        "name": "Cape%20May%20Shorebirds%20closer.ogg",
+        "bytes": 0,
+        "ms": 8
+      },
+      {
+        "name": "Cape%20May%20Shorebirds%20%28distant%29.ogg",
+        "bytes": 0,
+        "ms": 8
+      },
+      {
+        "name": "site-navigation.json",
+        "bytes": 3166,
+        "ms": 9
+      },
+      {
+        "name": "handheld-experience.css?v=20260924-release",
+        "bytes": 4397,
+        "ms": 7
+      },
+      {
+        "name": "handheld-experience.js?v=20260924-release",
+        "bytes": 1335,
+        "ms": 7
+      },
+      {
+        "name": "manrope-800.ttf",
+        "bytes": 95688,
+        "ms": 58
+      }
+    ],
+    "navigation": [
+      {
+        "domContentLoaded": 118,
+        "transfer": 15561
+      }
+    ]
+  },
+  {
+    "name": "learning",
+    "width": 390,
+    "url": "http://127.0.0.1:32947/learn.html",
+    "elapsedMs": 2989,
+    "errors": [],
+    "domNodes": 18136,
+    "scrollWidth": 390,
+    "viewport": 390,
+    "resources": [
+      {
+        "name": "site-theme.js?v=20260924-scenes",
+        "bytes": 8499,
+        "ms": 9
+      },
+      {
+        "name": "fonts.css?v=20260924-learning-type-v1",
+        "bytes": 1377,
+        "ms": 9
+      },
+      {
+        "name": "knowledge.css?v=20260924-mobile-header-v1",
+        "bytes": 90857,
+        "ms": 12
+      },
+      {
+        "name": "learning-depth.css?v=20260924-release",
+        "bytes": 5942,
+        "ms": 21
+      },
+      {
+        "name": "portfolio-next.css?v=20260924-solar-v11solar-v10",
+        "bytes": 30009,
+        "ms": 22
+      },
+      {
+        "name": "site-scenes.css?v=20260925-architecture-v28",
+        "bytes": 57092,
+        "ms": 22
+      },
+      {
+        "name": "site-audio.js?v=20260925-architecture-v28",
+        "bytes": 22499,
+        "ms": 28
+      },
+      {
+        "name": "site-scenes.js?v=20260925-architecture-v28",
+        "bytes": 24712,
+        "ms": 29
+      },
+      {
+        "name": "site-navigation.js",
+        "bytes": 4269,
+        "ms": 29
+      },
+      {
+        "name": "site-sections.css",
+        "bytes": 978,
+        "ms": 21
+      },
+      {
+        "name": "site-responsive.css",
+        "bytes": 37919,
+        "ms": 22
+      },
+      {
+        "name": "site-sound-control.js",
+        "bytes": 4353,
+        "ms": 29
+      },
+      {
+        "name": "solar-navigation.js",
+        "bytes": 17648,
+        "ms": 29
+      },
+      {
+        "name": "portfolio-next.js?v=20260924-solar-v12solar-v11solar-v10solar-v4",
+        "bytes": 16707,
+        "ms": 35
+      },
+      {
+        "name": "knowledge-data.js",
+        "bytes": 25408234,
+        "ms": 197
+      },
+      {
+        "name": "learning-depth.js?v=20260924-release",
+        "bytes": 9413,
+        "ms": 35
+      },
+      {
+        "name": "knowledge.js?v=20260925-architecture-v28",
+        "bytes": 190019,
+        "ms": 36
+      },
+      {
+        "name": "webb-cosmic-cliffs.webp",
+        "bytes": 295192,
+        "ms": 9
+      },
+      {
+        "name": "pexels-photo-7351460.jpeg?auto=compress&cs=tinysrgb&w=1600",
+        "bytes": 0,
+        "ms": 3
+      },
+      {
+        "name": "dm-sans-400.ttf",
+        "bytes": 48280,
+        "ms": 167
+      },
+      {
+        "name": "dm-sans-700.ttf",
+        "bytes": 48200,
+        "ms": 167
+      },
+      {
+        "name": "dm-sans-500.ttf",
+        "bytes": 48308,
+        "ms": 167
+      },
+      {
+        "name": "site-navigation.json",
+        "bytes": 3166,
+        "ms": 3
+      },
+      {
+        "name": "Cape%20May%20Shorebirds%20closer.ogg",
+        "bytes": 0,
+        "ms": 1
+      },
+      {
+        "name": "Cape%20May%20Shorebirds%20%28distant%29.ogg",
+        "bytes": 0,
+        "ms": 4
+      },
+      {
+        "name": "handheld-experience.css?v=20260924-release",
+        "bytes": 4397,
+        "ms": 4
+      },
+      {
+        "name": "handheld-experience.js?v=20260924-release",
+        "bytes": 1335,
+        "ms": 3
+      }
+    ],
+    "navigation": [
+      {
+        "domContentLoaded": 474,
+        "transfer": 25752
+      }
+    ]
+  },
+  {
+    "name": "learning",
+    "width": 1440,
+    "url": "http://127.0.0.1:32947/learn.html",
+    "elapsedMs": 4765,
+    "errors": [],
+    "domNodes": 18138,
+    "scrollWidth": 1440,
+    "viewport": 1440,
+    "resources": [
+      {
+        "name": "site-theme.js?v=20260924-scenes",
+        "bytes": 8499,
+        "ms": 4
+      },
+      {
+        "name": "learning-depth.css?v=20260924-release",
+        "bytes": 5942,
+        "ms": 8
+      },
+      {
+        "name": "fonts.css?v=20260924-learning-type-v1",
+        "bytes": 1377,
+        "ms": 8
+      },
+      {
+        "name": "knowledge.css?v=20260924-mobile-header-v1",
+        "bytes": 90857,
+        "ms": 10
+      },
+      {
+        "name": "portfolio-next.css?v=20260924-solar-v11solar-v10",
+        "bytes": 30009,
+        "ms": 8
+      },
+      {
+        "name": "site-scenes.css?v=20260925-architecture-v28",
+        "bytes": 57092,
+        "ms": 8
+      },
+      {
+        "name": "site-audio.js?v=20260925-architecture-v28",
+        "bytes": 22499,
+        "ms": 16
+      },
+      {
+        "name": "site-sections.css",
+        "bytes": 978,
+        "ms": 10
+      },
+      {
+        "name": "site-scenes.js?v=20260925-architecture-v28",
+        "bytes": 24712,
+        "ms": 16
+      },
+      {
+        "name": "site-navigation.js",
+        "bytes": 4269,
+        "ms": 22
+      },
+      {
+        "name": "site-sound-control.js",
+        "bytes": 4353,
+        "ms": 26
+      },
+      {
+        "name": "site-responsive.css",
+        "bytes": 37919,
+        "ms": 11
+      },
+      {
+        "name": "portfolio-next.js?v=20260924-solar-v12solar-v11solar-v10solar-v4",
+        "bytes": 16707,
+        "ms": 34
+      },
+      {
+        "name": "solar-navigation.js",
+        "bytes": 17648,
+        "ms": 33
+      },
+      {
+        "name": "knowledge.js?v=20260925-architecture-v28",
+        "bytes": 190019,
+        "ms": 38
+      },
+      {
+        "name": "knowledge-data.js",
+        "bytes": 25408234,
+        "ms": 248
+      },
+      {
+        "name": "learning-depth.js?v=20260924-release",
+        "bytes": 9413,
+        "ms": 34
+      },
+      {
+        "name": "dm-sans-400.ttf",
+        "bytes": 48280,
+        "ms": 121
+      },
+      {
+        "name": "dm-sans-700.ttf",
+        "bytes": 48200,
+        "ms": 121
+      },
+      {
+        "name": "dm-sans-500.ttf",
+        "bytes": 48308,
+        "ms": 121
+      },
+      {
+        "name": "webb-cosmic-cliffs.webp",
+        "bytes": 295192,
+        "ms": 14
+      },
+      {
+        "name": "pexels-photo-7351460.jpeg?auto=compress&cs=tinysrgb&w=1600",
+        "bytes": 0,
+        "ms": 7
+      },
+      {
+        "name": "site-navigation.json",
+        "bytes": 3166,
+        "ms": 4
+      },
+      {
+        "name": "Cape%20May%20Shorebirds%20closer.ogg",
+        "bytes": 0,
+        "ms": 1
+      },
+      {
+        "name": "Cape%20May%20Shorebirds%20%28distant%29.ogg",
+        "bytes": 0,
+        "ms": 1
+      },
+      {
+        "name": "handheld-experience.css?v=20260924-release",
+        "bytes": 4397,
+        "ms": 6
+      },
+      {
+        "name": "handheld-experience.js?v=20260924-release",
+        "bytes": 1335,
+        "ms": 5
+      }
+    ],
+    "navigation": [
+      {
+        "domContentLoaded": 511,
+        "transfer": 25752
+      }
+    ]
+  },
+  {
+    "name": "lesson-visual",
+    "width": 390,
+    "url": "http://127.0.0.1:32947/lesson.html?lesson=cloud-url-journey&view=visual",
+    "elapsedMs": 2611,
+    "errors": [],
+    "domNodes": 18089,
+    "scrollWidth": 390,
+    "viewport": 390,
+    "resources": [
+      {
+        "name": "site-theme.js?v=20260924-scenes",
+        "bytes": 8499,
+        "ms": 3
+      },
+      {
+        "name": "fonts.css?v=20260924-learning-type-v1",
+        "bytes": 1377,
+        "ms": 9
+      },
+      {
+        "name": "knowledge.css?v=20260924-mobile-header-v1",
+        "bytes": 90857,
+        "ms": 11
+      },
+      {
+        "name": "learning-depth.css?v=20260924-release",
+        "bytes": 5942,
+        "ms": 10
+      },
+      {
+        "name": "portfolio-next.css?v=20260924-solar-v11solar-v10",
+        "bytes": 30009,
+        "ms": 10
+      },
+      {
+        "name": "site-scenes.css?v=20260925-architecture-v28",
+        "bytes": 57092,
+        "ms": 10
+      },
+      {
+        "name": "site-audio.js?v=20260925-architecture-v28",
+        "bytes": 22499,
+        "ms": 17
+      },
+      {
+        "name": "site-navigation.js",
+        "bytes": 4269,
+        "ms": 22
+      },
+      {
+        "name": "site-scenes.js?v=20260925-architecture-v28",
+        "bytes": 24712,
+        "ms": 22
+      },
+      {
+        "name": "site-sound-control.js",
+        "bytes": 4353,
+        "ms": 22
+      },
+      {
+        "name": "site-responsive.css",
+        "bytes": 37919,
+        "ms": 10
+      },
+      {
+        "name": "portfolio-next.js?v=20260924-solar-v12solar-v11solar-v10solar-v4",
+        "bytes": 16707,
+        "ms": 30
+      },
+      {
+        "name": "knowledge-data.js",
+        "bytes": 25408234,
+        "ms": 189
+      },
+      {
+        "name": "knowledge.js?v=20260925-architecture-v28",
+        "bytes": 190019,
+        "ms": 34
+      },
+      {
+        "name": "learning-depth.js?v=20260924-release",
+        "bytes": 9413,
+        "ms": 32
+      },
+      {
+        "name": "Cape%20May%20Shorebirds%20closer.ogg",
+        "bytes": 0,
+        "ms": 2
+      },
+      {
+        "name": "Cape%20May%20Shorebirds%20%28distant%29.ogg",
+        "bytes": 0,
+        "ms": 1
+      },
+      {
+        "name": "webb-cosmic-cliffs.webp",
+        "bytes": 295192,
+        "ms": 9
+      },
+      {
+        "name": "pexels-photo-7351460.jpeg?auto=compress&cs=tinysrgb&w=1600",
+        "bytes": 0,
+        "ms": 1
+      },
+      {
+        "name": "site-navigation.json",
+        "bytes": 3166,
+        "ms": 3
+      },
+      {
+        "name": "handheld-experience.css?v=20260924-release",
+        "bytes": 4397,
+        "ms": 15
+      },
+      {
+        "name": "handheld-experience.js?v=20260924-release",
+        "bytes": 1335,
+        "ms": 14
+      },
+      {
+        "name": "networking.json",
+        "bytes": 809311,
+        "ms": 5
+      }
+    ],
+    "navigation": [
+      {
+        "domContentLoaded": 488,
+        "transfer": 22355
+      }
+    ]
+  },
+  {
+    "name": "lesson-visual",
+    "width": 1440,
+    "url": "http://127.0.0.1:32947/lesson.html?lesson=cloud-url-journey&view=visual",
+    "elapsedMs": 4691,
+    "errors": [],
+    "domNodes": 18089,
+    "scrollWidth": 1440,
+    "viewport": 1440,
+    "resources": [
+      {
+        "name": "site-theme.js?v=20260924-scenes",
+        "bytes": 8499,
+        "ms": 6
+      },
+      {
+        "name": "fonts.css?v=20260924-learning-type-v1",
+        "bytes": 1377,
+        "ms": 5
+      },
+      {
+        "name": "knowledge.css?v=20260924-mobile-header-v1",
+        "bytes": 90857,
+        "ms": 6
+      },
+      {
+        "name": "learning-depth.css?v=20260924-release",
+        "bytes": 5942,
+        "ms": 6
+      },
+      {
+        "name": "portfolio-next.css?v=20260924-solar-v11solar-v10",
+        "bytes": 30009,
+        "ms": 7
+      },
+      {
+        "name": "site-scenes.css?v=20260925-architecture-v28",
+        "bytes": 57092,
+        "ms": 8
+      },
+      {
+        "name": "site-audio.js?v=20260925-architecture-v28",
+        "bytes": 22499,
+        "ms": 10
+      },
+      {
+        "name": "site-responsive.css",
+        "bytes": 37919,
+        "ms": 7
+      },
+      {
+        "name": "site-scenes.js?v=20260925-architecture-v28",
+        "bytes": 24712,
+        "ms": 11
+      },
+      {
+        "name": "site-sound-control.js",
+        "bytes": 4353,
+        "ms": 19
+      },
+      {
+        "name": "site-navigation.js",
+        "bytes": 4269,
+        "ms": 19
+      },
+      {
+        "name": "knowledge-data.js",
+        "bytes": 25408234,
+        "ms": 177
+      },
+      {
+        "name": "portfolio-next.js?v=20260924-solar-v12solar-v11solar-v10solar-v4",
+        "bytes": 16707,
+        "ms": 19
+      },
+      {
+        "name": "learning-depth.js?v=20260924-release",
+        "bytes": 9413,
+        "ms": 19
+      },
+      {
+        "name": "knowledge.js?v=20260925-architecture-v28",
+        "bytes": 190019,
+        "ms": 20
+      },
+      {
+        "name": "webb-cosmic-cliffs.webp",
+        "bytes": 295192,
+        "ms": 6
+      },
+      {
+        "name": "pexels-photo-7351460.jpeg?auto=compress&cs=tinysrgb&w=1600",
+        "bytes": 0,
+        "ms": 2
+      },
+      {
+        "name": "Cape%20May%20Shorebirds%20closer.ogg",
+        "bytes": 0,
+        "ms": 2
+      },
+      {
+        "name": "Cape%20May%20Shorebirds%20%28distant%29.ogg",
+        "bytes": 0,
+        "ms": 2
+      },
+      {
+        "name": "site-navigation.json",
+        "bytes": 3166,
+        "ms": 6
+      },
+      {
+        "name": "handheld-experience.css?v=20260924-release",
+        "bytes": 4397,
+        "ms": 10
+      },
+      {
+        "name": "handheld-experience.js?v=20260924-release",
+        "bytes": 1335,
+        "ms": 9
+      },
+      {
+        "name": "networking.json",
+        "bytes": 809311,
+        "ms": 7
+      }
+    ],
+    "navigation": [
+      {
+        "domContentLoaded": 463,
+        "transfer": 22355
+      }
+    ]
+  },
+  {
+    "name": "lesson-lab",
+    "width": 390,
+    "url": "http://127.0.0.1:32947/lesson.html?lesson=cloud-url-journey&view=lab",
+    "elapsedMs": 4015,
+    "errors": [],
+    "domNodes": 18085,
+    "scrollWidth": 390,
+    "viewport": 390,
+    "resources": [
+      {
+        "name": "site-theme.js?v=20260924-scenes",
+        "bytes": 8499,
+        "ms": 2
+      },
+      {
+        "name": "fonts.css?v=20260924-learning-type-v1",
+        "bytes": 1377,
+        "ms": 5
+      },
+      {
+        "name": "learning-depth.css?v=20260924-release",
+        "bytes": 5942,
+        "ms": 7
+      },
+      {
+        "name": "knowledge.css?v=20260924-mobile-header-v1",
+        "bytes": 90857,
+        "ms": 8
+      },
+      {
+        "name": "portfolio-next.css?v=20260924-solar-v11solar-v10",
+        "bytes": 30009,
+        "ms": 7
+      },
+      {
+        "name": "site-scenes.css?v=20260925-architecture-v28",
+        "bytes": 57092,
+        "ms": 8
+      },
+      {
+        "name": "site-audio.js?v=20260925-architecture-v28",
+        "bytes": 22499,
+        "ms": 9
+      },
+      {
+        "name": "site-responsive.css",
+        "bytes": 37919,
+        "ms": 8
+      },
+      {
+        "name": "site-navigation.js",
+        "bytes": 4269,
+        "ms": 14
+      },
+      {
+        "name": "site-sound-control.js",
+        "bytes": 4353,
+        "ms": 14
+      },
+      {
+        "name": "site-scenes.js?v=20260925-architecture-v28",
+        "bytes": 24712,
+        "ms": 14
+      },
+      {
+        "name": "knowledge-data.js",
+        "bytes": 25408234,
+        "ms": 170
+      },
+      {
+        "name": "portfolio-next.js?v=20260924-solar-v12solar-v11solar-v10solar-v4",
+        "bytes": 16707,
+        "ms": 14
+      },
+      {
+        "name": "learning-depth.js?v=20260924-release",
+        "bytes": 9413,
+        "ms": 19
+      },
+      {
+        "name": "knowledge.js?v=20260925-architecture-v28",
+        "bytes": 190019,
+        "ms": 16
+      },
+      {
+        "name": "Cape%20May%20Shorebirds%20closer.ogg",
+        "bytes": 0,
+        "ms": 1
+      },
+      {
+        "name": "webb-cosmic-cliffs.webp",
+        "bytes": 295192,
+        "ms": 4
+      },
+      {
+        "name": "pexels-photo-7351460.jpeg?auto=compress&cs=tinysrgb&w=1600",
+        "bytes": 0,
+        "ms": 1
+      },
+      {
+        "name": "site-navigation.json",
+        "bytes": 3166,
+        "ms": 2
+      },
+      {
+        "name": "Cape%20May%20Shorebirds%20%28distant%29.ogg",
+        "bytes": 0,
+        "ms": 1
+      },
+      {
+        "name": "handheld-experience.css?v=20260924-release",
+        "bytes": 4397,
+        "ms": 4
+      },
+      {
+        "name": "handheld-experience.js?v=20260924-release",
+        "bytes": 1335,
+        "ms": 3
+      },
+      {
+        "name": "networking.json",
+        "bytes": 809311,
+        "ms": 8
+      }
+    ],
+    "navigation": [
+      {
+        "domContentLoaded": 442,
+        "transfer": 22355
+      }
+    ]
+  },
+  {
+    "name": "lesson-lab",
+    "width": 1440,
+    "url": "http://127.0.0.1:32947/lesson.html?lesson=cloud-url-journey&view=lab",
+    "elapsedMs": 6289,
+    "errors": [],
+    "domNodes": 18085,
+    "scrollWidth": 1440,
+    "viewport": 1440,
+    "resources": [
+      {
+        "name": "site-theme.js?v=20260924-scenes",
+        "bytes": 8499,
+        "ms": 7
+      },
+      {
+        "name": "fonts.css?v=20260924-learning-type-v1",
+        "bytes": 1377,
+        "ms": 6
+      },
+      {
+        "name": "learning-depth.css?v=20260924-release",
+        "bytes": 5942,
+        "ms": 6
+      },
+      {
+        "name": "knowledge.css?v=20260924-mobile-header-v1",
+        "bytes": 90857,
+        "ms": 7
+      },
+      {
+        "name": "portfolio-next.css?v=20260924-solar-v11solar-v10",
+        "bytes": 30009,
+        "ms": 7
+      },
+      {
+        "name": "site-scenes.css?v=20260925-architecture-v28",
+        "bytes": 57092,
+        "ms": 10
+      },
+      {
+        "name": "site-audio.js?v=20260925-architecture-v28",
+        "bytes": 22499,
+        "ms": 18
+      },
+      {
+        "name": "site-scenes.js?v=20260925-architecture-v28",
+        "bytes": 24712,
+        "ms": 18
+      },
+      {
+        "name": "site-navigation.js",
+        "bytes": 4269,
+        "ms": 18
+      },
+      {
+        "name": "site-responsive.css",
+        "bytes": 37919,
+        "ms": 10
+      },
+      {
+        "name": "site-sound-control.js",
+        "bytes": 4353,
+        "ms": 18
+      },
+      {
+        "name": "portfolio-next.js?v=20260924-solar-v12solar-v11solar-v10solar-v4",
+        "bytes": 16707,
+        "ms": 18
+      },
+      {
+        "name": "knowledge-data.js",
+        "bytes": 25408234,
+        "ms": 192
+      },
+      {
+        "name": "learning-depth.js?v=20260924-release",
+        "bytes": 9413,
+        "ms": 22
+      },
+      {
+        "name": "knowledge.js?v=20260925-architecture-v28",
+        "bytes": 190019,
+        "ms": 23
+      },
+      {
+        "name": "webb-cosmic-cliffs.webp",
+        "bytes": 295192,
+        "ms": 7
+      },
+      {
+        "name": "pexels-photo-7351460.jpeg?auto=compress&cs=tinysrgb&w=1600",
+        "bytes": 0,
+        "ms": 6
+      },
+      {
+        "name": "site-navigation.json",
+        "bytes": 3166,
+        "ms": 11
+      },
+      {
+        "name": "Cape%20May%20Shorebirds%20closer.ogg",
+        "bytes": 0,
+        "ms": 10
+      },
+      {
+        "name": "Cape%20May%20Shorebirds%20%28distant%29.ogg",
+        "bytes": 0,
+        "ms": 10
+      },
+      {
+        "name": "handheld-experience.css?v=20260924-release",
+        "bytes": 4397,
+        "ms": 10
+      },
+      {
+        "name": "handheld-experience.js?v=20260924-release",
+        "bytes": 1335,
+        "ms": 3
+      },
+      {
+        "name": "networking.json",
+        "bytes": 809311,
+        "ms": 12
+      }
+    ],
+    "navigation": [
+      {
+        "domContentLoaded": 549,
+        "transfer": 22355
+      }
+    ]
+  },
+  {
+    "name": "ai",
+    "width": 390,
+    "url": "http://127.0.0.1:32947/ai-llm.html",
+    "elapsedMs": 1964,
+    "errors": [],
+    "domNodes": 191,
+    "scrollWidth": 390,
+    "viewport": 390,
+    "resources": [
+      {
+        "name": "site-theme.js",
+        "bytes": 8499,
+        "ms": 6
+      },
+      {
+        "name": "styles.css",
+        "bytes": 19530,
+        "ms": 6
+      },
+      {
+        "name": "site-resilience.css",
+        "bytes": 7091,
+        "ms": 6
+      },
+      {
+        "name": "site-scenes.css",
+        "bytes": 57092,
+        "ms": 7
+      },
+      {
+        "name": "site-sections.css",
+        "bytes": 978,
+        "ms": 8
+      },
+      {
+        "name": "site-navigation.js",
+        "bytes": 4269,
+        "ms": 15
+      },
+      {
+        "name": "site-search.js",
+        "bytes": 2362,
+        "ms": 15
+      },
+      {
+        "name": "site-scenes.js",
+        "bytes": 24712,
+        "ms": 15
+      },
+      {
+        "name": "site-resilience.js",
+        "bytes": 2942,
+        "ms": 16
+      },
+      {
+        "name": "site-audio.js",
+        "bytes": 22499,
+        "ms": 16
+      },
+      {
+        "name": "site-responsive.css",
+        "bytes": 37919,
+        "ms": 8
+      },
+      {
+        "name": "site-sound-control.js",
+        "bytes": 4353,
+        "ms": 17
+      },
+      {
+        "name": "ai-build-lab.js",
+        "bytes": 15769,
+        "ms": 18
+      },
+      {
+        "name": "fonts.css",
+        "bytes": 1377,
+        "ms": 3
+      },
+      {
+        "name": "dm-sans-400.ttf",
+        "bytes": 48280,
+        "ms": 26
+      },
+      {
+        "name": "dm-sans-700.ttf",
+        "bytes": 48200,
+        "ms": 27
+      },
+      {
+        "name": "dm-sans-500.ttf",
+        "bytes": 48308,
+        "ms": 27
+      },
+      {
+        "name": "manrope-600.ttf",
+        "bytes": 95096,
+        "ms": 27
+      },
+      {
+        "name": "manrope-500.ttf",
+        "bytes": 95060,
+        "ms": 16
+      },
+      {
+        "name": "site-navigation.json",
+        "bytes": 3166,
+        "ms": 11
+      },
+      {
+        "name": "webb-cosmic-cliffs.webp",
+        "bytes": 295192,
+        "ms": 11
+      },
+      {
+        "name": "pexels-photo-7351460.jpeg?auto=compress&cs=tinysrgb&w=1600",
+        "bytes": 0,
+        "ms": 1
+      },
+      {
+        "name": "Cape%20May%20Shorebirds%20closer.ogg",
+        "bytes": 0,
+        "ms": 1
+      },
+      {
+        "name": "Cape%20May%20Shorebirds%20%28distant%29.ogg",
+        "bytes": 0,
+        "ms": 1
+      },
+      {
+        "name": "manrope-800.ttf",
+        "bytes": 95688,
+        "ms": 19
+      }
+    ],
+    "navigation": [
+      {
+        "domContentLoaded": 65,
+        "transfer": 7341
+      }
+    ]
+  },
+  {
+    "name": "ai",
+    "width": 1440,
+    "url": "http://127.0.0.1:32947/ai-llm.html",
+    "elapsedMs": 4236,
+    "errors": [],
+    "domNodes": 191,
+    "scrollWidth": 1440,
+    "viewport": 1440,
+    "resources": [
+      {
+        "name": "site-theme.js",
+        "bytes": 8499,
+        "ms": 4
+      },
+      {
+        "name": "styles.css",
+        "bytes": 19530,
+        "ms": 13
+      },
+      {
+        "name": "site-sections.css",
+        "bytes": 978,
+        "ms": 12
+      },
+      {
+        "name": "site-resilience.css",
+        "bytes": 7091,
+        "ms": 14
+      },
+      {
+        "name": "site-scenes.css",
+        "bytes": 57092,
+        "ms": 14
+      },
+      {
+        "name": "site-navigation.js",
+        "bytes": 4269,
+        "ms": 15
+      },
+      {
+        "name": "site-search.js",
+        "bytes": 2362,
+        "ms": 19
+      },
+      {
+        "name": "site-scenes.js",
+        "bytes": 24712,
+        "ms": 20
+      },
+      {
+        "name": "site-resilience.js",
+        "bytes": 2942,
+        "ms": 19
+      },
+      {
+        "name": "site-audio.js",
+        "bytes": 22499,
+        "ms": 20
+      },
+      {
+        "name": "site-sound-control.js",
+        "bytes": 4353,
+        "ms": 21
+      },
+      {
+        "name": "site-responsive.css",
+        "bytes": 37919,
+        "ms": 14
+      },
+      {
+        "name": "ai-build-lab.js",
+        "bytes": 15769,
+        "ms": 23
+      },
+      {
+        "name": "fonts.css",
+        "bytes": 1377,
+        "ms": 6
+      },
+      {
+        "name": "site-navigation.json",
+        "bytes": 3166,
+        "ms": 2
+      },
+      {
+        "name": "pexels-photo-7351460.jpeg?auto=compress&cs=tinysrgb&w=1600",
+        "bytes": 0,
+        "ms": 1
+      },
+      {
+        "name": "webb-cosmic-cliffs.webp",
+        "bytes": 295192,
+        "ms": 3
+      },
+      {
+        "name": "dm-sans-400.ttf",
+        "bytes": 48280,
+        "ms": 43
+      },
+      {
+        "name": "dm-sans-700.ttf",
+        "bytes": 48200,
+        "ms": 42
+      },
+      {
+        "name": "dm-sans-500.ttf",
+        "bytes": 48308,
+        "ms": 41
+      },
+      {
+        "name": "manrope-600.ttf",
+        "bytes": 95096,
+        "ms": 42
+      },
+      {
+        "name": "manrope-500.ttf",
+        "bytes": 95060,
+        "ms": 12
+      },
+      {
+        "name": "Cape%20May%20Shorebirds%20closer.ogg",
+        "bytes": 0,
+        "ms": 2
+      },
+      {
+        "name": "Cape%20May%20Shorebirds%20%28distant%29.ogg",
+        "bytes": 0,
+        "ms": 2
+      },
+      {
+        "name": "manrope-800.ttf",
+        "bytes": 95688,
+        "ms": 33
+      }
+    ],
+    "navigation": [
+      {
+        "domContentLoaded": 75,
+        "transfer": 7341
+      }
+    ]
+  },
+  {
+    "name": "chess",
+    "width": 390,
+    "url": "http://127.0.0.1:32947/project-battle-chess.html",
+    "elapsedMs": 2150,
+    "errors": [],
+    "domNodes": 153,
+    "scrollWidth": 390,
+    "viewport": 390,
+    "resources": [
+      {
+        "name": "site-theme.js?v=20260924-scenes",
+        "bytes": 8499,
+        "ms": 5
+      },
+      {
+        "name": "styles.css?v=20260924-readable-v9",
+        "bytes": 19530,
+        "ms": 5
+      },
+      {
+        "name": "site-resilience.css?v=20260924-perf-v1scenes",
+        "bytes": 7091,
+        "ms": 5
+      },
+      {
+        "name": "portfolio-next.css?v=20260924-light-type-v9-nohalo",
+        "bytes": 30009,
+        "ms": 5
+      },
+      {
+        "name": "site-scenes.css?v=20260925-architecture-v28",
+        "bytes": 57092,
+        "ms": 5
+      },
+      {
+        "name": "site-scenes.js?v=20260925-architecture-v28",
+        "bytes": 24712,
+        "ms": 7
+      },
+      {
+        "name": "site-navigation.js",
+        "bytes": 4269,
+        "ms": 8
+      },
+      {
+        "name": "site-audio.js",
+        "bytes": 22499,
+        "ms": 13
+      },
+      {
+        "name": "site-search.js",
+        "bytes": 2362,
+        "ms": 13
+      },
+      {
+        "name": "site-responsive.css",
+        "bytes": 37919,
+        "ms": 5
+      },
+      {
+        "name": "site-sound-control.js",
+        "bytes": 4353,
+        "ms": 13
+      },
+      {
+        "name": "site-resilience.js?v=20260925-architecture-v28",
+        "bytes": 2942,
+        "ms": 13
+      },
+      {
+        "name": "portfolio-next.js?v=20260924-perf-v1solar-v4",
+        "bytes": 16707,
+        "ms": 15
+      },
+      {
+        "name": "app.js?v=20260925-architecture-v28",
+        "bytes": 12474,
+        "ms": 15
+      },
+      {
+        "name": "fonts.css",
+        "bytes": 1377,
+        "ms": 1
+      },
+      {
+        "name": "webb-cosmic-cliffs.webp",
+        "bytes": 295192,
+        "ms": 2
+      },
+      {
+        "name": "pexels-photo-7351460.jpeg?auto=compress&cs=tinysrgb&w=1600",
+        "bytes": 0,
+        "ms": 2
+      },
+      {
+        "name": "dm-sans-400.ttf",
+        "bytes": 48280,
+        "ms": 39
+      },
+      {
+        "name": "dm-sans-700.ttf",
+        "bytes": 48200,
+        "ms": 39
+      },
+      {
+        "name": "dm-sans-500.ttf",
+        "bytes": 48308,
+        "ms": 40
+      },
+      {
+        "name": "manrope-600.ttf",
+        "bytes": 95096,
+        "ms": 40
+      },
+      {
+        "name": "site-navigation.json",
+        "bytes": 3166,
+        "ms": 3
+      },
+      {
+        "name": "manrope-500.ttf",
+        "bytes": 95060,
+        "ms": 30
+      },
+      {
+        "name": "dm-sans-600.ttf",
+        "bytes": 48280,
+        "ms": 29
+      },
+      {
+        "name": "Cape%20May%20Shorebirds%20closer.ogg",
+        "bytes": 0,
+        "ms": 1
+      },
+      {
+        "name": "Cape%20May%20Shorebirds%20%28distant%29.ogg",
+        "bytes": 0,
+        "ms": 1
+      },
+      {
+        "name": "manrope-800.ttf",
+        "bytes": 95688,
+        "ms": 32
+      }
+    ],
+    "navigation": [
+      {
+        "domContentLoaded": 97,
+        "transfer": 9608
+      }
+    ]
+  },
+  {
+    "name": "chess",
+    "width": 1440,
+    "url": "http://127.0.0.1:32947/project-battle-chess.html",
+    "elapsedMs": 5064,
+    "errors": [],
+    "domNodes": 153,
+    "scrollWidth": 1440,
+    "viewport": 1440,
+    "resources": [
+      {
+        "name": "site-theme.js?v=20260924-scenes",
+        "bytes": 8499,
+        "ms": 6
+      },
+      {
+        "name": "styles.css?v=20260924-readable-v9",
+        "bytes": 19530,
+        "ms": 6
+      },
+      {
+        "name": "site-resilience.css?v=20260924-perf-v1scenes",
+        "bytes": 7091,
+        "ms": 6
+      },
+      {
+        "name": "portfolio-next.css?v=20260924-light-type-v9-nohalo",
+        "bytes": 30009,
+        "ms": 6
+      },
+      {
+        "name": "site-scenes.css?v=20260925-architecture-v28",
+        "bytes": 57092,
+        "ms": 6
+      },
+      {
+        "name": "site-scenes.js?v=20260925-architecture-v28",
+        "bytes": 24712,
+        "ms": 10
+      },
+      {
+        "name": "site-navigation.js",
+        "bytes": 4269,
+        "ms": 11
+      },
+      {
+        "name": "site-search.js",
+        "bytes": 2362,
+        "ms": 16
+      },
+      {
+        "name": "site-sound-control.js",
+        "bytes": 4353,
+        "ms": 17
+      },
+      {
+        "name": "site-audio.js",
+        "bytes": 22499,
+        "ms": 17
+      },
+      {
+        "name": "site-responsive.css",
+        "bytes": 37919,
+        "ms": 6
+      },
+      {
+        "name": "site-resilience.js?v=20260925-architecture-v28",
+        "bytes": 2942,
+        "ms": 16
+      },
+      {
+        "name": "app.js?v=20260925-architecture-v28",
+        "bytes": 12474,
+        "ms": 17
+      },
+      {
+        "name": "portfolio-next.js?v=20260924-perf-v1solar-v4",
+        "bytes": 16707,
+        "ms": 17
+      },
+      {
+        "name": "fonts.css",
+        "bytes": 1377,
+        "ms": 4
+      },
+      {
+        "name": "pexels-photo-7351460.jpeg?auto=compress&cs=tinysrgb&w=1600",
+        "bytes": 0,
+        "ms": 3
+      },
+      {
+        "name": "webb-cosmic-cliffs.webp",
+        "bytes": 295192,
+        "ms": 4
+      },
+      {
+        "name": "dm-sans-400.ttf",
+        "bytes": 48280,
+        "ms": 28
+      },
+      {
+        "name": "dm-sans-700.ttf",
+        "bytes": 48200,
+        "ms": 28
+      },
+      {
+        "name": "dm-sans-500.ttf",
+        "bytes": 48308,
+        "ms": 29
+      },
+      {
+        "name": "manrope-600.ttf",
+        "bytes": 95096,
+        "ms": 29
+      },
+      {
+        "name": "site-navigation.json",
+        "bytes": 3166,
+        "ms": 9
+      },
+      {
+        "name": "manrope-500.ttf",
+        "bytes": 95060,
+        "ms": 24
+      },
+      {
+        "name": "dm-sans-600.ttf",
+        "bytes": 48280,
+        "ms": 24
+      },
+      {
+        "name": "Cape%20May%20Shorebirds%20closer.ogg",
+        "bytes": 0,
+        "ms": 4
+      },
+      {
+        "name": "Cape%20May%20Shorebirds%20%28distant%29.ogg",
+        "bytes": 0,
+        "ms": 3
+      },
+      {
+        "name": "manrope-800.ttf",
+        "bytes": 95688,
+        "ms": 65
+      }
+    ],
+    "navigation": [
+      {
+        "domContentLoaded": 60,
+        "transfer": 9608
+      }
+    ]
+  },
+  {
+    "name": "wizard",
+    "width": 390,
+    "url": "http://127.0.0.1:32947/play-evil-wizard.html",
+    "elapsedMs": 2282,
+    "errors": [],
+    "domNodes": 130,
+    "scrollWidth": 390,
+    "viewport": 390,
+    "resources": [
+      {
+        "name": "site-theme.js?v=20260924-scenes",
+        "bytes": 8499,
+        "ms": 3
+      },
+      {
+        "name": "styles.css?v=20260924-readable-v9",
+        "bytes": 19530,
+        "ms": 6
+      },
+      {
+        "name": "site-resilience.css?v=20260924-perf-v1scenes",
+        "bytes": 7091,
+        "ms": 6
+      },
+      {
+        "name": "site-scenes.css?v=20260925-architecture-v28",
+        "bytes": 57092,
+        "ms": 6
+      },
+      {
+        "name": "site-scenes.js?v=20260925-architecture-v28",
+        "bytes": 24712,
+        "ms": 12
+      },
+      {
+        "name": "site-navigation.js",
+        "bytes": 4269,
+        "ms": 12
+      },
+      {
+        "name": "site-search.js",
+        "bytes": 2362,
+        "ms": 12
+      },
+      {
+        "name": "site-responsive.css",
+        "bytes": 37919,
+        "ms": 6
+      },
+      {
+        "name": "site-audio.js",
+        "bytes": 22499,
+        "ms": 12
+      },
+      {
+        "name": "site-sound-control.js",
+        "bytes": 4353,
+        "ms": 12
+      },
+      {
+        "name": "index.png",
+        "bytes": 21443,
+        "ms": 6
+      },
+      {
+        "name": "site-resilience.js?v=20260925-architecture-v28",
+        "bytes": 2942,
+        "ms": 12
+      },
+      {
+        "name": "app.js?v=20260925-architecture-v28",
+        "bytes": 12474,
+        "ms": 14
+      },
+      {
+        "name": "fonts.css",
+        "bytes": 1377,
+        "ms": 4
+      },
+      {
+        "name": "webb-cosmic-cliffs.webp",
+        "bytes": 295192,
+        "ms": 4
+      },
+      {
+        "name": "pexels-photo-7351460.jpeg?auto=compress&cs=tinysrgb&w=1600",
+        "bytes": 0,
+        "ms": 1
+      },
+      {
+        "name": "manrope-600.ttf",
+        "bytes": 95096,
+        "ms": 27
+      },
+      {
+        "name": "dm-sans-400.ttf",
+        "bytes": 48280,
+        "ms": 28
+      },
+      {
+        "name": "dm-sans-700.ttf",
+        "bytes": 48200,
+        "ms": 27
+      },
+      {
+        "name": "dm-sans-500.ttf",
+        "bytes": 48308,
+        "ms": 27
+      },
+      {
+        "name": "manrope-500.ttf",
+        "bytes": 95060,
+        "ms": 27
+      },
+      {
+        "name": "site-navigation.json",
+        "bytes": 3166,
+        "ms": 2
+      },
+      {
+        "name": "Cape%20May%20Shorebirds%20closer.ogg",
+        "bytes": 0,
+        "ms": 2
+      },
+      {
+        "name": "Cape%20May%20Shorebirds%20%28distant%29.ogg",
+        "bytes": 0,
+        "ms": 2
+      },
+      {
+        "name": "manrope-800.ttf",
+        "bytes": 95688,
+        "ms": 11
+      }
+    ],
+    "navigation": [
+      {
+        "domContentLoaded": 59,
+        "transfer": 8316
+      }
+    ]
+  },
+  {
+    "name": "wizard",
+    "width": 1440,
+    "url": "http://127.0.0.1:32947/play-evil-wizard.html",
+    "elapsedMs": 4423,
+    "errors": [],
+    "domNodes": 130,
+    "scrollWidth": 1440,
+    "viewport": 1440,
+    "resources": [
+      {
+        "name": "site-theme.js?v=20260924-scenes",
+        "bytes": 8499,
+        "ms": 4
+      },
+      {
+        "name": "styles.css?v=20260924-readable-v9",
+        "bytes": 19530,
+        "ms": 4
+      },
+      {
+        "name": "site-resilience.css?v=20260924-perf-v1scenes",
+        "bytes": 7091,
+        "ms": 8
+      },
+      {
+        "name": "site-scenes.css?v=20260925-architecture-v28",
+        "bytes": 57092,
+        "ms": 8
+      },
+      {
+        "name": "site-search.js",
+        "bytes": 2362,
+        "ms": 11
+      },
+      {
+        "name": "site-navigation.js",
+        "bytes": 4269,
+        "ms": 12
+      },
+      {
+        "name": "site-scenes.js?v=20260925-architecture-v28",
+        "bytes": 24712,
+        "ms": 11
+      },
+      {
+        "name": "site-responsive.css",
+        "bytes": 37919,
+        "ms": 8
+      },
+      {
+        "name": "site-sound-control.js",
+        "bytes": 4353,
+        "ms": 12
+      },
+      {
+        "name": "site-audio.js",
+        "bytes": 22499,
+        "ms": 12
+      },
+      {
+        "name": "index.png",
+        "bytes": 21443,
+        "ms": 8
+      },
+      {
+        "name": "site-resilience.js?v=20260925-architecture-v28",
+        "bytes": 2942,
+        "ms": 18
+      },
+      {
+        "name": "app.js?v=20260925-architecture-v28",
+        "bytes": 12474,
+        "ms": 18
+      },
+      {
+        "name": "fonts.css",
+        "bytes": 1377,
+        "ms": 3
+      },
+      {
+        "name": "manrope-600.ttf",
+        "bytes": 95096,
+        "ms": 23
+      },
+      {
+        "name": "dm-sans-400.ttf",
+        "bytes": 48280,
+        "ms": 21
+      },
+      {
+        "name": "dm-sans-700.ttf",
+        "bytes": 48200,
+        "ms": 19
+      },
+      {
+        "name": "dm-sans-500.ttf",
+        "bytes": 48308,
+        "ms": 19
+      },
+      {
+        "name": "manrope-500.ttf",
+        "bytes": 95060,
+        "ms": 20
+      },
+      {
+        "name": "webb-cosmic-cliffs.webp",
+        "bytes": 295192,
+        "ms": 6
+      },
+      {
+        "name": "pexels-photo-7351460.jpeg?auto=compress&cs=tinysrgb&w=1600",
+        "bytes": 0,
+        "ms": 5
+      },
+      {
+        "name": "site-navigation.json",
+        "bytes": 3166,
+        "ms": 4
+      },
+      {
+        "name": "Cape%20May%20Shorebirds%20closer.ogg",
+        "bytes": 0,
+        "ms": 2
+      },
+      {
+        "name": "Cape%20May%20Shorebirds%20%28distant%29.ogg",
+        "bytes": 0,
+        "ms": 1
+      },
+      {
+        "name": "manrope-800.ttf",
+        "bytes": 95688,
+        "ms": 20
+      }
+    ],
+    "navigation": [
+      {
+        "domContentLoaded": 74,
+        "transfer": 8316
+      }
+    ]
+  }
+]

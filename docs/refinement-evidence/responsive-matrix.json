@@ -1,0 +1,120 @@
+{
+  "sourceCommit": "230d78cdc5ac6dfd6b25d6cab4875db6ffdd8691",
+  "matrix": [
+    [
+      320,
+      568
+    ],
+    [
+      360,
+      800
+    ],
+    [
+      375,
+      812
+    ],
+    [
+      390,
+      844
+    ],
+    [
+      393,
+      852
+    ],
+    [
+      412,
+      915
+    ],
+    [
+      430,
+      932
+    ],
+    [
+      768,
+      1024
+    ],
+    [
+      820,
+      1180
+    ],
+    [
+      1024,
+      768
+    ],
+    [
+      1152,
+      864
+    ],
+    [
+      1280,
+      720
+    ],
+    [
+      1366,
+      768
+    ],
+    [
+      1440,
+      900
+    ],
+    [
+      1536,
+      864
+    ],
+    [
+      1920,
+      1080
+    ],
+    [
+      2560,
+      1440
+    ],
+    [
+      3440,
+      1440
+    ],
+    [
+      3840,
+      2160
+    ],
+    [
+      844,
+      390
+    ],
+    [
+      568,
+      320
+    ]
+  ],
+  "routes": [
+    "ai-computer-vision.html",
+    "ai-development.html",
+    "index.html",
+    "learn-browse.html",
+    "learn.html",
+    "lesson.html",
+    "play-evil-wizard.html",
+    "project-battle-chess.html",
+    "projects.html",
+    "security-research.html"
+  ],
+  "checks": 570,
+  "failures": [
+    {
+      "label": "play-evil-wizard.html 844x390 light",
+      "type": "scene-resize-stale"
+    }
+  ],
+  "physicalDevices": false,
+  "viewportChecksPassed": false,
+  "zoom": [],
+  "nativeZoomFailure": {
+    "requested": 0.8,
+    "actual": {
+      "dpr": 1,
+      "width": 1280,
+      "outerWidth": 1280
+    },
+    "reason": "Browser did not apply the requested native zoom"
+  }
+}

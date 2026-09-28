@@ -1,0 +1,72 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> engineering-portfolio@1.0.0 test:refinement-browser
+> node tests/refinement-browser.test.cjs
+
+MODEL urljourney
+MODEL dns
+MODEL subnet
+MODEL permissions
+MODEL cpu
+MODEL amdahl
+MODEL qubit
+MODEL complexity
+MODEL api
+MODEL cia
+MODEL threat
+MODEL tls
+MODEL incident
+MODEL vector
+MODEL derivative
+MODEL matrix
+MODEL force
+MODEL wave
+MODEL ohm
+MODEL tcp
+MODEL loadbalancer
+MODEL binary
+MODEL logic
+MODEL cachelatency
+MODEL queue
+MODEL rbac
+MODEL errorbudget
+MODEL projectile
+MODEL doppler
+MODEL routetable
+MODEL kubeprobe
+MODEL kubereconcile
+MODEL cachemap
+MODEL mpimessage
+MODEL warpdiv
+MODEL quantumgate
+MODEL btree
+MODEL zerotrust
+MODEL toilcalc
+MODEL magnetic
+MODEL kubescheduler
+MODEL switchlab
+MODEL quorum
+MODEL sqljoin
+MODEL riskmatrix
+MODEL integral
+MODEL seriescircuit
+MODEL dnsttl
+MODEL natlab
+MODEL firewall
+MODEL kuberollout
+MODEL hpa
+MODEL pagemap
+MODEL roundrobin
+MODEL branchpred
+MODEL roofline
+MODEL reduction
+MODEL bellpair
+MODEL evidenceworkbench
+MODEL faulttree
+MODEL sequencebuilder
+MODEL decisionmatrix
+MODEL conceptmap
+MODEL hypothesis
+MODEL teachback
+MODEL checklistbuilder
+PASS refinement: 19 AI experiments, numerical/invalid-input cases, 66 visual/model pairs, local lab notes, timer cleanup, quiz retry, review queue, narration lifetime, teaching-pack retry and six responsive widths in both themes.

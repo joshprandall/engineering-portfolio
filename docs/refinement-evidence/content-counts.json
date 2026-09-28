@@ -1,0 +1,23 @@
+{
+  "learningRecords": 8000,
+  "sourceConceptRecords": 1400,
+  "derivedPracticeRecords": 6600,
+  "recordKinds": {
+    "Lesson": 2837,
+    "Quick Concept": 2155,
+    "Lab": 3000,
+    "Troubleshooting Guide": 8
+  },
+  "recordsWithExecutableOrStudyModel": 3145,
+  "labOrModelCatalogEntries": 4000,
+  "labRecordsWithoutModel": 855,
+  "interactiveModelTypes": 66,
+  "guidedPaths": 300,
+  "glossaryTerms": 1600,
+  "domains": 7,
+  "capstones": 8,
+  "aiBuildExperiments": 19,
+  "projectCards": 16,
+  "publicHtmlRoutes": 71,
+  "distinctFullyAuthoredLessonCount": "Not established by this pass; metadata and template records do not prove instructional completeness."
+}

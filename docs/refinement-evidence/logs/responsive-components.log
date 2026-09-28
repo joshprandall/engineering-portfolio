@@ -1,0 +1,70 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> engineering-portfolio@1.0.0 test:responsive-components
+> node tests/responsive-components.test.cjs
+
+HEADER about.html
+HEADER agent-workbench.html
+HEADER ai-agentic.html
+HEADER ai-build-your-own.html
+HEADER ai-computer-vision.html
+HEADER ai-deep-learning.html
+HEADER ai-development.html
+HEADER ai-embodied.html
+HEADER ai-game.html
+HEADER ai-generative.html
+HEADER ai-geometric.html
+HEADER ai-graph-neural-networks.html
+HEADER ai-llm.html
+HEADER ai-machine-learning.html
+HEADER ai-memory.html
+HEADER ai-multi-agent.html
+HEADER ai-multimodal.html
+HEADER ai-neuro-symbolic.html
+HEADER ai-personal-agent.html
+HEADER ai-project-mind.html
+HEADER ai-reinforcement-learning.html
+HEADER ai-symbolic.html
+HEADER direction.html
+HEADER engine-development.html
+HEADER expertise-experience.html
+HEADER game-development.html
+HEADER index.html
+HEADER learn-advanced.html
+HEADER learn-browse.html
+HEADER learn-capstones.html
+HEADER learn-cloud.html
+HEADER learn-cyber.html
+HEADER learn-glossary.html
+HEADER learn-labs.html
+HEADER learn-leadership.html
+HEADER learn-map.html
+HEADER learn-mastery.html
+HEADER learn-math.html
+HEADER learn-paths.html
+HEADER learn-physics.html
+HEADER learn-practice.html
+HEADER learn-software.html
+HEADER learn-verify.html
+HEADER learn.html
+HEADER lesson.html
+HEADER play-evil-wizard.html
+HEADER project-advanced-computing.html
+HEADER project-asset-inventory.html
+HEADER project-battle-chess.html
+HEADER project-dependency.html
+HEADER project-emergent.html
+HEADER project-fusion.html
+HEADER project-geometric-ai.html
+HEADER project-kubernetes-lab.html
+HEADER project-learning-library.html
+HEADER project-lifecycle.html
+HEADER project-mind.html
+HEADER project-portfolio.html
+HEADER project-qpe.html
+HEADER project-qubit.html
+HEADER project-recovery.html
+HEADER projects.html
+HEADER resume.html
+HEADER security-research.html
+PASS global header menus, sound panels, search, education, ladder and mathematical solar extrema.

@@ -1,0 +1,34 @@
+{
+  "physicalDevices": false,
+  "origin": "http://portfolio.test",
+  "media": [],
+  "errors": [],
+  "externalAudioPlaybackVerified": false,
+  "nightAudio": {
+    "time": 0.024783,
+    "source": "http://portfolio.test/assets/audio/dark-theme-user.wav",
+    "volume": 0.05
+  },
+  "videoFailure": {
+    "canPlayMP4": "",
+    "videos": [
+      {
+        "src": "https://videos.pexels.com/video-files/7351460/7351460-hd_1920_1080_24fps.mp4",
+        "error": "MEDIA_ELEMENT_ERROR: Format error",
+        "code": 4,
+        "state": 0,
+        "paused": true,
+        "time": 0
+      },
+      {
+        "src": "",
+        "state": 0,
+        "paused": true,
+        "time": 0
+      }
+    ],
+    "scene": "forest-waterfall"
+  },
+  "passed": false,
+  "outcome": "blocked: local Chromium lacks MP4 codec"
+}

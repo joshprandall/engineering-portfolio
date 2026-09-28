@@ -1,0 +1,42 @@
+[
+  {
+    "file": "refined-home-390.webm",
+    "original": "page@6ddc89a70884d596c2b16551f4872763.webm",
+    "capturedLocalTimestamp": 1790630880.8788013,
+    "journey": "home",
+    "viewportWidth": 390,
+    "scope": "entry, theme change; home also menu; lesson-lab also first activity action. Game clips show launchers, not a full playthrough."
+  },
+  {
+    "file": "refined-lesson-lab-390.webm",
+    "original": "page@1acfb7b692ec18021cfa0e5451ef2fd4.webm",
+    "capturedLocalTimestamp": 1790630928.7306519,
+    "journey": "lesson-lab",
+    "viewportWidth": 390,
+    "scope": "entry, theme change; home also menu; lesson-lab also first activity action. Game clips show launchers, not a full playthrough."
+  },
+  {
+    "file": "refined-ai-390.webm",
+    "original": "page@212e477c137de905a8379b3b44880001.webm",
+    "capturedLocalTimestamp": 1790630939.267438,
+    "journey": "ai",
+    "viewportWidth": 390,
+    "scope": "entry, theme change; home also menu; lesson-lab also first activity action. Game clips show launchers, not a full playthrough."
+  },
+  {
+    "file": "refined-chess-390.webm",
+    "original": "page@13c4f0388e702295638063e40a5f1acd.webm",
+    "capturedLocalTimestamp": 1790630948.8625324,
+    "journey": "chess",
+    "viewportWidth": 390,
+    "scope": "entry, theme change; home also menu; lesson-lab also first activity action. Game clips show launchers, not a full playthrough."
+  },
+  {
+    "file": "refined-wizard-390.webm",
+    "original": "page@e9cc797c3c84844ac1c66f584d6f018e.webm",
+    "capturedLocalTimestamp": 1790630959.9984756,
+    "journey": "wizard",
+    "viewportWidth": 390,
+    "scope": "entry, theme change; home also menu; lesson-lab also first activity action. Game clips show launchers, not a full playthrough."
+  }
+]

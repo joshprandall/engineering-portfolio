@@ -2,7 +2,7 @@
 
 [![Site validation](https://github.com/joshprandall/engineering-portfolio/actions/workflows/validate.yml/badge.svg)](https://github.com/joshprandall/engineering-portfolio/actions/workflows/validate.yml)
 
-This repository is the final static portfolio release for Joshua Randall. It combines the current portfolio layout with the project work that belongs in the portfolio: systems engineering, automation, knowledge tools, interactive computing labs, agent workflow design, browser games, and the supporting source notes.
+This repository contains Joshua Randall’s static engineering portfolio. It combines the current portfolio layout with the project work that belongs in the portfolio: systems engineering, automation, knowledge tools, interactive computing labs, agent workflow design, browser games, and the supporting source notes.
 
 Live portfolio target: https://web.engr.oregonstate.edu/~randjosh/
 
@@ -10,7 +10,7 @@ Live portfolio target: https://web.engr.oregonstate.edu/~randjosh/
 
 `site-theme.js` loads synchronously before page styles and owns the `jr-site-theme` and `jr-site-motion` preferences. It migrates the old portfolio, learning, and geometry choices, synchronizes open tabs and restored pages, and falls back to session storage when persistent storage is unavailable. New pages should load this bootstrap, then `site-scenes.css` and the deferred `site-scenes.js`; use a `button[data-theme-toggle]` rather than registering a page-specific theme handler.
 
-Night uses the credited Webb Cosmic Cliffs image with restrained star motion. Day uses an original mountain valley with drifting clouds, wind, flowing water, and occasional varied bird flights. The backgrounds respect reduced motion, pause when the page is hidden, and expose a remembered Pause motion control. Image provenance is in `assets/scenes/CREDITS.md`. No background audio or video is loaded.
+Night retains the credited Webb Cosmic Cliffs scene. Day cycles the existing waterfall, river and beach videos. The shared scene/audio owners synchronize atmosphere, respect reduced motion and saved mute/volume, and pause hidden work. See [the protected baseline](docs/WEBSITE-2.0-PROTECTED-BASELINE.md), [audio ownership](docs/WEBSITE-2.0-AUDIO.md), and [authoring guide](docs/WEBSITE-2.0-AUTHORING.md).
 
 ## Included project work
 
@@ -71,7 +71,7 @@ Then open `http://localhost:8000`.
 
 ## Deployment
 
-This is a plain static site. Copy the repository contents to the web root while preserving directory names and files. The expected OSU Engineering layout is documented in [DEPLOYMENT.md](DEPLOYMENT.md). Do not open individual HTML files from a file browser when validating the learning library or interactive labs; use a local HTTP server or the hosted web root.
+This is a plain static site. Use the exact-commit, backup-first protected overlay deployer; never replace the entire web root or game trees. The expected OSU Engineering layout is documented in [DEPLOYMENT.md](DEPLOYMENT.md). Do not open individual HTML files from a file browser when validating the learning library or interactive labs; use a local HTTP server or the hosted web root.
 
 ## Boundaries
 

@@ -1,0 +1,21 @@
+{
+  "source": "read-only production capture",
+  "files": [
+    "games/3d-battle-chess/CREDITS.md",
+    "games/3d-battle-chess/battle.js",
+    "games/3d-battle-chess/boot.js",
+    "games/3d-battle-chess/duels.js",
+    "games/3d-battle-chess/engine.js",
+    "games/3d-battle-chess/fallback-board.js",
+    "games/3d-battle-chess/index.html",
+    "games/3d-battle-chess/styles.css",
+    "games/battle-chess/index.html",
+    "geometric-lab/styles.css",
+    "index.html",
+    "site-audio.js",
+    "site-scenes.js",
+    "site-theme.js"
+  ],
+  "largeAssets": "manifests/large-assets.json",
+  "unreadableNotDeleted": true
+}

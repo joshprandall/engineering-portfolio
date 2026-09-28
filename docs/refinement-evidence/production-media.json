@@ -1,0 +1,57 @@
+{
+  "url": "https://web.engr.oregonstate.edu/~randjosh/",
+  "environment": "Cloud Chrome on production before release; native DOM media state observed, no physical speaker measurement",
+  "postDeployment": false,
+  "observations": [
+    {
+      "scene": "river",
+      "video": "assets/scenes/day/river.mp4",
+      "videoTime": 13.468573,
+      "videoReadyState": 4,
+      "videoPaused": false,
+      "videoMuted": true,
+      "audio": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Sanna%20river%20rapids.ogg",
+      "audioTime": 74.343356,
+      "audioReadyState": 4,
+      "audioPaused": false,
+      "otherVideoPaused": true,
+      "beachAudioPaused": [
+        true,
+        true
+      ]
+    },
+    {
+      "scene": "beach",
+      "video": "assets/scenes/day/beach-birds.mp4",
+      "videoTime": 13.739829,
+      "videoReadyState": 4,
+      "videoPaused": false,
+      "videoMuted": true,
+      "audio": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Cape%20May%20Shorebirds%20%28distant%29.ogg",
+      "audioTime": 2.521952,
+      "audioReadyState": 4,
+      "audioPaused": false,
+      "riverAudioPaused": true,
+      "otherBeachesPaused": [
+        true
+      ]
+    },
+    {
+      "scene": "waterfall",
+      "video": "assets/scenes/day/waterfall.mp4",
+      "videoTime": 6.901514,
+      "videoReadyState": 4,
+      "videoPaused": false,
+      "videoMuted": true,
+      "audio": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Water%20fall.ogg",
+      "audioTime": 6.536445,
+      "audioReadyState": 4,
+      "audioPaused": false,
+      "otherVideoPaused": true,
+      "beachAudioPaused": [
+        true,
+        true
+      ]
+    }
+  ]
+}

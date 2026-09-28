@@ -1,0 +1,12 @@
+{
+  "errors": [],
+  "checks": [
+    "controlled virtual path finding",
+    "deterministic fuzzer and invalid iteration count",
+    "six local tools and matching JSON export",
+    "invalid schemas/ports cannot export stale findings; zero-edge target detected",
+    "MIND export recomputes current inputs and handles empty goal"
+  ],
+  "physicalDevices": false,
+  "passed": true
+}
