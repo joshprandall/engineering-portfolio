@@ -8,7 +8,13 @@ License: Creative Commons Attribution 4.0, https://creativecommons.org/licenses/
 Media guidance: https://esawebb.org/copyright/
 The supplied display image is encoded as WebP for web delivery. A translucent reading layer, a slow camera drift and decorative stars are rendered separately. The motion is not an astronomical time-lapse.
 
-Day: Original vector landscape and procedural clouds, water highlights, wind and bird flight in this repository. No external video, people, or looping footage.
+Day: Existing Pexels nature footage, with the original vector landscape retained as a fallback. The current source identifiers and creator names are preserved from `site-scenes.js`:
+
+- Forest waterfall — K: https://www.pexels.com/video/waterfall-in-the-forest-7351460/
+- Forest river — Christophe Génot: https://www.pexels.com/video/serene-forest-river-scene-in-daylight-33886656/
+- Beach at sunset — Daniel Feldman: https://www.pexels.com/video/birds-flying-above-beach-at-sunset-9982425/
+
+Retain source attribution and applicable Pexels terms. The refinement pass preserves the existing media; it does not assert a new independent licensing review.
 
 
 ## Day scene delivery
