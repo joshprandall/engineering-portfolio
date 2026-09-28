@@ -14,21 +14,40 @@
   const ISOLATED_RE = /(?:^|\/)(?:games\/|geometric-lab\/|qubit-preview-20260921\/|deep-learning\/)/i;
   const LOCAL_TEST_HOST = location.hostname === '127.0.0.1' || location.hostname === 'localhost';
 
+  const REMOTE_DAY_SOURCES = Object.freeze({
+    river: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Sanna%20river%20rapids.ogg',
+    waterfall: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Water%20fall.ogg',
+    beachNear: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Cape%20May%20Shorebirds%20closer.ogg',
+    beachFar: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Cape%20May%20Shorebirds%20%28distant%29.ogg'
+  });
+
+  const LOCAL_DAY_SOURCES = Object.freeze({
+    river: new URL('assets/audio/day/river.ogg', document.currentScript.src).href,
+    waterfall: new URL('assets/audio/day/waterfall.ogg', document.currentScript.src).href,
+    beachNear: new URL('assets/audio/day/beach-near.ogg', document.currentScript.src).href,
+    beachFar: new URL('assets/audio/day/beach-far.ogg', document.currentScript.src).href
+  });
+
   const SOURCES = Object.freeze({
     // User-provided dark-mode soundtrack. Prefer the PCM WAV master so the browser has no MP3/AAC encoder padding at the loop boundary.
     dark: new URL('assets/audio/dark-theme-user.wav', document.currentScript.src).href,
     darkFallback: new URL('assets/audio/dark-theme-user.mp3', document.currentScript.src).href,
 
-    // Existing light-mode field recordings.
-    river: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Sanna%20river%20rapids.ogg',
-    waterfall: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Water%20fall.ogg',
-    // Two matching Cape May shorebird/wave recordings. Alternating them avoids
-    // an obvious 12.5-second repeat while keeping the same natural soundscape.
-    beachNear: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Cape%20May%20Shorebirds%20closer.ogg',
-    beachFar: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Cape%20May%20Shorebirds%20%28distant%29.ogg'
+    // Production serves Day ambience same-origin so visual/audio scene changes
+    // do not wait on a third-party redirect or CDN. Local test hosts keep using
+    // the remote sources because deploy-only audio assets are not committed.
+    river: LOCAL_TEST_HOST ? REMOTE_DAY_SOURCES.river : LOCAL_DAY_SOURCES.river,
+    waterfall: LOCAL_TEST_HOST ? REMOTE_DAY_SOURCES.waterfall : LOCAL_DAY_SOURCES.waterfall,
+    beachNear: LOCAL_TEST_HOST ? REMOTE_DAY_SOURCES.beachNear : LOCAL_DAY_SOURCES.beachNear,
+    beachFar: LOCAL_TEST_HOST ? REMOTE_DAY_SOURCES.beachFar : LOCAL_DAY_SOURCES.beachFar
   });
 
+  const DAY_FALLBACKS = Object.freeze({
+    river: REMOTE_DAY_SOURCES.river,
+    waterfall: REMOTE_DAY_SOURCES.waterfall
+  });
   const BEACH_SOURCES = Object.freeze([SOURCES.beachNear, SOURCES.beachFar]);
+  const BEACH_FALLBACKS = Object.freeze([REMOTE_DAY_SOURCES.beachNear, REMOTE_DAY_SOURCES.beachFar]);
   const BEACH_CROSSFADE_SECONDS = 1.2;
 
   // Quiet-first ambience. The site starts at 5% of its own media output even
@@ -38,6 +57,7 @@
   const MAX_BACKGROUND_VOLUME = 1.00;
 
   let sceneId = 'forest-river';
+  let pendingSceneId = '';
   let suppressed = ISOLATED_RE.test(location.pathname);
   let currentKey = '';
   let unlocked = false;
@@ -81,6 +101,8 @@
     player.style.display = 'none';
     player.volume = 0;
     player.src = src;
+    player.dataset.remoteSrc = BEACH_FALLBACKS[id.endsWith('-a') ? 0 : 1];
+    player.dataset.remoteFallback = '0';
     (document.body || document.documentElement).appendChild(player);
     try { player.load(); } catch (_) {}
     return player;
@@ -194,8 +216,11 @@
     beachActiveIndex = 0;
 
     beachPlayers.forEach(player => {
-      try { player.pause(); } catch (_) {}
+      // Mute first, then pause. On Safari this closes the audible media pipeline
+      // immediately instead of allowing a decoded tail from the outgoing scene.
       try { player.volume = 0; } catch (_) {}
+      try { player.muted = true; } catch (_) {}
+      try { player.pause(); } catch (_) {}
       if (reset) {
         try { player.currentTime = 0; } catch (_) {}
       }
@@ -322,6 +347,17 @@
     });
 
     player.addEventListener('error', () => {
+      const remote = player.dataset.remoteSrc;
+      if (!LOCAL_TEST_HOST && player.dataset.remoteFallback !== '1' && remote) {
+        player.dataset.remoteFallback = '1';
+        try {
+          player.pause();
+          player.src = remote;
+          player.load();
+          if (currentKey === 'beach' && index === beachActiveIndex && desiredKey() === 'beach') playBeach();
+        } catch (_) {}
+        return;
+      }
       console.error('JR beach ambience failed:', player.currentSrc, player.error);
     });
 
@@ -333,6 +369,18 @@
 
   function stop() {
     saveDarkTime();
+    // Mute/zero before pause to prevent Safari from leaking buffered audio from
+    // the outgoing scene into the next visual scene.
+    try { audio.volume = 0; } catch (_) {}
+    try { audio.muted = true; } catch (_) {}
+    try { audio.pause(); } catch (_) {}
+    stopBeach(true);
+  }
+
+  function hardSilenceDay() {
+    if (theme() !== 'light') return;
+    try { audio.volume = 0; } catch (_) {}
+    try { audio.muted = true; } catch (_) {}
     try { audio.pause(); } catch (_) {}
     stopBeach(true);
   }
@@ -364,6 +412,7 @@
 
     currentKey = nextKey;
     if (nextKey === 'dark') darkFallbackActive = false;
+    audio.dataset.dayFallback = '0';
     audio.loop = true;
     audio.muted = false;
     audio.defaultPlaybackRate = 1;
@@ -483,10 +532,21 @@
     scheduleAutoplayRetries();
   });
 
+  document.addEventListener('portfolio:scene-will-change', event => {
+    const next = event.detail?.id;
+    if (!next || theme() !== 'light' || next === sceneId) return;
+    pendingSceneId = next;
+    hardSilenceDay();
+  });
+
   document.addEventListener('portfolio:scene', event => {
     const next = event.detail?.id;
-    if (!next || next === sceneId) return;
+    if (!next) return;
     sceneId = next;
+    pendingSceneId = '';
+    // Always force a scene commit. This makes a visual scene change the single
+    // source of truth for ambience, rather than allowing audio to keep its own
+    // independent timing state.
     sync(true);
   });
 
@@ -528,6 +588,22 @@
   });
 
   audio.addEventListener('error', () => {
+    if ((currentKey === 'river' || currentKey === 'waterfall') &&
+        !LOCAL_TEST_HOST &&
+        audio.dataset.dayFallback !== '1' &&
+        DAY_FALLBACKS[currentKey] &&
+        audio.currentSrc !== DAY_FALLBACKS[currentKey]) {
+      audio.dataset.dayFallback = '1';
+      audio.src = DAY_FALLBACKS[currentKey];
+      audio.loop = true;
+      audio.muted = false;
+      audio.volume = cappedVolume(currentKey);
+      try {
+        const result = audio.play();
+        if (result?.catch) result.catch(() => {});
+      } catch (_) {}
+      return;
+    }
     if (currentKey === 'dark' && !darkFallbackActive && audio.currentSrc !== SOURCES.darkFallback) {
       darkFallbackActive = true;
       audio.src = SOURCES.darkFallback;
@@ -591,6 +667,7 @@
     play: playDesired,
     get key() { return currentKey; },
     get scene() { return sceneId; },
+    get pendingScene() { return pendingSceneId; },
     get theme() { return theme(); },
     get muted() { return muted(); },
     get suppressed() { return suppressed; },
