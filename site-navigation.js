@@ -22,7 +22,7 @@
       requestAnimationFrame(focusLearning);addEventListener('load',()=>setTimeout(focusLearning,150),{once:true});
     }
     nav.id=nav.id||'primary-nav';
-    const canonicalItems=[{"path":"index.html","label":"Home"},{"path":"about.html","label":"About Me"},{"path":"projects.html","label":"Projects"},{"path":"learn.html","label":"Learn"},{"path":"game-development.html","label":"Game Development"},{"path":"ai-development.html","label":"AI Development"}];
+    const canonicalItems=[{"path":"index.html","label":"Home"},{"path":"about.html","label":"About Me"},{"path":"projects.html","label":"Projects"},{"path":"security-research.html","label":"Security Research"},{"path":"learn.html","label":"Learn"},{"path":"game-development.html","label":"Game Development"},{"path":"ai-development.html","label":"AI Development"}];
     const currentPath=location.pathname.split('/').pop()||'index.html';
     const canonicalCurrent=['expertise-experience.html','resume.html','direction.html'].includes(currentPath)?'about.html':currentPath;
     const buildLinks=items=>items.map(item=>{const a=document.createElement('a');a.href=item.path;a.textContent=item.label;if(item.path===canonicalCurrent)a.setAttribute('aria-current','page');return a;});
