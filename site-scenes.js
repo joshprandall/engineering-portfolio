@@ -502,15 +502,9 @@
       ctx.fillStyle = glow;
       ctx.fillRect(0, 0, width, height);
 
-      // If remote video is unavailable, keep the visible landscape itself
-      // moving. This transform is deliberately tiny and uses a fixed scale
-      // cushion so no edge can enter the viewport.
-      const fallbackScale = reducedMotion() ? .28 : 1;
-      const panX = Math.sin(time * .11) * width * .008 * fallbackScale;
-      const panY = Math.cos(time * .09) * height * .006 * fallbackScale;
-      const zoom = reducedMotion() ? 1.018 : 1.04;
-      dayFallback.style.transform =
-        'translate3d(' + panX.toFixed(2) + 'px,' + panY.toFixed(2) + 'px,0) scale(' + zoom.toFixed(3) + ')';
+      // The visible poster fallback has its own CSS camera animation so it
+      // remains alive even if the browser throttles this canvas loop or the
+      // remote Day video cannot play.
     }
 
     function draw(dt) {
