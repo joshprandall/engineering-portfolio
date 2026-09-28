@@ -4,11 +4,11 @@ GitHub `main` contains the reviewed source. The public OSU website changes only 
 
 ## Deploy a tested release
 
-Use the full 40-character commit SHA from the successful pull request checks. Download the deployment script from that same commit and run it with `--commit SHA`:
+Use the full 40-character commit SHA from the successful pull request checks. Download the deployment script from that same commit and pass the tested SHA as the positional commit argument:
 
 ```bash
 curl -fsS https://raw.githubusercontent.com/joshprandall/engineering-portfolio/SHA/tools/deploy_osu_live.py -o ~/deploy-portfolio.py
-python3 ~/deploy-portfolio.py --commit SHA
+python3 ~/deploy-portfolio.py SHA
 ```
 
 Replace both occurrences of `SHA` with the tested commit. The script rejects branch names and does not silently select an older release. Run it in the OSU account containing `~/public_html`.
