@@ -11,6 +11,24 @@
     button.addEventListener('click',()=>{panel.hidden=!panel.hidden;if(!audio.muted)audio.play();render();});
     const setPercent=value=>{const percent=Math.max(0,Math.min(100,Math.round(Number(value)||0)));audio.setVolume(percent/100);if(percent>0)audio.setMuted(false);audio.sync(true);render();};
     slider.addEventListener('input',()=>setPercent(slider.value));
+    // Make the entire range track a reliable scrub target on touch screens.
+    // Pointer capture keeps adjustment working even if the finger drifts off
+    // the thumb while dragging.
+    const scrub=e=>{
+      const rect=slider.getBoundingClientRect();
+      if(!rect.width)return;
+      const percent=((e.clientX-rect.left)/rect.width)*100;
+      setPercent(percent);
+    };
+    slider.addEventListener('pointerdown',e=>{
+      if(e.button!==undefined&&e.button!==0)return;
+      try{slider.setPointerCapture(e.pointerId);}catch(_){}
+      scrub(e);
+    });
+    slider.addEventListener('pointermove',e=>{
+      if(e.buttons===0&&!slider.hasPointerCapture?.(e.pointerId))return;
+      if(slider.hasPointerCapture?.(e.pointerId))scrub(e);
+    });
     down.addEventListener('click',()=>setPercent(Math.round(audio.volume*100)-5));
     up.addEventListener('click',()=>setPercent(Math.round(audio.volume*100)+5));
     mute.addEventListener('click',()=>{audio.setMuted(!audio.muted);if(!audio.muted&&audio.volume===0)audio.setVolume(.05);audio.sync(true);render();});
