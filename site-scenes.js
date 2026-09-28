@@ -254,7 +254,11 @@
     }
 
     async function playSafely(video) {
-      if (!video || theme !== 'light' || !motionAllowed() || reducedMotion() || mediaDisabled) return false;
+      // Day mode must remain visually alive. OS reduced-motion removes extra
+      // camera effects but does not replace real waterfall/river/beach footage
+      // with a frozen poster. Only an explicit site pause or media-unavailable
+      // condition may stop playback.
+      if (!video || theme !== 'light' || !motionAllowed() || mediaDisabled) return false;
       try {
         await video.play();
         return true;
@@ -497,6 +501,16 @@
       glow.addColorStop(1, 'rgba(255,238,179,0)');
       ctx.fillStyle = glow;
       ctx.fillRect(0, 0, width, height);
+
+      // If remote video is unavailable, keep the visible landscape itself
+      // moving. This transform is deliberately tiny and uses a fixed scale
+      // cushion so no edge can enter the viewport.
+      const fallbackScale = reducedMotion() ? .28 : 1;
+      const panX = Math.sin(time * .11) * width * .008 * fallbackScale;
+      const panY = Math.cos(time * .09) * height * .006 * fallbackScale;
+      const zoom = reducedMotion() ? 1.018 : 1.04;
+      dayFallback.style.transform =
+        'translate3d(' + panX.toFixed(2) + 'px,' + panY.toFixed(2) + 'px,0) scale(' + zoom.toFixed(3) + ')';
     }
 
     function draw(dt) {
