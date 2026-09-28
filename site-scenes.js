@@ -177,6 +177,12 @@
     const motionAllowed = () => !appearance.isPaused();
     const reducedMotion = () => Boolean(appearance.isReducedMotion?.());
 
+    function announceDaySceneWillChange(index) {
+      const scene = LIGHT_SCENES[index];
+      if (!scene) return;
+      document.dispatchEvent(new CustomEvent('portfolio:scene-will-change', { detail: { id: scene.id } }));
+    }
+
     function updateDayCredit() {
       const scene = LIGHT_SCENES[activeSceneIndex];
       try { localStorage.setItem(LIGHT_SCENE_KEY, scene.id); } catch (_) {}
@@ -348,6 +354,7 @@
         // Advance the licensed poster and matching ambience anyway; the next
         // rotation will try video again.
         if (theme === 'light' && motionAllowed()) {
+          announceDaySceneWillChange(nextIndex);
           activeVideo.classList.remove('is-active');
           standbyVideo.classList.remove('is-active');
           try { activeVideo.pause(); } catch (_) {}
@@ -362,6 +369,7 @@
         return;
       }
 
+      announceDaySceneWillChange(nextIndex);
       standbyVideo.classList.add('is-active');
       activeVideo.classList.remove('is-active');
       dayFallback.classList.add('video-ready');

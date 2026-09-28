@@ -27,6 +27,11 @@ assert.ok(audio.includes('ISOLATED_RE'),'Audio isolation boundary missing');
 assert.ok(!audio.includes('MAIN_PAGE'),'Ambient audio must not be restricted to Home/Learn');
 assert.ok(!audio.includes('project-[^/]+\\.html'),'Normal project detail pages must not be globally suppressed');
 assert.ok(audio.includes("portfolio:site-audio-ready"),'SiteAudio must announce readiness for late-bound controls');
+for(const media of ['assets/audio/day/waterfall.ogg','assets/audio/day/river.ogg','assets/audio/day/beach-near.ogg','assets/audio/day/beach-far.ogg']) assert.ok(audio.includes(media),'Day ambience must prefer same-origin production media: '+media);
+assert.ok(audio.includes("portfolio:scene-will-change"),'Audio controller must hard-silence the outgoing ambience before the visual scene changes');
+assert.ok(audio.includes('function hardSilenceDay()'),'Day audio must expose an immediate pre-transition silence boundary');
+assert.ok(audio.includes('player.muted = true') && audio.includes('player.volume = 0'),'Beach players must be muted and zeroed before pause');
+assert.ok(audio.includes("window.__JR_SITE_AUDIO_V30__"),'Synchronized Day audio controller must use the v30 runtime guard');
 
 const theme=read('site-theme.js');
 for(const file of ['site-scenes.js','site-audio.js','site-navigation.js','site-sound-control.js']){
@@ -36,6 +41,7 @@ assert.ok(theme.includes("header.site-global-header, header #menu, header #mobil
 assert.ok(theme.includes('SITE_BASE'),'Shared runtime bootstrap must resolve from the theme script base');
 assert.ok(theme.includes("const isPaused = () => motion === 'paused'"),'Only an explicit site pause may fully freeze scenery');
 assert.ok(theme.includes('const isReducedMotion = () =>'),'OS reduced-motion preference must have a separate reduced mode');
+assert.ok(theme.includes("SHARED_RUNTIME_VERSION='20260928-day-audio-lock-v1'"),'Shared runtime must cache-bust the synchronized scene/audio release');
 
 const scenesCss=read('site-scenes.css');
 const responsive=read('site-responsive.css');
@@ -53,6 +59,9 @@ assert.ok(scenesCss.includes('animation:scene-day-fallback-drift-reduced 60s eas
 
 const scenes=read('site-scenes.js');
 assert.ok(scenes.includes('const ROTATE_AFTER = 28'),'Light scenes must rotate on the approved cadence');
+assert.ok(scenes.includes("portfolio:scene-will-change"),'Day scene engine must announce the next scene before changing visible media');
+assert.ok(scenes.includes('announceDaySceneWillChange(nextIndex);\n          activeVideo.classList.remove'), 'Fallback Day transition must silence outgoing ambience before the visual switch');
+assert.ok(scenes.includes("announceDaySceneWillChange(nextIndex);\n      standbyVideo.classList.add('is-active')"), 'Successful Day transition must silence outgoing ambience before the visual switch');
 for(const media of ['assets/scenes/day/waterfall.mp4','assets/scenes/day/river.mp4','assets/scenes/day/beach-birds.mp4']) assert.ok(scenes.includes(media),'Day scene must prefer same-origin production media: '+media);
 assert.ok(scenes.includes('remoteSrc:'),'Day scene must retain an external emergency fallback');
 assert.ok(scenes.includes('async function prepareAndPlay(video, scene)'),'Day player must retry its alternate source when the primary media cannot load');
@@ -101,6 +110,9 @@ execFileSync(process.execPath,['--check',path.join(root,'security-research.js')]
 
 const deploy=read('tools/deploy_osu_live.py');
 assert.ok(deploy.includes('DAY_MEDIA_SOURCES'),'OSU deploy must materialize licensed Day media');
+assert.ok(deploy.includes('DAY_AUDIO_SOURCES'),'OSU deploy must materialize same-origin Day ambience');
+for(const media of ['assets/audio/day/waterfall.ogg','assets/audio/day/river.ogg','assets/audio/day/beach-near.ogg','assets/audio/day/beach-far.ogg']) assert.ok(deploy.includes(media),'OSU deploy missing Day ambience asset '+media);
+assert.ok(deploy.includes("prefix.startswith(b'OggS')"),'OSU deploy must publicly verify Day ambience as Ogg audio');
 assert.ok(deploy.includes('materialize_day_media(source)'),'OSU deploy must fetch Day media before source validation');
 assert.ok(deploy.includes('http_smoke_day_media()'),'OSU deploy must publicly verify same-origin Day media');
 for(const file of ['security-research.html','security-research.css','security-research.js']){

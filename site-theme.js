@@ -109,10 +109,20 @@
     if(existing)return;
     const link=document.createElement('link');link.rel='stylesheet';link.href=new URL(file,SITE_BASE);document.head.append(link);
   }
+  const SHARED_RUNTIME_VERSION='20260928-day-audio-lock-v1';
   function loadScript(file) {
     const existing=[...document.scripts].find(script=>{try{return new URL(script.src,location.href).pathname.endsWith('/'+file);}catch{return false;}});
     if(existing)return Promise.resolve();
-    return new Promise(resolve=>{const script=document.createElement('script');script.src=new URL(file,SITE_BASE);script.async=false;script.addEventListener('load',resolve,{once:true});script.addEventListener('error',resolve,{once:true});document.head.append(script);});
+    return new Promise(resolve=>{
+      const script=document.createElement('script');
+      const url=new URL(file,SITE_BASE);
+      url.searchParams.set('v',SHARED_RUNTIME_VERSION);
+      script.src=url;
+      script.async=false;
+      script.addEventListener('load',resolve,{once:true});
+      script.addEventListener('error',resolve,{once:true});
+      document.head.append(script);
+    });
   }
   async function ensureSharedRuntime() {
     // Only pages that use the portfolio/learning shared header opt into the

@@ -11,6 +11,12 @@ DAY_MEDIA_SOURCES = {
     'assets/scenes/day/river.mp4': 'https://www.pexels.com/download/video/33886656/',
     'assets/scenes/day/beach-birds.mp4': 'https://www.pexels.com/download/video/9982425/',
 }
+DAY_AUDIO_SOURCES = {
+    'assets/audio/day/waterfall.ogg': 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Water%20fall.ogg',
+    'assets/audio/day/river.ogg': 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Sanna%20river%20rapids.ogg',
+    'assets/audio/day/beach-near.ogg': 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Cape%20May%20Shorebirds%20closer.ogg',
+    'assets/audio/day/beach-far.ogg': 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Cape%20May%20Shorebirds%20%28distant%29.ogg',
+}
 WEB_DIRS = ('assets', 'deep-learning', 'labs', 'qubit-preview-20260921')
 PROTECTED_ROOT_FILES = set()
 PROTECTED_PREFIXES = ('games/', 'geometric-lab/')
@@ -25,6 +31,8 @@ REQUIRED = THEME_SHELL_FILES + (
     'assets/audio/dark-theme-user.wav',
     'assets/scenes/webb-cosmic-cliffs.webp', 'assets/scenes/mountain-valley.svg',
     'assets/scenes/day/waterfall.mp4', 'assets/scenes/day/river.mp4', 'assets/scenes/day/beach-birds.mp4',
+    'assets/audio/day/waterfall.ogg', 'assets/audio/day/river.ogg',
+    'assets/audio/day/beach-near.ogg', 'assets/audio/day/beach-far.ogg',
     'index.html', 'expertise-experience.html', 'projects.html', 'security-research.html', 'security-research.css', 'security-research.js', 'game-development.html', 'learn.html', 'lesson.html',
     'learn-browse.html', 'learn-capstones.html', 'learn-glossary.html', 'learn-labs.html', 'learn-map.html',
     'learn-mastery.html', 'learn-paths.html', 'learn-practice.html', 'learn-verify.html',
@@ -60,7 +68,7 @@ def release_files(source):
     return sorted(p for p in files if not protected(p.relative_to(source).as_posix()))
 
 def materialize_day_media(source):
-    """Fetch the three licensed Day videos into the release so production serves them same-origin."""
+    """Fetch licensed Day video + ambience so production scene changes are same-origin and deterministic."""
     for name, url in DAY_MEDIA_SOURCES.items():
         target = source/name
         if target.is_file() and target.stat().st_size > 1024*1024:
@@ -85,6 +93,35 @@ def materialize_day_media(source):
                 header = source_file.read(32)
             if b'ftyp' not in header:
                 raise RuntimeError(f'Day video is not a valid MP4 container: {name}')
+            os.replace(temp, target)
+        finally:
+            if temp.exists():
+                temp.unlink()
+
+    for name, url in DAY_AUDIO_SOURCES.items():
+        target = source/name
+        if target.is_file() and target.stat().st_size > 32768:
+            continue
+        target.parent.mkdir(parents=True, exist_ok=True)
+        temp = target.with_suffix(target.suffix+'.downloading')
+        request = Request(url, headers={
+            'User-Agent': 'Mozilla/5.0 (compatible; JoshuaRandallPortfolioDeploy/1.0)',
+            'Referer': 'https://commons.wikimedia.org/',
+            'Accept': 'audio/ogg,audio/*;q=0.9,application/ogg;q=0.8,*/*;q=0.5',
+        })
+        print('Downloading Day ambience:', name, flush=True)
+        try:
+            with urlopen(request, timeout=90) as response, temp.open('wb') as output:
+                content_type = response.headers.get('Content-Type','')
+                if not any(token in content_type for token in ('audio', 'ogg', 'octet-stream')):
+                    raise RuntimeError(f'Unexpected Day audio media type for {name}: {content_type}')
+                shutil.copyfileobj(response, output, length=512*1024)
+            if temp.stat().st_size < 32768:
+                raise RuntimeError(f'Day audio download is unexpectedly small: {name}')
+            with temp.open('rb') as source_file:
+                header = source_file.read(4)
+            if header != b'OggS':
+                raise RuntimeError(f'Day ambience is not a valid Ogg container: {name}')
             os.replace(temp, target)
         finally:
             if temp.exists():
@@ -249,7 +286,7 @@ def http_smoke(commit, site):
         print('Verified public URL:',name,flush=True)
 
 def http_smoke_day_media():
-    """Verify same-origin Day media is publicly reachable and served as MP4."""
+    """Verify same-origin Day video and ambience are publicly reachable with valid container signatures."""
     for name in DAY_MEDIA_SOURCES:
         request = Request(PUBLIC_URL+name+'?day-media=1', headers={
             'Cache-Control':'no-cache',
@@ -263,6 +300,20 @@ def http_smoke_day_media():
             if b'ftyp' not in prefix:
                 raise RuntimeError('Public Day media does not look like MP4: '+name)
         print('Verified public Day video:', name, flush=True)
+
+    for name in DAY_AUDIO_SOURCES:
+        request = Request(PUBLIC_URL+name+'?day-audio=1', headers={
+            'Cache-Control':'no-cache',
+            'Range':'bytes=0-63',
+        })
+        with urlopen(request, timeout=30) as response:
+            content_type = response.headers.get('Content-Type','')
+            prefix = response.read(64)
+            if not any(token in content_type for token in ('audio', 'ogg', 'octet-stream')):
+                raise RuntimeError('Server is not serving Day ambience correctly: '+name+' ('+content_type+')')
+            if not prefix.startswith(b'OggS'):
+                raise RuntimeError('Public Day ambience does not look like Ogg: '+name)
+        print('Verified public Day ambience:', name, flush=True)
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)

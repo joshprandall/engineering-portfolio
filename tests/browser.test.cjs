@@ -105,6 +105,26 @@ async function run(){
   await page.goto(base+'/ai-development.html',{waitUntil:'domcontentloaded'});
   assert.equal(await page.evaluate(()=>window.SiteAudio?.suppressed),false,'AI Development receives active ambient audio architecture');
 
+  // Day ambience must follow the visual scene as one state machine. The
+  // outgoing beach players are hard-muted before the waterfall is committed.
+  await page.goto(base+'/',{waitUntil:'domcontentloaded'});
+  await page.evaluate(()=>window.PortfolioTheme.setTheme('light'));
+  await page.waitForFunction(()=>document.documentElement.dataset.theme==='light'&&Boolean(window.SiteAudio));
+  await page.evaluate(()=>document.dispatchEvent(new CustomEvent('portfolio:scene',{detail:{id:'birds-water'}})));
+  assert.equal(await page.evaluate(()=>window.SiteAudio.scene),'birds-water','Day audio tracks the committed beach scene');
+  assert.equal(await page.evaluate(()=>window.SiteAudio.key),'beach','Beach scene selects beach ambience');
+  await page.evaluate(()=>document.dispatchEvent(new CustomEvent('portfolio:scene-will-change',{detail:{id:'forest-waterfall'}})));
+  const silenced=await page.evaluate(()=>({
+    pending:window.SiteAudio.pendingScene,
+    beach:window.SiteAudio.beachElements.map(a=>({paused:a.paused,muted:a.muted,volume:a.volume}))
+  }));
+  assert.equal(silenced.pending,'forest-waterfall','Audio records the pending visual scene');
+  assert(silenced.beach.every(a=>a.paused&&a.muted&&a.volume===0),'Outgoing beach ambience is silent before waterfall becomes visible');
+  await page.evaluate(()=>document.dispatchEvent(new CustomEvent('portfolio:scene',{detail:{id:'forest-waterfall'}})));
+  assert.equal(await page.evaluate(()=>window.SiteAudio.scene),'forest-waterfall','Committed waterfall scene becomes the audio source of truth');
+  assert.equal(await page.evaluate(()=>window.SiteAudio.pendingScene),'','Pending scene clears after commit');
+  assert.equal(await page.evaluate(()=>window.SiteAudio.key),'waterfall','Waterfall scene selects waterfall ambience immediately');
+
   // Hamburger navigation is intentionally solid even over moving scenery.
   await page.goto(base+'/',{waitUntil:'domcontentloaded'});
   await page.locator('#menu').click();await page.locator('#primary-nav').waitFor({state:'visible'});
