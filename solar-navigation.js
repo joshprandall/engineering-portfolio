@@ -29,11 +29,11 @@
   const config={
     portfolio:{
       // Match the AI solar's richer multi-orbit composition while preserving
-      // six top-level website destinations and large tap targets.
+      // seven top-level website destinations and large tap targets.
       viewBox:'0 0 820 620',cx:410,cy:310,sun:42,speed:.075,
       rings:[
         {rx:160,ry:78,count:3,offset:0},
-        {rx:285,ry:158,count:3,offset:.52}
+        {rx:285,ry:158,count:4,offset:.52}
       ]
     },
     learning:{
@@ -79,6 +79,10 @@
     "Projects": [
       "Projects",
       "Hands-on engineering work, interactive labs, automation, infrastructure analysis, games, and experimental computing projects."
+    ],
+    "Security Research": [
+      "Security Research",
+      "Authorized security engineering labs for vulnerability analysis, fuzzing, Linux and Active Directory hardening, container risk, and attack-surface modeling."
     ],
     "Learn": [
       "Learn",
