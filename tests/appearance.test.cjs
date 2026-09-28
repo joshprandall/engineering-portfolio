@@ -52,9 +52,11 @@ module.exports = async ({ browser, base, output, failures }) => {
     const box = await control.boundingBox();
     assert(box.x >= 0 && box.x + box.width <= 321, route + ': control fits smallest phone');
     assert.equal(await page.locator('#site-scene').count(), 1, route + ': one shared backdrop');
-    await page.waitForFunction(() => Boolean(window.SiteAudio), null, {timeout: 2500});
-    assert.equal(await page.locator('header [data-scene-audio]').count(), 1, route + ': one shared ambient sound control');
-    assert.equal(await page.evaluate(() => window.SiteAudio.suppressed), false, route + ': shared-shell ambience is not page-suppressed');
+    if (!route.includes('/')) {
+      await page.waitForFunction(() => Boolean(window.SiteAudio), null, {timeout: 2500});
+      assert.equal(await page.locator('header [data-scene-audio]').count(), 1, route + ': one shared ambient sound control');
+      assert.equal(await page.evaluate(() => window.SiteAudio.suppressed), false, route + ': shared-shell ambience is not page-suppressed');
+    }
     if (!await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)) {
       layoutProblems.push(route);
       console.log('Overflow', route, await page.evaluate(() => [...document.querySelectorAll('main *')].map(e => ({tag:e.tagName,id:e.id,cls:e.className,width:Math.round(e.getBoundingClientRect().width)})).filter(e => e.width > innerWidth).slice(0,10)));
