@@ -1279,6 +1279,8 @@ body.motion-paused .scene-backdrop *{animation:none!important;transition:none!im
 .scene-night-wrap,.scene-day-wrap,
 .scene-image,.scene-video,.scene-canvas,.scene-atmosphere,.scene-veil,
 .scene-night-depth,.scene-night-glow{transform-origin:center center}
-.scene-night,.scene-night-depth,.scene-day-fallback,.scene-video{transform:none!important}
+.scene-day-fallback,.scene-video{transform:none!important}
 .scene-video.is-active,.scene-atmosphere{animation:none!important}
 @supports(height:100lvh){.scene-backdrop{height:100lvh}}
+
+@media(prefers-reduced-motion:reduce){.scene-night,.scene-night-depth,.scene-night-glow{transform:none!important}}
