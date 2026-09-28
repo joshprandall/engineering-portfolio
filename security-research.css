@@ -1,0 +1,50 @@
+/* Security Research uses the shared Website 2.0 glass language; the global menu remains solid. */
+.security-research-page main{display:block}
+.security-hero{padding-block:clamp(3rem,7vw,7rem);border-bottom:1px solid var(--line)}
+.security-hero h1{max-width:13ch;margin-bottom:1.2rem}
+.security-lede{max-width:72ch;font-size:clamp(1.08rem,2vw,1.35rem);line-height:1.65}
+.security-boundary{max-width:74rem;margin:2rem 0 0;padding:clamp(1rem,2.5vw,1.5rem);border:1px solid color-mix(in srgb,var(--accent) 50%,var(--line));border-radius:14px;background:var(--glass)!important;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.security-boundary strong{display:block;margin-bottom:.35rem;color:var(--accent);letter-spacing:.08em;text-transform:uppercase}
+.security-boundary p{margin:0;line-height:1.65}
+.security-index{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,14rem),1fr));gap:.7rem;margin-top:1.5rem}
+.security-index a{display:flex;align-items:center;min-height:48px;padding:.75rem .9rem;border:1px solid var(--line);border-radius:12px;background:var(--glass)!important;color:var(--ink,var(--text));font-weight:800;text-decoration:none;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.security-index a:hover,.security-index a:focus-visible{border-color:var(--accent)}
+.security-method,.security-lab,.security-close{padding-block:clamp(3rem,6vw,6rem);border-bottom:1px solid var(--line);background:transparent!important}
+.security-method>h2,.security-lab-head h2,.security-close h2{max-width:22ch}
+.security-method-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(1rem,2.4vw,1.5rem);margin-top:1.6rem}
+.security-method-grid article{padding:1.2rem;border:1px solid var(--line);border-radius:14px;background:var(--glass)!important;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.security-method-grid span{color:var(--accent);font-size:.78rem;font-weight:900;letter-spacing:.12em}
+.security-method-grid h3{margin:.5rem 0}
+.security-method-grid p{margin:0;line-height:1.65}
+.security-lab-head{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(1rem,4vw,4rem);align-items:end}
+.security-lab-head .eyebrow{grid-column:1/-1;margin:0}
+.security-lab-head h2{margin:0}
+.security-lab-head>p:last-child{max-width:62ch;margin:0;line-height:1.7}
+.security-workspace{margin-top:1.5rem;padding:clamp(1rem,2.5vw,1.5rem);border:1px solid var(--line);border-radius:14px;background:var(--glass)!important;-webkit-backdrop-filter:blur(7px);backdrop-filter:blur(7px)}
+.security-controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,12rem),1fr));gap:.8rem;align-items:end}
+.security-workspace label,.security-controls label{display:block;margin-bottom:.35rem;font-weight:800}
+.security-workspace input,.security-workspace textarea,.security-workspace select{width:100%;max-width:100%;box-sizing:border-box;border:1px solid var(--line);border-radius:10px;background:var(--glass-strong,var(--glass));color:var(--ink,var(--text));font:inherit}
+.security-workspace input,.security-workspace select{min-height:46px;padding:.6rem .7rem}
+.security-workspace textarea{padding:.75rem;resize:vertical;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.84rem;line-height:1.5}
+.security-actions{display:flex;flex-wrap:wrap;gap:.65rem;margin-top:.8rem}
+.security-actions .button,.security-controls .button{min-height:46px}
+.security-output{min-height:4.5rem;margin-top:1rem;padding-top:1rem;border-top:1px dashed var(--line)}
+.security-output h3{margin:.2rem 0 .7rem}
+.security-output p{max-width:76ch;line-height:1.65}
+.security-output ul,.security-output ol{display:grid;gap:.55rem;padding-left:1.25rem}
+.security-finding{padding:.75rem 0;border-bottom:1px solid color-mix(in srgb,var(--line) 65%,transparent)}
+.security-finding:last-child{border-bottom:0}
+.security-finding strong{display:block}
+.security-severity{display:inline-block;margin-right:.5rem;padding:.15rem .42rem;border:1px solid currentColor;border-radius:999px;font-size:.68rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase}
+.security-severity.high{color:#ff8d78}.security-severity.medium{color:#e4b75d}.security-severity.low{color:#78b9c9}.security-severity.info{color:var(--muted)}
+.security-metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(9rem,1fr));gap:.6rem;margin:.8rem 0}
+.security-metrics>div{padding:.7rem;border:1px solid var(--line);border-radius:10px;background:color-mix(in srgb,var(--glass) 82%,transparent)}
+.security-metrics strong{display:block;font-size:1.25rem}
+.security-path{display:flex;flex-wrap:wrap;gap:.45rem;align-items:center;margin:.7rem 0}
+.security-path span{padding:.4rem .55rem;border:1px solid var(--line);border-radius:8px;background:var(--glass)}
+.security-path i{font-style:normal;color:var(--accent)}
+.security-lab details{margin-top:1rem;border-top:1px solid var(--line)}
+.security-lab summary{min-height:48px;padding:.9rem 0;cursor:pointer;font-weight:800}
+.security-lab details p{max-width:76ch;margin:.2rem 0 0;line-height:1.7}
+.security-close p{max-width:72ch;line-height:1.7}
+@media(max-width:48rem){.security-method-grid,.security-lab-head{grid-template-columns:minmax(0,1fr)}.security-lab-head .eyebrow{grid-column:auto}.security-actions{display:grid;grid-template-columns:minmax(0,1fr)}.security-actions .button{width:100%}}
