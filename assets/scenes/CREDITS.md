@@ -9,3 +9,8 @@ Media guidance: https://esawebb.org/copyright/
 The supplied display image is encoded as WebP for web delivery. A translucent reading layer, a slow camera drift and decorative stars are rendered separately. The motion is not an astronomical time-lapse.
 
 Day: Original vector landscape and procedural clouds, water highlights, wind and bird flight in this repository. No external video, people, or looping footage.
+
+
+## Day scene delivery
+
+The production deployer downloads the exact licensed Pexels MP4s above into `assets/scenes/day/` and serves them from the OSU site itself. This avoids depending on third-party hotlink playback for the visible waterfall, river, and beach/birds motion. The original Pexels URLs remain in `site-scenes.js` only as an emergency playback fallback and for source attribution.
