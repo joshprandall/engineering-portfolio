@@ -3,7 +3,10 @@
 
   // Unified site ambience controller. This is the ONLY script that may create
   // or play background ambience/music.
-  if (window.__JR_SITE_AUDIO_V29__) return;
+  if (window.__JR_SITE_AUDIO_V30__) return;
+  window.__JR_SITE_AUDIO_V30__ = true;
+  // Also claim the previous guard so a stale deferred V29 script cannot start
+  // a second detached audio controller after this one initializes.
   window.__JR_SITE_AUDIO_V29__ = true;
 
   const MUTE_KEY = 'jr-site-ambient-muted-v3';
