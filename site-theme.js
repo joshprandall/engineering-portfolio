@@ -17,6 +17,8 @@
     }
   } catch {}
   if (window.PortfolioTheme) return;
+  const THEME_SCRIPT_URL = new URL(document.currentScript?.src || location.href, location.href);
+  const SITE_BASE = new URL('./', THEME_SCRIPT_URL);
   const root = document.documentElement;
   const THEME_KEY = 'jr-site-theme';
   const MOTION_KEY = 'jr-site-motion';
@@ -101,12 +103,12 @@
   function ensureStylesheet(file) {
     const existing=[...document.querySelectorAll('link[rel="stylesheet"]')].some(link=>{try{return new URL(link.href,location.href).pathname.endsWith('/'+file);}catch{return false;}});
     if(existing)return;
-    const link=document.createElement('link');link.rel='stylesheet';link.href=new URL(file,new URL('./',document.currentScript?.src||location.href));document.head.append(link);
+    const link=document.createElement('link');link.rel='stylesheet';link.href=new URL(file,SITE_BASE);document.head.append(link);
   }
   function loadScript(file) {
     const existing=[...document.scripts].find(script=>{try{return new URL(script.src,location.href).pathname.endsWith('/'+file);}catch{return false;}});
     if(existing)return Promise.resolve();
-    return new Promise(resolve=>{const script=document.createElement('script');script.src=new URL(file,new URL('./',document.currentScript?.src||location.href));script.async=false;script.addEventListener('load',resolve,{once:true});script.addEventListener('error',resolve,{once:true});document.head.append(script);});
+    return new Promise(resolve=>{const script=document.createElement('script');script.src=new URL(file,SITE_BASE);script.async=false;script.addEventListener('load',resolve,{once:true});script.addEventListener('error',resolve,{once:true});document.head.append(script);});
   }
   async function ensureSharedRuntime() {
     // Only pages that use the portfolio/learning shared header opt into the
