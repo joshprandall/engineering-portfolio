@@ -43,9 +43,20 @@ assert.ok(responsive.includes('backdrop-filter:none!important'),'Hamburger menu 
 assert.ok(scenesCss.includes('.scene-canvas{display:block;z-index:6;opacity:1}'),'Night star canvas must render above the dark readability veil');
 assert.ok(scenesCss.includes(':root[data-theme=light] .scene-canvas{z-index:3;opacity:.88}'),'Day canvas must retain its quieter layer position');
 assert.ok(scenesCss.includes('inset:-6%') && scenesCss.includes('width:112%') && scenesCss.includes('height:112%'),'Night layers must provide responsive overscan for bounded panning');
+assert.ok(scenesCss.includes('transform:translate3d(0,0,0) scale(1.04)'),'Day fallback must retain transform headroom for safe motion');
+assert.ok(!scenesCss.includes('.scene-day-fallback,.scene-video{transform:none!important}'),'Legacy lock must not force the Day fallback transform to none');
+assert.ok(!scenesCss.includes('@media(prefers-reduced-motion:reduce){.scene-backdrop *{animation:none!important;transition:none!important}}'),'Legacy reduced-motion rule must not disable the entire scene engine');
+assert.ok(!scenesCss.includes('@media(prefers-reduced-motion:reduce){.scene-night,.scene-night-depth,.scene-night-glow{transform:none!important}}'),'Reduced-motion must not force the Night camera to a static transform');
+assert.ok(scenesCss.includes('animation:scene-day-fallback-drift-reduced 60s ease-in-out infinite alternate!important'),'Reduced Day fallback animation must override the old global universal animation reset');
 
 const scenes=read('site-scenes.js');
 assert.ok(scenes.includes('const ROTATE_AFTER = 28'),'Light scenes must rotate on the approved cadence');
+assert.ok(scenes.includes("if (!video || theme !== 'light' || !motionAllowed() || mediaDisabled) return false"),'Day video playback must not be disabled by OS reduced-motion');
+assert.ok(!scenes.includes("!motionAllowed() || reducedMotion() || mediaDisabled"),'Reduced-motion must not silently freeze Day video');
+assert.ok(scenesCss.includes('@keyframes scene-day-fallback-drift'),'Day poster fallback must have its own visible camera animation');
+assert.ok(scenesCss.includes('[data-scene-motion=running] .scene-day-fallback'),'Normal Day fallback motion must be tied to running site motion');
+assert.ok(scenesCss.includes('[data-scene-motion=reduced] .scene-day-fallback'),'Reduced-motion Day fallback must remain alive with a gentler animation');
+assert.ok(scenesCss.includes('scene-day-fallback-drift 24s'),'Normal Day fallback motion must be slow but perceptible');
 assert.ok(scenes.indexOf("id: 'forest-waterfall'")<scenes.indexOf("id: 'forest-river'")&&scenes.indexOf("id: 'forest-river'")<scenes.indexOf("id: 'birds-water'"),'Light scene order must be waterfall → river → beach');
 assert.ok(scenes.includes('twinkle: random() < .76'),'Night stars must include a dense independent twinkling subset');
 assert.ok(scenes.includes('Math.sin(time * .18) * limits.x'),'Night scene must use slower viewport-bounded horizontal drift');

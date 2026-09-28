@@ -75,12 +75,29 @@ body.living-scenes{position:relative;isolation:isolate;min-height:100vh;backgrou
   background-position:center;
   background-size:cover;
   background-repeat:no-repeat;
-  transform:none;
+  transform:translate3d(0,0,0) scale(1.04);
+  transform-origin:center center;
+  will-change:transform;
   opacity:1;
   filter:saturate(1.12) contrast(1.02) brightness(.75);
   transition:opacity 1s ease
 }
 .scene-day-fallback.video-ready{opacity:.2}
+@keyframes scene-day-fallback-drift{
+  0%{transform:translate3d(-.55%,-.28%,0) scale(1.04)}
+  50%{transform:translate3d(.18%,.34%,0) scale(1.045)}
+  100%{transform:translate3d(.55%,-.12%,0) scale(1.04)}
+}
+@keyframes scene-day-fallback-drift-reduced{
+  0%{transform:translate3d(-.16%,-.08%,0) scale(1.018)}
+  100%{transform:translate3d(.16%,.08%,0) scale(1.018)}
+}
+:root[data-theme=light][data-scene-motion=running] .scene-day-fallback{
+  animation:scene-day-fallback-drift 24s ease-in-out infinite alternate!important;
+}
+:root[data-theme=light][data-scene-motion=reduced] .scene-day-fallback{
+  animation:scene-day-fallback-drift-reduced 60s ease-in-out infinite alternate!important;
+}
 .scene-video{
   inset:-1%;
   width:102%;
@@ -1270,27 +1287,27 @@ header .scene-sound-panel{
   header .scene-sound-panel{right:-46px}
 }
 
-/* Decorative scenery honors the shared motion preference. */
-body.motion-paused .scene-backdrop *{animation:none!important;transition:none!important}
-@media(prefers-reduced-motion:reduce){.scene-backdrop *{animation:none!important;transition:none!important}}
+/* Shared motion policy. Explicit Pause freezes scenery in place. OS
+   reduced-motion is handled by the scene engine's low-amplitude mode rather
+   than disabling the visual environment outright. */
+body.motion-paused .scene-backdrop *{animation-play-state:paused!important;transition:none!important}
 
-/* Stable background lock — prevents iOS dynamic browser chrome from resizing
-   cover media and eliminates synthetic camera zoom/pan while scrolling. */
+/* Stable viewport geometry. Transform origin stays centered, but modern Day
+   fallback and Night camera transforms are intentionally allowed. */
 .scene-backdrop,
 .scene-night-wrap,.scene-day-wrap,
 .scene-image,.scene-video,.scene-canvas,.scene-atmosphere,.scene-veil,
 .scene-night-depth,.scene-night-glow{transform-origin:center center}
-.scene-day-fallback,.scene-video{transform:none!important}
+.scene-video{transform:none!important}
 .scene-video.is-active,.scene-atmosphere{animation:none!important}
 @supports(height:100lvh){.scene-backdrop{height:100lvh}}
 
-@media(prefers-reduced-motion:reduce){.scene-night,.scene-night-depth,.scene-night-glow{transform:none!important}}
-
-/* Night motion + accessible sound slider refinement. */
+/* Canonical Night overscan. Keep this late compatibility block synchronized
+   with the primary scene geometry so it cannot silently shrink camera headroom. */
 .scene-night,.scene-night-depth{
-  inset:-1.25%;
-  width:102.5%;
-  height:102.5%;
+  inset:-6%;
+  width:112%;
+  height:112%;
   will-change:transform;
 }
 .scene-night-glow{will-change:transform}

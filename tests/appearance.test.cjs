@@ -80,6 +80,33 @@ module.exports = async ({ browser, base, output, failures }) => {
     assert(await page.locator('header .scene-sound-panel').isVisible(),mode+': sound panel opens');
     await sound.click();
     assert.equal(await page.locator('body').getAttribute('data-motion'), 'running', mode + ': site motion remains running');
+    if (mode === 'light') {
+      // Provider traffic is intentionally blocked in this suite, so the real
+      // video cannot play. The visible poster fallback itself must therefore
+      // move; a changing hidden canvas is not sufficient.
+      const before = await page.evaluate(() => {
+        const fallback = document.querySelector('.scene-day-fallback');
+        const backdrop = document.querySelector('#site-scene');
+        const fr = fallback.getBoundingClientRect(), br = backdrop.getBoundingClientRect();
+        return {
+          transform:getComputedStyle(fallback).transform,
+          covers:fr.left <= br.left && fr.top <= br.top && fr.right >= br.right && fr.bottom >= br.bottom
+        };
+      });
+      assert(before.covers, 'Day fallback must cover the viewport before motion');
+      await page.waitForTimeout(1200);
+      const after = await page.evaluate(() => {
+        const fallback = document.querySelector('.scene-day-fallback');
+        const backdrop = document.querySelector('#site-scene');
+        const fr = fallback.getBoundingClientRect(), br = backdrop.getBoundingClientRect();
+        return {
+          transform:getComputedStyle(fallback).transform,
+          covers:fr.left <= br.left && fr.top <= br.top && fr.right >= br.right && fr.bottom >= br.bottom
+        };
+      });
+      assert.notEqual(after.transform, before.transform, 'Visible Day fallback must move when video playback is unavailable');
+      assert(after.covers, 'Day fallback must remain fitted to the viewport while moving');
+    }
     if (mode === 'dark') {
       const layers = await page.evaluate(() => {
         const canvas = document.querySelector('.scene-canvas');
@@ -129,6 +156,12 @@ module.exports = async ({ browser, base, output, failures }) => {
   assert.equal(await page.evaluate(()=>window.PortfolioTheme.isPaused()), false, 'OS preference is not treated as an explicit site pause');
   assert(await page.evaluate(()=>window.PortfolioTheme.isReducedMotion()), 'Theme owner exposes reduced-motion state separately');
   let moving = await pixels(); await page.waitForTimeout(420); assert.notEqual(await pixels(), moving, 'Reduced mode retains low-amplitude starfield life');
+  await page.evaluate(() => PortfolioTheme.setTheme('light'));
+  const dayReduced0 = await page.locator('.scene-day-fallback').evaluate(el => getComputedStyle(el).transform);
+  await page.waitForTimeout(900);
+  const dayReduced1 = await page.locator('.scene-day-fallback').evaluate(el => getComputedStyle(el).transform);
+  assert.notEqual(dayReduced1, dayReduced0, 'Reduced-motion mode must not freeze the visible Day fallback');
+  await page.evaluate(() => PortfolioTheme.setTheme('dark'));
   await page.evaluate(()=>window.PortfolioTheme.setMotion('paused'));
   assert.equal(await page.locator('body').getAttribute('data-motion'), 'paused', 'Explicit site pause still freezes scenery');
   moving = await pixels(); await page.waitForTimeout(300); assert.equal(await pixels(), moving, 'Explicit pause freezes the scene');

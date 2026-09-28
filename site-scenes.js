@@ -254,7 +254,11 @@
     }
 
     async function playSafely(video) {
-      if (!video || theme !== 'light' || !motionAllowed() || reducedMotion() || mediaDisabled) return false;
+      // Day mode must remain visually alive. OS reduced-motion removes extra
+      // camera effects but does not replace real waterfall/river/beach footage
+      // with a frozen poster. Only an explicit site pause or media-unavailable
+      // condition may stop playback.
+      if (!video || theme !== 'light' || !motionAllowed() || mediaDisabled) return false;
       try {
         await video.play();
         return true;
@@ -497,6 +501,10 @@
       glow.addColorStop(1, 'rgba(255,238,179,0)');
       ctx.fillStyle = glow;
       ctx.fillRect(0, 0, width, height);
+
+      // The visible poster fallback has its own CSS camera animation so it
+      // remains alive even if the browser throttles this canvas loop or the
+      // remote Day video cannot play.
     }
 
     function draw(dt) {
