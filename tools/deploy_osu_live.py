@@ -6,6 +6,11 @@ from urllib.request import Request, urlopen
 from zipfile import ZipFile
 
 PUBLIC_URL = 'https://web.engr.oregonstate.edu/~randjosh/'
+DAY_MEDIA_SOURCES = {
+    'assets/scenes/day/waterfall.mp4': 'https://www.pexels.com/download/video/7351460/',
+    'assets/scenes/day/river.mp4': 'https://www.pexels.com/download/video/33886656/',
+    'assets/scenes/day/beach-birds.mp4': 'https://www.pexels.com/download/video/9982425/',
+}
 WEB_DIRS = ('assets', 'deep-learning', 'labs', 'qubit-preview-20260921')
 PROTECTED_ROOT_FILES = set()
 PROTECTED_PREFIXES = ('games/', 'geometric-lab/')
@@ -19,6 +24,7 @@ REQUIRED = THEME_SHELL_FILES + (
     'site-theme.js', 'site-scenes.js', 'site-audio.js', 'site-sound-control.js', 'site-scenes.css',
     'assets/audio/dark-theme-user.wav',
     'assets/scenes/webb-cosmic-cliffs.webp', 'assets/scenes/mountain-valley.svg',
+    'assets/scenes/day/waterfall.mp4', 'assets/scenes/day/river.mp4', 'assets/scenes/day/beach-birds.mp4',
     'index.html', 'expertise-experience.html', 'projects.html', 'security-research.html', 'security-research.css', 'security-research.js', 'game-development.html', 'learn.html', 'lesson.html',
     'learn-browse.html', 'learn-capstones.html', 'learn-glossary.html', 'learn-labs.html', 'learn-map.html',
     'learn-mastery.html', 'learn-paths.html', 'learn-practice.html', 'learn-verify.html',
@@ -52,6 +58,37 @@ def release_files(source):
     for directory in WEB_DIRS:
         files.extend(p for p in (source/directory).rglob('*') if p.is_file())
     return sorted(p for p in files if not protected(p.relative_to(source).as_posix()))
+
+def materialize_day_media(source):
+    """Fetch the three licensed Day videos into the release so production serves them same-origin."""
+    for name, url in DAY_MEDIA_SOURCES.items():
+        target = source/name
+        if target.is_file() and target.stat().st_size > 1024*1024:
+            continue
+        target.parent.mkdir(parents=True, exist_ok=True)
+        temp = target.with_suffix(target.suffix+'.downloading')
+        request = Request(url, headers={
+            'User-Agent': 'Mozilla/5.0 (compatible; JoshuaRandallPortfolioDeploy/1.0)',
+            'Referer': 'https://www.pexels.com/',
+            'Accept': 'video/mp4,video/*;q=0.9,*/*;q=0.8',
+        })
+        print('Downloading licensed Day video:', name, flush=True)
+        try:
+            with urlopen(request, timeout=120) as response, temp.open('wb') as output:
+                content_type = response.headers.get('Content-Type','')
+                if 'video' not in content_type and 'octet-stream' not in content_type:
+                    raise RuntimeError(f'Unexpected media type for {name}: {content_type}')
+                shutil.copyfileobj(response, output, length=1024*1024)
+            if temp.stat().st_size < 1024*1024:
+                raise RuntimeError(f'Day video download is unexpectedly small: {name}')
+            with temp.open('rb') as source_file:
+                header = source_file.read(32)
+            if b'ftyp' not in header:
+                raise RuntimeError(f'Day video is not a valid MP4 container: {name}')
+            os.replace(temp, target)
+        finally:
+            if temp.exists():
+                temp.unlink()
 
 def validate_source(source):
     missing = [name for name in REQUIRED if not (source/name).is_file()]
@@ -211,6 +248,22 @@ def http_smoke(commit, site):
                 raise RuntimeError('Server is not serving JavaScript correctly: '+name)
         print('Verified public URL:',name,flush=True)
 
+def http_smoke_day_media():
+    """Verify same-origin Day media is publicly reachable and served as MP4."""
+    for name in DAY_MEDIA_SOURCES:
+        request = Request(PUBLIC_URL+name+'?day-media=1', headers={
+            'Cache-Control':'no-cache',
+            'Range':'bytes=0-63',
+        })
+        with urlopen(request, timeout=30) as response:
+            content_type = response.headers.get('Content-Type','')
+            prefix = response.read(64)
+            if 'video/mp4' not in content_type and 'application/octet-stream' not in content_type:
+                raise RuntimeError('Server is not serving Day media as MP4: '+name+' ('+content_type+')')
+            if b'ftyp' not in prefix:
+                raise RuntimeError('Public Day media does not look like MP4: '+name)
+        print('Verified public Day video:', name, flush=True)
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('commit', help='Full 40-character SHA of the tested GitHub commit')
@@ -232,7 +285,8 @@ def main():
         source = temp/'source'/('engineering-portfolio-'+args.commit)
         if not source.is_dir():
             raise RuntimeError('Archive does not contain the requested commit.')
-        backup = deploy(source,site,lambda:http_smoke(args.commit,site))
+        materialize_day_media(source)
+        backup = deploy(source,site,lambda:(http_smoke(args.commit,site), http_smoke_day_media()))
     print('Website updated:',PUBLIC_URL)
     print('Commit:',args.commit)
     print('Backup:',backup)
