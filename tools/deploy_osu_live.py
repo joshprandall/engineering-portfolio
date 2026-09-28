@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Deploy one exact tested commit with a full backup, byte checks and rollback."""
-import argparse, datetime, hashlib, os, re, shutil, stat, tarfile, tempfile
+import argparse, datetime, hashlib, os, re, shutil, stat, tarfile, tempfile, time
 from pathlib import Path
+from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
 from zipfile import ZipFile
 
@@ -31,8 +32,6 @@ REQUIRED = THEME_SHELL_FILES + (
     'assets/audio/dark-theme-user.wav',
     'assets/scenes/webb-cosmic-cliffs.webp', 'assets/scenes/mountain-valley.svg',
     'assets/scenes/day/waterfall.mp4', 'assets/scenes/day/river.mp4', 'assets/scenes/day/beach-birds.mp4',
-    'assets/audio/day/waterfall.ogg', 'assets/audio/day/river.ogg',
-    'assets/audio/day/beach-near.ogg', 'assets/audio/day/beach-far.ogg',
     'index.html', 'expertise-experience.html', 'projects.html', 'security-research.html', 'security-research.css', 'security-research.js', 'game-development.html', 'learn.html', 'lesson.html',
     'learn-browse.html', 'learn-capstones.html', 'learn-glossary.html', 'learn-labs.html', 'learn-map.html',
     'learn-mastery.html', 'learn-paths.html', 'learn-practice.html', 'learn-verify.html',
@@ -67,65 +66,126 @@ def release_files(source):
         files.extend(p for p in (source/directory).rglob('*') if p.is_file())
     return sorted(p for p in files if not protected(p.relative_to(source).as_posix()))
 
-def materialize_day_media(source):
-    """Fetch licensed Day video + ambience so production scene changes are same-origin and deterministic."""
+def _valid_mp4(path):
+    try:
+        if not path.is_file() or path.stat().st_size <= 1024*1024:
+            return False
+        with path.open('rb') as source_file:
+            return b'ftyp' in source_file.read(32)
+    except OSError:
+        return False
+
+def _valid_ogg(path):
+    try:
+        if not path.is_file() or path.stat().st_size <= 32768:
+            return False
+        with path.open('rb') as source_file:
+            return source_file.read(4) == b'OggS'
+    except OSError:
+        return False
+
+def _reuse_media(source, site, name, validator):
+    target = source/name
+    for candidate in (site/name, Path.home()/'.cache/jr-portfolio-media'/name):
+        if validator(candidate):
+            target.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(candidate, target)
+            print('Reusing cached Day media:', name, flush=True)
+            return True
+    return False
+
+def _cache_media(source_file, name):
+    try:
+        cache = Path.home()/'.cache/jr-portfolio-media'/name
+        cache.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(source_file, cache)
+        cache.chmod(0o600)
+    except OSError:
+        pass
+
+def _download_with_retry(request, temp, timeout, label, attempts=5):
+    for attempt in range(1, attempts+1):
+        try:
+            with urlopen(request, timeout=timeout) as response, temp.open('wb') as output:
+                content_type = response.headers.get('Content-Type','')
+                shutil.copyfileobj(response, output, length=512*1024)
+                return content_type
+        except HTTPError as error:
+            retryable = error.code == 429 or 500 <= error.code < 600
+            if not retryable or attempt >= attempts:
+                raise
+            try:
+                retry_after = float(error.headers.get('Retry-After') or 0)
+            except (TypeError, ValueError):
+                retry_after = 0
+            delay = min(10.0, max(retry_after, 3.0 * (2 ** (attempt-1))))
+            print(f'{label} was rate-limited ({error.code}); retrying in {delay:.0f}s [{attempt}/{attempts}]', flush=True)
+            if temp.exists():
+                temp.unlink()
+            time.sleep(delay)
+        except URLError:
+            if attempt >= attempts:
+                raise
+            delay = min(20.0, 2.0 * (2 ** (attempt-1)))
+            print(f'{label} network retry in {delay:.0f}s [{attempt}/{attempts}]', flush=True)
+            if temp.exists():
+                temp.unlink()
+            time.sleep(delay)
+
+def materialize_day_media(source, site):
+    """Prefer already-deployed/cached media, then download. Audio is optional because runtime has a remote fallback."""
     for name, url in DAY_MEDIA_SOURCES.items():
         target = source/name
-        if target.is_file() and target.stat().st_size > 1024*1024:
+        if _valid_mp4(target) or _reuse_media(source, site, name, _valid_mp4):
             continue
         target.parent.mkdir(parents=True, exist_ok=True)
         temp = target.with_suffix(target.suffix+'.downloading')
         request = Request(url, headers={
-            'User-Agent': 'Mozilla/5.0 (compatible; JoshuaRandallPortfolioDeploy/1.0)',
+            'User-Agent': 'Mozilla/5.0 (compatible; JoshuaRandallPortfolioDeploy/1.1; +https://web.engr.oregonstate.edu/~randjosh/)',
             'Referer': 'https://www.pexels.com/',
             'Accept': 'video/mp4,video/*;q=0.9,*/*;q=0.8',
         })
         print('Downloading licensed Day video:', name, flush=True)
         try:
-            with urlopen(request, timeout=120) as response, temp.open('wb') as output:
-                content_type = response.headers.get('Content-Type','')
-                if 'video' not in content_type and 'octet-stream' not in content_type:
-                    raise RuntimeError(f'Unexpected media type for {name}: {content_type}')
-                shutil.copyfileobj(response, output, length=1024*1024)
-            if temp.stat().st_size < 1024*1024:
-                raise RuntimeError(f'Day video download is unexpectedly small: {name}')
-            with temp.open('rb') as source_file:
-                header = source_file.read(32)
-            if b'ftyp' not in header:
-                raise RuntimeError(f'Day video is not a valid MP4 container: {name}')
+            content_type = _download_with_retry(request, temp, 120, 'Day video '+name, attempts=4)
+            if 'video' not in content_type and 'octet-stream' not in content_type:
+                raise RuntimeError(f'Unexpected media type for {name}: {content_type}')
+            if not _valid_mp4(temp):
+                raise RuntimeError(f'Day video download is invalid: {name}')
             os.replace(temp, target)
+            _cache_media(target, name)
         finally:
             if temp.exists():
                 temp.unlink()
 
-    for name, url in DAY_AUDIO_SOURCES.items():
+    for index, (name, url) in enumerate(DAY_AUDIO_SOURCES.items()):
         target = source/name
-        if target.is_file() and target.stat().st_size > 32768:
+        if _valid_ogg(target) or _reuse_media(source, site, name, _valid_ogg):
             continue
         target.parent.mkdir(parents=True, exist_ok=True)
         temp = target.with_suffix(target.suffix+'.downloading')
         request = Request(url, headers={
-            'User-Agent': 'Mozilla/5.0 (compatible; JoshuaRandallPortfolioDeploy/1.0)',
+            'User-Agent': 'JoshuaRandallPortfolioDeploy/1.1 (+https://web.engr.oregonstate.edu/~randjosh/)',
             'Referer': 'https://commons.wikimedia.org/',
             'Accept': 'audio/ogg,audio/*;q=0.9,application/ogg;q=0.8,*/*;q=0.5',
         })
         print('Downloading Day ambience:', name, flush=True)
         try:
-            with urlopen(request, timeout=90) as response, temp.open('wb') as output:
-                content_type = response.headers.get('Content-Type','')
-                if not any(token in content_type for token in ('audio', 'ogg', 'octet-stream')):
-                    raise RuntimeError(f'Unexpected Day audio media type for {name}: {content_type}')
-                shutil.copyfileobj(response, output, length=512*1024)
-            if temp.stat().st_size < 32768:
-                raise RuntimeError(f'Day audio download is unexpectedly small: {name}')
-            with temp.open('rb') as source_file:
-                header = source_file.read(4)
-            if header != b'OggS':
-                raise RuntimeError(f'Day ambience is not a valid Ogg container: {name}')
+            content_type = _download_with_retry(request, temp, 90, 'Day ambience '+name, attempts=3)
+            if not any(token in content_type for token in ('audio', 'ogg', 'octet-stream')):
+                raise RuntimeError(f'Unexpected Day audio media type for {name}: {content_type}')
+            if not _valid_ogg(temp):
+                raise RuntimeError(f'Day ambience download is invalid: {name}')
             os.replace(temp, target)
-        finally:
+            _cache_media(target, name)
+            # Do not burst four Wikimedia downloads through the same OSU egress.
+            if index < len(DAY_AUDIO_SOURCES)-1:
+                time.sleep(2.0)
+        except (HTTPError, URLError, RuntimeError) as error:
             if temp.exists():
                 temp.unlink()
+            print('WARNING: could not cache Day ambience:', name, '-', error, flush=True)
+            print('         Deployment will continue; browser audio uses the matching Wikimedia fallback.', flush=True)
 
 def validate_source(source):
     missing = [name for name in REQUIRED if not (source/name).is_file()]
@@ -302,6 +362,10 @@ def http_smoke_day_media():
         print('Verified public Day video:', name, flush=True)
 
     for name in DAY_AUDIO_SOURCES:
+        local = Path.home()/'public_html'/name
+        if not _valid_ogg(local):
+            print('Day ambience not cached locally; verified runtime will use remote fallback:', name, flush=True)
+            continue
         request = Request(PUBLIC_URL+name+'?day-audio=1', headers={
             'Cache-Control':'no-cache',
             'Range':'bytes=0-63',
@@ -336,7 +400,7 @@ def main():
         source = temp/'source'/('engineering-portfolio-'+args.commit)
         if not source.is_dir():
             raise RuntimeError('Archive does not contain the requested commit.')
-        materialize_day_media(source)
+        materialize_day_media(source, site)
         backup = deploy(source,site,lambda:(http_smoke(args.commit,site), http_smoke_day_media()))
     print('Website updated:',PUBLIC_URL)
     print('Commit:',args.commit)
