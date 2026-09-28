@@ -3,16 +3,16 @@
 
   // Unified site ambience controller. This is the ONLY script that may create
   // or play background ambience/music.
-  if (window.__JR_SITE_AUDIO_V28__) return;
-  window.__JR_SITE_AUDIO_V28__ = true;
+  if (window.__JR_SITE_AUDIO_V29__) return;
+  window.__JR_SITE_AUDIO_V29__ = true;
 
   const MUTE_KEY = 'jr-site-ambient-muted-v3';
   const DARK_TIME_KEY = 'jr-dark-theme-time-v1';
   const VOLUME_KEY = 'jr-site-ambient-volume-v6';
-  const PROJECT_RE = /(?:^|\/)(?:project-[^/]+\.html|play-evil-wizard\.html|agent-workbench\.html|games\/|geometric-lab\/|qubit-preview-20260921\/|deep-learning\/)/i;
+  // Normal shared-shell pages always receive ambience. Only standalone interactive
+  // experiences that intentionally own their own media environment are isolated.
+  const ISOLATED_RE = /(?:^|\/)(?:games\/|geometric-lab\/|qubit-preview-20260921\/|deep-learning\/)/i;
   const LOCAL_TEST_HOST = location.hostname === '127.0.0.1' || location.hostname === 'localhost';
-  const MAIN_PAGE_RE = /(?:^|\/)(?:index\.html|learn\.html)?$/i;
-  const MAIN_PAGE = ['', 'index.html', 'learn.html'].includes(location.pathname.slice(new URL('./', document.currentScript.src).pathname.length));
 
   const SOURCES = Object.freeze({
     // User-provided dark-mode soundtrack. Prefer the PCM WAV master so the browser has no MP3/AAC encoder padding at the loop boundary.
@@ -38,7 +38,7 @@
   const MAX_BACKGROUND_VOLUME = 1.00;
 
   let sceneId = 'forest-river';
-  let suppressed = !MAIN_PAGE || PROJECT_RE.test(location.pathname);
+  let suppressed = ISOLATED_RE.test(location.pathname);
   let currentKey = '';
   let unlocked = false;
   let switching = false;
@@ -118,7 +118,6 @@
   function allowed() {
     return !muted() &&
       !suppressed &&
-      !lessonOpen() &&
       !document.hidden;
   }
 
@@ -246,7 +245,7 @@
 
         const progress = Math.min(1, Math.max(0, (now - startedAt) / fadeMs));
         // Complementary linear fades keep the combined website-side level at
-        // or below the same 10% ambience ceiling.
+        // or below the user-selected ambience level.
         from.volume = cap * (1 - progress);
         to.volume = cap * progress;
 
@@ -450,7 +449,7 @@
   }
 
   function scheduleAutoplayRetries() {
-    if (!MAIN_PAGE || muted() || suppressed || lessonOpen()) return;
+    if (muted() || suppressed) return;
     clearAutoplayRetries();
 
     // Start immediately, then retry as the document/media pipeline settles.
@@ -492,7 +491,7 @@
   });
 
   document.addEventListener('portfolio:ambient-suppression', event => {
-    suppressed = !MAIN_PAGE || Boolean(event.detail?.active);
+    suppressed = ISOLATED_RE.test(location.pathname) || Boolean(event.detail?.active);
     sync(true);
   });
 
@@ -603,4 +602,5 @@
     get element() { return currentKey === 'beach' ? beachPlayers[beachActiveIndex] : audio; },
     get beachElements() { return beachPlayers.slice(); }
   });
+  document.dispatchEvent(new CustomEvent('portfolio:site-audio-ready'));
 })();

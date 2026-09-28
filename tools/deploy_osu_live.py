@@ -19,7 +19,7 @@ REQUIRED = THEME_SHELL_FILES + (
     'site-theme.js', 'site-scenes.js', 'site-audio.js', 'site-sound-control.js', 'site-scenes.css',
     'assets/audio/dark-theme-user.wav',
     'assets/scenes/webb-cosmic-cliffs.webp', 'assets/scenes/mountain-valley.svg',
-    'index.html', 'expertise-experience.html', 'projects.html', 'game-development.html', 'learn.html', 'lesson.html',
+    'index.html', 'expertise-experience.html', 'projects.html', 'security-research.html', 'security-research.css', 'security-research.js', 'game-development.html', 'learn.html', 'lesson.html',
     'learn-browse.html', 'learn-capstones.html', 'learn-glossary.html', 'learn-labs.html', 'learn-map.html',
     'learn-mastery.html', 'learn-paths.html', 'learn-practice.html', 'learn-verify.html',
     'app.js', 'styles.css', 'site-resilience.js',
@@ -193,7 +193,7 @@ def http_smoke(commit, site):
     checks = (
         'site-theme.js', 'site-scenes.js', 'site-audio.js', 'site-sound-control.js',
         'site-scenes.css', 'geometric-lab/index.html', 'geometric-lab/app.js',
-        'index.html', 'learn.html', 'expertise-experience.html', 'game-development.html',
+        'index.html', 'learn.html', 'expertise-experience.html', 'security-research.html', 'security-research.css', 'security-research.js', 'game-development.html',
         'lesson.html', 'knowledge.js', 'projects.html', 'portfolio-home.css',
         'quantum-cube.js', 'labs/qpe.js', 'labs/emergent.js', 'agent-workbench.js',
         'handheld-experience.js', 'science-experiments.js', 'learning-depth.js',

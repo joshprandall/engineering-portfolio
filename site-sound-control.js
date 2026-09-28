@@ -37,5 +37,6 @@
     for(const event of ['portfolio:ambient-volume','portfolio:ambient-autoplay','portfolio:theme'])document.addEventListener(event,render);
     addEventListener('storage',render);render();
   };
+  document.addEventListener('portfolio:site-audio-ready',boot);
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot,{once:true});else boot();
 })();

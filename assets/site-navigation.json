@@ -13,6 +13,10 @@
       "label": "Projects"
     },
     {
+      "path": "security-research.html",
+      "label": "Security Research"
+    },
+    {
       "path": "learn.html",
       "label": "Learn"
     },
@@ -81,6 +85,7 @@
     "ai-personal-agent.html": "ai-development.html",
     "expertise-experience.html": "about.html",
     "resume.html": "about.html",
-    "direction.html": "about.html"
+    "direction.html": "about.html",
+    "security-research.html": "security-research.html"
   }
 }

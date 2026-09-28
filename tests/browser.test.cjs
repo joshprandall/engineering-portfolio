@@ -91,6 +91,34 @@ async function run(){
    await page.locator('#theme').click();
    console.log(`PASS ${name}: navigation, search, selected work, Bell outcomes, animation and pause, images, theme, layout`);
   }
+  // Global scene/audio architecture must follow shared-shell pages, not a Home/Learn allowlist.
+  for(const route of ['ai-development.html','security-research.html','project-qpe.html','learn-browse.html','lesson.html']){
+   await page.setViewportSize({width:390,height:844});await page.goto(base+'/'+route,{waitUntil:'domcontentloaded'});
+   await page.locator('#site-scene').waitFor({state:'attached'});
+   assert.equal(await page.locator('#site-scene').count(),1,route+': exactly one global scene backdrop');
+   assert.equal(await page.locator('header [data-scene-audio]').count(),1,route+': exactly one ambient sound control');
+   assert.equal(await page.evaluate(()=>Boolean(window.SiteAudio)),true,route+': SiteAudio is available');
+   assert.equal(await page.evaluate(()=>window.SiteAudio.suppressed),false,route+': normal shared-shell page is not audio-suppressed');
+  }
+  await page.goto(base+'/ai-development.html',{waitUntil:'domcontentloaded'});
+  assert.equal(await page.evaluate(()=>window.SiteAudio?.suppressed),false,'AI Development receives active ambient audio architecture');
+
+  // Hamburger navigation is intentionally solid even over moving scenery.
+  await page.goto(base+'/',{waitUntil:'domcontentloaded'});
+  await page.locator('#menu').click();await page.locator('#primary-nav').waitFor({state:'visible'});
+  const menuPaint=await page.locator('#primary-nav').evaluate(el=>{const c=getComputedStyle(el).backgroundColor,m=c.match(/rgba?\(([^)]+)\)/);const p=m?m[1].split(',').map(x=>Number(x.trim())):[];return{color:c,alpha:p.length>3?p[3]:1,backdrop:getComputedStyle(el).backdropFilter||getComputedStyle(el).webkitBackdropFilter||'none'};});
+  assert.equal(menuPaint.alpha,1,'Hamburger menu background must be opaque: '+JSON.stringify(menuPaint));
+  assert(menuPaint.backdrop==='none'||menuPaint.backdrop==='', 'Hamburger menu must not depend on backdrop translucency: '+JSON.stringify(menuPaint));
+  await page.keyboard.press('Escape');
+
+  // Security Research tools execute entirely against local/synthetic inputs.
+  await page.goto(base+'/security-research.html',{waitUntil:'domcontentloaded'});
+  assert(await page.locator('#security-title').isVisible(),'Security Research heading is visible');
+  for(const id of ['vuln-run','fuzz-run','linux-run','ad-run','container-run','surface-run']){await page.locator('#'+id).click();}
+  for(const id of ['vuln-output','fuzz-output','linux-output','ad-output','container-output','surface-output'])assert(await page.locator('#'+id+' h3').first().isVisible(),id+': interactive analysis produced output');
+  assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true,'Security Research has no phone-width horizontal overflow');
+  console.log('PASS global runtime, solid menu, AI ambience and Security Research tools');
+
   // Every project detail page must display a heading and working primary navigation.
   const routes=fs.readdirSync(root).filter(n=>/^project-.*\.html$/.test(n));
   for(const route of routes){
@@ -148,7 +176,7 @@ async function run(){
    ['facebook-android','Mozilla/5.0 (Linux; Android 16; Pixel 9) AppleWebKit/537.36 Chrome/140 Mobile Safari/537.36 [FB_IAB/FB4A;FBAV/530.0.0.0.0;]',412,915],
    ['instagram-ios','Mozilla/5.0 (iPhone; CPU iPhone OS 26_0 like Mac OS X) AppleWebKit/605.1.15 Mobile/15E148 Instagram 400.0.0.0.0',390,844]
   ];
-  const embeddedRoutes=['/','/projects.html','/learn.html','/play-evil-wizard.html','/project-battle-chess.html','/project-geometric-ai.html'];
+  const embeddedRoutes=['/','/projects.html','/security-research.html','/learn.html','/play-evil-wizard.html','/project-battle-chess.html','/project-geometric-ai.html'];
   for(const [name,userAgent,width,height] of embeddedCases){
    const context=await browser.newContext({viewport:{width,height},userAgent,isMobile:true,hasTouch:true,deviceScaleFactor:1});
    const embedded=await context.newPage();embedded.setDefaultTimeout(8000);embedded.setDefaultNavigationTimeout(15000);
