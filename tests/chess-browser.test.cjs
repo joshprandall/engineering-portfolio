@@ -6,6 +6,13 @@ const server=http.createServer((req,res)=>{try{const pathname=decodeURIComponent
 const results=[],offline=process.env.CHESS_OFFLINE_ONLY==='1';
 (async()=>{await new Promise(r=>server.listen(0,'127.0.0.1',r));const base=`http://127.0.0.1:${server.address().port}`;
 const browser=await chromium.launch({headless:true,executablePath:process.env.PORTFOLIO_BROWSER_EXECUTABLE||undefined,args:['--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader']});
+// Optional test-only mirror of the exact pinned npm dependency. Runtime URLs stay unchanged.
+if(process.env.PORTFOLIO_THREE_ROOT){
+ const dependency=path.resolve(process.env.PORTFOLIO_THREE_ROOT),original=browser.newContext.bind(browser);
+ assert.equal(JSON.parse(fs.readFileSync(path.join(dependency,'package.json'))).version,'0.180.0');
+ browser.newContext=async options=>{const c=await original(options);await c.route('https://cdn.jsdelivr.net/npm/three@0.180.0/**',async r=>{const rel=new URL(r.request().url()).pathname.split('/three@0.180.0/')[1],f=path.resolve(dependency,rel);assert(f.startsWith(dependency+path.sep));await r.fulfill({contentType:'text/javascript',body:fs.readFileSync(f)});});return c;};
+ console.log('Using exact Three.js 0.180.0 npm bytes for isolated browser tests; live CDN availability is not asserted.');
+}
 const game=page=>page.evaluate(async()=>{const {game}=await import('/games/3d-battle-chess/shared-game.js');return {...game.snapshot(),positions:[...game.positions],historyLength:game.history.length};});
 const enter=async(page,view='3d')=>{await page.goto(base+'/games/3d-battle-chess/',{waitUntil:'networkidle'});await page.locator('#setupMode').selectOption('local');await page.locator('#setupView').selectOption(view);await page.locator('#setupSound').uncheck();await page.locator('#startGameBtn').click();await page.waitForFunction(()=>document.querySelector('#board2d').children.length===64);};
 const inputMove=async(page,value)=>{await page.evaluate(value=>{document.querySelector('#moveInput').value=value;document.querySelector('#moveForm').dispatchEvent(new Event('submit',{bubbles:true,cancelable:true}));},value);};

@@ -1,0 +1,26 @@
+/* Deliberately confined to the existing AI experiment area. */
+#ai-lab-root [hidden]{display:none!important}
+#ai-lab-root .ai-lab-scope{font-size:.88rem;color:var(--muted);max-width:70ch}
+#ai-lab-root .ai-lab-actions{display:flex;flex-wrap:wrap;gap:.65rem}
+#ai-lab-root button:disabled{opacity:.55;cursor:not-allowed}
+#ai-lab-root input[aria-invalid=true]{outline:2px solid #e18b50;outline-offset:2px}
+#ai-lab-root [data-input-error]{border-left:3px solid #e18b50;padding:.8rem;line-height:1.5}
+#ai-lab-root [data-ai-comparison]{margin-top:1rem;border:1px solid var(--line);border-radius:12px;padding:1rem;overflow-wrap:anywhere}
+#ai-lab-root .ai-lab-figure:empty{display:none}
+#ai-lab-root .ai-lab-figure{margin-top:1rem}
+#ai-lab-root figure{margin:0}
+#ai-lab-root svg{display:block;width:min(100%,20rem);height:auto;margin:auto;color:var(--ink,var(--text))}
+#ai-lab-root svg text{fill:currentColor;font:12px system-ui}
+#ai-lab-root .ai-axis{stroke:currentColor;opacity:.5;fill:none}
+#ai-lab-root .ai-vector-original{stroke:currentColor;stroke-width:3}
+#ai-lab-root .ai-vector-point{fill:currentColor}
+#ai-lab-root .ai-vector-rotated{stroke:var(--accent);stroke-width:4;stroke-dasharray:6 4}
+#ai-lab-root figcaption{font-size:.9rem;line-height:1.6;color:var(--muted);margin:.75rem 0}
+#ai-lab-root .ai-matrix{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums;table-layout:fixed}
+#ai-lab-root .ai-matrix th,#ai-lab-root .ai-matrix td{padding:.6rem;border:1px solid var(--line);text-align:center;overflow-wrap:anywhere}
+#ai-lab-root .ai-matrix caption{text-align:left;margin:.6rem 0}
+#ai-lab-root .ai-matrix-pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}
+#ai-lab-root .ai-minimax>div:first-child{text-align:center;padding:1rem;border:1px solid var(--line);border-radius:10px}
+#ai-lab-root .ai-tree-branches{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;margin-top:.9rem}
+#ai-lab-root .ai-tree-branches>div{padding:.8rem;border:1px solid var(--line);border-radius:10px;text-align:center}
+@media(max-width:400px){#ai-lab-root .ai-matrix-pair{grid-template-columns:minmax(0,1fr)}}

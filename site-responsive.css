@@ -115,6 +115,11 @@ body .vnext-cosmos .vnext-world strong{display:block!important;font-size:16px!im
 .ai-lab-bars{display:grid;gap:.55rem}.ai-lab-bars>div{display:grid;grid-template-columns:minmax(5rem,auto) 1fr 4.5rem;gap:.6rem;align-items:center}
 .ai-lab-bars i{height:.7rem;border-radius:999px;background:linear-gradient(90deg,var(--accent) var(--p),color-mix(in srgb,var(--line) 70%,transparent) var(--p))}
 .ai-lab-bars output{text-align:right;font-variant-numeric:tabular-nums}
+/* Native hidden state must survive the learning button/grid presentation rules. */
+body[data-library-page] [hidden]{display:none!important}
+body[data-library-page] .filters,body[data-library-page] .filters>label{min-width:0;max-width:100%}
+body[data-library-page] .filters select{min-width:0;max-width:100%}
+@media(max-width:520px){body[data-library-page] .filters{grid-template-columns:minmax(0,1fr)}body[data-library-page] .filters>label{flex-wrap:wrap}}
 @media(max-width:38rem){.ai-build-sequence{grid-template-columns:1fr}.ai-build-sequence a,.ai-build-sequence a:last-child{justify-content:flex-start;text-align:left}.ai-lab-bars>div{grid-template-columns:1fr}.ai-lab-bars output{text-align:left}}
 
 /* Sitewide glass contract: tile surfaces must reveal the scene behind them. */
