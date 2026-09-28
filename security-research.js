@@ -177,7 +177,7 @@
     }catch(error){$('container-output').textContent=error.message;}
   });
 
-  // 6. Supplied inventory analysis only. No socket, fetch, XHR, WebSocket, or discovery APIs.
+  // 6. Supplied inventory analysis only. No network or discovery APIs.
   const surfaceSample='web-lab,443,https,internet,on,current\nadmin-lab,22,ssh,internal,on,current\nlegacy-lab,23,telnet,internet,off,legacy\nfiles-lab,445,smb,internet,on,current\ndev-lab,8080,admin-http,internet,off,unknown';
   $('surface-sample')?.addEventListener('click',()=>{$('surface-input').value=surfaceSample;});
   function parseInventory(text){
