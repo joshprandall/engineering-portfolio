@@ -3,12 +3,12 @@
 
   // Unified site ambience controller. This is the ONLY script that may create
   // or play background ambience/music.
-  if (window.__JR_SITE_AUDIO_V27__) return;
-  window.__JR_SITE_AUDIO_V27__ = true;
+  if (window.__JR_SITE_AUDIO_V28__) return;
+  window.__JR_SITE_AUDIO_V28__ = true;
 
   const MUTE_KEY = 'jr-site-ambient-muted-v3';
   const DARK_TIME_KEY = 'jr-dark-theme-time-v1';
-  const VOLUME_KEY = 'jr-site-ambient-volume-v3';
+  const VOLUME_KEY = 'jr-site-ambient-volume-v4';
   const PROJECT_RE = /(?:^|\/)(?:project-[^/]+\.html|play-evil-wizard\.html|agent-workbench\.html|games\/|geometric-lab\/|qubit-preview-20260921\/|deep-learning\/)/i;
   const LOCAL_TEST_HOST = location.hostname === '127.0.0.1' || location.hostname === 'localhost';
   const MAIN_PAGE_RE = /(?:^|\/)(?:index\.html|learn\.html)?$/i;
