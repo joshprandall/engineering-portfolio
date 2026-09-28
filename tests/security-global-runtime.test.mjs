@@ -35,17 +35,22 @@ assert.ok(theme.includes('SITE_BASE'),'Shared runtime bootstrap must resolve fro
 assert.ok(theme.includes("const isPaused = () => motion === 'paused'"),'Only an explicit site pause may fully freeze scenery');
 assert.ok(theme.includes('const isReducedMotion = () =>'),'OS reduced-motion preference must have a separate reduced mode');
 
+const scenesCss=read('site-scenes.css');
 const responsive=read('site-responsive.css');
 assert.ok(responsive.includes('--nav-menu-solid'),'Solid hamburger menu token missing');
 assert.ok(responsive.includes('background:var(--nav-menu-solid)!important'),'Hamburger menu must be opaque');
 assert.ok(responsive.includes('backdrop-filter:none!important'),'Hamburger menu must not use translucent backdrop filtering');
+assert.ok(scenesCss.includes('.scene-canvas{display:block;z-index:6;opacity:1}'),'Night star canvas must render above the dark readability veil');
+assert.ok(scenesCss.includes(':root[data-theme=light] .scene-canvas{z-index:3;opacity:.88}'),'Day canvas must retain its quieter layer position');
 
 const scenes=read('site-scenes.js');
 assert.ok(scenes.includes('const ROTATE_AFTER = 28'),'Light scenes must rotate on the approved cadence');
 assert.ok(scenes.indexOf("id: 'forest-waterfall'")<scenes.indexOf("id: 'forest-river'")&&scenes.indexOf("id: 'forest-river'")<scenes.indexOf("id: 'birds-water'"),'Light scene order must be waterfall → river → beach');
-assert.ok(scenes.includes('twinkle: random() < .62'),'Night stars must include a clearly visible independent twinkling subset');
-assert.ok(scenes.includes('Math.sin(time / 13) * 22.0'),'Night scene must retain visible bounded drift');
-assert.ok(scenes.includes('const scale = reducedMotion() ? .18 : 1'),'Reduced-motion mode must reduce parallax instead of freezing the visual identity');
+assert.ok(scenes.includes('twinkle: random() < .76'),'Night stars must include a dense independent twinkling subset');
+assert.ok(scenes.includes('Math.sin(time * .42) * 36.0'),'Night scene must use visibly faster bounded drift');
+assert.ok(scenes.includes('ctx.moveTo(x - flare, y); ctx.lineTo(x + flare, y);'),'Night twinkle must draw a visible horizontal sparkle flare');
+assert.ok(scenes.includes('ctx.moveTo(x, y - flare); ctx.lineTo(x, y + flare);'),'Night twinkle must draw a visible vertical sparkle flare');
+assert.ok(scenes.includes('const scale = reducedMotion() ? .16 : 1'),'Reduced-motion mode must reduce parallax instead of freezing the visual identity');
 
 const sound=read('site-sound-control.js');
 assert.ok(sound.includes('max="100" step="1" value="5"'),'Volume control must expose 0–100 with 5% default');
