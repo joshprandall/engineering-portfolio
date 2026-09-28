@@ -107,7 +107,7 @@ body.living-scenes{position:relative;isolation:isolate;min-height:100vh;backgrou
 }
 
 /* Shared atmosphere */
-.scene-canvas{display:block;z-index:3;opacity:.88}
+.scene-canvas{display:block;z-index:6;opacity:1}
 .scene-atmosphere{
   z-index:4;
   background:
@@ -117,6 +117,7 @@ body.living-scenes{position:relative;isolation:isolate;min-height:100vh;backgrou
   pointer-events:none;
   animation:none
 }
+:root[data-theme=light] .scene-canvas{z-index:3;opacity:.88}
 :root[data-theme=light] .scene-atmosphere{
   background:
     radial-gradient(circle at 76% 11%,rgba(255,240,182,.13),transparent 28%),
@@ -249,7 +250,7 @@ button.appearance-toggle:focus-visible{outline:3px solid var(--blue,var(--accent
 @media(max-width:900px){
  button.appearance-toggle,body.project-shell .tools #theme.appearance-toggle{width:44px;min-width:44px;padding:0}
  button.appearance-toggle>span{display:none}
- .scene-veil{background:linear-gradient(180deg,rgba(10,20,25,.76),rgba(10,20,25,.84) 38%,rgba(10,20,25,.76))}
+ .scene-veil{background:linear-gradient(180deg,rgba(10,20,25,.52),rgba(10,20,25,.64) 38%,rgba(10,20,25,.54))}
  :root[data-theme=light] .scene-veil{background:linear-gradient(180deg,rgba(24,42,34,.18),rgba(243,248,239,.52) 38%,rgba(22,40,31,.20))}
  .scene-options{width:calc(100% - 36px);font-size:11px;padding-block:16px}
  .scene-options p{max-width:260px}

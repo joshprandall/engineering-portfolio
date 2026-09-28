@@ -80,6 +80,23 @@ module.exports = async ({ browser, base, output, failures }) => {
     assert(await page.locator('header .scene-sound-panel').isVisible(),mode+': sound panel opens');
     await sound.click();
     assert.equal(await page.locator('body').getAttribute('data-motion'), 'running', mode + ': site motion remains running');
+    if (mode === 'dark') {
+      const layers = await page.evaluate(() => {
+        const canvas = document.querySelector('.scene-canvas');
+        const veil = document.querySelector('.scene-veil');
+        const night = document.querySelector('.scene-night');
+        return {
+          canvasZ:Number(getComputedStyle(canvas).zIndex),
+          veilZ:Number(getComputedStyle(veil).zIndex),
+          t0:getComputedStyle(night).transform
+        };
+      });
+      assert(layers.canvasZ > layers.veilZ, 'Night star canvas must render above readability veil');
+      await page.waitForTimeout(1200);
+      const t1 = await page.locator('.scene-night').evaluate(el => getComputedStyle(el).transform);
+      assert.notEqual(t1, layers.t0, 'Night background transform must visibly advance within 1.2 seconds');
+      const first = await pixels(); await page.waitForTimeout(650); assert.notEqual(await pixels(), first, 'Night star canvas must visibly animate over sub-second intervals');
+    }
     await page.evaluate(() => scrollTo({ top: 0, behavior: 'instant' }));
     if (output) {
       for (const [name, width, height] of [['phone', 390, 844], ['desktop', 1440, 1000]]) {
