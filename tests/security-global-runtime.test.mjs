@@ -43,9 +43,15 @@ assert.ok(responsive.includes('backdrop-filter:none!important'),'Hamburger menu 
 assert.ok(scenesCss.includes('.scene-canvas{display:block;z-index:6;opacity:1}'),'Night star canvas must render above the dark readability veil');
 assert.ok(scenesCss.includes(':root[data-theme=light] .scene-canvas{z-index:3;opacity:.88}'),'Day canvas must retain its quieter layer position');
 assert.ok(scenesCss.includes('inset:-6%') && scenesCss.includes('width:112%') && scenesCss.includes('height:112%'),'Night layers must provide responsive overscan for bounded panning');
+assert.ok(scenesCss.includes('transform:translate3d(0,0,0) scale(1.04)'),'Day fallback must retain transform headroom for safe motion');
 
 const scenes=read('site-scenes.js');
 assert.ok(scenes.includes('const ROTATE_AFTER = 28'),'Light scenes must rotate on the approved cadence');
+assert.ok(scenes.includes("if (!video || theme !== 'light' || !motionAllowed() || mediaDisabled) return false"),'Day video playback must not be disabled by OS reduced-motion');
+assert.ok(!scenes.includes("!motionAllowed() || reducedMotion() || mediaDisabled"),'Reduced-motion must not silently freeze Day video');
+assert.ok(scenes.includes("dayFallback.style.transform ="),'Day poster fallback must have visible motion when video is unavailable');
+assert.ok(scenes.includes("Math.sin(time * .11) * width * .008"),'Day poster fallback must use bounded horizontal motion');
+assert.ok(scenes.includes("Math.cos(time * .09) * height * .006"),'Day poster fallback must use bounded vertical motion');
 assert.ok(scenes.indexOf("id: 'forest-waterfall'")<scenes.indexOf("id: 'forest-river'")&&scenes.indexOf("id: 'forest-river'")<scenes.indexOf("id: 'birds-water'"),'Light scene order must be waterfall → river → beach');
 assert.ok(scenes.includes('twinkle: random() < .76'),'Night stars must include a dense independent twinkling subset');
 assert.ok(scenes.includes('Math.sin(time * .18) * limits.x'),'Night scene must use slower viewport-bounded horizontal drift');
