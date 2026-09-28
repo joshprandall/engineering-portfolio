@@ -172,6 +172,7 @@
     };
 
     const motionAllowed = () => !appearance.isPaused();
+    const reducedMotion = () => Boolean(appearance.isReducedMotion?.());
 
     function updateDayCredit() {
       const scene = LIGHT_SCENES[activeSceneIndex];
@@ -218,13 +219,13 @@
       stars = Array.from({ length: starCount }, () => ({
         x: random(),
         y: random(),
-        r: .3 + random() * 1.05,
+        r: .45 + random() * 1.25,
         phase: random() * Math.PI * 2,
-        rate: .18 + random() * .42,
+        rate: .22 + random() * .48,
         depth: .18 + random() * .82,
-        twinkle: random() < .40,
-        twinkleRate: .55 + random() * 1.10,
-        twinkleStrength: .55 + random() * .45
+        twinkle: random() < .62,
+        twinkleRate: .72 + random() * 1.28,
+        twinkleStrength: .62 + random() * .58
       }));
 
       dust = Array.from({ length: dustCount }, () => ({
@@ -253,7 +254,7 @@
     }
 
     async function playSafely(video) {
-      if (!video || theme !== 'light' || !motionAllowed() || mediaDisabled) return false;
+      if (!video || theme !== 'light' || !motionAllowed() || reducedMotion() || mediaDisabled) return false;
       try {
         await video.play();
         return true;
@@ -374,11 +375,12 @@
         // Most stars breathe almost imperceptibly; a subset gets brief,
         // irregular-looking sparkle peaks rather than synchronized pulsing.
         const sparkle = star.twinkle ? Math.pow(Math.max(0, twinkleWave), 7) : 0;
-        const baseAlpha = .17 + star.depth * .27;
+        const baseAlpha = .22 + star.depth * .30;
+        const twinkleScale = reducedMotion() ? .58 : 1;
         const alpha = star.twinkle
-          ? baseAlpha + slow * .035 + sparkle * (.30 + .22 * star.twinkleStrength)
-          : baseAlpha + slow * .025;
-        const pulse = star.twinkle ? 1 + sparkle * (.28 + .18 * star.twinkleStrength) : 1;
+          ? baseAlpha + slow * .045 * twinkleScale + sparkle * (.42 + .26 * star.twinkleStrength) * twinkleScale
+          : baseAlpha + slow * .03 * twinkleScale;
+        const pulse = star.twinkle ? 1 + sparkle * (.34 + .22 * star.twinkleStrength) * twinkleScale : 1;
         ctx.fillStyle = 'rgba(220,236,250,' + Math.max(.08, Math.min(.82, alpha)).toFixed(3) + ')';
         ctx.beginPath();
         ctx.arc(
@@ -441,22 +443,25 @@
     }
 
     function universe(dt) {
-      // Very slow parallax keeps Night mode alive without the earlier zoom/jump effect.
-      // Geometry is still fixed to the stable viewport; only a few pixels of translation move.
-      const driftX = Math.sin(time / 18) * 12.0;
-      const driftY = Math.cos(time / 24) * 7.0;
-      const depthX = Math.sin(time / 31 + .9) * -16.0;
-      const depthY = Math.cos(time / 37 + .4) * -10.0;
-      const glowX = Math.sin(time / 16) * 18.0;
-      const glowY = Math.cos(time / 22) * 12.0;
+      // Visible but calm parallax. Reduced-motion keeps the starfield alive with
+      // micro-motion instead of freezing the entire visual identity.
+      const scale = reducedMotion() ? .18 : 1;
+      const driftX = Math.sin(time / 13) * 22.0 * scale;
+      const driftY = Math.cos(time / 17) * 12.0 * scale;
+      const depthX = Math.sin(time / 21 + .9) * -30.0 * scale;
+      const depthY = Math.cos(time / 27 + .4) * -18.0 * scale;
+      const glowX = Math.sin(time / 12) * 28.0 * scale;
+      const glowY = Math.cos(time / 16) * 18.0 * scale;
 
       night.style.transform = 'translate3d(' + driftX.toFixed(2) + 'px,' + driftY.toFixed(2) + 'px,0)';
       nightDepth.style.transform = 'translate3d(' + depthX.toFixed(2) + 'px,' + depthY.toFixed(2) + 'px,0)';
       nightGlow.style.transform = 'translate3d(' + glowX.toFixed(2) + 'px,' + glowY.toFixed(2) + 'px,0)';
 
       drawStars(driftX, driftY);
-      drawDust();
-      drawStreak(dt);
+      if (!reducedMotion()) {
+        drawDust();
+        drawStreak(dt);
+      }
     }
 
     function livingEarth() {
@@ -481,7 +486,7 @@
       raf = 0;
       if (document.hidden || !motionAllowed()) return;
 
-      const interval = width < 700 || mediaDisabled ? 1000 / 18 : 1000 / 28;
+      const interval = reducedMotion() ? 1000 / 12 : (width < 700 || mediaDisabled ? 1000 / 22 : 1000 / 30);
       if (now - lastFrame >= interval) {
         const dt = Math.min((now - lastFrame) / 1000 || .035, .12);
         lastFrame = now;
