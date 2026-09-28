@@ -368,7 +368,7 @@
       transitionBusy = false;
     }
 
-    function drawStars(driftX, driftY) {
+    function drawStars(cameraX, cameraY) {
       for (const star of stars) {
         const slow = Math.sin(time * (star.rate * 1.15) + star.phase);
         const twinkleWave = Math.sin(time * star.twinkleRate + star.phase * 1.7);
@@ -381,8 +381,11 @@
           ? baseAlpha + slow * .055 * twinkleScale + sparkle * (.56 + .30 * star.twinkleStrength) * twinkleScale
           : baseAlpha + slow * .035 * twinkleScale;
         const pulse = star.twinkle ? 1 + sparkle * (.58 + .28 * star.twinkleStrength) * twinkleScale : 1;
-        const x = star.x * width + driftX * star.depth * .42;
-        const y = star.y * height + driftY * star.depth * .34;
+        // The generated stars share the exact master camera transform with
+        // the JWST background. Their only independent behavior is twinkling,
+        // so the two star fields never appear to slide past each other.
+        const x = star.x * width + cameraX;
+        const y = star.y * height + cameraY;
         const radius = star.r * pulse;
         const visibleAlpha = Math.max(.12, Math.min(.98, alpha));
 
@@ -452,22 +455,32 @@
       ctx.stroke();
     }
 
+    function nightCameraLimits() {
+      // Derive the safe camera travel from the actual overscanned scene layer,
+      // not a fixed pixel guess. This keeps the image covering the viewport on
+      // phones, tablets, desktop, orientation changes, and Safari viewport shifts.
+      const availableX = Math.max(0, (night.offsetWidth - width) / 2 - 4);
+      const availableY = Math.max(0, (night.offsetHeight - height) / 2 - 4);
+      return {
+        x: Math.min(22, availableX),
+        y: Math.min(26, availableY)
+      };
+    }
+
     function universe(dt) {
-      // Visible but calm parallax. Reduced-motion keeps the starfield alive with
-      // micro-motion instead of freezing the entire visual identity.
-      const scale = reducedMotion() ? .16 : 1;
-      const driftX = Math.sin(time * .42) * 36.0 * scale;
-      const driftY = Math.cos(time * .31) * 22.0 * scale;
-      const depthX = Math.sin(time * .28 + .9) * -50.0 * scale;
-      const depthY = Math.cos(time * .23 + .4) * -30.0 * scale;
-      const glowX = Math.sin(time * .50) * 44.0 * scale;
-      const glowY = Math.cos(time * .37) * 28.0 * scale;
+      // One coherent camera drives the JWST background, its depth/glow treatment,
+      // and the generated stars. Movement is deliberately slow enough to feel
+      // atmospheric, while the overscan-derived limits guarantee full coverage.
+      const limits = nightCameraLimits();
+      const scale = reducedMotion() ? .18 : 1;
+      const cameraX = Math.sin(time * .18) * limits.x * scale;
+      const cameraY = Math.cos(time * .15) * limits.y * scale;
 
-      night.style.transform = 'translate3d(' + driftX.toFixed(2) + 'px,' + driftY.toFixed(2) + 'px,0)';
-      nightDepth.style.transform = 'translate3d(' + depthX.toFixed(2) + 'px,' + depthY.toFixed(2) + 'px,0)';
-      nightGlow.style.transform = 'translate3d(' + glowX.toFixed(2) + 'px,' + glowY.toFixed(2) + 'px,0)';
+      night.style.transform = 'translate3d(' + cameraX.toFixed(2) + 'px,' + cameraY.toFixed(2) + 'px,0)';
+      nightDepth.style.transform = 'translate3d(' + (cameraX * 1.04).toFixed(2) + 'px,' + (cameraY * 1.04).toFixed(2) + 'px,0)';
+      nightGlow.style.transform = 'translate3d(' + (cameraX * .72).toFixed(2) + 'px,' + (cameraY * .72).toFixed(2) + 'px,0)';
 
-      drawStars(driftX, driftY);
+      drawStars(cameraX, cameraY);
       if (!reducedMotion()) {
         drawDust();
         drawStreak(dt);
