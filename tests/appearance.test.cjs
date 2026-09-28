@@ -95,9 +95,15 @@ module.exports = async ({ browser, base, output, failures }) => {
   await page.evaluate(() => localStorage.removeItem('jr-site-motion'));
   await page.evaluate(() => localStorage.removeItem('jr-knowledge-motion'));
   await open('projects.html');
-  assert.equal(await page.locator('body').getAttribute('data-motion'), 'paused', 'Reduced-motion preference pauses decorative scenery');
-  assert(await page.evaluate(()=>window.PortfolioTheme.isPaused()), 'Theme owner exposes reduced-motion state');
-  let moving = await pixels(); await page.waitForTimeout(250); assert.equal(await pixels(), moving, 'Scenery remains still under reduced motion');
+  assert.equal(await page.locator('body').getAttribute('data-motion'), 'reduced', 'OS reduced-motion preference uses a reduced visual mode instead of freezing the scene');
+  assert.equal(await page.evaluate(()=>window.PortfolioTheme.isPaused()), false, 'OS preference is not treated as an explicit site pause');
+  assert(await page.evaluate(()=>window.PortfolioTheme.isReducedMotion()), 'Theme owner exposes reduced-motion state separately');
+  let moving = await pixels(); await page.waitForTimeout(420); assert.notEqual(await pixels(), moving, 'Reduced mode retains low-amplitude starfield life');
+  await page.evaluate(()=>window.PortfolioTheme.setMotion('paused'));
+  assert.equal(await page.locator('body').getAttribute('data-motion'), 'paused', 'Explicit site pause still freezes scenery');
+  moving = await pixels(); await page.waitForTimeout(300); assert.equal(await pixels(), moving, 'Explicit pause freezes the scene');
+  await page.evaluate(()=>window.PortfolioTheme.setMotion('running'));
+  assert.equal(await page.locator('body').getAttribute('data-motion'), 'running', 'Explicit full-motion choice overrides OS reduced-motion preference');
   await page.emulateMedia({ reducedMotion: 'no-preference' });
 
   // Private/storage-restricted browsers still get usable controls and an in-tab fallback.
