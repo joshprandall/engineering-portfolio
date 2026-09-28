@@ -11,7 +11,7 @@
   const VOLUME_KEY = 'jr-site-ambient-volume-v6';
   // Normal shared-shell pages always receive ambience. Only standalone interactive
   // experiences that intentionally own their own media environment are isolated.
-  const ISOLATED_RE = /(?:^|\/)(?:play-evil-wizard\.html|agent-workbench\.html|games\/|geometric-lab\/|qubit-preview-20260921\/|deep-learning\/)/i;
+  const ISOLATED_RE = /(?:^|\/)(?:games\/|geometric-lab\/|qubit-preview-20260921\/|deep-learning\/)/i;
   const LOCAL_TEST_HOST = location.hostname === '127.0.0.1' || location.hostname === 'localhost';
 
   const SOURCES = Object.freeze({
@@ -118,7 +118,6 @@
   function allowed() {
     return !muted() &&
       !suppressed &&
-      !lessonOpen() &&
       !document.hidden;
   }
 
@@ -450,7 +449,7 @@
   }
 
   function scheduleAutoplayRetries() {
-    if (muted() || suppressed || lessonOpen()) return;
+    if (muted() || suppressed) return;
     clearAutoplayRetries();
 
     // Start immediately, then retry as the document/media pipeline settles.
