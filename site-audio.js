@@ -602,4 +602,5 @@
     get element() { return currentKey === 'beach' ? beachPlayers[beachActiveIndex] : audio; },
     get beachElements() { return beachPlayers.slice(); }
   });
+  document.dispatchEvent(new CustomEvent('portfolio:site-audio-ready'));
 })();
