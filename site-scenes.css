@@ -83,6 +83,21 @@ body.living-scenes{position:relative;isolation:isolate;min-height:100vh;backgrou
   transition:opacity 1s ease
 }
 .scene-day-fallback.video-ready{opacity:.2}
+@keyframes scene-day-fallback-drift{
+  0%{transform:translate3d(-.55%,-.28%,0) scale(1.04)}
+  50%{transform:translate3d(.18%,.34%,0) scale(1.045)}
+  100%{transform:translate3d(.55%,-.12%,0) scale(1.04)}
+}
+@keyframes scene-day-fallback-drift-reduced{
+  0%{transform:translate3d(-.16%,-.08%,0) scale(1.018)}
+  100%{transform:translate3d(.16%,.08%,0) scale(1.018)}
+}
+:root[data-theme=light][data-scene-motion=running] .scene-day-fallback{
+  animation:scene-day-fallback-drift 24s ease-in-out infinite alternate;
+}
+:root[data-theme=light][data-scene-motion=reduced] .scene-day-fallback{
+  animation:scene-day-fallback-drift-reduced 60s ease-in-out infinite alternate;
+}
 .scene-video{
   inset:-1%;
   width:102%;
