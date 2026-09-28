@@ -32,6 +32,8 @@ for(const file of ['site-scenes.js','site-audio.js','site-navigation.js','site-s
 }
 assert.ok(theme.includes("header.site-global-header, header #menu, header #mobile-menu"),'Shared runtime bootstrap must be scoped to shared-shell pages');
 assert.ok(theme.includes('SITE_BASE'),'Shared runtime bootstrap must resolve from the theme script base');
+assert.ok(theme.includes("const isPaused = () => motion === 'paused'"),'Only an explicit site pause may fully freeze scenery');
+assert.ok(theme.includes('const isReducedMotion = () =>'),'OS reduced-motion preference must have a separate reduced mode');
 
 const responsive=read('site-responsive.css');
 assert.ok(responsive.includes('--nav-menu-solid'),'Solid hamburger menu token missing');
@@ -41,8 +43,9 @@ assert.ok(responsive.includes('backdrop-filter:none!important'),'Hamburger menu 
 const scenes=read('site-scenes.js');
 assert.ok(scenes.includes('const ROTATE_AFTER = 28'),'Light scenes must rotate on the approved cadence');
 assert.ok(scenes.indexOf("id: 'forest-waterfall'")<scenes.indexOf("id: 'forest-river'")&&scenes.indexOf("id: 'forest-river'")<scenes.indexOf("id: 'birds-water'"),'Light scene order must be waterfall → river → beach');
-assert.ok(scenes.includes('twinkle: random() < .40'),'Night stars must include an independent twinkling subset');
-assert.ok(scenes.includes('Math.sin(time / 18) * 12.0'),'Night scene must retain subtle bounded drift');
+assert.ok(scenes.includes('twinkle: random() < .62'),'Night stars must include a clearly visible independent twinkling subset');
+assert.ok(scenes.includes('Math.sin(time / 13) * 22.0'),'Night scene must retain visible bounded drift');
+assert.ok(scenes.includes('const scale = reducedMotion() ? .18 : 1'),'Reduced-motion mode must reduce parallax instead of freezing the visual identity');
 
 const sound=read('site-sound-control.js');
 assert.ok(sound.includes('max="100" step="1" value="5"'),'Volume control must expose 0–100 with 5% default');
