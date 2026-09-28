@@ -115,7 +115,7 @@ async function run(){
   await page.goto(base+'/security-research.html',{waitUntil:'domcontentloaded'});
   assert(await page.locator('#security-title').isVisible(),'Security Research heading is visible');
   for(const id of ['vuln-run','fuzz-run','linux-run','ad-run','container-run','surface-run']){await page.locator('#'+id).click();}
-  for(const id of ['vuln-output','fuzz-output','linux-output','ad-output','container-output','surface-output'])assert(await page.locator('#'+id+' h3').isVisible(),id+': interactive analysis produced output');
+  for(const id of ['vuln-output','fuzz-output','linux-output','ad-output','container-output','surface-output'])assert(await page.locator('#'+id+' h3').first().isVisible(),id+': interactive analysis produced output');
   assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true,'Security Research has no phone-width horizontal overflow');
   console.log('PASS global runtime, solid menu, AI ambience and Security Research tools');
 
