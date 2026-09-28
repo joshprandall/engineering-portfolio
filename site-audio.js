@@ -3,12 +3,12 @@
 
   // Unified site ambience controller. This is the ONLY script that may create
   // or play background ambience/music.
-  if (window.__JR_SITE_AUDIO_V26__) return;
-  window.__JR_SITE_AUDIO_V26__ = true;
+  if (window.__JR_SITE_AUDIO_V27__) return;
+  window.__JR_SITE_AUDIO_V27__ = true;
 
   const MUTE_KEY = 'jr-site-ambient-muted-v3';
   const DARK_TIME_KEY = 'jr-dark-theme-time-v1';
-  const VOLUME_KEY = 'jr-site-ambient-volume-v2';
+  const VOLUME_KEY = 'jr-site-ambient-volume-v3';
   const PROJECT_RE = /(?:^|\/)(?:project-[^/]+\.html|play-evil-wizard\.html|agent-workbench\.html|games\/|geometric-lab\/|qubit-preview-20260921\/|deep-learning\/)/i;
   const LOCAL_TEST_HOST = location.hostname === '127.0.0.1' || location.hostname === 'localhost';
   const MAIN_PAGE_RE = /(?:^|\/)(?:index\.html|learn\.html)?$/i;
@@ -31,11 +31,11 @@
   const BEACH_SOURCES = Object.freeze([SOURCES.beachNear, SOURCES.beachFar]);
   const BEACH_CROSSFADE_SECONDS = 1.2;
 
-  // Quiet-first ambience. Device volume can still be raised, so the site keeps
-  // its own deliberately low ceiling. 5% is the default; 10% is the absolute max.
-  // The same stored master level is used for both Day and Night modes.
+  // Quiet-first ambience. The site starts at 5% of its own media output even
+  // when the device is turned up. Users can mute it or deliberately raise it.
+  // Hardware/device volume remains controlled by the operating system.
   const DEFAULT_BACKGROUND_VOLUME = 0.05;
-  const MAX_BACKGROUND_VOLUME = 0.10;
+  const MAX_BACKGROUND_VOLUME = 1.00;
 
   let sceneId = 'forest-river';
   let suppressed = !MAIN_PAGE || PROJECT_RE.test(location.pathname);
