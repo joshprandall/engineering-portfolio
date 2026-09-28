@@ -13,9 +13,11 @@ assert.equal(nav.items.find(x=>x.path==='security-research.html')?.label,'Securi
 const home=read('index.html');
 assert.equal((home.match(/aria-label="Security Research"/g)||[]).length,1,'Homepage solar must expose exactly one Security Research planet');
 assert.ok(home.includes('href="security-research.html" aria-label="Security Research"'),'Security Research planet must link to its page');
+assert.equal((home.match(/aria-label="Home"/g)||[]).length,0,'Homepage solar must not contain a Home planet');
+assert.ok(!solar.includes('"Home": ['),'Portfolio solar descriptor data must not contain a Home destination tile');
 
 const solar=read('solar-navigation.js');
-assert.ok(solar.includes('{rx:285,ry:158,count:4,offset:.52}'),'Portfolio solar outer ring must allocate four destinations');
+assert.ok(solar.includes('{rx:285,ry:158,count:3,offset:.52}'),'Portfolio solar outer ring must allocate three destinations after Home removal');
 assert.ok(solar.includes('"Security Research": ['),'Security Research solar descriptor missing');
 
 const audio=read('site-audio.js');
