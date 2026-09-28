@@ -30,8 +30,10 @@
   const initialKey = /\/learn(?:[-.]|$)/.test(location.pathname) ? 'jr-knowledge-theme' : /\/geometric-lab\//.test(location.pathname) ? 'jr-geometry-theme' : 'portfolio-theme';
   let theme = read(THEME_KEY);
   if (!validTheme(theme)) theme = [read(initialKey), ...legacyThemes.map(read)].find(validTheme) || 'dark';
-  let motion = read(MOTION_KEY) === 'paused' ? 'paused' : 'running';
-  const isPaused = () => motion === 'paused' || reduced.matches;
+  const storedMotion = read(MOTION_KEY);
+  let motion = storedMotion === 'paused' || storedMotion === 'running' ? storedMotion : 'auto';
+  const isPaused = () => motion === 'paused';
+  const isReducedMotion = () => motion !== 'running' && reduced.matches;
   const icons = {
     dark: '<path d="M20.5 13.4A8.7 8.7 0 0 1 10.6 3.5 8.8 8.8 0 1 0 20.5 13.4Z"/><path d="m17 3 .5 1.5L19 5l-1.5.5L17 7l-.5-1.5L15 5l1.5-.5Z"/>',
     light: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>'
@@ -48,21 +50,23 @@
     document.querySelectorAll('button[data-scene-motion]').forEach(button => {
       button.type = 'button';
       button.setAttribute('aria-pressed', String(isPaused()));
-      button.setAttribute('aria-label', isPaused() ? 'Resume animations' : 'Pause animations');
+      const reducedMode = isReducedMotion();
+      button.setAttribute('aria-label', isPaused() ? 'Resume animations' : reducedMode ? 'Enable full animations' : 'Pause animations');
       if (button.id === 'motion-mode') {
-        button.textContent = isPaused() ? '▶' : '◫';
-        button.title = isPaused() ? 'Resume motion' : 'Pause motion';
-      } else button.textContent = isPaused() ? 'Resume motion' : 'Pause motion';
+        button.textContent = isPaused() ? '▶' : reducedMode ? '◌' : '◫';
+        button.title = isPaused() ? 'Resume motion' : reducedMode ? 'Reduced motion · enable full motion' : 'Pause motion';
+      } else button.textContent = isPaused() ? 'Resume motion' : reducedMode ? 'Enable full motion' : 'Pause motion';
     });
   }
   function syncDocument() {
     root.dataset.theme = theme;
     root.style.colorScheme = theme;
-    root.dataset.sceneMotion = isPaused() ? 'paused' : 'running';
+    root.dataset.sceneMotion = isPaused() ? 'paused' : isReducedMotion() ? 'reduced' : 'running';
     document.querySelector('meta[name="theme-color"]')?.setAttribute('content', theme === 'dark' ? '#101416' : '#eef2ed');
     if (document.body) {
-      document.body.dataset.motion = isPaused() ? 'paused' : 'running';
+      document.body.dataset.motion = isPaused() ? 'paused' : isReducedMotion() ? 'reduced' : 'running';
       document.body.classList.toggle('motion-paused', isPaused());
+      document.body.classList.toggle('motion-reduced', isReducedMotion());
     }
     renderControls();
   }
@@ -78,7 +82,7 @@
     document.dispatchEvent(new CustomEvent('portfolio:theme', { detail: { theme } }));
   }
   function setMotion(value, persist = true) {
-    motion = value === 'paused' ? 'paused' : 'running';
+    motion = value === 'paused' ? 'paused' : value === 'running' ? 'running' : 'auto';
     if (persist) {
       write(MOTION_KEY, motion);
       write('jr-knowledge-motion', isPaused() ? 'paused' : 'active');
@@ -94,11 +98,11 @@
     });
     rootNode.querySelectorAll('button[data-scene-motion]').forEach(button => {
       button.hidden = false; button.removeAttribute('aria-hidden'); button.tabIndex = 0;
-      if (!button.dataset.motionBound) { button.dataset.motionBound='true'; button.addEventListener('click',()=>setMotion(motion==='paused'?'running':'paused')); }
+      if (!button.dataset.motionBound) { button.dataset.motionBound='true'; button.addEventListener('click',()=>setMotion(isPaused()||isReducedMotion()?'running':'paused')); }
     });
     syncDocument();
   }
-  window.PortfolioTheme = Object.freeze({ setTheme, setMotion, bind, isPaused, getTheme: () => theme });
+  window.PortfolioTheme = Object.freeze({ setTheme, setMotion, bind, isPaused, isReducedMotion, getTheme: () => theme });
   setTheme(theme);
   function ensureStylesheet(file) {
     const existing=[...document.querySelectorAll('link[rel="stylesheet"]')].some(link=>{try{return new URL(link.href,location.href).pathname.endsWith('/'+file);}catch{return false;}});
