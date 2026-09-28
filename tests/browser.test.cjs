@@ -110,20 +110,24 @@ async function run(){
   await page.goto(base+'/',{waitUntil:'domcontentloaded'});
   await page.evaluate(()=>window.PortfolioTheme.setTheme('light'));
   await page.waitForFunction(()=>document.documentElement.dataset.theme==='light'&&Boolean(window.SiteAudio));
-  await page.evaluate(()=>document.dispatchEvent(new CustomEvent('portfolio:scene',{detail:{id:'birds-water'}})));
-  assert.equal(await page.evaluate(()=>window.SiteAudio.scene),'birds-water','Day audio tracks the committed beach scene');
-  assert.equal(await page.evaluate(()=>window.SiteAudio.key),'beach','Beach scene selects beach ambience');
-  await page.evaluate(()=>document.dispatchEvent(new CustomEvent('portfolio:scene-will-change',{detail:{id:'forest-waterfall'}})));
-  const silenced=await page.evaluate(()=>({
-    pending:window.SiteAudio.pendingScene,
-    beach:window.SiteAudio.beachElements.map(a=>({paused:a.paused,muted:a.muted,volume:a.volume}))
-  }));
-  assert.equal(silenced.pending,'forest-waterfall','Audio records the pending visual scene');
-  assert(silenced.beach.every(a=>a.paused&&a.muted&&a.volume===0),'Outgoing beach ambience is silent before waterfall becomes visible');
-  await page.evaluate(()=>document.dispatchEvent(new CustomEvent('portfolio:scene',{detail:{id:'forest-waterfall'}})));
-  assert.equal(await page.evaluate(()=>window.SiteAudio.scene),'forest-waterfall','Committed waterfall scene becomes the audio source of truth');
-  assert.equal(await page.evaluate(()=>window.SiteAudio.pendingScene),'','Pending scene clears after commit');
-  assert.equal(await page.evaluate(()=>window.SiteAudio.key),'waterfall','Waterfall scene selects waterfall ambience immediately');
+  // Capture each synthetic event synchronously. Otherwise the real scene owner
+  // can commit its actual scene between separate cross-process evaluations.
+  const transitions=await page.evaluate(()=>{
+    const emit=(name,id)=>document.dispatchEvent(new CustomEvent(name,{detail:{id}}));
+    emit('portfolio:scene','birds-water');
+    const beach={scene:SiteAudio.scene,key:SiteAudio.key};
+    emit('portfolio:scene-will-change','forest-waterfall');
+    const silenced={pending:SiteAudio.pendingScene,beach:SiteAudio.beachElements.map(a=>({paused:a.paused,muted:a.muted,volume:a.volume}))};
+    emit('portfolio:scene','forest-waterfall');
+    return {beach,silenced,waterfall:{scene:SiteAudio.scene,pending:SiteAudio.pendingScene,key:SiteAudio.key}};
+  });
+  assert.equal(transitions.beach.scene,'birds-water','Day audio tracks the committed beach scene');
+  assert.equal(transitions.beach.key,'beach','Beach scene selects beach ambience');
+  assert.equal(transitions.silenced.pending,'forest-waterfall','Audio records the pending visual scene');
+  assert(transitions.silenced.beach.every(a=>a.paused&&a.muted&&a.volume===0),'Outgoing beach ambience is silent before waterfall becomes visible');
+  assert.equal(transitions.waterfall.scene,'forest-waterfall','Committed waterfall scene becomes the audio source of truth');
+  assert.equal(transitions.waterfall.pending,'','Pending scene clears after commit');
+  assert.equal(transitions.waterfall.key,'waterfall','Waterfall scene selects waterfall ambience immediately');
 
   // Hamburger navigation is intentionally solid even over moving scenery.
   await page.goto(base+'/',{waitUntil:'domcontentloaded'});

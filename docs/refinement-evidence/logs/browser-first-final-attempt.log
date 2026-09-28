@@ -1,0 +1,33 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> engineering-portfolio@1.0.0 test:browser
+> node tests/browser.test.cjs
+
+PASS appearance: both navigation directions, reload, Back, tab sync, controls on all 66 pages
+PASS scenery: animation, persistent pause, reduced motion, private-mode fallback
+Checking phone
+Loaded phone
+PASS phone: navigation, search, selected work, Bell outcomes, animation and pause, images, theme, layout
+Checking small-phone
+Loaded small-phone
+PASS small-phone: navigation, search, selected work, Bell outcomes, animation and pause, images, theme, layout
+Checking tablet
+Loaded tablet
+PASS tablet: navigation, search, selected work, Bell outcomes, animation and pause, images, theme, layout
+Checking desktop
+Loaded desktop
+PASS desktop: navigation, search, selected work, Bell outcomes, animation and pause, images, theme, layout
+AssertionError [ERR_ASSERTION]: Beach scene selects beach ambience
++ actual - expected
+
++ 'waterfall'
+- 'beach'
+
+    at run (/workspace/scratch/c0e1d8cfed43/engineering-portfolio/tests/browser.test.cjs:115:10) {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: 'waterfall',
+  expected: 'beach',
+  operator: 'strictEqual',
+  diff: 'simple'
+}
