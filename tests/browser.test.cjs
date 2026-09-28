@@ -108,8 +108,8 @@ async function run(){
   // Day ambience must follow the visual scene as one state machine. The
   // outgoing beach players are hard-muted before the waterfall is committed.
   await page.goto(base+'/',{waitUntil:'domcontentloaded'});
-  await page.evaluate(()=>window.PortfolioTheme.setTheme('light',false));
-  await page.waitForFunction(()=>Boolean(window.SiteAudio));
+  await page.evaluate(()=>window.PortfolioTheme.setTheme('light'));
+  await page.waitForFunction(()=>document.documentElement.dataset.theme==='light'&&Boolean(window.SiteAudio));
   await page.evaluate(()=>document.dispatchEvent(new CustomEvent('portfolio:scene',{detail:{id:'birds-water'}})));
   assert.equal(await page.evaluate(()=>window.SiteAudio.scene),'birds-water','Day audio tracks the committed beach scene');
   assert.equal(await page.evaluate(()=>window.SiteAudio.key),'beach','Beach scene selects beach ambience');
