@@ -85,16 +85,29 @@ module.exports = async ({ browser, base, output, failures }) => {
         const canvas = document.querySelector('.scene-canvas');
         const veil = document.querySelector('.scene-veil');
         const night = document.querySelector('.scene-night');
+        const backdrop = document.querySelector('#site-scene');
+        const nr = night.getBoundingClientRect(), br = backdrop.getBoundingClientRect();
         return {
           canvasZ:Number(getComputedStyle(canvas).zIndex),
           veilZ:Number(getComputedStyle(veil).zIndex),
-          t0:getComputedStyle(night).transform
+          t0:getComputedStyle(night).transform,
+          covers: nr.left <= br.left && nr.top <= br.top && nr.right >= br.right && nr.bottom >= br.bottom
         };
       });
       assert(layers.canvasZ > layers.veilZ, 'Night star canvas must render above readability veil');
+      assert(layers.covers, 'Night background overscan must cover the viewport before panning');
       await page.waitForTimeout(1200);
-      const t1 = await page.locator('.scene-night').evaluate(el => getComputedStyle(el).transform);
-      assert.notEqual(t1, layers.t0, 'Night background transform must visibly advance within 1.2 seconds');
+      const after = await page.evaluate(() => {
+        const night = document.querySelector('.scene-night');
+        const backdrop = document.querySelector('#site-scene');
+        const nr = night.getBoundingClientRect(), br = backdrop.getBoundingClientRect();
+        return {
+          transform:getComputedStyle(night).transform,
+          covers: nr.left <= br.left && nr.top <= br.top && nr.right >= br.right && nr.bottom >= br.bottom
+        };
+      });
+      assert.notEqual(after.transform, layers.t0, 'Night background transform must visibly advance within 1.2 seconds');
+      assert(after.covers, 'Night background must still cover the viewport while panning');
       const first = await pixels(); await page.waitForTimeout(650); assert.notEqual(await pixels(), first, 'Night star canvas must visibly animate over sub-second intervals');
     }
     await page.evaluate(() => scrollTo({ top: 0, behavior: 'instant' }));
