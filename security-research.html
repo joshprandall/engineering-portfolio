@@ -1,0 +1,147 @@
+<!doctype html>
+<html id="top" lang="en">
+<head>
+  <script src="site-theme.js?v=20260928-global-runtime"></script>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <meta name="description" content="Joshua Randall's Security Research laboratory: authorized vulnerability analysis, fuzzing, Linux and Active Directory hardening, container security, and attack-surface modeling."/>
+  <meta name="color-scheme" content="dark light"/>
+  <meta name="theme-color" content="#101416"/>
+  <title>Security Research | Joshua Randall</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml"/>
+  <link rel="stylesheet" href="styles.css"/>
+  <link rel="stylesheet" href="site-resilience.css"/>
+  <link rel="stylesheet" href="portfolio-next.css"/>
+  <link rel="stylesheet" href="site-scenes.css"/>
+  <link rel="stylesheet" href="site-sections.css"/>
+  <link rel="stylesheet" href="site-responsive.css"/>
+  <link rel="stylesheet" href="security-research.css"/>
+  <script defer src="site-scenes.js"></script>
+  <script defer src="site-audio.js"></script>
+  <script defer src="site-navigation.js"></script>
+  <script defer src="site-search.js"></script>
+  <script defer src="site-sound-control.js"></script>
+  <script defer src="site-resilience.js"></script>
+  <script defer src="security-research.js"></script>
+</head>
+<body class="destination-page security-research-page">
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-global-header">
+  <a class="brand" href="index.html" aria-label="Joshua Randall home"><strong>JR</strong><span>Joshua Randall<small>Systems. Software. Possibility.</small></span></a>
+  <nav id="primary-nav" aria-label="Primary"><a href="index.html">Home</a><a href="about.html">About Me</a><a href="projects.html">Projects</a><a href="security-research.html" aria-current="page">Security Research</a><a href="learn.html">Learn</a><a href="game-development.html">Game Development</a><a href="ai-development.html">AI Development</a></nav>
+  <div class="global-controls tools"><button id="search-open" aria-label="Search portfolio">⌕ <span>Search</span><kbd>/</kbd></button><button id="theme" data-theme-toggle aria-label="Switch color theme">◐</button><button id="menu" aria-controls="primary-nav" aria-expanded="false" aria-label="Open navigation">☰</button></div>
+</header>
+
+<main id="main">
+  <section class="wrap security-hero" aria-labelledby="security-title">
+    <p class="eyebrow">SECURITY RESEARCH / AUTHORIZED LABS</p>
+    <h1 id="security-title">Break assumptions.<br/><em>Strengthen systems.</em></h1>
+    <p class="security-lede">This laboratory explores how vulnerabilities emerge, how they can be reproduced safely, and how engineering choices reduce risk. Every interactive tool on this page operates on local, synthetic, user-supplied, or intentionally vulnerable lab data.</p>
+    <div class="security-boundary" role="note" aria-label="Authorization boundary">
+      <strong>Authorization boundary</strong>
+      <p>Use these tools only with systems you own, isolated laboratories, intentionally vulnerable targets, or environments where you have explicit authorization. The browser tools do not scan the public internet, execute remote exploits, collect credentials, establish persistence, or send analysis data off this page.</p>
+    </div>
+    <div class="security-index" aria-label="Security research tools">
+      <a href="#vulnerability-lab">Vulnerability analysis</a>
+      <a href="#fuzzing-lab">Fuzzing</a>
+      <a href="#linux-lab">Linux privilege review</a>
+      <a href="#ad-lab">Active Directory paths</a>
+      <a href="#container-lab">Container hardening</a>
+      <a href="#surface-lab">Attack-surface inventory</a>
+    </div>
+  </section>
+
+  <section class="wrap security-method" aria-labelledby="method-title">
+    <p class="eyebrow">METHOD</p>
+    <h2 id="method-title">Reproduce locally. Explain the failure. Verify the fix.</h2>
+    <div class="security-method-grid">
+      <article><span>01</span><h3>Threat model</h3><p>State the asset, trust boundary, attacker capability, and assumptions before testing.</p></article>
+      <article><span>02</span><h3>Controlled proof</h3><p>Use deterministic synthetic inputs or intentionally vulnerable demo code rather than uncontrolled targets.</p></article>
+      <article><span>03</span><h3>Defensive interpretation</h3><p>Connect each finding to concrete remediation, detection, regression tests, and residual limitations.</p></article>
+    </div>
+  </section>
+
+  <section class="wrap security-lab" id="vulnerability-lab" aria-labelledby="vulnerability-title">
+    <div class="security-lab-head"><p class="eyebrow">01 / CONTROLLED VULNERABILITY ANALYSIS</p><h2 id="vulnerability-title">Virtual path-boundary analyzer</h2><p>Compare an intentionally vulnerable path resolver with a bounded resolver in a virtual in-memory filesystem. No real files are read.</p></div>
+    <div class="security-workspace">
+      <div class="security-controls">
+        <label for="vuln-input">Requested path</label>
+        <input id="vuln-input" value="../lab-secret.txt" autocomplete="off"/>
+        <button class="button primary" id="vuln-run" type="button">Analyze controlled case</button>
+      </div>
+      <div class="security-output" id="vuln-output" aria-live="polite"></div>
+    </div>
+    <details><summary>Methodology, remediation &amp; limitations</summary><p>The vulnerable resolver normalizes user input without re-checking that the result remains inside a permitted virtual root. The fixed resolver rejects boundary escapes after normalization. The demonstration models the class of failure; it does not read the host filesystem or issue network requests.</p></details>
+  </section>
+
+  <section class="wrap security-lab" id="fuzzing-lab" aria-labelledby="fuzzing-title">
+    <div class="security-lab-head"><p class="eyebrow">02 / DETERMINISTIC FUZZING</p><h2 id="fuzzing-title">Parser robustness fuzzer</h2><p>Mutate a small seed corpus against a local URI-decoding record parser, detect exceptions, and minimize the first failing input.</p></div>
+    <div class="security-workspace">
+      <div class="security-controls">
+        <label for="fuzz-iterations">Iterations</label>
+        <input id="fuzz-iterations" type="number" min="25" max="2000" step="25" value="300"/>
+        <label for="fuzz-seed">Deterministic PRNG seed</label>
+        <input id="fuzz-seed" type="number" min="1" max="2147483646" value="1337"/>
+        <button class="button primary" id="fuzz-run" type="button">Run fuzzer</button>
+      </div>
+      <div class="security-output" id="fuzz-output" aria-live="polite"></div>
+    </div>
+    <details><summary>Methodology, remediation &amp; limitations</summary><p>The target is intentionally tiny and local. The exercise demonstrates seed corpora, mutation, crash detection, deterministic replay, and input minimization. It is not a coverage-guided native-code fuzzer and does not execute external binaries.</p></details>
+  </section>
+
+  <section class="wrap security-lab" id="linux-lab" aria-labelledby="linux-title">
+    <div class="security-lab-head"><p class="eyebrow">03 / LINUX PRIVILEGE REVIEW</p><h2 id="linux-title">Misconfiguration auditor</h2><p>Analyze a synthetic Linux security snapshot for risky permissions, SUID/capabilities, sudo policy, writable PATH components, and exposed secrets.</p></div>
+    <div class="security-workspace">
+      <label for="linux-input">Synthetic snapshot JSON</label>
+      <textarea id="linux-input" rows="12" spellcheck="false"></textarea>
+      <div class="security-actions"><button class="button" id="linux-sample" type="button">Load intentionally vulnerable sample</button><button class="button primary" id="linux-run" type="button">Audit snapshot</button></div>
+      <div class="security-output" id="linux-output" aria-live="polite"></div>
+    </div>
+    <details><summary>Methodology, remediation &amp; limitations</summary><p>This is configuration analysis, not host enumeration. Findings are mapped to least privilege, ownership/mode correction, sudo scope reduction, capability removal, secret handling, and PATH hardening.</p></details>
+  </section>
+
+  <section class="wrap security-lab" id="ad-lab" aria-labelledby="ad-title">
+    <div class="security-lab-head"><p class="eyebrow">04 / ACTIVE DIRECTORY ATTACK/DEFENSE MODEL</p><h2 id="ad-title">Synthetic privilege-path graph</h2><p>Trace authorization relationships in a modeled directory graph and explain the defensive control at each edge.</p></div>
+    <div class="security-workspace">
+      <label for="ad-input">Synthetic graph JSON</label>
+      <textarea id="ad-input" rows="13" spellcheck="false"></textarea>
+      <div class="security-actions"><button class="button" id="ad-sample" type="button">Load lab graph</button><button class="button primary" id="ad-run" type="button">Find privilege paths</button></div>
+      <div class="security-output" id="ad-output" aria-live="polite"></div>
+    </div>
+    <details><summary>Methodology, remediation &amp; limitations</summary><p>The graph uses synthetic principals and permissions. It demonstrates relationship reasoning and shortest-path analysis only; it does not query LDAP, authenticate to a domain, request tickets, or perform lateral movement.</p></details>
+  </section>
+
+  <section class="wrap security-lab" id="container-lab" aria-labelledby="container-title">
+    <div class="security-lab-head"><p class="eyebrow">05 / CONTAINER HARDENING</p><h2 id="container-title">Runtime configuration analyzer</h2><p>Score a supplied container configuration for high-risk privilege, namespace, mount, capability, user, and isolation choices.</p></div>
+    <div class="security-workspace">
+      <label for="container-input">Container configuration JSON</label>
+      <textarea id="container-input" rows="13" spellcheck="false"></textarea>
+      <div class="security-actions"><button class="button" id="container-sample" type="button">Load risky lab configuration</button><button class="button primary" id="container-run" type="button">Analyze configuration</button></div>
+      <div class="security-output" id="container-output" aria-live="polite"></div>
+    </div>
+    <details><summary>Methodology, remediation &amp; limitations</summary><p>The analyzer evaluates configuration metadata supplied in the page. It does not start containers, mount sockets, invoke a runtime API, or attempt an escape.</p></details>
+  </section>
+
+  <section class="wrap security-lab" id="surface-lab" aria-labelledby="surface-title">
+    <div class="security-lab-head"><p class="eyebrow">06 / ATTACK-SURFACE DISCOVERY</p><h2 id="surface-title">Authorized service inventory analyzer</h2><p>Turn an imported or user-entered inventory into prioritized exposure findings without performing network discovery.</p></div>
+    <div class="security-workspace">
+      <label for="surface-input">Inventory CSV: host,port,service,exposure,tls,status</label>
+      <textarea id="surface-input" rows="11" spellcheck="false"></textarea>
+      <div class="security-actions"><button class="button" id="surface-sample" type="button">Load synthetic inventory</button><button class="button primary" id="surface-run" type="button">Analyze inventory</button><button class="button" id="security-export" type="button">Export latest report</button></div>
+      <div class="security-output" id="surface-output" aria-live="polite"></div>
+    </div>
+    <details><summary>Methodology, remediation &amp; limitations</summary><p>The browser version never opens sockets or probes hosts. It analyzes supplied inventory only. A finding is an engineering lead for review, not proof that a service is exploitable.</p></details>
+  </section>
+
+  <section class="wrap security-close" aria-labelledby="security-close-title">
+    <p class="eyebrow">REPRODUCIBILITY</p>
+    <h2 id="security-close-title">Every result should be explainable.</h2>
+    <p>The tools are deterministic where practical, keep analysis local to the browser, expose the assumptions behind each finding, and separate demonstrated behavior from claims about real systems.</p>
+  </section>
+</main>
+
+<footer class="wrap"><span>© 2026 Joshua Randall · Albany, Oregon</span><div><a href="#top">Back to top ↑</a></div><small>Security engineering through controlled evidence, reproducible tests, and defensive interpretation.</small></footer>
+<dialog aria-labelledby="search-title" id="search-dialog"><div class="dialog-head"><h2 id="search-title">Explore the portfolio</h2><button aria-label="Close search" data-close="">✕</button></div><label for="search-input">Search skills, experience, projects, and research</label><input autocomplete="off" id="search-input" placeholder="Try security, quantum, or systems…" type="search"/><div id="search-results"></div><p class="muted">Escape to close · Tab to navigate results</p></dialog>
+<div aria-live="polite" id="toast" role="status"></div>
+</body>
+</html>
