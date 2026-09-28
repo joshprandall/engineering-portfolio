@@ -118,7 +118,7 @@ def _download_with_retry(request, temp, timeout, label, attempts=5):
                 retry_after = float(error.headers.get('Retry-After') or 0)
             except (TypeError, ValueError):
                 retry_after = 0
-            delay = min(30.0, max(retry_after, 3.0 * (2 ** (attempt-1))))
+            delay = min(10.0, max(retry_after, 3.0 * (2 ** (attempt-1))))
             print(f'{label} was rate-limited ({error.code}); retrying in {delay:.0f}s [{attempt}/{attempts}]', flush=True)
             if temp.exists():
                 temp.unlink()
@@ -171,7 +171,7 @@ def materialize_day_media(source, site):
         })
         print('Downloading Day ambience:', name, flush=True)
         try:
-            content_type = _download_with_retry(request, temp, 90, 'Day ambience '+name, attempts=5)
+            content_type = _download_with_retry(request, temp, 90, 'Day ambience '+name, attempts=3)
             if not any(token in content_type for token in ('audio', 'ogg', 'octet-stream')):
                 raise RuntimeError(f'Unexpected Day audio media type for {name}: {content_type}')
             if not _valid_ogg(temp):
