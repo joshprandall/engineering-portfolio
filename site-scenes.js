@@ -11,7 +11,8 @@
   const LIGHT_SCENES = [
     {
       id: 'forest-waterfall',
-      src: 'https://videos.pexels.com/video-files/7351460/7351460-hd_1920_1080_24fps.mp4',
+      src: new URL('assets/scenes/day/waterfall.mp4', SITE_BASE).href,
+      remoteSrc: 'https://videos.pexels.com/video-files/7351460/7351460-hd_1920_1080_24fps.mp4',
       poster: 'https://images.pexels.com/videos/7351460/pexels-photo-7351460.jpeg?auto=compress&cs=tinysrgb&w=1600',
       page: 'https://www.pexels.com/video/waterfall-in-the-forest-7351460/',
       creator: 'K',
@@ -19,7 +20,8 @@
     },
     {
       id: 'forest-river',
-      src: 'https://videos.pexels.com/video-files/33886656/14381142_1920_1080_25fps.mp4',
+      src: new URL('assets/scenes/day/river.mp4', SITE_BASE).href,
+      remoteSrc: 'https://videos.pexels.com/video-files/33886656/14381142_1920_1080_25fps.mp4',
       poster: 'https://images.pexels.com/videos/33886656/pexels-photo-33886656.jpeg?auto=compress&cs=tinysrgb&w=1600',
       page: 'https://www.pexels.com/video/serene-forest-river-scene-in-daylight-33886656/',
       creator: 'Christophe Génot',
@@ -27,7 +29,8 @@
     },
     {
       id: 'birds-water',
-      src: 'https://videos.pexels.com/video-files/9982425/9982425-hd_1920_1080_30fps.mp4',
+      src: new URL('assets/scenes/day/beach-birds.mp4', SITE_BASE).href,
+      remoteSrc: 'https://videos.pexels.com/video-files/9982425/9982425-hd_1920_1080_30fps.mp4',
       poster: 'https://images.pexels.com/videos/9982425/pexels-photo-9982425.jpeg?auto=compress&cs=tinysrgb&w=1600',
       page: 'https://www.pexels.com/video/birds-flying-above-beach-at-sunset-9982425/',
       creator: 'Daniel Feldman',
@@ -56,7 +59,7 @@
     const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
     const saveData = Boolean(connection && connection.saveData);
     const localTestHost = location.hostname === '127.0.0.1' || location.hostname === 'localhost';
-    const mediaDisabled = saveData || localTestHost;
+    const mediaDisabled = localTestHost;
     const inAppBrowser = /FBAN|FBAV|Instagram|Messenger|Line\/|; wv\)/i.test(navigator.userAgent || '');
     const constrainedMedia = Boolean(
       inAppBrowser ||
@@ -240,16 +243,22 @@
       draw();
     }
 
-    function configureVideo(video, scene) {
+    function configureVideo(video, scene, source) {
       video.pause();
       video.removeAttribute('src');
       video.poster = scene.poster;
-      video.src = scene.src;
+      video.src = source || scene.src;
       video.muted = true;
+      video.defaultMuted = true;
+      video.setAttribute('muted','');
       video.playsInline = true;
+      video.setAttribute('playsinline','');
+      video.setAttribute('webkit-playsinline','');
       video.autoplay = true;
       video.loop = true;
-      video.preload = mediaDisabled ? 'none' : (constrainedMedia ? 'metadata' : (video === activeVideo ? 'auto' : 'metadata'));
+      video.controls = false;
+      video.disablePictureInPicture = true;
+      video.preload = mediaDisabled ? 'none' : (video === activeVideo ? 'auto' : 'metadata');
       video.load();
     }
 
@@ -278,18 +287,14 @@
       updateDayCredit();
       if (!mediaReady || lightLoaded || mediaDisabled) return;
       lightLoaded = true;
-      configureVideo(activeVideo, LIGHT_SCENES[activeSceneIndex]);
       activeVideo.classList.add('is-active');
 
-      const ready = async () => {
-        const playing = await playSafely(activeVideo);
-        if (playing) dayFallback.classList.add('video-ready');
-      };
       const confirmPlaying = () => dayFallback.classList.add('video-ready');
       activeVideo.addEventListener('playing', confirmPlaying);
       activeVideo.addEventListener('error', () => dayFallback.classList.remove('video-ready'));
-      if (activeVideo.readyState >= 2) ready();
-      else activeVideo.addEventListener('loadeddata', ready, { once: true });
+      prepareAndPlay(activeVideo, LIGHT_SCENES[activeSceneIndex]).then(playing => {
+        if (playing) dayFallback.classList.add('video-ready');
+      });
     }
 
     function waitForVideo(video, timeoutMs) {
@@ -315,6 +320,18 @@
       });
     }
 
+    async function prepareAndPlay(video, scene) {
+      const sources = [scene.src, scene.remoteSrc].filter(Boolean);
+      for (const source of sources) {
+        configureVideo(video, scene, source);
+        const available = await waitForVideo(video, source === scene.src ? 7000 : 9000);
+        if (!available || theme !== 'light' || !motionAllowed()) continue;
+        try { video.currentTime = 0; } catch (_) {}
+        if (await playSafely(video)) return true;
+      }
+      return false;
+    }
+
     async function rotateLightScene() {
       // Rotate on phones and in-app browsers too. The previous constrainedMedia
       // guard trapped many iPhones on the first river scene indefinitely.
@@ -322,14 +339,7 @@
       transitionBusy = true;
 
       const nextIndex = (activeSceneIndex + 1) % LIGHT_SCENES.length;
-      configureVideo(standbyVideo, LIGHT_SCENES[nextIndex]);
-
-      const available = await waitForVideo(standbyVideo, 9000);
-      let playing = false;
-      if (available && theme === 'light' && motionAllowed()) {
-        try { standbyVideo.currentTime = 0; } catch (_) {}
-        playing = await playSafely(standbyVideo);
-      }
+      const playing = await prepareAndPlay(standbyVideo, LIGHT_SCENES[nextIndex]);
 
       if (!playing || theme !== 'light' || !motionAllowed()) {
         try { standbyVideo.pause(); } catch (_) {}
