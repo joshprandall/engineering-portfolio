@@ -29,11 +29,11 @@
   const config={
     portfolio:{
       // Match the AI solar's richer multi-orbit composition while preserving
-      // seven top-level website destinations and large tap targets.
+      // six top-level website destinations and large tap targets.
       viewBox:'0 0 820 620',cx:410,cy:310,sun:42,speed:.075,
       rings:[
         {rx:160,ry:78,count:3,offset:0},
-        {rx:285,ry:158,count:4,offset:.52}
+        {rx:285,ry:158,count:3,offset:.52}
       ]
     },
     learning:{
@@ -56,10 +56,6 @@
 
   const descriptors={
   "portfolio": {
-    "Home": [
-      "Portfolio home",
-      "Return to the central overview of Joshua Randall’s work, study, projects, and current direction."
-    ],
     "About Me": [
       "About Me",
       "My story, technical expertise, professional experience, résumé, education, and long-term engineering direction—all in one place."

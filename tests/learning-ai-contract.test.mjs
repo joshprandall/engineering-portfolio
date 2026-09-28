@@ -32,7 +32,7 @@ const interactiveTypes=new Set(D.lessons.map(l=>l.interactive).filter(Boolean));
 for(const type of interactiveTypes)assert(implemented.has(type),'interactive type has no implementation: '+type);
 assert.equal(interactiveTypes.size,implemented.size,'interactive implementation set and release-data set must match exactly');
 const solar=read('solar-navigation.js');
-for(const [page,count] of [['index.html',7],['learn.html',7],['ai-development.html',19]]){
+for(const [page,count] of [['index.html',6],['learn.html',7],['ai-development.html',19]]){
  const html=read(page),hrefs=[...html.matchAll(/class="solar-planet-link" href="([^"]+)"/g)].map(m=>m[1]);
  assert.equal(hrefs.length,count,page+': wrong solar destination count');
  for(const href of hrefs){const file=href.split(/[?#]/)[0];assert(exists(file),page+': missing solar destination '+href);}
@@ -40,6 +40,7 @@ for(const [page,count] of [['index.html',7],['learn.html',7],['ai-development.ht
 }
 const homeSolar=read('index.html');
 assert(homeSolar.includes('href="security-research.html" aria-label="Security Research"'),'Homepage solar must include Security Research as a dedicated destination');
+assert(!homeSolar.includes('class="solar-planet-link" href="index.html" aria-label="Home"'),'Homepage solar must not include redundant Home destination');
 assert(solar.includes('solar-descriptor'),'solar descriptor implementation missing');
 assert(solar.includes('selectPlanet'),'planet selection must update descriptor rather than navigate immediately');
 const aiLanding=read('ai-development.html');
