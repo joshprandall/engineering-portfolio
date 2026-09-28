@@ -75,7 +75,9 @@ body.living-scenes{position:relative;isolation:isolate;min-height:100vh;backgrou
   background-position:center;
   background-size:cover;
   background-repeat:no-repeat;
-  transform:none;
+  transform:translate3d(0,0,0) scale(1.04);
+  transform-origin:center center;
+  will-change:transform;
   opacity:1;
   filter:saturate(1.12) contrast(1.02) brightness(.75);
   transition:opacity 1s ease
