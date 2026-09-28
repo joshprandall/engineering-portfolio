@@ -220,8 +220,11 @@
         y: random(),
         r: .3 + random() * 1.05,
         phase: random() * Math.PI * 2,
-        rate: .16 + random() * .34,
-        depth: .18 + random() * .82
+        rate: .18 + random() * .42,
+        depth: .18 + random() * .82,
+        twinkle: random() < .30,
+        twinkleRate: .55 + random() * 1.25,
+        twinkleStrength: .45 + random() * .55
       }));
 
       dust = Array.from({ length: dustCount }, () => ({
@@ -366,13 +369,21 @@
 
     function drawStars(driftX, driftY) {
       for (const star of stars) {
-        const alpha = .34 + Math.sin(time * (star.rate * 1.55) + star.phase) * .24;
-        ctx.fillStyle = 'rgba(220,236,250,' + Math.max(.07, alpha).toFixed(3) + ')';
+        const slow = Math.sin(time * (star.rate * 1.2) + star.phase);
+        const twinkleWave = star.twinkle
+          ? Math.sin(time * star.twinkleRate + star.phase * 1.7)
+          : slow * .12;
+        const baseAlpha = .20 + star.depth * .26;
+        const alpha = star.twinkle
+          ? baseAlpha + twinkleWave * (.14 + .22 * star.twinkleStrength)
+          : baseAlpha + twinkleWave * .08;
+        const pulse = star.twinkle ? 1 + Math.max(0, twinkleWave) * .16 : 1;
+        ctx.fillStyle = 'rgba(220,236,250,' + Math.max(.08, Math.min(.82, alpha)).toFixed(3) + ')';
         ctx.beginPath();
         ctx.arc(
           star.x * width + driftX * star.depth * .36,
           star.y * height + driftY * star.depth * .28,
-          star.r,
+          star.r * pulse,
           0,
           Math.PI * 2
         );
@@ -429,12 +440,20 @@
     }
 
     function universe(dt) {
-      // Keep the astronomical background spatially locked to the viewport.
-      // Tiny particle animation can remain, but the actual image never pans or zooms.
-      night.style.transform = 'none';
-      nightDepth.style.transform = 'none';
-      nightGlow.style.transform = 'none';
-      drawStars(0, 0);
+      // Very slow parallax keeps Night mode alive without the earlier zoom/jump effect.
+      // Geometry is still fixed to the stable viewport; only a few pixels of translation move.
+      const driftX = Math.sin(time / 18) * 2.6;
+      const driftY = Math.cos(time / 23) * 1.8;
+      const depthX = Math.sin(time / 27 + .9) * -3.8;
+      const depthY = Math.cos(time / 31 + .4) * -2.4;
+      const glowX = Math.sin(time / 13) * 7;
+      const glowY = Math.cos(time / 17) * 5;
+
+      night.style.transform = 'translate3d(' + driftX.toFixed(2) + 'px,' + driftY.toFixed(2) + 'px,0)';
+      nightDepth.style.transform = 'translate3d(' + depthX.toFixed(2) + 'px,' + depthY.toFixed(2) + 'px,0)';
+      nightGlow.style.transform = 'translate3d(' + glowX.toFixed(2) + 'px,' + glowY.toFixed(2) + 'px,0)';
+
+      drawStars(driftX, driftY);
       drawDust();
       drawStreak(dt);
     }
