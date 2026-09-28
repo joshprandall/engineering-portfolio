@@ -42,15 +42,21 @@ assert.ok(responsive.includes('background:var(--nav-menu-solid)!important'),'Ham
 assert.ok(responsive.includes('backdrop-filter:none!important'),'Hamburger menu must not use translucent backdrop filtering');
 assert.ok(scenesCss.includes('.scene-canvas{display:block;z-index:6;opacity:1}'),'Night star canvas must render above the dark readability veil');
 assert.ok(scenesCss.includes(':root[data-theme=light] .scene-canvas{z-index:3;opacity:.88}'),'Day canvas must retain its quieter layer position');
+assert.ok(scenesCss.includes('inset:-6%') && scenesCss.includes('width:112%') && scenesCss.includes('height:112%'),'Night layers must provide responsive overscan for bounded panning');
 
 const scenes=read('site-scenes.js');
 assert.ok(scenes.includes('const ROTATE_AFTER = 28'),'Light scenes must rotate on the approved cadence');
 assert.ok(scenes.indexOf("id: 'forest-waterfall'")<scenes.indexOf("id: 'forest-river'")&&scenes.indexOf("id: 'forest-river'")<scenes.indexOf("id: 'birds-water'"),'Light scene order must be waterfall → river → beach');
 assert.ok(scenes.includes('twinkle: random() < .76'),'Night stars must include a dense independent twinkling subset');
-assert.ok(scenes.includes('Math.sin(time * .42) * 36.0'),'Night scene must use visibly faster bounded drift');
+assert.ok(scenes.includes('Math.sin(time * .18) * limits.x'),'Night scene must use slower viewport-bounded horizontal drift');
 assert.ok(scenes.includes('ctx.moveTo(x - flare, y); ctx.lineTo(x + flare, y);'),'Night twinkle must draw a visible horizontal sparkle flare');
 assert.ok(scenes.includes('ctx.moveTo(x, y - flare); ctx.lineTo(x, y + flare);'),'Night twinkle must draw a visible vertical sparkle flare');
-assert.ok(scenes.includes('const scale = reducedMotion() ? .16 : 1'),'Reduced-motion mode must reduce parallax instead of freezing the visual identity');
+assert.ok(scenes.includes('function nightCameraLimits()'),'Night scene must compute camera travel from actual overscan');
+assert.ok(scenes.includes('(night.offsetWidth - width) / 2 - 4'),'Horizontal camera bound must derive from rendered overscan');
+assert.ok(scenes.includes('(night.offsetHeight - height) / 2 - 4'),'Vertical camera bound must derive from rendered overscan');
+assert.ok(scenes.includes('const x = star.x * width + cameraX'),'Generated stars must share the background camera X transform');
+assert.ok(scenes.includes('const y = star.y * height + cameraY'),'Generated stars must share the background camera Y transform');
+assert.ok(scenes.includes('const scale = reducedMotion() ? .18 : 1'),'Reduced-motion mode must reduce parallax instead of freezing the visual identity');
 
 const sound=read('site-sound-control.js');
 assert.ok(sound.includes('max="100" step="1" value="5"'),'Volume control must expose 0–100 with 5% default');
