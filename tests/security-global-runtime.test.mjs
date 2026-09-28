@@ -113,7 +113,11 @@ assert.ok(deploy.includes('DAY_MEDIA_SOURCES'),'OSU deploy must materialize lice
 assert.ok(deploy.includes('DAY_AUDIO_SOURCES'),'OSU deploy must materialize same-origin Day ambience');
 for(const media of ['assets/audio/day/waterfall.ogg','assets/audio/day/river.ogg','assets/audio/day/beach-near.ogg','assets/audio/day/beach-far.ogg']) assert.ok(deploy.includes(media),'OSU deploy missing Day ambience asset '+media);
 assert.ok(deploy.includes("prefix.startswith(b'OggS')"),'OSU deploy must publicly verify Day ambience as Ogg audio');
-assert.ok(deploy.includes('materialize_day_media(source)'),'OSU deploy must fetch Day media before source validation');
+assert.ok(deploy.includes("error.code == 429"),'OSU deploy must explicitly retry HTTP 429 rate limits');
+assert.ok(deploy.includes("Reusing cached Day media:"),'OSU deploy must prefer existing/cached media over repeated external downloads');
+assert.ok(deploy.includes("Deployment will continue; browser audio uses the matching Wikimedia fallback."),'Day ambience download failure must not abort the release');
+assert.ok(!/REQUIRED[\\s\\S]*assets\\/audio\\/day\\/waterfall\\.ogg/.test(deploy.split('def protected')[0]),'Optional Day ambience must not be a hard release prerequisite');
+assert.ok(deploy.includes('materialize_day_media(source, site)'),'OSU deploy must reuse deployed/cached Day media before external fetches');
 assert.ok(deploy.includes('http_smoke_day_media()'),'OSU deploy must publicly verify same-origin Day media');
 for(const file of ['security-research.html','security-research.css','security-research.js']){
   assert.ok(deploy.includes("'"+file+"'"),'OSU deploy verification missing '+file);
