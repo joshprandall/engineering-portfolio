@@ -41,7 +41,7 @@ assert.ok(theme.includes("header.site-global-header, header #menu, header #mobil
 assert.ok(theme.includes('SITE_BASE'),'Shared runtime bootstrap must resolve from the theme script base');
 assert.ok(theme.includes("const isPaused = () => motion === 'paused'"),'Only an explicit site pause may fully freeze scenery');
 assert.ok(theme.includes('const isReducedMotion = () =>'),'OS reduced-motion preference must have a separate reduced mode');
-assert.ok(theme.includes("SHARED_RUNTIME_VERSION='20260928-day-audio-lock-v1'"),'Shared runtime must cache-bust the synchronized scene/audio release');
+assert.ok(theme.includes("SHARED_RUNTIME_VERSION='20260928-day-audio-lock-v2'"),'Shared runtime must cache-bust the synchronized scene/audio release');
 
 const scenesCss=read('site-scenes.css');
 const responsive=read('site-responsive.css');

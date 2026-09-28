@@ -109,7 +109,7 @@
     if(existing)return;
     const link=document.createElement('link');link.rel='stylesheet';link.href=new URL(file,SITE_BASE);document.head.append(link);
   }
-  const SHARED_RUNTIME_VERSION='20260928-day-audio-lock-v1';
+  const SHARED_RUNTIME_VERSION='20260928-day-audio-lock-v2';
   function loadScript(file) {
     const existing=[...document.scripts].find(script=>{try{return new URL(script.src,location.href).pathname.endsWith('/'+file);}catch{return false;}});
     if(existing)return Promise.resolve();

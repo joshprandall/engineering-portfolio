@@ -36,9 +36,8 @@
     dark: new URL('assets/audio/dark-theme-user.wav', document.currentScript.src).href,
     darkFallback: new URL('assets/audio/dark-theme-user.mp3', document.currentScript.src).href,
 
-    // Production serves Day ambience same-origin so visual/audio scene changes
-    // do not wait on a third-party redirect or CDN. Local test hosts keep using
-    // the remote sources because deploy-only audio assets are not committed.
+    // Prefer a deployed same-origin Day recording when available, then retain
+    // the established remote fallback. Local test hosts use the remote URLs.
     river: LOCAL_TEST_HOST ? REMOTE_DAY_SOURCES.river : LOCAL_DAY_SOURCES.river,
     waterfall: LOCAL_TEST_HOST ? REMOTE_DAY_SOURCES.waterfall : LOCAL_DAY_SOURCES.waterfall,
     beachNear: LOCAL_TEST_HOST ? REMOTE_DAY_SOURCES.beachNear : LOCAL_DAY_SOURCES.beachNear,
@@ -147,7 +146,7 @@
   }
 
   function desiredKey() {
-    if (!allowed()) return '';
+    if (!allowed() || (theme() === 'light' && pendingSceneId)) return '';
     if (theme() === 'dark') return 'dark';
     if (sceneId === 'forest-waterfall') return 'waterfall';
     if (sceneId === 'birds-water') return 'beach';
@@ -405,7 +404,8 @@
       return;
     }
 
-    if (currentKey === nextKey && audio.src === SOURCES[nextKey]) {
+    const retainedFallback = nextKey === 'dark' ? (darkFallbackActive && audio.src === SOURCES.darkFallback) : (audio.dataset.dayFallback === '1' && audio.src === DAY_FALLBACKS[nextKey]);
+    if (currentKey === nextKey && (audio.src === SOURCES[nextKey] || retainedFallback)) {
       audio.volume = cappedVolume(nextKey);
       return;
     }
@@ -583,7 +583,7 @@
   });
 
   audio.addEventListener('ended', () => {
-    if (desiredKey() !== currentKey) return;
+    if (!currentKey || desiredKey() !== currentKey) return;
     try {
       audio.currentTime = 0;
       audio.play().catch(() => {});
@@ -591,6 +591,8 @@
   });
 
   audio.addEventListener('error', () => {
+    // Late load/error events cannot restart muted, hidden or outgoing media.
+    if (!currentKey || desiredKey() !== currentKey) return;
     if ((currentKey === 'river' || currentKey === 'waterfall') &&
         !LOCAL_TEST_HOST &&
         audio.dataset.dayFallback !== '1' &&

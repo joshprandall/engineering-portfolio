@@ -1,0 +1,19 @@
+/* Controller state tests with modeled media events; these do not certify native playback. */
+const assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm'),path=require('node:path');
+class Media extends EventTarget {
+  constructor(){super();this.dataset={};this.style={};this.paused=true;this.currentTime=0;this.duration=12;this.plays=0;this.loads=0;this.volume=0;this.muted=false;}
+  setAttribute(){} remove(){} get currentSrc(){return this.src||'';}
+  play(){this.plays++;this.paused=false;return Promise.resolve();} pause(){this.paused=true;} load(){this.loads++;this.onloadedmetadata?.();}
+}
+const events=new EventTarget(),document=new EventTarget(),players=[],memory=new Map();let clock=0;
+document.hidden=false;document.documentElement={dataset:{theme:'dark'}};document.currentScript={src:'https://portfolio.test/site-audio.js'};document.body={appendChild:p=>players.push(p)};document.querySelectorAll=()=>[];document.getElementById=()=>null;document.createElement=()=>new Media();
+const context={document,location:{hostname:'portfolio.test',pathname:'/index.html'},URL,CustomEvent,console,Date,Math,Number,Object,Boolean,Promise,localStorage:{getItem:k=>memory.get(k)??null,setItem:(k,v)=>memory.set(k,v)},addEventListener:events.addEventListener.bind(events),setTimeout:()=>++clock,clearTimeout(){},setInterval:()=>++clock,requestAnimationFrame:()=>++clock,cancelAnimationFrame(){}};context.window=context;
+vm.createContext(context);const code=fs.readFileSync(path.join(__dirname,'../site-audio.js'),'utf8');vm.runInContext(code,context);const S=context.SiteAudio,a=players[0];const emit=(name,detail)=>document.dispatchEvent(new CustomEvent(name,{detail}));
+document.documentElement.dataset.theme='light';emit('portfolio:theme');assert.match(a.src,/assets\/audio\/day\/river\.ogg$/);a.dispatchEvent(new Event('error'));const fallback=a.src,loads=a.loads;assert.match(fallback,/Sanna%20river/);S.sync(true);assert.equal(a.src,fallback,'Same-scene sync must retain a functioning remote fallback');assert.equal(a.loads,loads,'Fallback sync must not reload the failed local URL');
+const plays=a.plays;emit('portfolio:scene-will-change',{id:'forest-waterfall'});assert(a.paused&&a.muted);a.dispatchEvent(new Event('error'));assert.equal(a.plays,plays,'An outgoing scene error must not restart silenced ambience');S.play();assert.equal(a.plays,plays,'User unlock/watchdog must not restart the outgoing scene while a transition is pending');emit('portfolio:scene',{id:'forest-waterfall'});assert.equal(S.scene,'forest-waterfall');assert.match(a.src,/waterfall\.ogg$/);a.dispatchEvent(new Event('error'));assert.match(a.src,/Water%20fall/);
+S.setMuted(true);const mutedPlays=a.plays;a.dispatchEvent(new Event('ended'));a.dispatchEvent(new Event('error'));assert.equal(a.plays,mutedPlays,'Late media events must respect saved mute');assert(S.muted&&a.paused);S.setMuted(false);assert(!a.paused);
+emit('portfolio:ambient-suppression',{active:true});const quietPlays=a.plays;a.dispatchEvent(new Event('ended'));a.dispatchEvent(new Event('error'));assert.equal(a.plays,quietPlays);emit('portfolio:ambient-suppression',{active:false});assert(!a.paused);
+document.hidden=true;emit('visibilitychange');assert(a.paused);document.hidden=false;emit('visibilitychange');assert(!a.paused);
+emit('portfolio:scene',{id:'birds-water'});assert(a.paused);assert(S.beachElements.some(p=>!p.paused));emit('portfolio:scene-will-change',{id:'forest-river'});assert(S.beachElements.every(p=>p.paused&&p.muted));emit('portfolio:scene',{id:'forest-river'});assert(S.beachElements.every(p=>p.paused));
+vm.runInContext(code,context);assert.equal(players.length,3,'Repeated script inclusion must not duplicate players');
+console.log('PASS audio controller: stable fallback, transition silence, stale-event mute, suppression restoration, visibility and singleton ownership (modeled media).');
