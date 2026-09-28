@@ -30,6 +30,8 @@ async function run(){
   for(const [name,width,height] of [['phone',390,844],['small-phone',320,740],['tablet',820,1180],['desktop',1440,1000]]){
    console.log('Checking '+name);await page.setViewportSize({width,height});await page.goto(base+'/',{waitUntil:'domcontentloaded'});
    console.log('Loaded '+name);assert.equal(await page.locator('body').evaluate(e=>getComputedStyle(e).backgroundColor),'rgba(0, 0, 0, 0)','Living-scene body stays transparent');assert(await page.locator('.scene-backdrop').isVisible(),'Living background renders behind glass UI');
+   assert.equal(await page.locator('.solar-navigation[data-solar="portfolio"] .solar-planet-link[aria-label="Home"]').count(),0,'Homepage solar has no Home planet');
+   assert.equal((await page.locator('.solar-navigation[data-solar="portfolio"] .solar-descriptor-title').innerText()).trim(),'About Me','Homepage solar defaults to About Me after Home removal');
    assert(await page.locator('#selected-work').isVisible(),'Current home project section renders');
    if(await page.locator('#menu').isVisible()){
     for(let n=0;n<3;n++){
