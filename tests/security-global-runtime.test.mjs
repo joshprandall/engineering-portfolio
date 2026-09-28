@@ -51,6 +51,12 @@ assert.ok(scenesCss.includes('animation:scene-day-fallback-drift-reduced 60s eas
 
 const scenes=read('site-scenes.js');
 assert.ok(scenes.includes('const ROTATE_AFTER = 28'),'Light scenes must rotate on the approved cadence');
+for(const media of ['assets/scenes/day/waterfall.mp4','assets/scenes/day/river.mp4','assets/scenes/day/beach-birds.mp4']) assert.ok(scenes.includes(media),'Day scene must prefer same-origin production media: '+media);
+assert.ok(scenes.includes('remoteSrc:'),'Day scene must retain an external emergency fallback');
+assert.ok(scenes.includes('async function prepareAndPlay(video, scene)'),'Day player must retry its alternate source when the primary media cannot load');
+assert.ok(scenes.includes("video.setAttribute('playsinline','')") && scenes.includes("video.setAttribute('webkit-playsinline','')"),'Day video must explicitly request inline iOS playback');
+assert.ok(scenes.includes('video.defaultMuted = true'),'Day autoplay must be explicitly muted for iOS');
+assert.ok(!scenes.includes('const mediaDisabled = saveData || localTestHost'),'Save-data must not silently replace real Day footage with a still image');
 assert.ok(scenes.includes("if (!video || theme !== 'light' || !motionAllowed() || mediaDisabled) return false"),'Day video playback must not be disabled by OS reduced-motion');
 assert.ok(!scenes.includes("!motionAllowed() || reducedMotion() || mediaDisabled"),'Reduced-motion must not silently freeze Day video');
 assert.ok(scenesCss.includes('@keyframes scene-day-fallback-drift'),'Day poster fallback must have its own visible camera animation');
@@ -92,6 +98,9 @@ assert.ok(lab.includes('URL.createObjectURL'),'Security lab report export missin
 execFileSync(process.execPath,['--check',path.join(root,'security-research.js')],{stdio:'pipe'});
 
 const deploy=read('tools/deploy_osu_live.py');
+assert.ok(deploy.includes('DAY_MEDIA_SOURCES'),'OSU deploy must materialize licensed Day media');
+assert.ok(deploy.includes('materialize_day_media(source)'),'OSU deploy must fetch Day media before source validation');
+assert.ok(deploy.includes('http_smoke_day_media()'),'OSU deploy must publicly verify same-origin Day media');
 for(const file of ['security-research.html','security-research.css','security-research.js']){
   assert.ok(deploy.includes("'"+file+"'"),'OSU deploy verification missing '+file);
 }
