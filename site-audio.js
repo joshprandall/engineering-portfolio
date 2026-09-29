@@ -78,6 +78,7 @@
   });
   const previewAudioUrls = new Map();
   const previewAudioLoads = new Map();
+  const previewPlayerGenerations = new WeakMap();
 
   async function previewAudioUrl(key) {
     if (!BRANCH_PREVIEW_HOST) return '';
@@ -101,18 +102,48 @@
   }
 
   async function usePreviewAudio(player, key, { loop = true, play = true, level } = {}) {
-    if (!BRANCH_PREVIEW_HOST || player.dataset.previewFallback === 'loading' || player.dataset.previewFallback === '1') return false;
+    if (!BRANCH_PREVIEW_HOST) return false;
+
+    const targetLevel = level ?? cappedVolume(key.startsWith('beach') ? 'beach' : key);
+    const alreadyLoaded = player.dataset.previewFallback === '1' &&
+      player.dataset.previewKey === key &&
+      (player.currentSrc || player.src || '').startsWith('blob:');
+
+    if (alreadyLoaded) {
+      player.loop = loop;
+      player.muted = false;
+      setPlayerLevel(player, targetLevel);
+      if (play) {
+        try {
+          const result = player.play();
+          if (result?.then) await result;
+        } catch (error) {
+          if (error?.name === 'NotAllowedError') markAutoplayState(true);
+          return false;
+        }
+      }
+      markAutoplayState(false);
+      return true;
+    }
+
+    const generation = (previewPlayerGenerations.get(player) || 0) + 1;
+    previewPlayerGenerations.set(player, generation);
     player.dataset.previewFallback = 'loading';
+    player.dataset.previewKey = key;
+
     try {
       const src = await previewAudioUrl(key);
       if (!src) throw new Error('No preview media source for ' + key);
+      if (previewPlayerGenerations.get(player) !== generation || player.dataset.previewKey !== key) return false;
+
       player.pause();
       player.src = src;
       player.loop = loop;
       player.muted = false;
-      setPlayerLevel(player, level ?? cappedVolume(key.startsWith('beach') ? 'beach' : key));
+      setPlayerLevel(player, targetLevel);
       player.load();
       player.dataset.previewFallback = '1';
+
       if (play) {
         const result = player.play();
         if (result?.then) await result;
@@ -120,8 +151,11 @@
       markAutoplayState(false);
       return true;
     } catch (error) {
-      player.dataset.previewFallback = 'failed';
-      console.error('JR preview audio fallback failed:', key, error);
+      if (previewPlayerGenerations.get(player) === generation) {
+        player.dataset.previewFallback = 'failed';
+      }
+      if (error?.name === 'NotAllowedError') markAutoplayState(true);
+      else console.error('JR preview audio fallback failed:', key, error);
       return false;
     }
   }
@@ -227,6 +261,7 @@
     player.dataset.fallbackSrc = BEACH_FALLBACKS[id.endsWith('-a') ? 0 : 1];
     player.dataset.localFallback = '0';
     player.dataset.previewFallback = '0';
+    player.dataset.previewKey = '';
     (document.body || document.documentElement).appendChild(player);
     try { player.load(); } catch (_) {}
     return player;
@@ -429,11 +464,23 @@
   }
 
   function playBeach() {
-    if (desiredKey() !== 'beach') return;
+    if (desiredKey() !== 'beach' || switching) return;
     resumeVolumeGraph();
     const player = beachPlayers[beachActiveIndex];
     const generation = beachGeneration;
     const cap = cappedVolume('beach');
+    const previewKey = beachActiveIndex === 0 ? 'beachNear' : 'beachFar';
+
+    if (BRANCH_PREVIEW_HOST &&
+        !(player.dataset.previewFallback === '1' && player.dataset.previewKey === previewKey &&
+          (player.currentSrc || player.src || '').startsWith('blob:'))) {
+      beachStarted = false;
+      usePreviewAudio(player, previewKey, { loop: false, play: true, level: cap }).then(ok => {
+        if (generation !== beachGeneration || desiredKey() !== 'beach') return;
+        beachStarted = ok;
+      });
+      return;
+    }
 
     if (!beachStarted) {
       try { player.currentTime = 0; } catch (_) {}
@@ -537,12 +584,27 @@
       switching = true;
       stop();
       currentKey = 'beach';
+
+      if (BRANCH_PREVIEW_HOST) {
+        Promise.all([
+          usePreviewAudio(beachPlayers[0], 'beachNear', { loop: false, play: false, level: 0 }),
+          usePreviewAudio(beachPlayers[1], 'beachFar', { loop: false, play: false, level: 0 })
+        ]).then(() => {
+          switching = false;
+          if (desiredKey() === 'beach') playBeach();
+        });
+        return;
+      }
+
       switching = false;
       return;
     }
 
     const retainedFallback = nextKey === 'dark' ? (darkFallbackActive && audio.src === SOURCES.darkFallback) : (audio.dataset.dayFallback === '1' && audio.src === DAY_FALLBACKS[nextKey]);
-    const retainedPreview = BRANCH_PREVIEW_HOST && audio.dataset.previewFallback === '1' && audio.src.startsWith('blob:');
+    const retainedPreview = BRANCH_PREVIEW_HOST &&
+      audio.dataset.previewFallback === '1' &&
+      audio.dataset.previewKey === nextKey &&
+      (audio.currentSrc || audio.src || '').startsWith('blob:');
     if (currentKey === nextKey && (audio.src === SOURCES[nextKey] || retainedFallback || retainedPreview)) {
       setPlayerLevel(audio, cappedVolume(nextKey));
       return;
@@ -554,7 +616,6 @@
     currentKey = nextKey;
     if (nextKey === 'dark') darkFallbackActive = false;
     audio.dataset.dayFallback = '0';
-    audio.dataset.previewFallback = '0';
 
     if (BRANCH_PREVIEW_HOST) {
       usePreviewAudio(audio, nextKey, { loop: true, play: true, level: cappedVolume(nextKey) })
@@ -601,6 +662,12 @@
 
     if (key === 'beach') {
       playBeach();
+      return;
+    }
+
+    if (BRANCH_PREVIEW_HOST &&
+        audio.dataset.previewKey === key &&
+        audio.dataset.previewFallback === 'loading') {
       return;
     }
 
@@ -786,7 +853,9 @@
       } catch (_) {}
       return;
     }
-    if (BRANCH_PREVIEW_HOST && audio.dataset.previewFallback !== 'loading' && audio.dataset.previewFallback !== '1') {
+    if (BRANCH_PREVIEW_HOST &&
+        !(audio.dataset.previewFallback === '1' && audio.dataset.previewKey === currentKey &&
+          (audio.currentSrc || audio.src || '').startsWith('blob:'))) {
       usePreviewAudio(audio, currentKey, { loop: true, play: true, level: cappedVolume(currentKey) });
       return;
     }
