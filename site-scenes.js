@@ -8,6 +8,34 @@
   const SCENE_SCRIPT_URL = new URL(document.currentScript?.src || location.href, location.href);
   const SITE_BASE = new URL('./', SCENE_SCRIPT_URL);
   const BRANCH_PREVIEW_HOST = /(?:^|\.)raw\.githack\.com$/i.test(location.hostname);
+  const previewSceneUrls = new Map();
+  const previewSceneLoads = new Map();
+  const PREVIEW_SCENE_ASSETS = Object.freeze({
+    'birds-water': {
+      mime: 'video/mp4',
+      parts: ['preservation/ambience/54af202eb77b482086a041e64fd005e995dffc56defb8b118ae82dd118fdf7a4/0.bin']
+    }
+  });
+  async function previewSceneUrl(scene) {
+    if (!BRANCH_PREVIEW_HOST) return '';
+    if (previewSceneUrls.has(scene.id)) return previewSceneUrls.get(scene.id);
+    if (previewSceneLoads.has(scene.id)) return previewSceneLoads.get(scene.id);
+    const spec = PREVIEW_SCENE_ASSETS[scene.id];
+    if (!spec) return '';
+    const load = (async () => {
+      const buffers = [];
+      for (const part of spec.parts) {
+        const response = await fetch(new URL(part, SITE_BASE), { cache: 'force-cache' });
+        if (!response.ok) throw new Error('Preview scene HTTP ' + response.status + ': ' + part);
+        buffers.push(await response.arrayBuffer());
+      }
+      const url = URL.createObjectURL(new Blob(buffers, { type: spec.mime }));
+      previewSceneUrls.set(scene.id, url);
+      return url;
+    })().finally(() => previewSceneLoads.delete(scene.id));
+    previewSceneLoads.set(scene.id, load);
+    return load;
+  }
 
   const LIGHT_SCENES = [
     {
@@ -368,8 +396,12 @@
       // Raw branch previews do not reconstruct the preserved large-media chunks.
       // Use the already-approved original Pexels clip there; production still
       // prefers the preserved local master/mobile renditions.
+      let previewSrc = '';
+      if (BRANCH_PREVIEW_HOST && scene.id === 'birds-water') {
+        try { previewSrc = await previewSceneUrl(scene); } catch (error) { console.error('JR preview scene fallback failed:', scene.id, error); }
+      }
       const sources = (BRANCH_PREVIEW_HOST
-        ? [scene.remoteSrc, scene.mobileSrc, scene.src]
+        ? [previewSrc, scene.remoteSrc, scene.mobileSrc, scene.src]
         : compactMedia
           ? [scene.mobileSrc, scene.src, scene.remoteSrc]
           : [scene.src, scene.mobileSrc, scene.remoteSrc]
@@ -656,6 +688,8 @@
 
     addEventListener('resize', resize, { passive: true });
     addEventListener('pagehide', () => {
+      previewSceneUrls.forEach(url => { try { URL.revokeObjectURL(url); } catch (_) {} });
+      previewSceneUrls.clear();
       
       pauseVideos();
       
