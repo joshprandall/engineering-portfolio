@@ -37,6 +37,13 @@ const server=http.createServer((req,res)=>{
  assert.deepEqual(panel,{background:'rgba(0, 0, 0, 0)',image:'none',shadow:'none',blur:'none',border:'0px',children:['INPUT']},'Sound must reveal only a slider, with no panel surface');
  const slider=p.locator('#ambient-volume');await slider.focus();await slider.press('Home');assert(await p.evaluate(()=>SiteAudio.muted&&SiteAudio.volume===0));
  for(let i=0;i<5;i++)await slider.press('ArrowRight');assert(await p.evaluate(()=>!SiteAudio.muted&&Math.abs(SiteAudio.volume-.05)<.001));
+ assert.equal(await slider.evaluate(el=>getComputedStyle(el).touchAction),'none','Volume slider must retain horizontal touch dragging instead of handing the gesture to page scrolling');
+ await slider.evaluate(el=>{el.value='37';el.dispatchEvent(new Event('change',{bubbles:true}));});
+ assert(await p.evaluate(()=>!SiteAudio.muted&&Math.abs(SiteAudio.volume-.37)<.001),'Committed native-range changes must update audio volume');
+ await slider.evaluate(el=>{el.value='0';el.dispatchEvent(new Event('input',{bubbles:true}));});
+ assert(await p.evaluate(()=>SiteAudio.muted&&SiteAudio.volume===0),'Zero on the native range must mute');
+ await slider.evaluate(el=>{el.value='5';el.dispatchEvent(new Event('change',{bubbles:true}));});
+ assert(await p.evaluate(()=>!SiteAudio.muted&&Math.abs(SiteAudio.volume-.05)<.001),'Positive native-range changes must restore sound');
  await p.screenshot({path:path.join(output,'volume-slider-night.png')});
  await p.waitForFunction(()=>SiteAudio.element.currentTime>0&&!SiteAudio.element.paused&&SiteAudio.volumeBackend==='gain',null,{timeout:20000});
  report.night=await p.evaluate(()=>({time:SiteAudio.element.currentTime,source:SiteAudio.element.currentSrc,volume:SiteAudio.volume,levels:SiteAudio.outputLevels}));assert(report.night.source.endsWith('.wav'));assert.equal(report.night.volume,.05);
