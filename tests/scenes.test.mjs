@@ -25,11 +25,12 @@ function controller() {
   });
   vm.runInContext(`
     let theme='light', paused=false, mediaDisabled=false, compactMedia=false, mediaReady=true, sceneLoadId=0;
+    const BRANCH_PREVIEW_HOST=false;
     const motionAllowed=()=>!paused, reducedMotion=()=>false;
     let activeVideo=videos[0], standbyVideo=videos[1], activeSceneIndex=0;
     let rotationElapsed=0, lastFrame=0, raf=0, time=0, width=400;
     const ROTATE_AFTER=28;
-    const LIGHT_SCENES=[0,1,2].map(i=>({src:'local-'+i,remoteSrc:'remote-'+i,poster:'poster-'+i}));
+    const LIGHT_SCENES=[0,1,2].map(i=>({src:'local-'+i,mobileSrc:'mobile-'+i,remoteSrc:'remote-'+i,poster:'poster-'+i}));
     const readyScenes=[];
     const dayFallback={classList:{add(){readyScenes.push(activeSceneIndex)},remove(){}}};
     const credits=[], announceDaySceneWillChange=()=>{}, updateDayCredit=()=>credits.push(activeSceneIndex), draw=()=>{};
