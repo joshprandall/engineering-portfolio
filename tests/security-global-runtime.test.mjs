@@ -62,7 +62,8 @@ assert.ok(scenes.includes('const ROTATE_AFTER = 28'),'Light scenes must rotate o
 assert.ok(scenes.includes("portfolio:scene-will-change"),'Day scene engine must announce the next scene before changing visible media');
 assert.ok(scenes.indexOf('announceDaySceneWillChange(nextIndex);') < scenes.indexOf('activeVideo = standbyVideo;'), 'Outgoing audio must be silenced before the active visual changes');
 for(const media of ['assets/scenes/day/waterfall.mp4','assets/scenes/day/river.mp4','assets/scenes/day/beach-birds.mp4']) assert.ok(scenes.includes(media),'Day scene must prefer same-origin production media: '+media);
-assert.ok(scenes.includes('mobileSrc:') && scenes.includes('compactMedia ? [scene.mobileSrc, scene.src] : [scene.src, scene.mobileSrc]'),'Day scenes must retain both verified local renditions');
+assert.ok(scenes.includes('mobileSrc:') && scenes.includes('[scene.mobileSrc, scene.src, scene.remoteSrc]') && scenes.includes('[scene.src, scene.mobileSrc, scene.remoteSrc]'),'Day scenes must retain both verified local renditions plus the approved remote fallback');
+assert.ok(scenes.includes('BRANCH_PREVIEW_HOST')&&scenes.includes('[scene.remoteSrc, scene.mobileSrc, scene.src]'),'Branch previews must use the approved remote Day clip when reconstructed local media is unavailable');
 assert.ok(scenes.includes('async function prepareAndPlay(video, scene)'),'Day player must retry its alternate source when the primary media cannot load');
 assert.ok(scenes.includes("video.setAttribute('playsinline','')") && scenes.includes("video.setAttribute('webkit-playsinline','')"),'Day video must explicitly request inline iOS playback');
 assert.ok(scenes.includes('video.defaultMuted = true'),'Day autoplay must be explicitly muted for iOS');
@@ -90,6 +91,9 @@ assert.ok(sound.includes('max="100" step="1" value="5"'),'Volume control must ex
 assert.ok(sound.includes('type="range" min="0"') && sound.includes('aria-label="Background sound volume, zero to one hundred percent"'),'Volume must use an accessible native 0–100 range control');
 assert.ok(sound.includes('scene-sound-mute')&&sound.includes("mute.textContent=audio.muted?'Unmute':'Mute'"),'Volume UI must provide explicit Mute/Unmute without replacing the selected level');
 assert.ok(sound.includes('portfolio:site-audio-ready'),'Sound control must recover when audio initializes after it');
+const audioRuntime=read('site-audio.js');
+assert.ok(audioRuntime.includes('PREVIEW_AUDIO_ASSETS')&&audioRuntime.includes('preservation/ambience/878679d3fcd4cf6c8361458f76b6e14cd77072b02aafe528bbb30f158fafa20d/0.bin'),'Branch preview must reconstruct preserved Day audio bytes');
+assert.ok(audioRuntime.includes("type: spec.mime")&&audioRuntime.includes('URL.createObjectURL'),'Preview audio fallback must supply a browser-decodable MIME-typed Blob URL');
 
 const page=read('security-research.html');
 for(const id of ['vulnerability-lab','fuzzing-lab','linux-lab','ad-lab','container-lab','surface-lab']){
