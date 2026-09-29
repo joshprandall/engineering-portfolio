@@ -49,6 +49,83 @@
   ]);
   const BEACH_CROSSFADE_SECONDS = 1.2;
 
+  // Branch-preview hosts serve the source tree verbatim, while the release
+  // build reconstructs approved Day audio from preserved Git chunks. Rebuild
+  // those exact MP3 bytes in-browser only for the branch preview. Blob URLs
+  // also give Safari/Chrome a definite audio/mpeg MIME type for the dark MP3.
+  const BRANCH_PREVIEW_HOST = /(?:^|\.)raw\.githack\.com$/i.test(location.hostname);
+  const PREVIEW_AUDIO_ASSETS = Object.freeze({
+    dark: {
+      mime: 'audio/mpeg',
+      parts: ['assets/audio/dark-theme-user.mp3']
+    },
+    river: {
+      mime: 'audio/mpeg',
+      parts: ['preservation/ambience/878679d3fcd4cf6c8361458f76b6e14cd77072b02aafe528bbb30f158fafa20d/0.bin']
+    },
+    waterfall: {
+      mime: 'audio/mpeg',
+      parts: ['preservation/ambience/67ee2ea0cbfa73192444aa7c561eb57ad705caa6423dfc27b16b62e53e127fe0/0.bin']
+    },
+    beachNear: {
+      mime: 'audio/mpeg',
+      parts: ['preservation/ambience/79d467f62f0c516c62661c6530b1358a956af47a90961e212f1535605d377264/0.bin']
+    },
+    beachFar: {
+      mime: 'audio/mpeg',
+      parts: ['preservation/ambience/b9b0dbce1d88951b063571b3b33d1741f814418f1178f3814b7f39501f8baeee/0.bin']
+    }
+  });
+  const previewAudioUrls = new Map();
+  const previewAudioLoads = new Map();
+
+  async function previewAudioUrl(key) {
+    if (!BRANCH_PREVIEW_HOST) return '';
+    if (previewAudioUrls.has(key)) return previewAudioUrls.get(key);
+    if (previewAudioLoads.has(key)) return previewAudioLoads.get(key);
+    const spec = PREVIEW_AUDIO_ASSETS[key];
+    if (!spec) return '';
+    const load = (async () => {
+      const buffers = [];
+      for (const part of spec.parts) {
+        const response = await fetch(new URL(part, AUDIO_BASE), { cache: 'force-cache' });
+        if (!response.ok) throw new Error('Preview media HTTP ' + response.status + ': ' + part);
+        buffers.push(await response.arrayBuffer());
+      }
+      const url = URL.createObjectURL(new Blob(buffers, { type: spec.mime }));
+      previewAudioUrls.set(key, url);
+      return url;
+    })().finally(() => previewAudioLoads.delete(key));
+    previewAudioLoads.set(key, load);
+    return load;
+  }
+
+  async function usePreviewAudio(player, key, { loop = true, play = true, level } = {}) {
+    if (!BRANCH_PREVIEW_HOST || player.dataset.previewFallback === 'loading' || player.dataset.previewFallback === '1') return false;
+    player.dataset.previewFallback = 'loading';
+    try {
+      const src = await previewAudioUrl(key);
+      if (!src) throw new Error('No preview media source for ' + key);
+      player.pause();
+      player.src = src;
+      player.loop = loop;
+      player.muted = false;
+      setPlayerLevel(player, level ?? cappedVolume(key.startsWith('beach') ? 'beach' : key));
+      player.load();
+      player.dataset.previewFallback = '1';
+      if (play) {
+        const result = player.play();
+        if (result?.then) await result;
+      }
+      markAutoplayState(false);
+      return true;
+    } catch (error) {
+      player.dataset.previewFallback = 'failed';
+      console.error('JR preview audio fallback failed:', key, error);
+      return false;
+    }
+  }
+
   // Quiet-first ambience. The site starts at 5% of its own media output even
   // when the device is turned up. Users can mute it or deliberately raise it.
   // Hardware/device volume remains controlled by the operating system.
@@ -149,6 +226,7 @@
     player.src = src;
     player.dataset.fallbackSrc = BEACH_FALLBACKS[id.endsWith('-a') ? 0 : 1];
     player.dataset.localFallback = '0';
+    player.dataset.previewFallback = '0';
     (document.body || document.documentElement).appendChild(player);
     try { player.load(); } catch (_) {}
     return player;
@@ -412,6 +490,13 @@
         } catch (_) {}
         return;
       }
+      if (BRANCH_PREVIEW_HOST && player.dataset.previewFallback !== 'loading' && player.dataset.previewFallback !== '1') {
+        const previewKey = index === 0 ? 'beachNear' : 'beachFar';
+        const active = currentKey === 'beach' && index === beachActiveIndex && desiredKey() === 'beach';
+        usePreviewAudio(player, previewKey, { loop: false, play: active, level: active ? cappedVolume('beach') : 0 })
+          .then(ok => { if (ok && active) playBeach(); });
+        return;
+      }
       console.error('JR beach ambience failed:', player.currentSrc, player.error);
     });
 
@@ -468,6 +553,7 @@
     currentKey = nextKey;
     if (nextKey === 'dark') darkFallbackActive = false;
     audio.dataset.dayFallback = '0';
+    audio.dataset.previewFallback = '0';
     audio.loop = true;
     audio.muted = false;
     audio.defaultPlaybackRate = 1;
@@ -632,6 +718,8 @@
     scheduleAutoplayRetries();
   });
   addEventListener('pagehide', () => {
+    previewAudioUrls.forEach(url => { try { URL.revokeObjectURL(url); } catch (_) {} });
+    previewAudioUrls.clear();
     pageActive = false;
     clearAutoplayRetries();
     saveDarkTime();
@@ -682,6 +770,10 @@
         const result = audio.play();
         if (result?.catch) result.catch(() => {});
       } catch (_) {}
+      return;
+    }
+    if (BRANCH_PREVIEW_HOST && audio.dataset.previewFallback !== 'loading' && audio.dataset.previewFallback !== '1') {
+      usePreviewAudio(audio, currentKey, { loop: true, play: true, level: cappedVolume(currentKey) });
       return;
     }
     console.error('JR site audio failed:', currentKey, audio.currentSrc, audio.error);
