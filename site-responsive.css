@@ -35,10 +35,51 @@ body .site-global-header .global-controls [data-theme-toggle]{width:6rem!importa
 body .site-global-header #primary-nav{display:none!important;position:absolute;inset:100% var(--layout-gutter) auto auto;width:min(26rem,calc(100% - 2 * var(--layout-gutter)));max-height:calc(100dvh - var(--header-height,120px) - 1rem);overflow-y:auto;flex-direction:column;align-items:stretch;gap:0;padding:.75rem;border:1px solid var(--line);border-radius:12px;background:var(--nav-menu-solid)!important;background-image:none!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;box-shadow:0 18px 44px rgba(0,0,0,.28);opacity:1!important}
 body .site-global-header #primary-nav.open{display:flex!important}
 .site-global-header #primary-nav a{width:100%;min-height:44px;padding:.6rem!important;white-space:normal}
-body .site-global-header .scene-sound-panel{position:absolute;inset:100% 0 auto auto;width:min(18rem,calc(100vw - 2 * var(--layout-gutter)));max-width:none;max-height:calc(100dvh - var(--header-height,120px) - 1rem);overflow:visible;padding:0;background:transparent;color:var(--ink,var(--text));border:0;border-radius:0;z-index:150}
-.scene-sound-control{position:relative;flex:none}
+body .site-global-header .scene-sound-panel{
+  position:absolute;inset:calc(100% + .45rem) 0 auto auto;
+  width:min(16rem,calc(100vw - 2 * var(--layout-gutter)));max-width:none;max-height:none;overflow:visible;
+  padding:.35rem 0 0;background:transparent!important;background-image:none!important;color:var(--ink,var(--text));
+  border:0!important;border-radius:0;box-shadow:none!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;z-index:150
+}
+.scene-sound-control{position:relative;display:inline-flex;align-items:center;flex:none}
+.scene-sound-panel label{
+  display:flex;align-items:center;justify-content:space-between;gap:.75rem;margin:0 0 .2rem;padding:0 .1rem;
+  font:700 .72rem/1.2 system-ui,sans-serif;color:var(--ink,var(--text))
+}
+.scene-sound-panel output{font-variant-numeric:tabular-nums;color:var(--muted)}
+.scene-sound-volume-row{display:grid;grid-template-columns:34px minmax(7.5rem,1fr) 34px;align-items:center;gap:.45rem;margin:0}
+.scene-sound-volume-row>button,.scene-sound-mute{
+  display:grid;place-items:center;min-width:34px;height:34px;padding:0 .55rem;
+  border:1px solid var(--line)!important;border-radius:999px!important;
+  background:var(--glass-strong)!important;color:var(--ink,var(--text))!important;
+  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)
+}
+.scene-sound-volume-row>button{width:34px;padding:0;font:800 1rem/1 system-ui}
+.scene-sound-mute{width:auto;min-width:5.25rem;margin:.35rem 0 0 auto;font:700 .72rem/1 system-ui}
+.scene-sound-panel input[type=range]{
+  -webkit-appearance:none;appearance:none;display:block;width:100%;height:34px;min-height:34px;
+  margin:0;padding:0 2px;background:transparent!important;cursor:pointer;touch-action:none;accent-color:var(--accent)
+}
+.scene-sound-panel input[type=range]::-webkit-slider-runnable-track{
+  height:8px;border-radius:999px;background:color-mix(in srgb,var(--line) 70%,transparent)
+}
+.scene-sound-panel input[type=range]::-webkit-slider-thumb{
+  -webkit-appearance:none;appearance:none;width:24px;height:24px;margin-top:-8px;
+  border:2px solid color-mix(in srgb,var(--ink,var(--text)) 52%,transparent);border-radius:50%;
+  background:var(--accent);box-shadow:0 2px 7px rgba(0,0,0,.26)
+}
+.scene-sound-panel input[type=range]::-moz-range-track{
+  height:8px;border:0;border-radius:999px;background:color-mix(in srgb,var(--line) 70%,transparent)
+}
+.scene-sound-panel input[type=range]::-moz-range-thumb{
+  width:24px;height:24px;border:2px solid color-mix(in srgb,var(--ink,var(--text)) 52%,transparent);
+  border-radius:50%;background:var(--accent);box-shadow:0 2px 7px rgba(0,0,0,.26)
+}
+.scene-sound-panel input[type=range]:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:999px}
+.scene-sound-panel [data-audio-status]{display:block;margin-top:.25rem;color:var(--muted);font:600 .66rem/1.25 system-ui}
+.scene-sound-panel [data-audio-status][hidden]{display:none!important}
 .learning-local-controls{display:none!important}
-@media(max-width:42rem){body .site-global-header .global-controls{width:100%;justify-content:space-between;gap:.35rem}body .site-global-header .global-controls>button,body .site-global-header .global-controls [data-scene-audio]{font-size:.75rem!important;padding:.4rem!important}body .site-global-header .global-controls [data-theme-toggle]{width:5rem!important}.site-global-header kbd{display:none}.site-global-header .scene-sound-control{position:static}body .site-global-header .scene-sound-panel{right:var(--layout-gutter)}}
+@media(max-width:42rem){body .site-global-header .global-controls{width:100%;justify-content:space-between;gap:.35rem}body .site-global-header .global-controls>button,body .site-global-header .global-controls [data-scene-audio]{font-size:.75rem!important;padding:.4rem!important}body .site-global-header .global-controls [data-theme-toggle]{width:5rem!important}.site-global-header kbd{display:none}.site-global-header .scene-sound-control{position:static}body .site-global-header .scene-sound-panel{right:var(--layout-gutter);width:min(15rem,calc(100vw - 2 * var(--layout-gutter)))}.scene-sound-volume-row{grid-template-columns:32px minmax(6.5rem,1fr) 32px}.scene-sound-volume-row>button{width:32px;min-width:32px;height:32px}}
 /* Profile is flow layout. The illustration alone is a cover background. Neither theme owns geometry. */
 .home-page .hero{gap:var(--layout-gap);grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
 .about-imagery{position:relative;isolation:isolate;display:block;width:100%;max-width:38rem;margin:0 auto;padding:0;overflow:visible;container-type:inline-size}
@@ -325,11 +366,27 @@ dialog{
 /* Universal viewport containment — no card, panel, lab, or grid may extend past
    the available screen width on phones or in-app browsers. */
 html,body{max-width:100%;overflow-x:clip}
-html{scrollbar-width:thin;scrollbar-color:color-mix(in srgb,var(--ink,var(--text)) 48%,transparent) transparent}
-html::-webkit-scrollbar{width:10px;height:10px}
-html::-webkit-scrollbar-track{background:transparent}
-html::-webkit-scrollbar-thumb{background:color-mix(in srgb,var(--ink,var(--text)) 48%,transparent);border:3px solid transparent;background-clip:content-box;border-radius:999px}
-html::-webkit-scrollbar-corner{background:transparent}
+/* Native rails are hidden; shared UI renders a thumb only, with no opaque track. */
+html{scrollbar-width:none}
+html::-webkit-scrollbar{width:0;height:0}
+html::-webkit-scrollbar-track,html::-webkit-scrollbar-corner{background:transparent}
+:root{--page-scroll-thumb:rgba(236,244,242,.62)}
+:root[data-theme="light"]{--page-scroll-thumb:rgba(9,38,28,.58)}
+.site-page-scroll{
+  position:fixed;top:max(10px,env(safe-area-inset-top));right:max(2px,env(safe-area-inset-right));
+  bottom:max(10px,env(safe-area-inset-bottom));width:14px;z-index:145;
+  background:transparent!important;border:0!important;box-shadow:none!important;pointer-events:none;contain:layout style
+}
+.site-page-scroll[hidden]{display:none!important}
+.site-page-scroll-thumb{
+  position:absolute;top:0;right:2px;width:5px;min-height:44px;border-radius:999px;
+  background:var(--page-scroll-thumb);box-shadow:0 1px 4px rgba(0,0,0,.18);
+  pointer-events:auto;cursor:ns-resize;touch-action:none;user-select:none;-webkit-user-select:none;
+  transition:width .14s ease,background .14s ease
+}
+.site-page-scroll-thumb:hover,.site-page-scroll-thumb:focus-visible,.site-page-scroll-thumb.is-dragging{
+  width:8px;background:color-mix(in srgb,var(--page-scroll-thumb) 84%,var(--accent) 16%);outline:none
+}
 
 :is(
   main,main>section,.wrap,.shell,.cap-wrap,.lesson-shell,.lesson-article,
