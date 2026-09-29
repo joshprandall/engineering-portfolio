@@ -1,0 +1,13 @@
+{
+  "base_commit": "11f9f5e33bd8452b1b0538ffe285b8e9b354d865",
+  "scope": "Offline Chromium component verification, not a production or physical-device test",
+  "passed": 17,
+  "total": 17,
+  "fresh_copy_rerun_passed": 17,
+  "before": {"stored_volume": 0.05, "requested_volume": 0.6, "actual_preference": 0.05, "requested_mute_honored": false},
+  "after": {"requested_volume": 0.6, "actual_preference": 0.6, "zero_output_rms_when_muted": 0},
+  "measured_60_over_20_amplitude_ratio": 2.992877300918339,
+  "simulated_readonly_media_gain_ratio": 2.9905584829517937,
+  "touch_selected_volume": 0.82,
+  "known_limitations": ["embedded WAV substitutes original media", "storage and lifecycle conditions simulated", "no physical iPhone, Messenger or speaker check", "no hosted routes or full-site acceptance", "root runtime and shared manifest intentionally unchanged"]
+}

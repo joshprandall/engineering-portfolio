@@ -1,0 +1,22 @@
+{
+  "checkpoint": "volume-review-1",
+  "branch": "repair/volume-storage-20260929",
+  "base_commit": "11f9f5e33bd8452b1b0538ffe285b8e9b354d865",
+  "production_changed": false,
+  "root_runtime_changed": false,
+  "requirements": {
+    "storage_failed_volume_and_mute": "verified in offline component fixture",
+    "keyboard_touch_change_commit_and_interrupted_graph": "verified in offline component fixture",
+    "shared_release_version_hash_integration": "incomplete",
+    "right_edge_strip": "untested",
+    "all_tile_main_action_return_journeys": "untested",
+    "actual_chess_and_evil_wizard_gameplay": "untested",
+    "complete_model_specific_ai_builds": "incomplete",
+    "learning_and_security_depth": "incomplete",
+    "full_original_media_scene_sync": "incomplete",
+    "root_nested_and_reload_http": "untested",
+    "physical_iphone_and_messenger": "untested",
+    "accessible_hosted_preview": "blocked: connected Vercel deploy action not found"
+  },
+  "acceptance_rule": "Preserve approved design and media; no completion claim until full agreed inventory passes; owner reviews before production."
+}
