@@ -23,6 +23,8 @@ Preserve the composition, profile/education text, typography direction, glass su
 
 The menu panel remains solid/readable. Theme, scene and ambient ownership remain in `site-theme.js`, `site-scenes.js`, `site-audio.js` and `site-sound-control.js`. Protected Geometry/Physics internals and all game internals were left unchanged in this pass. No new framework, account system, paid API, external scanning or job-search app was introduced. Retain licenses and existing credits.
 
+The follow-up glass contract applies to website UI surface fills, including primary buttons, form fields, notifications, overlays, logo holders and standalone lab shells. Only the hamburger navigation panel is opaque. Text, borders, data marks, logos, media and game rendering retain their original opacity; do not set opacity on whole components to simulate glass. Native select popups are browser/OS-owned. Shared stylesheet corrections must preserve the labs' calculations and the games' separate runtimes. `npm run test:glass-browser` checks actual rendered backgrounds in both themes, menu opacity, and control/overlay states.
+
 ## Implemented refinements
 
 - Connected seven existing but unreachable activities: switch learning, Kubernetes scheduling, quorum, SQL joins, risk matrix, integral and series circuits. The dispatcher now reaches their original implementations.

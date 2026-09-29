@@ -15,7 +15,8 @@
     "test:responsive-components": "node tests/responsive-components.test.cjs",
     "test:refinement-browser": "node tests/refinement-browser.test.cjs",
     "test:security-journeys": "node tests/security-journeys.test.cjs",
-    "test:media-playback": "node tests/media-playback.test.cjs"
+    "test:media-playback": "node tests/media-playback.test.cjs",
+    "test:glass-browser": "node tests/glass-browser.test.cjs"
   },
   "devDependencies": {
     "playwright": "1.63.0"

@@ -1298,6 +1298,49 @@ body.motion-paused .scene-backdrop *{animation-play-state:paused!important;trans
 .scene-night-wrap,.scene-day-wrap,
 .scene-image,.scene-video,.scene-canvas,.scene-atmosphere,.scene-veil,
 .scene-night-depth,.scene-night-glow{transform-origin:center center}
+
+/* Glass control contract: preserve the scene behind controls as well as cards.
+   This shared sheet also reaches the standalone Qubit and Geometry shells;
+   their calculations, canvases, artwork and game runtimes are not modified. */
+:root{--control-glass:rgba(7,13,17,.30)}
+:root[data-theme="light"]{--control-glass:rgba(247,249,245,.34)}
+:root[data-theme] body.living-scenes :is(
+  .button.primary,button.primary,.cap-check button,.vnext-capstone-link,
+  .launch-button,.battle-launch-cta,.skip
+){
+  background:color-mix(in srgb,var(--accent) 16%,var(--control-glass))!important;
+  background-image:none!important;
+  color:var(--ink,var(--text))!important;
+}
+:root[data-theme] body.living-scenes :is(.button.primary,button.primary,.cap-check button,.vnext-capstone-link):hover{
+  background:color-mix(in srgb,var(--accent) 24%,var(--control-glass))!important;
+}
+:root[data-theme] body.living-scenes :is(.button.primary,button.primary,.cap-check button,.vnext-capstone-link):active{
+  background:color-mix(in srgb,var(--accent) 30%,var(--control-glass))!important;
+}
+:root[data-theme] body.living-scenes :is(
+  input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="color"]),
+  select,textarea,#control-body button:not(.primary),.stage-bottom button,
+  #notebook-panel button,#learn-panel button,dialog button:not(.primary),
+  .appearance-toggle,dialog,#toast
+){
+  background:var(--control-glass)!important;
+  background-image:none!important;
+  color:var(--ink,var(--text))!important;
+}
+body.living-scenes input[type="range"]{background:transparent!important}
+body.living-scenes #toast{
+  border:1px solid var(--line);
+  -webkit-backdrop-filter:blur(5px);
+  backdrop-filter:blur(5px);
+}
+:root[data-theme] body.living-scenes :is(.experiment,.state-visual,.track,[role="navigation"][aria-label="Portfolio navigation"]){
+  background:var(--control-glass)!important;
+  background-image:none!important;
+}
+:root[data-theme] body.living-scenes [role="navigation"][aria-label="Portfolio navigation"] a{
+  color:var(--ink,var(--text))!important;
+}
 .scene-video{transform:none!important}
 .scene-video.is-active,.scene-atmosphere{animation:none!important}
 @supports(height:100lvh){.scene-backdrop{height:100lvh}}

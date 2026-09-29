@@ -530,3 +530,11 @@ body.living-scenes .site-global-header #primary-nav{
   box-shadow:0 18px 44px rgba(0,0,0,.28);
   opacity:1!important;
 }
+
+/* Logo holders are UI glass; the actual marks and artwork retain their color. */
+:root[data-theme] body.living-scenes :is(.credential-logo,.mit-wordmark,.foundation-mark){
+  background:var(--glass-strong)!important;
+}
+:root[data-theme] body.living-scenes :is(.credential-logo-mit,.mit-wordmark){color:var(--ink,var(--text))}
+:root[data-theme] body.living-scenes .foundation-mark{color:var(--blue)}
+body.living-scenes .vnext-qubit-frame{background:transparent}

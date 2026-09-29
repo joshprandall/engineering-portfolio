@@ -3329,11 +3329,11 @@
       "url": "https://pytorch-geometric.readthedocs.io/",
       "consumers": [
         {
-          "source": "ai-graph-neural-networks.html",
+          "source": "ai-geometric.html",
           "evidence": "current-runtime"
         },
         {
-          "source": "ai-geometric.html",
+          "source": "ai-graph-neural-networks.html",
           "evidence": "current-runtime"
         }
       ],
@@ -3739,11 +3739,11 @@
       "fallbackContract": "Resolve same-site absolute media to preserved local bytes when available. Preserve existing URL until route migration and consumer checks pass.",
       "localCounterpart": {
         "path": "play-evil-wizard.html",
-        "size": 8113,
-        "sha256": "ff680127aae32022edf638326596be4152ebde900c2f1198e8da201a06656254",
+        "size": 8078,
+        "sha256": "c8670f8ca7e2ec93d61dba059312875c54bffffba5136ec3842481249670a714",
         "source": {
           "kind": "git-blob",
-          "blob": "f80bddd67b4429108ab0c5591c7c420b7389f3bf"
+          "blob": "154d1c9a732caa2c1b834c10d01f3cbc881af3c8"
         },
         "owningComponent": "portfolio",
         "deploymentClassification": "KEEP_PRODUCTION"
@@ -3764,11 +3764,11 @@
       "fallbackContract": "Resolve same-site absolute media to preserved local bytes when available. Preserve existing URL until route migration and consumer checks pass.",
       "localCounterpart": {
         "path": "project-battle-chess.html",
-        "size": 9342,
-        "sha256": "f49c4c6764170d574b2b0a6e9e83f4c0c3779c2f6d90265e08a66b072fc1b0f8",
+        "size": 9370,
+        "sha256": "4f900031e7b789d1e9ccf85636bc4823a63a9f04285a4c17c8d543e96c9f3952",
         "source": {
           "kind": "git-blob",
-          "blob": "bc5067e2452ee00c3c04831d900635d7da33fd29"
+          "blob": "d74fc087e88385f11aadf952d9cec0b924d30f3b"
         },
         "owningComponent": "portfolio",
         "deploymentClassification": "KEEP_PRODUCTION"
@@ -3789,11 +3789,11 @@
       "fallbackContract": "Resolve same-site absolute media to preserved local bytes when available. Preserve existing URL until route migration and consumer checks pass.",
       "localCounterpart": {
         "path": "projects.html",
-        "size": 15283,
-        "sha256": "23eea8d7806d1a2e2edbd47976c428f4c7cb3e226e8b85c8d4b8c4fcbeeae368",
+        "size": 15295,
+        "sha256": "f9dd8587e44e716863034a2d52ff31433be881b4f88c49f3edb4db964d6563bd",
         "source": {
           "kind": "git-blob",
-          "blob": "6ee92f9424aa5e415ee7e43af769c993d790701c"
+          "blob": "ed3d023f420c5baf16d7e3052ac6a6bcbf41c43e"
         },
         "owningComponent": "portfolio",
         "deploymentClassification": "KEEP_PRODUCTION"
@@ -4043,11 +4043,11 @@
       "url": "https://www.nist.gov/itl/ai-risk-management-framework",
       "consumers": [
         {
-          "source": "ai-build-your-own.html",
+          "source": "ai-agentic.html",
           "evidence": "current-runtime"
         },
         {
-          "source": "ai-project-mind.html",
+          "source": "ai-build-your-own.html",
           "evidence": "current-runtime"
         },
         {
@@ -4055,11 +4055,11 @@
           "evidence": "current-runtime"
         },
         {
-          "source": "ai-agentic.html",
+          "source": "ai-personal-agent.html",
           "evidence": "current-runtime"
         },
         {
-          "source": "ai-personal-agent.html",
+          "source": "ai-project-mind.html",
           "evidence": "current-runtime"
         }
       ],
