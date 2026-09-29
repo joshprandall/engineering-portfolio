@@ -30,6 +30,17 @@ async function run(){
   for(const [name,width,height] of [['phone',390,844],['small-phone',320,740],['tablet',820,1180],['desktop',1440,1000]]){
    console.log('Checking '+name);await page.setViewportSize({width,height});await page.goto(base+'/',{waitUntil:'domcontentloaded'});
    console.log('Loaded '+name);assert.equal(await page.locator('body').evaluate(e=>getComputedStyle(e).backgroundColor),'rgba(0, 0, 0, 0)','Living-scene body stays transparent');assert(await page.locator('.scene-backdrop').isVisible(),'Living background renders behind glass UI');
+   await page.waitForFunction(()=>Boolean(window.SitePageScroll));
+   assert.equal(await page.locator('.site-page-scroll').count(),1,name+': one shared page scroll control');
+   const pageScrollPaint=await page.locator('.site-page-scroll').evaluate(el=>{const s=getComputedStyle(el),t=getComputedStyle(el.firstElementChild);return{background:s.backgroundColor,border:s.borderTopWidth,shadow:s.boxShadow,thumbWidth:parseFloat(t.width),thumbBackground:t.backgroundColor,hidden:el.hidden};});
+   assert.equal(pageScrollPaint.background,'rgba(0, 0, 0, 0)',name+': page scroll control has no opaque rail');
+   assert.equal(pageScrollPaint.border,'0px',name+': page scroll control has no rail border');
+   assert.equal(pageScrollPaint.shadow,'none',name+': page scroll control has no rail shadow');
+   assert(pageScrollPaint.thumbWidth>=4,name+': page scroll thumb is visible');
+   if(await page.evaluate(()=>document.documentElement.scrollHeight>innerHeight+2)){
+     assert.equal(pageScrollPaint.hidden,false,name+': page scroll thumb is available on scrollable pages');
+     const beforeY=await page.evaluate(()=>scrollY);await page.locator('.site-page-scroll-thumb').focus();await page.keyboard.press('PageDown');await page.waitForTimeout(60);assert((await page.evaluate(()=>scrollY))>beforeY,name+': page scroll thumb supports keyboard navigation');await page.evaluate(()=>scrollTo(0,0));
+   }
    assert.equal(await page.locator('.solar-navigation[data-solar="portfolio"] .solar-planet-link[aria-label="Home"]').count(),0,'Homepage solar has no Home planet');
    assert.equal((await page.locator('.solar-navigation[data-solar="portfolio"] .solar-descriptor-title').innerText()).trim(),'About Me','Homepage solar defaults to About Me after Home removal');
    assert(await page.locator('#selected-work').isVisible(),'Current home project section renders');
@@ -79,6 +90,9 @@ async function run(){
    await page.evaluate(()=>scrollTo({top:0,behavior:'instant'}));
    if(output){await page.screenshot({animations:'disabled',path:path.join(output,`home-${name}.png`),fullPage:true});if(await page.locator('#menu').isVisible()){await page.locator('#menu').click();await page.screenshot({animations:'disabled',path:path.join(output,`menu-${name}.png`)});await page.locator('#menu').click();}}
    await page.locator('#theme').click();assert.equal(await page.locator('html').getAttribute('data-theme'),'light');
+   const dayScrollPaint=await page.locator('.site-page-scroll').evaluate(el=>({background:getComputedStyle(el).backgroundColor,thumb:getComputedStyle(el.firstElementChild).backgroundColor,width:el.getBoundingClientRect().width,right:innerWidth-el.getBoundingClientRect().right}));
+   assert.equal(dayScrollPaint.background,'rgba(0, 0, 0, 0)',name+': Day page scroller retains no rail');
+   assert(dayScrollPaint.width<=16&&dayScrollPaint.right>=0,name+': Day page thumb stays slim at the far edge');
    const lightCardSurface=await page.locator('.home-project').first().evaluate(el=>{const s=getComputedStyle(el);return{color:s.backgroundColor,image:s.backgroundImage}});
    const surfaceText=`${lightCardSurface.color} ${lightCardSurface.image}`;
    const alphaValues=[...surfaceText.matchAll(/rgba\([^)]*,\s*([\d.]+)\)/g)].map(m=>Number(m[1]));
