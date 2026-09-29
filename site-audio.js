@@ -542,7 +542,8 @@
     }
 
     const retainedFallback = nextKey === 'dark' ? (darkFallbackActive && audio.src === SOURCES.darkFallback) : (audio.dataset.dayFallback === '1' && audio.src === DAY_FALLBACKS[nextKey]);
-    if (currentKey === nextKey && (audio.src === SOURCES[nextKey] || retainedFallback)) {
+    const retainedPreview = BRANCH_PREVIEW_HOST && audio.dataset.previewFallback === '1' && audio.src.startsWith('blob:');
+    if (currentKey === nextKey && (audio.src === SOURCES[nextKey] || retainedFallback || retainedPreview)) {
       setPlayerLevel(audio, cappedVolume(nextKey));
       return;
     }
@@ -554,6 +555,19 @@
     if (nextKey === 'dark') darkFallbackActive = false;
     audio.dataset.dayFallback = '0';
     audio.dataset.previewFallback = '0';
+
+    if (BRANCH_PREVIEW_HOST) {
+      usePreviewAudio(audio, nextKey, { loop: true, play: true, level: cappedVolume(nextKey) })
+        .then(ok => {
+          switching = false;
+          if (!ok && desiredKey() === nextKey) {
+            audio.src = SOURCES[nextKey];
+            try { audio.load(); } catch (_) {}
+          }
+        });
+      return;
+    }
+
     audio.loop = true;
     audio.muted = false;
     audio.defaultPlaybackRate = 1;
