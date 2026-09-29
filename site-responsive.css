@@ -12,8 +12,9 @@
   --panel:rgba(247,249,245,.20);--panel2:rgba(239,243,238,.26);--panel3:rgba(231,237,232,.30);
   --bg2:rgba(247,249,245,.12);--inset:rgba(241,245,240,.22);--nav-menu-solid:#f7f9f5
 }
-html,body{min-width:0;max-width:100%;overflow-x:clip!important}
-body{width:100%}
+html{min-width:0;max-width:100%;overflow-x:clip!important}
+body{min-width:0;width:100%;max-width:100%;overflow-x:visible!important}
+body.living-scenes{width:100vw!important;max-width:none!important;overflow-x:visible!important}
 main,section,article,aside,form,fieldset,figure,nav,main div,header div{min-width:0;box-sizing:border-box}
 main :is(h1,h2,h3,p,a,strong,label){overflow-wrap:break-word}
 body .wrap,body.home-page .wrap{width:calc(100% - 2 * var(--layout-gutter));max-width:var(--layout-max);margin-inline:auto}
@@ -365,7 +366,8 @@ dialog{
 
 /* Universal viewport containment — no card, panel, lab, or grid may extend past
    the available screen width on phones or in-app browsers. */
-html,body{max-width:100%;overflow-x:clip}
+html{max-width:100%;overflow-x:clip!important}
+body:not(.living-scenes){max-width:100%;overflow-x:clip!important}
 /* Native rails are hidden; shared UI renders a thumb only, with no opaque track. */
 html,body{scrollbar-width:none;-ms-overflow-style:none}
 html::-webkit-scrollbar,body::-webkit-scrollbar{display:none!important;width:0!important;height:0!important;background:transparent!important}
@@ -380,6 +382,9 @@ html::-webkit-scrollbar-corner,body::-webkit-scrollbar-corner{display:none!impor
   -webkit-backdrop-filter:none!important;backdrop-filter:none!important;pointer-events:none;contain:layout style
 }
 .site-page-scroll::before,.site-page-scroll::after{content:none!important;display:none!important;background:none!important}
+/* iOS/WebKit can reserve a scrollable root gutter even when its scrollbar is hidden.
+   The living scene must still paint through the complete physical viewport. */
+body.living-scenes .scene-backdrop{left:0!important;right:0!important;width:100vw!important;max-width:none!important}
 .site-page-scroll[hidden]{display:none!important}
 .site-page-scroll-thumb{
   position:absolute;top:0;right:4px;width:4px;min-height:44px;max-height:72px;border-radius:999px;
