@@ -290,29 +290,6 @@
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
-      "path": "assets/Joshua_Randall_Master_Resume.docx",
-      "size": 37409,
-      "sha256": "073f02b97e2d60f86766b7ccf097f701b52a8fb39284f1277af2bfacc0612a64",
-      "source": {
-        "kind": "git-blob",
-        "blob": "728c3da400f58bab92d3e71aff7f953e43ca79e7"
-      },
-      "owningComponent": "portfolio",
-      "deploymentClassification": "KEEP_PRODUCTION"
-    },
-    {
-      "path": "assets/Recovery_Readiness_Auditor.zip",
-      "size": 8597,
-      "sha256": "8205c4c2b1102398c53d4de315522bb3b92ef154d0f4c40bf4d5da1a1647e1e9",
-      "source": {
-        "kind": "git-blob",
-        "blob": "16ad588ba830b6f3dbb57d0c81168cd4b2b0cc03",
-        "provenance": "Z:/public_html/assets/Recovery_Readiness_Auditor.zip"
-      },
-      "owningComponent": "portfolio",
-      "deploymentClassification": "KEEP_PRODUCTION"
-    },
-    {
       "path": "assets/audio/CREDITS.md",
       "size": 1432,
       "sha256": "8d8762b31d5384db1d46901493b244d82ef50d4037237f349d2471d90fa4d30f",
@@ -577,6 +554,17 @@
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
+      "path": "assets/Joshua_Randall_Master_Resume.docx",
+      "size": 37409,
+      "sha256": "073f02b97e2d60f86766b7ccf097f701b52a8fb39284f1277af2bfacc0612a64",
+      "source": {
+        "kind": "git-blob",
+        "blob": "728c3da400f58bab92d3e71aff7f953e43ca79e7"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
       "path": "assets/joshua-randall-headshot.jpg",
       "size": 89637,
       "sha256": "24d61be42c1564b120360abaec9fcfa6c4d55736fbe888eb0cadaffe42ad64d4",
@@ -594,6 +582,18 @@
       "source": {
         "kind": "git-blob",
         "blob": "9ed5bb41a22cabed2b9c976c394383006e514ec7"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "assets/Recovery_Readiness_Auditor.zip",
+      "size": 8597,
+      "sha256": "8205c4c2b1102398c53d4de315522bb3b92ef154d0f4c40bf4d5da1a1647e1e9",
+      "source": {
+        "kind": "git-blob",
+        "blob": "16ad588ba830b6f3dbb57d0c81168cd4b2b0cc03",
+        "provenance": "Z:/public_html/assets/Recovery_Readiness_Auditor.zip"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -1654,35 +1654,57 @@
     },
     {
       "path": "expertise-experience.html",
-      "size": 2748,
-      "sha256": "0fb5f4dc08ea0db3b395bf773c372e0fd1e0e463a9b3230a3971db51aeb7bf61",
+      "size": 455,
+      "sha256": "7cb4466640edb184a55b37b1b027238ff564a8702492e02a5609663515b40980",
       "source": {
         "kind": "git-blob",
-        "blob": "296d2cec6fdfbdb0ba1a3904b2c488c8c5894a05"
+        "blob": "7256af4fc74dfd01454abd148a325e515284c41f"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "game-development.html",
-      "size": 8475,
-      "sha256": "96ea2ea8840e79427bcd36044aaa1e5ef48874f315df85751bf56d2014e1b07f",
+      "size": 8856,
+      "sha256": "024fc3f62d1758f8ccaac816e2f28ca0e928c2fc72d450accb476da437b4a572",
       "source": {
         "kind": "git-blob",
-        "blob": "526ea7538c3f7b560caf56d29fa982314452c151"
+        "blob": "d56d1775d9910757c38914f0320797098290b0d2"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
-      "path": "games/3d-battle-chess/CREDITS.md",
-      "size": 945,
-      "sha256": "981e2a89f484b45efc1c7eaa7976c1c634199c323b6acadc6a5805115afce774",
+      "path": "game-tools.css",
+      "size": 2125,
+      "sha256": "ed6e772415966c2dd237b51dcee8955bc6591c575099420522aa066d9d4e124e",
       "source": {
         "kind": "git-blob",
-        "blob": "d5b8c7905c3c4fc8ed19a663ee71edb26ce89e91"
+        "blob": "12fff5611215f0c66a5adc3a2113fa9c2a396ea1"
       },
-      "owningComponent": "games/3d-battle-chess",
+      "owningComponent": "game-tools",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "game-tools.html",
+      "size": 4947,
+      "sha256": "64c7225812681ac1e04fc1f9935caa1b0418eaa91fe23a302b518c0900d42ff3",
+      "source": {
+        "kind": "git-blob",
+        "blob": "77f6cc1896c2234f875bb6612c0fabb8b7b6c929"
+      },
+      "owningComponent": "game-tools",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "game-tools.js",
+      "size": 20473,
+      "sha256": "7795970ac542b7bf20433e791012296b1992ef43012b54fa641597192307544b",
+      "source": {
+        "kind": "git-blob",
+        "blob": "8431ce197694700e0d24d37e9b9a8669ae8f9839"
+      },
+      "owningComponent": "game-tools",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
@@ -1934,6 +1956,17 @@
       "source": {
         "kind": "git-blob",
         "blob": "63bb4faca48d5a2ef0dbc2a8aa6c3df31c5c37de"
+      },
+      "owningComponent": "games/3d-battle-chess",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "games/3d-battle-chess/CREDITS.md",
+      "size": 945,
+      "sha256": "981e2a89f484b45efc1c7eaa7976c1c634199c323b6acadc6a5805115afce774",
+      "source": {
+        "kind": "git-blob",
+        "blob": "d5b8c7905c3c4fc8ed19a663ee71edb26ce89e91"
       },
       "owningComponent": "games/3d-battle-chess",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -2230,28 +2263,6 @@
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
-      "path": "geometric-lab/CREDITS.md",
-      "size": 3209,
-      "sha256": "9fd555c80e9aa33a4ef7b39271a447f4f21f53e06d7dd5a182be965a7df2de90",
-      "source": {
-        "kind": "git-blob",
-        "blob": "999592b49dbc9b051f645334bd53b8982cfa8e57"
-      },
-      "owningComponent": "geometric-lab",
-      "deploymentClassification": "KEEP_PRODUCTION"
-    },
-    {
-      "path": "geometric-lab/METHODS.md",
-      "size": 6779,
-      "sha256": "656257883c770195b21fe3a238ede19f065e42a4aec16e94b5ad3cc17d9dab27",
-      "source": {
-        "kind": "git-blob",
-        "blob": "4c7c05fa7037a78e5d2472b7fa41a2948be137d5"
-      },
-      "owningComponent": "geometric-lab",
-      "deploymentClassification": "KEEP_PRODUCTION"
-    },
-    {
       "path": "geometric-lab/app.js",
       "size": 40180,
       "sha256": "70d16437c136527b3069c34c62a8bcf40ee3b3d95d1b907805226fa44063ed3e",
@@ -2285,6 +2296,17 @@
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
+      "path": "geometric-lab/CREDITS.md",
+      "size": 3209,
+      "sha256": "9fd555c80e9aa33a4ef7b39271a447f4f21f53e06d7dd5a182be965a7df2de90",
+      "source": {
+        "kind": "git-blob",
+        "blob": "999592b49dbc9b051f645334bd53b8982cfa8e57"
+      },
+      "owningComponent": "geometric-lab",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
       "path": "geometric-lab/index.html",
       "size": 5109,
       "sha256": "6a6eb8acca2aa338ff64549089e098f5d5208a96d6feb90aef48804bf3773081",
@@ -2302,6 +2324,17 @@
       "source": {
         "kind": "git-blob",
         "blob": "4cde0e254712d60527940fa01e8b5546743c7112"
+      },
+      "owningComponent": "geometric-lab",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "geometric-lab/METHODS.md",
+      "size": 6779,
+      "sha256": "656257883c770195b21fe3a238ede19f065e42a4aec16e94b5ad3cc17d9dab27",
+      "source": {
+        "kind": "git-blob",
+        "blob": "4c7c05fa7037a78e5d2472b7fa41a2948be137d5"
       },
       "owningComponent": "geometric-lab",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -2352,11 +2385,11 @@
     },
     {
       "path": "index.html",
-      "size": 31051,
-      "sha256": "4f752caaa7f6fa53eeef4a461c39d02f749d805b6986e35d557d7913e049a102",
+      "size": 30533,
+      "sha256": "a8cb331fa7ca443ba9a037a9875921edb6176c3079cda0157e2c03b0d388dddd",
       "source": {
         "kind": "git-blob",
-        "blob": "4145ce17aa08405cdf9a5ed5cb62ebe9a5728a4f"
+        "blob": "061d84a75db698b7eb8da915dc6099d542c13299"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -3122,24 +3155,24 @@
     },
     {
       "path": "site-responsive.css",
-      "size": 39062,
-      "sha256": "026d704b2f4bcc0f519c4686864064a1987a70f794be18e37a2bb6ff225e1fec",
+      "size": 37794,
+      "sha256": "d397ab86bb2fda754e2359c723f53ad3483d2abfdc4116bf75da83bf5134ee3e",
       "source": {
         "kind": "git-blob",
-        "blob": "d0abdbf8f964feea45715def75787bfd04dce3c5"
+        "blob": "f5362ee3c7f72d36ece13df23e5bd4057846d34e"
       },
-      "owningComponent": "site-responsive",
+      "owningComponent": "site-shell",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "site-scenes.css",
-      "size": 59044,
-      "sha256": "92cc3f7a6deb26441edf0e30f91fe4429b4e3a43a03a5e3c03a2d64866255fef",
+      "size": 35149,
+      "sha256": "4635bbf3717e2bf38779b2855f2df771569c5c7426f53368c02fb374286fa6b4",
       "source": {
         "kind": "git-blob",
-        "blob": "3bc98ec08474d990597465a8607b2c1324521758"
+        "blob": "18ab8c34dfb1f78d5c93845fd8aa3af478a65883"
       },
-      "owningComponent": "site-scenes",
+      "owningComponent": "site-shell",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
@@ -3177,13 +3210,13 @@
     },
     {
       "path": "site-sound-control.js",
-      "size": 2817,
-      "sha256": "bce961d4c1f0ab08906c523d877aa897b0ac7f14c77dc943c93496214a4e2020",
+      "size": 3158,
+      "sha256": "b4431212795c7a04c41df9485d88e55a84e927822d9fbec92134f9f478b9aead",
       "source": {
         "kind": "git-blob",
-        "blob": "234c3bfd02097bdc80ec6db79c648c92fafdd8b4"
+        "blob": "88f5bb484dd88aea82349d3c9cf986190277a417"
       },
-      "owningComponent": "site-sound-control",
+      "owningComponent": "site-shell",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
@@ -3231,6 +3264,6 @@
       "deploymentClassification": "KEEP_PRODUCTION"
     }
   ],
-  "fileCount": 290,
-  "byteSize": 442504117
+  "fileCount": 293,
+  "byteSize": 442504410
 }
