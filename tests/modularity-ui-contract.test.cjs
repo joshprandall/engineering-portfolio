@@ -23,6 +23,9 @@ test('shared shell owns rail-free page scroll, opaque menu, common glass and com
   assert.match(css,/html::\-webkit\-scrollbar,body::\-webkit\-scrollbar\{display:none!important/,'Safari/WebKit native scrollbars must be suppressed behind the custom thumb');
   assert.match(css,/\.site-page-scroll\{[\s\S]*background:transparent!important/,'Shared page scroll host must be transparent');
   assert.match(css,/\.site-page-scroll-thumb\{/,'Shared page scroll thumb styling is required');
+  assert.doesNotMatch(css,/--page-scroll-thumb:rgba\(236,244,242/,'Page scroll thumb must never render as the old opaque-looking white pill');
+  assert.match(css,/--page-scroll-thumb:rgba\(244,165,117,\.48\)/,'Page scroll thumb must use the subtle accent treatment');
+  assert.match(read('site-page-scroll.js'),/Math\.min\(track,72,/,'Page scroll thumb height must stay capped like a slider');
   assert.match(theme,/loadScript\('site-page-scroll\.js'\)/,'Shared runtime must mount the page scroll component');
   assert.match(read('site-page-scroll.js'),/role="scrollbar"/,'Page scroller must expose an accessible draggable thumb');
   assert.match(css,/background:var\(--nav-menu-solid\)!important/,'Hamburger navigation must use the explicit opaque surface');
