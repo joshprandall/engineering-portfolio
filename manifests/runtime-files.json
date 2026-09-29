@@ -3111,11 +3111,11 @@
     },
     {
       "path": "site-audio.js",
-      "size": 25600,
-      "sha256": "01b6d31ec51604faf1bfaded1c85e58c05ac01b86cecb9e9f061e54847ab2b7f",
+      "size": 29667,
+      "sha256": "541fcdcd18ec54e1a9c3c361273fd903f52fbd02072458301e6e6c38c1c9765e",
       "source": {
         "kind": "git-blob",
-        "blob": "c0f0c42208070e965cda31c8078d3697ba8a5f02"
+        "blob": "b85d4260e979373e55b2f8eddfef09724d031288"
       },
       "owningComponent": "site-audio",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -3188,11 +3188,11 @@
     },
     {
       "path": "site-scenes.js",
-      "size": 26993,
-      "sha256": "379e4e8c5bed1fc84192ac4352254c2182861581b5b61c35ae2f2def6bd566e9",
+      "size": 27449,
+      "sha256": "4a53fb7611cb6d0e4930ab0ed597c3a1f2b6af59c2b837afe8b05ca7f86f5006",
       "source": {
         "kind": "git-blob",
-        "blob": "764e5f9e98e9749c0d7c8f53cac6fdf943b6df94"
+        "blob": "7168e352812680071a06e1bc6cf0359ebd1bc4b6"
       },
       "owningComponent": "site-scenes",
       "deploymentClassification": "KEEP_PRODUCTION"
