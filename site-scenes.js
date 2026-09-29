@@ -7,6 +7,7 @@
 
   const SCENE_SCRIPT_URL = new URL(document.currentScript?.src || location.href, location.href);
   const SITE_BASE = new URL('./', SCENE_SCRIPT_URL);
+  const BRANCH_PREVIEW_HOST = /(?:^|\.)raw\.githack\.com$/i.test(location.hostname);
 
   const LIGHT_SCENES = [
     {
@@ -364,7 +365,15 @@
 
     async function prepareAndPlay(video, scene) {
       const loadId = ++sceneLoadId;
-      const sources = (compactMedia ? [scene.mobileSrc, scene.src] : [scene.src, scene.mobileSrc]).filter(Boolean);
+      // Raw branch previews do not reconstruct the preserved large-media chunks.
+      // Use the already-approved original Pexels clip there; production still
+      // prefers the preserved local master/mobile renditions.
+      const sources = (BRANCH_PREVIEW_HOST
+        ? [scene.remoteSrc, scene.mobileSrc, scene.src]
+        : compactMedia
+          ? [scene.mobileSrc, scene.src, scene.remoteSrc]
+          : [scene.src, scene.mobileSrc, scene.remoteSrc]
+      ).filter(Boolean);
       for (const source of sources) {
         configureVideo(video, scene, source);
         // Start playback immediately: waiting for canplay before play can
