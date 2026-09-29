@@ -3132,6 +3132,17 @@
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
+      "path": "site-page-scroll.js",
+      "size": 3867,
+      "sha256": "cecc94637bf09abc93dfeb081b8f8eff608a4f1d4c2e5febf46404d1786faca0",
+      "source": {
+        "kind": "git-blob",
+        "blob": "6fdc3317666b02f7604dba64b4622ceee33fecbe"
+      },
+      "owningComponent": "shared-shell",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
       "path": "site-resilience.css",
       "size": 7091,
       "sha256": "a38ceceb3b8f840622d0f4918314187e876aef91b6b3d30406dce48deab3bbb0",
