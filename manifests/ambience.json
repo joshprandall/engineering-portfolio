@@ -72,8 +72,8 @@
     "site-audio.js": "6efdbd631e10f5cd83dc8b0cc80ce68e4d29be73700ec887c9cfb7665d973861",
     "site-sound-control.js": "77bb87bc4f491c4f6775340bd77e25d0121cac696024ee6b683815809f43af3a",
     "site-scenes.css": "6a36bf42a458ef9d29ae8b134fb8f1f8bd969216958fc506651a20b687a01934",
-    "site-responsive.css": "d75a9ac81b87f92a15fa19448a8d7e39922adaef45d807691a1a157c2bf99c06",
-    "site-page-scroll.js": "7d5a01dfcb16dc80de5d63500a748c7f20c2203c4d1389b9f03f361b2cdf0fd0"
+    "site-responsive.css": "69fe1220c289c481c84280f4f930fdc40e15da28651ddf6689b8dffb6c12cedc",
+    "site-page-scroll.js": "f2e1404100fbf773df3e4ea0813755126dc5aeed1d016907192928eccc299322"
   },
   "requiredMedia": [
     "assets/audio/dark-theme-user.mp3",
