@@ -34,7 +34,7 @@ const server=http.createServer((req,res)=>{
  await p.goto(base+'/index.html',{waitUntil:'domcontentloaded'});
  await p.locator('[data-scene-audio]').click();
  const panel=await p.locator('.scene-sound-panel').evaluate(e=>{const s=getComputedStyle(e);return {background:s.backgroundColor,image:s.backgroundImage,shadow:s.boxShadow,blur:s.backdropFilter,border:s.borderTopWidth,children:[...e.children].map(c=>c.tagName)}});
- assert.deepEqual(panel,{background:'rgba(0, 0, 0, 0)',image:'none',shadow:'none',blur:'none',border:'0px',children:['INPUT']},'Sound must reveal only a slider, with no panel surface');
+ assert.deepEqual(panel,{background:'rgba(0, 0, 0, 0)',image:'none',shadow:'none',blur:'none',border:'0px',children:['LABEL','DIV','BUTTON','SMALL']},'Sound controls must float without an opaque panel surface');
  const slider=p.locator('#ambient-volume');await slider.focus();await slider.press('Home');assert(await p.evaluate(()=>SiteAudio.muted&&SiteAudio.volume===0));
  for(let i=0;i<5;i++)await slider.press('ArrowRight');assert(await p.evaluate(()=>!SiteAudio.muted&&Math.abs(SiteAudio.volume-.05)<.001));
  assert.equal(await slider.evaluate(el=>getComputedStyle(el).touchAction),'none','Volume slider must retain horizontal touch dragging instead of handing the gesture to page scrolling');
@@ -44,6 +44,8 @@ const server=http.createServer((req,res)=>{
  assert(await p.evaluate(()=>SiteAudio.muted&&SiteAudio.volume===0),'Zero on the native range must mute');
  await slider.evaluate(el=>{el.value='5';el.dispatchEvent(new Event('change',{bubbles:true}));});
  assert(await p.evaluate(()=>!SiteAudio.muted&&Math.abs(SiteAudio.volume-.05)<.001),'Positive native-range changes must restore sound');
+ const mute=p.locator('.scene-sound-mute');await mute.click();assert(await p.evaluate(()=>SiteAudio.muted&&Math.abs(SiteAudio.volume-.05)<.001),'Mute must silence without losing the selected volume');assert.equal(await mute.innerText(),'Unmute');await mute.click();assert(await p.evaluate(()=>!SiteAudio.muted&&Math.abs(SiteAudio.volume-.05)<.001),'Unmute must restore the selected volume');assert.equal(await mute.innerText(),'Mute');
+ await p.locator('.scene-sound-up').click();assert(await p.evaluate(()=>Math.abs(SiteAudio.volume-.10)<.001),'Plus control raises volume by five percent');await p.locator('.scene-sound-down').click();assert(await p.evaluate(()=>Math.abs(SiteAudio.volume-.05)<.001),'Minus control lowers volume by five percent');
  await p.screenshot({path:path.join(output,'volume-slider-night.png')});
  await p.waitForFunction(()=>SiteAudio.element.currentTime>0&&!SiteAudio.element.paused&&SiteAudio.volumeBackend==='gain',null,{timeout:20000});
  report.night=await p.evaluate(()=>({time:SiteAudio.element.currentTime,source:SiteAudio.element.currentSrc,volume:SiteAudio.volume,levels:SiteAudio.outputLevels}));assert(report.night.source.endsWith('.wav'));assert.equal(report.night.volume,.05);
