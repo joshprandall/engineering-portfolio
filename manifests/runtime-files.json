@@ -3172,7 +3172,7 @@
         "kind": "git-blob",
         "blob": "18ab8c34dfb1f78d5c93845fd8aa3af478a65883"
       },
-      "owningComponent": "site-shell",
+      "owningComponent": "site-scenes",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
@@ -3216,7 +3216,7 @@
         "kind": "git-blob",
         "blob": "88f5bb484dd88aea82349d3c9cf986190277a417"
       },
-      "owningComponent": "site-shell",
+      "owningComponent": "site-sound-control",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
