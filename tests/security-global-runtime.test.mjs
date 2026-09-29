@@ -41,7 +41,7 @@ assert.ok(theme.includes("header.site-global-header, header #menu, header #mobil
 assert.ok(theme.includes('SITE_BASE'),'Shared runtime bootstrap must resolve from the theme script base');
 assert.ok(theme.includes("const isPaused = () => motion === 'paused'"),'Only an explicit site pause may fully freeze scenery');
 assert.ok(theme.includes('const isReducedMotion = () =>'),'OS reduced-motion preference must have a separate reduced mode');
-assert.ok(theme.includes("SHARED_RUNTIME_VERSION='20260929-ambience-stable-v1'"),'Shared runtime must cache-bust the synchronized scene/audio release');
+assert.ok(theme.includes("SHARED_RUNTIME_VERSION='"+JSON.parse(read('manifests/ambience.json')).version+"'"),'Shared runtime must cache-bust the synchronized scene/audio release');
 
 const scenesCss=read('site-scenes.css');
 const responsive=read('site-responsive.css');
@@ -62,7 +62,7 @@ assert.ok(scenes.includes('const ROTATE_AFTER = 28'),'Light scenes must rotate o
 assert.ok(scenes.includes("portfolio:scene-will-change"),'Day scene engine must announce the next scene before changing visible media');
 assert.ok(scenes.indexOf('announceDaySceneWillChange(nextIndex);') < scenes.indexOf('activeVideo = standbyVideo;'), 'Outgoing audio must be silenced before the active visual changes');
 for(const media of ['assets/scenes/day/waterfall.mp4','assets/scenes/day/river.mp4','assets/scenes/day/beach-birds.mp4']) assert.ok(scenes.includes(media),'Day scene must prefer same-origin production media: '+media);
-assert.ok(scenes.includes('remoteSrc:'),'Day scene must retain an external emergency fallback');
+assert.ok(scenes.includes('mobileSrc:') && scenes.includes('compactMedia ? [scene.mobileSrc, scene.src] : [scene.src, scene.mobileSrc]'),'Day scenes must retain both verified local renditions');
 assert.ok(scenes.includes('async function prepareAndPlay(video, scene)'),'Day player must retry its alternate source when the primary media cannot load');
 assert.ok(scenes.includes("video.setAttribute('playsinline','')") && scenes.includes("video.setAttribute('webkit-playsinline','')"),'Day video must explicitly request inline iOS playback');
 assert.ok(scenes.includes('video.defaultMuted = true'),'Day autoplay must be explicitly muted for iOS');
@@ -87,7 +87,7 @@ assert.ok(scenes.includes('const scale = reducedMotion() ? .18 : 1'),'Reduced-mo
 
 const sound=read('site-sound-control.js');
 assert.ok(sound.includes('max="100" step="1" value="5"'),'Volume control must expose 0–100 with 5% default');
-assert.ok(sound.includes('setPointerCapture'),'Touch scrubbing must retain pointer capture');
+assert.ok(sound.includes('type="range" min="0"') && sound.includes('aria-label="Ambient sound volume, zero to mute"'),'Volume must use an accessible native range control');
 assert.ok(sound.includes('portfolio:site-audio-ready'),'Sound control must recover when audio initializes after it');
 
 const page=read('security-research.html');

@@ -24,7 +24,7 @@ function controller() {
     document: { hidden: false }, performance: { now: () => 0 }, requestAnimationFrame() { return 1; },
   });
   vm.runInContext(`
-    let theme='light', paused=false, mediaDisabled=false, mediaReady=true, sceneLoadId=0;
+    let theme='light', paused=false, mediaDisabled=false, compactMedia=false, mediaReady=true, sceneLoadId=0;
     const motionAllowed=()=>!paused, reducedMotion=()=>false;
     let activeVideo=videos[0], standbyVideo=videos[1], activeSceneIndex=0;
     let rotationElapsed=0, lastFrame=0, raf=0, time=0, width=400;

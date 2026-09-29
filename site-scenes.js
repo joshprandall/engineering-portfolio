@@ -12,6 +12,7 @@
     {
       id: 'forest-waterfall',
       src: new URL('assets/scenes/day/waterfall.mp4', SITE_BASE).href,
+      mobileSrc: new URL('assets/scenes/day/waterfall-mobile.mp4', SITE_BASE).href,
       remoteSrc: 'https://videos.pexels.com/video-files/7351460/7351460-hd_1920_1080_24fps.mp4',
       poster: new URL('assets/scenes/day/waterfall-poster.jpg', SITE_BASE).href,
       page: 'https://www.pexels.com/video/waterfall-in-the-forest-7351460/',
@@ -21,6 +22,7 @@
     {
       id: 'forest-river',
       src: new URL('assets/scenes/day/river.mp4', SITE_BASE).href,
+      mobileSrc: new URL('assets/scenes/day/river-mobile.mp4', SITE_BASE).href,
       remoteSrc: 'https://videos.pexels.com/video-files/33886656/14381142_1920_1080_25fps.mp4',
       poster: new URL('assets/scenes/day/river-poster.jpg', SITE_BASE).href,
       page: 'https://www.pexels.com/video/serene-forest-river-scene-in-daylight-33886656/',
@@ -30,6 +32,7 @@
     {
       id: 'birds-water',
       src: new URL('assets/scenes/day/beach-birds.mp4', SITE_BASE).href,
+      mobileSrc: new URL('assets/scenes/day/beach-birds-mobile.mp4', SITE_BASE).href,
       remoteSrc: 'https://videos.pexels.com/video-files/9982425/9982425-hd_1920_1080_30fps.mp4',
       poster: new URL('assets/scenes/day/beach-birds-poster.jpg', SITE_BASE).href,
       page: 'https://www.pexels.com/video/birds-flying-above-beach-at-sunset-9982425/',
@@ -69,16 +72,10 @@
     );
 
 
+    const compactMedia = saveData || constrainedMedia || matchMedia('(max-width: 900px), (pointer: coarse)').matches;
+
     // Warm image/video connections immediately so the background appears before
     // the rest of the page has finished settling.
-    ['https://videos.pexels.com','https://images.pexels.com'].forEach(href => {
-      if (document.querySelector('link[rel="preconnect"][href="' + href + '"]')) return;
-      const link = document.createElement('link');
-      link.rel = 'preconnect';
-      link.href = href;
-      link.crossOrigin = 'anonymous';
-      document.head.append(link);
-    });
     [
       new URL('assets/scenes/webb-cosmic-cliffs.webp', SITE_BASE).href,
       ...LIGHT_SCENES.map(scene => scene.poster)
@@ -271,6 +268,10 @@
     }
 
     function configureVideo(video, scene, source) {
+      if (videoFrames.has(video)) {
+        video.cancelVideoFrameCallback?.(videoFrames.get(video));
+        videoFrames.delete(video);
+      }
       video.pause();
       video.removeAttribute('src');
       video.poster = scene.poster;
@@ -312,6 +313,24 @@
       });
     }
 
+    const videoFrames = new WeakMap();
+    function revealVideo(video, loadId = sceneLoadId) {
+      const current = () => video === activeVideo && loadId === sceneLoadId &&
+        theme === 'light' && !document.hidden && motionAllowed() &&
+        !video.paused && video.readyState >= 2 && video.currentSrc === video.src;
+      if (!current()) return;
+      const reveal = () => {
+        videoFrames.delete(video);
+        if (!current()) return;
+        dayFallback.classList.add('video-ready');
+        commitVisibleDayScene(LIGHT_SCENES[activeSceneIndex]);
+      };
+      // A resolved play() promise is not proof that Safari has presented a
+      // frame. Keep the matching poster until a frame reaches the compositor.
+      if (typeof video.requestVideoFrameCallback !== 'function') { reveal(); return; }
+      if (!videoFrames.has(video)) videoFrames.set(video, video.requestVideoFrameCallback(reveal));
+    }
+
     function pauseVideos() {
       [videoA, videoB].forEach(video => {
         try { video.muted = true; video.volume = 0; } catch (_) {}
@@ -324,8 +343,7 @@
       video.addEventListener('playing', () => {
         if (video === activeVideo && !video.paused && video.readyState >= 2 &&
             video.currentSrc === video.src && theme === 'light' && !document.hidden && motionAllowed()) {
-          dayFallback.classList.add('video-ready');
-          commitVisibleDayScene(LIGHT_SCENES[activeSceneIndex]);
+          revealVideo(video);
         }
       });
       video.addEventListener('error', () => {
@@ -340,18 +358,18 @@
       activeVideo.classList.add('is-active');
 
       prepareAndPlay(activeVideo, LIGHT_SCENES[activeSceneIndex]).then(playing => {
-        if (playing) dayFallback.classList.add('video-ready');
+        if (playing) revealVideo(activeVideo);
       });
     }
 
     async function prepareAndPlay(video, scene) {
       const loadId = ++sceneLoadId;
-      const sources = [scene.src, scene.remoteSrc].filter(Boolean);
+      const sources = (compactMedia ? [scene.mobileSrc, scene.src] : [scene.src, scene.mobileSrc]).filter(Boolean);
       for (const source of sources) {
         configureVideo(video, scene, source);
         // Start playback immediately: waiting for canplay before play can
         // prevent mobile browsers from fetching enough video to become ready.
-        const playing = await playSafely(video, source === scene.src ? 30000 : 15000);
+        const playing = await playSafely(video, 30000);
         if (loadId !== sceneLoadId || video !== activeVideo || theme !== 'light' || !motionAllowed() || document.hidden) return false;
         if (playing) return true;
         // A loaded video blocked by autoplay can resume on the next user tap.
@@ -376,7 +394,7 @@
       activeVideo.classList.add('is-active');
       oldVideo.classList.remove('is-active');
       prepareAndPlay(activeVideo, LIGHT_SCENES[nextIndex]).then(playing => {
-        if (playing) dayFallback.classList.add('video-ready');
+        if (playing) revealVideo(activeVideo);
       });
 
       setTimeout(() => {
@@ -606,7 +624,7 @@
         const video = activeVideo;
         const loadId = sceneLoadId;
         playSafely(video).then(playing => {
-          if (playing && video === activeVideo && loadId === sceneLoadId) dayFallback.classList.add('video-ready');
+          if (playing && video === activeVideo && loadId === sceneLoadId) revealVideo(video, loadId);
         });
       }
     };

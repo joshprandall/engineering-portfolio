@@ -1,5 +1,5 @@
 {
-  "version": "20260929-ambience-stable-v1",
+  "version": "20260929-ambience-phone-v2",
   "pages": [
     "about.html",
     "agent-workbench.html",
@@ -67,12 +67,12 @@
     "security-research.html"
   ],
   "owners": {
-    "site-theme.js": "96f16108ec67ec7ef62378c4547da633226d18f18c98b77c6ae227fd297a7cae",
-    "site-scenes.js": "2467951edd490b1ee7fc8ac25189771ca5861dc2f3baeb471a163172c49e8bd9",
+    "site-theme.js": "8ce50cab81b2d59ebd692fba2167634711eb81927eec795207e69bbbc8892d81",
+    "site-scenes.js": "379e4e8c5bed1fc84192ac4352254c2182861581b5b61c35ae2f2def6bd566e9",
     "site-audio.js": "01b6d31ec51604faf1bfaded1c85e58c05ac01b86cecb9e9f061e54847ab2b7f",
-    "site-sound-control.js": "eae7b42fd768351a4d33c73e55d74a8b20befc3310520a8fab11b5e67a6d09b9",
-    "site-scenes.css": "53c5401e1f7bd57c7fc2ffbedbcf8b12c2f49ef8bc016a87073eb708f6ae3db4",
-    "site-responsive.css": "184d0bec4932fe3601947a9850cf029fc0583cf5537977d333c541fc3d30efa9"
+    "site-sound-control.js": "bce961d4c1f0ab08906c523d877aa897b0ac7f14c77dc943c93496214a4e2020",
+    "site-scenes.css": "92cc3f7a6deb26441edf0e30f91fe4429b4e3a43a03a5e3c03a2d64866255fef",
+    "site-responsive.css": "026d704b2f4bcc0f519c4686864064a1987a70f794be18e37a2bb6ff225e1fec"
   },
   "requiredMedia": [
     "assets/audio/dark-theme-user.mp3",
@@ -85,10 +85,13 @@
     "assets/audio/day/river.ogg",
     "assets/audio/day/waterfall.mp3",
     "assets/audio/day/waterfall.ogg",
+    "assets/scenes/day/beach-birds-mobile.mp4",
     "assets/scenes/day/beach-birds-poster.jpg",
     "assets/scenes/day/beach-birds.mp4",
+    "assets/scenes/day/river-mobile.mp4",
     "assets/scenes/day/river-poster.jpg",
     "assets/scenes/day/river.mp4",
+    "assets/scenes/day/waterfall-mobile.mp4",
     "assets/scenes/day/waterfall-poster.jpg",
     "assets/scenes/day/waterfall.mp4",
     "assets/scenes/webb-cosmic-cliffs.webp"

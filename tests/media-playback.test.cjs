@@ -25,14 +25,19 @@ const server=http.createServer((req,res)=>{
 });
 (async()=>{await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));const base=`http://127.0.0.1:${server.address().port}`;report.origin=base;
  const browser=await playwright[engine].launch({executablePath:process.env.PORTFOLIO_BROWSER_EXECUTABLE||undefined,headless:true,...(engine==='chromium'?{args:['--no-sandbox']}: {})});try{
- const c=await browser.newContext({viewport:{width:390,height:844},isMobile:mobile,hasTouch:mobile,deviceScaleFactor:mobile?2:1,...(mobile?{userAgent:'Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1'}:{}),recordVideo:{dir:output,size:{width:390,height:844}}});
+ const c=await browser.newContext({viewport:mobile?{width:390,height:844}:{width:1440,height:900},isMobile:mobile,hasTouch:mobile,deviceScaleFactor:mobile?2:1,...(mobile?{userAgent:'Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1'}:{}),recordVideo:{dir:output,size:{width:390,height:844}}});
  await c.addInitScript(()=>{if(!sessionStorage.getItem('ambience-test-started')){localStorage.setItem('jr-site-theme','dark');localStorage.setItem('jr-site-motion','running');localStorage.setItem('jr-site-ambient-muted-v3','0');localStorage.setItem('jr-site-ambient-volume-v6','.05');localStorage.removeItem('jr-site-light-scene-v2');sessionStorage.setItem('ambience-test-started','1');}});
  // Keep local media on a real streaming HTTP connection. Fulfilling a 56 MB
  // response through the automation protocol can stall WebKit's range pipeline.
  await c.route('https://**/*',route=>route.abort());
  const p=await c.newPage();p.on('pageerror',e=>report.errors.push(e.message));
  await p.goto(base+'/index.html',{waitUntil:'domcontentloaded'});
- await p.locator('[data-scene-audio]').click();await p.evaluate(()=>SiteAudio.setMuted(false));
+ await p.locator('[data-scene-audio]').click();
+ const panel=await p.locator('.scene-sound-panel').evaluate(e=>{const s=getComputedStyle(e);return {background:s.backgroundColor,image:s.backgroundImage,shadow:s.boxShadow,blur:s.backdropFilter,border:s.borderTopWidth,children:[...e.children].map(c=>c.tagName)}});
+ assert.deepEqual(panel,{background:'rgba(0, 0, 0, 0)',image:'none',shadow:'none',blur:'none',border:'0px',children:['INPUT']},'Sound must reveal only a slider, with no panel surface');
+ const slider=p.locator('#ambient-volume');await slider.focus();await slider.press('Home');assert(await p.evaluate(()=>SiteAudio.muted&&SiteAudio.volume===0));
+ for(let i=0;i<5;i++)await slider.press('ArrowRight');assert(await p.evaluate(()=>!SiteAudio.muted&&Math.abs(SiteAudio.volume-.05)<.001));
+ await p.screenshot({path:path.join(output,'volume-slider-night.png')});
  await p.waitForFunction(()=>SiteAudio.element.currentTime>0&&!SiteAudio.element.paused&&SiteAudio.volumeBackend==='gain',null,{timeout:20000});
  report.night=await p.evaluate(()=>({time:SiteAudio.element.currentTime,source:SiteAudio.element.currentSrc,volume:SiteAudio.volume,levels:SiteAudio.outputLevels}));assert(report.night.source.endsWith('.wav'));assert.equal(report.night.volume,.05);
  const transform=await p.locator('.scene-night').evaluate(e=>e.style.transform);await p.waitForTimeout(1000);assert.notEqual(await p.locator('.scene-night').evaluate(e=>e.style.transform),transform,'Night camera must move');
@@ -56,6 +61,7 @@ const server=http.createServer((req,res)=>{
    report.sustained??=[];report.sustained.push({scene,samples});
    assert(samples.filter(x=>x.advance>.4&&x.pixelsChanged).length>=5,scene+': background stalls on a 2 Mbps phone connection');
   }
+  if(scene==='forest-waterfall'){await p.locator('[data-scene-audio]').click();await p.screenshot({path:path.join(output,'volume-slider-day.png')});await p.keyboard.press('Escape');}
   report.media.push({...state,decodedMotion:true});await p.screenshot({path:path.join(output,scene+'.png')});
  }
  await p.evaluate(()=>PortfolioTheme.setMotion('paused'));await p.waitForFunction(()=>[...document.querySelectorAll('.scene-video')].every(v=>v.paused));const time=await p.locator('.scene-video.is-active').evaluate(v=>v.currentTime);await p.waitForTimeout(1000);assert(Math.abs(await p.locator('.scene-video.is-active').evaluate(v=>v.currentTime)-time)<.08);await p.evaluate(()=>PortfolioTheme.setMotion('running'));await p.waitForFunction(()=>!document.querySelector('.scene-video.is-active').paused);

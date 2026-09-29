@@ -310,6 +310,61 @@
           "size": 103229
         }
       ]
+    },
+    {
+      "kind": "git-chunks",
+      "filename": "waterfall-mobile-0dd180961c009c20f5218a2801679b36b82be0837bc3e727908e1affffecd4a3.mp4",
+      "canonicalPath": "assets/scenes/day/waterfall-mobile.mp4",
+      "size": 8928496,
+      "sha256": "0dd180961c009c20f5218a2801679b36b82be0837bc3e727908e1affffecd4a3",
+      "provenance": "1280x720 H.264 Main/3.1, 24fps, capped 1.3 Mbps rendition of the complete existing approved clip. Original full-resolution master remains preserved.",
+      "chunks": [
+        {
+          "path": "preservation/ambience/0dd180961c009c20f5218a2801679b36b82be0837bc3e727908e1affffecd4a3/0.bin",
+          "blob": "402eba1539b39cc62cc7ea48df1bdc0d1e835640",
+          "size": 8388608
+        },
+        {
+          "path": "preservation/ambience/0dd180961c009c20f5218a2801679b36b82be0837bc3e727908e1affffecd4a3/1.bin",
+          "blob": "691a52df429d14c93e6fb43b0573f600f8e905bc",
+          "size": 539888
+        }
+      ]
+    },
+    {
+      "kind": "git-chunks",
+      "filename": "river-mobile-cd0a5c3823b6a773545ecf7f6c3c4c5eeb69a71c0c41135ecdff45b3601e5112.mp4",
+      "canonicalPath": "assets/scenes/day/river-mobile.mp4",
+      "size": 10096031,
+      "sha256": "cd0a5c3823b6a773545ecf7f6c3c4c5eeb69a71c0c41135ecdff45b3601e5112",
+      "provenance": "1280x720 H.264 Main/3.1, 24fps, capped 1.3 Mbps rendition of the complete existing approved clip. Original full-resolution master remains preserved.",
+      "chunks": [
+        {
+          "path": "preservation/ambience/cd0a5c3823b6a773545ecf7f6c3c4c5eeb69a71c0c41135ecdff45b3601e5112/0.bin",
+          "blob": "b27a560d92ef641f8cb8147ef020a795b55a4de6",
+          "size": 8388608
+        },
+        {
+          "path": "preservation/ambience/cd0a5c3823b6a773545ecf7f6c3c4c5eeb69a71c0c41135ecdff45b3601e5112/1.bin",
+          "blob": "ecfab59d98dd18ce79ed5f4958955a2c6df10b46",
+          "size": 1707423
+        }
+      ]
+    },
+    {
+      "kind": "git-chunks",
+      "filename": "beach-birds-mobile-54af202eb77b482086a041e64fd005e995dffc56defb8b118ae82dd118fdf7a4.mp4",
+      "canonicalPath": "assets/scenes/day/beach-birds-mobile.mp4",
+      "size": 3716095,
+      "sha256": "54af202eb77b482086a041e64fd005e995dffc56defb8b118ae82dd118fdf7a4",
+      "provenance": "1280x720 H.264 Main/3.1, 24fps, capped 1.3 Mbps rendition of the complete existing approved clip. Original full-resolution master remains preserved.",
+      "chunks": [
+        {
+          "path": "preservation/ambience/54af202eb77b482086a041e64fd005e995dffc56defb8b118ae82dd118fdf7a4/0.bin",
+          "blob": "a5a3acf6a12383883f294743058cd21472dbeefc",
+          "size": 3716095
+        }
+      ]
     }
   ]
 }
