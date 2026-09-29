@@ -1,0 +1,247 @@
+{
+  "passed": true,
+  "physicalDevices": false,
+  "engine": "webkit",
+  "mobile": true,
+  "mediaKBps": 256,
+  "media": [
+    {
+      "scene": "forest-waterfall",
+      "key": "waterfall",
+      "video": "http://127.0.0.1:36435/assets/scenes/day/waterfall-mobile.mp4",
+      "time": 0.042034294,
+      "muted": true,
+      "opacity": 0.699769,
+      "posterHidden": true,
+      "audio": "http://127.0.0.1:36435/assets/audio/day/waterfall.mp3",
+      "levels": [
+        {
+          "level": 0.05000000074505806,
+          "muted": false,
+          "paused": false
+        },
+        {
+          "level": 0,
+          "muted": true,
+          "paused": true
+        },
+        {
+          "level": 0,
+          "muted": true,
+          "paused": true
+        }
+      ],
+      "beachAbandoned": false,
+      "decodedMotion": true
+    },
+    {
+      "scene": "forest-river",
+      "key": "river",
+      "video": "http://127.0.0.1:36435/assets/scenes/day/river-mobile.mp4",
+      "time": 0.103793391,
+      "muted": true,
+      "opacity": 0.723867,
+      "posterHidden": true,
+      "audio": "http://127.0.0.1:36435/assets/audio/day/river.mp3",
+      "levels": [
+        {
+          "level": 0.05000000074505806,
+          "muted": false,
+          "paused": false
+        },
+        {
+          "level": 0,
+          "muted": true,
+          "paused": true
+        },
+        {
+          "level": 0,
+          "muted": true,
+          "paused": true
+        }
+      ],
+      "beachAbandoned": false,
+      "decodedMotion": true
+    },
+    {
+      "scene": "birds-water",
+      "key": "beach",
+      "video": "http://127.0.0.1:36435/assets/scenes/day/beach-birds-mobile.mp4",
+      "time": 0.001930679,
+      "muted": true,
+      "opacity": 0.190309,
+      "posterHidden": true,
+      "audio": "http://127.0.0.1:36435/assets/audio/day/beach-near.mp3",
+      "levels": [
+        {
+          "level": 0,
+          "muted": true,
+          "paused": true
+        },
+        {
+          "level": 0.05000000074505806,
+          "muted": false,
+          "paused": false
+        },
+        {
+          "level": 0,
+          "muted": true,
+          "paused": true
+        }
+      ],
+      "beachAbandoned": false,
+      "decodedMotion": true
+    }
+  ],
+  "errors": [],
+  "failedLocalRequests": [],
+  "origin": "http://127.0.0.1:36435",
+  "night": {
+    "time": 4.36,
+    "source": "http://127.0.0.1:36435/assets/audio/dark-theme-user.wav",
+    "volume": 0.05,
+    "levels": [
+      {
+        "level": 0.05000000074505806,
+        "muted": false,
+        "paused": false
+      },
+      {
+        "level": 0,
+        "muted": true,
+        "paused": true
+      },
+      {
+        "level": 0,
+        "muted": true,
+        "paused": true
+      }
+    ]
+  },
+  "lastProbe": {
+    "scene": "birds-water",
+    "before": {
+      "hash": -223335175,
+      "range": 245
+    },
+    "after": {
+      "hash": -1458137828,
+      "range": 245
+    },
+    "state": {
+      "time": 0.113622659,
+      "paused": false,
+      "readyState": 4,
+      "networkState": 1,
+      "src": "http://127.0.0.1:36435/assets/scenes/day/beach-birds-mobile.mp4",
+      "frames": 3
+    }
+  },
+  "sustained": [
+    {
+      "scene": "forest-waterfall",
+      "samples": [
+        {
+          "advance": 1.036469864,
+          "pixelsChanged": true,
+          "ready": 4
+        },
+        {
+          "advance": 1.01859992,
+          "pixelsChanged": true,
+          "ready": 4
+        },
+        {
+          "advance": 1.016838784,
+          "pixelsChanged": true,
+          "ready": 4
+        },
+        {
+          "advance": 1.0120761220000003,
+          "pixelsChanged": true,
+          "ready": 4
+        },
+        {
+          "advance": 1.0138071789999996,
+          "pixelsChanged": true,
+          "ready": 4
+        },
+        {
+          "advance": 1.0377409589999997,
+          "pixelsChanged": true,
+          "ready": 4
+        }
+      ]
+    },
+    {
+      "scene": "forest-river",
+      "samples": [
+        {
+          "advance": 0.17971166400000005,
+          "pixelsChanged": true,
+          "ready": 4
+        },
+        {
+          "advance": 1.0195542199999998,
+          "pixelsChanged": true,
+          "ready": 4
+        },
+        {
+          "advance": 1.0226872930000002,
+          "pixelsChanged": true,
+          "ready": 4
+        },
+        {
+          "advance": 1.018055495,
+          "pixelsChanged": true,
+          "ready": 4
+        },
+        {
+          "advance": 1.0200727830000003,
+          "pixelsChanged": true,
+          "ready": 4
+        },
+        {
+          "advance": 1.0206842589999994,
+          "pixelsChanged": true,
+          "ready": 4
+        }
+      ]
+    },
+    {
+      "scene": "birds-water",
+      "samples": [
+        {
+          "advance": 1.0115306400000001,
+          "pixelsChanged": true,
+          "ready": 4
+        },
+        {
+          "advance": 1.014530733,
+          "pixelsChanged": true,
+          "ready": 4
+        },
+        {
+          "advance": 1.0160572399999999,
+          "pixelsChanged": true,
+          "ready": 4
+        },
+        {
+          "advance": 1.0168922640000004,
+          "pixelsChanged": true,
+          "ready": 4
+        },
+        {
+          "advance": 1.0122375989999997,
+          "pixelsChanged": true,
+          "ready": 4
+        },
+        {
+          "advance": 1.0203879320000002,
+          "pixelsChanged": true,
+          "ready": 4
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,154 @@
+{
+  "passed": false,
+  "physicalDevices": false,
+  "engine": "webkit",
+  "mobile": true,
+  "mediaKBps": 256,
+  "media": [
+    {
+      "scene": "forest-waterfall",
+      "key": "waterfall",
+      "video": "http://127.0.0.1:42923/assets/scenes/day/waterfall.mp4",
+      "time": 0.239444921,
+      "muted": true,
+      "opacity": 1,
+      "posterHidden": true,
+      "audio": "http://127.0.0.1:42923/assets/audio/day/waterfall.mp3",
+      "levels": [
+        {
+          "level": 0.05000000074505806,
+          "muted": false,
+          "paused": false
+        },
+        {
+          "level": 0,
+          "muted": true,
+          "paused": true
+        },
+        {
+          "level": 0,
+          "muted": true,
+          "paused": true
+        }
+      ],
+      "beachAbandoned": false,
+      "decodedMotion": true
+    }
+  ],
+  "errors": [],
+  "failedLocalRequests": [],
+  "origin": "http://127.0.0.1:42923",
+  "night": {
+    "time": 4.76,
+    "source": "http://127.0.0.1:42923/assets/audio/dark-theme-user.wav",
+    "volume": 0.05,
+    "levels": [
+      {
+        "level": 0.05000000074505806,
+        "muted": false,
+        "paused": false
+      },
+      {
+        "level": 0,
+        "muted": true,
+        "paused": true
+      },
+      {
+        "level": 0,
+        "muted": true,
+        "paused": true
+      }
+    ]
+  },
+  "lastProbe": {
+    "scene": "forest-river",
+    "before": {
+      "hash": 1164892144,
+      "range": 201
+    },
+    "after": {
+      "hash": 1209807460,
+      "range": 201
+    },
+    "state": {
+      "time": 0.285764252,
+      "paused": false,
+      "readyState": 2,
+      "networkState": 2,
+      "src": "http://127.0.0.1:42923/assets/scenes/day/river.mp4",
+      "frames": 7
+    }
+  },
+  "sustained": [
+    {
+      "scene": "forest-waterfall",
+      "samples": [
+        {
+          "advance": 0.024001921000000037,
+          "pixelsChanged": false,
+          "ready": 4
+        },
+        {
+          "advance": 0.426061633,
+          "pixelsChanged": true,
+          "ready": 4
+        },
+        {
+          "advance": 0.7232231929999999,
+          "pixelsChanged": true,
+          "ready": 4
+        },
+        {
+          "advance": 0.6827941340000001,
+          "pixelsChanged": true,
+          "ready": 2
+        },
+        {
+          "advance": 52.44106774,
+          "pixelsChanged": true,
+          "ready": 4
+        },
+        {
+          "advance": 0.508269604,
+          "pixelsChanged": true,
+          "ready": 4
+        }
+      ]
+    },
+    {
+      "scene": "forest-river",
+      "samples": [
+        {
+          "advance": 0,
+          "pixelsChanged": false,
+          "ready": 2
+        },
+        {
+          "advance": 0.25900306500000003,
+          "pixelsChanged": true,
+          "ready": 4
+        },
+        {
+          "advance": 61.018070703,
+          "pixelsChanged": true,
+          "ready": 2
+        },
+        {
+          "advance": 0.31773876,
+          "pixelsChanged": true,
+          "ready": 4
+        },
+        {
+          "advance": 0.19984379399999996,
+          "pixelsChanged": true,
+          "ready": 2
+        },
+        {
+          "advance": 0.24144664800000004,
+          "pixelsChanged": true,
+          "ready": 2
+        }
+      ]
+    }
+  ]
+}
