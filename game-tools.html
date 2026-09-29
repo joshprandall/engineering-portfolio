@@ -1,0 +1,68 @@
+<!doctype html>
+<html id="top" lang="en">
+<head>
+<script src="site-theme.js?v=20260929-ambience-phone-v2"></script>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta name="color-scheme" content="dark light"/>
+<meta name="theme-color" content="#101416"/>
+<meta name="description" content="Interactive Game Development workbench for graphics, animation, physics, AI, procedural generation, technical art, audio, multiplayer, and engine architecture."/>
+<title>Game Development Workbench | Joshua Randall</title>
+<link rel="icon" href="assets/favicon.svg"/>
+<link rel="stylesheet" href="styles.css"/>
+<link rel="stylesheet" href="site-resilience.css"/>
+<link rel="stylesheet" href="site-scenes.css?v=20260929-ambience-phone-v2"/>
+<link rel="stylesheet" href="site-sections.css"/>
+<link rel="stylesheet" href="site-responsive.css?v=20260929-glass-controls"/>
+<link rel="stylesheet" href="game-tools.css"/>
+<script defer src="site-navigation.js"></script>
+<script defer src="site-search.js"></script>
+<script defer src="site-resilience.js"></script>
+<script defer src="site-scenes.js?v=20260929-ambience-phone-v2"></script>
+<script defer src="site-audio.js?v=20260929-ambience-phone-v2"></script>
+<script defer src="site-sound-control.js?v=20260929-ambience-phone-v2"></script>
+<script defer src="game-tools.js"></script>
+</head>
+<body class="destination-page game-tools-page">
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-global-header">
+<a class="brand" href="index.html" aria-label="Joshua Randall home"><strong>JR</strong><span>Joshua Randall<small>Systems. Software. Possibility.</small></span></a>
+<nav id="primary-nav" aria-label="Primary"><a href="index.html">Home</a><a href="about.html">About Me</a><a href="projects.html">Projects</a><a href="security-research.html">Security Research</a><a href="learn.html">Learn</a><a href="game-development.html">Game Development</a><a href="ai-development.html">AI Development</a></nav>
+<div class="global-controls tools"><button id="search-open" aria-label="Search portfolio">⌕ <span>Search</span><kbd>/</kbd></button><button id="theme" data-theme-toggle aria-label="Switch color theme">◐</button><button id="menu" aria-controls="primary-nav" aria-expanded="false" aria-label="Open navigation">☰</button></div>
+</header>
+<main id="main" class="wrap game-workbench" data-game-tool>
+  <p class="eyebrow">GAME DEVELOPMENT / INTERACTIVE WORKBENCH</p>
+  <h1 id="tool-title">Game Development</h1>
+  <p class="hero-intro" id="tool-summary">Loading subject…</p>
+  <div class="game-tool-actions"><a class="button" href="game-development.html">← Game Development</a><button class="button primary" type="button" id="tool-run">Run example</button><button class="button" type="button" id="tool-reset">Reset</button></div>
+
+  <section class="game-tool-grid" aria-label="Subject workbench">
+    <article class="game-tool-panel">
+      <p class="eyebrow">WHAT THIS DOES</p>
+      <h2 id="tool-objective">Subject objective</h2>
+      <p id="tool-goal"></p>
+      <h3>Production workflow</h3>
+      <ol id="tool-steps"></ol>
+    </article>
+    <article class="game-tool-panel game-tool-demo">
+      <div class="game-tool-demo-head"><div><p class="eyebrow">LIVE EXAMPLE</p><h2 id="demo-title">Interactive model</h2></div><output id="tool-status" aria-live="polite">Ready</output></div>
+      <canvas id="tool-canvas" width="720" height="420" aria-label="Interactive Game Development visualization"></canvas>
+      <div class="game-tool-controls">
+        <label><span id="control-a-label">Parameter A</span><input id="control-a" type="range" min="0" max="100" value="50"/></label>
+        <label><span id="control-b-label">Parameter B</span><input id="control-b" type="range" min="0" max="100" value="50"/></label>
+        <label><span id="control-c-label">Parameter C</span><input id="control-c" type="range" min="0" max="100" value="50"/></label>
+      </div>
+    </article>
+  </section>
+
+  <section class="game-tool-code" aria-labelledby="code-title">
+    <p class="eyebrow">IMPLEMENTATION PATTERN</p>
+    <h2 id="code-title">Start from working code</h2>
+    <p id="code-note">This compact example mirrors the interactive model above. Deeper production tutorials come after the site-functionality pass.</p>
+    <pre class="code-sample"><code id="tool-code"></code></pre>
+  </section>
+</main>
+<footer class="wrap"><span>© 2026 Joshua Randall</span><div><a href="game-development.html">Game Development</a><a href="#top">Back to top ↑</a></div></footer>
+<dialog aria-labelledby="search-title" id="search-dialog"><div class="dialog-head"><h2 id="search-title">Explore the portfolio</h2><button aria-label="Close search" data-close>✕</button></div><label for="search-input">Search sections, projects, and tools</label><input autocomplete="off" id="search-input" type="search"/><div id="search-results"></div></dialog>
+</body>
+</html>
