@@ -95,12 +95,12 @@
     {
       "route": "learn.html",
       "nodes": 737,
-      "domContentLoaded": 459.29999999981374
+      "domContentLoaded": 538.2000000001863
     },
     {
       "route": "lesson.html?lesson=cloud-url-journey&view=visual",
       "nodes": 626,
-      "domContentLoaded": 446
+      "domContentLoaded": 601.6000000000931
     }
   ],
   "passed": true

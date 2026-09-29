@@ -5,9 +5,13 @@
     "sourceImplemented": true,
     "unitChecksCompleted": true,
     "priorPreviewChecksCompleted": true,
-    "finalExactCommitBrowserChecks": "in progress",
+    "finalExactCommitBrowserChecks": "completed for runtime source ef933364566107fae21c68280ce45af5a5efde7c; release candidate has identical verified runtime bytes",
     "deployed": false,
-    "productionVerifiedAfterDeployment": false
+    "productionVerifiedAfterDeployment": false,
+    "githubSiteValidation": "passed",
+    "githubProtectedOverlayBuild": "passed",
+    "githubBrowserRegression": "passed",
+    "mergedToMain": false
   },
   "deploymentBoundary": "No authenticated OSU shell in this environment.",
   "sourceChanges": [
@@ -17,5 +21,34 @@
     "local notes/review scheduling and retry",
     "six Security Research tools and MIND current-input export",
     "stable audio fallback and transition/lifecycle cleanup"
+  ],
+  "releaseCandidateCommit": "b5ceebf6888cbf38824a65b201bbe4e4c19ff219",
+  "pullRequest": "https://github.com/joshprandall/engineering-portfolio/pull/71",
+  "runtimePayloadEquivalence": {
+    "testedSourceCommit": "ef933364566107fae21c68280ce45af5a5efde7c",
+    "releaseCandidateCommit": "b5ceebf6888cbf38824a65b201bbe4e4c19ff219",
+    "files": 274,
+    "bytes": 394655022,
+    "everyPathSizeSha256Matches": true
+  },
+  "githubRuns": [
+    {
+      "id": 36489700994,
+      "name": "Site validation",
+      "conclusion": "success"
+    },
+    {
+      "id": 36489701093,
+      "name": "Build OSU science-safe overlay",
+      "conclusion": "success"
+    }
+  ],
+  "remainingValidation": [
+    "Native zoom did not apply in the local headless browser",
+    "Local H.264 decoding unavailable",
+    "Physical devices, Safari/Firefox and embedded WebViews not verified",
+    "All game levels/checkpoints not exhaustively play-tested",
+    "Per-record editorial and complementary-visual completion not certified",
+    "Three Day videos still require immutable release-asset mirroring"
   ]
 }
