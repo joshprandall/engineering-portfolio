@@ -1363,7 +1363,7 @@ body.living-scenes #toast{
   min-height:64px;
   padding:0 7px;
   margin:0;
-  touch-action:pan-y;
+  touch-action:none;
   user-select:none;
   -webkit-user-select:none;
   cursor:ew-resize;
