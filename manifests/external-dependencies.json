@@ -454,10 +454,6 @@
       "consumers": [
         {
           "source": "site-audio.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "site-audio.js",
           "evidence": "audit-repository"
         },
         {
@@ -474,10 +470,6 @@
     {
       "url": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Cape%20May%20Shorebirds%20closer.ogg",
       "consumers": [
-        {
-          "source": "site-audio.js",
-          "evidence": "current-runtime"
-        },
         {
           "source": "site-audio.js",
           "evidence": "audit-repository"
@@ -524,10 +516,6 @@
       "consumers": [
         {
           "source": "site-audio.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "site-audio.js",
           "evidence": "audit-repository"
         },
         {
@@ -552,10 +540,6 @@
     {
       "url": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Water%20fall.ogg",
       "consumers": [
-        {
-          "source": "site-audio.js",
-          "evidence": "current-runtime"
-        },
         {
           "source": "site-audio.js",
           "evidence": "audit-repository"
@@ -1986,10 +1970,6 @@
       "consumers": [
         {
           "source": "site-scenes.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "site-scenes.js",
           "evidence": "audit-repository"
         },
         {
@@ -2008,10 +1988,6 @@
       "consumers": [
         {
           "source": "site-scenes.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "site-scenes.js",
           "evidence": "audit-repository"
         },
         {
@@ -2028,10 +2004,6 @@
     {
       "url": "https://images.pexels.com/videos/9982425/pexels-photo-9982425.jpeg?auto=compress&cs=tinysrgb&w=1600",
       "consumers": [
-        {
-          "source": "site-scenes.js",
-          "evidence": "current-runtime"
-        },
         {
           "source": "site-scenes.js",
           "evidence": "audit-repository"
@@ -3739,11 +3711,11 @@
       "fallbackContract": "Resolve same-site absolute media to preserved local bytes when available. Preserve existing URL until route migration and consumer checks pass.",
       "localCounterpart": {
         "path": "play-evil-wizard.html",
-        "size": 8078,
-        "sha256": "c8670f8ca7e2ec93d61dba059312875c54bffffba5136ec3842481249670a714",
+        "size": 8080,
+        "sha256": "84971c9cd995324d6265e6ea1c43b9c4c8e3b261ff9de5b35deb011efb0fddab",
         "source": {
           "kind": "git-blob",
-          "blob": "154d1c9a732caa2c1b834c10d01f3cbc881af3c8"
+          "blob": "240b3befb6d1cf0fb56ea72b9be10d73ad0ad6a3"
         },
         "owningComponent": "portfolio",
         "deploymentClassification": "KEEP_PRODUCTION"
@@ -3764,11 +3736,11 @@
       "fallbackContract": "Resolve same-site absolute media to preserved local bytes when available. Preserve existing URL until route migration and consumer checks pass.",
       "localCounterpart": {
         "path": "project-battle-chess.html",
-        "size": 9370,
-        "sha256": "4f900031e7b789d1e9ccf85636bc4823a63a9f04285a4c17c8d543e96c9f3952",
+        "size": 9372,
+        "sha256": "ac073fd74190a0e29f4a1d34129c1ca1035033fc716e71ef160095d47b600327",
         "source": {
           "kind": "git-blob",
-          "blob": "d74fc087e88385f11aadf952d9cec0b924d30f3b"
+          "blob": "5369f11af8c5ec69d133194a767f248fe7902bc7"
         },
         "owningComponent": "portfolio",
         "deploymentClassification": "KEEP_PRODUCTION"
@@ -3789,11 +3761,11 @@
       "fallbackContract": "Resolve same-site absolute media to preserved local bytes when available. Preserve existing URL until route migration and consumer checks pass.",
       "localCounterpart": {
         "path": "projects.html",
-        "size": 15295,
-        "sha256": "f9dd8587e44e716863034a2d52ff31433be881b4f88c49f3edb4db964d6563bd",
+        "size": 15297,
+        "sha256": "f4bbf43c22b8e4bc5f15affa16ad351741078da0ee99003cc071a779a15ac4f7",
         "source": {
           "kind": "git-blob",
-          "blob": "ed3d023f420c5baf16d7e3052ac6a6bcbf41c43e"
+          "blob": "f627933f2634a3f4041eddc3dd110bb06b86d4ea"
         },
         "owningComponent": "portfolio",
         "deploymentClassification": "KEEP_PRODUCTION"

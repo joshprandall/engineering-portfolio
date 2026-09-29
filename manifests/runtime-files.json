@@ -3042,6 +3042,136 @@
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "assets/site-education.json",
+      "size": 841,
+      "sha256": "047994b48d49dac428e8abb449bac1c7e3103002da479ed01aae7c5282ba96b4",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "assets/audio/CREDITS.md",
+      "size": 1432,
+      "sha256": "8d8762b31d5384db1d46901493b244d82ef50d4037237f349d2471d90fa4d30f",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "assets/scenes/day/beach-birds-poster.jpg",
+      "size": 96315,
+      "sha256": "1cef768c65f80887f2e77787229033a108f974ad80e823c037d1090bd6f944ed",
+      "source": {
+        "kind": "git-chunks"
+      },
+      "owningComponent": "site-scenes",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "assets/scenes/day/river-poster.jpg",
+      "size": 249343,
+      "sha256": "7ccbf50f35e2bf2c9cbe6c02d03bef4896be9a917460aaa45993c2697dd6834a",
+      "source": {
+        "kind": "git-chunks"
+      },
+      "owningComponent": "site-scenes",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "assets/scenes/day/waterfall-poster.jpg",
+      "size": 343159,
+      "sha256": "1a668f48c1dda23df4d5b621e754993f5efed6fe887342e55a4a485cb9040e8c",
+      "source": {
+        "kind": "git-chunks"
+      },
+      "owningComponent": "site-scenes",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "assets/audio/day/beach-near.mp3",
+      "size": 301576,
+      "sha256": "79d467f62f0c516c62661c6530b1358a956af47a90961e212f1535605d377264",
+      "source": {
+        "kind": "git-chunks"
+      },
+      "owningComponent": "site-scenes",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "assets/audio/day/river.ogg",
+      "size": 15026892,
+      "sha256": "84ef7a340afa78fd4ed21d76178afc8738035dd5da7119154655f491a969bdce",
+      "source": {
+        "kind": "git-chunks"
+      },
+      "owningComponent": "site-scenes",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "assets/audio/day/waterfall.ogg",
+      "size": 616492,
+      "sha256": "751e8ae1b88744a9090cf8ea569519eb77428d9834a00f99fe2a21a622dc1183",
+      "source": {
+        "kind": "git-chunks"
+      },
+      "owningComponent": "site-scenes",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "assets/audio/day/beach-near.ogg",
+      "size": 91764,
+      "sha256": "aefe1eb2d101ed9ea0bf1aaf0034aed5f68a01c6b5acf777c4019e79c27b6fc5",
+      "source": {
+        "kind": "git-chunks"
+      },
+      "owningComponent": "site-scenes",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "assets/audio/day/beach-far.mp3",
+      "size": 345462,
+      "sha256": "b9b0dbce1d88951b063571b3b33d1741f814418f1178f3814b7f39501f8baeee",
+      "source": {
+        "kind": "git-chunks"
+      },
+      "owningComponent": "site-scenes",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "assets/audio/day/waterfall.mp3",
+      "size": 713475,
+      "sha256": "67ee2ea0cbfa73192444aa7c561eb57ad705caa6423dfc27b16b62e53e127fe0",
+      "source": {
+        "kind": "git-chunks"
+      },
+      "owningComponent": "site-scenes",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "assets/audio/day/river.mp3",
+      "size": 7201037,
+      "sha256": "878679d3fcd4cf6c8361458f76b6e14cd77072b02aafe528bbb30f158fafa20d",
+      "source": {
+        "kind": "git-chunks"
+      },
+      "owningComponent": "site-scenes",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "assets/audio/day/beach-far.ogg",
+      "size": 103229,
+      "sha256": "139c967133f8d0e9846a6c51aae83b3d366cea21cec8959cfc0cac1a1eb2dda0",
+      "source": {
+        "kind": "git-chunks"
+      },
+      "owningComponent": "site-scenes",
+      "deploymentClassification": "KEEP_PRODUCTION"
     }
   ],
   "fileCount": 274,

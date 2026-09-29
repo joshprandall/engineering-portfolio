@@ -71,6 +71,7 @@ body.living-scenes{position:relative;isolation:isolate;min-height:100vh;backgrou
 :root[data-theme=light] .scene-day-wrap{opacity:1}
 :root[data-theme=light] .scene-night-wrap{opacity:0}
 .scene-day-fallback{
+  z-index:1;
   background-color:#c5ddd4;
   background-position:center;
   background-size:cover;
@@ -82,7 +83,7 @@ body.living-scenes{position:relative;isolation:isolate;min-height:100vh;backgrou
   filter:saturate(1.12) contrast(1.02) brightness(.75);
   transition:opacity 1s ease
 }
-.scene-day-fallback.video-ready{opacity:.2}
+.scene-day-fallback.video-ready{opacity:0}
 @keyframes scene-day-fallback-drift{
   0%{transform:translate3d(-.55%,-.28%,0) scale(1.04)}
   50%{transform:translate3d(.18%,.34%,0) scale(1.045)}
@@ -99,6 +100,7 @@ body.living-scenes{position:relative;isolation:isolate;min-height:100vh;backgrou
   animation:scene-day-fallback-drift-reduced 60s ease-in-out infinite alternate!important;
 }
 .scene-video{
+  z-index:0;
   inset:-1%;
   width:102%;
   height:102%;

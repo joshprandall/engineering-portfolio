@@ -33,6 +33,10 @@ jobs:
           test -s project-geometric-ai.html
           test -s play-evil-wizard.html
           ! grep -q 'games/battle-chess/' project-battle-chess.html
+      - name: Restore complete verified background media
+        run: |
+          python3 tools/restore_website2_assets.py --ambience
+          PORTFOLIO_REQUIRE_MEDIA=1 node --test tests/ambience-contract.test.cjs
       - name: Create protected-experience-preserving website overlay
         shell: bash
         run: |

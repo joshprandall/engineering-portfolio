@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Deploy one exact tested commit with a full backup, byte checks and rollback."""
-import argparse, datetime, hashlib, os, re, shutil, stat, tarfile, tempfile, time
+import argparse, datetime, hashlib, os, re, shutil, stat, tarfile, tempfile, time, subprocess, sys
 from pathlib import Path
 from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
@@ -28,6 +28,17 @@ PROTECTED_REQUIRED = tuple(PROTECTED_ROOT_FILES) + (
     'games/evil-wizard/play.html', 'geometric-lab/index.html',
 )
 REQUIRED = THEME_SHELL_FILES + (
+    'assets/audio/day/beach-far.mp3',
+    'assets/audio/day/beach-far.ogg',
+    'assets/audio/day/beach-near.mp3',
+    'assets/audio/day/beach-near.ogg',
+    'assets/audio/day/river.mp3',
+    'assets/audio/day/river.ogg',
+    'assets/audio/day/waterfall.mp3',
+    'assets/audio/day/waterfall.ogg',
+    'assets/scenes/day/beach-birds-poster.jpg',
+    'assets/scenes/day/river-poster.jpg',
+    'assets/scenes/day/waterfall-poster.jpg',
     'site-theme.js', 'site-scenes.js', 'site-audio.js', 'site-sound-control.js', 'site-scenes.css',
     'assets/audio/dark-theme-user.wav',
     'assets/scenes/webb-cosmic-cliffs.webp', 'assets/scenes/mountain-valley.svg',
@@ -134,59 +145,12 @@ def _download_with_retry(request, temp, timeout, label, attempts=5):
             time.sleep(delay)
 
 def materialize_day_media(source, site):
-    """Prefer already-deployed/cached media, then download. Audio is optional because runtime has a remote fallback."""
-    for name, url in DAY_MEDIA_SOURCES.items():
-        target = source/name
-        if _valid_mp4(target) or _reuse_media(source, site, name, _valid_mp4):
-            continue
-        target.parent.mkdir(parents=True, exist_ok=True)
-        temp = target.with_suffix(target.suffix+'.downloading')
-        request = Request(url, headers={
-            'User-Agent': 'Mozilla/5.0 (compatible; JoshuaRandallPortfolioDeploy/1.1; +https://web.engr.oregonstate.edu/~randjosh/)',
-            'Referer': 'https://www.pexels.com/',
-            'Accept': 'video/mp4,video/*;q=0.9,*/*;q=0.8',
-        })
-        print('Downloading licensed Day video:', name, flush=True)
-        try:
-            content_type = _download_with_retry(request, temp, 120, 'Day video '+name, attempts=4)
-            if 'video' not in content_type and 'octet-stream' not in content_type:
-                raise RuntimeError(f'Unexpected media type for {name}: {content_type}')
-            if not _valid_mp4(temp):
-                raise RuntimeError(f'Day video download is invalid: {name}')
-            os.replace(temp, target)
-            _cache_media(target, name)
-        finally:
-            if temp.exists():
-                temp.unlink()
+    """Restore the complete matching Day media from this exact source archive.
 
-    for index, (name, url) in enumerate(DAY_AUDIO_SOURCES.items()):
-        target = source/name
-        if _valid_ogg(target) or _reuse_media(source, site, name, _valid_ogg):
-            continue
-        target.parent.mkdir(parents=True, exist_ok=True)
-        temp = target.with_suffix(target.suffix+'.downloading')
-        request = Request(url, headers={
-            'User-Agent': 'JoshuaRandallPortfolioDeploy/1.1 (+https://web.engr.oregonstate.edu/~randjosh/)',
-            'Referer': 'https://commons.wikimedia.org/',
-            'Accept': 'audio/ogg,audio/*;q=0.9,application/ogg;q=0.8,*/*;q=0.5',
-        })
-        print('Downloading Day ambience:', name, flush=True)
-        try:
-            content_type = _download_with_retry(request, temp, 90, 'Day ambience '+name, attempts=3)
-            if not any(token in content_type for token in ('audio', 'ogg', 'octet-stream')):
-                raise RuntimeError(f'Unexpected Day audio media type for {name}: {content_type}')
-            if not _valid_ogg(temp):
-                raise RuntimeError(f'Day ambience download is invalid: {name}')
-            os.replace(temp, target)
-            _cache_media(target, name)
-            # Do not burst four Wikimedia downloads through the same OSU egress.
-            if index < len(DAY_AUDIO_SOURCES)-1:
-                time.sleep(2.0)
-        except (HTTPError, URLError, RuntimeError) as error:
-            if temp.exists():
-                temp.unlink()
-            print('WARNING: could not cache Day ambience:', name, '-', error, flush=True)
-            print('         Deployment will continue; browser audio uses the matching Wikimedia fallback.', flush=True)
+    No external download or optional-audio fallback may conceal an incomplete
+    release. This writes only inside the temporary source tree before backup.
+    """
+    subprocess.run([sys.executable, str(source/'tools/restore_website2_assets.py'), '--ambience'], check=True, cwd=source)
 
 def validate_source(source):
     missing = [name for name in REQUIRED if not (source/name).is_file()]
@@ -365,8 +329,7 @@ def http_smoke_day_media():
     for name in DAY_AUDIO_SOURCES:
         local = Path.home()/'public_html'/name
         if not _valid_ogg(local):
-            print('Day ambience not cached locally; verified runtime will use remote fallback:', name, flush=True)
-            continue
+            raise RuntimeError('Deployed Day ambience missing or invalid: '+name)
         request = Request(PUBLIC_URL+name+'?day-audio=1', headers={
             'Cache-Control':'no-cache',
             'Range':'bytes=0-63',

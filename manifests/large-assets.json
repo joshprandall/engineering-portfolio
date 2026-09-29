@@ -42,40 +42,274 @@
       "requiresRepositoryReadAccess": true
     },
     {
-      "kind": "public-preserved-asset",
+      "kind": "git-chunks",
       "filename": "waterfall-094e7c14ba2ca99feb637dabf2a57911be2c15b3743f1a1b7223d82f66f921bc.mp4",
-      "sha256": "094e7c14ba2ca99feb637dabf2a57911be2c15b3743f1a1b7223d82f66f921bc",
-      "size": 38727837,
       "canonicalPath": "assets/scenes/day/waterfall.mp4",
-      "sourceUrl": "https://web.engr.oregonstate.edu/~randjosh/assets/scenes/day/waterfall.mp4",
-      "state": "captured-and-digest-verified-20260928",
-      "provenance": "Read-only OSU production capture 2026-09-28; exact existing Day scene media.",
-      "ownership": "Existing Pexels scene media; preserve assets/scenes/CREDITS.md and original source references.",
-      "durability": "Public deployed URL is mutable. Hash verification prevents accepting changed bytes. Retain the OSU backup; immutable release-asset mirroring remains pending authenticated upload access."
+      "size": 38727837,
+      "sha256": "094e7c14ba2ca99feb637dabf2a57911be2c15b3743f1a1b7223d82f66f921bc",
+      "provenance": "Preserved existing approved Day media, 2026-09-29. River container optimized without changing encoded frames; MP3 versions transcode the same original field recordings; posters are frames from these videos.",
+      "chunks": [
+        {
+          "path": "preservation/ambience/094e7c14ba2ca99feb637dabf2a57911be2c15b3743f1a1b7223d82f66f921bc/0.bin",
+          "blob": "6fd853faf7081ed20d465b0a1b582b095919df94",
+          "size": 8388608
+        },
+        {
+          "path": "preservation/ambience/094e7c14ba2ca99feb637dabf2a57911be2c15b3743f1a1b7223d82f66f921bc/1.bin",
+          "blob": "8641ae697dfe82e49c661f42666c730c6c4e4ff3",
+          "size": 8388608
+        },
+        {
+          "path": "preservation/ambience/094e7c14ba2ca99feb637dabf2a57911be2c15b3743f1a1b7223d82f66f921bc/2.bin",
+          "blob": "a97df454c0d351003a9478cbe7a9e5dccd9c8a10",
+          "size": 8388608
+        },
+        {
+          "path": "preservation/ambience/094e7c14ba2ca99feb637dabf2a57911be2c15b3743f1a1b7223d82f66f921bc/3.bin",
+          "blob": "a4bd501ef27778ab73adfd7dba5b17fa0455e47c",
+          "size": 8388608
+        },
+        {
+          "path": "preservation/ambience/094e7c14ba2ca99feb637dabf2a57911be2c15b3743f1a1b7223d82f66f921bc/4.bin",
+          "blob": "3d51e2f23652f4f43e5ed66b02a01a1175ca4f9e",
+          "size": 5173405
+        }
+      ]
     },
     {
-      "kind": "public-preserved-asset",
-      "filename": "river-8a9222fb7ad01db00394c5c030e2861a5f94a299e3a80b1b23dab464e943a1f3.mp4",
-      "sha256": "8a9222fb7ad01db00394c5c030e2861a5f94a299e3a80b1b23dab464e943a1f3",
-      "size": 56576105,
+      "kind": "git-chunks",
+      "filename": "river-23f71551208047e643c4fd121b88eeef7780aa5bed68648f29cde4e96274bb61.mp4",
       "canonicalPath": "assets/scenes/day/river.mp4",
-      "sourceUrl": "https://web.engr.oregonstate.edu/~randjosh/assets/scenes/day/river.mp4",
-      "state": "captured-and-digest-verified-20260928",
-      "provenance": "Read-only OSU production capture 2026-09-28; exact existing Day scene media.",
-      "ownership": "Existing Pexels scene media; preserve assets/scenes/CREDITS.md and original source references.",
-      "durability": "Public deployed URL is mutable. Hash verification prevents accepting changed bytes. Retain the OSU backup; immutable release-asset mirroring remains pending authenticated upload access."
+      "size": 56582097,
+      "sha256": "23f71551208047e643c4fd121b88eeef7780aa5bed68648f29cde4e96274bb61",
+      "provenance": "Preserved existing approved Day media, 2026-09-29. River container optimized without changing encoded frames; MP3 versions transcode the same original field recordings; posters are frames from these videos.",
+      "chunks": [
+        {
+          "path": "preservation/ambience/23f71551208047e643c4fd121b88eeef7780aa5bed68648f29cde4e96274bb61/0.bin",
+          "blob": "425f37202f13477ea30ed7c53540e28b9a69323e",
+          "size": 8388608
+        },
+        {
+          "path": "preservation/ambience/23f71551208047e643c4fd121b88eeef7780aa5bed68648f29cde4e96274bb61/1.bin",
+          "blob": "3c4e96c261cc6746b1f6a65c78c30b52a09d8e96",
+          "size": 8388608
+        },
+        {
+          "path": "preservation/ambience/23f71551208047e643c4fd121b88eeef7780aa5bed68648f29cde4e96274bb61/2.bin",
+          "blob": "11c8c50da09e3123313b568109723cc10c56d7c4",
+          "size": 8388608
+        },
+        {
+          "path": "preservation/ambience/23f71551208047e643c4fd121b88eeef7780aa5bed68648f29cde4e96274bb61/3.bin",
+          "blob": "ac0d6e2b55b7d837a6321ed11dc2f5b81c6a99ed",
+          "size": 8388608
+        },
+        {
+          "path": "preservation/ambience/23f71551208047e643c4fd121b88eeef7780aa5bed68648f29cde4e96274bb61/4.bin",
+          "blob": "c119a6053c52194a820c0a4e790935c66ee68847",
+          "size": 8388608
+        },
+        {
+          "path": "preservation/ambience/23f71551208047e643c4fd121b88eeef7780aa5bed68648f29cde4e96274bb61/5.bin",
+          "blob": "57dae62e803b35db19e3f693429995818b6dcdf1",
+          "size": 8388608
+        },
+        {
+          "path": "preservation/ambience/23f71551208047e643c4fd121b88eeef7780aa5bed68648f29cde4e96274bb61/6.bin",
+          "blob": "162d5820923638ed4d2323a9e948fe4a0af8087b",
+          "size": 6250449
+        }
+      ]
     },
     {
-      "kind": "public-preserved-asset",
+      "kind": "git-chunks",
       "filename": "beach-birds-719ff6cb84b4e6a265e295d4f61cacc4f4a44f6d34ffd1a43c7bc1c3d5daf113.mp4",
-      "sha256": "719ff6cb84b4e6a265e295d4f61cacc4f4a44f6d34ffd1a43c7bc1c3d5daf113",
-      "size": 16195422,
       "canonicalPath": "assets/scenes/day/beach-birds.mp4",
-      "sourceUrl": "https://web.engr.oregonstate.edu/~randjosh/assets/scenes/day/beach-birds.mp4",
-      "state": "captured-and-digest-verified-20260928",
-      "provenance": "Read-only OSU production capture 2026-09-28; exact existing Day scene media.",
-      "ownership": "Existing Pexels scene media; preserve assets/scenes/CREDITS.md and original source references.",
-      "durability": "Public deployed URL is mutable. Hash verification prevents accepting changed bytes. Retain the OSU backup; immutable release-asset mirroring remains pending authenticated upload access."
+      "size": 16195422,
+      "sha256": "719ff6cb84b4e6a265e295d4f61cacc4f4a44f6d34ffd1a43c7bc1c3d5daf113",
+      "provenance": "Preserved existing approved Day media, 2026-09-29. River container optimized without changing encoded frames; MP3 versions transcode the same original field recordings; posters are frames from these videos.",
+      "chunks": [
+        {
+          "path": "preservation/ambience/719ff6cb84b4e6a265e295d4f61cacc4f4a44f6d34ffd1a43c7bc1c3d5daf113/0.bin",
+          "blob": "522944c75fef00b701de85374b6746cf08c34ec1",
+          "size": 8388608
+        },
+        {
+          "path": "preservation/ambience/719ff6cb84b4e6a265e295d4f61cacc4f4a44f6d34ffd1a43c7bc1c3d5daf113/1.bin",
+          "blob": "e9222eaaba1decf5e2d5f5cb50224249ce0313b4",
+          "size": 7806814
+        }
+      ]
+    },
+    {
+      "kind": "git-chunks",
+      "filename": "beach-birds-poster-1cef768c65f80887f2e77787229033a108f974ad80e823c037d1090bd6f944ed.jpg",
+      "canonicalPath": "assets/scenes/day/beach-birds-poster.jpg",
+      "size": 96315,
+      "sha256": "1cef768c65f80887f2e77787229033a108f974ad80e823c037d1090bd6f944ed",
+      "provenance": "Preserved existing approved Day media, 2026-09-29. River container optimized without changing encoded frames; MP3 versions transcode the same original field recordings; posters are frames from these videos.",
+      "chunks": [
+        {
+          "path": "preservation/ambience/1cef768c65f80887f2e77787229033a108f974ad80e823c037d1090bd6f944ed/0.bin",
+          "blob": "04d88285f09e962598282de81a47652d5d0ae3ea",
+          "size": 96315
+        }
+      ]
+    },
+    {
+      "kind": "git-chunks",
+      "filename": "river-poster-7ccbf50f35e2bf2c9cbe6c02d03bef4896be9a917460aaa45993c2697dd6834a.jpg",
+      "canonicalPath": "assets/scenes/day/river-poster.jpg",
+      "size": 249343,
+      "sha256": "7ccbf50f35e2bf2c9cbe6c02d03bef4896be9a917460aaa45993c2697dd6834a",
+      "provenance": "Preserved existing approved Day media, 2026-09-29. River container optimized without changing encoded frames; MP3 versions transcode the same original field recordings; posters are frames from these videos.",
+      "chunks": [
+        {
+          "path": "preservation/ambience/7ccbf50f35e2bf2c9cbe6c02d03bef4896be9a917460aaa45993c2697dd6834a/0.bin",
+          "blob": "76d3a4893a4f5a0dc7eb239667573139351b5594",
+          "size": 249343
+        }
+      ]
+    },
+    {
+      "kind": "git-chunks",
+      "filename": "waterfall-poster-1a668f48c1dda23df4d5b621e754993f5efed6fe887342e55a4a485cb9040e8c.jpg",
+      "canonicalPath": "assets/scenes/day/waterfall-poster.jpg",
+      "size": 343159,
+      "sha256": "1a668f48c1dda23df4d5b621e754993f5efed6fe887342e55a4a485cb9040e8c",
+      "provenance": "Preserved existing approved Day media, 2026-09-29. River container optimized without changing encoded frames; MP3 versions transcode the same original field recordings; posters are frames from these videos.",
+      "chunks": [
+        {
+          "path": "preservation/ambience/1a668f48c1dda23df4d5b621e754993f5efed6fe887342e55a4a485cb9040e8c/0.bin",
+          "blob": "952c062878881fb08639df14ff92d8bae6aa69e3",
+          "size": 343159
+        }
+      ]
+    },
+    {
+      "kind": "git-chunks",
+      "filename": "beach-near-79d467f62f0c516c62661c6530b1358a956af47a90961e212f1535605d377264.mp3",
+      "canonicalPath": "assets/audio/day/beach-near.mp3",
+      "size": 301576,
+      "sha256": "79d467f62f0c516c62661c6530b1358a956af47a90961e212f1535605d377264",
+      "provenance": "Preserved existing approved Day media, 2026-09-29. River container optimized without changing encoded frames; MP3 versions transcode the same original field recordings; posters are frames from these videos.",
+      "chunks": [
+        {
+          "path": "preservation/ambience/79d467f62f0c516c62661c6530b1358a956af47a90961e212f1535605d377264/0.bin",
+          "blob": "e3a5d841d982ebe2ffd9a9b9722e35fec3f94631",
+          "size": 301576
+        }
+      ]
+    },
+    {
+      "kind": "git-chunks",
+      "filename": "river-84ef7a340afa78fd4ed21d76178afc8738035dd5da7119154655f491a969bdce.ogg",
+      "canonicalPath": "assets/audio/day/river.ogg",
+      "size": 15026892,
+      "sha256": "84ef7a340afa78fd4ed21d76178afc8738035dd5da7119154655f491a969bdce",
+      "provenance": "Preserved existing approved Day media, 2026-09-29. River container optimized without changing encoded frames; MP3 versions transcode the same original field recordings; posters are frames from these videos.",
+      "chunks": [
+        {
+          "path": "preservation/ambience/84ef7a340afa78fd4ed21d76178afc8738035dd5da7119154655f491a969bdce/0.bin",
+          "blob": "329cbecce50387c1c77779e0fb31b2db38613bb1",
+          "size": 8388608
+        },
+        {
+          "path": "preservation/ambience/84ef7a340afa78fd4ed21d76178afc8738035dd5da7119154655f491a969bdce/1.bin",
+          "blob": "5d7bd094da48b6296b8ebbea100b3a59561a786a",
+          "size": 6638284
+        }
+      ]
+    },
+    {
+      "kind": "git-chunks",
+      "filename": "waterfall-751e8ae1b88744a9090cf8ea569519eb77428d9834a00f99fe2a21a622dc1183.ogg",
+      "canonicalPath": "assets/audio/day/waterfall.ogg",
+      "size": 616492,
+      "sha256": "751e8ae1b88744a9090cf8ea569519eb77428d9834a00f99fe2a21a622dc1183",
+      "provenance": "Preserved existing approved Day media, 2026-09-29. River container optimized without changing encoded frames; MP3 versions transcode the same original field recordings; posters are frames from these videos.",
+      "chunks": [
+        {
+          "path": "preservation/ambience/751e8ae1b88744a9090cf8ea569519eb77428d9834a00f99fe2a21a622dc1183/0.bin",
+          "blob": "8d2af995971895f773cb3a83b71c7cbaaee3126f",
+          "size": 616492
+        }
+      ]
+    },
+    {
+      "kind": "git-chunks",
+      "filename": "beach-near-aefe1eb2d101ed9ea0bf1aaf0034aed5f68a01c6b5acf777c4019e79c27b6fc5.ogg",
+      "canonicalPath": "assets/audio/day/beach-near.ogg",
+      "size": 91764,
+      "sha256": "aefe1eb2d101ed9ea0bf1aaf0034aed5f68a01c6b5acf777c4019e79c27b6fc5",
+      "provenance": "Preserved existing approved Day media, 2026-09-29. River container optimized without changing encoded frames; MP3 versions transcode the same original field recordings; posters are frames from these videos.",
+      "chunks": [
+        {
+          "path": "preservation/ambience/aefe1eb2d101ed9ea0bf1aaf0034aed5f68a01c6b5acf777c4019e79c27b6fc5/0.bin",
+          "blob": "e757ac35ad39086a8550feb4cf070f0c5afd8a18",
+          "size": 91764
+        }
+      ]
+    },
+    {
+      "kind": "git-chunks",
+      "filename": "beach-far-b9b0dbce1d88951b063571b3b33d1741f814418f1178f3814b7f39501f8baeee.mp3",
+      "canonicalPath": "assets/audio/day/beach-far.mp3",
+      "size": 345462,
+      "sha256": "b9b0dbce1d88951b063571b3b33d1741f814418f1178f3814b7f39501f8baeee",
+      "provenance": "Preserved existing approved Day media, 2026-09-29. River container optimized without changing encoded frames; MP3 versions transcode the same original field recordings; posters are frames from these videos.",
+      "chunks": [
+        {
+          "path": "preservation/ambience/b9b0dbce1d88951b063571b3b33d1741f814418f1178f3814b7f39501f8baeee/0.bin",
+          "blob": "10c8ed684ff0ba75ea498ea948ac9ba481a8a590",
+          "size": 345462
+        }
+      ]
+    },
+    {
+      "kind": "git-chunks",
+      "filename": "waterfall-67ee2ea0cbfa73192444aa7c561eb57ad705caa6423dfc27b16b62e53e127fe0.mp3",
+      "canonicalPath": "assets/audio/day/waterfall.mp3",
+      "size": 713475,
+      "sha256": "67ee2ea0cbfa73192444aa7c561eb57ad705caa6423dfc27b16b62e53e127fe0",
+      "provenance": "Preserved existing approved Day media, 2026-09-29. River container optimized without changing encoded frames; MP3 versions transcode the same original field recordings; posters are frames from these videos.",
+      "chunks": [
+        {
+          "path": "preservation/ambience/67ee2ea0cbfa73192444aa7c561eb57ad705caa6423dfc27b16b62e53e127fe0/0.bin",
+          "blob": "0d5983d840b66a867872776af26ceb5f3cc33a58",
+          "size": 713475
+        }
+      ]
+    },
+    {
+      "kind": "git-chunks",
+      "filename": "river-878679d3fcd4cf6c8361458f76b6e14cd77072b02aafe528bbb30f158fafa20d.mp3",
+      "canonicalPath": "assets/audio/day/river.mp3",
+      "size": 7201037,
+      "sha256": "878679d3fcd4cf6c8361458f76b6e14cd77072b02aafe528bbb30f158fafa20d",
+      "provenance": "Preserved existing approved Day media, 2026-09-29. River container optimized without changing encoded frames; MP3 versions transcode the same original field recordings; posters are frames from these videos.",
+      "chunks": [
+        {
+          "path": "preservation/ambience/878679d3fcd4cf6c8361458f76b6e14cd77072b02aafe528bbb30f158fafa20d/0.bin",
+          "blob": "79a365facb3576fb63a510298f1fa5cb457226d6",
+          "size": 7201037
+        }
+      ]
+    },
+    {
+      "kind": "git-chunks",
+      "filename": "beach-far-139c967133f8d0e9846a6c51aae83b3d366cea21cec8959cfc0cac1a1eb2dda0.ogg",
+      "canonicalPath": "assets/audio/day/beach-far.ogg",
+      "size": 103229,
+      "sha256": "139c967133f8d0e9846a6c51aae83b3d366cea21cec8959cfc0cac1a1eb2dda0",
+      "provenance": "Preserved existing approved Day media, 2026-09-29. River container optimized without changing encoded frames; MP3 versions transcode the same original field recordings; posters are frames from these videos.",
+      "chunks": [
+        {
+          "path": "preservation/ambience/139c967133f8d0e9846a6c51aae83b3d366cea21cec8959cfc0cac1a1eb2dda0/0.bin",
+          "blob": "14fdf844fadf7e29d4f72f67f4dfbf2331b73853",
+          "size": 103229
+        }
+      ]
     }
   ]
 }

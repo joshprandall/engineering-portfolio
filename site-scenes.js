@@ -13,7 +13,7 @@
       id: 'forest-waterfall',
       src: new URL('assets/scenes/day/waterfall.mp4', SITE_BASE).href,
       remoteSrc: 'https://videos.pexels.com/video-files/7351460/7351460-hd_1920_1080_24fps.mp4',
-      poster: 'https://images.pexels.com/videos/7351460/pexels-photo-7351460.jpeg?auto=compress&cs=tinysrgb&w=1600',
+      poster: new URL('assets/scenes/day/waterfall-poster.jpg', SITE_BASE).href,
       page: 'https://www.pexels.com/video/waterfall-in-the-forest-7351460/',
       creator: 'K',
       label: 'Forest waterfall'
@@ -22,7 +22,7 @@
       id: 'forest-river',
       src: new URL('assets/scenes/day/river.mp4', SITE_BASE).href,
       remoteSrc: 'https://videos.pexels.com/video-files/33886656/14381142_1920_1080_25fps.mp4',
-      poster: 'https://images.pexels.com/videos/33886656/pexels-photo-33886656.jpeg?auto=compress&cs=tinysrgb&w=1600',
+      poster: new URL('assets/scenes/day/river-poster.jpg', SITE_BASE).href,
       page: 'https://www.pexels.com/video/serene-forest-river-scene-in-daylight-33886656/',
       creator: 'Christophe Génot',
       label: 'Forest river'
@@ -31,7 +31,7 @@
       id: 'birds-water',
       src: new URL('assets/scenes/day/beach-birds.mp4', SITE_BASE).href,
       remoteSrc: 'https://videos.pexels.com/video-files/9982425/9982425-hd_1920_1080_30fps.mp4',
-      poster: 'https://images.pexels.com/videos/9982425/pexels-photo-9982425.jpeg?auto=compress&cs=tinysrgb&w=1600',
+      poster: new URL('assets/scenes/day/beach-birds-poster.jpg', SITE_BASE).href,
       page: 'https://www.pexels.com/video/birds-flying-above-beach-at-sunset-9982425/',
       creator: 'Daniel Feldman',
       label: 'Beach at sunset'
@@ -58,8 +58,8 @@
     const appearance = window.PortfolioTheme;
     const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
     const saveData = Boolean(connection && connection.saveData);
-    const localTestHost = location.hostname === '127.0.0.1' || location.hostname === 'localhost';
-    const mediaDisabled = localTestHost;
+    // Preview and CI exercise the same media path as production.
+    const mediaDisabled = false;
     const inAppBrowser = /FBAN|FBAV|Instagram|Messenger|Line\/|; wv\)/i.test(navigator.userAgent || '');
     const constrainedMedia = Boolean(
       inAppBrowser ||
@@ -81,7 +81,7 @@
     });
     [
       new URL('assets/scenes/webb-cosmic-cliffs.webp', SITE_BASE).href,
-      LIGHT_SCENES[storedLightSceneIndex()].poster
+      ...LIGHT_SCENES.map(scene => scene.poster)
     ].forEach((href, i) => {
       if (document.querySelector('link[rel="preload"][href="' + href + '"]')) return;
       const link = document.createElement('link');
@@ -133,8 +133,8 @@
     appearance.bind(options);
 
     const canvas = backdrop.querySelector('.scene-canvas');
-    const ctx = canvas.getContext('2d', { alpha: true });
-    if (!ctx) return;
+    let ctx = null;
+    try { ctx = canvas.getContext('2d', { alpha: true }); } catch (_) {}
 
     const night = backdrop.querySelector('.scene-night');
     const nightDepth = backdrop.querySelector('.scene-night-depth');
@@ -144,13 +144,19 @@
     const videoB = backdrop.querySelector('.scene-video-b');
     const dayLink = options.querySelector('.scene-day-link');
     const dayCredit = options.querySelector('.scene-day-credit');
+    const dayPosters = new Map();
+    if (!mediaDisabled) LIGHT_SCENES.forEach(scene => {
+      const poster = new Image();
+      poster.src = scene.poster;
+      dayPosters.set(scene.id, poster);
+    });
     let activeVideo = videoA;
     let standbyVideo = videoB;
     let activeSceneIndex = storedLightSceneIndex();
     let mediaReady = false;
     let mediaTimer = 0;
     let lightLoaded = false;
-    let transitionBusy = false;
+    let sceneLoadId = 0;
     let rotationElapsed = 0;
 
     let width = 0;
@@ -180,7 +186,16 @@
     function announceDaySceneWillChange(index) {
       const scene = LIGHT_SCENES[index];
       if (!scene) return;
+      backdrop.dataset.pendingDayScene = scene.id;
       document.dispatchEvent(new CustomEvent('portfolio:scene-will-change', { detail: { id: scene.id } }));
+    }
+
+    function commitVisibleDayScene(scene) {
+      if (scene.id !== LIGHT_SCENES[activeSceneIndex].id) return;
+      if (backdrop.dataset.visibleDayScene === scene.id && !backdrop.dataset.pendingDayScene) return;
+      backdrop.dataset.visibleDayScene = scene.id;
+      delete backdrop.dataset.pendingDayScene;
+      document.dispatchEvent(new CustomEvent('portfolio:scene', { detail: { id: scene.id } }));
     }
 
     function updateDayCredit() {
@@ -192,14 +207,20 @@
       }
       if (dayCredit) {
         const audioCredit = scene.id === 'forest-waterfall'
-          ? ' · Waterfall field audio · CC0'
+          ? ' · Waterfall field audio by Benzband · CC BY-SA 3.0'
           : scene.id === 'birds-water'
-            ? ' · Ocean waves + seagulls · CC0'
+            ? ' · Ocean waves + seagulls · U.S. Fish and Wildlife Service · public domain'
             : ' · Flowing creek/river audio · CC0';
         dayCredit.textContent = 'Video by ' + scene.creator + ' · Pexels License · real nature footage' + audioCredit + '.';
       }
       if (!mediaDisabled) dayFallback.style.backgroundImage = 'url("' + scene.poster + '")';
-      document.dispatchEvent(new CustomEvent('portfolio:scene', { detail: { id: scene.id } }));
+      if (backdrop.dataset.visibleDayScene === scene.id && !backdrop.dataset.pendingDayScene) return;
+      if (backdrop.dataset.pendingDayScene !== scene.id) announceDaySceneWillChange(activeSceneIndex);
+      const poster = dayPosters.get(scene.id);
+      // Announce audio only after the matching local image or a video frame is
+      // ready. An old image load must never commit sound for a later scene.
+      if (mediaDisabled || (poster?.complete && poster.naturalWidth > 0)) commitVisibleDayScene(scene);
+      else poster?.addEventListener('load', () => commitVisibleDayScene(scene), { once: true });
     }
 
     function resize() {
@@ -220,7 +241,7 @@
       dpr = nextDpr;
       canvas.width = Math.max(1, Math.round(width * dpr));
       canvas.height = Math.max(1, Math.round(height * dpr));
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx?.setTransform(dpr, 0, 0, dpr, 0, 0);
 
       const starCount = mediaDisabled ? 34 : constrainedMedia ? (width < 700 ? 56 : 84) : width < 700 ? 68 : 124;
       const dustCount = mediaDisabled ? 10 : constrainedMedia ? (width < 700 ? 14 : 28) : width < 700 ? 20 : 42;
@@ -260,134 +281,115 @@
       video.playsInline = true;
       video.setAttribute('playsinline','');
       video.setAttribute('webkit-playsinline','');
-      video.autoplay = true;
+      video.autoplay = theme === 'light' && motionAllowed() && !document.hidden;
       video.loop = true;
       video.controls = false;
       video.disablePictureInPicture = true;
-      video.preload = mediaDisabled ? 'none' : (video === activeVideo ? 'auto' : 'metadata');
+      video.preload = mediaDisabled ? 'none' : 'auto';
       video.load();
     }
 
-    async function playSafely(video) {
+    async function playSafely(video, timeoutMs = 30000) {
       // Day mode must remain visually alive. OS reduced-motion removes extra
       // camera effects but does not replace real waterfall/river/beach footage
       // with a frozen poster. Only an explicit site pause or media-unavailable
       // condition may stop playback.
-      if (!video || theme !== 'light' || !motionAllowed() || mediaDisabled) return false;
-      try {
-        await video.play();
-        return true;
-      } catch (_) {
-        return false;
-      }
+      if (!video || theme !== 'light' || !motionAllowed() || mediaDisabled || document.hidden) return false;
+      video.autoplay = true;
+      // A play promise may stay pending while buffering or in an in-app
+      // browser. Never let it hold the scene rotation indefinitely.
+      return new Promise(resolve => {
+        let settled = false;
+        const finish = playing => {
+          if (settled) return;
+          settled = true;
+          clearTimeout(timer);
+          resolve(playing);
+        };
+        const timer = setTimeout(() => finish(false), timeoutMs);
+        try { Promise.resolve(video.play()).then(() => finish(true), () => finish(false)); }
+        catch (_) { finish(false); }
+      });
     }
 
     function pauseVideos() {
       [videoA, videoB].forEach(video => {
         try { video.muted = true; video.volume = 0; } catch (_) {}
+        video.autoplay = false;
         video.pause();
       });
     }
 
+    [videoA, videoB].forEach(video => {
+      video.addEventListener('playing', () => {
+        if (video === activeVideo && !video.paused && video.readyState >= 2 &&
+            video.currentSrc === video.src && theme === 'light' && !document.hidden && motionAllowed()) {
+          dayFallback.classList.add('video-ready');
+          commitVisibleDayScene(LIGHT_SCENES[activeSceneIndex]);
+        }
+      });
+      video.addEventListener('error', () => {
+        if (video === activeVideo) dayFallback.classList.remove('video-ready');
+      });
+    });
+
     function loadInitialLightScene() {
       updateDayCredit();
-      if (!mediaReady || lightLoaded || mediaDisabled) return;
+      if (!mediaReady || lightLoaded || mediaDisabled || !motionAllowed()) return;
       lightLoaded = true;
       activeVideo.classList.add('is-active');
 
-      const confirmPlaying = () => dayFallback.classList.add('video-ready');
-      activeVideo.addEventListener('playing', confirmPlaying);
-      activeVideo.addEventListener('error', () => dayFallback.classList.remove('video-ready'));
       prepareAndPlay(activeVideo, LIGHT_SCENES[activeSceneIndex]).then(playing => {
         if (playing) dayFallback.classList.add('video-ready');
       });
     }
 
-    function waitForVideo(video, timeoutMs) {
-      return new Promise(resolve => {
-        if (video.readyState >= 3) {
-          resolve(true);
-          return;
-        }
-        let done = false;
-        const finish = value => {
-          if (done) return;
-          done = true;
-          clearTimeout(timer);
-          video.removeEventListener('canplay', ok);
-          video.removeEventListener('error', fail);
-          resolve(value);
-        };
-        const ok = () => finish(true);
-        const fail = () => finish(false);
-        const timer = setTimeout(() => finish(false), timeoutMs || 9000);
-        video.addEventListener('canplay', ok, { once: true });
-        video.addEventListener('error', fail, { once: true });
-      });
-    }
-
     async function prepareAndPlay(video, scene) {
+      const loadId = ++sceneLoadId;
       const sources = [scene.src, scene.remoteSrc].filter(Boolean);
       for (const source of sources) {
         configureVideo(video, scene, source);
-        const available = await waitForVideo(video, source === scene.src ? 7000 : 9000);
-        if (!available || theme !== 'light' || !motionAllowed()) continue;
-        try { video.currentTime = 0; } catch (_) {}
-        if (await playSafely(video)) return true;
+        // Start playback immediately: waiting for canplay before play can
+        // prevent mobile browsers from fetching enough video to become ready.
+        const playing = await playSafely(video, source === scene.src ? 30000 : 15000);
+        if (loadId !== sceneLoadId || video !== activeVideo || theme !== 'light' || !motionAllowed() || document.hidden) return false;
+        if (playing) return true;
+        // A loaded video blocked by autoplay can resume on the next user tap.
+        // Switching its source would discard useful buffered frames.
+        if (video.readyState >= 2 && !video.error) return false;
       }
       return false;
     }
 
-    async function rotateLightScene() {
-      // Rotate on phones and in-app browsers too. The previous constrainedMedia
-      // guard trapped many iPhones on the first river scene indefinitely.
-      if (transitionBusy || mediaDisabled || theme !== 'light' || !motionAllowed() || LIGHT_SCENES.length < 2) return;
-      transitionBusy = true;
-
+    function rotateLightScene() {
+      if (mediaDisabled || theme !== 'light' || !motionAllowed() || LIGHT_SCENES.length < 2) return;
       const nextIndex = (activeSceneIndex + 1) % LIGHT_SCENES.length;
-      const playing = await prepareAndPlay(standbyVideo, LIGHT_SCENES[nextIndex]);
-
-      if (!playing || theme !== 'light' || !motionAllowed()) {
-        try { standbyVideo.pause(); } catch (_) {}
-
-        // Do not let a slow/blocked remote video pin Day mode to one scene.
-        // Advance the licensed poster and matching ambience anyway; the next
-        // rotation will try video again.
-        if (theme === 'light' && motionAllowed()) {
-          announceDaySceneWillChange(nextIndex);
-          activeVideo.classList.remove('is-active');
-          standbyVideo.classList.remove('is-active');
-          try { activeVideo.pause(); } catch (_) {}
-          activeSceneIndex = nextIndex;
-          updateDayCredit();
-          dayFallback.classList.remove('video-ready');
-          
-        }
-
-        transitionBusy = false;
-        rotationElapsed = 0;
-        return;
-      }
-
       announceDaySceneWillChange(nextIndex);
-      standbyVideo.classList.add('is-active');
-      activeVideo.classList.remove('is-active');
-      dayFallback.classList.add('video-ready');
-
       const oldVideo = activeVideo;
       activeVideo = standbyVideo;
       standbyVideo = oldVideo;
       activeSceneIndex = nextIndex;
       updateDayCredit();
-      
+      dayFallback.classList.remove('video-ready');
+      // Commit the scene on its own clock. The licensed poster appears while
+      // its video starts, and a stalled play promise cannot freeze the cycle.
+      activeVideo.classList.add('is-active');
+      oldVideo.classList.remove('is-active');
+      prepareAndPlay(activeVideo, LIGHT_SCENES[nextIndex]).then(playing => {
+        if (playing) dayFallback.classList.add('video-ready');
+      });
 
       setTimeout(() => {
-        standbyVideo.pause();
-        try { standbyVideo.currentTime = 0; } catch (_) {}
+        if (oldVideo === activeVideo) return;
+        oldVideo.autoplay = false;
+        oldVideo.pause();
+        // Pausing alone leaves the outgoing download competing with the next
+        // scene. Release it after the crossfade, and discard its old frame.
+        oldVideo.removeAttribute('src');
+        oldVideo.load();
       }, 1900);
 
       rotationElapsed = 0;
-      transitionBusy = false;
     }
 
     function drawStars(cameraX, cameraY) {
@@ -502,6 +504,7 @@
       nightDepth.style.transform = 'translate3d(' + (cameraX * 1.04).toFixed(2) + 'px,' + (cameraY * 1.04).toFixed(2) + 'px,0)';
       nightGlow.style.transform = 'translate3d(' + (cameraX * .72).toFixed(2) + 'px,' + (cameraY * .72).toFixed(2) + 'px,0)';
 
+      if (!ctx) return;
       drawStars(cameraX, cameraY);
       if (!reducedMotion()) {
         drawDust();
@@ -526,9 +529,9 @@
     }
 
     function draw(dt) {
-      ctx.clearRect(0, 0, width, height);
+      ctx?.clearRect(0, 0, width, height);
       if (theme === 'dark') universe(dt || .033);
-      else livingEarth();
+      else if (ctx) livingEarth();
     }
 
     function frame(now) {
@@ -537,12 +540,13 @@
 
       const interval = reducedMotion() ? 1000 / 12 : (width < 700 || mediaDisabled ? 1000 / 22 : 1000 / 30);
       if (now - lastFrame >= interval) {
-        const dt = Math.min((now - lastFrame) / 1000 || .035, .12);
+        const elapsed = (now - lastFrame) / 1000 || .035;
+        const dt = Math.min(elapsed, .12);
         lastFrame = now;
         time += dt;
 
         if (theme === 'light') {
-          rotationElapsed += dt;
+          rotationElapsed += elapsed;
           if (rotationElapsed >= ROTATE_AFTER) rotateLightScene();
         }
 
@@ -599,8 +603,10 @@
 
     const retryLightPlayback = () => {
       if (theme === 'light' && mediaReady && motionAllowed()) {
-        playSafely(activeVideo).then(playing => {
-          if (playing) dayFallback.classList.add('video-ready');
+        const video = activeVideo;
+        const loadId = sceneLoadId;
+        playSafely(video).then(playing => {
+          if (playing && video === activeVideo && loadId === sceneLoadId) dayFallback.classList.add('video-ready');
         });
       }
     };
@@ -632,7 +638,10 @@
       cancelAnimationFrame(raf);
       raf = 0;
     });
-    addEventListener('pageshow', refresh);
+    addEventListener('pageshow', () => {
+      if (!mediaReady) releaseMedia();
+      refresh();
+    });
   };
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot, { once: true });

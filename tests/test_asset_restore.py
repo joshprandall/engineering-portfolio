@@ -27,4 +27,14 @@ class AssetRestore(unittest.TestCase):
         asset=dict(self.asset,apiUrl='https://api.github.com/repos/owner/repo/releases/assets/1')
         with patch.object(restore,'credentials',side_effect=subprocess.CalledProcessError(1,'git')):
             self.assertEqual(self.download(self.data,asset),self.data)
+    def test_git_chunks_restore_without_network_and_reject_corruption(self):
+        part=self.root/'preserved.bin';part.write_bytes(self.data)
+        blob=hashlib.sha1(b'blob '+str(len(self.data)).encode()+b'\0'+self.data).hexdigest()
+        asset=dict(self.asset,kind='git-chunks',chunks=[{'path':'preserved.bin','blob':blob,'size':len(self.data)}])
+        with patch.object(restore.urllib.request,'build_opener',side_effect=AssertionError('Network must not be needed')):
+            self.assertEqual(restore.read_bytes({'kind':'release-asset'},self.sha,[asset]),self.data)
+            (self.root/'.asset-cache/capture.mp4').unlink()
+            part.write_bytes(b'corrupt media')
+            with self.assertRaisesRegex(RuntimeError,'chunk mismatch'):
+                restore.read_bytes({'kind':'release-asset'},self.sha,[asset])
 if __name__=='__main__':unittest.main()

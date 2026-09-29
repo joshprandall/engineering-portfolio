@@ -3,7 +3,8 @@
 
   // Unified site ambience controller. This is the ONLY script that may create
   // or play background ambience/music.
-  if (window.__JR_SITE_AUDIO_V30__) return;
+  if (window.SiteAudio || window.__JR_SITE_AUDIO_V31__) return;
+  window.__JR_SITE_AUDIO_V31__ = true;
   window.__JR_SITE_AUDIO_V30__ = true;
   // Also claim the previous guard so a stale deferred V29 script cannot start
   // a second detached audio controller after this one initializes.
@@ -15,41 +16,37 @@
   // Normal shared-shell pages always receive ambience. Only standalone interactive
   // experiences that intentionally own their own media environment are isolated.
   const ISOLATED_RE = /(?:^|\/)(?:games\/|geometric-lab\/|qubit-preview-20260921\/|deep-learning\/)/i;
-  const LOCAL_TEST_HOST = location.hostname === '127.0.0.1' || location.hostname === 'localhost';
-
-  const REMOTE_DAY_SOURCES = Object.freeze({
-    river: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Sanna%20river%20rapids.ogg',
-    waterfall: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Water%20fall.ogg',
-    beachNear: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Cape%20May%20Shorebirds%20closer.ogg',
-    beachFar: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Cape%20May%20Shorebirds%20%28distant%29.ogg'
-  });
+  const AUDIO_BASE = new URL('./', document.currentScript?.src || location.href);
 
   const LOCAL_DAY_SOURCES = Object.freeze({
-    river: new URL('assets/audio/day/river.ogg', document.currentScript.src).href,
-    waterfall: new URL('assets/audio/day/waterfall.ogg', document.currentScript.src).href,
-    beachNear: new URL('assets/audio/day/beach-near.ogg', document.currentScript.src).href,
-    beachFar: new URL('assets/audio/day/beach-far.ogg', document.currentScript.src).href
+    river: new URL('assets/audio/day/river.mp3', AUDIO_BASE).href,
+    waterfall: new URL('assets/audio/day/waterfall.mp3', AUDIO_BASE).href,
+    beachNear: new URL('assets/audio/day/beach-near.mp3', AUDIO_BASE).href,
+    beachFar: new URL('assets/audio/day/beach-far.mp3', AUDIO_BASE).href
   });
 
   const SOURCES = Object.freeze({
     // User-provided dark-mode soundtrack. Prefer the PCM WAV master so the browser has no MP3/AAC encoder padding at the loop boundary.
-    dark: new URL('assets/audio/dark-theme-user.wav', document.currentScript.src).href,
-    darkFallback: new URL('assets/audio/dark-theme-user.mp3', document.currentScript.src).href,
+    dark: new URL('assets/audio/dark-theme-user.wav', AUDIO_BASE).href,
+    darkFallback: new URL('assets/audio/dark-theme-user.mp3', AUDIO_BASE).href,
 
-    // Prefer a deployed same-origin Day recording when available, then retain
-    // the established remote fallback. Local test hosts use the remote URLs.
-    river: LOCAL_TEST_HOST ? REMOTE_DAY_SOURCES.river : LOCAL_DAY_SOURCES.river,
-    waterfall: LOCAL_TEST_HOST ? REMOTE_DAY_SOURCES.waterfall : LOCAL_DAY_SOURCES.waterfall,
-    beachNear: LOCAL_TEST_HOST ? REMOTE_DAY_SOURCES.beachNear : LOCAL_DAY_SOURCES.beachNear,
-    beachFar: LOCAL_TEST_HOST ? REMOTE_DAY_SOURCES.beachFar : LOCAL_DAY_SOURCES.beachFar
+    // MP3 works across the target browsers. Original local OGGs remain the
+    // fallback; third-party availability never controls runtime playback.
+    river: LOCAL_DAY_SOURCES.river,
+    waterfall: LOCAL_DAY_SOURCES.waterfall,
+    beachNear: LOCAL_DAY_SOURCES.beachNear,
+    beachFar: LOCAL_DAY_SOURCES.beachFar
   });
 
   const DAY_FALLBACKS = Object.freeze({
-    river: REMOTE_DAY_SOURCES.river,
-    waterfall: REMOTE_DAY_SOURCES.waterfall
+    river: new URL('assets/audio/day/river.ogg', AUDIO_BASE).href,
+    waterfall: new URL('assets/audio/day/waterfall.ogg', AUDIO_BASE).href
   });
   const BEACH_SOURCES = Object.freeze([SOURCES.beachNear, SOURCES.beachFar]);
-  const BEACH_FALLBACKS = Object.freeze([REMOTE_DAY_SOURCES.beachNear, REMOTE_DAY_SOURCES.beachFar]);
+  const BEACH_FALLBACKS = Object.freeze([
+    new URL('assets/audio/day/beach-near.ogg', AUDIO_BASE).href,
+    new URL('assets/audio/day/beach-far.ogg', AUDIO_BASE).href
+  ]);
   const BEACH_CROSSFADE_SECONDS = 1.2;
 
   // Quiet-first ambience. The site starts at 5% of its own media output even
@@ -58,8 +55,11 @@
   const DEFAULT_BACKGROUND_VOLUME = 0.05;
   const MAX_BACKGROUND_VOLUME = 1.00;
 
-  let sceneId = 'forest-river';
-  let pendingSceneId = '';
+  const sceneBackdrop = document.getElementById('site-scene');
+  const expectsDayScene = Boolean(sceneBackdrop || document.querySelector('script[src*="site-scenes.js"]'));
+  let sceneId = sceneBackdrop?.dataset.visibleDayScene || 'forest-river';
+  let pendingSceneId = sceneBackdrop?.dataset.pendingDayScene ||
+    (expectsDayScene && !sceneBackdrop?.dataset.visibleDayScene ? 'loading' : '');
   let suppressed = ISOLATED_RE.test(location.pathname);
   let currentKey = '';
   let unlocked = false;
@@ -67,6 +67,50 @@
   let darkFallbackActive = false;
   let autoplayBlocked = false;
   let autoplayRetryTimers = [];
+  const suppressionReasons = new Set();
+  const levels = new Map();
+  const gains = new Map();
+  let audioContext = null;
+  let pageActive = true;
+
+  function setPlayerLevel(player, value) {
+    const level = Math.min(1, Math.max(0, Number(value) || 0));
+    levels.set(player, level);
+    const gain = gains.get(player);
+    if (gain) {
+      gain.gain.setValueAtTime(level, audioContext.currentTime);
+      // Native iOS media volume is read-only; the gain controls the site level.
+      try { player.volume = 1; } catch (_) {}
+    } else {
+      try { player.volume = level; } catch (_) {}
+    }
+  }
+
+  function resumeVolumeGraph() {
+    const Context = window.AudioContext || window.webkitAudioContext;
+    if (!Context) return;
+    if (!audioContext) {
+      try {
+        audioContext = new Context();
+        for (const player of [audio, ...beachPlayers]) {
+          const gain = audioContext.createGain();
+          gain.gain.value = levels.get(player) || 0;
+          audioContext.createMediaElementSource(player).connect(gain);
+          gain.connect(audioContext.destination);
+          gains.set(player, gain);
+          try { player.volume = 1; } catch (_) {}
+        }
+        audioContext.addEventListener?.('statechange', () => markAutoplayState(audioContext.state !== 'running'));
+      } catch (_) {
+        // Native media remains the fallback when Web Audio is unavailable.
+        if (!gains.size) audioContext = null;
+      }
+    }
+    if (audioContext && audioContext.state !== 'running') {
+      try { audioContext.resume().then(() => markAutoplayState(audioContext.state !== 'running')).catch(() => markAutoplayState(true)); }
+      catch (_) { markAutoplayState(true); }
+    }
+  }
 
   // Remove stale legacy players if a cached older script left one behind.
   document.querySelectorAll('#jr-site-audio, #jr-site-audio-dark-a, #jr-site-audio-dark-b, #jr-site-audio-beach-a, #jr-site-audio-beach-b, #jr-dark-theme-music').forEach(node => {
@@ -78,14 +122,14 @@
   const audio = document.createElement('audio');
   audio.id = 'jr-site-audio';
   audio.preload = 'auto';
-  audio.autoplay = true;
-  audio.setAttribute('autoplay', '');
+  audio.autoplay = false;
+  audio.muted = true;
   audio.loop = true;
   audio.playsInline = true;
   audio.setAttribute('playsinline', '');
   audio.setAttribute('aria-hidden', 'true');
   audio.style.display = 'none';
-  audio.volume = DEFAULT_BACKGROUND_VOLUME;
+  setPlayerLevel(audio, DEFAULT_BACKGROUND_VOLUME);
   audio.defaultPlaybackRate = 1;
   audio.playbackRate = 1;
   (document.body || document.documentElement).appendChild(audio);
@@ -94,17 +138,17 @@
     const player = document.createElement('audio');
     player.id = id;
     player.preload = 'auto';
-    player.autoplay = true;
-    player.setAttribute('autoplay', '');
+    player.autoplay = false;
+    player.muted = true;
     player.loop = false;
     player.playsInline = true;
     player.setAttribute('playsinline', '');
     player.setAttribute('aria-hidden', 'true');
     player.style.display = 'none';
-    player.volume = 0;
+    setPlayerLevel(player, 0);
     player.src = src;
-    player.dataset.remoteSrc = BEACH_FALLBACKS[id.endsWith('-a') ? 0 : 1];
-    player.dataset.remoteFallback = '0';
+    player.dataset.fallbackSrc = BEACH_FALLBACKS[id.endsWith('-a') ? 0 : 1];
+    player.dataset.localFallback = '0';
     (document.body || document.documentElement).appendChild(player);
     try { player.load(); } catch (_) {}
     return player;
@@ -142,6 +186,7 @@
   function allowed() {
     return !muted() &&
       !suppressed &&
+      pageActive &&
       !document.hidden;
   }
 
@@ -168,10 +213,10 @@
 
   function applyPreferredVolume() {
     const cap = preferredVolume();
-    try { audio.volume = cap; } catch (_) {}
+    try { setPlayerLevel(audio, cap); } catch (_) {}
     beachPlayers.forEach((player, index) => {
-      if (beachTransitioning) return;
-      try { player.volume = index === beachActiveIndex && beachStarted ? cap : 0; } catch (_) {}
+      if (beachTransitioning && cap > 0) return;
+      try { setPlayerLevel(player, index === beachActiveIndex && beachStarted ? cap : 0); } catch (_) {}
     });
   }
 
@@ -220,7 +265,7 @@
     beachPlayers.forEach(player => {
       // Mute first, then pause. On Safari this closes the audible media pipeline
       // immediately instead of allowing a decoded tail from the outgoing scene.
-      try { player.volume = 0; } catch (_) {}
+      try { setPlayerLevel(player, 0); } catch (_) {}
       try { player.muted = true; } catch (_) {}
       try { player.pause(); } catch (_) {}
       if (reset) {
@@ -237,13 +282,12 @@
     const from = beachPlayers[fromIndex];
     const to = beachPlayers[toIndex];
     const generation = beachGeneration;
-    const cap = cappedVolume('beach');
 
     beachTransitioning = true;
     try { to.currentTime = 0; } catch (_) {}
     to.loop = false;
     to.muted = false;
-    to.volume = 0;
+    setPlayerLevel(to, 0);
 
     let playResult;
     try { playResult = to.play(); }
@@ -271,10 +315,11 @@
         }
 
         const progress = Math.min(1, Math.max(0, (now - startedAt) / fadeMs));
+        const cap = cappedVolume('beach');
         // Complementary linear fades keep the combined website-side level at
         // or below the user-selected ambience level.
-        from.volume = cap * (1 - progress);
-        to.volume = cap * progress;
+        setPlayerLevel(from, cap * (1 - progress));
+        setPlayerLevel(to, cap * progress);
 
         if (progress < 1) {
           beachFadeFrame = requestAnimationFrame(step);
@@ -284,8 +329,8 @@
         beachFadeFrame = 0;
         try { from.pause(); } catch (_) {}
         try { from.currentTime = 0; } catch (_) {}
-        from.volume = 0;
-        to.volume = cap;
+        setPlayerLevel(from, 0);
+        setPlayerLevel(to, cap);
         beachActiveIndex = toIndex;
         beachTransitioning = false;
       };
@@ -297,6 +342,7 @@
   }
 
   function markAutoplayState(blocked) {
+    blocked = Boolean(blocked || (audioContext && audioContext.state !== 'running'));
     if (autoplayBlocked === blocked) return;
     autoplayBlocked = blocked;
     document.dispatchEvent(new CustomEvent('portfolio:ambient-autoplay', {
@@ -305,7 +351,10 @@
   }
 
   function playBeach() {
+    if (desiredKey() !== 'beach') return;
+    resumeVolumeGraph();
     const player = beachPlayers[beachActiveIndex];
+    const generation = beachGeneration;
     const cap = cappedVolume('beach');
 
     if (!beachStarted) {
@@ -314,12 +363,15 @@
 
     player.loop = false;
     player.muted = false;
-    player.volume = cap;
+    setPlayerLevel(player, cap);
     beachStarted = true;
 
     try {
       const result = player.play();
-      if (result?.then) result.then(() => markAutoplayState(false)).catch(error => {
+      if (result?.then) result.then(() => {
+        if (generation === beachGeneration && desiredKey() === 'beach') markAutoplayState(false);
+      }).catch(error => {
+        if (generation !== beachGeneration) return;
         beachStarted = false;
         if (error?.name === 'NotAllowedError') markAutoplayState(true);
       });
@@ -349,12 +401,12 @@
     });
 
     player.addEventListener('error', () => {
-      const remote = player.dataset.remoteSrc;
-      if (!LOCAL_TEST_HOST && player.dataset.remoteFallback !== '1' && remote) {
-        player.dataset.remoteFallback = '1';
+      const fallback = player.dataset.fallbackSrc;
+      if (player.dataset.localFallback !== '1' && fallback) {
+        player.dataset.localFallback = '1';
         try {
           player.pause();
-          player.src = remote;
+          player.src = fallback;
           player.load();
           if (currentKey === 'beach' && index === beachActiveIndex && desiredKey() === 'beach') playBeach();
         } catch (_) {}
@@ -365,7 +417,7 @@
 
     player.addEventListener('volumechange', () => {
       const cap = cappedVolume('beach');
-      if (player.volume > cap) player.volume = cap;
+      if (!gains.has(player) && player.volume > cap) setPlayerLevel(player, cap);
     });
   });
 
@@ -373,7 +425,7 @@
     saveDarkTime();
     // Mute/zero before pause to prevent Safari from leaking buffered audio from
     // the outgoing scene into the next visual scene.
-    try { audio.volume = 0; } catch (_) {}
+    try { setPlayerLevel(audio, 0); } catch (_) {}
     try { audio.muted = true; } catch (_) {}
     try { audio.pause(); } catch (_) {}
     stopBeach(true);
@@ -381,7 +433,7 @@
 
   function hardSilenceDay() {
     if (theme() !== 'light') return;
-    try { audio.volume = 0; } catch (_) {}
+    try { setPlayerLevel(audio, 0); } catch (_) {}
     try { audio.muted = true; } catch (_) {}
     try { audio.pause(); } catch (_) {}
     stopBeach(true);
@@ -406,7 +458,7 @@
 
     const retainedFallback = nextKey === 'dark' ? (darkFallbackActive && audio.src === SOURCES.darkFallback) : (audio.dataset.dayFallback === '1' && audio.src === DAY_FALLBACKS[nextKey]);
     if (currentKey === nextKey && (audio.src === SOURCES[nextKey] || retainedFallback)) {
-      audio.volume = cappedVolume(nextKey);
+      setPlayerLevel(audio, cappedVolume(nextKey));
       return;
     }
 
@@ -420,15 +472,17 @@
     audio.muted = false;
     audio.defaultPlaybackRate = 1;
     audio.playbackRate = 1;
-    audio.volume = cappedVolume(nextKey);
+    setPlayerLevel(audio, cappedVolume(nextKey));
     audio.src = SOURCES[nextKey];
 
     audio.onloadedmetadata = () => {
+      if (currentKey !== nextKey || (audio.currentSrc && audio.currentSrc !== audio.src)) return;
       if (currentKey === 'dark') restoreDarkTime();
       else {
         try { audio.currentTime = 0; } catch (_) {}
       }
       switching = false;
+      if (desiredKey() === nextKey) playDesired();
     };
 
     try { audio.load(); } catch (_) { switching = false; }
@@ -443,6 +497,7 @@
     }
 
     applySource(key);
+    resumeVolumeGraph();
 
     if (key === 'beach') {
       playBeach();
@@ -453,11 +508,14 @@
     audio.muted = false;
     audio.defaultPlaybackRate = 1;
     audio.playbackRate = 1;
-    audio.volume = cappedVolume(key);
+    setPlayerLevel(audio, cappedVolume(key));
 
     try {
       const result = audio.play();
-      if (result?.then) result.then(() => markAutoplayState(false)).catch(error => {
+      if (result?.then) result.then(() => {
+        if (desiredKey() === key && currentKey === key) markAutoplayState(false);
+      }).catch(error => {
+        if (desiredKey() !== key || currentKey !== key) return;
         if (error?.name === 'NotAllowedError') markAutoplayState(true);
       });
     } catch (error) {
@@ -491,6 +549,7 @@
 
   function unlockAndPlay() {
     unlocked = true;
+    resumeVolumeGraph();
     clearAutoplayRetries();
     playDesired();
   }
@@ -537,7 +596,7 @@
 
   document.addEventListener('portfolio:scene-will-change', event => {
     const next = event.detail?.id;
-    if (!next || theme() !== 'light' || next === sceneId) return;
+    if (!next || theme() !== 'light') return;
     pendingSceneId = next;
     hardSilenceDay();
   });
@@ -554,7 +613,10 @@
   });
 
   document.addEventListener('portfolio:ambient-suppression', event => {
-    suppressed = ISOLATED_RE.test(location.pathname) || Boolean(event.detail?.active);
+    const reason = event.detail?.reason || 'activity';
+    if (event.detail?.active) suppressionReasons.add(reason);
+    else suppressionReasons.delete(reason);
+    suppressed = ISOLATED_RE.test(location.pathname) || suppressionReasons.size > 0;
     sync(true);
   });
 
@@ -565,10 +627,13 @@
   addEventListener('DOMContentLoaded', scheduleAutoplayRetries, { once: true });
   addEventListener('load', scheduleAutoplayRetries, { once: true });
   addEventListener('pageshow', () => {
+    pageActive = true;
     sync(true);
     scheduleAutoplayRetries();
   });
   addEventListener('pagehide', () => {
+    pageActive = false;
+    clearAutoplayRetries();
     saveDarkTime();
     stop();
   });
@@ -594,7 +659,6 @@
     // Late load/error events cannot restart muted, hidden or outgoing media.
     if (!currentKey || desiredKey() !== currentKey) return;
     if ((currentKey === 'river' || currentKey === 'waterfall') &&
-        !LOCAL_TEST_HOST &&
         audio.dataset.dayFallback !== '1' &&
         DAY_FALLBACKS[currentKey] &&
         audio.currentSrc !== DAY_FALLBACKS[currentKey]) {
@@ -602,7 +666,7 @@
       audio.src = DAY_FALLBACKS[currentKey];
       audio.loop = true;
       audio.muted = false;
-      audio.volume = cappedVolume(currentKey);
+      setPlayerLevel(audio, cappedVolume(currentKey));
       try {
         const result = audio.play();
         if (result?.catch) result.catch(() => {});
@@ -613,7 +677,7 @@
       darkFallbackActive = true;
       audio.src = SOURCES.darkFallback;
       audio.loop = true;
-      audio.volume = cappedVolume('dark');
+      setPlayerLevel(audio, cappedVolume('dark'));
       try {
         const result = audio.play();
         if (result?.catch) result.catch(() => {});
@@ -627,7 +691,7 @@
   // media-session quirk, or in-app browser tries to alter either value.
   audio.addEventListener('volumechange', () => {
     if (audio.volume > MAX_BACKGROUND_VOLUME) {
-      audio.volume = MAX_BACKGROUND_VOLUME;
+      setPlayerLevel(audio, MAX_BACKGROUND_VOLUME);
     }
   });
   audio.addEventListener('ratechange', () => {
@@ -640,7 +704,7 @@
     const key = desiredKey();
 
     if (!key) {
-      if (!audio.paused) stop();
+      if (!audio.paused || beachPlayers.some(player => !player.paused)) stop();
       return;
     }
 
@@ -650,7 +714,7 @@
     }
 
     if (audio.volume > MAX_BACKGROUND_VOLUME) {
-      audio.volume = MAX_BACKGROUND_VOLUME;
+      setPlayerLevel(audio, MAX_BACKGROUND_VOLUME);
     }
 
     if (key === 'beach') {
@@ -679,6 +743,8 @@
     get autoplayBlocked() { return autoplayBlocked; },
     get maxVolume() { return MAX_BACKGROUND_VOLUME; },
     get volume() { return preferredVolume(); },
+    get volumeBackend() { return gains.size ? 'gain' : 'media'; },
+    get outputLevels() { return [audio, ...beachPlayers].map(player => ({ level: gains.get(player)?.gain.value ?? player.volume, muted: player.muted, paused: player.paused })); },
     setVolume: setPreferredVolume,
     setMuted,
     get element() { return currentKey === 'beach' ? beachPlayers[beachActiveIndex] : audio; },
