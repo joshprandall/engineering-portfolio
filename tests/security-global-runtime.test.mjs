@@ -87,7 +87,8 @@ assert.ok(scenes.includes('const scale = reducedMotion() ? .18 : 1'),'Reduced-mo
 
 const sound=read('site-sound-control.js');
 assert.ok(sound.includes('max="100" step="1" value="5"'),'Volume control must expose 0–100 with 5% default');
-assert.ok(sound.includes('type="range" min="0"') && sound.includes('aria-label="Ambient sound volume, zero to mute"'),'Volume must use an accessible native range control');
+assert.ok(sound.includes('type="range" min="0"') && sound.includes('aria-label="Background sound volume, zero to one hundred percent"'),'Volume must use an accessible native 0–100 range control');
+assert.ok(sound.includes('scene-sound-mute')&&sound.includes("mute.textContent=audio.muted?'Unmute':'Mute'"),'Volume UI must provide explicit Mute/Unmute without replacing the selected level');
 assert.ok(sound.includes('portfolio:site-audio-ready'),'Sound control must recover when audio initializes after it');
 
 const page=read('security-research.html');
