@@ -35,6 +35,7 @@ def build(commit,refresh=False):
     for route in routes['routes']:paths.add(route['path']);paths.update(route['runtimeDependencies'])
     paths.update(p for p in old if p.startswith('deep-learning/'))
     paths.update(asset_by_path)
+    paths.update(p for p in blobs if p in {'assets/audio/CREDITS.md','assets/scenes/CREDITS.md'})
     paths.update(r['localCounterpart']['path'] for r in external['dependencies'] if 'localCounterpart' in r)
     # Server configuration belongs to its exported runtime unit.
     paths.update(p for p in blobs if p.startswith('games/evil-wizard/') and p.endswith('.htaccess'))
