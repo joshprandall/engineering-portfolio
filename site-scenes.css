@@ -288,7 +288,6 @@ body.living-scenes{position:relative;isolation:isolate;min-height:100vh;backgrou
 :root[data-theme=light] .living-scenes .hero-note,
 :root[data-theme=light] .living-scenes .section-heading>p,
 :root[data-theme=light] .living-scenes .about-copy>p,
-:root[data-theme=light] .living-scenes .education-cards p,
 :root[data-theme=light] .living-scenes .credentials-content p,
 :root[data-theme=light] .living-scenes .quantum-intro>p,
 :root[data-theme=light] .living-scenes .quantum-intro .quantum-note{
