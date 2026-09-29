@@ -45,7 +45,7 @@ const server=http.createServer((req,res)=>{
  async function frameHash(){return p.evaluate(()=>{const v=document.querySelector('.scene-video.is-active'),c=document.createElement('canvas');c.width=96;c.height=54;const ctx=c.getContext('2d');ctx.drawImage(v,0,0,96,54);const pixels=ctx.getImageData(0,0,96,54).data;let hash=0,min=255,max=0;for(let i=0;i<pixels.length;i+=4){hash=(Math.imul(hash,31)+pixels[i]+pixels[i+1]*3+pixels[i+2]*7)|0;min=Math.min(min,pixels[i]);max=Math.max(max,pixels[i]);}return {hash,range:max-min};});}
  for(const [scene,key]of [['forest-waterfall','waterfall'],['forest-river','river'],['birds-water','beach']]){
   await p.waitForFunction(id=>document.querySelector('#site-scene')?.dataset.visibleDayScene===id&&SiteAudio.scene===id,scene,{timeout:45000});
-  await p.waitForFunction(()=>{const v=document.querySelector('.scene-video.is-active');return v&&v.readyState>=2&&!v.paused&&v.currentTime>0&&SiteAudio.element.currentTime>0&&!SiteAudio.element.paused},null,{timeout:20000});
+  await p.waitForFunction(()=>{const v=document.querySelector('.scene-video.is-active');return v&&v.readyState>=2&&!v.paused&&v.currentTime>0&&document.querySelector('.scene-day-fallback').classList.contains('video-ready')&&Number(getComputedStyle(v).opacity)>0&&SiteAudio.element.currentTime>0&&!SiteAudio.element.paused},null,{timeout:20000});
   const state=await p.evaluate(()=>{const v=document.querySelector('.scene-video.is-active');return {scene:SiteAudio.scene,key:SiteAudio.key,video:v.currentSrc,time:v.currentTime,muted:v.muted,opacity:Number(getComputedStyle(v).opacity),posterHidden:document.querySelector('.scene-day-fallback').classList.contains('video-ready'),audio:SiteAudio.element.currentSrc,levels:SiteAudio.outputLevels,beachAbandoned:SiteAudio.scene!=='birds-water'&&SiteAudio.beachElements.some(a=>!a.paused)}});
   assert.equal(state.key,key);assert(state.muted&&state.opacity>0&&state.posterHidden);assert(!state.beachAbandoned);assert(state.audio.startsWith(base+'/assets/audio/day/'));assert(key==='beach'?/beach-(near|far)\.mp3$/.test(state.audio):state.audio.endsWith('/'+key+'.mp3'));
   const before=await frameHash();let after=before;const deadline=Date.now()+10000;
@@ -57,9 +57,9 @@ const server=http.createServer((req,res)=>{
   assert(before.range>5&&after.range>5,'Decoded video must contain visible scenery');assert.notEqual(before.hash,after.hash,scene+': decoded pixels must animate within ten seconds');console.log('Decoded motion verified',scene,report.lastProbe.state);
   if(mediaKBps){
    const samples=[];let previous=await p.locator('.scene-video.is-active').evaluate(v=>v.currentTime),previousHash=after.hash;
-   for(let i=0;i<6;i++){await p.waitForTimeout(1000);const now=await p.locator('.scene-video.is-active').evaluate(v=>({time:v.currentTime,duration:v.duration,ready:v.readyState}));const pixels=await frameHash();let advance=now.time-previous;if(advance<0)advance+=now.duration;samples.push({advance,pixelsChanged:pixels.hash!==previousHash,ready:now.ready});previous=now.time;previousHash=pixels.hash;}
+   for(let i=0;i<6;i++){await p.waitForTimeout(1000);const now=await p.locator('.scene-video.is-active').evaluate(v=>({time:v.currentTime,duration:v.duration,ready:v.readyState}));const pixels=await frameHash();let advance=now.time-previous;if(advance<0&&previous>now.duration-2&&now.time<2)advance+=now.duration;samples.push({advance,pixelsChanged:pixels.hash!==previousHash,ready:now.ready});previous=now.time;previousHash=pixels.hash;}
    report.sustained??=[];report.sustained.push({scene,samples});
-   assert(samples.filter(x=>x.advance>.4&&x.pixelsChanged).length>=5,scene+': background stalls on a 2 Mbps phone connection');
+   assert(samples.filter(x=>x.advance>.4&&x.advance<2&&x.pixelsChanged).length>=5,scene+': background stalls on a 2 Mbps phone connection');
   }
   if(scene==='forest-waterfall'){await p.locator('[data-scene-audio]').click();await p.screenshot({path:path.join(output,'volume-slider-day.png')});await p.keyboard.press('Escape');}
   report.media.push({...state,decodedMotion:true});await p.screenshot({path:path.join(output,scene+'.png')});
