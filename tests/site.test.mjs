@@ -92,9 +92,20 @@ assert.equal(navigation.parents['play-evil-wizard.html'],'game-development.html'
 assert.doesNotMatch(resilience,/menu\.onclick=/,'Resilience must not own navigation');
 assert.match(resilience,/project-shell/,'Project pages must be marked for hamburger-only header navigation');
 assert.match(read('site-resilience.css'),/body\.project-shell #menu\{display:inline-flex!important/,'Project pages must expose the hamburger at all viewport sizes');
-assert.match(read('site-scenes.css'),/body\.project-shell \.tools #theme\.appearance-toggle/,'Project pages must expose the shared appearance control');
+assert.match(read('site-responsive.css'),/\.site-global-header .*data-theme-toggle|\.global-controls \[data-theme-toggle\]/,'Shared shell must own the appearance control layout');
+assert.doesNotMatch(read('site-scenes.css'),/\.living-scenes\s*>\s*header|\.living-scenes\s+\.site-header/,'Ambience CSS must not own shared header surfaces');
+assert.doesNotMatch(read('site-scenes.css'),/\.living-scenes\s+\.project-card|\.living-scenes\s+\.home-project/,'Ambience CSS must not own content-card surfaces');
 assert.doesNotMatch(read('app.js'),/menu\.addEventListener\("click"/,'app.js must not register a competing hamburger handler');
 assert.match(read('site-resilience.css'),/\.nav-games-menu/,'Game Development submenu styling is missing');
+const gameDevelopment=read('game-development.html');
+assert.doesNotMatch(gameDevelopment,/learn-browse\.html\?q=/,'Game Development topic tiles must not redirect into the learning library');
+for(const topic of ['future-games','engine-architecture','game-ai','graphics-rendering','physics','animation','procedural-generation','technical-art','audio','multiplayer']){
+  assert.match(gameDevelopment,new RegExp('href="game-tools\\.html\\?topic='+topic+'"[^>]*target="_blank"'),topic+': Game Development tile must open the dedicated workbench in a new tab');
+}
+assert.ok(exists('game-tools.html')&&exists('game-tools.js')&&exists('game-tools.css'),'Dedicated Game Development workbench assets are required');
+const gameTools=read('game-tools.js');
+for(const topic of ['future-games','engine-architecture','game-ai','graphics-rendering','physics','animation','procedural-generation','technical-art','audio','multiplayer']) assert.ok(gameTools.includes("'"+topic+"'"),topic+': workbench topic implementation missing');
+assert.match(gameTools,/requestAnimationFrame\(render\)/,'Game Development workbench must run a live interactive renderer');
 assert(read('learn.html').includes('site-navigation.js'),'Learning header uses shared navigation owner');
 assert.doesNotMatch(read('knowledge.js'),/closePrimaryNav/,'Learning must not retain a competing primary menu owner');
 assert.match(read('play-evil-wizard.html'),/id="primary-nav"/,'Evil Wizard wrapper must use the shared top navigation');
