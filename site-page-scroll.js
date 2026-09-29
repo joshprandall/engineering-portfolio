@@ -41,7 +41,7 @@
     const scrollToValue=value=>{
       const m=metrics();
       const next=Math.max(0,Math.min(m.maxScroll,value));
-      window.scrollTo({top:next,left:0,behavior:'auto'});
+      window.scrollTo({top:next,left:0,behavior:'instant'});
       requestSync();
     };
 
