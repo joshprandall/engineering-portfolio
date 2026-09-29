@@ -17,12 +17,20 @@ test('ambience CSS does not own shared shell or card surfaces',()=>{
   assert.deepEqual(found,[],'Ambience CSS must style only background/media surfaces. Shared shell, cards, and controls belong to the UI shell.');
 });
 
-test('shared shell owns transparent scroll track, opaque menu, and common glass',()=>{
-  const css=read('site-responsive.css');
-  assert.match(css,/html::\-webkit\-scrollbar\-track\{background:transparent\}/,'Page scrollbar track must be transparent');
+test('shared shell owns rail-free page scroll, opaque menu, common glass and compact sound UI',()=>{
+  const css=read('site-responsive.css'),theme=read('site-theme.js'),sound=read('site-sound-control.js');
+  assert.match(css,/html::\-webkit\-scrollbar\{width:0;height:0\}/,'Native scrollbar rail must be hidden');
+  assert.match(css,/\.site-page-scroll\{[\s\S]*background:transparent!important/,'Shared page scroll host must be transparent');
+  assert.match(css,/\.site-page-scroll-thumb\{/,'Shared page scroll thumb styling is required');
+  assert.match(theme,/loadScript\('site-page-scroll\.js'\)/,'Shared runtime must mount the page scroll component');
+  assert.match(read('site-page-scroll.js'),/role="scrollbar"/,'Page scroller must expose an accessible draggable thumb');
   assert.match(css,/background:var\(--nav-menu-solid\)!important/,'Hamburger navigation must use the explicit opaque surface');
   assert.match(css,/--glass:rgba\(7,13,17,\.18\)/,'Night shared glass must use canonical opacity');
   assert.match(css,/--glass:rgba\(247,249,245,\.18\)/,'Day shared glass must use the same canonical opacity');
+  assert.match(sound,/scene-sound-mute/,'Sound control must provide explicit mute/unmute');
+  assert.match(sound,/scene-sound-down/,'Sound control must provide decrement control');
+  assert.match(sound,/scene-sound-up/,'Sound control must provide increment control');
+  assert.match(css,/\.scene-sound-volume-row/,'Shared shell must style the visible volume track and controls');
 });
 
 test('game topic tiles do not route to generic learning search',()=>{
