@@ -3166,11 +3166,11 @@
     },
     {
       "path": "site-responsive.css",
-      "size": 41587,
-      "sha256": "8a71ea8af1c0e31c3df0da06068f9b276022e36ae717b1d4e22d49916cca4db8",
+      "size": 43758,
+      "sha256": "d75a9ac81b87f92a15fa19448a8d7e39922adaef45d807691a1a157c2bf99c06",
       "source": {
         "kind": "git-blob",
-        "blob": "1f75a90b27ab557ff601694b84ab008b99b3209c"
+        "blob": "9974011264bffaa23bde8ff86441572186664852"
       },
       "owningComponent": "shared-shell",
       "deploymentClassification": "KEEP_PRODUCTION"
