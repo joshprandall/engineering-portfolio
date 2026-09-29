@@ -19,7 +19,8 @@ test('ambience CSS does not own shared shell or card surfaces',()=>{
 
 test('shared shell owns rail-free page scroll, opaque menu, common glass and compact sound UI',()=>{
   const css=read('site-responsive.css'),theme=read('site-theme.js'),sound=read('site-sound-control.js');
-  assert.match(css,/html::\-webkit\-scrollbar\{width:0;height:0\}/,'Native scrollbar rail must be hidden');
+  assert.match(css,/html,body\{scrollbar-width:none;-ms-overflow-style:none\}/,'Native scrollbar rail must be hidden on both document scroll roots');
+  assert.match(css,/html::\-webkit\-scrollbar,body::\-webkit\-scrollbar\{display:none!important/,'Safari/WebKit native scrollbars must be suppressed behind the custom thumb');
   assert.match(css,/\.site-page-scroll\{[\s\S]*background:transparent!important/,'Shared page scroll host must be transparent');
   assert.match(css,/\.site-page-scroll-thumb\{/,'Shared page scroll thumb styling is required');
   assert.match(theme,/loadScript\('site-page-scroll\.js'\)/,'Shared runtime must mount the page scroll component');
