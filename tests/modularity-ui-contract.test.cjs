@@ -21,7 +21,8 @@ test('shared shell owns rail-free page scroll, opaque menu, common glass and com
   const css=read('site-responsive.css'),theme=read('site-theme.js'),sound=read('site-sound-control.js');
   assert.match(css,/html,body\{scrollbar-width:none;-ms-overflow-style:none\}/,'Native scrollbar rail must be hidden on both document scroll roots');
   assert.match(css,/html::\-webkit\-scrollbar,body::\-webkit\-scrollbar\{display:none!important/,'Safari/WebKit native scrollbars must be suppressed behind the custom thumb');
-  assert.match(css,/\.site-page-scroll\{[\s\S]*background:transparent!important/,'Shared page scroll host must be transparent');
+  assert.match(css,/\.site-page-scroll\{[\s\S]*width:0!important[\s\S]*background:transparent!important/,'Shared page scroll host must have zero visible width and remain transparent');
+  assert.match(css,/overflow:visible!important/,'Zero-width page scroll host must allow only the thumb to extend into view');
   assert.match(css,/\.site-page-scroll-thumb\{/,'Shared page scroll thumb styling is required');
   assert.doesNotMatch(css,/--page-scroll-thumb:rgba\(236,244,242/,'Page scroll thumb must never render as the old opaque-looking white pill');
   assert.match(css,/--page-scroll-thumb:rgba\(244,165,117,\.48\)/,'Page scroll thumb must use the subtle accent treatment');
