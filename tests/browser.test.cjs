@@ -112,6 +112,9 @@ async function run(){
    const pb=await portrait.boundingBox(),ab=await page.locator('.about-imagery').boundingBox();assert(pb&&ab&&pb.x>=ab.x-2&&pb.x+pb.width<=ab.x+ab.width+2,'Portrait stays inside systems composition');
    assert.equal(await page.locator('.quantum-banner').count(),0,'Quantum banner artwork is removed from the homepage DOM');
    assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true,`${name}: no horizontal overflow`);
+   const viewportCoverage=await page.evaluate(()=>{const body=document.body.getBoundingClientRect(),scene=document.querySelector('.scene-backdrop')?.getBoundingClientRect();return {innerWidth,bodyLeft:body.left,bodyRight:body.right,bodyWidth:body.width,sceneLeft:scene?.left,sceneRight:scene?.right,sceneWidth:scene?.width};});
+   assert(viewportCoverage.bodyRight>=viewportCoverage.innerWidth-1,`${name}: living body paints through the full viewport ${JSON.stringify(viewportCoverage)}`);
+   assert(viewportCoverage.sceneLeft<=0&&viewportCoverage.sceneRight>=viewportCoverage.innerWidth-1,`${name}: living scene covers the full physical viewport ${JSON.stringify(viewportCoverage)}`);
    await page.evaluate(()=>scrollTo({top:0,behavior:'instant'}));
    if(output){await page.screenshot({animations:'disabled',path:path.join(output,`home-${name}.png`),fullPage:true});if(await page.locator('#menu').isVisible()){await page.locator('#menu').click();await page.screenshot({animations:'disabled',path:path.join(output,`menu-${name}.png`)});await page.locator('#menu').click();}}
    await page.locator('#theme').click();assert.equal(await page.locator('html').getAttribute('data-theme'),'light');
