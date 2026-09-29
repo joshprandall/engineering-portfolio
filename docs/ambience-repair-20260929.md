@@ -1,66 +1,48 @@
 # Background and audio repair — 2026-09-29
 
-Status: the complete stabilization is unfinished. Do not treat the earlier release-candidate evidence as verification of these repairs or replace the OSU site yet.
+The complete repair is published to the existing owner-private Website 2.1 preview. OSU and main remain unchanged. This supersedes the unfinished recovery checkpoint and the original refinement report's background/media limitations.
 
-## Protected experience
+## Repair
 
-Preserve Josh's approved Day/Night scenery, Night music, Day field recordings, 28-second Day scene rotation, translucent surfaces, solar navigation, and controls. Games and Geometry internals remain unchanged. Validate the separate private preview before any OSU replacement.
+The approved Day/Night scenery, music, field recordings, 28-second rotation, translucency, solar navigation and controls are retained. Games and Geometry calculation internals remain protected.
 
-## Confirmed causes
+- Every preview background video/audio file now supports correct byte ranges and fixed Content-Length, including Safari's two-byte probe.
+- River's seek index precedes its video data. Stream-copy remuxing preserved all 1,536 encoded packets; their aggregate SHA-256 is still `66b869098b41c13afaa44d674911baaf377dae79907cb7c11344953668896a7d`.
+- Local matching posters remain above unready videos. Sound changes only after the matching scene is visible. Rotation is independent of stalled play promises; stale loads cannot overwrite a newer scene. Outgoing downloads are released after crossfade.
+- All Day recordings and MP3 alternatives are packaged locally. One audio owner controls scene matching, saved mute/volume, Night playhead, activity suppression and page lifecycle. Web Audio gain handles site volume, with a native fallback. Late events cannot restart inactive or muted sound.
+- Returning to a page restarts eligible media even if it was hidden during initial delay. Optional canvas decoration cannot prevent video/audio initialization.
+- All 64 shared pages load one matching, ordered scene/audio/control release. Hash, script-order and complete-media contracts now run during content validation and packaging.
 
-- Safari's initial `bytes=0-1` probes exposed inconsistent range delivery. Small static MP4s could bypass the range handler; arbitrary streamed responses lacked a dependable Content-Length.
-- The river MP4 used fragmented metadata, leading Safari to request much of the file before displaying it. A stream-copy remux moves the complete index before video data without changing encoded frames.
-- External poster requests failed. Matching JPEG frames now accompany all three videos in the saved preview repair.
-- A stalled play promise could hold up scene changes. Rotation must use visible elapsed time independently of video readiness.
-- Older local checks disabled real video on localhost and did not verify Day audio.
-- Shared pages contained multiple script versions and different load orders.
-- Four Day OGG files were missing from the packaged site. Remote fallbacks concealed the incomplete package.
-- Inactive sound players allowed autoplay. Late loading/playback events and overlapping activity suppression need explicit lifecycle tests.
-- A page hidden during the initial media delay could return without restarting that delay.
-- Native media volume alone is insufficient for consistent iOS website-level volume. The pending implementation adds Web Audio gain control while retaining a native fallback.
+Fourteen Day assets are preserved as 26 immutable Git chunks, verified by Git blob and final SHA-256. Runtime playback no longer depends on external media availability. Corrected media credits accompany the recordings and conversions.
 
-## Saved preview repairs
+## Revisions
 
-Source repository: the existing private Website 2.1 Site, project `appgprj_6abb392a58f481918c45f25581fea22a`.
+| Item | Revision or result |
+| --- | --- |
+| Application repair | `cf8cc5da81c2fd2889d805722b22f42deca812e1` |
+| Browser-tested source with final streaming fixture | `681e4db96a16d5a3448b004a21157bf26ab21694` |
+| Published private preview source | `95b8fb18342bab2755bbd6220b5fb99eb18473b8` |
+| Preview deployment | `appgdep_6abb5e923ec481918b7aabea8c88aea1`, succeeded |
+| Source/preview equivalence | All 64 shared pages and six runtime owners match byte for byte |
+| Exact source runtime package | 287 files, 419,763,947 bytes; reviewed path/size/hash manifest |
+| Main, unchanged | `88d1980a0520dffc0d3f84699f684c472a7c6516` |
 
-- `87748183d710e8de72bd3ae1f0edc55d16a8cdf3`: published range delivery and independent rotation fixes. Actual HTTP probes for all three Day clips returned 206 and the correct two bytes; cross-chunk reads also matched.
-- `58451dc1cd0769e16f8ed3229af4951a22da8879`: saved river remux, three local posters, poster layering, scene-visible audio synchronization, and release of outgoing video downloads. Publication was requested through the remote build fallback on 2026-09-29 after the editing workspace disconnected. Check the actual deployment result before claiming it is live.
-- Deployment to inspect: `appgdep_6abb57e3ac748191b1e00af51d378e0b`.
-- Saved version: `appgprj_6abb392a58f481918c45f25581fea22a~appgver_7d9c75c127b88191b94d6d0b843f2c47`.
+Later evidence-only commits do not alter this tested application payload.
 
-The river remux preserves all 1,536 encoded video packets. Their aggregate packet SHA-256 remains `66b869098b41c13afaa44d674911baaf377dae79907cb7c11344953668896a7d`.
+## Evidence
 
-## Additional implementation awaiting recovery and publication
+Source tests pass, including 16 background/controller/contract checks and 19 Python tests (two existing integration tests skipped). The hosting project passes 54 tests covering media hashes, range boundaries, seek-index placement, controllers and protected content.
 
-The disconnected workspace contains a larger uncommitted pass in:
-- `/workspace/sites/josh-randall-website21-preview`
-- `/workspace/scratch/1fa2b770058f/ambience-source`
+[Site validation run 36532616425](https://github.com/joshprandall/engineering-portfolio/actions/runs/36532616425) passes with actual Chromium and WebKit decoders. Each engine verifies changing pixels for all three Day scenes, matching local sound, Night motion/music, pause/resume, saved mute/volume, navigation, canvas failure and five additional viewport sizes. JSON: [Chromium](ambience-evidence/chromium.json), [WebKit](ambience-evidence/webkit.json). Screenshots and recordings remain in the run artifacts.
 
-It normalizes 64 shared pages, adds matching local MP3/OGG sound, handles saved preferences and audio lifecycle, adds gain-based volume, permits real local playback, and makes canvas decoration optional so canvas failure cannot prevent scenery.
+The final fixture streams real HTTP 206 responses. Earlier automation-fulfilled large responses produced intermittent WebKit buffering failures; failed attempts remain in Actions history. Checks still require visible changing pixels, not just a playing flag or advancing clock.
 
-Thirteen controller regression tests passed: singleton ownership, quiet initial gain (including modeled read-only native volume), native fallback, visible-scene sound matching, stable local audio fallback, late events after mute/hide/pagehide, overlapping activity suppression, beach crossfade volume/zero/mute, navigation persistence, independent 28-second rotation under stalled playback, slow startup, stale source loads, explicit pause/Night behavior, stale gesture completion, and late poster loads. These are modeled-media tests, not native browser/device certification.
+[Overlay run 36532616407](https://github.com/joshprandall/engineering-portfolio/actions/runs/36532616407) checks restored media, packaging, protected experiences, browser journeys and translucent surfaces. The preceding identical-runtime overlay run 36532200273 also passes.
 
-A full packaging/test run was started but its result was not collected before the workspace disconnected. Do not claim that run passed.
+[Published HTTP evidence](ambience-evidence/published-http.json) records exact two-byte responses for all 13 video/audio files, first-frame decoding from the initial 2 MiB of all three published videos, and sampled scripts/pages/posters matching packaged source. HTML comparison accounts only for the observed hosting-added Cloudflare challenge script.
 
-Fourteen Day media assets were prepared as 26 immutable Git chunks with a verified restore path, so future builds will not depend on external downloads. That source publication is incomplete: only two binary Git objects were uploaded, and no application commit containing the broader repair has been pushed to this repository.
+These are automated browser-engine and published-transport results. Physical iPhone Safari, Messenger and speaker output were not tested. OSU playback has not been changed or certified by these checks.
 
-## Remaining release work
+## Future content work
 
-1. Recover and inspect the working changes; preserve unrelated modifications in the original source checkout.
-2. Finish the executable shared-page/runtime/media contract and call it from the normal test and packaging workflow.
-3. Finish immutable Day media publication and require the complete verified media package in the OSU overlay/deployer; missing sound must fail the build instead of silently shipping a remote fallback.
-4. Complete real-media Chromium/WebKit CI coverage for all three Day scenes, Night, sound identity, mute/volume, pause/resume, navigation, and lifecycle transitions. Keep physical Safari/Messenger claims separate from modeled or desktop tests.
-5. Refresh exact committed runtime hashes and release evidence; verify protected game/Geometry bytes.
-6. Publish the complete private preview, verify its actual media responses and first-frame decoding, and review on the target iPhone before any OSU replacement.
-
-## Media attribution correction
-
-River: Jarrod stanley / J. D. Savanyu, CC0, https://commons.wikimedia.org/wiki/File:Sanna_river_rapids.ogg
-
-Waterfall: Benzband, CC BY-SA 3.0, https://commons.wikimedia.org/wiki/File:Water_fall.ogg — the older blanket CC0 description was wrong. Retain attribution, license link and a note that MP3 copies are conversions.
-
-Beach recordings: U.S. Fish and Wildlife Service, U.S. federal public domain:
-- https://commons.wikimedia.org/wiki/File:Cape_May_Shorebirds_closer.ogg
-- https://commons.wikimedia.org/wiki/File:Cape_May_Shorebirds_(distant).ogg
-
-Video attribution remains K / Christophe Génot / Daniel Feldman under the existing Pexels terms. Night imagery and user-provided music are unchanged.
+Follow [AMBIENCE-STABILITY.md](AMBIENCE-STABILITY.md). Reuse the shared shell; do not add page-owned timers or background audio. Resolve missing media, mixed script versions, changed reviewed hashes and native playback failures before shipping. These executable regression checks do not promise that future browsers can never introduce defects.

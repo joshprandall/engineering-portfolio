@@ -1,0 +1,140 @@
+{
+  "passed": true,
+  "physicalDevices": false,
+  "engine": "chromium",
+  "media": [
+    {
+      "scene": "forest-waterfall",
+      "key": "waterfall",
+      "video": "http://127.0.0.1:39749/assets/scenes/day/waterfall.mp4",
+      "time": 0.006731,
+      "muted": true,
+      "opacity": 0.107175,
+      "posterHidden": true,
+      "audio": "http://127.0.0.1:39749/assets/audio/day/waterfall.mp3",
+      "levels": [
+        {
+          "level": 0.05000000074505806,
+          "muted": false,
+          "paused": false
+        },
+        {
+          "level": 0,
+          "muted": true,
+          "paused": true
+        },
+        {
+          "level": 0,
+          "muted": true,
+          "paused": true
+        }
+      ],
+      "beachAbandoned": false,
+      "decodedMotion": true
+    },
+    {
+      "scene": "forest-river",
+      "key": "river",
+      "video": "http://127.0.0.1:39749/assets/scenes/day/river.mp4",
+      "time": 0.033101,
+      "muted": true,
+      "opacity": 0.0320519,
+      "posterHidden": true,
+      "audio": "http://127.0.0.1:39749/assets/audio/day/river.mp3",
+      "levels": [
+        {
+          "level": 0.05000000074505806,
+          "muted": false,
+          "paused": false
+        },
+        {
+          "level": 0,
+          "muted": true,
+          "paused": true
+        },
+        {
+          "level": 0,
+          "muted": true,
+          "paused": true
+        }
+      ],
+      "beachAbandoned": false,
+      "decodedMotion": true
+    },
+    {
+      "scene": "birds-water",
+      "key": "beach",
+      "video": "http://127.0.0.1:39749/assets/scenes/day/beach-birds.mp4",
+      "time": 0.013088,
+      "muted": true,
+      "opacity": 0.0235368,
+      "posterHidden": true,
+      "audio": "http://127.0.0.1:39749/assets/audio/day/beach-near.mp3",
+      "levels": [
+        {
+          "level": 0,
+          "muted": true,
+          "paused": true
+        },
+        {
+          "level": 0.05000000074505806,
+          "muted": false,
+          "paused": false
+        },
+        {
+          "level": 0,
+          "muted": true,
+          "paused": true
+        }
+      ],
+      "beachAbandoned": false,
+      "decodedMotion": true
+    }
+  ],
+  "errors": [],
+  "failedLocalRequests": [],
+  "origin": "http://127.0.0.1:39749",
+  "night": {
+    "time": 0.128882,
+    "source": "http://127.0.0.1:39749/assets/audio/dark-theme-user.wav",
+    "volume": 0.05,
+    "levels": [
+      {
+        "level": 0.05000000074505806,
+        "muted": false,
+        "paused": false
+      },
+      {
+        "level": 0,
+        "muted": true,
+        "paused": true
+      },
+      {
+        "level": 0,
+        "muted": true,
+        "paused": true
+      }
+    ]
+  },
+  "lastProbe": {
+    "scene": "birds-water",
+    "before": {
+      "hash": 1489358327,
+      "range": 239
+    },
+    "after": {
+      "hash": 388748484,
+      "range": 243
+    },
+    "state": {
+      "time": 0.500241,
+      "paused": false,
+      "readyState": 4,
+      "networkState": 1,
+      "src": "http://127.0.0.1:39749/assets/scenes/day/beach-birds.mp4",
+      "frames": 19
+    }
+  },
+  "testedCommit": "681e4db96a16d5a3448b004a21157bf26ab21694",
+  "workflowRun": 36532616425
+}

@@ -1,5 +1,7 @@
 # Protected refinement evidence — September 28–29, 2026
 
+Background/media update: this directory retains the original refinement evidence. The later [background and audio repair](../ambience-repair-20260929.md) supersedes its H.264/WebKit and immutable-Day-media limitations and is published to the private preview. Use [the current release handoff](RELEASE.md) for the newer pinned source. OSU remains unchanged; physical-device limitations still apply.
+
 This is an implemented release candidate with local and automated verification. **OSU deployment and post-deployment production verification have not occurred.** An authenticated OSU shell was unavailable. Source recovery starts at `backup/protected-baseline-20260928-88d1980` (`88d1980a0520dffc0d3f84699f684c472a7c6516`). No unrelated working files, branch history or deployed game exports were overwritten.
 
 The governing decisions and remaining content boundaries are in [the protected baseline](../WEBSITE-2.0-PROTECTED-BASELINE.md). [Authoring guidance](../WEBSITE-2.0-AUTHORING.md) includes a complete, unpublished example and a publication checklist. Earlier evidence directories retain their historical versions; these results belong to this pass.

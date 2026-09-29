@@ -1,0 +1,15 @@
+{
+  "sourceCommit": "681e4db96a16d5a3448b004a21157bf26ab21694",
+  "applicationCommit": "cf8cc5da81c2fd2889d805722b22f42deca812e1",
+  "previewSourceCommit": "95b8fb18342bab2755bbd6220b5fb99eb18473b8",
+  "deploymentId": "appgdep_6abb5e923ec481918b7aabea8c88aea1",
+  "deploymentStatus": "succeeded",
+  "identicalSharedPages": 64,
+  "identicalRuntimeOwners": 6,
+  "siteValidationRun": 36532616425,
+  "siteValidationConclusion": "success",
+  "overlayRun": 36532616407,
+  "overlayConclusion": "success",
+  "physicalDevicesTested": false,
+  "osuProductionWritten": false
+}
