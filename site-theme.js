@@ -133,6 +133,7 @@
     await loadScript('site-scenes.js');
     await loadScript('site-audio.js');
     await loadScript('site-navigation.js');
+    await loadScript('site-page-scroll.js');
     await loadScript('site-sound-control.js');
   }
   const ready = () => { bind(); setMotion(motion, false); ensureSharedRuntime().catch(error=>console.error(error)); };
