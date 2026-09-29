@@ -219,7 +219,9 @@ body[data-library-page] .filters select{min-width:0;max-width:100%}
 /* About is one continuous reading page; render every section so anchor jumps and full-page previews never show intrinsic-size placeholders. */
 .about-unified-page main>section{content-visibility:visible!important;contain-intrinsic-size:auto!important}
 
-/* Shared shell glass contract. Values are declared once at the top of this module. */\n\n/* Full-width bands never hide the scene. */
+/* Shared shell glass contract. Values are declared once at the top of this module. */
+
+/* Full-width bands never hide the scene. */
 :is(.signal-strip,.feature-band,.quantum-section,.discover,.atlas,.stat-band,.depth-system,.section.alt){
   background:transparent!important;
 }
