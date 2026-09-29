@@ -74,6 +74,31 @@ async function run(){
      assert(translucent,route+' '+selector+' remains genuinely translucent, got '+JSON.stringify(paint));
     }
     await page.goto(base+'/',{waitUntil:'domcontentloaded'});
+
+    const mobileCardCases=[
+      ['/', '.contact', '.contact h2'],
+      ['/', '.home-project', '.home-project h3'],
+      ['/projects.html', '.project-card', '.project-card h2'],
+      ['/learn.html', '.domain-card', '.domain-card h2, .domain-card h3'],
+      ['/game-development.html', '.destination-card', '.destination-card h2, .destination-card h3']
+    ];
+    for(const [route,cardSelector,copySelector] of mobileCardCases){
+      await page.goto(base+route,{waitUntil:'domcontentloaded'});
+      const card=page.locator(cardSelector).first();
+      if(!(await card.count()))continue;
+      const cardMetrics=await card.evaluate(el=>{const s=getComputedStyle(el),r=el.getBoundingClientRect();return{left:r.left,right:r.right,padL:parseFloat(s.paddingLeft)||0,padR:parseFloat(s.paddingRight)||0,textAlign:s.textAlign};});
+      assert(cardMetrics.padL>=18&&cardMetrics.padR>=18,route+' '+cardSelector+': mobile card keeps a real inner gutter '+JSON.stringify(cardMetrics));
+      assert.equal(cardMetrics.textAlign,'center',route+' '+cardSelector+': mobile card presentation is centered');
+      const copy=page.locator(copySelector).first();
+      if(await copy.count()){
+        const m=await copy.evaluate(el=>{const s=getComputedStyle(el),r=el.getBoundingClientRect(),p=el.closest('.contact,.home-project,.project-card,.domain-card,.destination-card')?.getBoundingClientRect();return{textAlign:s.textAlign,left:r.left,right:r.right,cardLeft:p?.left,cardRight:p?.right};});
+        assert.equal(m.textAlign,'center',route+' '+copySelector+': card copy is centered');
+        assert(m.left>=(m.cardLeft??m.left)+14&&m.right<=(m.cardRight??m.right)-14,route+' '+copySelector+': copy stays visibly inset from card edges '+JSON.stringify(m));
+      }
+    }
+    await page.goto(base+'/',{waitUntil:'domcontentloaded'});
+    const contactAction=page.locator('.contact-actions .button').first();
+    assert.equal(await contactAction.evaluate(el=>getComputedStyle(el).justifyContent),'center','Phone contact buttons center their labels');
    }
    if(name==='phone'||name==='small-phone'){
     await page.locator('#direction').scrollIntoViewIfNeeded();
