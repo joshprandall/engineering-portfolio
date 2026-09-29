@@ -960,30 +960,6 @@ body.living-scenes[data-library-page="labs"] .lab-visual{
 }
 
 
-/* Homepage header sound control. */
-header .scene-sound-control{position:relative;display:inline-flex;align-items:center}
-header .scene-sound-control>button{
-  display:inline-flex;align-items:center;justify-content:center;gap:7px;
-  min-width:44px;height:44px;padding:0 12px;border:1px solid var(--line);
-  border-radius:24px;background:var(--surface,var(--panel));color:var(--ink,var(--text));
-  font:600 12px/1.2 system-ui,sans-serif;cursor:pointer;white-space:nowrap
-}
-header .scene-sound-control>button svg{
-  width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.7;
-  stroke-linecap:round;stroke-linejoin:round;flex:none
-}
-header .scene-sound-control>button:hover{border-color:var(--accent);color:var(--accent)}
-header .scene-sound-control>button:focus-visible{outline:3px solid var(--blue,var(--accent));outline-offset:3px}
-header .scene-sound-panel{
-  top:calc(100% + 10px);bottom:auto;right:0;
-  width:min(250px,calc(100vw - 24px))
-}
-@media(max-width:700px){
-  header .scene-sound-control>button{width:44px;padding:0}
-  header .scene-sound-control>button span{display:none}
-  header .scene-sound-panel{right:-46px}
-}
-
 /* Shared motion policy. Explicit Pause freezes scenery in place. OS
    reduced-motion is handled by the scene engine's low-amplitude mode rather
    than disabling the visual environment outright. */
@@ -996,48 +972,6 @@ body.motion-paused .scene-backdrop *{animation-play-state:paused!important;trans
 .scene-image,.scene-video,.scene-canvas,.scene-atmosphere,.scene-veil,
 .scene-night-depth,.scene-night-glow{transform-origin:center center}
 
-/* Glass control contract: preserve the scene behind controls as well as cards.
-   This shared sheet also reaches the standalone Qubit and Geometry shells;
-   their calculations, canvases, artwork and game runtimes are not modified. */
-:root{--control-glass:rgba(7,13,17,.30)}
-:root[data-theme="light"]{--control-glass:rgba(247,249,245,.34)}
-:root[data-theme] body.living-scenes :is(
-  .button.primary,button.primary,.cap-check button,.vnext-capstone-link,
-  .launch-button,.battle-launch-cta,.skip
-){
-  background:color-mix(in srgb,var(--accent) 16%,var(--control-glass))!important;
-  background-image:none!important;
-  color:var(--ink,var(--text))!important;
-}
-:root[data-theme] body.living-scenes :is(.button.primary,button.primary,.cap-check button,.vnext-capstone-link):hover{
-  background:color-mix(in srgb,var(--accent) 24%,var(--control-glass))!important;
-}
-:root[data-theme] body.living-scenes :is(.button.primary,button.primary,.cap-check button,.vnext-capstone-link):active{
-  background:color-mix(in srgb,var(--accent) 30%,var(--control-glass))!important;
-}
-:root[data-theme] body.living-scenes :is(
-  input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="color"]),
-  select,textarea,#control-body button:not(.primary),.stage-bottom button,
-  #notebook-panel button,#learn-panel button,dialog button:not(.primary),
-  .appearance-toggle,dialog,#toast
-){
-  background:var(--control-glass)!important;
-  background-image:none!important;
-  color:var(--ink,var(--text))!important;
-}
-body.living-scenes input[type="range"]{background:transparent!important}
-body.living-scenes #toast{
-  border:1px solid var(--line);
-  -webkit-backdrop-filter:blur(5px);
-  backdrop-filter:blur(5px);
-}
-:root[data-theme] body.living-scenes :is(.experiment,.state-visual,.track,[role="navigation"][aria-label="Portfolio navigation"]){
-  background:var(--control-glass)!important;
-  background-image:none!important;
-}
-:root[data-theme] body.living-scenes [role="navigation"][aria-label="Portfolio navigation"] a{
-  color:var(--ink,var(--text))!important;
-}
 .scene-video{transform:none!important}
 .scene-video.is-active,.scene-atmosphere{animation:none!important}
 @supports(height:100lvh){.scene-backdrop{height:100lvh}}
