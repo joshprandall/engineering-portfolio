@@ -3133,11 +3133,11 @@
     },
     {
       "path": "site-page-scroll.js",
-      "size": 3867,
-      "sha256": "cecc94637bf09abc93dfeb081b8f8eff608a4f1d4c2e5febf46404d1786faca0",
+      "size": 3973,
+      "sha256": "e9440342841eb980ec7575912f6c331334a68269f0ef4ee0807c9573a99a8f54",
       "source": {
         "kind": "git-blob",
-        "blob": "6fdc3317666b02f7604dba64b4622ceee33fecbe"
+        "blob": "7b6cfaf70f43a66b3f26011dc91d388d999a96e0"
       },
       "owningComponent": "shared-shell",
       "deploymentClassification": "KEEP_PRODUCTION"
