@@ -3133,11 +3133,11 @@
     },
     {
       "path": "site-page-scroll.js",
-      "size": 3976,
-      "sha256": "7d5a01dfcb16dc80de5d63500a748c7f20c2203c4d1389b9f03f361b2cdf0fd0",
+      "size": 3979,
+      "sha256": "f2e1404100fbf773df3e4ea0813755126dc5aeed1d016907192928eccc299322",
       "source": {
         "kind": "git-blob",
-        "blob": "3b4cc109ec58f6f7f095ffead281a25db2584550"
+        "blob": "e16b38c2327c07c33cad1f94954fab780f4881f6"
       },
       "owningComponent": "shared-shell",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -3166,11 +3166,11 @@
     },
     {
       "path": "site-responsive.css",
-      "size": 43758,
-      "sha256": "d75a9ac81b87f92a15fa19448a8d7e39922adaef45d807691a1a157c2bf99c06",
+      "size": 43791,
+      "sha256": "69fe1220c289c481c84280f4f930fdc40e15da28651ddf6689b8dffb6c12cedc",
       "source": {
         "kind": "git-blob",
-        "blob": "9974011264bffaa23bde8ff86441572186664852"
+        "blob": "a77e3b3c597df95940e87fdda1d520169791f023"
       },
       "owningComponent": "shared-shell",
       "deploymentClassification": "KEEP_PRODUCTION"
