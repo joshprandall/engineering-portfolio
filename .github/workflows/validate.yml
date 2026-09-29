@@ -24,6 +24,35 @@ jobs:
       - name: Validate static site
         run: npm test
 
+  interface:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm ci
+      - name: Restore shared background media
+        run: python3 tools/restore_website2_assets.py --ambience
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Verify shared shell, mobile layout, navigation and interactions
+        env:
+          PORTFOLIO_RUNTIME_ROOT: .
+          PORTFOLIO_QA_DIR: visual-qa/interface
+        run: |
+          export PORTFOLIO_BROWSER_EXECUTABLE="$(command -v google-chrome)"
+          npm run test:browser
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: interface-browser
+          path: visual-qa/interface/
+          if-no-files-found: warn
+
   ambience:
     runs-on: ubuntu-24.04
     timeout-minutes: 15
