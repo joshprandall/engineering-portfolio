@@ -20,7 +20,7 @@
       const viewport=Math.max(1,window.innerHeight);
       const maxScroll=Math.max(0,height-viewport);
       const track=Math.max(1,host.clientHeight);
-      const thumbHeight=Math.min(track,Math.max(44,track*(viewport/Math.max(height,viewport))));
+      const thumbHeight=Math.min(track,72,Math.max(44,track*(viewport/Math.max(height,viewport))));
       const travel=Math.max(0,track-thumbHeight);
       return {height,viewport,maxScroll,track,thumbHeight,travel};
     };
