@@ -367,9 +367,10 @@ dialog{
    the available screen width on phones or in-app browsers. */
 html,body{max-width:100%;overflow-x:clip}
 /* Native rails are hidden; shared UI renders a thumb only, with no opaque track. */
-html{scrollbar-width:none}
-html::-webkit-scrollbar{width:0;height:0}
-html::-webkit-scrollbar-track,html::-webkit-scrollbar-corner{background:transparent}
+html,body{scrollbar-width:none;-ms-overflow-style:none}
+html::-webkit-scrollbar,body::-webkit-scrollbar{display:none!important;width:0!important;height:0!important;background:transparent!important}
+html::-webkit-scrollbar-track,body::-webkit-scrollbar-track,
+html::-webkit-scrollbar-corner,body::-webkit-scrollbar-corner{display:none!important;background:transparent!important}
 :root{--page-scroll-thumb:rgba(236,244,242,.62)}
 :root[data-theme="light"]{--page-scroll-thumb:rgba(9,38,28,.58)}
 .site-page-scroll{
