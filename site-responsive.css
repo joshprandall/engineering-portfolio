@@ -1,6 +1,18 @@
 /* Shared responsive ownership: flow content; contain foreground scenes; crop only backgrounds. */
-:root{--layout-max:88rem;--layout-gutter:clamp(1rem,3vw,3rem);--layout-gap:clamp(1rem,3vw,3rem);--glass:rgba(8,14,17,.42)}:root[data-theme="light"]{--glass:rgba(242,245,240,.46)}
-html,body{min-width:0;max-width:100%;overflow-x:visible!important}
+:root{
+  --layout-max:88rem;--layout-gutter:clamp(1rem,3vw,3rem);--layout-gap:clamp(1rem,3vw,3rem);
+  --glass:rgba(7,13,17,.18);--glass-soft:rgba(7,13,17,.10);--glass-strong:rgba(7,13,17,.30);
+  --surface:rgba(10,17,21,.20);--surface2:rgba(14,23,27,.26);
+  --panel:rgba(10,17,21,.20);--panel2:rgba(14,23,27,.26);--panel3:rgba(20,30,34,.30);
+  --bg2:rgba(10,17,21,.12);--inset:rgba(5,10,14,.22);--nav-menu-solid:#0b1216
+}
+:root[data-theme="light"]{
+  --glass:rgba(247,249,245,.18);--glass-soft:rgba(247,249,245,.10);--glass-strong:rgba(247,249,245,.30);
+  --surface:rgba(247,249,245,.20);--surface2:rgba(239,243,238,.26);
+  --panel:rgba(247,249,245,.20);--panel2:rgba(239,243,238,.26);--panel3:rgba(231,237,232,.30);
+  --bg2:rgba(247,249,245,.12);--inset:rgba(241,245,240,.22);--nav-menu-solid:#f7f9f5
+}
+html,body{min-width:0;max-width:100%;overflow-x:clip!important}
 body{width:100%}
 main,section,article,aside,form,fieldset,figure,nav,main div,header div{min-width:0;box-sizing:border-box}
 main :is(h1,h2,h3,p,a,strong,label){overflow-wrap:break-word}
@@ -20,7 +32,7 @@ body .site-global-header .global-controls [data-theme-toggle]{width:6rem!importa
 .site-global-header .global-controls svg{width:18px!important;height:18px!important;flex:none}
 .site-global-header .global-controls span{display:inline!important;font:inherit!important}
 .site-global-header kbd{font-size:.65rem;margin-left:.4rem}
-body .site-global-header #primary-nav{display:none!important;position:absolute;inset:100% var(--layout-gutter) auto auto;width:min(26rem,calc(100% - 2 * var(--layout-gutter)));max-height:calc(100dvh - var(--header-height,120px) - 1rem);overflow-y:auto;flex-direction:column;align-items:stretch;gap:0;padding:.75rem;border:1px solid var(--line);border-radius:12px;background:color-mix(in srgb,var(--bg) 90%,transparent)!important;backdrop-filter:blur(18px)}
+body .site-global-header #primary-nav{display:none!important;position:absolute;inset:100% var(--layout-gutter) auto auto;width:min(26rem,calc(100% - 2 * var(--layout-gutter)));max-height:calc(100dvh - var(--header-height,120px) - 1rem);overflow-y:auto;flex-direction:column;align-items:stretch;gap:0;padding:.75rem;border:1px solid var(--line);border-radius:12px;background:var(--nav-menu-solid)!important;background-image:none!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;box-shadow:0 18px 44px rgba(0,0,0,.28);opacity:1!important}
 body .site-global-header #primary-nav.open{display:flex!important}
 .site-global-header #primary-nav a{width:100%;min-height:44px;padding:.6rem!important;white-space:normal}
 body .site-global-header .scene-sound-panel{position:absolute;inset:100% 0 auto auto;width:min(18rem,calc(100vw - 2 * var(--layout-gutter)));max-width:none;max-height:calc(100dvh - var(--header-height,120px) - 1rem);overflow:visible;padding:0;background:transparent;color:var(--ink,var(--text));border:0;border-radius:0;z-index:150}
@@ -207,34 +219,7 @@ body[data-library-page] .filters select{min-width:0;max-width:100%}
 /* About is one continuous reading page; render every section so anchor jumps and full-page previews never show intrinsic-size placeholders. */
 .about-unified-page main>section{content-visibility:visible!important;contain-intrinsic-size:auto!important}
 
-/* Universal glass contract — all content tiles/panels remain translucent so the
-   living background is visible through the interface. */
-:root{
-  --glass:rgba(7,13,17,.34);
-  --glass-soft:rgba(7,13,17,.24);
-  --glass-strong:rgba(7,13,17,.48);
-  --surface:rgba(12,19,23,.34);
-  --surface2:rgba(18,27,31,.40);
-  --panel:rgba(12,19,23,.34);
-  --panel2:rgba(18,27,31,.40);
-  --panel3:rgba(24,34,38,.44);
-  --bg2:rgba(12,19,23,.22);
-  --inset:rgba(6,12,16,.32);
-}
-:root[data-theme="light"]{
-  --glass:rgba(246,248,244,.38);
-  --glass-soft:rgba(246,248,244,.26);
-  --glass-strong:rgba(246,248,244,.56);
-  --surface:rgba(246,248,244,.38);
-  --surface2:rgba(237,241,236,.44);
-  --panel:rgba(246,248,244,.38);
-  --panel2:rgba(237,241,236,.44);
-  --panel3:rgba(229,235,230,.50);
-  --bg2:rgba(246,248,244,.24);
-  --inset:rgba(239,243,238,.36);
-}
-
-/* Full-width bands never hide the scene. */
+/* Shared shell glass contract. Values are declared once at the top of this module. */\n\n/* Full-width bands never hide the scene. */
 :is(.signal-strip,.feature-band,.quantum-section,.discover,.atlas,.stat-band,.depth-system,.section.alt){
   background:transparent!important;
 }
@@ -289,8 +274,7 @@ body[data-library-page] .filters select{min-width:0;max-width:100%}
   background:var(--glass)!important;
 }
 
-/* Navigation overlays are glass too, but slightly stronger for legibility. */
-body .site-global-header #primary-nav,
+/* Dialogs use strong glass. The hamburger menu is intentionally opaque. */
 dialog{
   background:var(--glass-strong)!important;
   -webkit-backdrop-filter:blur(18px) saturate(1.08);
@@ -339,6 +323,11 @@ dialog{
 /* Universal viewport containment — no card, panel, lab, or grid may extend past
    the available screen width on phones or in-app browsers. */
 html,body{max-width:100%;overflow-x:clip}
+html{scrollbar-width:thin;scrollbar-color:color-mix(in srgb,var(--ink,var(--text)) 48%,transparent) transparent}
+html::-webkit-scrollbar{width:10px;height:10px}
+html::-webkit-scrollbar-track{background:transparent}
+html::-webkit-scrollbar-thumb{background:color-mix(in srgb,var(--ink,var(--text)) 48%,transparent);border:3px solid transparent;background-clip:content-box;border-radius:999px}
+html::-webkit-scrollbar-corner{background:transparent}
 
 :is(
   main,main>section,.wrap,.shell,.cap-wrap,.lesson-shell,.lesson-article,
@@ -422,32 +411,6 @@ body.living-scenes :is(
   background-image:none!important;
 }
 
-/* Make the glass visibly transparent rather than merely softened. */
-:root{
-  --glass:rgba(7,13,17,.18);
-  --glass-soft:rgba(7,13,17,.10);
-  --glass-strong:rgba(7,13,17,.30);
-  --surface:rgba(10,17,21,.20);
-  --surface2:rgba(14,23,27,.26);
-  --panel:rgba(10,17,21,.20);
-  --panel2:rgba(14,23,27,.26);
-  --panel3:rgba(20,30,34,.30);
-  --bg2:rgba(10,17,21,.12);
-  --inset:rgba(5,10,14,.22);
-}
-:root[data-theme="light"]{
-  --glass:rgba(247,249,245,.20);
-  --glass-soft:rgba(247,249,245,.12);
-  --glass-strong:rgba(247,249,245,.34);
-  --surface:rgba(247,249,245,.20);
-  --surface2:rgba(239,243,238,.26);
-  --panel:rgba(247,249,245,.20);
-  --panel2:rgba(239,243,238,.26);
-  --panel3:rgba(231,237,232,.30);
-  --bg2:rgba(247,249,245,.12);
-  --inset:rgba(241,245,240,.22);
-}
-
 /* Legacy learning/library cards and interactive panels that were still opaque. */
 :is(
   .curriculum-layout,.curriculum-tabs,.search-extras>div,.extra-links button,
@@ -516,20 +479,6 @@ body.living-scenes :is(
   backdrop-filter:blur(4px) saturate(1.04)!important;
 }
 
-/* The hamburger panel is intentionally opaque: moving scenery must never bleed
-   through navigation text. Other cards retain the translucent glass contract. */
-:root{--nav-menu-solid:#0b1216}
-:root[data-theme="light"]{--nav-menu-solid:#f7f9f5}
-body .site-global-header #primary-nav,
-body.living-scenes .site-global-header #primary-nav{
-  background:var(--nav-menu-solid)!important;
-  background-image:none!important;
-  -webkit-backdrop-filter:none!important;
-  backdrop-filter:none!important;
-  box-shadow:0 18px 44px rgba(0,0,0,.28);
-  opacity:1!important;
-}
-
 /* Logo holders are UI glass; the actual marks and artwork retain their color. */
 :root[data-theme] body.living-scenes :is(.credential-logo,.mit-wordmark,.foundation-mark){
   background:var(--glass-strong)!important;
@@ -538,9 +487,3 @@ body.living-scenes .site-global-header #primary-nav{
 :root[data-theme] body.living-scenes .foundation-mark{color:var(--blue)}
 body.living-scenes .vnext-qubit-frame{background:transparent}
 
-/* The sound control is only a floating slider, in both themes. */
-body .site-global-header .scene-sound-panel{
-  background:transparent!important;background-image:none!important;
-  border:0!important;box-shadow:none!important;padding:0!important;
-  -webkit-backdrop-filter:none!important;backdrop-filter:none!important;
-}
