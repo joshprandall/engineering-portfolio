@@ -373,13 +373,14 @@ html::-webkit-scrollbar-track,body::-webkit-scrollbar-track,
 html::-webkit-scrollbar-corner,body::-webkit-scrollbar-corner{display:none!important;background:transparent!important}
 :root{--page-scroll-thumb:rgba(244,165,117,.48);--page-scroll-thumb-active:rgba(244,165,117,.72)}
 .site-page-scroll{
-  position:fixed;top:max(10px,env(safe-area-inset-top));right:max(2px,env(safe-area-inset-right));
-  bottom:max(10px,env(safe-area-inset-bottom));width:12px;z-index:145;
-  background:transparent!important;border:0!important;box-shadow:none!important;pointer-events:none;contain:layout style
+  position:fixed;top:max(10px,env(safe-area-inset-top));right:0;
+  bottom:max(10px,env(safe-area-inset-bottom));width:0!important;z-index:145;
+  overflow:visible!important;background:transparent!important;border:0!important;box-shadow:none!important;
+  -webkit-backdrop-filter:none!important;backdrop-filter:none!important;pointer-events:none;contain:layout style
 }
 .site-page-scroll[hidden]{display:none!important}
 .site-page-scroll-thumb{
-  position:absolute;top:0;right:3px;width:4px;min-height:44px;max-height:72px;border-radius:999px;
+  position:absolute;top:0;right:4px;width:4px;min-height:44px;max-height:72px;border-radius:999px;
   background:var(--page-scroll-thumb)!important;border:0!important;box-shadow:none!important;opacity:.9;
   pointer-events:auto;cursor:ns-resize;touch-action:none;user-select:none;-webkit-user-select:none;
   transition:width .14s ease,background .14s ease,opacity .14s ease
