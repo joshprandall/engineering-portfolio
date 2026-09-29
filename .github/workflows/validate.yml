@@ -30,7 +30,10 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        engine: [chromium, webkit]
+        include:
+          - { engine: chromium, profile: desktop, mobile: 0, kbps: 0 }
+          - { engine: webkit, profile: desktop, mobile: 0, kbps: 0 }
+          - { engine: webkit, profile: phone, mobile: 1, kbps: 256 }
     steps:
       - uses: actions/checkout@v4
         with:
@@ -50,14 +53,16 @@ jobs:
       - name: Verify real background video and sound
         env:
           PORTFOLIO_BROWSER_ENGINE: ${{ matrix.engine }}
+          PORTFOLIO_MOBILE: ${{ matrix.mobile }}
+          PORTFOLIO_MEDIA_KBPS: ${{ matrix.kbps }}
           PORTFOLIO_RUNTIME_ROOT: .
-          PORTFOLIO_QA_DIR: visual-qa/ambience/${{ matrix.engine }}
+          PORTFOLIO_QA_DIR: visual-qa/ambience/${{ matrix.engine }}-${{ matrix.profile }}
         run: |
           if [ "$PORTFOLIO_BROWSER_ENGINE" = chromium ]; then export PORTFOLIO_BROWSER_EXECUTABLE="$(command -v google-chrome)"; fi
           npm run test:media-playback
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: ambience-${{ matrix.engine }}
-          path: visual-qa/ambience/${{ matrix.engine }}/
+          name: ambience-${{ matrix.engine }}-${{ matrix.profile }}
+          path: visual-qa/ambience/${{ matrix.engine }}-${{ matrix.profile }}/
           if-no-files-found: error

@@ -2,8 +2,9 @@
 const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict'),http=require('node:http');
 const playwright=require('playwright'),engine=process.env.PORTFOLIO_BROWSER_ENGINE||'chromium';
 const root=path.resolve(process.env.PORTFOLIO_RUNTIME_ROOT||'.');
+const mediaKBps=Number(process.env.PORTFOLIO_MEDIA_KBPS||0),mobile=process.env.PORTFOLIO_MOBILE==='1';
 const output=path.resolve(process.env.PORTFOLIO_QA_DIR||'visual-qa/ambience/'+engine);fs.mkdirSync(output,{recursive:true});
-const report={passed:false,physicalDevices:false,engine,media:[],errors:[],failedLocalRequests:[]};
+const report={passed:false,physicalDevices:false,engine,mobile,mediaKBps,media:[],errors:[],failedLocalRequests:[]};
 const mime={'.html':'text/html','.js':'text/javascript','.css':'text/css','.json':'application/json','.svg':'image/svg+xml','.png':'image/png','.webp':'image/webp','.jpg':'image/jpeg','.mp4':'video/mp4','.wav':'audio/wav','.mp3':'audio/mpeg','.ogg':'audio/ogg'};
 const server=http.createServer((req,res)=>{
  let pathname;try{pathname=decodeURIComponent(new URL(req.url,'http://local').pathname)}catch{res.writeHead(400).end();return;}
@@ -16,11 +17,15 @@ const server=http.createServer((req,res)=>{
   if(start> end||start>=size){res.writeHead(416,{'content-range':`bytes */${size}`}).end();return;}status=206;headers['content-range']=`bytes ${start}-${end}/${size}`;
  }
  headers['content-length']=String(end-start+1);res.writeHead(status,headers);if(req.method==='HEAD'){res.end();return;}
- const stream=fs.createReadStream(file,{start,end});stream.on('error',()=>res.destroy());res.on('close',()=>stream.destroy());stream.pipe(res);
+ const stream=fs.createReadStream(file,{start,end});stream.on('error',()=>res.destroy());res.on('close',()=>stream.destroy());
+ if(mediaKBps&&path.extname(file)==='.mp4'){
+  let timer;stream.on('data',chunk=>{stream.pause();res.write(chunk);timer=setTimeout(()=>stream.resume(),chunk.length/(mediaKBps*1024)*1000);});
+  stream.on('end',()=>res.end());res.on('close',()=>clearTimeout(timer));
+ }else stream.pipe(res);
 });
 (async()=>{await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));const base=`http://127.0.0.1:${server.address().port}`;report.origin=base;
  const browser=await playwright[engine].launch({executablePath:process.env.PORTFOLIO_BROWSER_EXECUTABLE||undefined,headless:true,...(engine==='chromium'?{args:['--no-sandbox']}: {})});try{
- const c=await browser.newContext({viewport:{width:390,height:844},recordVideo:{dir:output,size:{width:390,height:844}}});
+ const c=await browser.newContext({viewport:{width:390,height:844},isMobile:mobile,hasTouch:mobile,deviceScaleFactor:mobile?2:1,...(mobile?{userAgent:'Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1'}:{}),recordVideo:{dir:output,size:{width:390,height:844}}});
  await c.addInitScript(()=>{if(!sessionStorage.getItem('ambience-test-started')){localStorage.setItem('jr-site-theme','dark');localStorage.setItem('jr-site-motion','running');localStorage.setItem('jr-site-ambient-muted-v3','0');localStorage.setItem('jr-site-ambient-volume-v6','.05');localStorage.removeItem('jr-site-light-scene-v2');sessionStorage.setItem('ambience-test-started','1');}});
  // Keep local media on a real streaming HTTP connection. Fulfilling a 56 MB
  // response through the automation protocol can stall WebKit's range pipeline.
@@ -45,6 +50,12 @@ const server=http.createServer((req,res)=>{
   while(after.hash===before.hash&&Date.now()<deadline){await p.waitForTimeout(500);after=await frameHash();}
   report.lastProbe={scene,before,after,state:await p.evaluate(()=>{const v=document.querySelector('.scene-video.is-active');return {time:v.currentTime,paused:v.paused,readyState:v.readyState,networkState:v.networkState,error:v.error?.message,src:v.currentSrc,frames:v.getVideoPlaybackQuality?.().totalVideoFrames}})};
   assert(before.range>5&&after.range>5,'Decoded video must contain visible scenery');assert.notEqual(before.hash,after.hash,scene+': decoded pixels must animate within ten seconds');console.log('Decoded motion verified',scene,report.lastProbe.state);
+  if(mediaKBps){
+   const samples=[];let previous=await p.locator('.scene-video.is-active').evaluate(v=>v.currentTime),previousHash=after.hash;
+   for(let i=0;i<6;i++){await p.waitForTimeout(1000);const now=await p.locator('.scene-video.is-active').evaluate(v=>({time:v.currentTime,duration:v.duration,ready:v.readyState}));const pixels=await frameHash();let advance=now.time-previous;if(advance<0)advance+=now.duration;samples.push({advance,pixelsChanged:pixels.hash!==previousHash,ready:now.ready});previous=now.time;previousHash=pixels.hash;}
+   report.sustained??=[];report.sustained.push({scene,samples});
+   assert(samples.filter(x=>x.advance>.4&&x.pixelsChanged).length>=5,scene+': background stalls on a 2 Mbps phone connection');
+  }
   report.media.push({...state,decodedMotion:true});await p.screenshot({path:path.join(output,scene+'.png')});
  }
  await p.evaluate(()=>PortfolioTheme.setMotion('paused'));await p.waitForFunction(()=>[...document.querySelectorAll('.scene-video')].every(v=>v.paused));const time=await p.locator('.scene-video.is-active').evaluate(v=>v.currentTime);await p.waitForTimeout(1000);assert(Math.abs(await p.locator('.scene-video.is-active').evaluate(v=>v.currentTime)-time)<.08);await p.evaluate(()=>PortfolioTheme.setMotion('running'));await p.waitForFunction(()=>!document.querySelector('.scene-video.is-active').paused);
