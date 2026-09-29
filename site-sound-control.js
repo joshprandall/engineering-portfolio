@@ -18,12 +18,19 @@
     button.addEventListener('click',()=>{panel.hidden=!panel.hidden;if(!audio.muted)audio.play();render();});
     // Native range handling preserves touch, mouse and keyboard behavior.
     // A second pointer-based scrubber must not fight the browser's own thumb.
-    slider.addEventListener('input',()=>{
+    const applySlider=()=>{
       const percent=Math.max(0,Math.min(100,Number(slider.value)||0));
       audio.setVolume(percent/100);
       if(audio.muted!==(percent===0))audio.setMuted(percent===0);
-      audio.sync(true);render();
-    });
+      audio.sync(true);
+      if(percent>0)audio.play();
+      render();
+    };
+    // Safari/iOS may defer a native range update until the control commits.
+    // Listen to both continuous input and the final change event so touch,
+    // mouse and keyboard all drive the same SiteAudio state.
+    slider.addEventListener('input',applySlider);
+    slider.addEventListener('change',applySlider);
     document.addEventListener('click',e=>{if(!wrapper.contains(e.target)){panel.hidden=true;render();}});
     document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!panel.hidden){panel.hidden=true;button.focus();render();}});
     for(const event of ['portfolio:ambient-volume','portfolio:ambient-autoplay','portfolio:theme'])document.addEventListener(event,render);
