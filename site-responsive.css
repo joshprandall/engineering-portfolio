@@ -435,6 +435,58 @@ img,video,canvas,svg,iframe{max-width:100%}
 
 /* Several older learning/science components had desktop-width assumptions. */
 @media(max-width:700px){
+  /* Mobile content-card contract: tiles keep a real inner gutter and center
+     their presentation content instead of pressing copy against the border. */
+  :is(
+    .project-card,.home-project,.education-cards article,.resume-education article,
+    .destination-card,.domain-card,.lesson-card,.path-card,.atlas-card,
+    .practice-card,.mastery-card,.principle-grid article,.portrait-card,
+    .contact,body.living-scenes[data-library-page="home"] .stats>div,
+    body.living-scenes[data-library-page="home"] .verification-inner
+  ){
+    padding-left:clamp(1.2rem,5.5vw,1.55rem)!important;
+    padding-right:clamp(1.2rem,5.5vw,1.55rem)!important;
+    text-align:center;
+  }
+  :is(
+    .project-card,.home-project,.education-cards article,.resume-education article,
+    .destination-card,.domain-card,.lesson-card,.path-card,.atlas-card,
+    .practice-card,.mastery-card,.principle-grid article,.portrait-card,.contact
+  ) > :is(h1,h2,h3,h4,p,.eyebrow,.muted,.project-open,.status){
+    margin-left:auto;
+    margin-right:auto;
+    text-align:center;
+  }
+  :is(.project-card,.home-project,.destination-card,.domain-card,.lesson-card,.path-card,.atlas-card) .card-bottom{
+    justify-content:center!important;
+    text-align:center;
+  }
+  :is(.project-card,.home-project,.destination-card,.domain-card,.lesson-card,.path-card,.atlas-card) :is(.button,.text-link,.project-open){
+    justify-content:center;
+    text-align:center;
+  }
+  .home-project .project-glyph{
+    position:static!important;
+    display:block;
+    width:auto;
+    margin:0 auto .75rem!important;
+    text-align:center;
+  }
+  .home-project .eyebrow,.home-project h3{margin-right:auto!important;max-width:none!important}
+
+  .contact{align-items:center!important}
+  .contact>div{width:100%;min-width:0;text-align:center}
+  .contact p{margin-left:auto;margin-right:auto}
+  .contact-actions{
+    width:100%!important;max-width:none!important;min-width:0!important;
+    align-items:stretch!important
+  }
+  .contact-actions .button,
+  .contact-actions>a:not(.button){
+    display:flex!important;justify-content:center!important;align-items:center!important;
+    width:100%;text-align:center!important
+  }
+
   .science-console{width:100%!important;margin-inline:0!important}
   .vnext-path-intro{width:100%!important;margin-inline:0!important}
   .depth-heading,.depth-planner,.depth-context,.science-console-grid,.science-stage,
