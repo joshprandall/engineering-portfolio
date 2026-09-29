@@ -67,11 +67,13 @@
     "security-research.html"
   ],
   "owners": {
-    "site-theme.js": "8ce50cab81b2d59ebd692fba2167634711eb81927eec795207e69bbbc8892d81",
+    "site-theme.js": "1b6b49ded441294c1e7833acb26f3d6ab7be81206a7a50a13811e0619628a21e",
     "site-scenes.js": "379e4e8c5bed1fc84192ac4352254c2182861581b5b61c35ae2f2def6bd566e9",
     "site-audio.js": "01b6d31ec51604faf1bfaded1c85e58c05ac01b86cecb9e9f061e54847ab2b7f",
-    "site-sound-control.js": "b4431212795c7a04c41df9485d88e55a84e927822d9fbec92134f9f478b9aead",
-    "site-scenes.css": "4635bbf3717e2bf38779b2855f2df771569c5c7426f53368c02fb374286fa6b4"
+    "site-sound-control.js": "77bb87bc4f491c4f6775340bd77e25d0121cac696024ee6b683815809f43af3a",
+    "site-scenes.css": "4635bbf3717e2bf38779b2855f2df771569c5c7426f53368c02fb374286fa6b4",
+    "site-responsive.css": "beaf84c097f2fe531acd1a31c6eedf8a77b9057a35b93ce8f7f55d9f9f810e4d",
+    "site-page-scroll.js": "cecc94637bf09abc93dfeb081b8f8eff608a4f1d4c2e5febf46404d1786faca0"
   },
   "requiredMedia": [
     "assets/audio/dark-theme-user.mp3",
