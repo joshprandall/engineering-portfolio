@@ -18,7 +18,7 @@ All paired images use the same 390- or 1440-pixel viewport, theme, route and scr
 
 `comparisons/layout.json` records component bounds. Homepage header bounds match exactly in all four paired width/theme views. This is a representative comparison, not a claim that every pixel is identical.
 
-[Baseline phone interaction](recordings/baseline-home-390.webm), [refined phone interaction](recordings/refined-home-390.webm), [baseline lab](recordings/baseline-lesson-lab-390.webm), [refined lab](recordings/refined-lesson-lab-390.webm), and [actual Evil Wizard launch-to-play](recordings/evil-wizard-launch-to-play.webm) are playable recordings. The other AI/game-launcher clips are under `recordings/`. A launcher clip is not a game playthrough. The baseline/refined recording manifests map the original sequential capture timestamps and describe their scope.
+[Baseline phone interaction](recordings/baseline-home-390.webm), [refined phone interaction — MP4](recordings/refined-home-390.mp4), [baseline lab](recordings/baseline-lesson-lab-390.webm), [refined lab](recordings/refined-lesson-lab-390.webm), and [actual Evil Wizard launch-to-play](recordings/evil-wizard-launch-to-play.webm) are playable recordings. The other AI/game-launcher clips are under `recordings/`. A launcher clip is not a game playthrough. The baseline/refined recording manifests map the original sequential capture timestamps and describe their scope.
 
 ## Results
 
