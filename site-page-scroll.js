@@ -83,7 +83,9 @@
     addEventListener('scroll',requestSync,{passive:true});
     addEventListener('resize',requestSync,{passive:true});
     addEventListener('pageshow',requestSync);
-    new MutationObserver(requestSync).observe(document.body,{subtree:true,childList:true,attributes:true,attributeFilter:['hidden','open','class','style']});
+    document.addEventListener('load',requestSync,true);
+    document.addEventListener('toggle',requestSync,true);
+    new MutationObserver(requestSync).observe(document.body,{subtree:true,childList:true,attributes:true,attributeFilter:['hidden','open','class']});
     requestSync();
 
     window.SitePageScroll=Object.freeze({sync:requestSync});
