@@ -86,6 +86,7 @@
     "expertise-experience.html": "about.html",
     "resume.html": "about.html",
     "direction.html": "about.html",
-    "security-research.html": "security-research.html"
+    "security-research.html": "security-research.html",
+    "game-tools.html": "game-development.html"
   }
 }
