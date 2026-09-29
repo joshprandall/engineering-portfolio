@@ -117,14 +117,14 @@ async function run(){
     emit('portfolio:scene','birds-water');
     const beach={scene:SiteAudio.scene,key:SiteAudio.key};
     emit('portfolio:scene-will-change','forest-waterfall');
-    const silenced={pending:SiteAudio.pendingScene,beach:SiteAudio.beachElements.map(a=>({paused:a.paused,muted:a.muted,volume:a.volume}))};
+    const silenced={pending:SiteAudio.pendingScene,beach:SiteAudio.outputLevels.slice(1)};
     emit('portfolio:scene','forest-waterfall');
     return {beach,silenced,waterfall:{scene:SiteAudio.scene,pending:SiteAudio.pendingScene,key:SiteAudio.key}};
   });
   assert.equal(transitions.beach.scene,'birds-water','Day audio tracks the committed beach scene');
   assert.equal(transitions.beach.key,'beach','Beach scene selects beach ambience');
   assert.equal(transitions.silenced.pending,'forest-waterfall','Audio records the pending visual scene');
-  assert(transitions.silenced.beach.every(a=>a.paused&&a.muted&&a.volume===0),'Outgoing beach ambience is silent before waterfall becomes visible');
+  assert(transitions.silenced.beach.every(a=>a.paused&&a.muted&&a.level===0),'Outgoing beach ambience is silent before waterfall becomes visible');
   assert.equal(transitions.waterfall.scene,'forest-waterfall','Committed waterfall scene becomes the audio source of truth');
   assert.equal(transitions.waterfall.pending,'','Pending scene clears after commit');
   assert.equal(transitions.waterfall.key,'waterfall','Waterfall scene selects waterfall ambience immediately');
