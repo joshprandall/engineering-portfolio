@@ -203,6 +203,12 @@ for(const token of ['0dd180961c009c20f5218a2801679b36b82be0837bc3e727908e1affffe
 assert.match(livingScenes,/nextPoster\.complete[\s\S]*nextPoster\.naturalWidth/,'Day rotation must wait for the next poster');
 assert.match(siteAudio,/audioSession[\s\S]*type\s*=\s*'playback'/,'Ambience must request playback audio routing where supported');
 assert.match(siteAudio,/previewAudioUrls\.get\(key\)\s*\|\|\s*await previewAudioUrl/,'Cached preview audio must avoid a new fetch boundary');
+assert.match(livingScenes,/video\.loop\s*=\s*scene\.id\s*!==\s*'birds-water'/,'Beach Day video must not visibly loop');
+assert.match(livingScenes,/BEACH_LOOP_GUARD_SECONDS[\s\S]*duration - current <= BEACH_LOOP_GUARD_SECONDS[\s\S]*rotateLightScene\(\)/,'Beach scene must rotate before its clip reaches the loop seam');
+assert.match(siteAudio,/DARK_CROSSFADE_SECONDS\s*=\s*1\.35/,'Night ambience must define a bounded seamless crossfade');
+assert.match(siteAudio,/function beginDarkTransition\([\s\S]*darkActiveIndex = toIndex/,'Night ambience must alternate players across the loop seam');
+assert.match(siteAudio,/dark:\s*new URL\('assets\/audio\/dark-theme-user\.mp3'/,'Night must prioritize the smaller MP3 for faster mobile startup');
+
 assert.match(livingScenes,/addEventListener\('timeupdate'[\s\S]*revealVideo\(video,\s*sceneLoadId,\s*true\)/,'Day video must reveal from proven timeline movement when iPhone frame callbacks starve');
 assert.match(livingScenes,/currentSrc\.startsWith\('blob:'\)[\s\S]*scene\?\.remoteSrc/,'A stalled raw-preview Blob video must fall back to the direct licensed Day stream');
 assert.doesNotMatch(read('site-resilience.css'),/content-visibility:auto/,'Off-screen section containment must not reintroduce blank WebKit placeholders');
