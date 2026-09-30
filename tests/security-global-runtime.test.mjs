@@ -63,7 +63,14 @@ assert.ok(scenes.includes("portfolio:scene-will-change"),'Day scene engine must 
 assert.ok(scenes.indexOf('announceDaySceneWillChange(nextIndex);') < scenes.indexOf('activeVideo = standbyVideo;'), 'Outgoing audio must be silenced before the active visual changes');
 for(const media of ['assets/scenes/day/waterfall.mp4','assets/scenes/day/river.mp4','assets/scenes/day/beach-birds.mp4']) assert.ok(scenes.includes(media),'Day scene must prefer same-origin production media: '+media);
 assert.ok(scenes.includes('mobileSrc:') && scenes.includes('[scene.mobileSrc, scene.src, scene.remoteSrc]') && scenes.includes('[scene.src, scene.mobileSrc, scene.remoteSrc]'),'Day scenes must retain both verified local renditions plus the approved remote fallback');
-assert.ok(scenes.includes('BRANCH_PREVIEW_HOST')&&scenes.includes('[previewSrc, scene.remoteSrc, scene.mobileSrc, scene.src]'),'Branch previews must use the preserved Beach clip first and retain the approved remote/local fallbacks');
+assert.ok(
+  scenes.includes('BRANCH_PREVIEW_HOST') &&
+  scenes.includes('Promise.race([') &&
+  scenes.includes('previewLoad') &&
+  scenes.includes('[previewSrc, scene.remoteSrc]') &&
+  scenes.includes('latePreviewSrc'),
+  'Branch previews must use a bounded preserved-Blob race, stream the approved remote clip when cold, and retain the preserved reconstruction as fallback'
+);
 assert.ok(scenes.includes("PREVIEW_SCENE_ASSETS")&&scenes.includes("54af202eb77b482086a041e64fd005e995dffc56defb8b118ae82dd118fdf7a4/0.bin"),'Beach preview must reconstruct the preserved mobile MP4 bytes');
 assert.ok(scenes.includes('async function prepareAndPlay(video, scene)'),'Day player must retry its alternate source when the primary media cannot load');
 assert.ok(scenes.includes("video.setAttribute('playsinline','')") && scenes.includes("video.setAttribute('webkit-playsinline','')"),'Day video must explicitly request inline iOS playback');
