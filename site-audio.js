@@ -13,6 +13,7 @@
   const MUTE_KEY = 'jr-site-ambient-muted-v3';
   const DARK_TIME_KEY = 'jr-dark-theme-time-v1';
   const VOLUME_KEY = 'jr-site-ambient-volume-v6';
+  const LAST_NONZERO_VOLUME_KEY = 'jr-site-ambient-last-nonzero-v1';
   // Normal shared-shell pages always receive ambience. Only standalone interactive
   // experiences that intentionally own their own media environment are isolated.
   const ISOLATED_RE = /(?:^|\/)(?:games\/|geometric-lab\/|qubit-preview-20260921\/|deep-learning\/)/i;
@@ -80,6 +81,13 @@
   const previewAudioLoads = new Map();
   const previewPlayerGenerations = new WeakMap();
 
+  function invalidatePreviewPlayer(player) {
+    if (!BRANCH_PREVIEW_HOST || !player) return;
+    previewPlayerGenerations.set(player, (previewPlayerGenerations.get(player) || 0) + 1);
+    player.dataset.previewKey = '';
+    if (player.dataset.previewFallback === 'loading') player.dataset.previewFallback = '0';
+  }
+
   async function previewAudioUrl(key) {
     if (!BRANCH_PREVIEW_HOST) return '';
     if (previewAudioUrls.has(key)) return previewAudioUrls.get(key);
@@ -104,7 +112,9 @@
   async function usePreviewAudio(player, key, { loop = true, play = true, level } = {}) {
     if (!BRANCH_PREVIEW_HOST) return false;
 
-    const targetLevel = level ?? cappedVolume(key.startsWith('beach') ? 'beach' : key);
+    const desired = key.startsWith('beach') ? 'beach' : key;
+    const targetLevel = level ?? cappedVolume(desired);
+    if (play && desiredKey() !== desired) return false;
     const alreadyLoaded = player.dataset.previewFallback === '1' &&
       player.dataset.previewKey === key &&
       (player.currentSrc || player.src || '').startsWith('blob:');
@@ -114,6 +124,7 @@
       player.muted = false;
       setPlayerLevel(player, targetLevel);
       if (play) {
+        if (desiredKey() !== desired || player.dataset.previewKey !== key) return false;
         try {
           const result = player.play();
           if (result?.then) await result;
@@ -135,6 +146,7 @@
       const src = await previewAudioUrl(key);
       if (!src) throw new Error('No preview media source for ' + key);
       if (previewPlayerGenerations.get(player) !== generation || player.dataset.previewKey !== key) return false;
+      if (play && desiredKey() !== desired) return false;
 
       player.pause();
       player.src = src;
@@ -145,6 +157,7 @@
       player.dataset.previewFallback = '1';
 
       if (play) {
+        if (previewPlayerGenerations.get(player) !== generation || player.dataset.previewKey !== key || desiredKey() !== desired) return false;
         const result = player.play();
         if (result?.then) await result;
       }
@@ -284,11 +297,54 @@
       'dark';
   }
 
-  let memoryVolume=DEFAULT_BACKGROUND_VOLUME, memoryMuted=false;
-  function setMuted(value){memoryMuted=Boolean(value);try{localStorage.setItem(MUTE_KEY,memoryMuted?'1':'0');}catch{}sync(true);document.dispatchEvent(new CustomEvent('portfolio:ambient-volume'));}
+  // Current-session preferences are authoritative. Persistence is best effort:
+  // storage failures must never restore stale volume or prevent muting.
+  let memoryVolume = DEFAULT_BACKGROUND_VOLUME;
+  let memoryMuted = false;
+  let memoryLastNonzeroVolume = DEFAULT_BACKGROUND_VOLUME;
+
+  function readSavedPreferences(key = null) {
+    try {
+      if (key === null || key === LAST_NONZERO_VOLUME_KEY) {
+        const raw = localStorage.getItem(LAST_NONZERO_VOLUME_KEY);
+        const saved = raw === null ? NaN : Number(raw);
+        if (Number.isFinite(saved) && saved > 0) {
+          memoryLastNonzeroVolume = Math.min(MAX_BACKGROUND_VOLUME, saved);
+        }
+      }
+      if (key === null || key === VOLUME_KEY) {
+        const raw = localStorage.getItem(VOLUME_KEY);
+        const saved = raw === null ? DEFAULT_BACKGROUND_VOLUME : Number(raw);
+        if (Number.isFinite(saved)) {
+          memoryVolume = Math.min(MAX_BACKGROUND_VOLUME, Math.max(0, saved));
+          if (memoryVolume > 0) memoryLastNonzeroVolume = memoryVolume;
+        }
+      }
+      if (key === null || key === MUTE_KEY) {
+        memoryMuted = localStorage.getItem(MUTE_KEY) === '1';
+      }
+    } catch (_) {
+      // Keep the current in-memory values if persistence is unavailable.
+    }
+  }
+
+  readSavedPreferences();
+
+  function setMuted(value) {
+    const next = Boolean(value);
+    if (!next && memoryVolume <= 0) {
+      memoryVolume = Math.min(MAX_BACKGROUND_VOLUME, Math.max(.01, memoryLastNonzeroVolume || DEFAULT_BACKGROUND_VOLUME));
+      try { localStorage.setItem(VOLUME_KEY, String(memoryVolume)); } catch (_) {}
+      applyPreferredVolume();
+    }
+    memoryMuted = next;
+    try { localStorage.setItem(MUTE_KEY, memoryMuted ? '1' : '0'); } catch (_) {}
+    sync(true);
+    document.dispatchEvent(new CustomEvent('portfolio:ambient-volume'));
+  }
+
   function muted() {
-    try { const value=localStorage.getItem(MUTE_KEY);return value===null?memoryMuted:value==='1'; }
-    catch (_) { return memoryMuted; }
+    return memoryMuted;
   }
 
   function lessonOpen() {
@@ -312,11 +368,6 @@
   }
 
   function preferredVolume() {
-    try {
-      const raw = localStorage.getItem(VOLUME_KEY);
-      const saved = raw === null ? memoryVolume : Number(raw);
-      if (Number.isFinite(saved)) return Math.min(MAX_BACKGROUND_VOLUME, Math.max(0, saved));
-    } catch (_) {}
     return memoryVolume;
   }
 
@@ -335,8 +386,12 @@
 
   function setPreferredVolume(value) {
     const next = Math.min(MAX_BACKGROUND_VOLUME, Math.max(0, Number(value) || 0));
-    memoryVolume=next;
+    memoryVolume = next;
     try { localStorage.setItem(VOLUME_KEY, String(next)); } catch (_) {}
+    if (next > 0) {
+      memoryLastNonzeroVolume = next;
+      try { localStorage.setItem(LAST_NONZERO_VOLUME_KEY, String(next)); } catch (_) {}
+    }
     applyPreferredVolume();
     document.dispatchEvent(new CustomEvent('portfolio:ambient-volume', { detail: { volume: next } }));
     return next;
@@ -376,6 +431,7 @@
     beachActiveIndex = 0;
 
     beachPlayers.forEach(player => {
+      invalidatePreviewPlayer(player);
       // Mute first, then pause. On Safari this closes the audible media pipeline
       // immediately instead of allowing a decoded tail from the outgoing scene.
       try { setPlayerLevel(player, 0); } catch (_) {}
@@ -464,7 +520,7 @@
   }
 
   function playBeach() {
-    if (desiredKey() !== 'beach' || switching) return;
+    if (desiredKey() !== 'beach' || switching || beachTransitioning) return;
     resumeVolumeGraph();
     const player = beachPlayers[beachActiveIndex];
     const generation = beachGeneration;
@@ -555,6 +611,7 @@
 
   function stop() {
     saveDarkTime();
+    invalidatePreviewPlayer(audio);
     // Mute/zero before pause to prevent Safari from leaking buffered audio from
     // the outgoing scene into the next visual scene.
     try { setPlayerLevel(audio, 0); } catch (_) {}
@@ -807,13 +864,18 @@
     stop();
   });
 
-  // Keep different tabs/windows in sync with the global mute preference.
+  // Only external preference changes reload persistence. Local input never
+  // rereads a stale value after a failed write.
   addEventListener('storage', event => {
-    if (event.key === MUTE_KEY) sync(true);
-    if (event.key === VOLUME_KEY) {
-      applyPreferredVolume();
-      sync(true);
-    }
+    if (event.key !== null &&
+        event.key !== MUTE_KEY &&
+        event.key !== VOLUME_KEY &&
+        event.key !== LAST_NONZERO_VOLUME_KEY) return;
+    try { if (event.storageArea && event.storageArea !== localStorage) return; } catch (_) { return; }
+    readSavedPreferences(event.key);
+    applyPreferredVolume();
+    sync(true);
+    document.dispatchEvent(new CustomEvent('portfolio:ambient-volume'));
   });
 
   audio.addEventListener('ended', () => {

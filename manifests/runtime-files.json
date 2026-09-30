@@ -1676,11 +1676,11 @@
     },
     {
       "path": "game-tools.css",
-      "size": 2125,
-      "sha256": "ed6e772415966c2dd237b51dcee8955bc6591c575099420522aa066d9d4e124e",
+      "size": 2257,
+      "sha256": "7b71c43d02dfe6e5de2160c06fca327d1ff5a73cf631e2da8a80b474185d3b0f",
       "source": {
         "kind": "git-blob",
-        "blob": "12fff5611215f0c66a5adc3a2113fa9c2a396ea1"
+        "blob": "53841ad0d8eb9e420b9ff10c63a55f47b0f4595a"
       },
       "owningComponent": "game-tools",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -1698,11 +1698,11 @@
     },
     {
       "path": "game-tools.js",
-      "size": 20473,
-      "sha256": "7795970ac542b7bf20433e791012296b1992ef43012b54fa641597192307544b",
+      "size": 20600,
+      "sha256": "deb6d71d8c4ee0c73c2bb8d44e052f7cbc244228445001bc804d54b0bc04a501",
       "source": {
         "kind": "git-blob",
-        "blob": "8431ce197694700e0d24d37e9b9a8669ae8f9839"
+        "blob": "97360d69acf08f81ba6a9e3827bbb0c4aa961556"
       },
       "owningComponent": "game-tools",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -2781,11 +2781,11 @@
     },
     {
       "path": "portfolio-home.css",
-      "size": 18202,
-      "sha256": "93f84a980ead7485a4f278953c2fa5eb9e67f2363c37a4d89f4f373e8a6bfaac",
+      "size": 18564,
+      "sha256": "42be948865c7888dad2cba4c666f371386365268facf596408a745f127fbc1a0",
       "source": {
         "kind": "git-blob",
-        "blob": "f82b628ad3a3717cf9c23969b5e6a5d4e7776f84"
+        "blob": "c6e33feaf069a50d6bfd46c398ac206f335666f2"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -3111,11 +3111,11 @@
     },
     {
       "path": "site-audio.js",
-      "size": 32465,
-      "sha256": "915253f0be515ff94fc5e9bfe80b69b48dac2b7d3e69ad720ebad2df01fcbc98",
+      "size": 35040,
+      "sha256": "9b2f60f85cd7bf7cc35edd42067a2d07f23b31c678057221817d88a0703a1bc2",
       "source": {
         "kind": "git-blob",
-        "blob": "9bf3a32445269a58f042ae6075c8aeacd1b93e21"
+        "blob": "ab6376014012d5e8012930a5a44cc5c3bc0e0f2c"
       },
       "owningComponent": "site-audio",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -3166,11 +3166,11 @@
     },
     {
       "path": "site-responsive.css",
-      "size": 44578,
-      "sha256": "3e9cbebda70c0865207873cd333e447884c5967d1ecef9e03266c97b92e056ee",
+      "size": 43355,
+      "sha256": "567a071fe6f2442fd5ad3f7ff3a0ec44f0375ee7f87a872b6e98d1c129644ff6",
       "source": {
         "kind": "git-blob",
-        "blob": "a4fa091512daaee615ccdb214c23ca1704cf5a7b"
+        "blob": "4b352089b169b40af4d1a1558592d3336d4ea737"
       },
       "owningComponent": "shared-shell",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -3221,11 +3221,11 @@
     },
     {
       "path": "site-sound-control.js",
-      "size": 4409,
-      "sha256": "77bb87bc4f491c4f6775340bd77e25d0121cac696024ee6b683815809f43af3a",
+      "size": 4364,
+      "sha256": "25b27f2e5127158a9c3d5b19ac302ab4f322aa01e8a439b3e6de224da390f778",
       "source": {
         "kind": "git-blob",
-        "blob": "f163ac2208ae36c9de3f8ba040a6487277675a0a"
+        "blob": "33442ad3d6bd2344d5eaf102a0de6c02e2908613"
       },
       "owningComponent": "shared-shell",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -3275,6 +3275,6 @@
       "deploymentClassification": "KEEP_PRODUCTION"
     }
   ],
-  "fileCount": 293,
-  "byteSize": 442504410
+  "fileCount": 294,
+  "byteSize": 442523436
 }

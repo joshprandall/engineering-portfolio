@@ -33,8 +33,10 @@ const server=http.createServer((req,res)=>{
  const p=await c.newPage();p.on('pageerror',e=>report.errors.push(e.message));
  await p.goto(base+'/index.html',{waitUntil:'domcontentloaded'});
  await p.locator('[data-scene-audio]').click();
- const panel=await p.locator('.scene-sound-panel').evaluate(e=>{const s=getComputedStyle(e);return {background:s.backgroundColor,image:s.backgroundImage,shadow:s.boxShadow,blur:s.backdropFilter,border:s.borderTopWidth,children:[...e.children].map(c=>c.tagName)}});
- assert.deepEqual(panel,{background:'rgba(0, 0, 0, 0)',image:'none',shadow:'none',blur:'none',border:'0px',children:['LABEL','DIV','BUTTON','SMALL']},'Sound controls must float without an opaque panel surface');
+ const panel=await p.locator('.scene-sound-panel').evaluate(e=>{const s=getComputedStyle(e),r=e.getBoundingClientRect(),m=s.backgroundColor.match(/rgba?\(([^)]+)\)/),parts=m?m[1].split(',').map(x=>Number(x.trim())):[];return {background:s.backgroundColor,alpha:parts.length>3?parts[3]:1,image:s.backgroundImage,shadow:s.boxShadow,blur:s.backdropFilter||s.webkitBackdropFilter||'none',border:s.borderTopWidth,children:[...e.children].map(c=>c.tagName),left:r.left,right:r.right,width:r.width,viewport:innerWidth}});
+ assert(panel.alpha>=.9,'Sound panel must have a coherent high-contrast surface: '+JSON.stringify(panel));
+ assert.equal(panel.image,'none');assert.notEqual(panel.shadow,'none');assert.notEqual(panel.border,'0px');assert.deepEqual(panel.children,['LABEL','DIV','BUTTON','SMALL']);
+ assert(panel.left>=0&&panel.right<=panel.viewport+1&&panel.width<=panel.viewport-16,'Sound panel must fit mobile viewport: '+JSON.stringify(panel));
  const slider=p.locator('#ambient-volume');await slider.focus();await slider.press('Home');assert(await p.evaluate(()=>SiteAudio.muted&&SiteAudio.volume===0));
  for(let i=0;i<5;i++)await slider.press('ArrowRight');assert(await p.evaluate(()=>!SiteAudio.muted&&Math.abs(SiteAudio.volume-.05)<.001));
  assert.equal(await slider.evaluate(el=>getComputedStyle(el).touchAction),'none','Volume slider must retain horizontal touch dragging instead of handing the gesture to page scrolling');

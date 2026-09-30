@@ -75,30 +75,30 @@ async function run(){
     }
     await page.goto(base+'/',{waitUntil:'domcontentloaded'});
 
-    const mobileCardCases=[
-      ['/', '.contact', '.contact h2'],
-      ['/', '.home-project', '.home-project h3'],
-      ['/projects.html', '.project-card', '.project-card h2'],
-      ['/learn.html', '.domain-card', '.domain-card :is(h2,h3)'],
-      ['/game-development.html', '.destination-card', '.destination-card h2, .destination-card h3']
+    await page.goto(base+'/',{waitUntil:'domcontentloaded'});
+    const contact=page.locator('.home-page .contact:visible').first();
+    const contactMetrics=await contact.evaluate(el=>{const s=getComputedStyle(el),r=el.getBoundingClientRect();return{left:r.left,right:r.right,padL:parseFloat(s.paddingLeft)||0,padR:parseFloat(s.paddingRight)||0,textAlign:s.textAlign};});
+    assert(contactMetrics.padL>=20&&contactMetrics.padR>=20,'Homepage contact keeps a dedicated mobile inner gutter '+JSON.stringify(contactMetrics));
+    assert.equal(contactMetrics.textAlign,'center','Only the homepage contact presentation is centered');
+    const contactHeading=page.locator('.home-page .contact h2').first();
+    const contactCopy=await contactHeading.evaluate(el=>{const s=getComputedStyle(el),r=el.getBoundingClientRect(),p=el.closest('.contact').getBoundingClientRect();return{textAlign:s.textAlign,left:r.left,right:r.right,cardLeft:p.left,cardRight:p.right};});
+    assert.equal(contactCopy.textAlign,'center','Homepage contact heading is centered');
+    assert(contactCopy.left>=contactCopy.cardLeft+18&&contactCopy.right<=contactCopy.cardRight-18,'Homepage contact copy stays inset '+JSON.stringify(contactCopy));
+    const contactAction=page.locator('.home-page .contact-actions .button').first();
+    assert.equal(await contactAction.evaluate(el=>getComputedStyle(el).justifyContent),'center','Homepage contact buttons center their labels');
+
+    const preservedAlignment=[
+      ['/', '.home-project h3'],
+      ['/projects.html', '.project-card h2'],
+      ['/learn.html', '.domain-card :is(h2,h3)'],
+      ['/game-development.html', '.destination-card h3']
     ];
-    for(const [route,cardSelector,copySelector] of mobileCardCases){
+    for(const [route,selector] of preservedAlignment){
       await page.goto(base+route,{waitUntil:'domcontentloaded'});
-      const card=page.locator(cardSelector+':visible').first();
-      if(!(await card.count()))continue;
-      const cardMetrics=await card.evaluate(el=>{const s=getComputedStyle(el),r=el.getBoundingClientRect();return{left:r.left,right:r.right,padL:parseFloat(s.paddingLeft)||0,padR:parseFloat(s.paddingRight)||0,textAlign:s.textAlign};});
-      assert(cardMetrics.padL>=18&&cardMetrics.padR>=18,route+' '+cardSelector+': mobile card keeps a real inner gutter '+JSON.stringify(cardMetrics));
-      assert.equal(cardMetrics.textAlign,'center',route+' '+cardSelector+': mobile card presentation is centered');
-      const copy=page.locator(copySelector+':visible').first();
-      if(await copy.count()){
-        const m=await copy.evaluate(el=>{const s=getComputedStyle(el),r=el.getBoundingClientRect(),p=el.closest('.contact,.home-project,.project-card,.domain-card,.destination-card')?.getBoundingClientRect();return{textAlign:s.textAlign,left:r.left,right:r.right,width:r.width,cardLeft:p?.left,cardRight:p?.right};});
-        assert.equal(m.textAlign,'center',route+' '+copySelector+': card copy is centered');
-        assert(m.width>0&&m.left>=(m.cardLeft??m.left)+14&&m.right<=(m.cardRight??m.right)-14,route+' '+copySelector+': copy stays visibly inset from card edges '+JSON.stringify(m));
-      }
+      const el=page.locator(selector+':visible').first();if(!(await el.count()))continue;
+      assert.notEqual(await el.evaluate(e=>getComputedStyle(e).textAlign),'center',route+' '+selector+': existing card alignment must not be globally centered');
     }
     await page.goto(base+'/',{waitUntil:'domcontentloaded'});
-    const contactAction=page.locator('.contact-actions .button').first();
-    assert.equal(await contactAction.evaluate(el=>getComputedStyle(el).justifyContent),'center','Phone contact buttons center their labels');
    }
    if(name==='phone'||name==='small-phone'){
     await page.locator('#direction').scrollIntoViewIfNeeded();
@@ -121,6 +121,8 @@ async function run(){
    const dayScrollPaint=await page.locator('.site-page-scroll').evaluate(el=>({background:getComputedStyle(el).backgroundColor,thumb:getComputedStyle(el.firstElementChild).backgroundColor,width:el.getBoundingClientRect().width,right:innerWidth-el.getBoundingClientRect().right}));
    assert.equal(dayScrollPaint.background,'rgba(0, 0, 0, 0)',name+': Day page scroller retains no rail');
    assert(dayScrollPaint.width<=16&&dayScrollPaint.right>=0,name+': Day page thumb stays slim at the far edge');
+   const quantumSurface=await page.locator('.quantum-stage').evaluate(el=>{const c=getComputedStyle(el).backgroundColor,m=c.match(/rgba?\(([^)]+)\)/),p=m?m[1].split(',').map(x=>Number(x.trim())):[];return{color:c,alpha:p.length>3?p[3]:1};});
+   assert(quantumSurface.alpha>=.8,'Day Bell-pair interactive needs a sufficiently opaque scoped surface: '+JSON.stringify(quantumSurface));
    const lightCardSurface=await page.locator('.home-project').first().evaluate(el=>{const s=getComputedStyle(el);return{color:s.backgroundColor,image:s.backgroundImage}});
    const surfaceText=`${lightCardSurface.color} ${lightCardSurface.image}`;
    const alphaValues=[...surfaceText.matchAll(/rgba\([^)]*,\s*([\d.]+)\)/g)].map(m=>Number(m[1]));
@@ -135,6 +137,32 @@ async function run(){
    await page.locator('#theme').click();
    console.log(`PASS ${name}: navigation, search, selected work, Bell outcomes, animation and pause, images, theme, layout`);
   }
+  // Focused mobile regression checks for the reported repair set.
+  await page.setViewportSize({width:390,height:844});
+  await page.goto(base+'/game-development.html',{waitUntil:'domcontentloaded'});
+  const gameCards=page.locator('#game-list .project-card:visible');
+  assert((await gameCards.count())>=2,'Game Development exposes both protected game cards');
+  const firstGame=await gameCards.nth(0).boundingBox(),secondGame=await gameCards.nth(1).boundingBox();
+  assert(firstGame&&secondGame&&secondGame.y-(firstGame.y+firstGame.height)>=12,'Game cards retain intentional mobile vertical spacing');
+  const gameListBox=await page.locator('#game-list').boundingBox(),engineBox=await page.locator('#engine-path').boundingBox();
+  assert(gameListBox&&engineBox&&engineBox.y-(gameListBox.y+gameListBox.height)>=20,'Game project group is separated from the engine-path section');
+  if(output)await page.screenshot({animations:'disabled',path:path.join(output,'game-development-phone.png'),fullPage:true});
+
+  await page.goto(base+'/game-tools.html?topic=engine-architecture',{waitUntil:'domcontentloaded'});
+  const engineCanvas=await page.locator('#tool-canvas').boundingBox(),enginePanel=await page.locator('.game-tool-demo').boundingBox(),engineControls=await page.locator('.game-tool-controls').boundingBox();
+  assert(engineCanvas&&engineCanvas.height>=260,'Game Engine Architecture canvas expands on mobile instead of clipping the lower module row');
+  assert(enginePanel&&engineControls&&engineControls.y+engineControls.height<=enginePanel.y+enginePanel.height+1,'Game Engine Architecture controls remain inside the natural panel height');
+  assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true,'Game Engine Architecture has no mobile horizontal overflow');
+  if(output)await page.screenshot({animations:'disabled',path:path.join(output,'game-engine-architecture-phone.png'),fullPage:true});
+
+  await page.goto(base+'/about.html',{waitUntil:'domcontentloaded'});
+  await page.evaluate(()=>window.PortfolioTheme?.setTheme?.('light',false));
+  assert.equal(await page.locator('.career-timeline>details').count(),7,'About Experience contains only the seven intended career rows');
+  assert.equal(await page.locator('.education-lines>.education-line').count(),3,'About Education contains only the three intended study rows');
+  const phantomRows=await page.evaluate(()=>[...document.querySelectorAll('.career-timeline>*,.education-lines>*')].filter(el=>{const r=el.getBoundingClientRect(),s=getComputedStyle(el),border=parseFloat(s.borderTopWidth)+parseFloat(s.borderBottomWidth);return r.height>2&&border>0&&!el.innerText.trim();}).map(el=>({tag:el.tagName,cls:el.className,height:el.getBoundingClientRect().height})));
+  assert.deepEqual(phantomRows,[],'About long-form sections must not render empty bordered rows');
+  if(output){await page.locator('#experience').screenshot({animations:'disabled',path:path.join(output,'about-experience-phone-light.png')});await page.locator('#education').screenshot({animations:'disabled',path:path.join(output,'about-education-phone-light.png')});}
+
   // Global scene/audio architecture must follow shared-shell pages, not a Home/Learn allowlist.
   for(const route of ['ai-development.html','security-research.html','project-qpe.html','learn-browse.html','lesson.html']){
    await page.setViewportSize({width:390,height:844});await page.goto(base+'/'+route,{waitUntil:'domcontentloaded'});
