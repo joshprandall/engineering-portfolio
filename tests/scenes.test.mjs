@@ -24,7 +24,7 @@ function controller() {
     document: { hidden: false }, performance: { now: () => 0 }, requestAnimationFrame() { return 1; },
   });
   vm.runInContext(`
-    let theme='light', paused=false, mediaDisabled=false, compactMedia=false, mediaReady=true, sceneLoadId=0;
+    let theme='light', paused=false, mediaDisabled=false, compactMedia=false, mediaReady=true, sceneLoadId=0, lightLoaded=true, lightRecoveryPending=false;
     const BRANCH_PREVIEW_HOST=false;
     const motionAllowed=()=>!paused, reducedMotion=()=>false;
     let activeVideo=videos[0], standbyVideo=videos[1], activeSceneIndex=0;
@@ -34,11 +34,11 @@ function controller() {
     const dayPosters=new Map(LIGHT_SCENES.map(scene=>[scene.id,{complete:true,naturalWidth:1280,src:scene.poster}]));
     const readyScenes=[];
     const dayFallback={classList:{add(){readyScenes.push(activeSceneIndex)},remove(){}}};
-    const credits=[], announceDaySceneWillChange=()=>{}, updateDayCredit=()=>credits.push(activeSceneIndex), draw=()=>{};
+    const credits=[], announceDaySceneWillChange=()=>{}, updateDayCredit=()=>credits.push(activeSceneIndex), draw=()=>{}, loadInitialLightScene=()=>{}, watchVideoMotion=()=>{};
     ${section('    function configureVideo(', '    function pauseVideos(')}
     ${section('    async function prepareAndPlay(', '    function drawStars(')}
     ${section('    function frame(', '    function refresh(')}
-    ${section('    const retryLightPlayback =', "    document.addEventListener('pointerdown', retryLightPlayback")}
+    ${section('    const retryLightPlayback =', '    const clearLightRecovery =')}
     globalThis.api={
       frame, rotateLightScene, start:()=>prepareAndPlay(activeVideo,LIGHT_SCENES[activeSceneIndex]),
       pause:()=>{paused=true}, night:()=>{theme='dark'},
@@ -105,7 +105,7 @@ test('explicit motion pause and Night mode prevent Day rotation', () => {
   assert.equal(night.api.state().activeSceneIndex, 0);
 });
 
-test('a late gesture retry for the outgoing video cannot hide the new poster', async () => {
+test('a late autonomous recovery for the outgoing video cannot hide the new poster', async () => {
   const { api, videos }=controller();
   api.retry();
   api.rotateLightScene();
