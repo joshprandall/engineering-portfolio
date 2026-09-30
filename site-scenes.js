@@ -39,12 +39,11 @@
     const spec = PREVIEW_SCENE_ASSETS[scene.id]?.[kind];
     if (!spec) return '';
     const load = (async () => {
-      const buffers = [];
-      for (const part of spec.parts) {
+      const buffers = await Promise.all(spec.parts.map(async part => {
         const response = await fetch(new URL(part, SITE_BASE), { cache: 'force-cache' });
         if (!response.ok) throw new Error('Preview scene HTTP ' + response.status + ': ' + part);
-        buffers.push(await response.arrayBuffer());
-      }
+        return response.arrayBuffer();
+      }));
       const url = URL.createObjectURL(new Blob(buffers, { type: spec.mime }));
       previewSceneUrls.set(key, url);
       return url;
@@ -121,12 +120,16 @@
 
     const compactMedia = saveData || constrainedMedia || matchMedia('(max-width: 900px), (pointer: coarse)').matches;
 
-    // Warm image/video connections immediately so the background appears before
-    // the rest of the page has finished settling.
-    [
+    const initialLightSceneIndex = storedLightSceneIndex();
+    // Warm only what can actually appear first. Future Day posters are fetched
+    // after the current scene is stable so they do not compete with startup.
+    const firstVisuals = [
       new URL('assets/scenes/webb-cosmic-cliffs.webp', SITE_BASE).href,
-      ...LIGHT_SCENES.map(scene => scene.poster)
-    ].forEach((href, i) => {
+      ...(appearance.getTheme() === 'light' && !BRANCH_PREVIEW_HOST
+        ? [LIGHT_SCENES[initialLightSceneIndex].poster]
+        : [])
+    ];
+    firstVisuals.forEach((href, i) => {
       if (document.querySelector('link[rel="preload"][href="' + href + '"]')) return;
       const link = document.createElement('link');
       link.rel = 'preload';
@@ -188,23 +191,29 @@
     const videoB = backdrop.querySelector('.scene-video-b');
     const dayLink = options.querySelector('.scene-day-link');
     const dayCredit = options.querySelector('.scene-day-credit');
-    const dayPosters = new Map();
-    if (!mediaDisabled) LIGHT_SCENES.forEach(scene => {
-      const poster = new Image();
-      dayPosters.set(scene.id, poster);
+    const dayPosters = new Map(LIGHT_SCENES.map(scene => [scene.id, new Image()]));
+    let activeVideo = videoA;
+    let standbyVideo = videoB;
+    let activeSceneIndex = initialLightSceneIndex;
+
+    function loadDayPoster(scene) {
+      const poster = dayPosters.get(scene.id);
+      if (!poster || poster.src || mediaDisabled) return poster;
       if (BRANCH_PREVIEW_HOST) {
         previewPosterUrl(scene).then(src => {
-          if (!src) return;
+          if (!src || poster.src) return;
           poster.src = src;
-          if (scene.id === LIGHT_SCENES[activeSceneIndex].id) dayFallback.style.backgroundImage = 'url("' + src + '")';
+          if (scene.id === LIGHT_SCENES[activeSceneIndex].id) {
+            dayFallback.style.backgroundImage = 'url("' + src + '")';
+          }
         }).catch(error => console.error('JR preview poster fallback failed:', scene.id, error));
       } else {
         poster.src = scene.poster;
       }
-    });
-    let activeVideo = videoA;
-    let standbyVideo = videoB;
-    let activeSceneIndex = storedLightSceneIndex();
+      return poster;
+    }
+
+    loadDayPoster(LIGHT_SCENES[activeSceneIndex]);
     let mediaReady = false;
     let mediaTimer = 0;
     let lightLoaded = false;
@@ -265,8 +274,8 @@
             : ' · Flowing creek/river audio · CC0';
         dayCredit.textContent = 'Video by ' + scene.creator + ' · Pexels License · real nature footage' + audioCredit + '.';
       }
-      const poster = dayPosters.get(scene.id);
-      const posterUrl = poster?.currentSrc || poster?.src || scene.poster;
+      const poster = loadDayPoster(scene);
+      const posterUrl = poster?.currentSrc || poster?.src || (!BRANCH_PREVIEW_HOST ? scene.poster : '');
       if (!mediaDisabled && posterUrl) dayFallback.style.backgroundImage = 'url("' + posterUrl + '")';
       if (backdrop.dataset.visibleDayScene === scene.id && !backdrop.dataset.pendingDayScene) return;
       if (backdrop.dataset.pendingDayScene !== scene.id) announceDaySceneWillChange(activeSceneIndex);
@@ -381,13 +390,10 @@
     }
 
     function prewarmNextLightScene() {
-      if (!BRANCH_PREVIEW_HOST || mediaDisabled || LIGHT_SCENES.length < 2) return;
+      if (mediaDisabled || LIGHT_SCENES.length < 2) return;
       const next = LIGHT_SCENES[(activeSceneIndex + 1) % LIGHT_SCENES.length];
-      previewPosterUrl(next).then(src => {
-        const poster = dayPosters.get(next.id);
-        if (poster && src && !poster.src) poster.src = src;
-      }).catch(() => {});
-      previewSceneUrl(next).catch(() => {});
+      loadDayPoster(next);
+      if (BRANCH_PREVIEW_HOST) previewSceneUrl(next).catch(() => {});
     }
 
     function revealVideo(video, loadId = sceneLoadId, confirmedProgress = false) {
@@ -532,9 +538,7 @@
       const nextScene = LIGHT_SCENES[nextIndex];
       const nextPoster = dayPosters.get(nextScene.id);
       if (!mediaDisabled && (!nextPoster || !nextPoster.complete || nextPoster.naturalWidth <= 0)) {
-        if (BRANCH_PREVIEW_HOST && nextPoster && !nextPoster.src) {
-          previewPosterUrl(nextScene).then(src => { if (src && !nextPoster.src) nextPoster.src = src; }).catch(() => {});
-        }
+        loadDayPoster(nextScene);
         return;
       }
       announceDaySceneWillChange(nextIndex);
@@ -767,7 +771,7 @@
           loadInitialLightScene();
           playSafely(activeVideo);
         }
-      }, constrainedMedia ? 700 : 220);
+      }, constrainedMedia ? 320 : 140);
     }
 
     // The poster is immediate; video loading begins as soon as the DOM exists.
