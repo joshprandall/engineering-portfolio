@@ -3166,11 +3166,11 @@
     },
     {
       "path": "site-responsive.css",
-      "size": 43355,
-      "sha256": "567a071fe6f2442fd5ad3f7ff3a0ec44f0375ee7f87a872b6e98d1c129644ff6",
+      "size": 43725,
+      "sha256": "849627b2afd21185b38dd167e5aea3045f8f7cfac769219ae7e70a9683b919bd",
       "source": {
         "kind": "git-blob",
-        "blob": "4b352089b169b40af4d1a1558592d3336d4ea737"
+        "blob": "5987dc83d0101e5c016989d1a771386e546d6b5e"
       },
       "owningComponent": "shared-shell",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -3276,5 +3276,5 @@
     }
   ],
   "fileCount": 294,
-  "byteSize": 442523436
+  "byteSize": 442523806
 }
