@@ -73,7 +73,12 @@ const server=http.createServer((req,res)=>{
    report.sustained??=[];report.sustained.push({scene,samples});
    assert(samples.filter(x=>x.advance>.4&&x.advance<2&&x.pixelsChanged).length>=5,scene+': background stalls on a 2 Mbps phone connection');
   }
-  if(scene==='forest-waterfall'){await p.locator('[data-scene-audio]').click();await p.screenshot({path:path.join(output,'volume-slider-day.png')});await p.keyboard.press('Escape');}
+  if(scene==='forest-waterfall'){
+   await p.locator('[data-scene-audio]').click();await p.screenshot({path:path.join(output,'volume-slider-day.png')});await p.keyboard.press('Escape');
+   await p.locator('.site-page-scroll').evaluate(el=>{el.dataset.probeDisplay=el.style.display;el.style.display='none';});
+   await p.screenshot({path:path.join(output,'scroll-gutter-native-probe.png')});
+   await p.locator('.site-page-scroll').evaluate(el=>{el.style.display=el.dataset.probeDisplay||'';delete el.dataset.probeDisplay;});
+  }
   report.media.push({...state,decodedMotion:true});await p.screenshot({path:path.join(output,scene+'.png')});
  }
  await p.waitForFunction(()=>document.querySelector('#site-scene')?.dataset.visibleDayScene==='forest-waterfall'&&SiteAudio.key==='waterfall'&&SiteAudio.outputLevels.filter(x=>!x.paused&&!x.muted&&x.level>0).length===1,null,{timeout:45000});
