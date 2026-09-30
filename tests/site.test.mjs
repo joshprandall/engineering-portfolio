@@ -203,6 +203,11 @@ for(const token of ['0dd180961c009c20f5218a2801679b36b82be0837bc3e727908e1affffe
 assert.match(livingScenes,/nextPoster\.complete[\s\S]*nextPoster\.naturalWidth/,'Day rotation must wait for the next poster');
 assert.match(siteAudio,/audioSession[\s\S]*type\s*=\s*'playback'/,'Ambience must request playback audio routing where supported');
 assert.match(siteAudio,/previewAudioUrls\.get\(key\)\s*\|\|\s*await previewAudioUrl/,'Cached preview audio must avoid a new fetch boundary');
+assert.match(livingScenes,/Promise\.all\(spec\.parts\.map/,'Preview Day media chunks must reconstruct in parallel');
+assert.match(siteAudio,/Promise\.all\(spec\.parts\.map/,'Preview audio chunks must reconstruct in parallel');
+assert.match(livingScenes,/constrainedMedia\s*\?\s*320\s*:\s*140/,'Day media release delay must remain bounded for faster startup');
+assert.match(livingScenes,/loadDayPoster\(LIGHT_SCENES\[activeSceneIndex\]\)/,'Only the active Day poster should be loaded eagerly');
+
 assert.match(livingScenes,/addEventListener\('timeupdate'[\s\S]*revealVideo\(video,\s*sceneLoadId,\s*true\)/,'Day video must reveal from proven timeline movement when iPhone frame callbacks starve');
 assert.match(livingScenes,/currentSrc\.startsWith\('blob:'\)[\s\S]*scene\?\.remoteSrc/,'A stalled raw-preview Blob video must fall back to the direct licensed Day stream');
 assert.doesNotMatch(read('site-resilience.css'),/content-visibility:auto/,'Off-screen section containment must not reintroduce blank WebKit placeholders');
