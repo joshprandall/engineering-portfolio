@@ -206,6 +206,8 @@ assert.match(siteAudio,/previewAudioUrls\.get\(key\)\s*\|\|\s*await previewAudio
 assert.match(livingScenes,/Promise\.all\(spec\.parts\.map/,'Preview Day media chunks must reconstruct in parallel');
 assert.match(siteAudio,/Promise\.all\(spec\.parts\.map/,'Preview audio chunks must reconstruct in parallel');
 assert.match(livingScenes,/constrainedMedia\s*\?\s*320\s*:\s*140/,'Day media release delay must remain bounded for faster startup');
+assert.match(livingScenes,/Promise\.race\([\s\S]*previewLoad[\s\S]*120/,'Preview Day video must not wait for full Blob reconstruction before streaming');
+
 assert.match(livingScenes,/loadDayPoster\(LIGHT_SCENES\[activeSceneIndex\]\)/,'Only the active Day poster should be loaded eagerly');
 
 assert.match(livingScenes,/addEventListener\('timeupdate'[\s\S]*revealVideo\(video,\s*sceneLoadId,\s*true\)/,'Day video must reveal from proven timeline movement when iPhone frame callbacks starve');
