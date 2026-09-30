@@ -28,6 +28,7 @@ PROTECTED_REQUIRED = tuple(PROTECTED_ROOT_FILES) + (
     'games/evil-wizard/play.html', 'geometric-lab/index.html',
 )
 REQUIRED = THEME_SHELL_FILES + (
+    '.htaccess',
     'assets/audio/day/beach-far.mp3',
     'assets/audio/day/beach-far.ogg',
     'assets/audio/day/beach-near.mp3',
@@ -72,7 +73,7 @@ def digest(file):
 def release_files(source):
     files = [p for p in source.iterdir() if p.is_file() and
              (p.suffix in {'.html','.css','.js','.mjs'} or p.name in
-              {'verification-manifest.json','learning-capstones.json','README_KNOWLEDGE_PLATFORM.txt'})]
+              {'.htaccess','verification-manifest.json','learning-capstones.json','README_KNOWLEDGE_PLATFORM.txt'})]
     files.extend(source/name for name in THEME_SHELL_FILES)
     for directory in WEB_DIRS:
         files.extend(p for p in (source/directory).rglob('*') if p.is_file())

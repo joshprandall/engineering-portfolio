@@ -39,6 +39,7 @@ class DeploymentTest(unittest.TestCase):
         backup = deploy.deploy(self.source, self.site)
         self.assertTrue(backup.is_file())
         self.assertEqual((self.site / 'index.html').read_bytes(), (self.source / 'index.html').read_bytes())
+        self.assertEqual((self.site / '.htaccess').read_bytes(), (self.source / '.htaccess').read_bytes())
         for name, content in self.before.items():
             if deploy.protected(name) or name == 'private-host-page.html':
                 self.assertEqual((self.site / name).read_bytes(), content)
