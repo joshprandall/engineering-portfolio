@@ -2,7 +2,7 @@
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm'),path=require('node:path');
 const root=process.env.PORTFOLIO_RUNTIME_ROOT||path.resolve(__dirname,'..');
 const code=fs.readFileSync(path.join(root,'site-audio.js'),'utf8');
-function harness({gain=true,pending=false,readonlyVolume=false,storage=new Map()}={}){
+function harness({gain=true,pending=false,readonlyVolume=false,storage=new Map(),preview=false}={}){
  const players=[],events=new EventTarget(),document=new EventTarget(),timers=new Map(),frames=new Map(),intervals=[];let counter=0,now=0;
  class Media extends EventTarget{
   constructor(){super();this.dataset={};this.style={};this.paused=true;this.currentTime=0;this.duration=12;this.plays=0;this.loads=0;this.muted=false;this._volume=1;}
@@ -16,9 +16,12 @@ function harness({gain=true,pending=false,readonlyVolume=false,storage=new Map()
   createMediaElementSource(){return {connect(){}};}
   resume(){this.state='running';return Promise.resolve();}
  }
- document.hidden=false;document.documentElement={dataset:{theme:'dark'}};document.currentScript={src:'https://portfolio.test/site-audio.js'};
+ document.hidden=false;document.documentElement={dataset:{theme:'dark'}};
+ const origin=preview?'https://raw.githack.com/joshprandall/engineering-portfolio/recovery/':'https://portfolio.test/';
+ document.currentScript={src:origin+'site-audio.js'};
  document.body={appendChild:p=>players.push(p)};document.querySelectorAll=()=>[];document.querySelector=()=>pending?{}:null;document.getElementById=()=>null;document.createElement=()=>new Media();
- const context={document,location:{href:'https://portfolio.test/index.html',hostname:'portfolio.test',pathname:'/index.html'},URL,CustomEvent,console,Date,Math,Number,Object,Boolean,Promise,Map,Set,
+ const context={document,location:{href:origin+'index.html',hostname:preview?'raw.githack.com':'portfolio.test',pathname:'/index.html'},URL,Blob,CustomEvent,console,Date,Math,Number,Object,Boolean,Promise,Map,Set,
+ fetch:async()=>({ok:true,arrayBuffer:async()=>new Uint8Array([1,2,3,4]).buffer}),
  localStorage:{getItem:k=>storage.get(k)??null,setItem:(k,v)=>storage.set(k,v)},addEventListener:events.addEventListener.bind(events),performance:{now:()=>now},
  setTimeout(fn,ms){timers.set(++counter,{fn,ms});return counter;},clearTimeout(id){timers.delete(id);},setInterval(fn){intervals.push(fn);return ++counter;},requestAnimationFrame(fn){frames.set(++counter,fn);return counter;},cancelAnimationFrame(id){frames.delete(id);}};
  context.window=context;if(gain)context.AudioContext=AudioContext;vm.createContext(context);vm.runInContext(code,context);
@@ -35,6 +38,20 @@ test('one owner, quiet first output, no inactive autoplay, including iOS read-on
  for(const readonlyVolume of [false,true]){const h=harness({readonlyVolume});assert.equal(h.S.volume,.05);assert.equal(h.S.volumeBackend,'gain');assert.equal(h.S.outputLevels[0].level,.05);assert(h.players.every(p=>p.autoplay===false));assert(h.S.beachElements.every(p=>p.paused&&p.muted));h.repeat();assert.equal(h.players.length,3);h.S.setVolume(.23);assert.equal(h.S.outputLevels[0].level,.23);}
 });
 test('native media remains usable when Web Audio is unavailable',()=>{const h=harness({gain:false});assert.equal(h.S.volumeBackend,'media');h.S.setVolume(.12);assert.equal(h.S.element.volume,.12);h.S.setMuted(true);silent(h);});
+test('preview Night to Day transition silences outgoing Night until Day media is ready',async()=>{
+ const h=harness({preview:true});
+ await flush();
+ assert.equal(h.S.key,'dark');
+ assert(!h.S.element.paused,'Night preview audio should be playing after its blob resolves');
+ h.theme('light');
+ assert(h.S.element.paused,'Switching to Day must pause the outgoing Night player immediately');
+ assert(h.S.element.muted,'Switching to Day must mute the outgoing Night player immediately');
+ assert.equal(h.S.element.dataset.previewTarget,'river');
+ await flush();
+ assert.equal(h.S.key,'river');
+ assert(!h.S.element.paused,'River preview audio should start only after the River blob resolves');
+ assert.equal(h.S.element.dataset.previewTarget,'river');
+});
 test('Day waits for visible scenery and the matching local sound; local fallback is retained',()=>{
  const h=harness({pending:true});h.theme('light');silent(h);h.emit('portfolio:scene',{id:'forest-river'});assert.match(h.S.element.src,/\/river\.mp3$/);h.S.element.dispatchEvent(new Event('error'));assert.match(h.S.element.src,/\/river\.ogg$/);const n=h.S.element.loads;h.S.sync(true);assert.equal(h.S.element.loads,n);
  h.emit('portfolio:scene-will-change',{id:'forest-waterfall'});silent(h);h.S.play();h.watchdog();silent(h);h.emit('portfolio:scene',{id:'forest-waterfall'});assert.match(h.S.element.src,/\/waterfall\.mp3$/);assert(!h.S.element.paused);
