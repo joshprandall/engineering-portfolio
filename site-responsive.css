@@ -382,10 +382,6 @@ dialog{
    the available screen width on phones or in-app browsers. */
 html{max-width:100%;overflow-x:clip!important}
 body:not(.living-scenes){max-width:100%;overflow-x:clip!important}
-/* WebKit's classic root scrollbar can reserve a painted gutter outside innerWidth.
-   Keep the document as the normal window scroll root, but request overlay scroll
-   chrome where WebKit still supports it so no track consumes page width. */
-@supports (overflow:overlay){html{overflow-y:overlay!important}}
 /* Native rails are hidden; shared UI renders a thumb only, with no opaque track. */
 html,body{scrollbar-width:none;-ms-overflow-style:none}
 html,body{scrollbar-color:transparent transparent!important;scrollbar-gutter:auto!important}
