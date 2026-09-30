@@ -97,12 +97,11 @@
     const spec = PREVIEW_AUDIO_ASSETS[key];
     if (!spec) return '';
     const load = (async () => {
-      const buffers = [];
-      for (const part of spec.parts) {
+      const buffers = await Promise.all(spec.parts.map(async part => {
         const response = await fetch(new URL(part, AUDIO_BASE), { cache: 'force-cache' });
         if (!response.ok) throw new Error('Preview media HTTP ' + response.status + ': ' + part);
-        buffers.push(await response.arrayBuffer());
-      }
+        return response.arrayBuffer();
+      }));
       const url = URL.createObjectURL(new Blob(buffers, { type: spec.mime }));
       previewAudioUrls.set(key, url);
       return url;
@@ -113,9 +112,17 @@
 
   function warmPreviewAudio() {
     if (!BRANCH_PREVIEW_HOST) return;
-    ['dark', 'waterfall', 'beachNear', 'beachFar'].forEach(key => previewAudioUrl(key).catch(() => {}));
+    // Prioritize only the two sounds a visitor can need immediately. Future
+    // scene audio warms after startup instead of competing with first playback.
+    ['dark', 'waterfall'].forEach(key => previewAudioUrl(key).catch(() => {}));
     clearTimeout(previewWarmTimer);
-    previewWarmTimer = setTimeout(() => previewAudioUrl('river').catch(() => {}), 2500);
+    previewWarmTimer = setTimeout(() => {
+      previewAudioUrl('river').catch(() => {});
+      setTimeout(() => {
+        previewAudioUrl('beachNear').catch(() => {});
+        previewAudioUrl('beachFar').catch(() => {});
+      }, 700);
+    }, 900);
   }
   warmPreviewAudio();
 
