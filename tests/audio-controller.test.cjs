@@ -4,6 +4,7 @@ const root=process.env.PORTFOLIO_RUNTIME_ROOT||path.resolve(__dirname,'..');
 const code=fs.readFileSync(path.join(root,'site-audio.js'),'utf8');
 function harness({gain=true,pending=false,readonlyVolume=false,storage=new Map(),preview=false,storageWritesFail=false}={}){
  const players=[],events=new EventTarget(),document=new EventTarget(),timers=new Map(),frames=new Map(),intervals=[];let counter=0,now=0;
+ const audioSession=new EventTarget();audioSession.type='auto';audioSession.state='active';
  class Media extends EventTarget{
   constructor(){super();this.dataset={};this.style={};this.paused=true;this.currentTime=0;this.duration=12;this.plays=0;this.loads=0;this.muted=false;this._volume=1;}
   set volume(v){if(!readonlyVolume)this._volume=v;}get volume(){return this._volume;}
@@ -20,13 +21,13 @@ function harness({gain=true,pending=false,readonlyVolume=false,storage=new Map()
  const origin=preview?'https://raw.githack.com/joshprandall/engineering-portfolio/repair/':'https://portfolio.test/';
  document.currentScript={src:origin+'site-audio.js'};
  document.body={appendChild:p=>players.push(p)};document.querySelectorAll=()=>[];document.querySelector=()=>pending?{}:null;document.getElementById=()=>null;document.createElement=()=>new Media();
- const context={document,location:{href:origin+'index.html',hostname:preview?'raw.githack.com':'portfolio.test',pathname:'/index.html'},URL,Blob,CustomEvent,console,Date,Math,Number,Object,Boolean,Promise,Map,Set,
+ const context={document,navigator:{audioSession},location:{href:origin+'index.html',hostname:preview?'raw.githack.com':'portfolio.test',pathname:'/index.html'},URL,Blob,CustomEvent,console,Date,Math,Number,Object,Boolean,Promise,Map,Set,
  fetch:async()=>({ok:true,arrayBuffer:async()=>new Uint8Array([1,2,3,4]).buffer}),
  localStorage:{getItem:k=>storage.get(k)??null,setItem:(k,v)=>{if(storageWritesFail)throw new Error('storage blocked');storage.set(k,v);}},addEventListener:events.addEventListener.bind(events),performance:{now:()=>now},
  setTimeout(fn,ms){timers.set(++counter,{fn,ms});return counter;},clearTimeout(id){timers.delete(id);},setInterval(fn){intervals.push(fn);return ++counter;},requestAnimationFrame(fn){frames.set(++counter,fn);return counter;},cancelAnimationFrame(id){frames.delete(id);}};
  context.window=context;if(gain)context.AudioContext=AudioContext;vm.createContext(context);vm.runInContext(code,context);
  const emit=(name,detail)=>document.dispatchEvent(new CustomEvent(name,{detail}));
- return {S:context.SiteAudio,players,storage,context,document,emit,
+ return {S:context.SiteAudio,players,storage,context,document,audioSession,emit,
  theme(v){document.documentElement.dataset.theme=v;emit('portfolio:theme');},
  windowEvent(name){events.dispatchEvent(new Event(name));},watchdog(){intervals.forEach(fn=>fn());},
  frame(ms){now=ms;const callbacks=[...frames.values()];frames.clear();callbacks.forEach(fn=>fn(now));},
@@ -38,6 +39,10 @@ test('one owner, quiet first output, no inactive autoplay, including iOS read-on
  for(const readonlyVolume of [false,true]){const h=harness({readonlyVolume});assert.equal(h.S.volume,.05);assert.equal(h.S.volumeBackend,'gain');assert.equal(h.S.outputLevels[0].level,.05);assert(h.players.every(p=>p.autoplay===false));assert(h.S.beachElements.every(p=>p.paused&&p.muted));h.repeat();assert.equal(h.players.length,3);h.S.setVolume(.23);assert.equal(h.S.outputLevels[0].level,.23);}
 });
 test('native media remains usable when Web Audio is unavailable',()=>{const h=harness({gain:false});assert.equal(h.S.volumeBackend,'media');h.S.setVolume(.12);assert.equal(h.S.element.volume,.12);h.S.setMuted(true);silent(h);});
+test('trusted interaction claims playback routing and recovers the WebKit audio session',()=>{
+ const h=harness();assert.equal(h.audioSession.type,'auto');h.document.dispatchEvent(new Event('pointerdown'));assert.equal(h.audioSession.type,'playback');assert.equal(h.S.audioSessionType,'playback');
+ h.audioSession.type='ambient';h.audioSession.state='active';h.audioSession.dispatchEvent(new Event('statechange'));assert.equal(h.audioSession.type,'playback');
+});
 test('mute and zero restore the last selected nonzero volume, even when storage writes fail',()=>{
  const h=harness({storage:new Map([['jr-site-ambient-volume-v6','.05']]),storageWritesFail:true});
  h.S.setVolume(.37);assert.equal(h.S.volume,.37);h.S.setMuted(true);silent(h);h.S.setMuted(false);assert.equal(h.S.volume,.37);

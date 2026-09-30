@@ -80,6 +80,7 @@
   const previewAudioUrls = new Map();
   const previewAudioLoads = new Map();
   const previewPlayerGenerations = new WeakMap();
+  let previewWarmTimer = 0;
 
   function invalidatePreviewPlayer(player) {
     if (!BRANCH_PREVIEW_HOST || !player) return;
@@ -108,6 +109,14 @@
     previewAudioLoads.set(key, load);
     return load;
   }
+
+  function warmPreviewAudio() {
+    if (!BRANCH_PREVIEW_HOST) return;
+    ['dark', 'waterfall', 'beachNear', 'beachFar'].forEach(key => previewAudioUrl(key).catch(() => {}));
+    clearTimeout(previewWarmTimer);
+    previewWarmTimer = setTimeout(() => previewAudioUrl('river').catch(() => {}), 2500);
+  }
+  warmPreviewAudio();
 
   async function usePreviewAudio(player, key, { loop = true, play = true, level } = {}) {
     if (!BRANCH_PREVIEW_HOST) return false;
@@ -143,7 +152,7 @@
     player.dataset.previewKey = key;
 
     try {
-      const src = await previewAudioUrl(key);
+      const src = previewAudioUrls.get(key) || await previewAudioUrl(key);
       if (!src) throw new Error('No preview media source for ' + key);
       if (previewPlayerGenerations.get(player) !== generation || player.dataset.previewKey !== key) return false;
       if (play && desiredKey() !== desired) return false;
@@ -196,6 +205,30 @@
   const gains = new Map();
   let audioContext = null;
   let pageActive = true;
+  const platformAudioSession = (() => {
+    try { return typeof navigator !== 'undefined' ? navigator.audioSession || null : null; }
+    catch (_) { return null; }
+  })();
+  let audioSessionRecoveryTimer = 0;
+
+  function usePlaybackAudioSession(recover = false) {
+    if (!platformAudioSession || !unlocked || muted() || suppressed) return;
+    try {
+      if (recover && platformAudioSession.type === 'playback') {
+        platformAudioSession.type = 'ambient';
+        clearTimeout(audioSessionRecoveryTimer);
+        audioSessionRecoveryTimer = setTimeout(() => {
+          try {
+            if (!unlocked || !allowed()) return;
+            platformAudioSession.type = 'playback';
+            sync(true);
+          } catch (_) {}
+        }, 0);
+        return;
+      }
+      platformAudioSession.type = 'playback';
+    } catch (_) {}
+  }
 
   function setPlayerLevel(player, value) {
     const level = Math.min(1, Math.max(0, Number(value) || 0));
@@ -211,6 +244,7 @@
   }
 
   function resumeVolumeGraph() {
+    usePlaybackAudioSession(false);
     const Context = window.AudioContext || window.webkitAudioContext;
     if (!Context) return;
     if (!audioContext) {
@@ -769,6 +803,7 @@
 
   function unlockAndPlay() {
     unlocked = true;
+    usePlaybackAudioSession(autoplayBlocked);
     resumeVolumeGraph();
     clearAutoplayRetries();
     playDesired();
@@ -792,6 +827,13 @@
     });
   }
 
+  platformAudioSession?.addEventListener?.('statechange', () => {
+    if (platformAudioSession.state === 'active' && unlocked && allowed()) {
+      usePlaybackAudioSession(false);
+      sync(true);
+    }
+  });
+
   // Best effort immediately. Browsers that allow audible autoplay start here.
   // Safari/iOS and some Chromium configurations may still require a real user
   // gesture; that browser policy cannot be bypassed by page JavaScript.
@@ -806,10 +848,12 @@
   // its state, so the controller sees the final state from that interaction.
   document.addEventListener('click', () => {
     unlocked = true;
+    usePlaybackAudioSession(autoplayBlocked);
     sync(true);
   });
 
   document.addEventListener('portfolio:theme', () => {
+    if (unlocked) usePlaybackAudioSession(autoplayBlocked);
     sync(true);
     scheduleAutoplayRetries();
   });
@@ -841,6 +885,7 @@
   });
 
   document.addEventListener('visibilitychange', () => {
+    if (!document.hidden && unlocked) usePlaybackAudioSession(true);
     sync(true);
     if (!document.hidden) scheduleAutoplayRetries();
   });
@@ -848,10 +893,14 @@
   addEventListener('load', scheduleAutoplayRetries, { once: true });
   addEventListener('pageshow', () => {
     pageActive = true;
+    warmPreviewAudio();
+    if (unlocked) usePlaybackAudioSession(true);
     sync(true);
     scheduleAutoplayRetries();
   });
   addEventListener('pagehide', () => {
+    clearTimeout(previewWarmTimer);
+    clearTimeout(audioSessionRecoveryTimer);
     previewAudioUrls.forEach(url => { try { URL.revokeObjectURL(url); } catch (_) {} });
     previewAudioUrls.clear();
     pageActive = false;
@@ -974,6 +1023,8 @@
     get muted() { return muted(); },
     get suppressed() { return suppressed; },
     get autoplayBlocked() { return autoplayBlocked; },
+    get audioSessionType() { return platformAudioSession?.type || 'unavailable'; },
+    get audioSessionState() { return platformAudioSession?.state || 'unavailable'; },
     get maxVolume() { return MAX_BACKGROUND_VOLUME; },
     get volume() { return preferredVolume(); },
     get volumeBackend() { return gains.size ? 'gain' : 'media'; },

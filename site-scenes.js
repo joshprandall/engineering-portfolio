@@ -11,16 +11,31 @@
   const previewSceneUrls = new Map();
   const previewSceneLoads = new Map();
   const PREVIEW_SCENE_ASSETS = Object.freeze({
-    'birds-water': {
-      mime: 'video/mp4',
-      parts: ['preservation/ambience/54af202eb77b482086a041e64fd005e995dffc56defb8b118ae82dd118fdf7a4/0.bin']
-    }
+    'forest-waterfall': Object.freeze({
+      video: { mime: 'video/mp4', parts: [
+        'preservation/ambience/0dd180961c009c20f5218a2801679b36b82be0837bc3e727908e1affffecd4a3/0.bin',
+        'preservation/ambience/0dd180961c009c20f5218a2801679b36b82be0837bc3e727908e1affffecd4a3/1.bin'
+      ] },
+      poster: { mime: 'image/jpeg', parts: ['preservation/ambience/1a668f48c1dda23df4d5b621e754993f5efed6fe887342e55a4a485cb9040e8c/0.bin'] }
+    }),
+    'forest-river': Object.freeze({
+      video: { mime: 'video/mp4', parts: [
+        'preservation/ambience/cd0a5c3823b6a773545ecf7f6c3c4c5eeb69a71c0c41135ecdff45b3601e5112/0.bin',
+        'preservation/ambience/cd0a5c3823b6a773545ecf7f6c3c4c5eeb69a71c0c41135ecdff45b3601e5112/1.bin'
+      ] },
+      poster: { mime: 'image/jpeg', parts: ['preservation/ambience/7ccbf50f35e2bf2c9cbe6c02d03bef4896be9a917460aaa45993c2697dd6834a/0.bin'] }
+    }),
+    'birds-water': Object.freeze({
+      video: { mime: 'video/mp4', parts: ['preservation/ambience/54af202eb77b482086a041e64fd005e995dffc56defb8b118ae82dd118fdf7a4/0.bin'] },
+      poster: { mime: 'image/jpeg', parts: ['preservation/ambience/1cef768c65f80887f2e77787229033a108f974ad80e823c037d1090bd6f944ed/0.bin'] }
+    })
   });
-  async function previewSceneUrl(scene) {
+  async function previewSceneAssetUrl(scene, kind = 'video') {
     if (!BRANCH_PREVIEW_HOST) return '';
-    if (previewSceneUrls.has(scene.id)) return previewSceneUrls.get(scene.id);
-    if (previewSceneLoads.has(scene.id)) return previewSceneLoads.get(scene.id);
-    const spec = PREVIEW_SCENE_ASSETS[scene.id];
+    const key = scene.id + ':' + kind;
+    if (previewSceneUrls.has(key)) return previewSceneUrls.get(key);
+    if (previewSceneLoads.has(key)) return previewSceneLoads.get(key);
+    const spec = PREVIEW_SCENE_ASSETS[scene.id]?.[kind];
     if (!spec) return '';
     const load = (async () => {
       const buffers = [];
@@ -30,12 +45,14 @@
         buffers.push(await response.arrayBuffer());
       }
       const url = URL.createObjectURL(new Blob(buffers, { type: spec.mime }));
-      previewSceneUrls.set(scene.id, url);
+      previewSceneUrls.set(key, url);
       return url;
-    })().finally(() => previewSceneLoads.delete(scene.id));
-    previewSceneLoads.set(scene.id, load);
+    })().finally(() => previewSceneLoads.delete(key));
+    previewSceneLoads.set(key, load);
     return load;
   }
+  const previewSceneUrl = scene => previewSceneAssetUrl(scene, 'video');
+  const previewPosterUrl = scene => previewSceneAssetUrl(scene, 'poster');
 
   const LIGHT_SCENES = [
     {
@@ -173,8 +190,16 @@
     const dayPosters = new Map();
     if (!mediaDisabled) LIGHT_SCENES.forEach(scene => {
       const poster = new Image();
-      poster.src = scene.poster;
       dayPosters.set(scene.id, poster);
+      if (BRANCH_PREVIEW_HOST) {
+        previewPosterUrl(scene).then(src => {
+          if (!src) return;
+          poster.src = src;
+          if (scene.id === LIGHT_SCENES[activeSceneIndex].id) dayFallback.style.backgroundImage = 'url("' + src + '")';
+        }).catch(error => console.error('JR preview poster fallback failed:', scene.id, error));
+      } else {
+        poster.src = scene.poster;
+      }
     });
     let activeVideo = videoA;
     let standbyVideo = videoB;
@@ -239,10 +264,11 @@
             : ' · Flowing creek/river audio · CC0';
         dayCredit.textContent = 'Video by ' + scene.creator + ' · Pexels License · real nature footage' + audioCredit + '.';
       }
-      if (!mediaDisabled) dayFallback.style.backgroundImage = 'url("' + scene.poster + '")';
+      const poster = dayPosters.get(scene.id);
+      const posterUrl = poster?.currentSrc || poster?.src || scene.poster;
+      if (!mediaDisabled && posterUrl) dayFallback.style.backgroundImage = 'url("' + posterUrl + '")';
       if (backdrop.dataset.visibleDayScene === scene.id && !backdrop.dataset.pendingDayScene) return;
       if (backdrop.dataset.pendingDayScene !== scene.id) announceDaySceneWillChange(activeSceneIndex);
-      const poster = dayPosters.get(scene.id);
       // Announce audio only after the matching local image or a video frame is
       // ready. An old image load must never commit sound for a later scene.
       if (mediaDisabled || (poster?.complete && poster.naturalWidth > 0)) commitVisibleDayScene(scene);
@@ -343,6 +369,17 @@
     }
 
     const videoFrames = new WeakMap();
+
+    function prewarmNextLightScene() {
+      if (!BRANCH_PREVIEW_HOST || mediaDisabled || LIGHT_SCENES.length < 2) return;
+      const next = LIGHT_SCENES[(activeSceneIndex + 1) % LIGHT_SCENES.length];
+      previewPosterUrl(next).then(src => {
+        const poster = dayPosters.get(next.id);
+        if (poster && src && !poster.src) poster.src = src;
+      }).catch(() => {});
+      previewSceneUrl(next).catch(() => {});
+    }
+
     function revealVideo(video, loadId = sceneLoadId) {
       const current = () => video === activeVideo && loadId === sceneLoadId &&
         theme === 'light' && !document.hidden && motionAllowed() &&
@@ -353,6 +390,7 @@
         if (!current()) return;
         dayFallback.classList.add('video-ready');
         commitVisibleDayScene(LIGHT_SCENES[activeSceneIndex]);
+        prewarmNextLightScene();
       };
       // A resolved play() promise is not proof that Safari has presented a
       // frame. Keep the matching poster until a frame reaches the compositor.
@@ -397,7 +435,7 @@
       // Use the already-approved original Pexels clip there; production still
       // prefers the preserved local master/mobile renditions.
       let previewSrc = '';
-      if (BRANCH_PREVIEW_HOST && scene.id === 'birds-water') {
+      if (BRANCH_PREVIEW_HOST) {
         try { previewSrc = await previewSceneUrl(scene); } catch (error) { console.error('JR preview scene fallback failed:', scene.id, error); }
       }
       const sources = (BRANCH_PREVIEW_HOST
@@ -423,6 +461,14 @@
     function rotateLightScene() {
       if (mediaDisabled || theme !== 'light' || !motionAllowed() || LIGHT_SCENES.length < 2) return;
       const nextIndex = (activeSceneIndex + 1) % LIGHT_SCENES.length;
+      const nextScene = LIGHT_SCENES[nextIndex];
+      const nextPoster = dayPosters.get(nextScene.id);
+      if (!mediaDisabled && (!nextPoster || !nextPoster.complete || nextPoster.naturalWidth <= 0)) {
+        if (BRANCH_PREVIEW_HOST && nextPoster && !nextPoster.src) {
+          previewPosterUrl(nextScene).then(src => { if (src && !nextPoster.src) nextPoster.src = src; }).catch(() => {});
+        }
+        return;
+      }
       announceDaySceneWillChange(nextIndex);
       const oldVideo = activeVideo;
       activeVideo = standbyVideo;
@@ -434,7 +480,7 @@
       // its video starts, and a stalled play promise cannot freeze the cycle.
       activeVideo.classList.add('is-active');
       oldVideo.classList.remove('is-active');
-      prepareAndPlay(activeVideo, LIGHT_SCENES[nextIndex]).then(playing => {
+      prepareAndPlay(activeVideo, nextScene).then(playing => {
         if (playing) revealVideo(activeVideo);
       });
 

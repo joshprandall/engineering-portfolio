@@ -198,6 +198,11 @@ assert.match(read('portfolio-next.js'),/frameInterval/,'Solar systems animation 
 assert.match(read('knowledge.js'),/IntersectionObserver/,'Learning constellation must suspend when off-screen');
 assert.match(read('site-scenes.js'),/constrainedMedia/,'Living scenes must adapt to constrained and in-app browsers');
 assert.match(read('site-scenes.js'),/preload="metadata"/,'Living scenes must not eagerly preload a remote 1080p stream in markup');
+const livingScenes=read('site-scenes.js'),siteAudio=read('site-audio.js');
+for(const token of ['0dd180961c009c20f5218a2801679b36b82be0837bc3e727908e1affffecd4a3','cd0a5c3823b6a773545ecf7f6c3c4c5eeb69a71c0c41135ecdff45b3601e5112','54af202eb77b482086a041e64fd005e995dffc56defb8b118ae82dd118fdf7a4','1a668f48c1dda23df4d5b621e754993f5efed6fe887342e55a4a485cb9040e8c','7ccbf50f35e2bf2c9cbe6c02d03bef4896be9a917460aaa45993c2697dd6834a','1cef768c65f80887f2e77787229033a108f974ad80e823c037d1090bd6f944ed']) assert.ok(livingScenes.includes(token),'Raw preview must reconstruct approved mobile Day media: '+token);
+assert.match(livingScenes,/nextPoster\.complete[\s\S]*nextPoster\.naturalWidth/,'Day rotation must wait for the next poster');
+assert.match(siteAudio,/audioSession[\s\S]*type\s*=\s*'playback'/,'Ambience must request playback audio routing where supported');
+assert.match(siteAudio,/previewAudioUrls\.get\(key\)\s*\|\|\s*await previewAudioUrl/,'Cached preview audio must avoid a new fetch boundary');
 assert.doesNotMatch(read('site-resilience.css'),/content-visibility:auto/,'Off-screen section containment must not reintroduce blank WebKit placeholders');
 assert.match(read('project-geometric-ai.html'),/<iframe\b[^>]*loading=["']lazy["']/i,'Geometry Lab preview must lazy-load below the fold');
 
