@@ -117,11 +117,13 @@ function value(i){ return Number(inputs[i].value) / 100; }
 function resize(){
   const dpr = Math.min(2, devicePixelRatio || 1);
   const rect = canvas.getBoundingClientRect();
-  const w = Math.max(320, Math.round(rect.width * dpr));
-  const h = Math.max(190, Math.round(rect.width * 7 / 12 * dpr));
+  const cssWidth = Math.max(1, rect.width);
+  const cssHeight = Math.max(190, rect.height || cssWidth * 7 / 12);
+  const w = Math.max(320, Math.round(cssWidth * dpr));
+  const h = Math.max(190, Math.round(cssHeight * dpr));
   if(canvas.width !== w || canvas.height !== h){ canvas.width=w; canvas.height=h; }
   ctx.setTransform(dpr,0,0,dpr,0,0);
-  return {w:rect.width,h:rect.width*7/12};
+  return {w:cssWidth,h:cssHeight};
 }
 function clear(w,h){
   ctx.clearRect(0,0,w,h);
@@ -216,6 +218,7 @@ function applyTopic(){
   $('tool-steps').replaceChildren(...topic.steps.map(s=>{const li=document.createElement('li');li.textContent=s;return li;}));$('tool-code').textContent=topic.code;
   topic.labels.forEach((v,i)=>$('control-'+String.fromCharCode(97+i)+'-label').textContent=v);
   topic.defaults.forEach((v,i)=>inputs[i].value=String(v));
+  canvas.dataset.demo=topic.demo;
   $('demo-title').textContent=topic.title+' model';$('tool-status').textContent='Running';
 }
 async function startAudio(){

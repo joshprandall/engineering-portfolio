@@ -75,30 +75,38 @@ async function run(){
     }
     await page.goto(base+'/',{waitUntil:'domcontentloaded'});
 
-    const mobileCardCases=[
-      ['/', '.contact', '.contact h2'],
-      ['/', '.home-project', '.home-project h3'],
-      ['/projects.html', '.project-card', '.project-card h2'],
-      ['/learn.html', '.domain-card', '.domain-card :is(h2,h3)'],
-      ['/game-development.html', '.destination-card', '.destination-card h2, .destination-card h3']
-    ];
-    for(const [route,cardSelector,copySelector] of mobileCardCases){
-      await page.goto(base+route,{waitUntil:'domcontentloaded'});
-      const card=page.locator(cardSelector+':visible').first();
-      if(!(await card.count()))continue;
-      const cardMetrics=await card.evaluate(el=>{const s=getComputedStyle(el),r=el.getBoundingClientRect();return{left:r.left,right:r.right,padL:parseFloat(s.paddingLeft)||0,padR:parseFloat(s.paddingRight)||0,textAlign:s.textAlign};});
-      assert(cardMetrics.padL>=18&&cardMetrics.padR>=18,route+' '+cardSelector+': mobile card keeps a real inner gutter '+JSON.stringify(cardMetrics));
-      assert.equal(cardMetrics.textAlign,'center',route+' '+cardSelector+': mobile card presentation is centered');
-      const copy=page.locator(copySelector+':visible').first();
-      if(await copy.count()){
-        const m=await copy.evaluate(el=>{const s=getComputedStyle(el),r=el.getBoundingClientRect(),p=el.closest('.contact,.home-project,.project-card,.domain-card,.destination-card')?.getBoundingClientRect();return{textAlign:s.textAlign,left:r.left,right:r.right,width:r.width,cardLeft:p?.left,cardRight:p?.right};});
-        assert.equal(m.textAlign,'center',route+' '+copySelector+': card copy is centered');
-        assert(m.width>0&&m.left>=(m.cardLeft??m.left)+14&&m.right<=(m.cardRight??m.right)-14,route+' '+copySelector+': copy stays visibly inset from card edges '+JSON.stringify(m));
-      }
-    }
     await page.goto(base+'/',{waitUntil:'domcontentloaded'});
-    const contactAction=page.locator('.contact-actions .button').first();
-    assert.equal(await contactAction.evaluate(el=>getComputedStyle(el).justifyContent),'center','Phone contact buttons center their labels');
+    const contact=page.locator('.home-page .contact');
+    const contactMetrics=await contact.evaluate(el=>{const s=getComputedStyle(el),r=el.getBoundingClientRect();return{left:r.left,right:r.right,padL:parseFloat(s.paddingLeft)||0,padR:parseFloat(s.paddingRight)||0};});
+    assert(contactMetrics.padL>=20&&contactMetrics.padR>=20,'Homepage contact keeps mobile internal padding: '+JSON.stringify(contactMetrics));
+    const contactCopyBox=await page.locator('.home-page .contact h2').boundingBox();assert(contactCopyBox&&contactCopyBox.x>=contactMetrics.left+18&&contactCopyBox.x+contactCopyBox.width<=contactMetrics.right-18,'Homepage contact copy stays inset');
+
+    const alignmentCases=[
+      ['/', '.home-project h3'],
+      ['/projects.html', '.project-card h2'],
+      ['/learn.html', '.domain-card :is(h2,h3)'],
+      ['/game-development.html', '.destination-card :is(h2,h3)']
+    ];
+    for(const [route,selector] of alignmentCases){
+      await page.goto(base+route,{waitUntil:'domcontentloaded'});
+      const copy=page.locator(selector+':visible').first();if(await copy.count())assert.notEqual(await copy.evaluate(el=>getComputedStyle(el).textAlign),'center',route+' '+selector+': existing card alignment must not be globally centered');
+    }
+
+    await page.goto(base+'/game-development.html',{waitUntil:'domcontentloaded'});
+    const gameCards=page.locator('#game-list .project-card:visible');if(await gameCards.count()>1){const a=await gameCards.nth(0).boundingBox(),b=await gameCards.nth(1).boundingBox();assert(a&&b&&b.y-(a.y+a.height)>=12,'Game cards retain an intentional mobile vertical gap');}
+    const listBox=await page.locator('#game-list').boundingBox(),engineBox=await page.locator('#engine-path').boundingBox();assert(listBox&&engineBox&&engineBox.y-(listBox.y+listBox.height)>=12,'Game list and engine section retain a mobile gap');
+
+    await page.goto(base+'/game-tools.html?topic=engine-architecture',{waitUntil:'domcontentloaded'});
+    const engineCanvas=page.locator('#tool-canvas'),engineControls=page.locator('.game-tool-controls');
+    const ec=await engineCanvas.boundingBox(),ectl=await engineControls.boundingBox();assert(ec&&ectl&&ec.height>=250&&ectl.y>=ec.y+ec.height-1,'Game Engine Architecture canvas expands before controls instead of clipping');
+    for(const label of ['Module count','Test coverage','Frame budget'])assert(await page.getByText(label,{exact:true}).isVisible(),label+' remains visible');
+    if(output)await page.screenshot({animations:'disabled',path:path.join(output,'game-engine-phone.png'),fullPage:true});
+
+    await page.goto(base+'/about.html',{waitUntil:'domcontentloaded'});await page.evaluate(()=>PortfolioTheme?.setTheme?.('light',false));
+    for(const summary of await page.locator('.career-timeline summary').all()){await summary.scrollIntoViewIfNeeded();const box=await summary.boundingBox();assert(box&&box.height>=44,'Career row must render content instead of a phantom divider');}
+    for(const row of await page.locator('.education-line').all()){await row.scrollIntoViewIfNeeded();const box=await row.boundingBox();assert(box&&box.height>=70,'Education row must render content instead of a phantom divider');}
+    if(output)await page.screenshot({animations:'disabled',path:path.join(output,'about-phone-light.png'),fullPage:true});
+    await page.goto(base+'/',{waitUntil:'domcontentloaded'});
    }
    if(name==='phone'||name==='small-phone'){
     await page.locator('#direction').scrollIntoViewIfNeeded();
@@ -126,6 +134,8 @@ async function run(){
    const alphaValues=[...surfaceText.matchAll(/rgba\([^)]*,\s*([\d.]+)\)/g)].map(m=>Number(m[1]));
    const hasTranslucentLayer=alphaValues.some(alpha=>alpha>0&&alpha<=.60);
    assert(hasTranslucentLayer,`Light project tiles stay translucent, got ${lightCardSurface.color} / ${lightCardSurface.image}`);
+   const quantumPaint=await page.locator('.quantum-stage').evaluate(el=>{const c=getComputedStyle(el).backgroundColor,m=c.match(/rgba?\(([^)]+)\)/),p=m?m[1].split(',').map(x=>Number(x.trim())):[];return{color:c,alpha:p.length>3?p[3]:1};});
+   assert(quantumPaint.alpha>=.8,'Day Bell-pair interactive must use its component-owned high-opacity surface: '+JSON.stringify(quantumPaint));
    const lightInk=await page.locator('#hero-title').evaluate(el=>getComputedStyle(el).color);
    const lightRgb=(lightInk.match(/\d+/g)||[]).slice(0,3).map(Number);
    assert(lightRgb.length===3&&Math.max(...lightRgb)<80,`Light-mode hero text stays decisively dark, got ${lightInk}`);

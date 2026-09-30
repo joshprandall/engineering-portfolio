@@ -14,6 +14,7 @@
 .game-tool-demo-head{display:flex;justify-content:space-between;gap:1rem;align-items:start}
 #tool-status{font-size:.78rem;color:var(--accent);font-weight:800;white-space:nowrap}
 #tool-canvas{display:block;width:100%;height:auto;aspect-ratio:12/7;border:1px solid color-mix(in srgb,var(--line) 75%,transparent);border-radius:14px;background:rgba(3,8,12,.30);touch-action:none}
+#tool-canvas[data-demo="architecture"]{min-height:0}
 .game-tool-controls{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.75rem}
 .game-tool-controls label{display:grid;gap:.4rem;font-size:.78rem;font-weight:750}
 .game-tool-controls input[type=range]{width:100%;min-height:44px;touch-action:none}
@@ -26,4 +27,5 @@
   .game-tool-controls{grid-template-columns:1fr}
   .game-tool-actions .button{flex:1 1 100%;justify-content:center}
   .game-tool-demo-head{align-items:center}
+  #tool-canvas[data-demo="architecture"]{aspect-ratio:1.08/1;min-height:260px}
 }

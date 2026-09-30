@@ -4,17 +4,19 @@
   --glass:rgba(7,13,17,.18);--glass-soft:rgba(7,13,17,.10);--glass-strong:rgba(7,13,17,.30);
   --surface:rgba(10,17,21,.20);--surface2:rgba(14,23,27,.26);
   --panel:rgba(10,17,21,.20);--panel2:rgba(14,23,27,.26);--panel3:rgba(20,30,34,.30);
-  --bg2:rgba(10,17,21,.12);--inset:rgba(5,10,14,.22);--nav-menu-solid:#0b1216
+  --bg2:rgba(10,17,21,.12);--inset:rgba(5,10,14,.22);--nav-menu-solid:#0b1216;
+  --sound-panel-bg:rgba(11,18,22,.96);--sound-panel-border:rgba(173,209,215,.30)
 }
 :root[data-theme="light"]{
   --glass:rgba(247,249,245,.18);--glass-soft:rgba(247,249,245,.10);--glass-strong:rgba(247,249,245,.30);
   --surface:rgba(247,249,245,.20);--surface2:rgba(239,243,238,.26);
   --panel:rgba(247,249,245,.20);--panel2:rgba(239,243,238,.26);--panel3:rgba(231,237,232,.30);
-  --bg2:rgba(247,249,245,.12);--inset:rgba(241,245,240,.22);--nav-menu-solid:#f7f9f5
+  --bg2:rgba(247,249,245,.12);--inset:rgba(241,245,240,.22);--nav-menu-solid:#f7f9f5;
+  --sound-panel-bg:rgba(247,249,245,.97);--sound-panel-border:rgba(58,102,79,.34)
 }
 html{min-width:0;max-width:100%;overflow-x:clip!important}
 body{min-width:0;width:100%;max-width:100%;overflow-x:visible!important}
-body.living-scenes{width:100vw!important;max-width:none!important;overflow-x:visible!important}
+body.living-scenes{width:100%!important;max-width:100%!important;overflow-x:clip!important}
 main,section,article,aside,form,fieldset,figure,nav,main div,header div{min-width:0;box-sizing:border-box}
 main :is(h1,h2,h3,p,a,strong,label){overflow-wrap:break-word}
 body .wrap,body.home-page .wrap{width:calc(100% - 2 * var(--layout-gutter));max-width:var(--layout-max);margin-inline:auto}
@@ -38,31 +40,32 @@ body .site-global-header #primary-nav.open{display:flex!important}
 .site-global-header #primary-nav a{width:100%;min-height:44px;padding:.6rem!important;white-space:normal}
 body .site-global-header .scene-sound-panel{
   position:absolute;inset:calc(100% + .45rem) 0 auto auto;
-  width:min(16rem,calc(100vw - 2 * var(--layout-gutter)));max-width:none;max-height:none;overflow:visible;
-  padding:.35rem 0 0;background:transparent!important;background-image:none!important;color:var(--ink,var(--text));
-  border:0!important;border-radius:0;box-shadow:none!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;z-index:150
+  width:min(17rem,calc(100vw - 2rem));max-width:none;max-height:none;overflow:hidden;
+  padding:.8rem;background:var(--sound-panel-bg)!important;background-image:none!important;color:var(--ink,var(--text));
+  border:1px solid var(--sound-panel-border)!important;border-radius:14px;
+  box-shadow:0 14px 36px rgba(0,0,0,.28)!important;
+  -webkit-backdrop-filter:blur(14px) saturate(1.05)!important;backdrop-filter:blur(14px) saturate(1.05)!important;z-index:150
 }
 .scene-sound-control{position:relative;display:inline-flex;align-items:center;flex:none}
 .scene-sound-panel label{
-  display:flex;align-items:center;justify-content:space-between;gap:.75rem;margin:0 0 .2rem;padding:0 .1rem;
-  font:700 .72rem/1.2 system-ui,sans-serif;color:var(--ink,var(--text))
+  display:flex;align-items:center;justify-content:space-between;gap:.75rem;margin:0 0 .35rem;padding:0;
+  font:700 .74rem/1.2 system-ui,sans-serif;color:var(--ink,var(--text))
 }
-.scene-sound-panel output{font-variant-numeric:tabular-nums;color:var(--muted)}
-.scene-sound-volume-row{display:grid;grid-template-columns:34px minmax(7.5rem,1fr) 34px;align-items:center;gap:.45rem;margin:0}
+.scene-sound-panel output{font-variant-numeric:tabular-nums;color:var(--ink,var(--text))}
+.scene-sound-volume-row{display:grid;grid-template-columns:34px minmax(0,1fr) 34px;align-items:center;gap:.55rem;margin:0}
 .scene-sound-volume-row>button,.scene-sound-mute{
   display:grid;place-items:center;min-width:34px;height:34px;padding:0 .55rem;
-  border:1px solid var(--line)!important;border-radius:999px!important;
-  background:var(--glass-strong)!important;color:var(--ink,var(--text))!important;
-  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)
+  border:1px solid var(--line)!important;border-radius:10px!important;
+  background:var(--glass-strong)!important;color:var(--ink,var(--text))!important
 }
 .scene-sound-volume-row>button{width:34px;padding:0;font:800 1rem/1 system-ui}
-.scene-sound-mute{width:auto;min-width:5.25rem;margin:.35rem 0 0 auto;font:700 .72rem/1 system-ui}
+.scene-sound-mute{width:100%;min-width:0;margin:.45rem 0 0;font:700 .74rem/1 system-ui}
 .scene-sound-panel input[type=range]{
   -webkit-appearance:none;appearance:none;display:block;width:100%;height:34px;min-height:34px;
   margin:0;padding:0 2px;background:transparent!important;cursor:pointer;touch-action:none;accent-color:var(--accent)
 }
 .scene-sound-panel input[type=range]::-webkit-slider-runnable-track{
-  height:8px;border-radius:999px;background:color-mix(in srgb,var(--line) 70%,transparent)
+  height:8px;border-radius:999px;background:color-mix(in srgb,var(--line) 76%,transparent)
 }
 .scene-sound-panel input[type=range]::-webkit-slider-thumb{
   -webkit-appearance:none;appearance:none;width:24px;height:24px;margin-top:-8px;
@@ -70,17 +73,26 @@ body .site-global-header .scene-sound-panel{
   background:var(--accent);box-shadow:0 2px 7px rgba(0,0,0,.26)
 }
 .scene-sound-panel input[type=range]::-moz-range-track{
-  height:8px;border:0;border-radius:999px;background:color-mix(in srgb,var(--line) 70%,transparent)
+  height:8px;border:0;border-radius:999px;background:color-mix(in srgb,var(--line) 76%,transparent)
 }
 .scene-sound-panel input[type=range]::-moz-range-thumb{
   width:24px;height:24px;border:2px solid color-mix(in srgb,var(--ink,var(--text)) 52%,transparent);
   border-radius:50%;background:var(--accent);box-shadow:0 2px 7px rgba(0,0,0,.26)
 }
 .scene-sound-panel input[type=range]:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:999px}
-.scene-sound-panel [data-audio-status]{display:block;margin-top:.25rem;color:var(--muted);font:600 .66rem/1.25 system-ui}
+.scene-sound-panel [data-audio-status]{display:block;margin-top:.35rem;color:var(--muted);font:600 .66rem/1.25 system-ui}
 .scene-sound-panel [data-audio-status][hidden]{display:none!important}
 .learning-local-controls{display:none!important}
-@media(max-width:42rem){body .site-global-header .global-controls{width:100%;justify-content:space-between;gap:.35rem}body .site-global-header .global-controls>button,body .site-global-header .global-controls [data-scene-audio]{font-size:.75rem!important;padding:.4rem!important}body .site-global-header .global-controls [data-theme-toggle]{width:5rem!important}.site-global-header kbd{display:none}.site-global-header .scene-sound-control{position:static}body .site-global-header .scene-sound-panel{right:var(--layout-gutter);width:min(15rem,calc(100vw - 2 * var(--layout-gutter)))}.scene-sound-volume-row{grid-template-columns:32px minmax(6.5rem,1fr) 32px}.scene-sound-volume-row>button{width:32px;min-width:32px;height:32px}}
+@media(max-width:42rem){
+  body .site-global-header .global-controls{width:100%;justify-content:space-between;gap:.35rem}
+  body .site-global-header .global-controls>button,body .site-global-header .global-controls [data-scene-audio]{font-size:.75rem!important;padding:.4rem!important}
+  body .site-global-header .global-controls [data-theme-toggle]{width:5rem!important}
+  .site-global-header kbd{display:none}
+  .site-global-header .scene-sound-control{position:static}
+  body .site-global-header .scene-sound-panel{left:50%;right:auto;transform:translateX(-50%);width:min(17rem,calc(100vw - 2rem))}
+  .scene-sound-volume-row{grid-template-columns:32px minmax(0,1fr) 32px}
+  .scene-sound-volume-row>button{width:32px;min-width:32px;height:32px}
+}
 /* Profile is flow layout. The illustration alone is a cover background. Neither theme owns geometry. */
 .home-page .hero{gap:var(--layout-gap);grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
 .about-imagery{position:relative;isolation:isolate;display:block;width:100%;max-width:38rem;margin:0 auto;padding:0;overflow:visible;container-type:inline-size}
@@ -177,13 +189,11 @@ body[data-library-page] .filters select{min-width:0;max-width:100%}
 @media(max-width:38rem){.ai-build-sequence{grid-template-columns:1fr}.ai-build-sequence a,.ai-build-sequence a:last-child{justify-content:flex-start;text-align:left}.ai-lab-bars>div{grid-template-columns:1fr}.ai-lab-bars output{text-align:left}}
 
 /* Sitewide glass contract: tile surfaces must reveal the scene behind them. */
-:is(.home-project,.education-cards article,.resume-education article,.project-card,.destination-card,.domain-card,.lesson-card,.path-card,.practice-card,.mastery-card,.atlas-card,.principle-grid article,.contact,.quantum-stage){
+:is(.home-project,.education-cards article,.resume-education article,.project-card,.destination-card,.domain-card,.lesson-card,.path-card,.practice-card,.mastery-card,.atlas-card,.principle-grid article,.contact){
   background:var(--glass)!important;
   -webkit-backdrop-filter:blur(12px) saturate(1.08);
   backdrop-filter:blur(12px) saturate(1.08);
 }
-:root[data-theme="dark"] .quantum-stage{background:rgba(4,12,17,.36)!important}
-:root[data-theme="light"] .quantum-stage{background:rgba(5,18,24,.52)!important}
 .quantum-stage-label,.quantum-controls,#bell-result{background:transparent!important}
 @media(max-width:42rem){
   .portrait-stage{min-height:29rem;padding-top:8.5rem}
@@ -280,7 +290,7 @@ body[data-library-page] .filters select{min-width:0;max-width:100%}
   .science-output,.science-node-grid button,.science-probes button,.science-paths span,
   .lab-workspace .lab-grid,#lab .lab-grid,.lab-workspace form,#lab form,.app-panel,
   .agent-metric,#agent-tasks li,#agent-ledger,.vnext-system,.vnext-quantum,
-  .vnext-quantum-floor,.portrait-card,.contact,.quantum-stage
+  .vnext-quantum-floor,.portrait-card,.contact
 ){
   background:var(--glass)!important;
   -webkit-backdrop-filter:blur(10px) saturate(1.08);
@@ -370,9 +380,19 @@ html{max-width:100%;overflow-x:clip!important}
 body:not(.living-scenes){max-width:100%;overflow-x:clip!important}
 /* Native rails are hidden; shared UI renders a thumb only, with no opaque track. */
 html,body{scrollbar-width:none;-ms-overflow-style:none}
-html::-webkit-scrollbar,body::-webkit-scrollbar{display:none!important;width:0!important;height:0!important;background:transparent!important}
+html,body{scrollbar-color:transparent transparent!important;scrollbar-gutter:auto!important}
+html::-webkit-scrollbar,body::-webkit-scrollbar{
+  -webkit-appearance:none!important;display:none!important;width:0!important;height:0!important;
+  background:transparent!important;border:0!important;box-shadow:none!important
+}
 html::-webkit-scrollbar-track,body::-webkit-scrollbar-track,
-html::-webkit-scrollbar-corner,body::-webkit-scrollbar-corner{display:none!important;background:transparent!important}
+html::-webkit-scrollbar-track-piece,body::-webkit-scrollbar-track-piece,
+html::-webkit-scrollbar-thumb,body::-webkit-scrollbar-thumb,
+html::-webkit-scrollbar-button,body::-webkit-scrollbar-button,
+html::-webkit-scrollbar-corner,body::-webkit-scrollbar-corner{
+  -webkit-appearance:none!important;display:none!important;background:transparent!important;
+  border:0!important;box-shadow:none!important
+}
 :root{--page-scroll-thumb:rgba(244,165,117,.48);--page-scroll-thumb-active:rgba(244,165,117,.72)}
 .site-page-scroll{
   position:fixed;top:max(10px,env(safe-area-inset-top));right:0;
@@ -384,7 +404,7 @@ html::-webkit-scrollbar-corner,body::-webkit-scrollbar-corner{display:none!impor
 .site-page-scroll::before,.site-page-scroll::after{content:none!important;display:none!important;background:none!important}
 /* iOS/WebKit can reserve a scrollable root gutter even when its scrollbar is hidden.
    The living scene must still paint through the complete physical viewport. */
-body.living-scenes .scene-backdrop{left:0!important;right:0!important;width:100vw!important;max-width:none!important}
+body.living-scenes .scene-backdrop{left:0!important;right:0!important;width:auto!important;max-width:none!important}
 .site-page-scroll[hidden]{display:none!important}
 .site-page-scroll-thumb{
   position:absolute;top:0;right:4px;width:4px;min-height:44px;max-height:72px;border-radius:999px;
@@ -442,57 +462,10 @@ img,video,canvas,svg,iframe{max-width:100%}
 
 /* Several older learning/science components had desktop-width assumptions. */
 @media(max-width:700px){
-  /* Mobile content-card contract: tiles keep a real inner gutter and center
-     their presentation content instead of pressing copy against the border. */
-  :is(
-    .project-card,.home-project,.education-cards article,.resume-education article,
-    .destination-card,.domain-card,.lesson-card,.path-card,.atlas-card,
-    .practice-card,.mastery-card,.principle-grid article,.portrait-card,
-    .contact,body.living-scenes[data-library-page="home"] .stats>div,
-    body.living-scenes[data-library-page="home"] .verification-inner
-  ){
-    padding-left:clamp(1.2rem,5.5vw,1.55rem)!important;
-    padding-right:clamp(1.2rem,5.5vw,1.55rem)!important;
-    text-align:center;
-  }
-  :is(
-    .project-card,.home-project,.education-cards article,.resume-education article,
-    .destination-card,.domain-card,.lesson-card,.path-card,.atlas-card,
-    .practice-card,.mastery-card,.principle-grid article,.portrait-card,.contact
-  ) > :is(h1,h2,h3,h4,p,.eyebrow,.muted,.project-open,.status){
-    margin-left:auto;
-    margin-right:auto;
-    text-align:center;
-  }
-  :is(.project-card,.home-project,.destination-card,.domain-card,.lesson-card,.path-card,.atlas-card) .card-bottom{
-    justify-content:center!important;
-    text-align:center;
-  }
-  :is(.project-card,.home-project,.destination-card,.domain-card,.lesson-card,.path-card,.atlas-card) :is(.button,.text-link,.project-open){
-    justify-content:center;
-    text-align:center;
-  }
-  .home-project .project-glyph{
-    position:static!important;
-    display:block;
-    width:auto;
-    margin:0 auto .75rem!important;
-    text-align:center;
-  }
-  .home-project .eyebrow,.home-project h3{margin-right:auto!important;max-width:none!important}
-
-  .contact{align-items:center!important}
-  .contact>div{width:100%;min-width:0;text-align:center}
-  .contact p{margin-left:auto;margin-right:auto}
-  .contact-actions{
-    width:100%!important;max-width:none!important;min-width:0!important;
-    align-items:stretch!important
-  }
-  .contact-actions .button,
-  .contact-actions>a:not(.button){
-    display:flex!important;justify-content:center!important;align-items:center!important;
-    width:100%;text-align:center!important
-  }
+  /* Preserve each component's existing alignment. The homepage contact tile
+     owns its mobile inset in portfolio-home.css. */
+  #game-list .project-grid{row-gap:clamp(1rem,4vw,1.4rem)!important}
+  #game-list + #engine-path{margin-top:clamp(2rem,8vw,3rem)!important}
 
   .science-console{width:100%!important;margin-inline:0!important}
   .vnext-path-intro{width:100%!important;margin-inline:0!important}

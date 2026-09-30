@@ -33,18 +33,21 @@ const server=http.createServer((req,res)=>{
  const p=await c.newPage();p.on('pageerror',e=>report.errors.push(e.message));
  await p.goto(base+'/index.html',{waitUntil:'domcontentloaded'});
  await p.locator('[data-scene-audio]').click();
- const panel=await p.locator('.scene-sound-panel').evaluate(e=>{const s=getComputedStyle(e);return {background:s.backgroundColor,image:s.backgroundImage,shadow:s.boxShadow,blur:s.backdropFilter,border:s.borderTopWidth,children:[...e.children].map(c=>c.tagName)}});
- assert.deepEqual(panel,{background:'rgba(0, 0, 0, 0)',image:'none',shadow:'none',blur:'none',border:'0px',children:['LABEL','DIV','BUTTON','SMALL']},'Sound controls must float without an opaque panel surface');
+ const panel=await p.locator('.scene-sound-panel').evaluate(e=>{const s=getComputedStyle(e),r=e.getBoundingClientRect(),m=s.backgroundColor.match(/rgba?\(([^)]+)\)/),parts=m?m[1].split(',').map(x=>Number(x.trim())):[];return {background:s.backgroundColor,alpha:parts.length>3?parts[3]:1,image:s.backgroundImage,shadow:s.boxShadow,blur:s.backdropFilter||s.webkitBackdropFilter||'none',border:s.borderTopWidth,children:[...e.children].map(c=>c.tagName),left:r.left,right:r.right,width:r.width,viewport:innerWidth}});
+ assert(panel.alpha>=.9,'Sound panel must have a coherent high-contrast surface: '+JSON.stringify(panel));assert.equal(panel.image,'none');assert.notEqual(panel.shadow,'none');assert.notEqual(panel.border,'0px');assert.deepEqual(panel.children,['LABEL','DIV','BUTTON','SMALL']);assert(panel.left>=0&&panel.right<=panel.viewport+1&&panel.width<=panel.viewport-16,'Sound panel must fit viewport: '+JSON.stringify(panel));
  const slider=p.locator('#ambient-volume');await slider.focus();await slider.press('Home');assert(await p.evaluate(()=>SiteAudio.muted&&SiteAudio.volume===0));
  for(let i=0;i<5;i++)await slider.press('ArrowRight');assert(await p.evaluate(()=>!SiteAudio.muted&&Math.abs(SiteAudio.volume-.05)<.001));
  assert.equal(await slider.evaluate(el=>getComputedStyle(el).touchAction),'none','Volume slider must retain horizontal touch dragging instead of handing the gesture to page scrolling');
  await slider.evaluate(el=>{el.value='37';el.dispatchEvent(new Event('change',{bubbles:true}));});
  assert(await p.evaluate(()=>!SiteAudio.muted&&Math.abs(SiteAudio.volume-.37)<.001),'Committed native-range changes must update audio volume');
+ const mute=p.locator('.scene-sound-mute');
+ await slider.evaluate(el=>{el.value='37';el.dispatchEvent(new Event('change',{bubbles:true}));});
+ await mute.click();assert(await p.evaluate(()=>SiteAudio.muted&&Math.abs(SiteAudio.volume-.37)<.001),'Mute must preserve selected nonzero volume');assert.equal(await mute.innerText(),'Unmute');await mute.click();assert(await p.evaluate(()=>!SiteAudio.muted&&Math.abs(SiteAudio.volume-.37)<.001),'Unmute must restore selected nonzero volume');
  await slider.evaluate(el=>{el.value='0';el.dispatchEvent(new Event('input',{bubbles:true}));});
  assert(await p.evaluate(()=>SiteAudio.muted&&SiteAudio.volume===0),'Zero on the native range must mute');
+ await mute.click();assert(await p.evaluate(()=>!SiteAudio.muted&&Math.abs(SiteAudio.volume-.37)<.001),'Unmute after zero restores the previous nonzero selection');
  await slider.evaluate(el=>{el.value='5';el.dispatchEvent(new Event('change',{bubbles:true}));});
- assert(await p.evaluate(()=>!SiteAudio.muted&&Math.abs(SiteAudio.volume-.05)<.001),'Positive native-range changes must restore sound');
- const mute=p.locator('.scene-sound-mute');await mute.click();assert(await p.evaluate(()=>SiteAudio.muted&&Math.abs(SiteAudio.volume-.05)<.001),'Mute must silence without losing the selected volume');assert.equal(await mute.innerText(),'Unmute');await mute.click();assert(await p.evaluate(()=>!SiteAudio.muted&&Math.abs(SiteAudio.volume-.05)<.001),'Unmute must restore the selected volume');assert.equal(await mute.innerText(),'Mute');
+ assert(await p.evaluate(()=>!SiteAudio.muted&&Math.abs(SiteAudio.volume-.05)<.001),'Positive native-range changes set the new selected level');assert.equal(await mute.innerText(),'Mute');
  await p.locator('.scene-sound-up').click();assert(await p.evaluate(()=>Math.abs(SiteAudio.volume-.10)<.001),'Plus control raises volume by five percent');await p.locator('.scene-sound-down').click();assert(await p.evaluate(()=>Math.abs(SiteAudio.volume-.05)<.001),'Minus control lowers volume by five percent');
  await p.screenshot({path:path.join(output,'volume-slider-night.png')});
  await p.waitForFunction(()=>SiteAudio.element.currentTime>0&&!SiteAudio.element.paused&&SiteAudio.volumeBackend==='gain',null,{timeout:20000});
@@ -56,7 +59,7 @@ const server=http.createServer((req,res)=>{
   await p.waitForFunction(id=>document.querySelector('#site-scene')?.dataset.visibleDayScene===id&&SiteAudio.scene===id,scene,{timeout:45000});
   await p.waitForFunction(()=>{const v=document.querySelector('.scene-video.is-active');return v&&v.readyState>=2&&!v.paused&&v.currentTime>0&&document.querySelector('.scene-day-fallback').classList.contains('video-ready')&&Number(getComputedStyle(v).opacity)>0&&SiteAudio.element.currentTime>0&&!SiteAudio.element.paused},null,{timeout:20000});
   const state=await p.evaluate(()=>{const v=document.querySelector('.scene-video.is-active');return {scene:SiteAudio.scene,key:SiteAudio.key,video:v.currentSrc,time:v.currentTime,muted:v.muted,opacity:Number(getComputedStyle(v).opacity),posterHidden:document.querySelector('.scene-day-fallback').classList.contains('video-ready'),audio:SiteAudio.element.currentSrc,levels:SiteAudio.outputLevels,beachAbandoned:SiteAudio.scene!=='birds-water'&&SiteAudio.beachElements.some(a=>!a.paused)}});
-  assert.equal(state.key,key);assert(state.muted&&state.opacity>0&&state.posterHidden);assert(!state.beachAbandoned);assert(state.audio.startsWith(base+'/assets/audio/day/'));assert(key==='beach'?/beach-(near|far)\.mp3$/.test(state.audio):state.audio.endsWith('/'+key+'.mp3'));
+  assert.equal(state.key,key);assert.equal(state.levels.filter(x=>!x.paused&&!x.muted&&x.level>0).length,1,scene+': exactly one ambience owner is audible');assert(state.muted&&state.opacity>0&&state.posterHidden);assert(!state.beachAbandoned);assert(state.audio.startsWith(base+'/assets/audio/day/'));assert(key==='beach'?/beach-(near|far)\.mp3$/.test(state.audio):state.audio.endsWith('/'+key+'.mp3'));
   const before=await frameHash();let after=before;const deadline=Date.now()+10000;
   // A first decoded frame can precede sustained playback, especially during a
   // WebKit compositing transition. Require actual changing pixels within a
@@ -73,6 +76,13 @@ const server=http.createServer((req,res)=>{
   if(scene==='forest-waterfall'){await p.locator('[data-scene-audio]').click();await p.screenshot({path:path.join(output,'volume-slider-day.png')});await p.keyboard.press('Escape');}
   report.media.push({...state,decodedMotion:true});await p.screenshot({path:path.join(output,scene+'.png')});
  }
+ await p.waitForFunction(()=>document.querySelector('#site-scene')?.dataset.visibleDayScene==='forest-waterfall'&&SiteAudio.key==='waterfall',null,{timeout:45000});
+ assert.equal(await p.evaluate(()=>SiteAudio.outputLevels.filter(x=>!x.paused&&!x.muted&&x.level>0).length),1,'Beach → Waterfall leaves one ambience owner');
+ await p.evaluate(()=>PortfolioTheme.setTheme('dark',false));
+ await p.waitForFunction(()=>SiteAudio.key==='dark');assert.equal(await p.evaluate(()=>SiteAudio.outputLevels.filter(x=>!x.paused&&!x.muted&&x.level>0).length),1,'Day → Night leaves one ambience owner');
+ await p.evaluate(()=>PortfolioTheme.setTheme('light',false));
+ await p.evaluate(()=>{document.dispatchEvent(new CustomEvent('portfolio:scene-will-change',{detail:{id:'birds-water'}}));document.dispatchEvent(new CustomEvent('portfolio:scene',{detail:{id:'birds-water'}}));});
+ await p.waitForFunction(()=>SiteAudio.key==='beach');assert.equal(await p.evaluate(()=>SiteAudio.outputLevels.filter(x=>!x.paused&&!x.muted&&x.level>0).length),1,'Night → Beach leaves one ambience owner');
  await p.evaluate(()=>PortfolioTheme.setMotion('paused'));await p.waitForFunction(()=>[...document.querySelectorAll('.scene-video')].every(v=>v.paused));const time=await p.locator('.scene-video.is-active').evaluate(v=>v.currentTime);await p.waitForTimeout(1000);assert(Math.abs(await p.locator('.scene-video.is-active').evaluate(v=>v.currentTime)-time)<.08);await p.evaluate(()=>PortfolioTheme.setMotion('running'));await p.waitForFunction(()=>!document.querySelector('.scene-video.is-active').paused);
  await p.evaluate(()=>{SiteAudio.setVolume(.13);SiteAudio.setMuted(true)});await p.goto(base+'/projects.html',{waitUntil:'domcontentloaded'});assert(await p.evaluate(()=>SiteAudio.muted&&SiteAudio.volume===.13&&SiteAudio.outputLevels.every(p=>p.paused&&p.muted)));await p.goBack({waitUntil:'domcontentloaded'});assert(await p.evaluate(()=>SiteAudio.muted));
  // Losing decorative canvas must not disable the background or sound controls.

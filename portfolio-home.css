@@ -156,7 +156,9 @@
  .quantum-intro>p{font-size:.86rem}.quantum-intro .quantum-formula{font-size:1.17rem}.quantum-intro .quantum-note{font-size:.74rem}
  #quantum-cube{height:240px}.quantum-controls{grid-template-columns:1fr;padding:14px}.quantum-controls label{font-size:.67rem}.quantum-controls select{font-size:.78rem}
  .home-page .quantum-controls .button{justify-content:center;font-size:.78rem}.bell-bars{padding-inline:14px;gap:10px}
- .home-page .contact{display:block;padding-block:44px}.home-page .contact-actions{margin-top:28px;min-width:0;gap:12px}.home-page .contact h2{font-size:2rem}
+ .home-page .contact{display:block;padding:44px clamp(22px,6vw,30px)}
+ .home-page .contact-actions{width:100%;max-width:350px;margin-top:28px;min-width:0;gap:12px}
+ .home-page .contact h2{font-size:2rem}
  .home-page footer{padding-block:24px;gap:14px}.home-page footer div{gap:24px}
 }
 @media(prefers-reduced-motion:reduce){.home-project{transition:none}.home-project:hover{transform:none}}

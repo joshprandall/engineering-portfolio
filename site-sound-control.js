@@ -22,8 +22,8 @@
     const render=()=>{
       const percent=Math.max(0,Math.min(100,Math.round(audio.volume*100)));
       slider.value=String(percent);
-      slider.setAttribute('aria-valuetext',audio.muted?'Muted':percent+' percent');
-      output.textContent=audio.muted?'Muted':percent+'%';
+      slider.setAttribute('aria-valuetext',audio.muted?'Muted, '+percent+' percent selected':percent+' percent');
+      output.textContent=percent+'%';
       mute.textContent=audio.muted?'Unmute':'Mute';
       mute.setAttribute('aria-pressed',String(audio.muted));
       button.setAttribute('aria-pressed',String(!audio.muted&&percent>0));
@@ -54,7 +54,6 @@
     up.addEventListener('click',()=>setPercent(Math.round(audio.volume*100)+5));
     mute.addEventListener('click',()=>{
       const next=!audio.muted;
-      if(!next&&audio.volume===0)audio.setVolume(.05);
       audio.setMuted(next);
       audio.sync(true);
       if(!next)audio.play();
