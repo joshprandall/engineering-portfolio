@@ -3243,11 +3243,11 @@
     },
     {
       "path": "site-theme.js",
-      "size": 8663,
-      "sha256": "1b6b49ded441294c1e7833acb26f3d6ab7be81206a7a50a13811e0619628a21e",
+      "size": 9593,
+      "sha256": "ee6c283b6bcdfbfcb44c342b6ea88649dbaf1f80a46acad03dabb4e085b8c198",
       "source": {
         "kind": "git-blob",
-        "blob": "5bc2b7387825ea8738543d6e9aa4075f1d2bb847"
+        "blob": "df14c40df2ad5cb1fb07e7040c1480290f53565f"
       },
       "owningComponent": "shared-shell",
       "deploymentClassification": "KEEP_PRODUCTION"
