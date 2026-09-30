@@ -447,7 +447,7 @@
     darkPlayers.forEach((player, index) => {
       if (darkTransitioning && cap > 0) return;
       try {
-        setPlayerLevel(player, currentKey === 'dark' && darkStarted && index === darkActiveIndex ? cap : 0);
+        setPlayerLevel(player, currentKey === 'dark' && index === darkActiveIndex ? cap : 0);
       } catch (_) {}
     });
     beachPlayers.forEach((player, index) => {
