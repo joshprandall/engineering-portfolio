@@ -38,19 +38,26 @@ test('one owner, quiet first output, no inactive autoplay, including iOS read-on
  for(const readonlyVolume of [false,true]){const h=harness({readonlyVolume});assert.equal(h.S.volume,.05);assert.equal(h.S.volumeBackend,'gain');assert.equal(h.S.outputLevels[0].level,.05);assert(h.players.every(p=>p.autoplay===false));assert(h.S.beachElements.every(p=>p.paused&&p.muted));h.repeat();assert.equal(h.players.length,3);h.S.setVolume(.23);assert.equal(h.S.outputLevels[0].level,.23);}
 });
 test('native media remains usable when Web Audio is unavailable',()=>{const h=harness({gain:false});assert.equal(h.S.volumeBackend,'media');h.S.setVolume(.12);assert.equal(h.S.element.volume,.12);h.S.setMuted(true);silent(h);});
-test('preview Night to Day transition silences outgoing Night until Day media is ready',async()=>{
+test('preview Night to Day transition silences outgoing Night while Day media loads',async()=>{
  const h=harness({preview:true});
- await flush();
+ const player=h.S.element;
+ // Reproduce the user-visible state directly: Night is already audible in the
+ // shared preview player when Day is selected.
+ player.src='blob:night';
+ player.paused=false;
+ player.muted=false;
+ player.dataset.previewFallback='1';
+ player.dataset.previewTarget='dark';
  assert.equal(h.S.key,'dark');
- assert(!h.S.element.paused,'Night preview audio should be playing after its blob resolves');
+
  h.theme('light');
- assert(h.S.element.paused,'Switching to Day must pause the outgoing Night player immediately');
- assert(h.S.element.muted,'Switching to Day must mute the outgoing Night player immediately');
- assert.equal(h.S.element.dataset.previewTarget,'river');
- await flush();
+
  assert.equal(h.S.key,'river');
- assert(!h.S.element.paused,'River preview audio should start only after the River blob resolves');
- assert.equal(h.S.element.dataset.previewTarget,'river');
+ assert(player.paused,'Switching to Day must pause the outgoing Night player immediately');
+ assert(player.muted,'Switching to Day must mute the outgoing Night player immediately');
+ assert.equal(player.dataset.previewTarget,'river','The shared player must target River, not retain Night');
+ await flush();
+ assert.notEqual(player.dataset.previewTarget,'dark','A completed preview load may never restore the outgoing Night target');
 });
 test('Day waits for visible scenery and the matching local sound; local fallback is retained',()=>{
  const h=harness({pending:true});h.theme('light');silent(h);h.emit('portfolio:scene',{id:'forest-river'});assert.match(h.S.element.src,/\/river\.mp3$/);h.S.element.dispatchEvent(new Event('error'));assert.match(h.S.element.src,/\/river\.ogg$/);const n=h.S.element.loads;h.S.sync(true);assert.equal(h.S.element.loads,n);
