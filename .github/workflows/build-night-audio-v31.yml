@@ -1,0 +1,130 @@
+name: Build Night audio v31
+
+on:
+  push:
+    branches: [night-audio-v31]
+    paths:
+      - .github/workflows/build-night-audio-v31.yml
+
+permissions:
+  contents: write
+
+jobs:
+  build-night-audio:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Build original-length seamless Night master
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
+
+          # Restore the full user-provided recording from before the later short-loop rebuilds.
+          git show 9408891c3efc4cb8fc920cb8f8df31eb4813bae2:assets/audio/dark-theme-user.mp3 > /tmp/night-original.mp3
+          ffmpeg -y -hide_banner -loglevel error -i /tmp/night-original.mp3 -vn -ar 44100 -ac 2 -c:a pcm_s16le /tmp/night-original.wav
+
+          python3 - <<'PY'
+          import array
+          import math
+          import re
+          import wave
+          from pathlib import Path
+
+          source = Path("/tmp/night-original.wav")
+          wav_target = Path("assets/audio/dark-theme-user-v31.wav")
+          mp3_target = Path("assets/audio/dark-theme-user-v31.mp3")
+
+          # Analysis of the user's original recording found a strong musical handoff
+          # near 2.554195 s. Keep the long phrase, then hide the wrap with a 1.44 s
+          # circular raised-cosine crossfade. This preserves ~24 s of the original
+          # instead of the previous ~17 s shortened master.
+          start_frame = 112640
+          fade_frames = 63504
+
+          with wave.open(str(source), "rb") as src:
+              if src.getframerate() != 44100 or src.getnchannels() != 2 or src.getsampwidth() != 2:
+                  raise SystemExit("Unexpected decoded Night source format")
+              total_frames = src.getnframes()
+              samples = array.array("h")
+              samples.frombytes(src.readframes(total_frames))
+
+          channels = 2
+          raw_frames = total_frames - start_frame
+          out_frames = raw_frames - fade_frames
+          if out_frames < 44100 * 20:
+              raise SystemExit(f"Night source unexpectedly short: {total_frames} frames")
+
+          out = array.array("h", samples[start_frame*channels:(start_frame+out_frames)*channels])
+
+          # Circular crossfade: continue the tail at frame zero while gradually
+          # morphing into the head. The last output sample is immediately followed
+          # by its natural next tail sample at the loop boundary.
+          for frame in range(fade_frames):
+              x = frame / fade_frames
+              fade_in = math.sin(x * math.pi / 2.0) ** 2
+              fade_out = 1.0 - fade_in
+              head_base = (start_frame + frame) * channels
+              tail_base = (start_frame + out_frames + frame) * channels
+              out_base = frame * channels
+              for ch in range(channels):
+                  value = math.floor(
+                      samples[tail_base + ch] * fade_out +
+                      samples[head_base + ch] * fade_in
+                  )
+                  out[out_base + ch] = max(-32768, min(32767, value))
+
+          wav_target.parent.mkdir(parents=True, exist_ok=True)
+          with wave.open(str(wav_target), "wb") as dst:
+              dst.setnchannels(2)
+              dst.setsampwidth(2)
+              dst.setframerate(44100)
+              dst.writeframes(out.tobytes())
+
+          with wave.open(str(wav_target), "rb") as check:
+              duration = check.getnframes() / check.getframerate()
+              if not (23.0 <= duration <= 26.5):
+                  raise SystemExit(f"Unexpected Night loop duration: {duration:.6f}s")
+              print(f"Night WAV: {check.getnframes()} frames, {duration:.6f}s")
+
+          # Cache-bust only the audio controller reference. No Day scene code,
+          # Day assets, layout, CSS, or visual behavior is changed.
+          version = "20260930-night-audio-v31"
+          pattern = re.compile(r"(site-audio\.js)(?:\?v=[^\"'\s>]+)?")
+          changed = 0
+          for path in Path(".").rglob("*.html"):
+              text = path.read_text(encoding="utf-8", errors="ignore")
+              if "site-audio.js" not in text:
+                  continue
+              updated = pattern.sub(r"\1?v=" + version, text)
+              if updated != text:
+                  path.write_text(updated, encoding="utf-8")
+                  changed += 1
+          print(f"Cache-busted site-audio.js on {changed} HTML files")
+          PY
+
+          ffmpeg -y -hide_banner -loglevel error             -i assets/audio/dark-theme-user-v31.wav             -codec:a libmp3lame -q:a 2 assets/audio/dark-theme-user-v31.mp3
+
+          node --check site-audio.js
+          npm test
+
+          ls -lh assets/audio/dark-theme-user-v31.wav assets/audio/dark-theme-user-v31.mp3
+          sha256sum assets/audio/dark-theme-user-v31.wav assets/audio/dark-theme-user-v31.mp3
+
+      - name: Commit generated Night assets
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add site-audio.js assets/audio/dark-theme-user-v31.wav assets/audio/dark-theme-user-v31.mp3 '*.html' '**/*.html'
+          if git diff --cached --quiet; then
+            echo "No generated changes to commit."
+            exit 0
+          fi
+          git commit -m "Build original-length gapless Night audio v31"
+          git push origin HEAD:night-audio-v31
