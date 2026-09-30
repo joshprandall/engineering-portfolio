@@ -7,7 +7,8 @@
 
   const SCENE_SCRIPT_URL = new URL(document.currentScript?.src || location.href, location.href);
   const SITE_BASE = new URL('./', SCENE_SCRIPT_URL);
-  const BRANCH_PREVIEW_HOST = /(?:^|\.)raw\.githack\.com$/i.test(location.hostname);
+  const BRANCH_PREVIEW_HOST = /(?:^|\.)raw\.githack\.com$/i.test(location.hostname) ||
+    new URL(location.href).searchParams.get('previewHost') === '1';
   const previewSceneUrls = new Map();
   const previewSceneLoads = new Map();
   const PREVIEW_SCENE_ASSETS = Object.freeze({
