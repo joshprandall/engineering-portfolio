@@ -36,7 +36,14 @@ function harness({gain=true,pending=false,readonlyVolume=false,storage=new Map()
 const flush=async()=>{for(let i=0;i<8;i++)await Promise.resolve();};
 const silent=h=>assert(h.players.every(p=>p.paused&&p.muted),'Every background player must be stopped and muted');
 test('one owner, quiet first output, no inactive autoplay, including iOS read-only volume',()=>{
- for(const readonlyVolume of [false,true]){const h=harness({readonlyVolume});assert.equal(h.S.volume,.05);assert.equal(h.S.volumeBackend,'gain');assert.equal(h.S.outputLevels[0].level,.05);assert(h.players.every(p=>p.autoplay===false));assert(h.S.beachElements.every(p=>p.paused&&p.muted));h.repeat();assert.equal(h.players.length,3);h.S.setVolume(.23);assert.equal(h.S.outputLevels[0].level,.23);}
+ for(const readonlyVolume of [false,true]){
+  const h=harness({readonlyVolume});
+  assert.equal(h.S.volume,.05);assert.equal(h.S.volumeBackend,'gain');
+  assert.equal(h.S.outputLevels.filter(p=>!p.paused&&!p.muted&&p.level>0).reduce((n,p)=>n+p.level,0),.05);
+  assert(h.players.every(p=>p.autoplay===false));assert(h.S.beachElements.every(p=>p.paused&&p.muted));
+  h.repeat();assert.equal(h.players.length,5);h.S.setVolume(.23);
+  assert.equal(h.S.outputLevels.filter(p=>!p.paused&&!p.muted&&p.level>0).reduce((n,p)=>n+p.level,0),.23);
+ }
 });
 test('native media remains usable when Web Audio is unavailable',()=>{const h=harness({gain:false});assert.equal(h.S.volumeBackend,'media');h.S.setVolume(.12);assert.equal(h.S.element.volume,.12);h.S.setMuted(true);silent(h);});
 test('trusted interaction claims playback routing and recovers the WebKit audio session',()=>{
@@ -89,9 +96,20 @@ test('mute, hide and pagehide resist late metadata, ended, errors and watchdog; 
 test('overlapping activities remain quiet until every activity releases its reason',()=>{
  const h=harness();h.emit('portfolio:ambient-suppression',{reason:'video',active:true});h.emit('portfolio:ambient-suppression',{reason:'lesson',active:true});h.emit('portfolio:ambient-suppression',{reason:'video',active:false});silent(h);h.emit('portfolio:ambient-suppression',{reason:'lesson',active:false});assert(!h.S.element.paused);
 });
+test('Night loop crossfades between two players without exceeding the selected site volume',async()=>{
+ const h=harness({readonlyVolume:true});await flush();
+ const first=h.S.element;first.currentTime=11;first.dispatchEvent(new Event('timeupdate'));await flush();
+ h.frame(675);
+ const mid=h.S.outputLevels.slice(1,3);assert(mid.every(p=>p.level>0),'Both Night players participate in the seam crossfade');
+ assert(Math.abs(mid.reduce((n,p)=>n+p.level,0)-.05)<1e-9,'Night crossfade preserves the selected total site volume');
+ h.frame(1400);
+ assert.notEqual(h.S.element,first,'Night ownership alternates instead of restarting the same element at the seam');
+ assert(first.paused,'Outgoing Night player stops after the crossfade');
+ assert(!h.S.element.paused,'Incoming Night player continues seamlessly');
+});
 test('beach crossfade obeys current volume, zero and mute; no outgoing audio survives',async()=>{
- const h=harness({readonlyVolume:true});h.theme('light');h.emit('portfolio:scene',{id:'birds-water'});const p=h.S.element;p.currentTime=11;p.dispatchEvent(new Event('timeupdate'));await flush();h.frame(600);assert.equal(h.S.outputLevels.slice(1).reduce((n,p)=>n+p.level,0),.05);
- h.S.setVolume(0);h.frame(900);assert(h.S.outputLevels.every(p=>p.level===0));h.S.setVolume(.4);h.frame(1100);assert(Math.abs(h.S.outputLevels.slice(1).reduce((n,p)=>n+p.level,0)-.4)<1e-9);
+ const h=harness({readonlyVolume:true});h.theme('light');h.emit('portfolio:scene',{id:'birds-water'});const p=h.S.element;p.currentTime=11;p.dispatchEvent(new Event('timeupdate'));await flush();h.frame(600);assert.equal(h.S.outputLevels.slice(-2).reduce((n,p)=>n+p.level,0),.05);
+ h.S.setVolume(0);h.frame(900);assert(h.S.outputLevels.every(p=>p.level===0));h.S.setVolume(.4);h.frame(1100);assert(Math.abs(h.S.outputLevels.slice(-2).reduce((n,p)=>n+p.level,0)-.4)<1e-9);
  h.S.setMuted(true);h.frame(1500);silent(h);h.S.setMuted(false);h.emit('portfolio:scene-will-change',{id:'forest-river'});silent(h);h.emit('portfolio:scene',{id:'forest-river'});assert(h.S.beachElements.every(p=>p.paused&&p.muted));
 });
 test('mute, volume and Night playhead survive navigation',()=>{
