@@ -416,8 +416,10 @@ html::-webkit-scrollbar-corner,body::-webkit-scrollbar-corner{
 /* iOS/WebKit can reserve a scrollable root gutter even when its scrollbar is hidden.
    The living scene must still paint through the complete physical viewport. */
 body.living-scenes .scene-backdrop{left:0!important;right:0!important;width:auto!important;max-width:none!important}
-/* Day mode: restore the backdrop to the full viewport width so WebKit's reserved root scroll gutter shows the moving scene instead of an opaque strip. */
-:root[data-theme="light"] body.living-scenes .scene-backdrop{right:auto!important;width:100vw!important}
+/* Day mode: WebKit can reserve roughly 12px of root scroll gutter outside its
+   layout viewport. Paint the fixed scene slightly past that edge without changing
+   page layout or the custom thumb geometry. */
+:root[data-theme="light"] body.living-scenes .scene-backdrop{right:-16px!important;width:auto!important}
 .site-page-scroll[hidden]{display:none!important}
 .site-page-scroll-thumb{
   position:absolute;top:0;right:4px;width:4px;min-height:44px;max-height:72px;border-radius:999px;
