@@ -3111,11 +3111,11 @@
     },
     {
       "path": "site-audio.js",
-      "size": 30171,
-      "sha256": "6efdbd631e10f5cd83dc8b0cc80ce68e4d29be73700ec887c9cfb7665d973861",
+      "size": 31355,
+      "sha256": "0214d9de6b9f77e5ae9d07f760aafd615c6e4bf784034dcce13a44baba7139b6",
       "source": {
         "kind": "git-blob",
-        "blob": "cb876e1ed17616078c3712bcc7bd9460aa650a56"
+        "blob": "8b91217ac7f069bfb7ccbd160141b822525cadfc"
       },
       "owningComponent": "site-audio",
       "deploymentClassification": "KEEP_PRODUCTION"
