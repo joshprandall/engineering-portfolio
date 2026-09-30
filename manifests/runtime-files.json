@@ -3188,11 +3188,11 @@
     },
     {
       "path": "site-scenes.js",
-      "size": 31601,
-      "sha256": "79b481b01b8a5856d8acbd1f0ea8b20f02003c35ec31e0c3dcd2e87add72c2ee",
+      "size": 34525,
+      "sha256": "6ec36ceed2814d5175232a7274fbb8fc90e50d203027adde4ee72e9849ada266",
       "source": {
         "kind": "git-blob",
-        "blob": "19682cc44041bda708b169139cae518f76ad28cf"
+        "blob": "02ee66c6ffa9de3d30880371a061f8273cd47ec9"
       },
       "owningComponent": "site-scenes",
       "deploymentClassification": "KEEP_PRODUCTION"
