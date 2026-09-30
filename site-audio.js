@@ -142,7 +142,7 @@
           return false;
         }
       }
-      markAutoplayState(false);
+      notePlaybackReady();
       return true;
     }
 
@@ -170,7 +170,7 @@
         const result = player.play();
         if (result?.then) await result;
       }
-      markAutoplayState(false);
+      notePlaybackReady();
       return true;
     } catch (error) {
       if (previewPlayerGenerations.get(player) === generation) {
@@ -258,7 +258,13 @@
           gains.set(player, gain);
           try { player.volume = 1; } catch (_) {}
         }
-        audioContext.addEventListener?.('statechange', () => markAutoplayState(audioContext.state !== 'running'));
+        audioContext.addEventListener?.('statechange', () => {
+          if (audioContext.state === 'running' && allowed()) {
+            unlocked = true;
+            usePlaybackAudioSession(false);
+          }
+          markAutoplayState(audioContext.state !== 'running');
+        });
       } catch (_) {
         // Native media remains the fallback when Web Audio is unavailable.
         if (!gains.size) audioContext = null;
@@ -549,6 +555,16 @@
     }));
   }
 
+  function notePlaybackReady() {
+    if (audioContext && audioContext.state !== 'running') {
+      markAutoplayState(true);
+      return;
+    }
+    unlocked = true;
+    usePlaybackAudioSession(false);
+    notePlaybackReady();
+  }
+
   function playBeach() {
     if (desiredKey() !== 'beach' || switching || beachTransitioning) return;
     resumeVolumeGraph();
@@ -580,7 +596,7 @@
     try {
       const result = player.play();
       if (result?.then) result.then(() => {
-        if (generation === beachGeneration && desiredKey() === 'beach') markAutoplayState(false);
+        if (generation === beachGeneration && desiredKey() === 'beach') notePlaybackReady();
       }).catch(error => {
         if (generation !== beachGeneration) return;
         beachStarted = false;
@@ -767,7 +783,7 @@
     try {
       const result = audio.play();
       if (result?.then) result.then(() => {
-        if (desiredKey() === key && currentKey === key) markAutoplayState(false);
+        if (desiredKey() === key && currentKey === key) notePlaybackReady();
       }).catch(error => {
         if (desiredKey() !== key || currentKey !== key) return;
         if (error?.name === 'NotAllowedError') markAutoplayState(true);
@@ -840,17 +856,9 @@
   sync(true);
   scheduleAutoplayRetries();
 
-  document.addEventListener('pointerdown', unlockAndPlay, { passive: true, capture: true });
-  document.addEventListener('touchstart', unlockAndPlay, { passive: true, capture: true });
-  document.addEventListener('keydown', unlockAndPlay, { capture: true });
-
-  // Bubble phase intentionally runs after the Day/Night or Mute button changes
-  // its state, so the controller sees the final state from that interaction.
-  document.addEventListener('click', () => {
-    unlocked = true;
-    usePlaybackAudioSession(autoplayBlocked);
-    sync(true);
-  });
+  // Do not turn arbitrary scrolling/tapping into an audio permission gesture.
+  // Browsers that allow autoplay start from the retries above; browsers that
+  // require permission are unlocked only by the explicit Sound controls.
 
   document.addEventListener('portfolio:theme', () => {
     if (unlocked) usePlaybackAudioSession(autoplayBlocked);
@@ -1031,6 +1039,8 @@
     get outputLevels() { return [audio, ...beachPlayers].map(player => ({ level: gains.get(player)?.gain.value ?? player.volume, muted: player.muted, paused: player.paused })); },
     setVolume: setPreferredVolume,
     setMuted,
+    activate: unlockAndPlay,
+    get unlocked() { return unlocked; },
     get element() { return currentKey === 'beach' ? beachPlayers[beachActiveIndex] : audio; },
     get beachElements() { return beachPlayers.slice(); }
   });
