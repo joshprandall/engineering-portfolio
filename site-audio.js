@@ -562,7 +562,7 @@
     }
     unlocked = true;
     usePlaybackAudioSession(false);
-    notePlaybackReady();
+    markAutoplayState(false);
   }
 
   function playBeach() {
