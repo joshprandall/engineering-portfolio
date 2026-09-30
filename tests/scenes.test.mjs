@@ -34,7 +34,7 @@ function controller() {
     const dayPosters=new Map(LIGHT_SCENES.map(scene=>[scene.id,{complete:true,naturalWidth:1280,src:scene.poster}]));
     const readyScenes=[];
     const dayFallback={classList:{add(){readyScenes.push(activeSceneIndex)},remove(){}}};
-    const credits=[], announceDaySceneWillChange=()=>{}, updateDayCredit=()=>credits.push(activeSceneIndex), draw=()=>{}, loadInitialLightScene=()=>{}, watchVideoMotion=()=>{};
+    const credits=[], announceDaySceneWillChange=()=>{}, updateDayCredit=()=>credits.push(activeSceneIndex), draw=()=>{}, loadInitialLightScene=()=>{};
     ${section('    function configureVideo(', '    function pauseVideos(')}
     ${section('    async function prepareAndPlay(', '    function drawStars(')}
     ${section('    function frame(', '    function refresh(')}
