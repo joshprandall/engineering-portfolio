@@ -27,10 +27,10 @@
   });
 
   const SOURCES = Object.freeze({
-    // The smaller MP3 starts materially faster on mobile. Night uses a two-player
-    // crossfade, so encoder padding never becomes an audible loop seam.
-    dark: new URL('assets/audio/dark-theme-user.mp3', AUDIO_BASE).href,
-    darkFallback: new URL('assets/audio/dark-theme-user.wav', AUDIO_BASE).href,
+    // Night v32 is rebuilt from the full original recording as a beat-aligned,
+    // circularly crossfaded PCM master. MP3 remains fallback only.
+    dark: new URL('assets/audio/dark-theme-user-v32.wav', AUDIO_BASE).href,
+    darkFallback: new URL('assets/audio/dark-theme-user-v32.mp3', AUDIO_BASE).href,
 
     // MP3 works across the target browsers. Original local OGGs remain the
     // fallback; third-party availability never controls runtime playback.
@@ -50,7 +50,7 @@
     new URL('assets/audio/day/beach-far.ogg', AUDIO_BASE).href
   ]);
   const BEACH_CROSSFADE_SECONDS = 1.2;
-  const DARK_CROSSFADE_SECONDS = 1.35;
+  const DARK_CROSSFADE_SECONDS = 0.18;
 
   // Branch-preview hosts serve the source tree verbatim, while the release
   // build reconstructs approved Day audio from preserved Git chunks. Rebuild
@@ -59,8 +59,8 @@
   const BRANCH_PREVIEW_HOST = /(?:^|\.)raw\.githack\.com$/i.test(location.hostname);
   const PREVIEW_AUDIO_ASSETS = Object.freeze({
     dark: {
-      mime: 'audio/mpeg',
-      parts: ['assets/audio/dark-theme-user.mp3']
+      mime: 'audio/wav',
+      parts: ['assets/audio/dark-theme-user-v32.wav']
     },
     river: {
       mime: 'audio/mpeg',
