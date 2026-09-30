@@ -32,6 +32,7 @@ function controller() {
     const ROTATE_AFTER=28;
     const LIGHT_SCENES=[0,1,2].map(i=>({id:'scene-'+i,src:'local-'+i,mobileSrc:'mobile-'+i,remoteSrc:'remote-'+i,poster:'poster-'+i}));
     const dayPosters=new Map(LIGHT_SCENES.map(scene=>[scene.id,{complete:true,naturalWidth:1280,src:scene.poster}]));
+    const loadDayPoster=scene=>dayPosters.get(scene.id);
     const readyScenes=[];
     const dayFallback={classList:{add(){readyScenes.push(activeSceneIndex)},remove(){}}};
     const credits=[], announceDaySceneWillChange=()=>{}, updateDayCredit=()=>credits.push(activeSceneIndex), draw=()=>{};
@@ -126,12 +127,17 @@ test('scene audio waits for its visible poster and ignores an old poster loading
   vm.runInContext(`
     let activeSceneIndex=0;
     const LIGHT_SCENES=[{id:'waterfall',poster:'waterfall.jpg'}, {id:'river',poster:'river.jpg'}];
-    const LIGHT_SCENE_KEY='test', mediaDisabled=false;
+    const LIGHT_SCENE_KEY='test', mediaDisabled=false, BRANCH_PREVIEW_HOST=false;
     const backdrop={dataset:{}}, dayFallback={style:{}}, dayLink=null, dayCredit=null;
     const dayPosters=new Map(LIGHT_SCENES.map(scene=>[scene.id,{
-      complete:false, naturalWidth:0,
+      complete:false, naturalWidth:0, src:'',
       addEventListener(type,callback){posterCallbacks.set(scene.id,callback)}
     }]));
+    const loadDayPoster=scene=>{
+      const poster=dayPosters.get(scene.id);
+      if(!poster.src)poster.src=scene.poster;
+      return poster;
+    };
     ${section('    function announceDaySceneWillChange(', '    function resize(')}
     globalThis.api={
       updateDayCredit,
