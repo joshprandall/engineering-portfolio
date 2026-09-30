@@ -86,6 +86,8 @@ async function run(){
     assert(contactCopy.left>=contactCopy.cardLeft+18&&contactCopy.right<=contactCopy.cardRight-18,'Homepage contact copy stays inset '+JSON.stringify(contactCopy));
     const contactAction=page.locator('.home-page .contact-actions .button').first();
     assert.equal(await contactAction.evaluate(el=>getComputedStyle(el).justifyContent),'center','Homepage contact buttons center their labels');
+    await contact.scrollIntoViewIfNeeded();
+    if(output)await contact.screenshot({animations:'disabled',path:path.join(output,'home-contact-phone.png')});
 
     const preservedAlignment=[
       ['/', '.home-project h3'],
@@ -162,6 +164,8 @@ async function run(){
   const phantomRows=await page.evaluate(()=>[...document.querySelectorAll('.career-timeline>*,.education-lines>*')].filter(el=>{const r=el.getBoundingClientRect(),s=getComputedStyle(el),border=parseFloat(s.borderTopWidth)+parseFloat(s.borderBottomWidth);return r.height>2&&border>0&&!el.innerText.trim();}).map(el=>({tag:el.tagName,cls:el.className,height:el.getBoundingClientRect().height})));
   assert.deepEqual(phantomRows,[],'About long-form sections must not render empty bordered rows');
   if(output){await page.locator('#experience').screenshot({animations:'disabled',path:path.join(output,'about-experience-phone-light.png')});await page.locator('#education').screenshot({animations:'disabled',path:path.join(output,'about-education-phone-light.png')});}
+  // Keep the synthetic audio-transition test independent from this visual check.
+  await page.evaluate(()=>window.PortfolioTheme?.setTheme?.('dark',false));
 
   // Global scene/audio architecture must follow shared-shell pages, not a Home/Learn allowlist.
   for(const route of ['ai-development.html','security-research.html','project-qpe.html','learn-browse.html','lesson.html']){
