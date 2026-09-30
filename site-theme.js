@@ -22,6 +22,29 @@
   const root = document.documentElement;
   const THEME_KEY = 'jr-site-theme';
   const MOTION_KEY = 'jr-site-motion';
+
+  // Diagnostic preview only: raw.githack reuses one storage origin across
+  // immutable SHA previews, so stale mute/pause choices can make a known-good
+  // build look broken. ?freshMedia=1 resets only media preferences and never
+  // runs on the production OSU host.
+  try {
+    const preview = /(?:^|\.)raw\.githack\.com$/i.test(location.hostname) &&
+      new URL(location.href).searchParams.get('freshMedia') === '1';
+    if (preview) {
+      const values = {
+        'jr-site-motion': 'running',
+        'jr-site-ambient-muted-v3': '0',
+        'jr-site-ambient-volume-v6': '.05',
+        'jr-site-ambient-last-nonzero-v1': '.05',
+        'jr-site-light-scene-v2': 'forest-waterfall'
+      };
+      for (const [key, value] of Object.entries(values)) {
+        try { localStorage.setItem(key, value); } catch (_) {
+          try { sessionStorage.setItem(key, value); } catch (_) {}
+        }
+      }
+    }
+  } catch (_) {}
   const legacyThemes = ['portfolio-theme', 'jr-knowledge-theme', 'jr-geometry-theme'];
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   const read = key => { try { const value = localStorage.getItem(key); if (value !== null) return value; } catch {} try { return sessionStorage.getItem(key); } catch { return null; } };
