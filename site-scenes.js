@@ -761,8 +761,8 @@
 
     function releaseMedia() {
       clearTimeout(mediaTimer);
-      // Heavy Day video is intentionally outside the critical page-load path.
-      // The exact poster remains immediate; motion starts just after window load.
+      // Preserve the proven Day-video startup timing. The low-risk performance
+      // pass optimizes only unnecessary poster requests and server caching.
       mediaTimer = setTimeout(() => {
         mediaReady = true;
         updateDayCredit();
@@ -770,11 +770,11 @@
           loadInitialLightScene();
           playSafely(activeVideo);
         }
-      }, constrainedMedia ? 260 : 80);
+      }, constrainedMedia ? 700 : 220);
     }
 
-    if (document.readyState === 'complete') releaseMedia();
-    else addEventListener('load', releaseMedia, { once: true });
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', releaseMedia, { once: true });
+    else releaseMedia();
 
     const retryLightPlayback = () => {
       if (theme === 'light' && mediaReady && motionAllowed()) {

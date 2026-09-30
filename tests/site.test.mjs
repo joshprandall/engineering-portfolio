@@ -203,7 +203,7 @@ for(const token of ['0dd180961c009c20f5218a2801679b36b82be0837bc3e727908e1affffe
 assert.match(livingScenes,/nextPoster\.complete[\s\S]*nextPoster\.naturalWidth/,'Day rotation must wait for the next poster');
 assert.match(siteAudio,/audioSession[\s\S]*type\s*=\s*'playback'/,'Ambience must request playback audio routing where supported');
 assert.match(siteAudio,/previewAudioUrls\.get\(key\)\s*\|\|\s*await previewAudioUrl/,'Cached preview audio must avoid a new fetch boundary');
-assert.match(livingScenes,/document\.readyState === 'complete'[\s\S]*addEventListener\('load', releaseMedia/,'Heavy Day video must stay outside the critical page-load path');
+assert.match(livingScenes,/DOMContentLoaded', releaseMedia/,'Proven Day-video startup timing must remain intact during low-risk performance work');
 assert.match(livingScenes,/function loadDayPoster\([\s\S]*loadDayPoster\(LIGHT_SCENES\[activeSceneIndex\]\)/,'Only the active Day poster should be loaded eagerly');
 assert.ok(exists('.htaccess'),'Root cache/compression policy must be included in the deployable source');
 assert.match(read('.htaccess'),/Cache-Control "public, max-age=604800/,'Media cache policy must retain a conservative seven-day browser cache');
