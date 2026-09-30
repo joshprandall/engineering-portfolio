@@ -2,7 +2,7 @@
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm'),path=require('node:path');
 const root=process.env.PORTFOLIO_RUNTIME_ROOT||path.resolve(__dirname,'..');
 const code=fs.readFileSync(path.join(root,'site-audio.js'),'utf8');
-function harness({gain=true,pending=false,readonlyVolume=false,storage=new Map(),preview=false,storageWritesFail=false}={}){
+function harness({gain=true,pending=false,readonlyVolume=false,storage=new Map(),preview=false,storageWritesFail=false,coarse=false}={}){
  const players=[],events=new EventTarget(),document=new EventTarget(),timers=new Map(),frames=new Map(),intervals=[];let counter=0,now=0;
  const audioSession=new EventTarget();audioSession.type='auto';audioSession.state='active';
  class Media extends EventTarget{
@@ -21,7 +21,8 @@ function harness({gain=true,pending=false,readonlyVolume=false,storage=new Map()
  const origin=preview?'https://raw.githack.com/joshprandall/engineering-portfolio/repair/':'https://portfolio.test/';
  document.currentScript={src:origin+'site-audio.js'};
  document.body={appendChild:p=>players.push(p)};document.querySelectorAll=()=>[];document.querySelector=()=>pending?{}:null;document.getElementById=()=>null;document.createElement=()=>new Media();
- const context={document,navigator:{audioSession},location:{href:origin+'index.html',hostname:preview?'raw.githack.com':'portfolio.test',pathname:'/index.html'},URL,Blob,CustomEvent,console,Date,Math,Number,Object,Boolean,Promise,Map,Set,
+ const context={document,navigator:{audioSession,userAgent:coarse?'Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac OS X) AppleWebKit/605.1.15 Mobile/15E148 Safari/604.1':''},location:{href:origin+'index.html',hostname:preview?'raw.githack.com':'portfolio.test',pathname:'/index.html'},URL,Blob,CustomEvent,console,Date,Math,Number,Object,Boolean,Promise,Map,Set,
+ matchMedia:()=>({matches:coarse}),
  fetch:async()=>({ok:true,arrayBuffer:async()=>new Uint8Array([1,2,3,4]).buffer}),
  localStorage:{getItem:k=>storage.get(k)??null,setItem:(k,v)=>{if(storageWritesFail)throw new Error('storage blocked');storage.set(k,v);}},addEventListener:events.addEventListener.bind(events),performance:{now:()=>now},
  setTimeout(fn,ms){timers.set(++counter,{fn,ms});return counter;},clearTimeout(id){timers.delete(id);},setInterval(fn){intervals.push(fn);return ++counter;},requestAnimationFrame(fn){frames.set(++counter,fn);return counter;},cancelAnimationFrame(id){frames.delete(id);}};
@@ -45,6 +46,13 @@ test('only explicit Sound activation claims playback routing; random page touch 
  h.S.activate();assert.equal(h.audioSession.type,'playback');assert.equal(h.S.audioSessionType,'playback');assert.equal(h.S.unlocked,true);
  h.audioSession.type='ambient';h.audioSession.state='active';h.audioSession.dispatchEvent(new Event('statechange'));assert.equal(h.audioSession.type,'playback');
 });
+test('handheld beach ambience reuses the authorized main player instead of secondary beach elements',async()=>{
+ const h=harness({coarse:true});h.S.activate();h.theme('light');h.emit('portfolio:scene',{id:'birds-water'});await flush();
+ assert.equal(h.S.key,'beach');assert.equal(h.S.element,h.players[0]);assert.match(h.S.element.src,/beach-near\.mp3$/);
+ assert.equal(h.S.element.paused,false);assert.equal(h.S.element.muted,false);
+ assert(h.S.beachElements.every(p=>p.paused&&p.muted),'Handheld beach path must leave secondary beach players silent');
+});
+
 test('mute and zero restore the last selected nonzero volume, even when storage writes fail',()=>{
  const h=harness({storage:new Map([['jr-site-ambient-volume-v6','.05']]),storageWritesFail:true});
  h.S.setVolume(.37);assert.equal(h.S.volume,.37);h.S.setMuted(true);silent(h);h.S.setMuted(false);assert.equal(h.S.volume,.37);
