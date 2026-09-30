@@ -769,6 +769,7 @@
         if (theme === 'light') {
           loadInitialLightScene();
           playSafely(activeVideo);
+          scheduleLightRecovery();
         }
       }, constrainedMedia ? 700 : 220);
     }
@@ -776,20 +777,72 @@
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', releaseMedia, { once: true });
     else releaseMedia();
 
+    let lightRecoveryTimers = [];
+    let lightRecoveryInterval = 0;
+    let lightRecoveryPending = false;
+    let recoveryVideo = null;
+    let recoveryTime = -1;
+
     const retryLightPlayback = () => {
-      if (theme === 'light' && mediaReady && motionAllowed()) {
-        const video = activeVideo;
-        const loadId = sceneLoadId;
-        playSafely(video).then(playing => {
-          if (playing && video === activeVideo && loadId === sceneLoadId) revealVideo(video, loadId);
+      if (lightRecoveryPending || theme !== 'light' || !mediaReady || !motionAllowed() || document.hidden) return;
+      if (!lightLoaded) loadInitialLightScene();
+      const video = activeVideo;
+      if (!video || !video.src) return;
+      const loadId = sceneLoadId;
+      lightRecoveryPending = true;
+      playSafely(video, 12000).then(playing => {
+        if (playing && video === activeVideo && loadId === sceneLoadId) {
+          revealVideo(video, loadId);
+          watchVideoMotion(video, LIGHT_SCENES[activeSceneIndex], loadId);
+        }
+      }).finally(() => { lightRecoveryPending = false; });
+    };
+
+    const clearLightRecovery = () => {
+      lightRecoveryTimers.forEach(timer => clearTimeout(timer));
+      lightRecoveryTimers = [];
+      if (lightRecoveryInterval) clearInterval(lightRecoveryInterval);
+      lightRecoveryInterval = 0;
+      lightRecoveryPending = false;
+      recoveryVideo = null;
+      recoveryTime = -1;
+    };
+
+    const scheduleLightRecovery = () => {
+      lightRecoveryTimers.forEach(timer => clearTimeout(timer));
+      lightRecoveryTimers = [];
+      if (theme === 'light' && mediaReady && motionAllowed() && !document.hidden) {
+        [250, 900, 2200, 5000].forEach(delay => {
+          lightRecoveryTimers.push(setTimeout(retryLightPlayback, delay));
         });
       }
+      if (!lightRecoveryInterval) {
+        lightRecoveryInterval = setInterval(() => {
+          if (document.hidden || !motionAllowed()) return;
+          if (theme === 'dark') {
+            if (!raf) refresh();
+            return;
+          }
+          if (!mediaReady || !lightLoaded || !activeVideo) return;
+          const now = Number(activeVideo.currentTime || 0);
+          const sameVideo = recoveryVideo === activeVideo;
+          const stalled = activeVideo.paused || activeVideo.readyState < 2 ||
+            (sameVideo && recoveryTime >= 0 && Math.abs(now - recoveryTime) < .03);
+          recoveryVideo = activeVideo;
+          recoveryTime = now;
+          if (stalled) retryLightPlayback();
+        }, 2500);
+      }
     };
-    document.addEventListener('pointerdown', retryLightPlayback, { passive: true });
-    document.addEventListener('touchstart', retryLightPlayback, { passive: true });
-    document.addEventListener('keydown', retryLightPlayback);
-    document.addEventListener('portfolio:theme', refresh);
-    document.addEventListener('portfolio:motion', refresh);
+
+    document.addEventListener('portfolio:theme', () => {
+      refresh();
+      scheduleLightRecovery();
+    });
+    document.addEventListener('portfolio:motion', () => {
+      refresh();
+      scheduleLightRecovery();
+    });
 
     document.addEventListener('visibilitychange', () => {
       if (document.hidden) {
@@ -799,6 +852,7 @@
         raf = 0;
       } else {
         refresh();
+        scheduleLightRecovery();
       }
     });
 
@@ -812,12 +866,14 @@
       
       
       clearTimeout(mediaTimer);
+      clearLightRecovery();
       cancelAnimationFrame(raf);
       raf = 0;
     });
     addEventListener('pageshow', () => {
       if (!mediaReady) releaseMedia();
       refresh();
+      scheduleLightRecovery();
     });
   };
 
