@@ -126,12 +126,13 @@ test('scene audio waits for its visible poster and ignores an old poster loading
   vm.runInContext(`
     let activeSceneIndex=0;
     const LIGHT_SCENES=[{id:'waterfall',poster:'waterfall.jpg'}, {id:'river',poster:'river.jpg'}];
-    const LIGHT_SCENE_KEY='test', mediaDisabled=false;
+    const LIGHT_SCENE_KEY='test', mediaDisabled=false, BRANCH_PREVIEW_HOST=false;
     const backdrop={dataset:{}}, dayFallback={style:{}}, dayLink=null, dayCredit=null;
     const dayPosters=new Map(LIGHT_SCENES.map(scene=>[scene.id,{
       complete:false, naturalWidth:0,
       addEventListener(type,callback){posterCallbacks.set(scene.id,callback)}
     }]));
+    const loadDayPoster=scene=>dayPosters.get(scene.id);
     ${section('    function announceDaySceneWillChange(', '    function resize(')}
     globalThis.api={
       updateDayCredit,
