@@ -203,6 +203,8 @@ for(const token of ['0dd180961c009c20f5218a2801679b36b82be0837bc3e727908e1affffe
 assert.match(livingScenes,/nextPoster\.complete[\s\S]*nextPoster\.naturalWidth/,'Day rotation must wait for the next poster');
 assert.match(siteAudio,/audioSession[\s\S]*type\s*=\s*'playback'/,'Ambience must request playback audio routing where supported');
 assert.match(siteAudio,/previewAudioUrls\.get\(key\)\s*\|\|\s*await previewAudioUrl/,'Cached preview audio must avoid a new fetch boundary');
+assert.match(livingScenes,/addEventListener\('timeupdate'[\s\S]*confirmedProgress/,'Day video must reveal from proven timeline movement when iPhone frame callbacks starve');
+assert.match(livingScenes,/currentSrc\.startsWith\('blob:'\)[\s\S]*scene\?\.remoteSrc/,'A stalled raw-preview Blob video must fall back to the direct licensed Day stream');
 assert.doesNotMatch(read('site-resilience.css'),/content-visibility:auto/,'Off-screen section containment must not reintroduce blank WebKit placeholders');
 assert.match(read('project-geometric-ai.html'),/<iframe\b[^>]*loading=["']lazy["']/i,'Geometry Lab preview must lazy-load below the fold');
 
