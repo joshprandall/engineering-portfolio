@@ -3,10 +3,12 @@
 
   // Unified site ambience controller. This is the ONLY script that may create
   // or play background ambience/music.
-  if (window.__JR_SITE_AUDIO_V30__) return;
+  if (window.__JR_SITE_AUDIO_V32__) return;
+  window.__JR_SITE_AUDIO_V32__ = true;
+  // Claim the immediately previous guards as well so stale cached scripts
+  // cannot create a second controller after this version initializes.
+  window.__JR_SITE_AUDIO_V31__ = true;
   window.__JR_SITE_AUDIO_V30__ = true;
-  // Also claim the previous guard so a stale deferred V29 script cannot start
-  // a second detached audio controller after this one initializes.
   window.__JR_SITE_AUDIO_V29__ = true;
 
   const MUTE_KEY = 'jr-site-ambient-muted-v3';
@@ -32,9 +34,11 @@
   });
 
   const SOURCES = Object.freeze({
-    // User-provided dark-mode soundtrack. Prefer the PCM WAV master so the browser has no MP3/AAC encoder padding at the loop boundary.
-    dark: new URL('assets/audio/dark-theme-user.wav', document.currentScript.src).href,
-    darkFallback: new URL('assets/audio/dark-theme-user.mp3', document.currentScript.src).href,
+    // User-provided dark-mode soundtrack rebuilt from the original full recording.
+    // V32 uses a beat-aligned 32-beat phrase and a one-beat circular crossfade;
+    // PCM WAV is primary, MP3 is fallback only. Day-mode sources are unchanged.
+    dark: new URL('assets/audio/dark-theme-user-v32.wav', document.currentScript.src).href,
+    darkFallback: new URL('assets/audio/dark-theme-user-v32.mp3', document.currentScript.src).href,
 
     // Production serves Day ambience same-origin so visual/audio scene changes
     // do not wait on a third-party redirect or CDN. Local test hosts keep using
@@ -68,6 +72,20 @@
   let darkFallbackActive = false;
   let autoplayBlocked = false;
   let autoplayRetryTimers = [];
+
+  // Night-mode gapless engine. Native <audio> remains the best-effort autoplay
+  // path; after the first real user gesture, Night migrates to Web Audio so
+  // iPhone/Safari no longer inserts a decoder gap at the loop boundary.
+  let darkAudioContext = null;
+  let darkBytesPromise = null;
+  let darkBufferPromise = null;
+  let darkBuffer = null;
+  let darkBufferFailed = false;
+  let darkSourceNode = null;
+  let darkGainNode = null;
+  let darkStartContextTime = 0;
+  let darkStartOffset = 0;
+  let darkGeneration = 0;
 
   // Remove stale legacy players if a cached older script left one behind.
   document.querySelectorAll('#jr-site-audio, #jr-site-audio-dark-a, #jr-site-audio-dark-b, #jr-site-audio-beach-a, #jr-site-audio-beach-b, #jr-dark-theme-music').forEach(node => {
@@ -170,6 +188,11 @@
   function applyPreferredVolume() {
     const cap = preferredVolume();
     try { audio.volume = cap; } catch (_) {}
+    try {
+      if (darkGainNode && darkAudioContext) {
+        darkGainNode.gain.setValueAtTime(cap, darkAudioContext.currentTime);
+      }
+    } catch (_) {}
     beachPlayers.forEach((player, index) => {
       if (beachTransitioning) return;
       try { player.volume = index === beachActiveIndex && beachStarted ? cap : 0; } catch (_) {}
@@ -185,10 +208,36 @@
     return next;
   }
 
+  function darkWebAudioSupported() {
+    return Boolean(window.AudioContext || window.webkitAudioContext);
+  }
+
+  function readSavedDarkTime(duration = 0) {
+    try {
+      const saved = Number(localStorage.getItem(DARK_TIME_KEY) || 0);
+      if (!Number.isFinite(saved) || saved < 0) return 0;
+      return duration > 0 ? saved % duration : saved;
+    } catch (_) {
+      return 0;
+    }
+  }
+
+  function currentDarkTime() {
+    try {
+      if (darkSourceNode && darkAudioContext && darkBuffer) {
+        const elapsed = Math.max(0, darkAudioContext.currentTime - darkStartContextTime);
+        return (darkStartOffset + elapsed) % darkBuffer.duration;
+      }
+      return Number(audio.currentTime || 0);
+    } catch (_) {
+      return 0;
+    }
+  }
+
   function saveDarkTime() {
     if (currentKey !== 'dark') return;
     try {
-      const value = Number(audio.currentTime || 0);
+      const value = currentDarkTime();
       if (Number.isFinite(value) && value >= 0) {
         localStorage.setItem(DARK_TIME_KEY, String(value));
       }
@@ -198,11 +247,150 @@
   function restoreDarkTime() {
     if (currentKey !== 'dark') return;
     try {
-      const saved = Number(localStorage.getItem(DARK_TIME_KEY) || 0);
-      if (!Number.isFinite(saved) || saved < 0) return;
       const duration = Number(audio.duration || 0);
-      audio.currentTime = duration > 0 ? saved % duration : saved;
+      audio.currentTime = readSavedDarkTime(duration);
     } catch (_) {}
+  }
+
+  function ensureDarkContext() {
+    if (darkAudioContext) return darkAudioContext;
+    const AudioContextCtor = window.AudioContext || window.webkitAudioContext;
+    if (!AudioContextCtor) throw new Error('Web Audio is unavailable');
+    darkAudioContext = new AudioContextCtor();
+    darkGainNode = darkAudioContext.createGain();
+    darkGainNode.gain.value = cappedVolume('dark');
+    darkGainNode.connect(darkAudioContext.destination);
+    return darkAudioContext;
+  }
+
+  function fetchDarkBytes() {
+    if (darkBytesPromise) return darkBytesPromise;
+    darkBytesPromise = fetch(SOURCES.dark, { cache: 'force-cache', credentials: 'same-origin' })
+      .then(response => {
+        if (!response.ok) throw new Error('Night audio HTTP ' + response.status);
+        return response.arrayBuffer();
+      })
+      .catch(error => {
+        darkBytesPromise = null;
+        throw error;
+      });
+    return darkBytesPromise;
+  }
+
+  function ensureDarkBuffer() {
+    if (darkBuffer) return Promise.resolve(darkBuffer);
+    if (darkBufferPromise) return darkBufferPromise;
+    let context;
+    try { context = ensureDarkContext(); }
+    catch (error) {
+      darkBufferFailed = true;
+      return Promise.reject(error);
+    }
+
+    darkBufferPromise = fetchDarkBytes()
+      .then(bytes => context.decodeAudioData(bytes.slice(0)))
+      .then(buffer => {
+        if (!buffer || !Number.isFinite(buffer.duration) || buffer.duration <= 0) {
+          throw new Error('Night audio decode produced an invalid buffer');
+        }
+        darkBuffer = buffer;
+        darkBufferFailed = false;
+        return buffer;
+      })
+      .catch(error => {
+        darkBufferPromise = null;
+        darkBufferFailed = true;
+        throw error;
+      });
+    return darkBufferPromise;
+  }
+
+  function stopDarkWebAudio() {
+    darkGeneration += 1;
+    if (!darkSourceNode) return;
+    const node = darkSourceNode;
+    darkSourceNode = null;
+    try { node.stop(); } catch (_) {}
+    try { node.disconnect(); } catch (_) {}
+  }
+
+  function playDarkNative() {
+    audio.loop = true;
+    audio.muted = false;
+    audio.defaultPlaybackRate = 1;
+    audio.playbackRate = 1;
+    audio.volume = cappedVolume('dark');
+
+    try {
+      const result = audio.play();
+      if (result?.then) result.then(() => markAutoplayState(false)).catch(error => {
+        if (error?.name === 'NotAllowedError') markAutoplayState(true);
+      });
+    } catch (error) {
+      if (error?.name === 'NotAllowedError') markAutoplayState(true);
+    }
+  }
+
+  async function playDarkWebAudio() {
+    if (darkBufferFailed || !darkWebAudioSupported()) {
+      playDarkNative();
+      return;
+    }
+
+    if (darkSourceNode && darkAudioContext?.state === 'running') {
+      try { darkGainNode.gain.setValueAtTime(cappedVolume('dark'), darkAudioContext.currentTime); } catch (_) {}
+      markAutoplayState(false);
+      return;
+    }
+
+    const generation = ++darkGeneration;
+    const buffer = await ensureDarkBuffer();
+    if (generation !== darkGeneration || currentKey !== 'dark' || desiredKey() !== 'dark') return;
+
+    const context = ensureDarkContext();
+    await context.resume();
+    if (generation !== darkGeneration || currentKey !== 'dark' || desiredKey() !== 'dark') return;
+    if (context.state !== 'running') throw new DOMException('AudioContext is not running', 'NotAllowedError');
+
+    let offset = 0;
+    try {
+      offset = (!audio.paused && Number.isFinite(audio.currentTime))
+        ? audio.currentTime % buffer.duration
+        : readSavedDarkTime(buffer.duration);
+    } catch (_) {
+      offset = readSavedDarkTime(buffer.duration);
+    }
+
+    const source = context.createBufferSource();
+    source.buffer = buffer;
+    source.loop = true;
+    source.loopStart = 0;
+    source.loopEnd = buffer.duration;
+    source.connect(darkGainNode);
+    darkGainNode.gain.setValueAtTime(cappedVolume('dark'), context.currentTime);
+
+    darkStartOffset = offset;
+    darkStartContextTime = context.currentTime;
+    darkSourceNode = source;
+    source.start(0, offset);
+
+    // Hand off from native autoplay to the sample-accurate loop only after the
+    // Web Audio source is running, preventing silence during the transition.
+    try { audio.volume = 0; } catch (_) {}
+    try { audio.muted = true; } catch (_) {}
+    try { audio.pause(); } catch (_) {}
+    markAutoplayState(false);
+  }
+
+  function playDark() {
+    if (unlocked && !darkBufferFailed && darkWebAudioSupported()) {
+      playDarkWebAudio().catch(error => {
+        if (error?.name === 'NotAllowedError') markAutoplayState(true);
+        if (currentKey === 'dark' && desiredKey() === 'dark') playDarkNative();
+      });
+      return;
+    }
+    playDarkNative();
   }
 
   function cancelBeachFade() {
@@ -372,6 +560,7 @@
 
   function stop() {
     saveDarkTime();
+    stopDarkWebAudio();
     // Mute/zero before pause to prevent Safari from leaking buffered audio from
     // the outgoing scene into the next visual scene.
     try { audio.volume = 0; } catch (_) {}
@@ -444,6 +633,11 @@
 
     applySource(key);
 
+    if (key === 'dark') {
+      playDark();
+      return;
+    }
+
     if (key === 'beach') {
       playBeach();
       return;
@@ -476,6 +670,17 @@
 
     if (force || currentKey !== key) applySource(key);
 
+    if (key === 'dark') {
+      if (!switching) {
+        if (unlocked && !darkBufferFailed && darkWebAudioSupported()) {
+          if (!darkSourceNode || darkAudioContext?.state !== 'running') playDark();
+        } else if (audio.paused || audio.ended) {
+          playDark();
+        }
+      }
+      return;
+    }
+
     if (key === 'beach') {
       const active = beachPlayers[beachActiveIndex];
       if (!switching && (!beachStarted || (active.paused && !beachTransitioning))) {
@@ -491,6 +696,19 @@
 
   function unlockAndPlay() {
     unlocked = true;
+
+    // Unlock Night's Web Audio context on the FIRST real gesture, even when the
+    // current theme is Day. After that, Day <-> Night switching on this page
+    // should not require another tap. iOS may still require this first gesture
+    // for audible playback; page JavaScript cannot bypass that browser policy.
+    if (darkWebAudioSupported()) {
+      try {
+        const context = ensureDarkContext();
+        const resumeResult = context.resume();
+        if (resumeResult?.catch) resumeResult.catch(() => {});
+      } catch (_) {}
+    }
+
     clearAutoplayRetries();
     playDesired();
   }
@@ -513,6 +731,10 @@
     });
   }
 
+  // Warm Night only when Night is active. Day mode is deliberately left alone:
+  // no Night WAV download competes with the already-correct Day media startup.
+  if (theme() === 'dark') fetchDarkBytes().catch(() => {});
+
   // Best effort immediately. Browsers that allow audible autoplay start here.
   // Safari/iOS and some Chromium configurations may still require a real user
   // gesture; that browser policy cannot be bypassed by page JavaScript.
@@ -531,6 +753,7 @@
   });
 
   document.addEventListener('portfolio:theme', () => {
+    if (theme() === 'dark') fetchDarkBytes().catch(() => {});
     sync(true);
     scheduleAutoplayRetries();
   });
@@ -649,6 +872,17 @@
 
     if (audio.volume > MAX_BACKGROUND_VOLUME) {
       audio.volume = MAX_BACKGROUND_VOLUME;
+    }
+
+    if (key === 'dark') {
+      if (unlocked && !switching) {
+        if (!darkBufferFailed && darkWebAudioSupported()) {
+          if (!darkSourceNode || darkAudioContext?.state !== 'running') playDark();
+        } else if (audio.paused) {
+          playDarkNative();
+        }
+      }
+      return;
     }
 
     if (key === 'beach') {
