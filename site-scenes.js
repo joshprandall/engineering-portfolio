@@ -89,6 +89,7 @@
 
   // Cycle the light-mode scenes while keeping each scene spatially fixed.
   const ROTATE_AFTER = 28;
+  const BEACH_LOOP_GUARD_SECONDS = 1.1;
   // Version bump resets old saved ordering so light mode starts with waterfall.
   const LIGHT_SCENE_KEY = 'jr-site-light-scene-v2';
   function storedLightSceneIndex() {
@@ -339,7 +340,9 @@
       video.setAttribute('playsinline','');
       video.setAttribute('webkit-playsinline','');
       video.autoplay = theme === 'light' && motionAllowed() && !document.hidden;
-      video.loop = true;
+      // The short beach clip must never visibly wrap back to frame one.
+      // Waterfall/river retain normal looping as a fallback if rotation is delayed.
+      video.loop = scene.id !== 'birds-water';
       video.controls = false;
       video.disablePictureInPicture = true;
       video.preload = mediaDisabled ? 'none' : 'auto';
@@ -471,10 +474,25 @@
         }
       });
       video.addEventListener('timeupdate', () => {
-        if (video === activeVideo && !video.paused && video.readyState >= 2 &&
-            video.currentSrc === video.src && theme === 'light' && !document.hidden &&
-            motionAllowed() && Number(video.currentTime || 0) > .05) {
-          revealVideo(video, sceneLoadId, true);
+        if (video !== activeVideo || video.paused || video.readyState < 2 ||
+            video.currentSrc !== video.src || theme !== 'light' || document.hidden ||
+            !motionAllowed()) return;
+
+        const current = Number(video.currentTime || 0);
+        if (current > .05) revealVideo(video, sceneLoadId, true);
+
+        const scene = LIGHT_SCENES[activeSceneIndex];
+        const duration = Number(video.duration || 0);
+        if (scene?.id === 'birds-water' && Number.isFinite(duration) && duration > 2 &&
+            duration - current <= BEACH_LOOP_GUARD_SECONDS) {
+          rotateLightScene();
+        }
+      });
+
+      video.addEventListener('ended', () => {
+        if (video === activeVideo && theme === 'light' && motionAllowed() &&
+            LIGHT_SCENES[activeSceneIndex]?.id === 'birds-water') {
+          rotateLightScene();
         }
       });
       video.addEventListener('error', () => {
