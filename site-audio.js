@@ -54,7 +54,8 @@
   // build reconstructs approved Day audio from preserved Git chunks. Rebuild
   // those exact MP3 bytes in-browser only for the branch preview. Blob URLs
   // also give Safari/Chrome a definite audio/mpeg MIME type for the dark MP3.
-  const BRANCH_PREVIEW_HOST = /(?:^|\.)raw\.githack\.com$/i.test(location.hostname);
+  const BRANCH_PREVIEW_HOST = /(?:^|\.)raw\.githack\.com$/i.test(location.hostname) ||
+    new URL(location.href).searchParams.get('previewHost') === '1';
   const PREVIEW_AUDIO_ASSETS = Object.freeze({
     dark: {
       mime: 'audio/mpeg',
