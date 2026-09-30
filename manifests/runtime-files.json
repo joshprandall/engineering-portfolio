@@ -3144,11 +3144,11 @@
     },
     {
       "path": "site-resilience.css",
-      "size": 7181,
-      "sha256": "27364977ba47004d7c06250e2afc9417e00b5ab3f8144ca3d81f6f58eb95b4ba",
+      "size": 6985,
+      "sha256": "a13990c6d41815d8e861fab1fefbe1ad3f98104fb09bdd4af03b60c8485dad39",
       "source": {
         "kind": "git-blob",
-        "blob": "3829bc995a59b643d5cb22a2da333af1ef4d7799"
+        "blob": "eb19ec5796c8ca62fd375656b4b176386adaca89"
       },
       "owningComponent": "site-resilience",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -3166,11 +3166,11 @@
     },
     {
       "path": "site-responsive.css",
-      "size": 43192,
-      "sha256": "76f0cd14dd49cdb1c74461e1818ff17df4fa46aaf55062a0db8ba01f771112b0",
+      "size": 43349,
+      "sha256": "9124c073c6f062be2a55cd08c4b4c8e61efa852702534a6714d3d4e2929eb678",
       "source": {
         "kind": "git-blob",
-        "blob": "c94c76546a2d0be3bcc1e5695555d59829720bd9"
+        "blob": "4a23eaf7d7dd806b739f6ab5cc2c2f5fd3c7ddd1"
       },
       "owningComponent": "shared-shell",
       "deploymentClassification": "KEEP_PRODUCTION"

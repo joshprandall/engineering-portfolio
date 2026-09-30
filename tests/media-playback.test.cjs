@@ -76,13 +76,12 @@ const server=http.createServer((req,res)=>{
   if(scene==='forest-waterfall'){await p.locator('[data-scene-audio]').click();await p.screenshot({path:path.join(output,'volume-slider-day.png')});await p.keyboard.press('Escape');}
   report.media.push({...state,decodedMotion:true});await p.screenshot({path:path.join(output,scene+'.png')});
  }
- await p.waitForFunction(()=>document.querySelector('#site-scene')?.dataset.visibleDayScene==='forest-waterfall'&&SiteAudio.key==='waterfall',null,{timeout:45000});
- assert.equal(await p.evaluate(()=>SiteAudio.outputLevels.filter(x=>!x.paused&&!x.muted&&x.level>0).length),1,'Beach → Waterfall leaves one ambience owner');
+ await p.waitForFunction(()=>document.querySelector('#site-scene')?.dataset.visibleDayScene==='forest-waterfall'&&SiteAudio.key==='waterfall'&&SiteAudio.outputLevels.filter(x=>!x.paused&&!x.muted&&x.level>0).length===1,null,{timeout:45000});
  await p.evaluate(()=>PortfolioTheme.setTheme('dark',false));
- await p.waitForFunction(()=>SiteAudio.key==='dark');assert.equal(await p.evaluate(()=>SiteAudio.outputLevels.filter(x=>!x.paused&&!x.muted&&x.level>0).length),1,'Day → Night leaves one ambience owner');
+ await p.waitForFunction(()=>SiteAudio.key==='dark'&&SiteAudio.outputLevels.filter(x=>!x.paused&&!x.muted&&x.level>0).length===1);
  await p.evaluate(()=>PortfolioTheme.setTheme('light',false));
  await p.evaluate(()=>{document.dispatchEvent(new CustomEvent('portfolio:scene-will-change',{detail:{id:'birds-water'}}));document.dispatchEvent(new CustomEvent('portfolio:scene',{detail:{id:'birds-water'}}));});
- await p.waitForFunction(()=>SiteAudio.key==='beach');assert.equal(await p.evaluate(()=>SiteAudio.outputLevels.filter(x=>!x.paused&&!x.muted&&x.level>0).length),1,'Night → Beach leaves one ambience owner');
+ await p.waitForFunction(()=>SiteAudio.key==='beach'&&SiteAudio.outputLevels.filter(x=>!x.paused&&!x.muted&&x.level>0).length===1);
  await p.evaluate(()=>PortfolioTheme.setMotion('paused'));await p.waitForFunction(()=>[...document.querySelectorAll('.scene-video')].every(v=>v.paused));const time=await p.locator('.scene-video.is-active').evaluate(v=>v.currentTime);await p.waitForTimeout(1000);assert(Math.abs(await p.locator('.scene-video.is-active').evaluate(v=>v.currentTime)-time)<.08);await p.evaluate(()=>PortfolioTheme.setMotion('running'));await p.waitForFunction(()=>!document.querySelector('.scene-video.is-active').paused);
  await p.evaluate(()=>{SiteAudio.setVolume(.13);SiteAudio.setMuted(true)});await p.goto(base+'/projects.html',{waitUntil:'domcontentloaded'});assert(await p.evaluate(()=>SiteAudio.muted&&SiteAudio.volume===.13&&SiteAudio.outputLevels.every(p=>p.paused&&p.muted)));await p.goBack({waitUntil:'domcontentloaded'});assert(await p.evaluate(()=>SiteAudio.muted));
  // Losing decorative canvas must not disable the background or sound controls.

@@ -27,7 +27,7 @@ async function run(){
   page.on('response',r=>{if(r.url().startsWith(base)&&r.status()>=400&&!/games\/evil-wizard/.test(r.url()))failures.push(`HTTP ${r.status()}: ${r.url()}`);});
   if(output)fs.mkdirSync(output,{recursive:true});
   if(!process.env.PORTFOLIO_SKIP_APPEARANCE)await require('./appearance.test.cjs')({browser,base,output,failures});
-  for(const [name,width,height] of [['phone',390,844],['small-phone',320,740],['tablet',820,1180],['desktop',1440,1000]]){
+  for(const [name,width,height] of [['phone',390,844],['phone-402',402,874],['phone-430',430,932],['small-phone',320,740],['tablet',820,1180],['desktop',1440,1000]]){
    console.log('Checking '+name);await page.setViewportSize({width,height});await page.goto(base+'/',{waitUntil:'domcontentloaded'});
    console.log('Loaded '+name);assert.equal(await page.locator('body').evaluate(e=>getComputedStyle(e).backgroundColor),'rgba(0, 0, 0, 0)','Living-scene body stays transparent');assert(await page.locator('.scene-backdrop').isVisible(),'Living background renders behind glass UI');
    await page.waitForFunction(()=>Boolean(window.SitePageScroll));

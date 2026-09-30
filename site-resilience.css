@@ -112,13 +112,6 @@ body.project-shell #menu{display:inline-flex!important;align-items:center;justif
 body.header-menu #menu{display:inline-flex!important;align-items:center;justify-content:center}
 
 
-/* Performance containment: defer off-screen section layout/paint without changing semantics. */
-@supports (content-visibility:auto){
-  body:not(.about-unified-page) main > section:not(:first-child),
-  body:not(.about-unified-page) main > .section,
-  body:not(.about-unified-page) .contact{
-    content-visibility:auto;
-    contain-intrinsic-size:auto 680px;
-  }
-}
+/* Off-screen section containment was removed because WebKit could expose its
+   intrinsic placeholders as blank regions/phantom dividers during long-page scrolling. */
 .demo-frame{contain:layout paint}
