@@ -381,9 +381,9 @@ body:not(.living-scenes){max-width:100%;overflow-x:clip!important}
 /* Native rails are hidden; shared UI renders a thumb only, with no opaque track. */
 html,body{scrollbar-width:none;-ms-overflow-style:none}
 html,body{scrollbar-color:transparent transparent!important;scrollbar-gutter:auto!important}
+html::-webkit-scrollbar,body::-webkit-scrollbar{display:none!important;width:0!important;height:0!important;background:transparent!important}
 html::-webkit-scrollbar,body::-webkit-scrollbar{
-  -webkit-appearance:none!important;display:none!important;width:0!important;height:0!important;
-  background:transparent!important;border:0!important;box-shadow:none!important
+  -webkit-appearance:none!important;border:0!important;box-shadow:none!important
 }
 html::-webkit-scrollbar-track,body::-webkit-scrollbar-track,
 html::-webkit-scrollbar-track-piece,body::-webkit-scrollbar-track-piece,

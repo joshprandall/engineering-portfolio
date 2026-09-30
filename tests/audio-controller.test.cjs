@@ -48,6 +48,7 @@ test('theme and scene transition matrix never leaves two ambience owners audible
  const expect=(key,count=1)=>{assert.equal(h.S.key,key);assert.equal(active(),count,key+' has exactly one audible owner');};
  expect('dark');
  for(let cycle=0;cycle<3;cycle++){
+   h.emit('portfolio:scene',{id:'forest-river'});
    h.theme('light');expect('river');
    h.emit('portfolio:scene-will-change',{id:'forest-waterfall'});silent(h);h.emit('portfolio:scene',{id:'forest-waterfall'});expect('waterfall');
    h.emit('portfolio:scene-will-change',{id:'forest-river'});silent(h);h.emit('portfolio:scene',{id:'forest-river'});expect('river');
