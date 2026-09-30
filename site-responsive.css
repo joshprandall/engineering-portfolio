@@ -397,7 +397,14 @@ html::-webkit-scrollbar-corner,body::-webkit-scrollbar-corner{
   -webkit-appearance:none!important;display:none!important;background:transparent!important;
   border:0!important;box-shadow:none!important
 }
+:root[data-theme="light"]::-webkit-scrollbar-track,
+:root[data-theme="light"]::-webkit-scrollbar-track-piece,
+:root[data-theme="light"] body::-webkit-scrollbar-track,
+:root[data-theme="light"] body::-webkit-scrollbar-track-piece{
+  background:transparent!important;background-color:transparent!important;box-shadow:none!important;opacity:0!important
+}
 :root{--page-scroll-thumb:rgba(244,165,117,.48);--page-scroll-thumb-active:rgba(244,165,117,.72)}
+:root[data-theme="light"]{--page-scroll-thumb:#000;--page-scroll-thumb-active:#000}
 .site-page-scroll{
   position:fixed;top:max(10px,env(safe-area-inset-top));right:0;
   bottom:max(10px,env(safe-area-inset-bottom));width:0!important;z-index:145;
@@ -409,6 +416,8 @@ html::-webkit-scrollbar-corner,body::-webkit-scrollbar-corner{
 /* iOS/WebKit can reserve a scrollable root gutter even when its scrollbar is hidden.
    The living scene must still paint through the complete physical viewport. */
 body.living-scenes .scene-backdrop{left:0!important;right:0!important;width:auto!important;max-width:none!important}
+/* Day mode: restore the backdrop to the full viewport width so WebKit's reserved root scroll gutter shows the moving scene instead of an opaque strip. */
+:root[data-theme="light"] body.living-scenes .scene-backdrop{right:auto!important;width:100vw!important}
 .site-page-scroll[hidden]{display:none!important}
 .site-page-scroll-thumb{
   position:absolute;top:0;right:4px;width:4px;min-height:44px;max-height:72px;border-radius:999px;
