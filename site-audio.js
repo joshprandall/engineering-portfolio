@@ -27,9 +27,10 @@
   });
 
   const SOURCES = Object.freeze({
-    // User-provided dark-mode soundtrack. Prefer the PCM WAV master so the browser has no MP3/AAC encoder padding at the loop boundary.
-    dark: new URL('assets/audio/dark-theme-user.wav', AUDIO_BASE).href,
-    darkFallback: new URL('assets/audio/dark-theme-user.mp3', AUDIO_BASE).href,
+    // The smaller MP3 starts materially faster on mobile. Night uses a two-player
+    // crossfade, so encoder padding never becomes an audible loop seam.
+    dark: new URL('assets/audio/dark-theme-user.mp3', AUDIO_BASE).href,
+    darkFallback: new URL('assets/audio/dark-theme-user.wav', AUDIO_BASE).href,
 
     // MP3 works across the target browsers. Original local OGGs remain the
     // fallback; third-party availability never controls runtime playback.
@@ -49,6 +50,7 @@
     new URL('assets/audio/day/beach-far.ogg', AUDIO_BASE).href
   ]);
   const BEACH_CROSSFADE_SECONDS = 1.2;
+  const DARK_CROSSFADE_SECONDS = 1.35;
 
   // Branch-preview hosts serve the source tree verbatim, while the release
   // build reconstructs approved Day audio from preserved Git chunks. Rebuild
@@ -250,7 +252,7 @@
     if (!audioContext) {
       try {
         audioContext = new Context();
-        for (const player of [audio, ...beachPlayers]) {
+        for (const player of [audio, ...darkPlayers, ...beachPlayers]) {
           const gain = audioContext.createGain();
           gain.gain.value = levels.get(player) || 0;
           audioContext.createMediaElementSource(player).connect(gain);
@@ -291,6 +293,38 @@
   audio.defaultPlaybackRate = 1;
   audio.playbackRate = 1;
   (document.body || document.documentElement).appendChild(audio);
+
+  function createDarkPlayer(id, preload = 'metadata') {
+    const player = document.createElement('audio');
+    player.id = id;
+    player.preload = preload;
+    player.autoplay = false;
+    player.muted = true;
+    player.loop = false;
+    player.playsInline = true;
+    player.setAttribute('playsinline', '');
+    player.setAttribute('aria-hidden', 'true');
+    player.style.display = 'none';
+    setPlayerLevel(player, 0);
+    player.src = SOURCES.dark;
+    player.dataset.darkFallback = '0';
+    player.dataset.previewFallback = '0';
+    player.dataset.previewKey = '';
+    (document.body || document.documentElement).appendChild(player);
+    try { player.load(); } catch (_) {}
+    return player;
+  }
+
+  const darkPlayers = [
+    createDarkPlayer('jr-site-audio-dark-a', 'auto'),
+    createDarkPlayer('jr-site-audio-dark-b', 'metadata')
+  ];
+
+  let darkActiveIndex = 0;
+  let darkStarted = false;
+  let darkTransitioning = false;
+  let darkFadeFrame = 0;
+  let darkGeneration = 0;
 
   function createBeachPlayer(id, src) {
     const player = document.createElement('audio');
@@ -407,7 +441,15 @@
 
   function applyPreferredVolume() {
     const cap = preferredVolume();
-    try { setPlayerLevel(audio, cap); } catch (_) {}
+    try {
+      setPlayerLevel(audio, currentKey && currentKey !== 'dark' && currentKey !== 'beach' ? cap : 0);
+    } catch (_) {}
+    darkPlayers.forEach((player, index) => {
+      if (darkTransitioning && cap > 0) return;
+      try {
+        setPlayerLevel(player, currentKey === 'dark' && darkStarted && index === darkActiveIndex ? cap : 0);
+      } catch (_) {}
+    });
     beachPlayers.forEach((player, index) => {
       if (beachTransitioning && cap > 0) return;
       try { setPlayerLevel(player, index === beachActiveIndex && beachStarted ? cap : 0); } catch (_) {}
@@ -429,23 +471,221 @@
 
   function saveDarkTime() {
     if (currentKey !== 'dark') return;
+    const player = darkPlayers[darkActiveIndex];
     try {
-      const value = Number(audio.currentTime || 0);
+      const value = Number(player?.currentTime || 0);
       if (Number.isFinite(value) && value >= 0) {
         localStorage.setItem(DARK_TIME_KEY, String(value));
       }
     } catch (_) {}
   }
 
-  function restoreDarkTime() {
-    if (currentKey !== 'dark') return;
+  function restoreDarkTime(player = darkPlayers[darkActiveIndex]) {
+    if (currentKey !== 'dark' || !player) return;
     try {
       const saved = Number(localStorage.getItem(DARK_TIME_KEY) || 0);
       if (!Number.isFinite(saved) || saved < 0) return;
-      const duration = Number(audio.duration || 0);
-      audio.currentTime = duration > 0 ? saved % duration : saved;
+      const duration = Number(player.duration || 0);
+      player.currentTime = duration > 0 ? saved % duration : saved;
     } catch (_) {}
   }
+
+  function cancelDarkFade() {
+    if (!darkFadeFrame) return;
+    try { cancelAnimationFrame(darkFadeFrame); } catch (_) {}
+    darkFadeFrame = 0;
+  }
+
+  function stopDark(reset = true) {
+    darkGeneration += 1;
+    cancelDarkFade();
+    darkTransitioning = false;
+    darkStarted = false;
+    darkActiveIndex = 0;
+    darkPlayers.forEach(player => {
+      invalidatePreviewPlayer(player);
+      try { setPlayerLevel(player, 0); } catch (_) {}
+      try { player.muted = true; } catch (_) {}
+      try { player.pause(); } catch (_) {}
+      if (reset) {
+        try { player.currentTime = 0; } catch (_) {}
+      }
+    });
+  }
+
+  function prepareDarkPlayer(player) {
+    if (!player) return;
+    player.loop = false;
+    player.muted = false;
+    player.defaultPlaybackRate = 1;
+    player.playbackRate = 1;
+    if (!BRANCH_PREVIEW_HOST &&
+        player.src !== SOURCES.dark &&
+        player.currentSrc !== SOURCES.dark &&
+        !(player.dataset.darkFallback === '1' && player.currentSrc === SOURCES.darkFallback)) {
+      player.src = SOURCES.dark;
+      player.dataset.darkFallback = '0';
+      try { player.load(); } catch (_) {}
+    }
+  }
+
+  function playDark() {
+    if (desiredKey() !== 'dark' || switching || darkTransitioning) return;
+    resumeVolumeGraph();
+    const player = darkPlayers[darkActiveIndex];
+    const generation = darkGeneration;
+    const cap = cappedVolume('dark');
+
+    if (BRANCH_PREVIEW_HOST &&
+        !(player.dataset.previewFallback === '1' && player.dataset.previewKey === 'dark' &&
+          (player.currentSrc || player.src || '').startsWith('blob:'))) {
+      usePreviewAudio(player, 'dark', { loop: false, play: false, level: cap }).then(ok => {
+        if (!ok || generation !== darkGeneration || desiredKey() !== 'dark') return;
+        restoreDarkTime(player);
+        player.muted = false;
+        setPlayerLevel(player, cap);
+        try {
+          const result = player.play();
+          if (result?.then) result.then(() => {
+            if (generation === darkGeneration && desiredKey() === 'dark') {
+              darkStarted = true;
+              markAutoplayState(false);
+            }
+          }).catch(error => {
+            if (error?.name === 'NotAllowedError') markAutoplayState(true);
+          });
+        } catch (error) {
+          if (error?.name === 'NotAllowedError') markAutoplayState(true);
+        }
+      });
+      return;
+    }
+
+    prepareDarkPlayer(player);
+    if (!darkStarted) restoreDarkTime(player);
+    setPlayerLevel(player, cap);
+    try {
+      const result = player.play();
+      if (result?.then) result.then(() => {
+        if (generation === darkGeneration && desiredKey() === 'dark') {
+          darkStarted = true;
+          markAutoplayState(false);
+        }
+      }).catch(error => {
+        if (generation !== darkGeneration) return;
+        if (error?.name === 'NotAllowedError') markAutoplayState(true);
+      });
+    } catch (error) {
+      if (error?.name === 'NotAllowedError') markAutoplayState(true);
+    }
+  }
+
+  function beginDarkTransition() {
+    if (darkTransitioning || currentKey !== 'dark' || desiredKey() !== 'dark') return;
+    const fromIndex = darkActiveIndex;
+    const toIndex = 1 - fromIndex;
+    const from = darkPlayers[fromIndex];
+    const to = darkPlayers[toIndex];
+    const generation = darkGeneration;
+    darkTransitioning = true;
+
+    const beginFade = () => {
+      if (generation !== darkGeneration || currentKey !== 'dark' || desiredKey() !== 'dark') {
+        try { to.pause(); } catch (_) {}
+        darkTransitioning = false;
+        return;
+      }
+      const startedAt = performance.now();
+      const fadeMs = DARK_CROSSFADE_SECONDS * 1000;
+      const step = now => {
+        if (generation !== darkGeneration || currentKey !== 'dark' || desiredKey() !== 'dark') {
+          try { to.pause(); } catch (_) {}
+          darkTransitioning = false;
+          darkFadeFrame = 0;
+          return;
+        }
+        const progress = Math.min(1, Math.max(0, (now - startedAt) / fadeMs));
+        const cap = cappedVolume('dark');
+        setPlayerLevel(from, cap * (1 - progress));
+        setPlayerLevel(to, cap * progress);
+        if (progress < 1) {
+          darkFadeFrame = requestAnimationFrame(step);
+          return;
+        }
+        darkFadeFrame = 0;
+        try { from.pause(); from.currentTime = 0; } catch (_) {}
+        setPlayerLevel(from, 0);
+        setPlayerLevel(to, cap);
+        darkActiveIndex = toIndex;
+        darkTransitioning = false;
+        darkStarted = true;
+      };
+      darkFadeFrame = requestAnimationFrame(step);
+    };
+
+    const startNext = () => {
+      try { to.currentTime = 0; } catch (_) {}
+      to.loop = false;
+      to.muted = false;
+      setPlayerLevel(to, 0);
+      try {
+        const result = to.play();
+        Promise.resolve(result).then(beginFade).catch(() => {
+          darkTransitioning = false;
+        });
+      } catch (_) {
+        darkTransitioning = false;
+      }
+    };
+
+    if (BRANCH_PREVIEW_HOST &&
+        !(to.dataset.previewFallback === '1' && to.dataset.previewKey === 'dark' &&
+          (to.currentSrc || to.src || '').startsWith('blob:'))) {
+      usePreviewAudio(to, 'dark', { loop: false, play: false, level: 0 })
+        .then(ok => { if (ok) startNext(); else darkTransitioning = false; });
+      return;
+    }
+
+    prepareDarkPlayer(to);
+    startNext();
+  }
+
+  darkPlayers.forEach((player, index) => {
+    player.addEventListener('loadedmetadata', () => {
+      if (currentKey === 'dark' && index === darkActiveIndex && !darkStarted) restoreDarkTime(player);
+    });
+    player.addEventListener('timeupdate', () => {
+      if (currentKey !== 'dark' || index !== darkActiveIndex || darkTransitioning) return;
+      const duration = Number(player.duration || 0);
+      const current = Number(player.currentTime || 0);
+      if (!Number.isFinite(duration) || duration <= 0 || !Number.isFinite(current)) return;
+      if (duration - current <= DARK_CROSSFADE_SECONDS + .3) beginDarkTransition();
+    });
+    player.addEventListener('ended', () => {
+      if (currentKey === 'dark' && index === darkActiveIndex && !darkTransitioning) beginDarkTransition();
+    });
+    player.addEventListener('error', () => {
+      if (player.dataset.darkFallback !== '1' && player.currentSrc !== SOURCES.darkFallback) {
+        player.dataset.darkFallback = '1';
+        try {
+          player.pause();
+          player.src = SOURCES.darkFallback;
+          player.load();
+          if (currentKey === 'dark' && index === darkActiveIndex && desiredKey() === 'dark') playDark();
+        } catch (_) {}
+        return;
+      }
+      console.error('JR Night ambience failed:', player.currentSrc, player.error);
+    });
+    player.addEventListener('volumechange', () => {
+      const cap = cappedVolume('dark');
+      if (!gains.has(player) && player.volume > cap) setPlayerLevel(player, cap);
+    });
+    player.addEventListener('ratechange', () => {
+      if (player.defaultPlaybackRate !== 1) player.defaultPlaybackRate = 1;
+      if (player.playbackRate !== 1) player.playbackRate = 1;
+    });
+  });
 
   function cancelBeachFade() {
     if (!beachFadeFrame) return;
@@ -641,6 +881,7 @@
 
   function stop() {
     saveDarkTime();
+    stopDark(true);
     invalidatePreviewPlayer(audio);
     // Mute/zero before pause to prevent Safari from leaking buffered audio from
     // the outgoing scene into the next visual scene.
@@ -662,6 +903,26 @@
     if (!nextKey) {
       stop();
       currentKey = '';
+      return;
+    }
+
+    if (nextKey === 'dark') {
+      if (currentKey === 'dark') {
+        applyPreferredVolume();
+        return;
+      }
+      switching = true;
+      stop();
+      currentKey = 'dark';
+      darkFallbackActive = false;
+      darkActiveIndex = 0;
+      darkStarted = false;
+      darkTransitioning = false;
+      darkPlayers.forEach(player => {
+        player.dataset.darkFallback = '0';
+        if (!BRANCH_PREVIEW_HOST) prepareDarkPlayer(player);
+      });
+      switching = false;
       return;
     }
 
@@ -687,7 +948,7 @@
       return;
     }
 
-    const retainedFallback = nextKey === 'dark' ? (darkFallbackActive && audio.src === SOURCES.darkFallback) : (audio.dataset.dayFallback === '1' && audio.src === DAY_FALLBACKS[nextKey]);
+    const retainedFallback = audio.dataset.dayFallback === '1' && audio.src === DAY_FALLBACKS[nextKey];
     const retainedPreview = BRANCH_PREVIEW_HOST &&
       audio.dataset.previewFallback === '1' &&
       audio.dataset.previewKey === nextKey &&
@@ -701,7 +962,6 @@
     stop();
 
     currentKey = nextKey;
-    if (nextKey === 'dark') darkFallbackActive = false;
     audio.dataset.dayFallback = '0';
 
     if (BRANCH_PREVIEW_HOST) {
@@ -725,10 +985,7 @@
 
     audio.onloadedmetadata = () => {
       if (currentKey !== nextKey || (audio.currentSrc && audio.currentSrc !== audio.src)) return;
-      if (currentKey === 'dark') restoreDarkTime();
-      else {
-        try { audio.currentTime = 0; } catch (_) {}
-      }
+      try { audio.currentTime = 0; } catch (_) {}
       switching = false;
       if (desiredKey() === nextKey) playDesired();
     };
@@ -746,6 +1003,11 @@
 
     applySource(key);
     resumeVolumeGraph();
+
+    if (key === 'dark') {
+      playDark();
+      return;
+    }
 
     if (key === 'beach') {
       playBeach();
@@ -787,6 +1049,12 @@
     }
 
     if (force || currentKey !== key) applySource(key);
+
+    if (key === 'dark') {
+      const active = darkPlayers[darkActiveIndex];
+      if (!switching && (!darkStarted || (active.paused && !darkTransitioning))) playDark();
+      return;
+    }
 
     if (key === 'beach') {
       const active = beachPlayers[beachActiveIndex];
@@ -924,7 +1192,7 @@
   });
 
   audio.addEventListener('ended', () => {
-    if (!currentKey || desiredKey() !== currentKey) return;
+    if (!currentKey || currentKey === 'dark' || desiredKey() !== currentKey) return;
     try {
       audio.currentTime = 0;
       audio.play().catch(() => {});
@@ -943,17 +1211,6 @@
       audio.loop = true;
       audio.muted = false;
       setPlayerLevel(audio, cappedVolume(currentKey));
-      try {
-        const result = audio.play();
-        if (result?.catch) result.catch(() => {});
-      } catch (_) {}
-      return;
-    }
-    if (currentKey === 'dark' && !darkFallbackActive && audio.currentSrc !== SOURCES.darkFallback) {
-      darkFallbackActive = true;
-      audio.src = SOURCES.darkFallback;
-      audio.loop = true;
-      setPlayerLevel(audio, cappedVolume('dark'));
       try {
         const result = audio.play();
         if (result?.catch) result.catch(() => {});
@@ -999,6 +1256,12 @@
       setPlayerLevel(audio, MAX_BACKGROUND_VOLUME);
     }
 
+    if (key === 'dark') {
+      const active = darkPlayers[darkActiveIndex];
+      if (unlocked && !switching && !darkTransitioning && (!darkStarted || active.paused)) playDark();
+      return;
+    }
+
     if (key === 'beach') {
       const active = beachPlayers[beachActiveIndex];
       if (unlocked && !switching && !beachTransitioning && (!beachStarted || active.paused)) {
@@ -1028,10 +1291,15 @@
     get maxVolume() { return MAX_BACKGROUND_VOLUME; },
     get volume() { return preferredVolume(); },
     get volumeBackend() { return gains.size ? 'gain' : 'media'; },
-    get outputLevels() { return [audio, ...beachPlayers].map(player => ({ level: gains.get(player)?.gain.value ?? player.volume, muted: player.muted, paused: player.paused })); },
+    get outputLevels() { return [audio, ...darkPlayers, ...beachPlayers].map(player => ({ level: gains.get(player)?.gain.value ?? player.volume, muted: player.muted, paused: player.paused })); },
     setVolume: setPreferredVolume,
     setMuted,
-    get element() { return currentKey === 'beach' ? beachPlayers[beachActiveIndex] : audio; },
+    get element() {
+      if (currentKey === 'dark') return darkPlayers[darkActiveIndex];
+      if (currentKey === 'beach') return beachPlayers[beachActiveIndex];
+      return audio;
+    },
+    get darkElements() { return darkPlayers.slice(); },
     get beachElements() { return beachPlayers.slice(); }
   });
   document.dispatchEvent(new CustomEvent('portfolio:site-audio-ready'));
