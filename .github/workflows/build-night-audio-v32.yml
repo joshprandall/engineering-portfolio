@@ -124,4 +124,9 @@ jobs:
             exit 0
           fi
           git commit -m "Build beat-aligned Night audio v32"
+          # The branch may receive a tiny preview/cache-bust commit while this
+          # long audio build is running. Rebase the generated asset commit onto
+          # the latest branch head before pushing instead of failing the build.
+          git fetch origin fix/night-audio-v32
+          git rebase origin/fix/night-audio-v32
           git push origin HEAD:fix/night-audio-v32
