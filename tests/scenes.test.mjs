@@ -107,6 +107,7 @@ test('explicit motion pause and Night mode prevent Day rotation', () => {
 
 test('a late autonomous recovery for the outgoing video cannot hide the new poster', async () => {
   const { api, videos }=controller();
+  api.start();
   api.retry();
   api.rotateLightScene();
   videos[0].finishPlaying();
