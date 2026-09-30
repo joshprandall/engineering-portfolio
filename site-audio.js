@@ -49,6 +49,13 @@
     new URL('assets/audio/day/beach-far.ogg', AUDIO_BASE).href
   ]);
   const BEACH_CROSSFADE_SECONDS = 1.2;
+  const HANDHELD_AUDIO = (() => {
+    try {
+      if (typeof matchMedia === 'function' && matchMedia('(pointer: coarse)').matches) return true;
+    } catch (_) {}
+    try { return /iPhone|iPad|iPod|Android|Mobile/i.test(navigator.userAgent || ''); }
+    catch (_) { return false; }
+  })();
 
   // Branch-preview hosts serve the source tree verbatim, while the release
   // build reconstructs approved Day audio from preserved Git chunks. Rebuild
@@ -330,6 +337,8 @@
   let beachTransitioning = false;
   let beachFadeFrame = 0;
   let beachGeneration = 0;
+  let beachSingleFallback = false;
+  let beachMainLoad = 0;
 
   function theme() {
     return window.PortfolioTheme?.getTheme?.() ||
@@ -461,9 +470,11 @@
 
   function stopBeach(reset = true) {
     beachGeneration += 1;
+    beachMainLoad += 1;
     cancelBeachFade();
     beachTransitioning = false;
     beachStarted = false;
+    beachSingleFallback = false;
     beachActiveIndex = 0;
 
     beachPlayers.forEach(player => {
@@ -480,7 +491,7 @@
   }
 
   function beginBeachTransition() {
-    if (beachTransitioning || currentKey !== 'beach' || desiredKey() !== 'beach') return;
+    if (HANDHELD_AUDIO || beachSingleFallback || beachTransitioning || currentKey !== 'beach' || desiredKey() !== 'beach') return;
 
     const fromIndex = beachActiveIndex;
     const toIndex = 1 - fromIndex;
@@ -565,8 +576,59 @@
     markAutoplayState(false);
   }
 
+  async function playBeachOnMain() {
+    if (desiredKey() !== 'beach' || switching) return false;
+    const generation = ++beachMainLoad;
+    beachSingleFallback = true;
+    beachTransitioning = false;
+
+    // The main ambience element is the element already used by Night,
+    // waterfall and river. Reusing it avoids iOS per-element permission gaps
+    // when the beach scene appears later in the session.
+    let source = BRANCH_PREVIEW_HOST ? previewAudioUrls.get('beachNear') || '' : SOURCES.beachNear;
+    if (!source && BRANCH_PREVIEW_HOST) {
+      try { source = await previewAudioUrl('beachNear'); } catch (_) { source = ''; }
+    }
+    if (!source || generation !== beachMainLoad || desiredKey() !== 'beach') return false;
+
+    beachPlayers.forEach(player => {
+      try { setPlayerLevel(player, 0); } catch (_) {}
+      try { player.muted = true; player.pause(); } catch (_) {}
+    });
+
+    try {
+      if (audio.src !== source && audio.currentSrc !== source) {
+        audio.pause();
+        audio.src = source;
+        audio.load();
+      }
+      audio.loop = true;
+      audio.muted = false;
+      setPlayerLevel(audio, cappedVolume('beach'));
+      const result = audio.play();
+      if (result?.then) await result;
+      if (generation !== beachMainLoad || desiredKey() !== 'beach') {
+        try { audio.pause(); } catch (_) {}
+        return false;
+      }
+      beachStarted = true;
+      notePlaybackReady();
+      return true;
+    } catch (error) {
+      if (generation === beachMainLoad) {
+        beachStarted = false;
+        if (error?.name === 'NotAllowedError') markAutoplayState(true);
+      }
+      return false;
+    }
+  }
+
   function playBeach() {
     if (desiredKey() !== 'beach' || switching || beachTransitioning) return;
+    if (HANDHELD_AUDIO || beachSingleFallback) {
+      playBeachOnMain();
+      return;
+    }
     resumeVolumeGraph();
     const player = beachPlayers[beachActiveIndex];
     const generation = beachGeneration;
@@ -600,7 +662,10 @@
       }).catch(error => {
         if (generation !== beachGeneration) return;
         beachStarted = false;
-        if (error?.name === 'NotAllowedError') markAutoplayState(true);
+        if (error?.name === 'NotAllowedError') {
+          markAutoplayState(true);
+          if (unlocked && desiredKey() === 'beach') playBeachOnMain();
+        }
       });
     } catch (_) {
       beachStarted = false;
@@ -687,6 +752,11 @@
       switching = true;
       stop();
       currentKey = 'beach';
+
+      if (HANDHELD_AUDIO) {
+        switching = false;
+        return;
+      }
 
       if (BRANCH_PREVIEW_HOST) {
         Promise.all([
@@ -1008,6 +1078,10 @@
     }
 
     if (key === 'beach') {
+      if (HANDHELD_AUDIO || beachSingleFallback) {
+        if (unlocked && !switching && (!beachStarted || audio.paused)) playBeach();
+        return;
+      }
       const active = beachPlayers[beachActiveIndex];
       if (unlocked && !switching && !beachTransitioning && (!beachStarted || active.paused)) {
         playBeach();
@@ -1041,7 +1115,7 @@
     setMuted,
     activate: unlockAndPlay,
     get unlocked() { return unlocked; },
-    get element() { return currentKey === 'beach' ? beachPlayers[beachActiveIndex] : audio; },
+    get element() { return currentKey === 'beach' && !(HANDHELD_AUDIO || beachSingleFallback) ? beachPlayers[beachActiveIndex] : audio; },
     get beachElements() { return beachPlayers.slice(); }
   });
   document.dispatchEvent(new CustomEvent('portfolio:site-audio-ready'));
