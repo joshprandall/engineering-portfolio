@@ -92,15 +92,17 @@ const server=http.createServer((req,res)=>{
  // Real-iPhone regression: WebKit can expose requestVideoFrameCallback without
  // invoking it for the composited Day background. Timeline movement must still
  // reveal the moving video rather than leaving the poster on top.
- const iphonePage=await c.newPage();
- await iphonePage.addInitScript(()=>{try{
-  Object.defineProperty(HTMLVideoElement.prototype,'requestVideoFrameCallback',{configurable:true,value(){return 1;}});
-  Object.defineProperty(HTMLVideoElement.prototype,'cancelVideoFrameCallback',{configurable:true,value(){}});
- }catch{}});
- await iphonePage.goto(base+'/index.html',{waitUntil:'domcontentloaded'});
- await iphonePage.evaluate(()=>PortfolioTheme.setTheme('light',false));
- await iphonePage.waitForFunction(()=>{const v=document.querySelector('.scene-video.is-active'),f=document.querySelector('.scene-day-fallback');return v&&v.currentTime>.15&&!v.paused&&f?.classList.contains('video-ready')},{timeout:20000});
- report.iphoneFrameCallbackStarvation=await iphonePage.evaluate(()=>{const v=document.querySelector('.scene-video.is-active');return {time:v.currentTime,paused:v.paused,readyState:v.readyState,posterHidden:document.querySelector('.scene-day-fallback').classList.contains('video-ready')}});
- await iphonePage.close();
+ if(mobile){
+  const iphonePage=await c.newPage();
+  await iphonePage.addInitScript(()=>{try{
+   Object.defineProperty(HTMLVideoElement.prototype,'requestVideoFrameCallback',{configurable:true,value(){return 1;}});
+   Object.defineProperty(HTMLVideoElement.prototype,'cancelVideoFrameCallback',{configurable:true,value(){}});
+  }catch{}});
+  await iphonePage.goto(base+'/index.html',{waitUntil:'domcontentloaded'});
+  await iphonePage.evaluate(()=>PortfolioTheme.setTheme('light',false));
+  await iphonePage.waitForFunction(()=>{const v=document.querySelector('.scene-video.is-active'),f=document.querySelector('.scene-day-fallback');return v&&v.currentTime>.15&&!v.paused&&f?.classList.contains('video-ready')},{timeout:20000});
+  report.iphoneFrameCallbackStarvation=await iphonePage.evaluate(()=>{const v=document.querySelector('.scene-video.is-active');return {time:v.currentTime,paused:v.paused,readyState:v.readyState,posterHidden:document.querySelector('.scene-day-fallback').classList.contains('video-ready')}});
+  await iphonePage.close();
+ }
  assert.deepEqual(report.errors,[]);assert.deepEqual(report.failedLocalRequests.filter(n=>/assets\/(scenes|audio)\//.test(n)),[]);report.passed=true;await c.close();console.log('PASS',engine,'actual moving Day video, matching local sound, Night motion/music, pause, preferences, navigation and canvas fallback.');
 }finally{fs.writeFileSync(path.join(output,'media-playback.json'),JSON.stringify(report,null,2));await browser.close();server.close();}})().catch(e=>{console.error(e);server.close();process.exitCode=1});
