@@ -28,8 +28,8 @@
       mute.setAttribute('aria-pressed',String(audio.muted));
       button.setAttribute('aria-pressed',String(!audio.muted&&percent>0));
       button.setAttribute('aria-expanded',String(!panel.hidden));
-      button.title=audio.autoplayBlocked?'Tap Sound to allow playback.':audio.suppressed?'Background sound paused for this activity.':'Adjust background sound.';
-      status.textContent=audio.autoplayBlocked?'Tap Sound to allow playback.':audio.suppressed?'Background sound paused for this activity.':'';
+      button.title=audio.autoplayBlocked?'Tap Sound to enable background audio.':audio.suppressed?'Background sound paused for this activity.':'Mute or adjust background sound.';
+      status.textContent=audio.autoplayBlocked?'Sound is waiting for browser permission — tap Sound to enable it.':audio.suppressed?'Background sound paused for this activity.':'';
       status.hidden=!status.textContent;
     };
 
@@ -38,13 +38,14 @@
       audio.setVolume(percent/100);
       audio.setMuted(percent===0);
       audio.sync(true);
-      if(percent>0)audio.play();
+      if(percent>0)audio.activate?.();
       render();
     };
 
     button.addEventListener('click',()=>{
+      if(audio.autoplayBlocked&&!audio.muted)audio.activate?.();
       panel.hidden=!panel.hidden;
-      if(!panel.hidden&&!audio.muted)audio.play();
+      if(!panel.hidden&&!audio.muted)audio.activate?.();
       render();
     });
 
@@ -56,7 +57,7 @@
       const next=!audio.muted;
       audio.setMuted(next);
       audio.sync(true);
-      if(!next)audio.play();
+      if(!next)audio.activate?.();
       render();
     });
 
