@@ -101,11 +101,19 @@
   }
 
   async function usePreviewAudio(player, key, { loop = true, play = true, level } = {}) {
-    if (!BRANCH_PREVIEW_HOST || player.dataset.previewFallback === 'loading' || player.dataset.previewFallback === '1') return false;
+    if (!BRANCH_PREVIEW_HOST) return false;
+
+    // The preview host reconstructs media asynchronously. Track the exact
+    // requested key so a late Night/River/Waterfall load cannot replace or
+    // restart audio after the user has already changed scenes.
+    player.dataset.previewTarget = key;
     player.dataset.previewFallback = 'loading';
+
     try {
       const src = await previewAudioUrl(key);
       if (!src) throw new Error('No preview media source for ' + key);
+      if (player.dataset.previewTarget !== key) return false;
+
       player.pause();
       player.src = src;
       player.loop = loop;
@@ -113,14 +121,15 @@
       setPlayerLevel(player, level ?? cappedVolume(key.startsWith('beach') ? 'beach' : key));
       player.load();
       player.dataset.previewFallback = '1';
-      if (play) {
+
+      if (play && player.dataset.previewTarget === key && desiredKey() === (key.startsWith('beach') ? 'beach' : key)) {
         const result = player.play();
         if (result?.then) await result;
       }
       markAutoplayState(false);
       return true;
     } catch (error) {
-      player.dataset.previewFallback = 'failed';
+      if (player.dataset.previewTarget === key) player.dataset.previewFallback = 'failed';
       console.error('JR preview audio fallback failed:', key, error);
       return false;
     }
@@ -557,8 +566,17 @@
     audio.dataset.previewFallback = '0';
 
     if (BRANCH_PREVIEW_HOST) {
+      // Never let the outgoing scene remain audible while the next preview
+      // source is being reconstructed. In particular, Night must be silent
+      // immediately when Day is selected.
+      try { setPlayerLevel(audio, 0); } catch (_) {}
+      try { audio.muted = true; } catch (_) {}
+      try { audio.pause(); } catch (_) {}
+      audio.dataset.previewTarget = nextKey;
+
       usePreviewAudio(audio, nextKey, { loop: true, play: true, level: cappedVolume(nextKey) })
         .then(ok => {
+          if (audio.dataset.previewTarget !== nextKey) return;
           switching = false;
           if (!ok && desiredKey() === nextKey) {
             audio.src = SOURCES[nextKey];
@@ -603,6 +621,13 @@
       playBeach();
       return;
     }
+
+    // applySource() is still reconstructing the requested preview media.
+    // Do not call play() on the shared element because it still references the
+    // outgoing scene until that asynchronous replacement completes.
+    if (BRANCH_PREVIEW_HOST &&
+        audio.dataset.previewFallback === 'loading' &&
+        audio.dataset.previewTarget === key) return;
 
     audio.loop = true;
     audio.muted = false;
