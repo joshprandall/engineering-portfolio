@@ -205,6 +205,9 @@ assert.match(siteAudio,/audioSession[\s\S]*type\s*=\s*'playback'/,'Ambience must
 assert.match(siteAudio,/previewAudioUrls\.get\(key\)\s*\|\|\s*await previewAudioUrl/,'Cached preview audio must avoid a new fetch boundary');
 assert.doesNotMatch(siteAudio,/document\.addEventListener\('(?:pointerdown|touchstart)'\s*,\s*unlockAndPlay/,'Arbitrary page touches must not unlock background audio');
 assert.match(siteAudio,/activate:\s*unlockAndPlay/,'SiteAudio must expose an explicit Sound-control activation path');
+assert.match(siteAudio,/HANDHELD_AUDIO[\s\S]*playBeachOnMain/,'Handheld beach ambience must reuse the primary authorized media element');
+assert.match(siteAudio,/currentKey === 'beach'[\s\S]*HANDHELD_AUDIO[\s\S]*beachSingleFallback/,'SiteAudio.element must report the primary beach fallback on handhelds');
+
 assert.match(read('site-sound-control.js'),/audio\.activate\?\.\(\)/,'Sound controls must own explicit audio activation');
 assert.doesNotMatch(livingScenes,/document\.addEventListener\('(?:pointerdown|touchstart)'\s*,\s*retryLightPlayback/,'Day animation recovery must not depend on touching the page');
 assert.match(livingScenes,/scheduleLightRecovery[\s\S]*setInterval[\s\S]*retryLightPlayback/,'Day animation must autonomously retry stalled mobile playback');
