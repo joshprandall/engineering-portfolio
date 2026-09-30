@@ -327,6 +327,7 @@
         video.cancelVideoFrameCallback?.(videoFrames.get(video));
         videoFrames.delete(video);
       }
+      clearVideoMotionWatch(video);
       video.pause();
       video.removeAttribute('src');
       video.poster = scene.poster;
@@ -369,6 +370,14 @@
     }
 
     const videoFrames = new WeakMap();
+    const videoMotionTimers = new WeakMap();
+
+    function clearVideoMotionWatch(video) {
+      const timer = videoMotionTimers.get(video);
+      if (!timer) return;
+      clearTimeout(timer);
+      videoMotionTimers.delete(video);
+    }
 
     function prewarmNextLightScene() {
       if (!BRANCH_PREVIEW_HOST || mediaDisabled || LIGHT_SCENES.length < 2) return;
@@ -380,28 +389,75 @@
       previewSceneUrl(next).catch(() => {});
     }
 
-    function revealVideo(video, loadId = sceneLoadId) {
+    function revealVideo(video, loadId = sceneLoadId, confirmedProgress = false) {
       const current = () => video === activeVideo && loadId === sceneLoadId &&
         theme === 'light' && !document.hidden && motionAllowed() &&
         !video.paused && video.readyState >= 2 && video.currentSrc === video.src;
       if (!current()) return;
       const reveal = () => {
         videoFrames.delete(video);
+        clearVideoMotionWatch(video);
         if (!current()) return;
         dayFallback.classList.add('video-ready');
         commitVisibleDayScene(LIGHT_SCENES[activeSceneIndex]);
         prewarmNextLightScene();
       };
-      // A resolved play() promise is not proof that Safari has presented a
-      // frame. Keep the matching poster until a frame reaches the compositor.
-      if (typeof video.requestVideoFrameCallback !== 'function') { reveal(); return; }
+      // Real iPhone/WKWebView can expose requestVideoFrameCallback yet fail to
+      // deliver it for a composited background. Timeline movement is also
+      // proof that the Day clip is alive and safe to reveal.
+      if (confirmedProgress || typeof video.requestVideoFrameCallback !== 'function') { reveal(); return; }
       if (!videoFrames.has(video)) videoFrames.set(video, video.requestVideoFrameCallback(reveal));
+    }
+
+    function watchVideoMotion(video, scene, loadId = sceneLoadId) {
+      clearVideoMotionWatch(video);
+      const start = Number(video.currentTime || 0);
+      const timer = setTimeout(async () => {
+        videoMotionTimers.delete(video);
+        if (video !== activeVideo || loadId !== sceneLoadId || theme !== 'light' ||
+            document.hidden || !motionAllowed() || video.paused || video.readyState < 2) return;
+
+        const now = Number(video.currentTime || 0);
+        const duration = Number(video.duration || 0);
+        let advance = now - start;
+        if (advance < 0 && duration > 0 && start > duration - 2 && now < 2) advance += duration;
+        if (advance > .05) {
+          revealVideo(video, loadId, true);
+          return;
+        }
+
+        // Raw previews reconstruct approved MP4 bytes as a Blob. Some real
+        // iPhone WebViews decode that Blob's first frame but never advance it.
+        // In that case use the original direct licensed stream for this scene.
+        const currentSrc = video.currentSrc || video.src || '';
+        if (BRANCH_PREVIEW_HOST && currentSrc.startsWith('blob:') && scene?.remoteSrc) {
+          configureVideo(video, scene, scene.remoteSrc);
+          const playing = await playSafely(video, 12000);
+          if (video !== activeVideo || loadId !== sceneLoadId || theme !== 'light' ||
+              document.hidden || !motionAllowed()) return;
+          if (playing) {
+            revealVideo(video, loadId);
+            watchVideoMotion(video, scene, loadId);
+          }
+          return;
+        }
+
+        const playing = await playSafely(video, 12000);
+        if (video !== activeVideo || loadId !== sceneLoadId || theme !== 'light' ||
+            document.hidden || !motionAllowed()) return;
+        if (playing) {
+          revealVideo(video, loadId);
+          watchVideoMotion(video, scene, loadId);
+        }
+      }, 1800);
+      videoMotionTimers.set(video, timer);
     }
 
     function pauseVideos() {
       [videoA, videoB].forEach(video => {
         try { video.muted = true; video.volume = 0; } catch (_) {}
         video.autoplay = false;
+        clearVideoMotionWatch(video);
         video.pause();
       });
     }
@@ -411,6 +467,14 @@
         if (video === activeVideo && !video.paused && video.readyState >= 2 &&
             video.currentSrc === video.src && theme === 'light' && !document.hidden && motionAllowed()) {
           revealVideo(video);
+          watchVideoMotion(video, LIGHT_SCENES[activeSceneIndex], sceneLoadId);
+        }
+      });
+      video.addEventListener('timeupdate', () => {
+        if (video === activeVideo && !video.paused && video.readyState >= 2 &&
+            video.currentSrc === video.src && theme === 'light' && !document.hidden &&
+            motionAllowed() && Number(video.currentTime || 0) > .05) {
+          revealVideo(video, sceneLoadId, true);
         }
       });
       video.addEventListener('error', () => {
@@ -450,7 +514,10 @@
         // prevent mobile browsers from fetching enough video to become ready.
         const playing = await playSafely(video, 30000);
         if (loadId !== sceneLoadId || video !== activeVideo || theme !== 'light' || !motionAllowed() || document.hidden) return false;
-        if (playing) return true;
+        if (playing) {
+          watchVideoMotion(video, scene, loadId);
+          return true;
+        }
         // A loaded video blocked by autoplay can resume on the next user tap.
         // Switching its source would discard useful buffered frames.
         if (video.readyState >= 2 && !video.error) return false;
