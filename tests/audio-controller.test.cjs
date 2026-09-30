@@ -51,6 +51,31 @@ test('preview Night to Day transition cannot resurrect an outgoing Night load',a
  assert.equal(h.S.key,'river');
  assert.notEqual(player.dataset.previewKey,'dark');
 });
+test('all requested theme and Day-scene transitions keep exactly one matching ambience owner',()=>{
+ const audible=h=>h.S.outputLevels.filter(p=>!p.paused&&!p.muted&&p.level>0).length;
+ const active=(h,key)=>{assert.equal(h.S.key,key);assert.equal(audible(h),1,key+': exactly one ambience owner may be audible');};
+ const scene=(h,id,key)=>{h.emit('portfolio:scene-will-change',{id});assert.equal(audible(h),0,id+': outgoing ambience must be silent before visual commit');h.emit('portfolio:scene',{id});active(h,key);};
+ for(let round=0;round<3;round++){
+  const h=harness({pending:true});
+  active(h,'dark');
+
+  // Night → Day, Day → Night, then Night → Day → Night.
+  h.theme('light');assert.equal(audible(h),0);h.emit('portfolio:scene',{id:'forest-waterfall'});active(h,'waterfall');
+  h.theme('dark');active(h,'dark');
+  h.theme('light');active(h,'waterfall');h.theme('dark');active(h,'dark');
+
+  // Waterfall → River → Beach → Waterfall.
+  h.theme('light');active(h,'waterfall');
+  scene(h,'forest-river','river');
+  scene(h,'birds-water','beach');
+  scene(h,'forest-waterfall','waterfall');
+
+  // Beach → Night and Night → Beach.
+  scene(h,'birds-water','beach');
+  h.theme('dark');active(h,'dark');
+  h.theme('light');active(h,'beach');
+ }
+});
 test('Day waits for visible scenery and the matching local sound; local fallback is retained',()=>{
  const h=harness({pending:true});h.theme('light');silent(h);h.emit('portfolio:scene',{id:'forest-river'});assert.match(h.S.element.src,/\/river\.mp3$/);h.S.element.dispatchEvent(new Event('error'));assert.match(h.S.element.src,/\/river\.ogg$/);const n=h.S.element.loads;h.S.sync(true);assert.equal(h.S.element.loads,n);
  h.emit('portfolio:scene-will-change',{id:'forest-waterfall'});silent(h);h.S.play();h.watchdog();silent(h);h.emit('portfolio:scene',{id:'forest-waterfall'});assert.match(h.S.element.src,/\/waterfall\.mp3$/);assert(!h.S.element.paused);
