@@ -205,7 +205,7 @@ assert.match(siteAudio,/audioSession[\s\S]*type\s*=\s*'playback'/,'Ambience must
 assert.match(siteAudio,/previewAudioUrls\.get\(key\)\s*\|\|\s*await previewAudioUrl/,'Cached preview audio must avoid a new fetch boundary');
 assert.match(livingScenes,/video\.loop\s*=\s*scene\.id\s*!==\s*'birds-water'/,'Beach Day video must not visibly loop');
 assert.match(livingScenes,/BEACH_LOOP_GUARD_SECONDS[\s\S]*duration - current <= BEACH_LOOP_GUARD_SECONDS[\s\S]*rotateLightScene\(\)/,'Beach scene must rotate before its clip reaches the loop seam');
-assert.match(siteAudio,/DARK_CROSSFADE_SECONDS\s*=\s*1\.35/,'Night ambience must define a bounded seamless crossfade');
+assert.match(siteAudio,/DARK_CROSSFADE_SECONDS\s*=\s*0\.18/,'Night v32 uses a short scheduler-hiding crossfade over its already seamless PCM master');
 assert.match(siteAudio,/function beginDarkTransition\([\s\S]*darkActiveIndex = toIndex/,'Night ambience must alternate players across the loop seam');
 assert.match(siteAudio,/dark:\s*new URL\('assets\/audio\/dark-theme-user\.mp3'/,'Night must prioritize the smaller MP3 for faster mobile startup');
 
