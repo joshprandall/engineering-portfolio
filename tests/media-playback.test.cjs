@@ -88,5 +88,19 @@ const server=http.createServer((req,res)=>{
  await p.addInitScript(()=>{const original=HTMLCanvasElement.prototype.getContext;HTMLCanvasElement.prototype.getContext=function(...args){return this.classList.contains('scene-canvas')?null:original.apply(this,args)};});
  await p.goto(base+'/learn.html',{waitUntil:'domcontentloaded'});await p.waitForFunction(()=>document.querySelector('.scene-video.is-active')?.currentTime>0,null,{timeout:20000});assert(await p.evaluate(()=>SiteAudio.muted&&document.querySelectorAll('#site-scene').length===1));
  for(const [width,height]of [[320,568],[820,1180],[1440,900],[1920,1080],[844,390]]){await p.setViewportSize({width,height});await p.waitForTimeout(100);assert(await p.locator('.scene-backdrop').evaluate(e=>{const r=e.getBoundingClientRect();return r.left<=0&&r.top<=0&&r.right>=innerWidth&&r.bottom>=innerHeight}),'viewport covered');}
+
+ // Real-iPhone regression: WebKit can expose requestVideoFrameCallback without
+ // invoking it for the composited Day background. Timeline movement must still
+ // reveal the moving video rather than leaving the poster on top.
+ const iphonePage=await c.newPage();
+ await iphonePage.addInitScript(()=>{try{
+  Object.defineProperty(HTMLVideoElement.prototype,'requestVideoFrameCallback',{configurable:true,value(){return 1;}});
+  Object.defineProperty(HTMLVideoElement.prototype,'cancelVideoFrameCallback',{configurable:true,value(){}});
+ }catch{}});
+ await iphonePage.goto(base+'/index.html',{waitUntil:'domcontentloaded'});
+ await iphonePage.evaluate(()=>PortfolioTheme.setTheme('light',false));
+ await iphonePage.waitForFunction(()=>{const v=document.querySelector('.scene-video.is-active'),f=document.querySelector('.scene-day-fallback');return v&&v.currentTime>.15&&!v.paused&&f?.classList.contains('video-ready')},{timeout:20000});
+ report.iphoneFrameCallbackStarvation=await iphonePage.evaluate(()=>{const v=document.querySelector('.scene-video.is-active');return {time:v.currentTime,paused:v.paused,readyState:v.readyState,posterHidden:document.querySelector('.scene-day-fallback').classList.contains('video-ready')}});
+ await iphonePage.close();
  assert.deepEqual(report.errors,[]);assert.deepEqual(report.failedLocalRequests.filter(n=>/assets\/(scenes|audio)\//.test(n)),[]);report.passed=true;await c.close();console.log('PASS',engine,'actual moving Day video, matching local sound, Night motion/music, pause, preferences, navigation and canvas fallback.');
 }finally{fs.writeFileSync(path.join(output,'media-playback.json'),JSON.stringify(report,null,2));await browser.close();server.close();}})().catch(e=>{console.error(e);server.close();process.exitCode=1});
