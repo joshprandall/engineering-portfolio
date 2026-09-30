@@ -203,6 +203,12 @@ for(const token of ['0dd180961c009c20f5218a2801679b36b82be0837bc3e727908e1affffe
 assert.match(livingScenes,/nextPoster\.complete[\s\S]*nextPoster\.naturalWidth/,'Day rotation must wait for the next poster');
 assert.match(siteAudio,/audioSession[\s\S]*type\s*=\s*'playback'/,'Ambience must request playback audio routing where supported');
 assert.match(siteAudio,/previewAudioUrls\.get\(key\)\s*\|\|\s*await previewAudioUrl/,'Cached preview audio must avoid a new fetch boundary');
+assert.doesNotMatch(siteAudio,/document\.addEventListener\('(?:pointerdown|touchstart)'\s*,\s*unlockAndPlay/,'Arbitrary page touches must not unlock background audio');
+assert.match(siteAudio,/activate:\s*unlockAndPlay/,'SiteAudio must expose an explicit Sound-control activation path');
+assert.match(read('site-sound-control.js'),/audio\.activate\?\.\(\)/,'Sound controls must own explicit audio activation');
+assert.doesNotMatch(livingScenes,/document\.addEventListener\('(?:pointerdown|touchstart)'\s*,\s*retryLightPlayback/,'Day animation recovery must not depend on touching the page');
+assert.match(livingScenes,/scheduleLightRecovery[\s\S]*setInterval[\s\S]*retryLightPlayback/,'Day animation must autonomously retry stalled mobile playback');
+
 assert.match(livingScenes,/DOMContentLoaded', releaseMedia/,'Proven Day-video startup timing must remain intact during low-risk performance work');
 assert.match(livingScenes,/function loadDayPoster\([\s\S]*loadDayPoster\(LIGHT_SCENES\[activeSceneIndex\]\)/,'Only the active Day poster should be loaded eagerly');
 assert.ok(exists('.htaccess'),'Root cache/compression policy must be included in the deployable source');
