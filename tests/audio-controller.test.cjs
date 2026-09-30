@@ -39,8 +39,10 @@ test('one owner, quiet first output, no inactive autoplay, including iOS read-on
  for(const readonlyVolume of [false,true]){const h=harness({readonlyVolume});assert.equal(h.S.volume,.05);assert.equal(h.S.volumeBackend,'gain');assert.equal(h.S.outputLevels[0].level,.05);assert(h.players.every(p=>p.autoplay===false));assert(h.S.beachElements.every(p=>p.paused&&p.muted));h.repeat();assert.equal(h.players.length,3);h.S.setVolume(.23);assert.equal(h.S.outputLevels[0].level,.23);}
 });
 test('native media remains usable when Web Audio is unavailable',()=>{const h=harness({gain:false});assert.equal(h.S.volumeBackend,'media');h.S.setVolume(.12);assert.equal(h.S.element.volume,.12);h.S.setMuted(true);silent(h);});
-test('trusted interaction claims playback routing and recovers the WebKit audio session',()=>{
- const h=harness();assert.equal(h.audioSession.type,'auto');h.document.dispatchEvent(new Event('pointerdown'));assert.equal(h.audioSession.type,'playback');assert.equal(h.S.audioSessionType,'playback');
+test('only explicit Sound activation claims playback routing; random page touch stays silent',()=>{
+ const h=harness({pending:true});assert.equal(h.audioSession.type,'auto');assert.equal(h.S.unlocked,false);
+ h.document.dispatchEvent(new Event('pointerdown'));assert.equal(h.audioSession.type,'auto');assert.equal(h.S.unlocked,false);
+ h.S.activate();assert.equal(h.audioSession.type,'playback');assert.equal(h.S.audioSessionType,'playback');assert.equal(h.S.unlocked,true);
  h.audioSession.type='ambient';h.audioSession.state='active';h.audioSession.dispatchEvent(new Event('statechange'));assert.equal(h.audioSession.type,'playback');
 });
 test('mute and zero restore the last selected nonzero volume, even when storage writes fail',()=>{
