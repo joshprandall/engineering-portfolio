@@ -1,0 +1,127 @@
+name: Build Night audio v32
+
+on:
+  push:
+    branches:
+      - fix/night-audio-v32
+    paths:
+      - .github/workflows/build-night-audio-v32.yml
+      - site-audio.js
+
+permissions:
+  contents: write
+
+jobs:
+  build-night-audio:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Build beat-aligned seamless Night master
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
+
+          # Restore the full user-provided Night recording from before the later
+          # short/destructive loop rebuilds.
+          git show 9408891c3efc4cb8fc920cb8f8df31eb4813bae2:assets/audio/dark-theme-user.mp3 > /tmp/night-original.mp3
+          ffmpeg -y -hide_banner -loglevel error \
+            -i /tmp/night-original.mp3 -vn -ar 44100 -ac 2 -c:a pcm_s16le /tmp/night-original.wav
+
+          python3 - <<'PY'
+          import array
+          import math
+          import wave
+          from pathlib import Path
+
+          source = Path("/tmp/night-original.wav")
+          wav_target = Path("assets/audio/dark-theme-user-v32.wav")
+
+          # Measured from the user's original recording:
+          # tempo ~83.35 BPM.
+          # Start and end are exactly 32 beats apart.
+          # The one-beat overlap is substantially more compatible than the
+          # previous splice and avoids the audible phasing/mush at the wrap.
+          start_frame = 173056   # 3.924172336 s
+          end_frame   = 1179136  # 26.737777778 s
+          fade_frames = 31744    # 0.719818594 s (one beat)
+
+          with wave.open(str(source), "rb") as src:
+              if src.getframerate() != 44100 or src.getnchannels() != 2 or src.getsampwidth() != 2:
+                  raise SystemExit("Unexpected decoded Night source format")
+              total_frames = src.getnframes()
+              samples = array.array("h")
+              samples.frombytes(src.readframes(total_frames))
+
+          channels = 2
+          if total_frames <= end_frame:
+              raise SystemExit(f"Night source unexpectedly short: {total_frames} frames")
+
+          raw_frames = end_frame - start_frame
+          out_frames = raw_frames - fade_frames
+          out = array.array("h", samples[
+              start_frame*channels:(end_frame-fade_frames)*channels
+          ])
+
+          # Circular raised-cosine overlap:
+          # loop end flows into the original tail; during the first beat the
+          # tail morphs into the matching loop head, then the original phrase
+          # continues. No duplicated transient and no hard decoder splice.
+          for frame in range(fade_frames):
+              x = frame / fade_frames
+              fade_in = math.sin(x * math.pi / 2.0) ** 2
+              fade_out = 1.0 - fade_in
+              head_base = (start_frame + frame) * channels
+              tail_base = (end_frame - fade_frames + frame) * channels
+              out_base = frame * channels
+              for ch in range(channels):
+                  value = math.floor(
+                      samples[tail_base + ch] * fade_out +
+                      samples[head_base + ch] * fade_in
+                  )
+                  out[out_base + ch] = max(-32768, min(32767, value))
+
+          wav_target.parent.mkdir(parents=True, exist_ok=True)
+          with wave.open(str(wav_target), "wb") as dst:
+              dst.setnchannels(2)
+              dst.setsampwidth(2)
+              dst.setframerate(44100)
+              dst.writeframes(out.tobytes())
+
+          with wave.open(str(wav_target), "rb") as check:
+              duration = check.getnframes() / check.getframerate()
+              expected = 22.09378684807256
+              if abs(duration - expected) > 0.001:
+                  raise SystemExit(f"Unexpected Night loop duration: {duration:.9f}s")
+              print(f"Night WAV: {check.getnframes()} frames, {duration:.9f}s")
+          PY
+
+          ffmpeg -y -hide_banner -loglevel error \
+            -i assets/audio/dark-theme-user-v32.wav \
+            -codec:a libmp3lame -q:a 2 assets/audio/dark-theme-user-v32.mp3
+
+          node --check site-audio.js
+          npm test
+
+          ffprobe -v error -show_entries format=duration \
+            -of default=noprint_wrappers=1:nokey=1 assets/audio/dark-theme-user-v32.wav
+          ls -lh assets/audio/dark-theme-user-v32.wav assets/audio/dark-theme-user-v32.mp3
+          sha256sum assets/audio/dark-theme-user-v32.wav assets/audio/dark-theme-user-v32.mp3
+
+      - name: Commit generated Night assets
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/audio/dark-theme-user-v32.wav assets/audio/dark-theme-user-v32.mp3
+          if git diff --cached --quiet; then
+            echo "No generated Night changes to commit."
+            exit 0
+          fi
+          git commit -m "Build beat-aligned Night audio v32"
+          git push origin HEAD:fix/night-audio-v32
