@@ -502,32 +502,60 @@
 
     async function prepareAndPlay(video, scene) {
       const loadId = ++sceneLoadId;
-      // Raw branch previews do not reconstruct the preserved large-media chunks.
-      // Use the already-approved original Pexels clip there; production still
-      // prefers the preserved local master/mobile renditions.
+      let previewLoad = null;
       let previewSrc = '';
+
       if (BRANCH_PREVIEW_HOST) {
-        try { previewSrc = await previewSceneUrl(scene); } catch (error) { console.error('JR preview scene fallback failed:', scene.id, error); }
+        // A Blob cannot play until every preserved chunk has downloaded. Give a
+        // warm cached Blob a brief chance, then start the original licensed
+        // stream immediately while reconstruction continues in the background.
+        previewLoad = previewSceneUrl(scene).catch(error => {
+          console.error('JR preview scene fallback failed:', scene.id, error);
+          return '';
+        });
+        previewSrc = await Promise.race([
+          previewLoad,
+          new Promise(resolve => setTimeout(() => resolve(''), 120))
+        ]);
       }
+
       const sources = (BRANCH_PREVIEW_HOST
-        ? [previewSrc, scene.remoteSrc, scene.mobileSrc, scene.src]
+        ? [previewSrc, scene.remoteSrc]
         : compactMedia
           ? [scene.mobileSrc, scene.src, scene.remoteSrc]
           : [scene.src, scene.mobileSrc, scene.remoteSrc]
       ).filter(Boolean);
-      for (const source of sources) {
+
+      const trySource = async source => {
         configureVideo(video, scene, source);
         // Start playback immediately: waiting for canplay before play can
         // prevent mobile browsers from fetching enough video to become ready.
         const playing = await playSafely(video, 30000);
-        if (loadId !== sceneLoadId || video !== activeVideo || theme !== 'light' || !motionAllowed() || document.hidden) return false;
+        if (loadId !== sceneLoadId || video !== activeVideo || theme !== 'light' || !motionAllowed() || document.hidden) return 'stale';
         if (playing) {
           watchVideoMotion(video, scene, loadId);
-          return true;
+          return 'playing';
         }
         // A loaded video blocked by autoplay can resume on the next user tap.
         // Switching its source would discard useful buffered frames.
-        if (video.readyState >= 2 && !video.error) return false;
+        if (video.readyState >= 2 && !video.error) return 'blocked';
+        return 'failed';
+      };
+
+      for (const source of sources) {
+        const result = await trySource(source);
+        if (result === 'playing') return true;
+        if (result === 'stale' || result === 'blocked') return false;
+      }
+
+      // If the live preview stream failed, the preserved reconstruction is
+      // still the final fallback once its chunks finish.
+      if (BRANCH_PREVIEW_HOST && previewLoad && !previewSrc) {
+        const latePreviewSrc = await previewLoad;
+        if (latePreviewSrc) {
+          const result = await trySource(latePreviewSrc);
+          return result === 'playing';
+        }
       }
       return false;
     }
