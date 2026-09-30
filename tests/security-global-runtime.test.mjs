@@ -63,7 +63,8 @@ assert.ok(scenes.includes("portfolio:scene-will-change"),'Day scene engine must 
 assert.ok(scenes.indexOf('announceDaySceneWillChange(nextIndex);') < scenes.indexOf('activeVideo = standbyVideo;'), 'Outgoing audio must be silenced before the active visual changes');
 for(const media of ['assets/scenes/day/waterfall.mp4','assets/scenes/day/river.mp4','assets/scenes/day/beach-birds.mp4']) assert.ok(scenes.includes(media),'Day scene must prefer same-origin production media: '+media);
 assert.ok(scenes.includes('mobileSrc:') && scenes.includes('[scene.mobileSrc, scene.src, scene.remoteSrc]') && scenes.includes('[scene.src, scene.mobileSrc, scene.remoteSrc]'),'Day scenes must retain both verified local renditions plus the approved remote fallback');
-assert.ok(scenes.includes('BRANCH_PREVIEW_HOST')&&scenes.includes('[scene.remoteSrc, scene.mobileSrc, scene.src]'),'Branch previews must use the approved remote Day clip when reconstructed local media is unavailable');
+assert.ok(scenes.includes('BRANCH_PREVIEW_HOST')&&scenes.includes('[previewSrc, scene.remoteSrc, scene.mobileSrc, scene.src]'),'Branch previews must use the preserved Beach clip first and retain the approved remote/local fallbacks');
+assert.ok(scenes.includes("PREVIEW_SCENE_ASSETS")&&scenes.includes("54af202eb77b482086a041e64fd005e995dffc56defb8b118ae82dd118fdf7a4/0.bin"),'Beach preview must reconstruct the preserved mobile MP4 bytes');
 assert.ok(scenes.includes('async function prepareAndPlay(video, scene)'),'Day player must retry its alternate source when the primary media cannot load');
 assert.ok(scenes.includes("video.setAttribute('playsinline','')") && scenes.includes("video.setAttribute('webkit-playsinline','')"),'Day video must explicitly request inline iOS playback');
 assert.ok(scenes.includes('video.defaultMuted = true'),'Day autoplay must be explicitly muted for iOS');
@@ -93,6 +94,8 @@ assert.ok(sound.includes('scene-sound-mute')&&sound.includes("mute.textContent=a
 assert.ok(sound.includes('portfolio:site-audio-ready'),'Sound control must recover when audio initializes after it');
 const audioRuntime=read('site-audio.js');
 assert.ok(audioRuntime.includes('PREVIEW_AUDIO_ASSETS')&&audioRuntime.includes('preservation/ambience/878679d3fcd4cf6c8361458f76b6e14cd77072b02aafe528bbb30f158fafa20d/0.bin'),'Branch preview must reconstruct preserved Day audio bytes');
+assert.ok(audioRuntime.includes('previewKey')&&audioRuntime.includes('previewPlayerGenerations'),'Preview audio state must track the exact scene source and reject stale loads');
+assert.ok(audioRuntime.includes("usePreviewAudio(beachPlayers[0], 'beachNear'")&&audioRuntime.includes("usePreviewAudio(beachPlayers[1], 'beachFar'"),'Beach preview audio must preload both preserved field recordings directly');
 assert.ok(audioRuntime.includes("type: spec.mime")&&audioRuntime.includes('URL.createObjectURL'),'Preview audio fallback must supply a browser-decodable MIME-typed Blob URL');
 
 const page=read('security-research.html');
