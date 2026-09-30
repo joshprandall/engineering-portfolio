@@ -30,7 +30,8 @@ function controller() {
     let activeVideo=videos[0], standbyVideo=videos[1], activeSceneIndex=0;
     let rotationElapsed=0, lastFrame=0, raf=0, time=0, width=400;
     const ROTATE_AFTER=28;
-    const LIGHT_SCENES=[0,1,2].map(i=>({src:'local-'+i,mobileSrc:'mobile-'+i,remoteSrc:'remote-'+i,poster:'poster-'+i}));
+    const LIGHT_SCENES=[0,1,2].map(i=>({id:'scene-'+i,src:'local-'+i,mobileSrc:'mobile-'+i,remoteSrc:'remote-'+i,poster:'poster-'+i}));
+    const dayPosters=new Map(LIGHT_SCENES.map(scene=>[scene.id,{complete:true,naturalWidth:1280,src:scene.poster}]));
     const readyScenes=[];
     const dayFallback={classList:{add(){readyScenes.push(activeSceneIndex)},remove(){}}};
     const credits=[], announceDaySceneWillChange=()=>{}, updateDayCredit=()=>credits.push(activeSceneIndex), draw=()=>{};
@@ -42,6 +43,7 @@ function controller() {
       frame, rotateLightScene, start:()=>prepareAndPlay(activeVideo,LIGHT_SCENES[activeSceneIndex]),
       pause:()=>{paused=true}, night:()=>{theme='dark'},
       retry:retryLightPlayback,
+      setPosterReady:(index,ready)=>{const poster=dayPosters.get(LIGHT_SCENES[index].id);poster.complete=ready;poster.naturalWidth=ready?1280:0},
       state:()=>({activeSceneIndex,credits:[...credits],readyScenes:[...readyScenes]})
     };
   `, context);
@@ -60,6 +62,17 @@ test('Day scenes cycle every 28 visible seconds even when every video play stays
   api.frame(84000);
   assert.equal(api.state().activeSceneIndex, 0);
   assert.equal(api.state().credits.join(','), '1,2,0');
+});
+
+test('Day rotation keeps the current scene until the next poster can paint', () => {
+  const { api } = controller();
+  api.setPosterReady(1,false);
+  api.frame(28000);
+  assert.equal(api.state().activeSceneIndex,0);
+  assert.equal(api.state().credits.length,0);
+  api.setPosterReady(1,true);
+  api.frame(56000);
+  assert.equal(api.state().activeSceneIndex,1);
 });
 
 test('slow startup keeps the local clip beyond the old seven-second cutoff', async () => {
