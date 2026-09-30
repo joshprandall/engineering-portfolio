@@ -198,7 +198,7 @@ assert.match(read('portfolio-next.js'),/frameInterval/,'Solar systems animation 
 assert.match(read('knowledge.js'),/IntersectionObserver/,'Learning constellation must suspend when off-screen');
 assert.match(read('site-scenes.js'),/constrainedMedia/,'Living scenes must adapt to constrained and in-app browsers');
 assert.match(read('site-scenes.js'),/preload="metadata"/,'Living scenes must not eagerly preload a remote 1080p stream in markup');
-assert.match(read('site-resilience.css'),/content-visibility:auto/,'Off-screen sections must use progressive rendering where supported');
+assert.doesNotMatch(read('site-resilience.css'),/content-visibility:auto/,'Off-screen section containment must not reintroduce blank WebKit placeholders');
 assert.match(read('project-geometric-ai.html'),/<iframe\b[^>]*loading=["']lazy["']/i,'Geometry Lab preview must lazy-load below the fold');
 
 
