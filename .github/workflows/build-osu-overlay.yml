@@ -33,6 +33,10 @@ jobs:
           test -s project-geometric-ai.html
           test -s play-evil-wizard.html
           ! grep -q 'games/battle-chess/' project-battle-chess.html
+      - name: Restore complete verified background media
+        run: |
+          python3 tools/restore_website2_assets.py --ambience
+          PORTFOLIO_REQUIRE_MEDIA=1 node --test tests/ambience-contract.test.cjs
       - name: Create protected-experience-preserving website overlay
         shell: bash
         run: |
@@ -108,6 +112,7 @@ jobs:
           CHROME=$(command -v google-chrome || command -v chromium || command -v chromium-browser || true)
           if [ -z "$CHROME" ]; then npx playwright install --with-deps chromium; fi
           PORTFOLIO_RUNTIME_ROOT=. PORTFOLIO_BROWSER_EXECUTABLE="$CHROME" PORTFOLIO_QA_DIR=visual-qa npm run test:browser
+          PORTFOLIO_RUNTIME_ROOT=. PORTFOLIO_BROWSER_EXECUTABLE="$CHROME" PORTFOLIO_QA_DIR=visual-qa npm run test:glass-browser
       - name: Capture optional desktop and phone-sized screenshots
         shell: bash
         run: |

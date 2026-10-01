@@ -1,0 +1,20 @@
+{
+  "sourceCommit": "80f97cf0eee896e2a5b6c200be5ba357df4655ec",
+  "applicationCommit": "510006658056637447d0cc20d64010017df36d24",
+  "previewSourceCommit": "51ac5821f39ba219cbdf83fdf67a4680a5add6c8",
+  "deploymentId": "appgdep_6abb7c521be88191b7969a947848b3a1",
+  "deploymentStatus": "succeeded",
+  "identicalSharedPages": 64,
+  "identicalRuntimeOwners": 6,
+  "siteValidationRun": 36544540368,
+  "siteValidationConclusion": "success",
+  "overlayRun": 36544540380,
+  "overlayConclusion": "success",
+  "phoneBeforeRun": 36534362982,
+  "phoneBeforeConclusion": "failure",
+  "phoneVideoRateKiBps": 256,
+  "hostingTestsPassed": 61,
+  "physicalDevicesTested": false,
+  "osuProductionWritten": false,
+  "fullComponentIsolationCompleted": false
+}

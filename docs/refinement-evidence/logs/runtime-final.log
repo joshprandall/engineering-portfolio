@@ -1,0 +1,77 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> engineering-portfolio@1.0.0 test:runtime-browser
+> node tests/runtime-browser.test.cjs
+
+ROUTE about.html
+ROUTE agent-workbench.html
+ROUTE ai-agentic.html
+ROUTE ai-build-your-own.html
+ROUTE ai-computer-vision.html
+ROUTE ai-deep-learning.html
+ROUTE ai-development.html
+ROUTE ai-embodied.html
+ROUTE ai-game.html
+ROUTE ai-generative.html
+ROUTE ai-geometric.html
+ROUTE ai-graph-neural-networks.html
+ROUTE ai-llm.html
+ROUTE ai-machine-learning.html
+ROUTE ai-memory.html
+ROUTE ai-multi-agent.html
+ROUTE ai-multimodal.html
+ROUTE ai-neuro-symbolic.html
+ROUTE ai-personal-agent.html
+ROUTE ai-project-mind.html
+ROUTE ai-reinforcement-learning.html
+ROUTE ai-symbolic.html
+ROUTE direction.html
+ROUTE engine-development.html
+ROUTE expertise-experience.html
+ROUTE game-development.html
+ROUTE games/3d-battle-chess/index.html
+ROUTE games/battle-chess/index.html
+ROUTE games/evil-wizard/console.html
+ROUTE games/evil-wizard/index.html
+ROUTE games/evil-wizard/play.html
+ROUTE geometric-lab/index.html
+ROUTE index.html
+ROUTE learn-advanced.html
+ROUTE learn-browse.html
+ROUTE learn-capstones.html
+ROUTE learn-cloud.html
+ROUTE learn-cyber.html
+ROUTE learn-glossary.html
+ROUTE learn-labs.html
+ROUTE learn-leadership.html
+ROUTE learn-map.html
+ROUTE learn-mastery.html
+ROUTE learn-math.html
+ROUTE learn-paths.html
+ROUTE learn-physics.html
+ROUTE learn-practice.html
+ROUTE learn-software.html
+ROUTE learn-verify.html
+ROUTE learn.html
+ROUTE lesson.html
+ROUTE play-evil-wizard.html
+ROUTE project-advanced-computing.html
+ROUTE project-asset-inventory.html
+ROUTE project-battle-chess.html
+ROUTE project-dependency.html
+ROUTE project-emergent.html
+ROUTE project-fusion.html
+ROUTE project-geometric-ai.html
+ROUTE project-kubernetes-lab.html
+ROUTE project-learning-library.html
+ROUTE project-lifecycle.html
+ROUTE project-mind.html
+ROUTE project-portfolio.html
+ROUTE project-qpe.html
+ROUTE project-qubit.html
+ROUTE project-recovery.html
+ROUTE projects.html
+ROUTE qubit-preview-20260921/index.html
+ROUTE resume.html
+ROUTE security-research.html
+PASS isolated 71 routes, 7 viewports, 76 lazy chunks, strict case and outside-root denials.

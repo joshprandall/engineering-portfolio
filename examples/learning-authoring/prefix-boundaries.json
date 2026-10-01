@@ -1,0 +1,147 @@
+{
+  "publicationStatus": "Authoring example only; not added to the 8000-record published corpus.",
+  "lesson": {
+    "id": "example-prefix-boundaries",
+    "domain": "cloud",
+    "category": "Networking",
+    "title": "Read an IPv4 prefix boundary",
+    "summary": "Calculate one IPv4 block and distinguish its address count from conventional LAN host capacity.",
+    "explanation": "An IPv4 address has 32 bits. A /26 fixes the first 26 bits and leaves six varying bits. Those six bits represent 64 combinations. The prefix selects an aligned block; it is not a count of available devices.\n\nFor a conventional broadcast subnet, reserve the all-zero and all-one host patterns for the network and broadcast addresses. Point-to-point /31 links are a separate case; do not apply the subtract-two rule to every prefix.",
+    "why": "A correct block boundary prevents allocating addresses in the wrong subnet or confusing routing with host capacity.",
+    "example": "For 192.168.10.42/26, blocks in the last octet begin at 0, 64, 128 and 192. The address 42 falls in the first block. Network: 192.168.10.0. Upper address: 192.168.10.63. Total: 64; conventional LAN host addresses: .1 through .62.",
+    "takeaway": "First find the aligned address block; then apply the rules for how that block is used.",
+    "difficulty": "Foundation",
+    "kind": "Lesson",
+    "minutes": 12,
+    "tags": [
+      "ipv4",
+      "cidr",
+      "routing"
+    ],
+    "interactive": "subnet",
+    "prereq": [],
+    "related": [
+      "cloud-subnetting",
+      "cloud-arp"
+    ],
+    "objectives": [
+      "Find the network and upper address for a /26.",
+      "Explain why 64 addresses and 62 conventional hosts are different quantities."
+    ],
+    "misconception": "Subtracting two is not a universal IPv4 formula: /31 point-to-point links have different address semantics.",
+    "quiz": {
+      "q": "For 192.168.10.70/26, which block contains the address?",
+      "options": [
+        "192.168.10.0–63",
+        "192.168.10.64–127",
+        "192.168.10.70–133",
+        "192.168.10.64–126"
+      ],
+      "answer": 1,
+      "explanation": "A /26 spans 64 aligned addresses. 70 lies in the block starting at 64 and ending at 127. Starting a block at the host value ignores alignment; 126 omits the upper address."
+    },
+    "references": [
+      [
+        "RFC 4632 §3.1 — prefix notation",
+        "https://www.rfc-editor.org/rfc/rfc4632.html#section-3.1"
+      ],
+      [
+        "RFC 3021 — /31 point-to-point links",
+        "https://www.rfc-editor.org/rfc/rfc3021"
+      ]
+    ],
+    "verification": {
+      "status": "draft-example",
+      "reviewed": "2026-09-28",
+      "method": "Prefix arithmetic checked against the current browser calculator and RFC 4632 §3.1; editorial signoff required before publication.",
+      "claimType": "IPv4 prefix arithmetic",
+      "sourceCount": 2
+    },
+    "verifiedClaims": [
+      "An IPv4 /26 block contains 64 addresses."
+    ],
+    "versionSensitive": false
+  },
+  "teachingPackEntry": {
+    "essentialQuestion": "How can 192.168.10.42/26 identify a 64-address block rather than 42 devices?",
+    "verifiedBoundary": "The prefix fixes the leading bits; six varying bits produce 64 addresses.",
+    "analogy": "A row of 64 numbered mailboxes helps picture an aligned block, but mailbox labels are an analogy, not a routing protocol.",
+    "starter": {
+      "plainStart": "Find the block containing the address, then count its members.",
+      "tryThis": "Before calculating, decide whether .70 belongs with .42."
+    },
+    "technical": {
+      "scope": "The calculator reports conventional LAN counts for /0–/30, point-to-point endpoint counts for /31, and a single address for /32. It does not allocate addresses or configure a network.",
+      "versionCaution": "Check platform address reservations before operational use.",
+      "prerequisites": [],
+      "connections": [
+        "Subnetting Without Memorization",
+        "ARP"
+      ]
+    },
+    "reasoningSteps": [
+      "Compute host bits: 32−26=6.",
+      "Compute combinations: 2^6=64.",
+      "Find the aligned block containing 42: 0–63.",
+      "Set the host bits to zero for the network and to one for the upper address.",
+      "Separate total addresses from the usage-specific host count.",
+      "Check a second address and explain why the boundary moved."
+    ],
+    "memoryLadder": [
+      "Explain prefix length without the calculator.",
+      "Recreate .42/26 on paper.",
+      "Calculate .70/26 before checking.",
+      "Explain why .63 and .64 fall on opposite sides of a boundary.",
+      "Teach the difference between address count and host count."
+    ],
+    "labPlan": [
+      "Enter 192.168.10.42 and prefix 26. Write your prediction in the saved working notes.",
+      "Calculate. Expect network 192.168.10.0/26, upper address .63, 64 total and 62 conventional hosts.",
+      "Change only the address to .70; expect network .64 and upper address .127.",
+      "Change only the prefix to 27; predict the smaller block before calculating.",
+      "Enter 10..0.1 or prefix 1.5. Explain why validation rejects it rather than displaying the previous answer.",
+      "Use Reset model to restore .42/26. Compare the two cases in your notes, answer the quiz and schedule a review."
+    ],
+    "vocabulary": [
+      {
+        "term": "Prefix length",
+        "definition": "The number of leading address bits fixed by the prefix."
+      },
+      {
+        "term": "Host bits",
+        "definition": "The remaining address bits that vary within the block."
+      },
+      {
+        "term": "Alignment",
+        "definition": "A block starts at a multiple of its size within the address space."
+      }
+    ],
+    "video": {
+      "title": "Optional exact-topic companion",
+      "searchQuery": "IPv4 prefix block alignment /26 subnetting",
+      "why": "An external companion is optional; the lesson, two teaching elements and practice stand on their own."
+    }
+  },
+  "visualContract": {
+    "mentalModel": "learning-visuals.js guides.subnet",
+    "changingState": "knowledge.js subnet calculator: shared numeric inputs drive all displayed metrics.",
+    "testCases": [
+      {
+        "address": "192.168.10.42",
+        "prefix": 26,
+        "network": "192.168.10.0/26",
+        "upper": "192.168.10.63",
+        "total": 64,
+        "hosts": 62
+      },
+      {
+        "address": "192.168.10.70",
+        "prefix": 26,
+        "network": "192.168.10.64/26",
+        "upper": "192.168.10.127",
+        "total": 64,
+        "hosts": 62
+      }
+    ]
+  }
+}

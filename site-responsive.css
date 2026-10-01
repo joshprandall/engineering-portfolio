@@ -1,7 +1,22 @@
 /* Shared responsive ownership: flow content; contain foreground scenes; crop only backgrounds. */
-:root{--layout-max:88rem;--layout-gutter:clamp(1rem,3vw,3rem);--layout-gap:clamp(1rem,3vw,3rem);--glass:rgba(8,14,17,.42)}:root[data-theme="light"]{--glass:rgba(242,245,240,.46)}
-html,body{min-width:0;max-width:100%;overflow-x:visible!important}
-body{width:100%}
+:root{
+  --layout-max:88rem;--layout-gutter:clamp(1rem,3vw,3rem);--layout-gap:clamp(1rem,3vw,3rem);
+  --glass:rgba(7,13,17,.18);--glass-soft:rgba(7,13,17,.10);--glass-strong:rgba(7,13,17,.30);
+  --surface:rgba(10,17,21,.20);--surface2:rgba(14,23,27,.26);
+  --panel:rgba(10,17,21,.20);--panel2:rgba(14,23,27,.26);--panel3:rgba(20,30,34,.30);
+  --bg2:rgba(10,17,21,.12);--inset:rgba(5,10,14,.22);--nav-menu-solid:#0b1216;
+  --sound-panel-bg:rgba(11,18,22,.96);--sound-panel-border:rgba(173,209,215,.30)
+}
+:root[data-theme="light"]{
+  --glass:rgba(247,249,245,.18);--glass-soft:rgba(247,249,245,.10);--glass-strong:rgba(247,249,245,.30);
+  --surface:rgba(247,249,245,.20);--surface2:rgba(239,243,238,.26);
+  --panel:rgba(247,249,245,.20);--panel2:rgba(239,243,238,.26);--panel3:rgba(231,237,232,.30);
+  --bg2:rgba(247,249,245,.12);--inset:rgba(241,245,240,.22);--nav-menu-solid:#f7f9f5;
+  --sound-panel-bg:rgba(247,249,245,.97);--sound-panel-border:rgba(58,102,79,.34)
+}
+html{min-width:0;max-width:100%;overflow-x:clip!important}
+body{min-width:0;width:100%;max-width:100%;overflow-x:visible!important}
+body.living-scenes{width:100%!important;max-width:100%!important;overflow-x:clip!important}
 main,section,article,aside,form,fieldset,figure,nav,main div,header div{min-width:0;box-sizing:border-box}
 main :is(h1,h2,h3,p,a,strong,label){overflow-wrap:break-word}
 body .wrap,body.home-page .wrap{width:calc(100% - 2 * var(--layout-gutter));max-width:var(--layout-max);margin-inline:auto}
@@ -20,13 +35,68 @@ body .site-global-header .global-controls [data-theme-toggle]{width:6rem!importa
 .site-global-header .global-controls svg{width:18px!important;height:18px!important;flex:none}
 .site-global-header .global-controls span{display:inline!important;font:inherit!important}
 .site-global-header kbd{font-size:.65rem;margin-left:.4rem}
-body .site-global-header #primary-nav{display:none!important;position:absolute;inset:100% var(--layout-gutter) auto auto;width:min(26rem,calc(100% - 2 * var(--layout-gutter)));max-height:calc(100dvh - var(--header-height,120px) - 1rem);overflow-y:auto;flex-direction:column;align-items:stretch;gap:0;padding:.75rem;border:1px solid var(--line);border-radius:12px;background:color-mix(in srgb,var(--bg) 90%,transparent)!important;backdrop-filter:blur(18px)}
+body .site-global-header #primary-nav{display:none!important;position:absolute;inset:100% var(--layout-gutter) auto auto;width:min(26rem,calc(100% - 2 * var(--layout-gutter)));max-height:calc(100dvh - var(--header-height,120px) - 1rem);overflow-y:auto;flex-direction:column;align-items:stretch;gap:0;padding:.75rem;border:1px solid var(--line);border-radius:12px;background:var(--nav-menu-solid)!important;background-image:none!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;box-shadow:0 18px 44px rgba(0,0,0,.28);opacity:1!important}
 body .site-global-header #primary-nav.open{display:flex!important}
 .site-global-header #primary-nav a{width:100%;min-height:44px;padding:.6rem!important;white-space:normal}
-body .site-global-header .scene-sound-panel{position:absolute;inset:100% 0 auto auto;width:min(18rem,calc(100vw - 2 * var(--layout-gutter)));max-width:none;max-height:calc(100dvh - var(--header-height,120px) - 1rem);overflow:auto;padding:1rem;background:color-mix(in srgb,var(--bg) 90%,transparent);color:var(--ink,var(--text));border:1px solid var(--line);border-radius:12px;z-index:150}
-.scene-sound-control{position:relative;flex:none}
+body .site-global-header .scene-sound-panel{
+  position:absolute;inset:calc(100% + .45rem) 0 auto auto;
+  width:min(17rem,calc(100vw - 2rem));max-width:none;max-height:none;overflow:hidden;
+  padding:.8rem;background:var(--sound-panel-bg)!important;background-image:none!important;color:var(--ink,var(--text));
+  border:1px solid var(--sound-panel-border)!important;border-radius:14px;
+  box-shadow:0 14px 36px rgba(0,0,0,.28)!important;
+  -webkit-backdrop-filter:blur(14px) saturate(1.05)!important;backdrop-filter:blur(14px) saturate(1.05)!important;z-index:150
+}
+.scene-sound-control{position:relative;display:inline-flex;align-items:center;flex:none}
+.scene-sound-panel label{
+  display:flex;align-items:center;justify-content:space-between;gap:.75rem;margin:0 0 .35rem;padding:0;
+  font:700 .74rem/1.2 system-ui,sans-serif;color:var(--ink,var(--text))
+}
+.scene-sound-panel output{font-variant-numeric:tabular-nums;color:var(--ink,var(--text))}
+.scene-sound-volume-row{display:grid;grid-template-columns:34px minmax(0,1fr) 34px;align-items:center;gap:.55rem;margin:0}
+.scene-sound-volume-row>button,.scene-sound-mute{
+  display:grid;place-items:center;min-width:34px;height:34px;padding:0 .55rem;
+  border:1px solid var(--line)!important;border-radius:10px!important;
+  background:var(--glass-strong)!important;color:var(--ink,var(--text))!important
+}
+.scene-sound-volume-row>button{width:34px;padding:0;font:800 1rem/1 system-ui}
+.scene-sound-mute{width:100%;min-width:0;margin:.45rem 0 0;font:700 .74rem/1 system-ui}
+body .site-global-header .scene-sound-panel .scene-sound-mute{
+  width:100%!important;min-width:0!important;height:34px!important;min-height:34px!important;
+  padding:0 .75rem!important;font:700 .74rem/1 system-ui!important
+}
+.scene-sound-panel input[type=range]{
+  -webkit-appearance:none;appearance:none;display:block;width:100%;height:34px;min-height:34px;
+  margin:0;padding:0 2px;background:transparent!important;cursor:pointer;touch-action:none;accent-color:var(--accent)
+}
+.scene-sound-panel input[type=range]::-webkit-slider-runnable-track{
+  height:8px;border-radius:999px;background:color-mix(in srgb,var(--line) 76%,transparent)
+}
+.scene-sound-panel input[type=range]::-webkit-slider-thumb{
+  -webkit-appearance:none;appearance:none;width:24px;height:24px;margin-top:-8px;
+  border:2px solid color-mix(in srgb,var(--ink,var(--text)) 52%,transparent);border-radius:50%;
+  background:var(--accent);box-shadow:0 2px 7px rgba(0,0,0,.26)
+}
+.scene-sound-panel input[type=range]::-moz-range-track{
+  height:8px;border:0;border-radius:999px;background:color-mix(in srgb,var(--line) 76%,transparent)
+}
+.scene-sound-panel input[type=range]::-moz-range-thumb{
+  width:24px;height:24px;border:2px solid color-mix(in srgb,var(--ink,var(--text)) 52%,transparent);
+  border-radius:50%;background:var(--accent);box-shadow:0 2px 7px rgba(0,0,0,.26)
+}
+.scene-sound-panel input[type=range]:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:999px}
+.scene-sound-panel [data-audio-status]{display:block;margin-top:.35rem;color:var(--muted);font:600 .66rem/1.25 system-ui}
+.scene-sound-panel [data-audio-status][hidden]{display:none!important}
 .learning-local-controls{display:none!important}
-@media(max-width:42rem){body .site-global-header .global-controls{width:100%;justify-content:space-between;gap:.35rem}body .site-global-header .global-controls>button,body .site-global-header .global-controls [data-scene-audio]{font-size:.75rem!important;padding:.4rem!important}body .site-global-header .global-controls [data-theme-toggle]{width:5rem!important}.site-global-header kbd{display:none}.site-global-header .scene-sound-control{position:static}body .site-global-header .scene-sound-panel{right:var(--layout-gutter)}}
+@media(max-width:42rem){
+  body .site-global-header .global-controls{width:100%;justify-content:space-between;gap:.35rem}
+  body .site-global-header .global-controls>button,body .site-global-header .global-controls [data-scene-audio]{font-size:.75rem!important;padding:.4rem!important}
+  body .site-global-header .global-controls [data-theme-toggle]{width:5rem!important}
+  .site-global-header kbd{display:none}
+  .site-global-header .scene-sound-control{position:static}
+  body .site-global-header .scene-sound-panel{left:50%;right:auto;transform:translateX(-50%);width:min(17rem,calc(100vw - 2rem))}
+  .scene-sound-volume-row{grid-template-columns:32px minmax(0,1fr) 32px}
+  .scene-sound-volume-row>button{width:32px;min-width:32px;height:32px}
+}
 /* Profile is flow layout. The illustration alone is a cover background. Neither theme owns geometry. */
 .home-page .hero{gap:var(--layout-gap);grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
 .about-imagery{position:relative;isolation:isolate;display:block;width:100%;max-width:38rem;margin:0 auto;padding:0;overflow:visible;container-type:inline-size}
@@ -115,16 +185,19 @@ body .vnext-cosmos .vnext-world strong{display:block!important;font-size:16px!im
 .ai-lab-bars{display:grid;gap:.55rem}.ai-lab-bars>div{display:grid;grid-template-columns:minmax(5rem,auto) 1fr 4.5rem;gap:.6rem;align-items:center}
 .ai-lab-bars i{height:.7rem;border-radius:999px;background:linear-gradient(90deg,var(--accent) var(--p),color-mix(in srgb,var(--line) 70%,transparent) var(--p))}
 .ai-lab-bars output{text-align:right;font-variant-numeric:tabular-nums}
+/* Native hidden state must survive the learning button/grid presentation rules. */
+body[data-library-page] [hidden]{display:none!important}
+body[data-library-page] .filters,body[data-library-page] .filters>label{min-width:0;max-width:100%}
+body[data-library-page] .filters select{min-width:0;max-width:100%}
+@media(max-width:520px){body[data-library-page] .filters{grid-template-columns:minmax(0,1fr)}body[data-library-page] .filters>label{flex-wrap:wrap}}
 @media(max-width:38rem){.ai-build-sequence{grid-template-columns:1fr}.ai-build-sequence a,.ai-build-sequence a:last-child{justify-content:flex-start;text-align:left}.ai-lab-bars>div{grid-template-columns:1fr}.ai-lab-bars output{text-align:left}}
 
 /* Sitewide glass contract: tile surfaces must reveal the scene behind them. */
-:is(.home-project,.education-cards article,.resume-education article,.project-card,.destination-card,.domain-card,.lesson-card,.path-card,.practice-card,.mastery-card,.atlas-card,.principle-grid article,.contact,.quantum-stage){
+:is(.home-project,.education-cards article,.resume-education article,.project-card,.destination-card,.domain-card,.lesson-card,.path-card,.practice-card,.mastery-card,.atlas-card,.principle-grid article,.contact){
   background:var(--glass)!important;
   -webkit-backdrop-filter:blur(12px) saturate(1.08);
   backdrop-filter:blur(12px) saturate(1.08);
 }
-:root[data-theme="dark"] .quantum-stage{background:rgba(4,12,17,.36)!important}
-:root[data-theme="light"] .quantum-stage{background:rgba(5,18,24,.52)!important}
 .quantum-stage-label,.quantum-controls,#bell-result{background:transparent!important}
 @media(max-width:42rem){
   .portrait-stage{min-height:29rem;padding-top:8.5rem}
@@ -202,32 +275,7 @@ body .vnext-cosmos .vnext-world strong{display:block!important;font-size:16px!im
 /* About is one continuous reading page; render every section so anchor jumps and full-page previews never show intrinsic-size placeholders. */
 .about-unified-page main>section{content-visibility:visible!important;contain-intrinsic-size:auto!important}
 
-/* Universal glass contract — all content tiles/panels remain translucent so the
-   living background is visible through the interface. */
-:root{
-  --glass:rgba(7,13,17,.34);
-  --glass-soft:rgba(7,13,17,.24);
-  --glass-strong:rgba(7,13,17,.48);
-  --surface:rgba(12,19,23,.34);
-  --surface2:rgba(18,27,31,.40);
-  --panel:rgba(12,19,23,.34);
-  --panel2:rgba(18,27,31,.40);
-  --panel3:rgba(24,34,38,.44);
-  --bg2:rgba(12,19,23,.22);
-  --inset:rgba(6,12,16,.32);
-}
-:root[data-theme="light"]{
-  --glass:rgba(246,248,244,.38);
-  --glass-soft:rgba(246,248,244,.26);
-  --glass-strong:rgba(246,248,244,.56);
-  --surface:rgba(246,248,244,.38);
-  --surface2:rgba(237,241,236,.44);
-  --panel:rgba(246,248,244,.38);
-  --panel2:rgba(237,241,236,.44);
-  --panel3:rgba(229,235,230,.50);
-  --bg2:rgba(246,248,244,.24);
-  --inset:rgba(239,243,238,.36);
-}
+/* Shared shell glass contract. Values are declared once at the top of this module. */
 
 /* Full-width bands never hide the scene. */
 :is(.signal-strip,.feature-band,.quantum-section,.discover,.atlas,.stat-band,.depth-system,.section.alt){
@@ -246,7 +294,7 @@ body .vnext-cosmos .vnext-world strong{display:block!important;font-size:16px!im
   .science-output,.science-node-grid button,.science-probes button,.science-paths span,
   .lab-workspace .lab-grid,#lab .lab-grid,.lab-workspace form,#lab form,.app-panel,
   .agent-metric,#agent-tasks li,#agent-ledger,.vnext-system,.vnext-quantum,
-  .vnext-quantum-floor,.portrait-card,.contact,.quantum-stage
+  .vnext-quantum-floor,.portrait-card,.contact
 ){
   background:var(--glass)!important;
   -webkit-backdrop-filter:blur(10px) saturate(1.08);
@@ -284,9 +332,7 @@ body .vnext-cosmos .vnext-world strong{display:block!important;font-size:16px!im
   background:var(--glass)!important;
 }
 
-/* Navigation overlays are glass too, but slightly stronger for legibility. */
-body .site-global-header #primary-nav,
-body .site-global-header .scene-sound-panel,
+/* Dialogs use strong glass. The hamburger menu is intentionally opaque. */
 dialog{
   background:var(--glass-strong)!important;
   -webkit-backdrop-filter:blur(18px) saturate(1.08);
@@ -334,7 +380,56 @@ dialog{
 
 /* Universal viewport containment — no card, panel, lab, or grid may extend past
    the available screen width on phones or in-app browsers. */
-html,body{max-width:100%;overflow-x:clip}
+html{max-width:100%;overflow-x:clip!important}
+body:not(.living-scenes){max-width:100%;overflow-x:clip!important}
+/* Native rails are hidden; shared UI renders a thumb only, with no opaque track. */
+html,body{scrollbar-width:none;-ms-overflow-style:none}
+html,body{scrollbar-color:transparent transparent!important;scrollbar-gutter:auto!important}
+html::-webkit-scrollbar,body::-webkit-scrollbar{
+  -webkit-appearance:none!important;display:none!important;width:0!important;height:0!important;
+  background:transparent!important;border:0!important;box-shadow:none!important
+}
+html::-webkit-scrollbar-track,body::-webkit-scrollbar-track,
+html::-webkit-scrollbar-track-piece,body::-webkit-scrollbar-track-piece,
+html::-webkit-scrollbar-thumb,body::-webkit-scrollbar-thumb,
+html::-webkit-scrollbar-button,body::-webkit-scrollbar-button,
+html::-webkit-scrollbar-corner,body::-webkit-scrollbar-corner{
+  -webkit-appearance:none!important;display:none!important;background:transparent!important;
+  border:0!important;box-shadow:none!important
+}
+:root[data-theme="light"]::-webkit-scrollbar-track,
+:root[data-theme="light"]::-webkit-scrollbar-track-piece,
+:root[data-theme="light"] body::-webkit-scrollbar-track,
+:root[data-theme="light"] body::-webkit-scrollbar-track-piece{
+  background:transparent!important;background-color:transparent!important;box-shadow:none!important;opacity:0!important
+}
+:root{--page-scroll-thumb:rgba(244,165,117,.48);--page-scroll-thumb-active:rgba(244,165,117,.72)}
+:root[data-theme="light"]{--page-scroll-thumb:#000;--page-scroll-thumb-active:#000}
+.site-page-scroll{
+  position:fixed;top:max(10px,env(safe-area-inset-top));right:0;
+  bottom:max(10px,env(safe-area-inset-bottom));width:0!important;z-index:145;
+  overflow:visible!important;background:none!important;background-color:transparent!important;background-image:none!important;
+  border:0!important;outline:0!important;box-shadow:none!important;
+  -webkit-backdrop-filter:none!important;backdrop-filter:none!important;pointer-events:none;contain:layout style
+}
+.site-page-scroll::before,.site-page-scroll::after{content:none!important;display:none!important;background:none!important}
+/* iOS/WebKit can reserve a scrollable root gutter even when its scrollbar is hidden.
+   The living scene must still paint through the complete physical viewport. */
+body.living-scenes .scene-backdrop{left:0!important;right:0!important;width:auto!important;max-width:none!important}
+/* Day mode: WebKit can reserve roughly 12px of root scroll gutter outside its
+   layout viewport. Paint the fixed scene slightly past that edge without changing
+   page layout or the custom thumb geometry. */
+:root[data-theme="light"] body.living-scenes .scene-backdrop{right:-16px!important;width:auto!important}
+.site-page-scroll[hidden]{display:none!important}
+.site-page-scroll-thumb{
+  position:absolute;top:0;right:4px;width:4px;min-height:44px;max-height:72px;border-radius:999px;
+  background:var(--page-scroll-thumb)!important;border:0!important;box-shadow:none!important;opacity:.9;
+  pointer-events:auto;cursor:ns-resize;touch-action:none;user-select:none;-webkit-user-select:none;
+  transition:width .14s ease,background .14s ease,opacity .14s ease
+}
+.site-page-scroll-thumb:hover,.site-page-scroll-thumb:focus-visible,.site-page-scroll-thumb.is-dragging{
+  width:6px;background:var(--page-scroll-thumb-active)!important;opacity:1;outline:none
+}
 
 :is(
   main,main>section,.wrap,.shell,.cap-wrap,.lesson-shell,.lesson-article,
@@ -382,6 +477,11 @@ img,video,canvas,svg,iframe{max-width:100%}
 
 /* Several older learning/science components had desktop-width assumptions. */
 @media(max-width:700px){
+  /* Preserve each component's existing alignment. The homepage contact tile
+     owns its mobile inset in portfolio-home.css. */
+  #game-list .project-grid{row-gap:clamp(1rem,4vw,1.4rem)!important}
+  #game-list + #engine-path{margin-top:clamp(2rem,8vw,3rem)!important}
+
   .science-console{width:100%!important;margin-inline:0!important}
   .vnext-path-intro{width:100%!important;margin-inline:0!important}
   .depth-heading,.depth-planner,.depth-context,.science-console-grid,.science-stage,
@@ -416,32 +516,6 @@ body.living-scenes :is(
 ){
   background:transparent!important;
   background-image:none!important;
-}
-
-/* Make the glass visibly transparent rather than merely softened. */
-:root{
-  --glass:rgba(7,13,17,.18);
-  --glass-soft:rgba(7,13,17,.10);
-  --glass-strong:rgba(7,13,17,.30);
-  --surface:rgba(10,17,21,.20);
-  --surface2:rgba(14,23,27,.26);
-  --panel:rgba(10,17,21,.20);
-  --panel2:rgba(14,23,27,.26);
-  --panel3:rgba(20,30,34,.30);
-  --bg2:rgba(10,17,21,.12);
-  --inset:rgba(5,10,14,.22);
-}
-:root[data-theme="light"]{
-  --glass:rgba(247,249,245,.20);
-  --glass-soft:rgba(247,249,245,.12);
-  --glass-strong:rgba(247,249,245,.34);
-  --surface:rgba(247,249,245,.20);
-  --surface2:rgba(239,243,238,.26);
-  --panel:rgba(247,249,245,.20);
-  --panel2:rgba(239,243,238,.26);
-  --panel3:rgba(231,237,232,.30);
-  --bg2:rgba(247,249,245,.12);
-  --inset:rgba(241,245,240,.22);
 }
 
 /* Legacy learning/library cards and interactive panels that were still opaque. */
@@ -512,16 +586,11 @@ body.living-scenes :is(
   backdrop-filter:blur(4px) saturate(1.04)!important;
 }
 
-/* The hamburger panel is intentionally opaque: moving scenery must never bleed
-   through navigation text. Other cards retain the translucent glass contract. */
-:root{--nav-menu-solid:#0b1216}
-:root[data-theme="light"]{--nav-menu-solid:#f7f9f5}
-body .site-global-header #primary-nav,
-body.living-scenes .site-global-header #primary-nav{
-  background:var(--nav-menu-solid)!important;
-  background-image:none!important;
-  -webkit-backdrop-filter:none!important;
-  backdrop-filter:none!important;
-  box-shadow:0 18px 44px rgba(0,0,0,.28);
-  opacity:1!important;
+/* Logo holders are UI glass; the actual marks and artwork retain their color. */
+:root[data-theme] body.living-scenes :is(.credential-logo,.mit-wordmark,.foundation-mark){
+  background:var(--glass-strong)!important;
 }
+:root[data-theme] body.living-scenes :is(.credential-logo-mit,.mit-wordmark){color:var(--ink,var(--text))}
+:root[data-theme] body.living-scenes .foundation-mark{color:var(--blue)}
+body.living-scenes .vnext-qubit-frame{background:transparent}
+

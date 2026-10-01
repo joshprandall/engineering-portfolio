@@ -31,6 +31,15 @@ const implemented=new Set([...knowledge.matchAll(/if\(type===['"]([^'"]+)['"]\)/
 const interactiveTypes=new Set(D.lessons.map(l=>l.interactive).filter(Boolean));
 for(const type of interactiveTypes)assert(implemented.has(type),'interactive type has no implementation: '+type);
 assert.equal(interactiveTypes.size,implemented.size,'interactive implementation set and release-data set must match exactly');
+const visuals={window:{}};vm.runInNewContext(read('learning-visuals.js'),visuals);
+for(const type of interactiveTypes)assert(visuals.window.LearningVisuals.render({interactive:type}),type+': missing teaching model');
+const ids=new Set(D.lessons.map(l=>l.id)),domains=new Set(D.domains.map(d=>d.id));
+for(const l of D.lessons){
+ assert(domains.has(l.domain),l.id+': unknown domain');
+ for(const id of [...l.prereq||[],...l.related||[]])assert(ids.has(id),l.id+': unresolved learning reference '+id);
+ if(l.quiz){assert(Number.isInteger(l.quiz.answer)&&l.quiz.answer>=0&&l.quiz.answer<l.quiz.options.length,l.id+': invalid quiz answer');assert(l.quiz.explanation||l.quiz.explain,l.id+': quiz needs feedback');}
+}
+for(const p of D.paths)for(const id of p.lesson_ids)assert(ids.has(id),p.id+': unresolved path record '+id);
 const solar=read('solar-navigation.js');
 for(const [page,count] of [['index.html',6],['learn.html',7],['ai-development.html',19]]){
  const html=read(page),hrefs=[...html.matchAll(/class="solar-planet-link" href="([^"]+)"/g)].map(m=>m[1]);
@@ -60,4 +69,4 @@ for(const [,href,label] of aiLinks){
  const local=[...html.matchAll(/href="([^"]+)"/g)].map(m=>m[1]).filter(h=>!h.startsWith('http')&&!h.startsWith('#')&&!h.startsWith('mailto:'));
  for(const h of local){const file=h.split(/[?#]/)[0];assert(exists(file),href+': broken local link '+h);}
 }
-console.log('PASS learning/AI contract: 8,000 verified objects, 4,000 labs, 66 interactive types, full deep-learning enrichment, 19 dedicated AI pages and solar descriptors.');
+console.log('PASS learning/AI contract: 8,000 structurally checked records, 4,000 lab/model catalog entries, 66 interactive types, 8,000 teaching-pack records, 19 dedicated AI pages and solar descriptors.');

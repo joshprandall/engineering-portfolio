@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Deploy one exact tested commit with a full backup, byte checks and rollback."""
-import argparse, datetime, hashlib, os, re, shutil, stat, tarfile, tempfile, time
+import argparse, datetime, hashlib, os, re, shutil, stat, tarfile, tempfile, time, subprocess, sys
 from pathlib import Path
 from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
@@ -28,8 +28,20 @@ PROTECTED_REQUIRED = tuple(PROTECTED_ROOT_FILES) + (
     'games/evil-wizard/play.html', 'geometric-lab/index.html',
 )
 REQUIRED = THEME_SHELL_FILES + (
+    'assets/audio/day/beach-far.mp3',
+    'assets/audio/day/beach-far.ogg',
+    'assets/audio/day/beach-near.mp3',
+    'assets/audio/day/beach-near.ogg',
+    'assets/audio/day/river.mp3',
+    'assets/audio/day/river.ogg',
+    'assets/audio/day/waterfall.mp3',
+    'assets/audio/day/waterfall.ogg',
+    'assets/scenes/day/beach-birds-poster.jpg',
+    'assets/scenes/day/river-poster.jpg',
+    'assets/scenes/day/waterfall-poster.jpg',
     'site-theme.js', 'site-scenes.js', 'site-audio.js', 'site-sound-control.js', 'site-scenes.css',
-    'assets/audio/dark-theme-user.wav',
+    'assets/audio/dark-theme-user-v32.wav',
+    'assets/audio/dark-theme-user-v32.mp3',
     'assets/scenes/webb-cosmic-cliffs.webp', 'assets/scenes/mountain-valley.svg',
     'assets/scenes/day/waterfall.mp4', 'assets/scenes/day/river.mp4', 'assets/scenes/day/beach-birds.mp4',
     'index.html', 'expertise-experience.html', 'projects.html', 'security-research.html', 'security-research.css', 'security-research.js', 'game-development.html', 'learn.html', 'lesson.html',
@@ -40,6 +52,7 @@ REQUIRED = THEME_SHELL_FILES + (
     'quantum-cube.js', 'handheld-experience.js', 'handheld-experience.css',
     'science-experiments.js', 'science-experiments.css', 'knowledge.js', 'knowledge.css',
     'learning-depth.js', 'learning-depth.css', 'learning-next.js', 'learning-next.css',
+    'learning-progress.js', 'learning-visuals.js', 'learning-visuals.css', 'ai-build-lab.js', 'ai-build-lab.css',
     'project-battle-chess.html', 'project-geometric-ai.html', 'play-evil-wizard.html',
     'learning-capstones.json', 'labs/qpe.js', 'labs/emergent.js', 'agent-workbench.js',
     'qubit-preview-20260921/index.html', 'qubit-preview-20260921/app.js',
@@ -133,59 +146,12 @@ def _download_with_retry(request, temp, timeout, label, attempts=5):
             time.sleep(delay)
 
 def materialize_day_media(source, site):
-    """Prefer already-deployed/cached media, then download. Audio is optional because runtime has a remote fallback."""
-    for name, url in DAY_MEDIA_SOURCES.items():
-        target = source/name
-        if _valid_mp4(target) or _reuse_media(source, site, name, _valid_mp4):
-            continue
-        target.parent.mkdir(parents=True, exist_ok=True)
-        temp = target.with_suffix(target.suffix+'.downloading')
-        request = Request(url, headers={
-            'User-Agent': 'Mozilla/5.0 (compatible; JoshuaRandallPortfolioDeploy/1.1; +https://web.engr.oregonstate.edu/~randjosh/)',
-            'Referer': 'https://www.pexels.com/',
-            'Accept': 'video/mp4,video/*;q=0.9,*/*;q=0.8',
-        })
-        print('Downloading licensed Day video:', name, flush=True)
-        try:
-            content_type = _download_with_retry(request, temp, 120, 'Day video '+name, attempts=4)
-            if 'video' not in content_type and 'octet-stream' not in content_type:
-                raise RuntimeError(f'Unexpected media type for {name}: {content_type}')
-            if not _valid_mp4(temp):
-                raise RuntimeError(f'Day video download is invalid: {name}')
-            os.replace(temp, target)
-            _cache_media(target, name)
-        finally:
-            if temp.exists():
-                temp.unlink()
+    """Restore the complete matching Day media from this exact source archive.
 
-    for index, (name, url) in enumerate(DAY_AUDIO_SOURCES.items()):
-        target = source/name
-        if _valid_ogg(target) or _reuse_media(source, site, name, _valid_ogg):
-            continue
-        target.parent.mkdir(parents=True, exist_ok=True)
-        temp = target.with_suffix(target.suffix+'.downloading')
-        request = Request(url, headers={
-            'User-Agent': 'JoshuaRandallPortfolioDeploy/1.1 (+https://web.engr.oregonstate.edu/~randjosh/)',
-            'Referer': 'https://commons.wikimedia.org/',
-            'Accept': 'audio/ogg,audio/*;q=0.9,application/ogg;q=0.8,*/*;q=0.5',
-        })
-        print('Downloading Day ambience:', name, flush=True)
-        try:
-            content_type = _download_with_retry(request, temp, 90, 'Day ambience '+name, attempts=3)
-            if not any(token in content_type for token in ('audio', 'ogg', 'octet-stream')):
-                raise RuntimeError(f'Unexpected Day audio media type for {name}: {content_type}')
-            if not _valid_ogg(temp):
-                raise RuntimeError(f'Day ambience download is invalid: {name}')
-            os.replace(temp, target)
-            _cache_media(target, name)
-            # Do not burst four Wikimedia downloads through the same OSU egress.
-            if index < len(DAY_AUDIO_SOURCES)-1:
-                time.sleep(2.0)
-        except (HTTPError, URLError, RuntimeError) as error:
-            if temp.exists():
-                temp.unlink()
-            print('WARNING: could not cache Day ambience:', name, '-', error, flush=True)
-            print('         Deployment will continue; browser audio uses the matching Wikimedia fallback.', flush=True)
+    No external download or optional-audio fallback may conceal an incomplete
+    release. This writes only inside the temporary source tree before backup.
+    """
+    subprocess.run([sys.executable, str(source/'tools/restore_website2_assets.py'), '--ambience'], check=True, cwd=source)
 
 def validate_source(source):
     missing = [name for name in REQUIRED if not (source/name).is_file()]
@@ -263,7 +229,25 @@ def protected_hashes(site):
     return {p.relative_to(site).as_posix():digest(p) for p in site.rglob('*')
             if p.is_file() and protected(p.relative_to(site).as_posix())}
 
-def deploy(source, site, verify_public=None):
+def prune_old_site_backups(site, keep):
+    """Delete only older portfolio backup archives after a verified deployment."""
+    patterns = ('public_html-before-*.tar.gz', 'public_html-pre-repair-*.tar.gz')
+    removed = []
+    keep = keep.resolve()
+    for pattern in patterns:
+        for candidate in site.parent.glob(pattern):
+            try:
+                if candidate.resolve() == keep or not candidate.is_file():
+                    continue
+                candidate.unlink()
+                removed.append(candidate)
+            except OSError as error:
+                print('WARN: could not remove old backup:', candidate, error, flush=True)
+    print('Pruned old portfolio backups:', len(removed), flush=True)
+    for candidate in removed:
+        print('  -', candidate, flush=True)
+
+def deploy(source, site, verify_public=None, release_label=None, prune_backups=False):
     source, site = source.resolve(), site.resolve()
     validate_source(source)
     missing = [name for name in PROTECTED_REQUIRED if not (site/name).is_file()]
@@ -275,7 +259,8 @@ def deploy(source, site, verify_public=None):
             raise RuntimeError('A destination resolves outside public_html.')
     protected_before = protected_hashes(site)
     stamp = datetime.datetime.now().strftime('%Y%m%d-%H%M%S-%f')
-    backup_name = 'public_html-before-'+stamp+'.tar.gz'
+    safe_label = re.sub(r'[^A-Za-z0-9._-]+', '-', (release_label or '').strip()).strip('-')
+    backup_name = 'public_html-before-' + ((safe_label + '-') if safe_label else '') + stamp + '.tar.gz'
     backup = site.parent/backup_name
     partial = Path(str(backup)+'.part')
     try:
@@ -320,6 +305,8 @@ def deploy(source, site, verify_public=None):
             print('Verification failed. Previous files restored.',flush=True)
             raise
     print(f'Installed and verified {len(files)} files. Games, Geometry Lab calculation modules and fusion video are unchanged; the lab theme shell is updated.',flush=True)
+    if prune_backups:
+        prune_old_site_backups(site, backup)
     return backup
 
 def http_smoke(commit, site):
@@ -364,8 +351,7 @@ def http_smoke_day_media():
     for name in DAY_AUDIO_SOURCES:
         local = Path.home()/'public_html'/name
         if not _valid_ogg(local):
-            print('Day ambience not cached locally; verified runtime will use remote fallback:', name, flush=True)
-            continue
+            raise RuntimeError('Deployed Day ambience missing or invalid: '+name)
         request = Request(PUBLIC_URL+name+'?day-audio=1', headers={
             'Cache-Control':'no-cache',
             'Range':'bytes=0-63',
@@ -382,6 +368,8 @@ def http_smoke_day_media():
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('commit', help='Full 40-character SHA of the tested GitHub commit')
+    parser.add_argument('--release-label', default='', help='Optional label embedded in the rollback backup filename')
+    parser.add_argument('--prune-old-backups', action='store_true', help='After verified deployment, remove older public_html backup archives and keep the new rollback backup')
     args = parser.parse_args()
     if not re.fullmatch(r'[0-9a-f]{40}', args.commit):
         parser.error('commit must be a full lowercase SHA, not a branch name.')
@@ -401,7 +389,7 @@ def main():
         if not source.is_dir():
             raise RuntimeError('Archive does not contain the requested commit.')
         materialize_day_media(source, site)
-        backup = deploy(source,site,lambda:(http_smoke(args.commit,site), http_smoke_day_media()))
+        backup = deploy(source,site,lambda:(http_smoke(args.commit,site), http_smoke_day_media()), args.release_label, args.prune_old_backups)
     print('Website updated:',PUBLIC_URL)
     print('Commit:',args.commit)
     print('Backup:',backup)

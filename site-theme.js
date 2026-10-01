@@ -107,20 +107,20 @@
   function ensureStylesheet(file) {
     const existing=[...document.querySelectorAll('link[rel="stylesheet"]')].some(link=>{try{return new URL(link.href,location.href).pathname.endsWith('/'+file);}catch{return false;}});
     if(existing)return;
-    const link=document.createElement('link');link.rel='stylesheet';link.href=new URL(file,SITE_BASE);document.head.append(link);
+    const link=document.createElement('link');link.rel='stylesheet';link.href=new URL(file+'?v='+SHARED_RUNTIME_VERSION,SITE_BASE);document.head.append(link);
   }
-  const SHARED_RUNTIME_VERSION='20260928-day-audio-lock-v1';
+  const SHARED_RUNTIME_VERSION='20260929-ambience-phone-v2';
   function loadScript(file) {
     const existing=[...document.scripts].find(script=>{try{return new URL(script.src,location.href).pathname.endsWith('/'+file);}catch{return false;}});
     if(existing)return Promise.resolve();
-    return new Promise(resolve=>{
+    return new Promise((resolve,reject)=>{
       const script=document.createElement('script');
       const url=new URL(file,SITE_BASE);
       url.searchParams.set('v',SHARED_RUNTIME_VERSION);
       script.src=url;
       script.async=false;
       script.addEventListener('load',resolve,{once:true});
-      script.addEventListener('error',resolve,{once:true});
+      script.addEventListener('error',()=>reject(new Error('Shared runtime failed: '+file)),{once:true});
       document.head.append(script);
     });
   }
@@ -133,9 +133,10 @@
     await loadScript('site-scenes.js');
     await loadScript('site-audio.js');
     await loadScript('site-navigation.js');
+    await loadScript('site-page-scroll.js');
     await loadScript('site-sound-control.js');
   }
-  const ready = () => { bind(); setMotion(motion, false); ensureSharedRuntime(); };
+  const ready = () => { bind(); setMotion(motion, false); ensureSharedRuntime().catch(error=>console.error(error)); };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', ready, { once: true });
   else ready();
   addEventListener('storage', event => {

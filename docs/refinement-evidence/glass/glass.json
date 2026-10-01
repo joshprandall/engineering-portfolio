@@ -1,0 +1,2218 @@
+{
+  "browser": "Chromium",
+  "physicalDevices": false,
+  "pages": [
+    {
+      "route": "about.html",
+      "width": 390,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "about.html",
+      "width": 390,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "about.html",
+      "width": 1440,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "about.html",
+      "width": 1440,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "agent-workbench.html",
+      "width": 390,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "agent-workbench.html",
+      "width": 390,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "agent-workbench.html",
+      "width": 1440,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "agent-workbench.html",
+      "width": 1440,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "ai-agentic.html",
+      "width": 390,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "ai-agentic.html",
+      "width": 390,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "ai-agentic.html",
+      "width": 1440,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "ai-agentic.html",
+      "width": 1440,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "ai-build-your-own.html",
+      "width": 390,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "ai-build-your-own.html",
+      "width": 390,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "ai-build-your-own.html",
+      "width": 1440,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "ai-build-your-own.html",
+      "width": 1440,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "ai-computer-vision.html",
+      "width": 390,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "ai-computer-vision.html",
+      "width": 390,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "ai-computer-vision.html",
+      "width": 1440,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "ai-computer-vision.html",
+      "width": 1440,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "ai-deep-learning.html",
+      "width": 390,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "ai-deep-learning.html",
+      "width": 390,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "ai-deep-learning.html",
+      "width": 1440,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "ai-deep-learning.html",
+      "width": 1440,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "ai-development.html",
+      "width": 390,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "ai-development.html",
+      "width": 390,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "ai-development.html",
+      "width": 1440,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "ai-development.html",
+      "width": 1440,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "ai-embodied.html",
+      "width": 390,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "ai-embodied.html",
+      "width": 390,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "ai-embodied.html",
+      "width": 1440,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "ai-embodied.html",
+      "width": 1440,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "ai-game.html",
+      "width": 390,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "ai-game.html",
+      "width": 390,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "ai-game.html",
+      "width": 1440,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "ai-game.html",
+      "width": 1440,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "ai-generative.html",
+      "width": 390,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "ai-generative.html",
+      "width": 390,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "ai-generative.html",
+      "width": 1440,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "ai-generative.html",
+      "width": 1440,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "ai-geometric.html",
+      "width": 390,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "ai-geometric.html",
+      "width": 390,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "ai-geometric.html",
+      "width": 1440,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "ai-geometric.html",
+      "width": 1440,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "ai-graph-neural-networks.html",
+      "width": 390,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "ai-graph-neural-networks.html",
+      "width": 390,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "ai-graph-neural-networks.html",
+      "width": 1440,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "ai-graph-neural-networks.html",
+      "width": 1440,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "ai-llm.html",
+      "width": 390,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "ai-llm.html",
+      "width": 390,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "ai-llm.html",
+      "width": 1440,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "ai-llm.html",
+      "width": 1440,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "ai-machine-learning.html",
+      "width": 390,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "ai-machine-learning.html",
+      "width": 390,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "ai-machine-learning.html",
+      "width": 1440,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "ai-machine-learning.html",
+      "width": 1440,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "ai-memory.html",
+      "width": 390,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "ai-memory.html",
+      "width": 390,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "ai-memory.html",
+      "width": 1440,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "ai-memory.html",
+      "width": 1440,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "ai-multi-agent.html",
+      "width": 390,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "ai-multi-agent.html",
+      "width": 390,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "ai-multi-agent.html",
+      "width": 1440,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "ai-multi-agent.html",
+      "width": 1440,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "ai-multimodal.html",
+      "width": 390,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "ai-multimodal.html",
+      "width": 390,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "ai-multimodal.html",
+      "width": 1440,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "ai-multimodal.html",
+      "width": 1440,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "ai-neuro-symbolic.html",
+      "width": 390,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "ai-neuro-symbolic.html",
+      "width": 390,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "ai-neuro-symbolic.html",
+      "width": 1440,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "ai-neuro-symbolic.html",
+      "width": 1440,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "ai-personal-agent.html",
+      "width": 390,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "ai-personal-agent.html",
+      "width": 390,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "ai-personal-agent.html",
+      "width": 1440,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "ai-personal-agent.html",
+      "width": 1440,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "ai-project-mind.html",
+      "width": 390,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "ai-project-mind.html",
+      "width": 390,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "ai-project-mind.html",
+      "width": 1440,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "ai-project-mind.html",
+      "width": 1440,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "ai-reinforcement-learning.html",
+      "width": 390,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "ai-reinforcement-learning.html",
+      "width": 390,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "ai-reinforcement-learning.html",
+      "width": 1440,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "ai-reinforcement-learning.html",
+      "width": 1440,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "ai-symbolic.html",
+      "width": 390,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "ai-symbolic.html",
+      "width": 390,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "ai-symbolic.html",
+      "width": 1440,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "ai-symbolic.html",
+      "width": 1440,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "direction.html",
+      "width": 390,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "direction.html",
+      "width": 390,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "direction.html",
+      "width": 1440,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "direction.html",
+      "width": 1440,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "engine-development.html",
+      "width": 390,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "engine-development.html",
+      "width": 390,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "engine-development.html",
+      "width": 1440,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "engine-development.html",
+      "width": 1440,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "expertise-experience.html",
+      "width": 390,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "expertise-experience.html",
+      "width": 390,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "expertise-experience.html",
+      "width": 1440,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "expertise-experience.html",
+      "width": 1440,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "game-development.html",
+      "width": 390,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "game-development.html",
+      "width": 390,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "game-development.html",
+      "width": 1440,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "game-development.html",
+      "width": 1440,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "index.html",
+      "width": 390,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "index.html",
+      "width": 390,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "index.html",
+      "width": 1440,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "index.html",
+      "width": 1440,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "learn-advanced.html",
+      "width": 390,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "learn-advanced.html",
+      "width": 390,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "learn-advanced.html",
+      "width": 1440,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "learn-advanced.html",
+      "width": 1440,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "learn-browse.html",
+      "width": 390,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "learn-browse.html",
+      "width": 390,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "learn-browse.html",
+      "width": 1440,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "learn-browse.html",
+      "width": 1440,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "learn-capstones.html",
+      "width": 390,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "learn-capstones.html",
+      "width": 390,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "learn-capstones.html",
+      "width": 1440,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "learn-capstones.html",
+      "width": 1440,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "learn-cloud.html",
+      "width": 390,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "learn-cloud.html",
+      "width": 390,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "learn-cloud.html",
+      "width": 1440,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "learn-cloud.html",
+      "width": 1440,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "learn-cyber.html",
+      "width": 390,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "learn-cyber.html",
+      "width": 390,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "learn-cyber.html",
+      "width": 1440,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "learn-cyber.html",
+      "width": 1440,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "learn-glossary.html",
+      "width": 390,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "learn-glossary.html",
+      "width": 390,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "learn-glossary.html",
+      "width": 1440,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "learn-glossary.html",
+      "width": 1440,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "learn-labs.html",
+      "width": 390,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "learn-labs.html",
+      "width": 390,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "learn-labs.html",
+      "width": 1440,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "learn-labs.html",
+      "width": 1440,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "learn-leadership.html",
+      "width": 390,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "learn-leadership.html",
+      "width": 390,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "learn-leadership.html",
+      "width": 1440,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "learn-leadership.html",
+      "width": 1440,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "learn-map.html",
+      "width": 390,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "learn-map.html",
+      "width": 390,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "learn-map.html",
+      "width": 1440,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "learn-map.html",
+      "width": 1440,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "learn-mastery.html",
+      "width": 390,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "learn-mastery.html",
+      "width": 390,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "learn-mastery.html",
+      "width": 1440,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "learn-mastery.html",
+      "width": 1440,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "learn-math.html",
+      "width": 390,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "learn-math.html",
+      "width": 390,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "learn-math.html",
+      "width": 1440,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "learn-math.html",
+      "width": 1440,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "learn-paths.html",
+      "width": 390,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "learn-paths.html",
+      "width": 390,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "learn-paths.html",
+      "width": 1440,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "learn-paths.html",
+      "width": 1440,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "learn-physics.html",
+      "width": 390,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "learn-physics.html",
+      "width": 390,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "learn-physics.html",
+      "width": 1440,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "learn-physics.html",
+      "width": 1440,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "learn-practice.html",
+      "width": 390,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "learn-practice.html",
+      "width": 390,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "learn-practice.html",
+      "width": 1440,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "learn-practice.html",
+      "width": 1440,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "learn-software.html",
+      "width": 390,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "learn-software.html",
+      "width": 390,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "learn-software.html",
+      "width": 1440,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "learn-software.html",
+      "width": 1440,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "learn-verify.html",
+      "width": 390,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "learn-verify.html",
+      "width": 390,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "learn-verify.html",
+      "width": 1440,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "learn-verify.html",
+      "width": 1440,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "learn.html",
+      "width": 390,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "learn.html",
+      "width": 390,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "learn.html",
+      "width": 1440,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "learn.html",
+      "width": 1440,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "lesson.html",
+      "width": 390,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "lesson.html",
+      "width": 390,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "lesson.html",
+      "width": 1440,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "lesson.html",
+      "width": 1440,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "play-evil-wizard.html",
+      "width": 390,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "play-evil-wizard.html",
+      "width": 390,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "play-evil-wizard.html",
+      "width": 1440,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "play-evil-wizard.html",
+      "width": 1440,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "project-advanced-computing.html",
+      "width": 390,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "project-advanced-computing.html",
+      "width": 390,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "project-advanced-computing.html",
+      "width": 1440,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "project-advanced-computing.html",
+      "width": 1440,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "project-asset-inventory.html",
+      "width": 390,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "project-asset-inventory.html",
+      "width": 390,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "project-asset-inventory.html",
+      "width": 1440,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "project-asset-inventory.html",
+      "width": 1440,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "project-battle-chess.html",
+      "width": 390,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "project-battle-chess.html",
+      "width": 390,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "project-battle-chess.html",
+      "width": 1440,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "project-battle-chess.html",
+      "width": 1440,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "project-dependency.html",
+      "width": 390,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "project-dependency.html",
+      "width": 390,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "project-dependency.html",
+      "width": 1440,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "project-dependency.html",
+      "width": 1440,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "project-emergent.html",
+      "width": 390,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "project-emergent.html",
+      "width": 390,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "project-emergent.html",
+      "width": 1440,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "project-emergent.html",
+      "width": 1440,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "project-fusion.html",
+      "width": 390,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "project-fusion.html",
+      "width": 390,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "project-fusion.html",
+      "width": 1440,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "project-fusion.html",
+      "width": 1440,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "project-geometric-ai.html",
+      "width": 390,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "project-geometric-ai.html",
+      "width": 390,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "project-geometric-ai.html",
+      "width": 1440,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "project-geometric-ai.html",
+      "width": 1440,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "project-kubernetes-lab.html",
+      "width": 390,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "project-kubernetes-lab.html",
+      "width": 390,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "project-kubernetes-lab.html",
+      "width": 1440,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "project-kubernetes-lab.html",
+      "width": 1440,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "project-learning-library.html",
+      "width": 390,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "project-learning-library.html",
+      "width": 390,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "project-learning-library.html",
+      "width": 1440,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "project-learning-library.html",
+      "width": 1440,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "project-lifecycle.html",
+      "width": 390,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "project-lifecycle.html",
+      "width": 390,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "project-lifecycle.html",
+      "width": 1440,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "project-lifecycle.html",
+      "width": 1440,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "project-mind.html",
+      "width": 390,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "project-mind.html",
+      "width": 390,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "project-mind.html",
+      "width": 1440,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "project-mind.html",
+      "width": 1440,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "project-portfolio.html",
+      "width": 390,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "project-portfolio.html",
+      "width": 390,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "project-portfolio.html",
+      "width": 1440,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "project-portfolio.html",
+      "width": 1440,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "project-qpe.html",
+      "width": 390,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "project-qpe.html",
+      "width": 390,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "project-qpe.html",
+      "width": 1440,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "project-qpe.html",
+      "width": 1440,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "project-qubit.html",
+      "width": 390,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "project-qubit.html",
+      "width": 390,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "project-qubit.html",
+      "width": 1440,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "project-qubit.html",
+      "width": 1440,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "project-recovery.html",
+      "width": 390,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "project-recovery.html",
+      "width": 390,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "project-recovery.html",
+      "width": 1440,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "project-recovery.html",
+      "width": 1440,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "projects.html",
+      "width": 390,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "projects.html",
+      "width": 390,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "projects.html",
+      "width": 1440,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "projects.html",
+      "width": 1440,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "resume.html",
+      "width": 390,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "resume.html",
+      "width": 390,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "resume.html",
+      "width": 1440,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "resume.html",
+      "width": 1440,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "security-research.html",
+      "width": 390,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "security-research.html",
+      "width": 390,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "security-research.html",
+      "width": 1440,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "security-research.html",
+      "width": 1440,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "qubit-preview-20260921/index.html",
+      "width": 390,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "qubit-preview-20260921/index.html",
+      "width": 390,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "qubit-preview-20260921/index.html",
+      "width": 1440,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "qubit-preview-20260921/index.html",
+      "width": 1440,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "geometric-lab/index.html",
+      "width": 390,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "geometric-lab/index.html",
+      "width": 390,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "geometric-lab/index.html",
+      "width": 1440,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "geometric-lab/index.html",
+      "width": 1440,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "lesson.html?lesson=cloud-url-journey&view=visual",
+      "width": 390,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "lesson.html?lesson=cloud-url-journey&view=visual",
+      "width": 390,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "lesson.html?lesson=cloud-url-journey&view=visual",
+      "width": 1440,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "lesson.html?lesson=cloud-url-journey&view=visual",
+      "width": 1440,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "lesson.html?lesson=cloud-url-journey&view=lab",
+      "width": 390,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "lesson.html?lesson=cloud-url-journey&view=lab",
+      "width": 390,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "lesson.html?lesson=cloud-url-journey&view=lab",
+      "width": 1440,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "lesson.html?lesson=cloud-url-journey&view=lab",
+      "width": 1440,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "lesson.html?lesson=cloud-url-journey&view=practice",
+      "width": 390,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "lesson.html?lesson=cloud-url-journey&view=practice",
+      "width": 390,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "lesson.html?lesson=cloud-url-journey&view=practice",
+      "width": 1440,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "lesson.html?lesson=cloud-url-journey&view=practice",
+      "width": 1440,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "lesson.html?lesson=cloud-url-journey&view=review",
+      "width": 390,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "lesson.html?lesson=cloud-url-journey&view=review",
+      "width": 390,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "lesson.html?lesson=cloud-url-journey&view=review",
+      "width": 1440,
+      "theme": "dark",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "lesson.html?lesson=cloud-url-journey&view=review",
+      "width": 1440,
+      "theme": "light",
+      "state": "page",
+      "opaque": []
+    },
+    {
+      "route": "index.html",
+      "theme": "dark",
+      "width": 390,
+      "state": "search-open",
+      "opaque": []
+    },
+    {
+      "route": "index.html",
+      "theme": "dark",
+      "width": 390,
+      "state": "sound-open",
+      "opaque": []
+    },
+    {
+      "route": "index.html",
+      "theme": "dark",
+      "width": 390,
+      "state": "toast-visible",
+      "opaque": []
+    },
+    {
+      "route": "geometric-lab/index.html",
+      "theme": "dark",
+      "width": 390,
+      "state": "geometry",
+      "opaque": []
+    },
+    {
+      "route": "geometric-lab/index.html",
+      "theme": "dark",
+      "width": 390,
+      "state": "models",
+      "opaque": []
+    },
+    {
+      "route": "geometric-lab/index.html",
+      "theme": "dark",
+      "width": 390,
+      "state": "diffusion",
+      "opaque": []
+    },
+    {
+      "route": "geometric-lab/index.html",
+      "theme": "dark",
+      "width": 390,
+      "state": "inverse",
+      "opaque": []
+    },
+    {
+      "route": "geometric-lab/index.html",
+      "theme": "dark",
+      "width": 390,
+      "state": "notebook",
+      "opaque": []
+    },
+    {
+      "route": "geometric-lab/index.html",
+      "theme": "dark",
+      "width": 390,
+      "state": "learn",
+      "opaque": []
+    },
+    {
+      "route": "geometric-lab/index.html",
+      "theme": "dark",
+      "width": 390,
+      "state": "save-open",
+      "opaque": []
+    },
+    {
+      "route": "index.html",
+      "theme": "light",
+      "width": 390,
+      "state": "search-open",
+      "opaque": []
+    },
+    {
+      "route": "index.html",
+      "theme": "light",
+      "width": 390,
+      "state": "sound-open",
+      "opaque": []
+    },
+    {
+      "route": "index.html",
+      "theme": "light",
+      "width": 390,
+      "state": "toast-visible",
+      "opaque": []
+    },
+    {
+      "route": "geometric-lab/index.html",
+      "theme": "light",
+      "width": 390,
+      "state": "geometry",
+      "opaque": []
+    },
+    {
+      "route": "geometric-lab/index.html",
+      "theme": "light",
+      "width": 390,
+      "state": "models",
+      "opaque": []
+    },
+    {
+      "route": "geometric-lab/index.html",
+      "theme": "light",
+      "width": 390,
+      "state": "diffusion",
+      "opaque": []
+    },
+    {
+      "route": "geometric-lab/index.html",
+      "theme": "light",
+      "width": 390,
+      "state": "inverse",
+      "opaque": []
+    },
+    {
+      "route": "geometric-lab/index.html",
+      "theme": "light",
+      "width": 390,
+      "state": "notebook",
+      "opaque": []
+    },
+    {
+      "route": "geometric-lab/index.html",
+      "theme": "light",
+      "width": 390,
+      "state": "learn",
+      "opaque": []
+    },
+    {
+      "route": "geometric-lab/index.html",
+      "theme": "light",
+      "width": 390,
+      "state": "save-open",
+      "opaque": []
+    }
+  ],
+  "controls": [
+    {
+      "theme": "dark",
+      "state": "default",
+      "background": "color(srgb 0.38695 0.281545 0.218354 / 0.413647)",
+      "color": "rgb(242, 242, 233)",
+      "opacity": "1",
+      "outline": "none",
+      "outlineWidth": "0px"
+    },
+    {
+      "theme": "dark",
+      "state": "hover",
+      "background": "color(srgb 0.50256 0.355691 0.267134 / 0.46949)",
+      "color": "rgb(242, 242, 233)",
+      "opacity": "1",
+      "outline": "none",
+      "outlineWidth": "0px"
+    },
+    {
+      "theme": "dark",
+      "state": "focus",
+      "background": "color(srgb 0.50256 0.355691 0.267134 / 0.46949)",
+      "color": "rgb(242, 242, 233)",
+      "opacity": "1",
+      "outline": "solid",
+      "outlineWidth": "3px"
+    },
+    {
+      "theme": "dark",
+      "state": "pressed",
+      "background": "color(srgb 0.572696 0.400674 0.296728 / 0.511373)",
+      "color": "rgb(242, 242, 233)",
+      "opacity": "1",
+      "outline": "solid",
+      "outlineWidth": "3px"
+    },
+    {
+      "theme": "dark",
+      "state": "disabled",
+      "background": "color(srgb 0.50256 0.355691 0.267134 / 0.46949)",
+      "color": "rgb(242, 242, 233)",
+      "opacity": "1",
+      "outline": "none",
+      "outlineWidth": "0px"
+    },
+    {
+      "theme": "dark",
+      "state": "skip-focus",
+      "background": "color(srgb 0.38695 0.281545 0.218354 / 0.413647)",
+      "color": "rgb(242, 242, 233)",
+      "opacity": "1",
+      "outline": "solid",
+      "outlineWidth": "3px"
+    },
+    {
+      "theme": "light",
+      "state": "default",
+      "background": "color(srgb 0.807054 0.702498 0.643257 / 0.446588)",
+      "color": "rgb(0, 0, 0)",
+      "opacity": "1",
+      "outline": "none",
+      "outlineWidth": "0px"
+    },
+    {
+      "theme": "light",
+      "state": "hover",
+      "background": "color(srgb 0.751851 0.608893 0.534771 / 0.499294)",
+      "color": "rgb(0, 0, 0)",
+      "opacity": "1",
+      "outline": "none",
+      "outlineWidth": "0px"
+    },
+    {
+      "theme": "light",
+      "state": "focus",
+      "background": "color(srgb 0.751851 0.608893 0.534771 / 0.499294)",
+      "color": "rgb(0, 0, 0)",
+      "opacity": "1",
+      "outline": "solid",
+      "outlineWidth": "3px"
+    },
+    {
+      "theme": "light",
+      "state": "pressed",
+      "background": "color(srgb 0.717536 0.550706 0.467335 / 0.538824)",
+      "color": "rgb(0, 0, 0)",
+      "opacity": "1",
+      "outline": "solid",
+      "outlineWidth": "3px"
+    },
+    {
+      "theme": "light",
+      "state": "disabled",
+      "background": "color(srgb 0.751851 0.608893 0.534771 / 0.499294)",
+      "color": "rgb(0, 0, 0)",
+      "opacity": "1",
+      "outline": "none",
+      "outlineWidth": "0px"
+    },
+    {
+      "theme": "light",
+      "state": "skip-focus",
+      "background": "color(srgb 0.807054 0.702498 0.643257 / 0.446588)",
+      "color": "rgb(0, 0, 0)",
+      "opacity": "1",
+      "outline": "solid",
+      "outlineWidth": "3px"
+    }
+  ],
+  "failures": [],
+  "passed": true
+}

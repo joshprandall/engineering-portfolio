@@ -92,9 +92,20 @@ assert.equal(navigation.parents['play-evil-wizard.html'],'game-development.html'
 assert.doesNotMatch(resilience,/menu\.onclick=/,'Resilience must not own navigation');
 assert.match(resilience,/project-shell/,'Project pages must be marked for hamburger-only header navigation');
 assert.match(read('site-resilience.css'),/body\.project-shell #menu\{display:inline-flex!important/,'Project pages must expose the hamburger at all viewport sizes');
-assert.match(read('site-scenes.css'),/body\.project-shell \.tools #theme\.appearance-toggle/,'Project pages must expose the shared appearance control');
+assert.match(read('site-responsive.css'),/\.site-global-header .*data-theme-toggle|\.global-controls \[data-theme-toggle\]/,'Shared shell must own the appearance control layout');
+assert.doesNotMatch(read('site-scenes.css'),/\.living-scenes\s*>\s*header|\.living-scenes\s+\.site-header/,'Ambience CSS must not own shared header surfaces');
+assert.doesNotMatch(read('site-scenes.css'),/\.living-scenes\s+\.project-card|\.living-scenes\s+\.home-project/,'Ambience CSS must not own content-card surfaces');
 assert.doesNotMatch(read('app.js'),/menu\.addEventListener\("click"/,'app.js must not register a competing hamburger handler');
 assert.match(read('site-resilience.css'),/\.nav-games-menu/,'Game Development submenu styling is missing');
+const gameDevelopment=read('game-development.html');
+assert.doesNotMatch(gameDevelopment,/learn-browse\.html\?q=/,'Game Development topic tiles must not redirect into the learning library');
+for(const topic of ['future-games','engine-architecture','game-ai','graphics-rendering','physics','animation','procedural-generation','technical-art','audio','multiplayer']){
+  assert.match(gameDevelopment,new RegExp('href="game-tools\\.html\\?topic='+topic+'"[^>]*target="_blank"'),topic+': Game Development tile must open the dedicated workbench in a new tab');
+}
+assert.ok(exists('game-tools.html')&&exists('game-tools.js')&&exists('game-tools.css'),'Dedicated Game Development workbench assets are required');
+const gameTools=read('game-tools.js');
+for(const topic of ['future-games','engine-architecture','game-ai','graphics-rendering','physics','animation','procedural-generation','technical-art','audio','multiplayer']) assert.ok(gameTools.includes("'"+topic+"'"),topic+': workbench topic implementation missing');
+assert.match(gameTools,/requestAnimationFrame\(render\)/,'Game Development workbench must run a live interactive renderer');
 assert(read('learn.html').includes('site-navigation.js'),'Learning header uses shared navigation owner');
 assert.doesNotMatch(read('knowledge.js'),/closePrimaryNav/,'Learning must not retain a competing primary menu owner');
 assert.match(read('play-evil-wizard.html'),/id="primary-nav"/,'Evil Wizard wrapper must use the shared top navigation');
@@ -187,7 +198,20 @@ assert.match(read('portfolio-next.js'),/frameInterval/,'Solar systems animation 
 assert.match(read('knowledge.js'),/IntersectionObserver/,'Learning constellation must suspend when off-screen');
 assert.match(read('site-scenes.js'),/constrainedMedia/,'Living scenes must adapt to constrained and in-app browsers');
 assert.match(read('site-scenes.js'),/preload="metadata"/,'Living scenes must not eagerly preload a remote 1080p stream in markup');
-assert.match(read('site-resilience.css'),/content-visibility:auto/,'Off-screen sections must use progressive rendering where supported');
+const livingScenes=read('site-scenes.js'),siteAudio=read('site-audio.js');
+for(const token of ['0dd180961c009c20f5218a2801679b36b82be0837bc3e727908e1affffecd4a3','cd0a5c3823b6a773545ecf7f6c3c4c5eeb69a71c0c41135ecdff45b3601e5112','54af202eb77b482086a041e64fd005e995dffc56defb8b118ae82dd118fdf7a4','1a668f48c1dda23df4d5b621e754993f5efed6fe887342e55a4a485cb9040e8c','7ccbf50f35e2bf2c9cbe6c02d03bef4896be9a917460aaa45993c2697dd6834a','1cef768c65f80887f2e77787229033a108f974ad80e823c037d1090bd6f944ed']) assert.ok(livingScenes.includes(token),'Raw preview must reconstruct approved mobile Day media: '+token);
+assert.match(livingScenes,/nextPoster\.complete[\s\S]*nextPoster\.naturalWidth/,'Day rotation must wait for the next poster');
+assert.match(siteAudio,/audioSession[\s\S]*type\s*=\s*'playback'/,'Ambience must request playback audio routing where supported');
+assert.match(siteAudio,/previewAudioUrls\.get\(key\)\s*\|\|\s*await previewAudioUrl/,'Cached preview audio must avoid a new fetch boundary');
+assert.match(livingScenes,/video\.loop\s*=\s*scene\.id\s*!==\s*'birds-water'/,'Beach Day video must not visibly loop');
+assert.match(livingScenes,/BEACH_LOOP_GUARD_SECONDS[\s\S]*duration - current <= BEACH_LOOP_GUARD_SECONDS[\s\S]*rotateLightScene\(\)/,'Beach scene must rotate before its clip reaches the loop seam');
+assert.match(siteAudio,/DARK_CROSSFADE_SECONDS\s*=\s*0\.18/,'Night v32 uses a short scheduler-hiding crossfade over its already seamless PCM master');
+assert.match(siteAudio,/function beginDarkTransition\([\s\S]*darkActiveIndex = toIndex/,'Night ambience must alternate players across the loop seam');
+assert.match(siteAudio,/dark:\s*new URL\('assets\/audio\/dark-theme-user-v32\.wav'/,'Night v32 must prioritize the seamless PCM WAV master');
+
+assert.match(livingScenes,/addEventListener\('timeupdate'[\s\S]*revealVideo\(video,\s*sceneLoadId,\s*true\)/,'Day video must reveal from proven timeline movement when iPhone frame callbacks starve');
+assert.match(livingScenes,/currentSrc\.startsWith\('blob:'\)[\s\S]*scene\?\.remoteSrc/,'A stalled raw-preview Blob video must fall back to the direct licensed Day stream');
+assert.doesNotMatch(read('site-resilience.css'),/content-visibility:auto/,'Off-screen section containment must not reintroduce blank WebKit placeholders');
 assert.match(read('project-geometric-ai.html'),/<iframe\b[^>]*loading=["']lazy["']/i,'Geometry Lab preview must lazy-load below the fold');
 
 

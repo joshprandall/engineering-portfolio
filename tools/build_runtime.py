@@ -35,11 +35,19 @@ def build(commit,refresh=False):
     for route in routes['routes']:paths.add(route['path']);paths.update(route['runtimeDependencies'])
     paths.update(p for p in old if p.startswith('deep-learning/'))
     paths.update(asset_by_path)
+    paths.update(p for p in blobs if p in {'assets/audio/CREDITS.md','assets/scenes/CREDITS.md'})
     paths.update(r['localCounterpart']['path'] for r in external['dependencies'] if 'localCounterpart' in r)
     # Server configuration belongs to its exported runtime unit.
     paths.update(p for p in blobs if p.startswith('games/evil-wizard/') and p.endswith('.htaccess'))
-    for path in list(paths):
-        if not path.endswith('.html') or path not in blobs:continue
+    # Recursively walk local HTML references. A linked modular page must bring
+    # its own CSS/JS/assets into the package instead of being included as a
+    # bare HTML file with missing dependencies.
+    queue=[p for p in sorted(paths) if p.endswith('.html')]
+    parsed=set()
+    while queue:
+        path=queue.pop(0)
+        if path in parsed or path not in blobs:continue
+        parsed.add(path)
         parser=References();parser.feed(blobs[path].decode('utf-8'))
         for ref,kind in parser.refs:
             u=urlsplit(ref)
@@ -48,7 +56,9 @@ def build(commit,refresh=False):
             if ref.startswith('/'):target=unquote(u.path).lstrip('/')
             if target not in blobs and target.rstrip('/')+'/index.html' in blobs:target=target.rstrip('/')+'/index.html'
             if target not in blobs and target not in asset_by_path:raise ValueError('Missing exact-case HTML dependency: '+path+' -> '+ref)
-            paths.add(target)
+            if target not in paths:
+                paths.add(target)
+                if target.endswith('.html'):queue.append(target)
     files=[];payload={}
     for path in sorted(paths):
         pp=safe_path(path)
@@ -57,7 +67,9 @@ def build(commit,refresh=False):
         if path in asset_by_path:
             asset=asset_by_path[path];data=read_bytes({'kind':'release-asset'},asset['sha256'],assets)
             if digest(data)!=asset['sha256'] or len(data)!=asset['size']:raise ValueError('Artifact checksum: '+path)
-            source={'kind':'release-asset','assetId':asset['assetId'],'sha256':asset['sha256'],'provenance':asset['provenance']}
+            source={'kind':asset.get('kind','release-asset'),'sha256':asset['sha256'],'provenance':asset['provenance']}
+            if asset.get('assetId'):source['assetId']=asset['assetId']
+            if asset.get('sourceUrl'):source['sourceUrl']=asset['sourceUrl']
         else:
             if path not in blobs:raise ValueError('Missing exact-case committed file: '+path)
             data=blobs[path];source={'kind':'git-blob','blob':hashlib.sha1(b'blob '+str(len(data)).encode()+b'\0'+data).hexdigest()}

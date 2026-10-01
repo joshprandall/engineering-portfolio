@@ -1,0 +1,76 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> engineering-portfolio@1.0.0 test:glass-browser
+> node tests/glass-browser.test.cjs
+
+GLASS about.html
+GLASS agent-workbench.html
+GLASS ai-agentic.html
+GLASS ai-build-your-own.html
+GLASS ai-computer-vision.html
+GLASS ai-deep-learning.html
+GLASS ai-development.html
+GLASS ai-embodied.html
+GLASS ai-game.html
+GLASS ai-generative.html
+GLASS ai-geometric.html
+GLASS ai-graph-neural-networks.html
+GLASS ai-llm.html
+GLASS ai-machine-learning.html
+GLASS ai-memory.html
+GLASS ai-multi-agent.html
+GLASS ai-multimodal.html
+GLASS ai-neuro-symbolic.html
+GLASS ai-personal-agent.html
+GLASS ai-project-mind.html
+GLASS ai-reinforcement-learning.html
+GLASS ai-symbolic.html
+GLASS direction.html
+GLASS engine-development.html
+GLASS expertise-experience.html
+GLASS game-development.html
+GLASS index.html
+GLASS learn-advanced.html
+GLASS learn-browse.html
+GLASS learn-capstones.html
+GLASS learn-cloud.html
+GLASS learn-cyber.html
+GLASS learn-glossary.html
+GLASS learn-labs.html
+GLASS learn-leadership.html
+GLASS learn-map.html
+GLASS learn-mastery.html
+GLASS learn-math.html
+GLASS learn-paths.html
+GLASS learn-physics.html
+GLASS learn-practice.html
+GLASS learn-software.html
+GLASS learn-verify.html
+GLASS learn.html
+GLASS lesson.html
+GLASS play-evil-wizard.html
+GLASS project-advanced-computing.html
+GLASS project-asset-inventory.html
+GLASS project-battle-chess.html
+GLASS project-dependency.html
+GLASS project-emergent.html
+GLASS project-fusion.html
+GLASS project-geometric-ai.html
+GLASS project-kubernetes-lab.html
+GLASS project-learning-library.html
+GLASS project-lifecycle.html
+GLASS project-mind.html
+GLASS project-portfolio.html
+GLASS project-qpe.html
+GLASS project-qubit.html
+GLASS project-recovery.html
+GLASS projects.html
+GLASS resume.html
+GLASS security-research.html
+GLASS qubit-preview-20260921/index.html
+GLASS geometric-lab/index.html
+GLASS lesson.html?lesson=cloud-url-journey&view=visual
+GLASS lesson.html?lesson=cloud-url-journey&view=lab
+GLASS lesson.html?lesson=cloud-url-journey&view=practice
+GLASS lesson.html?lesson=cloud-url-journey&view=review
+PASS glass: 70 routes/views, both themes, 390/1440px, solid menus, control and overlay states.

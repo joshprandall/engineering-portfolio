@@ -1,0 +1,18 @@
+const assert = require('node:assert/strict');
+const P = require('../learning-progress.js');
+const now = new Date(2026, 8, 28, 23, 30);
+assert.equal(P.scheduledDate(1, now), '2026-09-29');
+assert.equal(P.scheduledDate(3, now), '2026-10-01');
+const first = P.record({total:2, correct:1, legacyField:'keep'}, true, now);
+assert.equal(first.legacyField, 'keep');
+assert.equal(first.correct, 2);
+assert.equal(P.nextReview(first, now).days, 1);
+const sameDay = P.record(first, true, now);
+assert.equal(sameDay.streak, 1, 'same-day repeat must not advance spaced retention');
+const nextDay = P.record(sameDay, true, new Date(2026, 8, 29));
+assert.equal(P.nextReview(nextDay).days, 3);
+assert.equal(P.nextReview(P.record(nextDay, false)).days, 1);
+const q = P.queue({a:{date:'2026-09-28'}, b:{date:'2026-10-02'}, removed:{date:'2020-01-01'}, bad:null}, [{id:'a',title:'A',domain:'math'}, {id:'b',title:'B',domain:'physics'}], now);
+assert.deepEqual(q.map(x=>[x.lesson.id,x.due]), [['a',true],['b',false]]);
+assert.equal(P.queue({a:{date:'2026-09-28'}}, [{id:'a',title:'A',domain:'math'}], now, 'physics').length, 0);
+console.log('PASS review scheduling: calendar boundaries, legacy data, spaced attempts, wrong-answer recovery, due queue and domain scope');

@@ -1,0 +1,6 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> engineering-portfolio@1.0.0 test:evil-wizard-browser
+> node tests/evil-wizard-browser.test.cjs
+
+PASS imported Evil Wizard: 15 champions, Godot/WASM/PCK startup and playing-state handshake.

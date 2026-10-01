@@ -1,0 +1,190 @@
+{
+  "passed": true,
+  "physicalDevices": false,
+  "verifiedAt": "2026-09-29T06:51:21.829654+00:00",
+  "sourceCommit": "95b8fb18342bab2755bbd6220b5fb99eb18473b8",
+  "deployment": "appgdep_6abb5e923ec481918b7aabea8c88aea1",
+  "checks": [
+    {
+      "path": "/assets/audio/dark-theme-user.mp3",
+      "status": 206,
+      "bytes": 2,
+      "matched": true,
+      "hostingChallengeScript": false
+    },
+    {
+      "path": "/assets/audio/dark-theme-user.wav",
+      "status": 206,
+      "bytes": 2,
+      "matched": true,
+      "hostingChallengeScript": false
+    },
+    {
+      "path": "/assets/audio/day/beach-far.mp3",
+      "status": 206,
+      "bytes": 2,
+      "matched": true,
+      "hostingChallengeScript": false
+    },
+    {
+      "path": "/assets/audio/day/beach-far.ogg",
+      "status": 206,
+      "bytes": 2,
+      "matched": true,
+      "hostingChallengeScript": false
+    },
+    {
+      "path": "/assets/audio/day/beach-near.mp3",
+      "status": 206,
+      "bytes": 2,
+      "matched": true,
+      "hostingChallengeScript": false
+    },
+    {
+      "path": "/assets/audio/day/beach-near.ogg",
+      "status": 206,
+      "bytes": 2,
+      "matched": true,
+      "hostingChallengeScript": false
+    },
+    {
+      "path": "/assets/audio/day/river.mp3",
+      "status": 206,
+      "bytes": 2,
+      "matched": true,
+      "hostingChallengeScript": false
+    },
+    {
+      "path": "/assets/audio/day/river.ogg",
+      "status": 206,
+      "bytes": 2,
+      "matched": true,
+      "hostingChallengeScript": false
+    },
+    {
+      "path": "/assets/audio/day/waterfall.mp3",
+      "status": 206,
+      "bytes": 2,
+      "matched": true,
+      "hostingChallengeScript": false
+    },
+    {
+      "path": "/assets/audio/day/waterfall.ogg",
+      "status": 206,
+      "bytes": 2,
+      "matched": true,
+      "hostingChallengeScript": false
+    },
+    {
+      "path": "/assets/scenes/day/beach-birds.mp4",
+      "status": 206,
+      "bytes": 2,
+      "matched": true,
+      "hostingChallengeScript": false
+    },
+    {
+      "path": "/assets/scenes/day/river.mp4",
+      "status": 206,
+      "bytes": 2,
+      "matched": true,
+      "hostingChallengeScript": false
+    },
+    {
+      "path": "/assets/scenes/day/waterfall.mp4",
+      "status": 206,
+      "bytes": 2,
+      "matched": true,
+      "hostingChallengeScript": false
+    },
+    {
+      "path": "/assets/scenes/day/waterfall.mp4",
+      "status": 206,
+      "bytes": 2097152,
+      "matched": true,
+      "hostingChallengeScript": false,
+      "firstFrameDecoded": true,
+      "frameDigest": "MD5=889f6f712b00002a35c871e5c806d742"
+    },
+    {
+      "path": "/assets/scenes/day/river.mp4",
+      "status": 206,
+      "bytes": 2097152,
+      "matched": true,
+      "hostingChallengeScript": false,
+      "firstFrameDecoded": true,
+      "frameDigest": "MD5=59bf4e825e535b4b1d5e9e4fef7071ae"
+    },
+    {
+      "path": "/assets/scenes/day/beach-birds.mp4",
+      "status": 206,
+      "bytes": 2097152,
+      "matched": true,
+      "hostingChallengeScript": false,
+      "firstFrameDecoded": true,
+      "frameDigest": "MD5=ae02218689cf197237b154bc9575aafb"
+    },
+    {
+      "path": "/site-scenes.js",
+      "status": 200,
+      "bytes": 26029,
+      "matched": true,
+      "hostingChallengeScript": false
+    },
+    {
+      "path": "/site-audio.js",
+      "status": 200,
+      "bytes": 25600,
+      "matched": true,
+      "hostingChallengeScript": false
+    },
+    {
+      "path": "/site-theme.js",
+      "status": 200,
+      "bytes": 8619,
+      "matched": true,
+      "hostingChallengeScript": false
+    },
+    {
+      "path": "/site-scenes.css",
+      "status": 200,
+      "bytes": 59185,
+      "matched": true,
+      "hostingChallengeScript": false
+    },
+    {
+      "path": "/index.html",
+      "status": 200,
+      "bytes": 31994,
+      "matched": true,
+      "hostingChallengeScript": true
+    },
+    {
+      "path": "/projects.html",
+      "status": 200,
+      "bytes": 16273,
+      "matched": true,
+      "hostingChallengeScript": true
+    },
+    {
+      "path": "/assets/scenes/day/waterfall-poster.jpg",
+      "status": 200,
+      "bytes": 343159,
+      "matched": true,
+      "hostingChallengeScript": false
+    },
+    {
+      "path": "/assets/scenes/day/river-poster.jpg",
+      "status": 200,
+      "bytes": 249343,
+      "matched": true,
+      "hostingChallengeScript": false
+    },
+    {
+      "path": "/assets/scenes/day/beach-birds-poster.jpg",
+      "status": 200,
+      "bytes": 96315,
+      "matched": true,
+      "hostingChallengeScript": false
+    }
+  ]
+}

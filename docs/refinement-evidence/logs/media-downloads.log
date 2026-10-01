@@ -1,0 +1,10 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> engineering-portfolio@1.0.0 test:media-downloads
+> node tests/media-downloads.test.cjs
+
+page.waitForFunction: Timeout 60000ms exceeded.
+    at /workspace/scratch/c0e1d8cfed43/engineering-portfolio/tests/media-downloads.test.cjs:9:257 {
+  log: [],
+  name: 'TimeoutError'
+}

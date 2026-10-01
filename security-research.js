@@ -3,11 +3,16 @@
   'use strict';
   const $=id=>document.getElementById(id);
   const reportState={tool:'',generatedAt:'',findings:[],summary:{}};
+  const exportButton=$('security-export');
+  function invalidateReport(){reportState.tool='';if(exportButton){exportButton.disabled=true;exportButton.title='Run an analysis on the current inputs before exporting.';}}
+  function inputError(id,error){invalidateReport();$(id).textContent=error.message;}
+  invalidateReport();
+  document.querySelectorAll('main input,main textarea').forEach(e=>e.addEventListener('input',invalidateReport));
   const severityRank={high:0,medium:1,low:2,info:3};
   const setReport=(tool,findings,summary={})=>{
     reportState.tool=tool;reportState.generatedAt=new Date().toISOString();
     reportState.findings=[...findings].sort((a,b)=>(severityRank[a.severity]??9)-(severityRank[b.severity]??9));
-    reportState.summary=summary;
+    reportState.summary=summary;if(exportButton){exportButton.disabled=false;exportButton.title='Export the latest completed local analysis.';}
   };
   const node=(tag,text,cls)=>{const el=document.createElement(tag);if(text!==undefined)el.textContent=text;if(cls)el.className=cls;return el;};
   const renderFindings=(target,title,findings,summary={})=>{
@@ -27,7 +32,12 @@
     });
     target.append(wrap);
   };
-  const safeJson=(text,label)=>{try{return JSON.parse(text);}catch(error){throw new Error(label+' is not valid JSON: '+error.message);}};
+  const safeJson=(text,label)=>{let data;try{data=JSON.parse(text);}catch(error){throw new Error(label+' is not valid JSON: '+error.message);}if(!data||typeof data!=='object'||Array.isArray(data)||!Object.keys(data).length)throw new Error(label+' must be a nonempty JSON object.');return data;};
+  function arrayField(data,key,check){if(data[key]!==undefined&&(!Array.isArray(data[key])||!data[key].every(check)))throw new Error(key+' must be an array with valid entries.');}
+  const textValue=x=>typeof x==='string'&&x.trim().length>0;
+  const recordValue=x=>x&&typeof x==='object'&&!Array.isArray(x);
+  function booleanField(data,key){if(data[key]!==undefined&&typeof data[key]!=='boolean')throw new Error(key+' must be true or false, not a string.');}
+
 
   // 1. Controlled path-boundary analysis against a virtual filesystem only.
   const virtualFiles=new Map([
@@ -89,8 +99,9 @@
     return current;
   }
   $('fuzz-run')?.addEventListener('click',()=>{
-    const iterations=Math.max(25,Math.min(2000,Number($('fuzz-iterations').value)||300));
-    const seed=Math.max(1,Math.min(2147483646,Number($('fuzz-seed').value)||1337));
+    const iterations=Number($('fuzz-iterations').value),seed=Number($('fuzz-seed').value);
+    if(!Number.isInteger(iterations)||iterations<25||iterations>2000||!Number.isInteger(seed)||seed<1||seed>2147483646){inputError('fuzz-output',new Error('Use whole iterations from 25–2000 and a whole seed from 1–2147483646.'));return;}
+
     const rnd=prng(seed);let first='',crashCount=0;
     for(let i=0;i<iterations;i++){let candidate=fuzzSeeds[Math.floor(rnd()*fuzzSeeds.length)];const rounds=1+Math.floor(rnd()*4);for(let n=0;n<rounds;n++)candidate=mutate(candidate,rnd);if(crashes(candidate)){crashCount++;if(!first)first=candidate;}}
     const minimized=first?minimize(first):'';
@@ -112,11 +123,16 @@
     sudoRules:['%labops ALL=(root) NOPASSWD: /usr/local/bin/*'],
     capabilities:[{path:'/usr/local/bin/lab-net',capabilities:['CAP_NET_ADMIN','CAP_SYS_ADMIN']}]
   };
-  const loadJson=(id,obj)=>{$(id).value=JSON.stringify(obj,null,2);};
+  const loadJson=(id,obj)=>{invalidateReport();$(id).value=JSON.stringify(obj,null,2);};
   $('linux-sample')?.addEventListener('click',()=>loadJson('linux-input',linuxSample));
   $('linux-run')?.addEventListener('click',()=>{
     try{
       const data=safeJson($('linux-input').value,'Linux snapshot'),findings=[];
+      if(!['pathEntries','files','sudoRules','capabilities'].some(k=>k in data))throw new Error('Supply pathEntries, files, sudoRules or capabilities.');
+      const entry=e=>recordValue(e)&&textValue(e.path)&&typeof e.mode==='string'&&/^0?[0-7]{3,4}$/.test(e.mode);
+      arrayField(data,'pathEntries',entry);arrayField(data,'files',entry);arrayField(data,'sudoRules',textValue);arrayField(data,'capabilities',e=>recordValue(e)&&textValue(e.path)&&Array.isArray(e.capabilities)&&e.capabilities.every(textValue));
+      for(const f of data.files||[]){booleanField(f,'suid');booleanField(f,'containsSecret');}
+
       const worldWritable=mode=>typeof mode==='string'&&/[2367]$/.test(mode);
       for(const e of data.pathEntries||[])if(worldWritable(e.mode))findings.push({severity:'high',title:'Writable PATH component',evidence:e.path+' is modeled with mode '+e.mode+'.',remediation:'Remove world/group write access from privileged PATH directories and restrict ownership to a trusted administrative principal.'});
       for(const f of data.files||[]){
@@ -128,7 +144,7 @@
       for(const cap of data.capabilities||[])if((cap.capabilities||[]).some(x=>['CAP_SYS_ADMIN','CAP_SYS_PTRACE'].includes(x)))findings.push({severity:'high',title:'High-impact Linux capability',evidence:cap.path+' has '+cap.capabilities.join(', ')+'.',remediation:'Drop capabilities not strictly required; prefer the smallest capability set and isolate the process with additional sandboxing.'});
       const summary={findings:findings.length,high:findings.filter(f=>f.severity==='high').length,reviewed:(data.files||[]).length+(data.pathEntries||[]).length};
       setReport('linux-misconfiguration-audit',findings,summary);renderFindings($('linux-output'),'Linux audit',findings,summary);
-    }catch(error){$('linux-output').textContent=error.message;}
+    }catch(error){inputError('linux-output',error);}
   });
 
   // 4. Synthetic AD relationship graph; no directory or authentication calls.
@@ -149,13 +165,18 @@
   }
   $('ad-run')?.addEventListener('click',()=>{
     try{
-      const model=safeJson($('ad-input').value,'AD graph'),path=shortestPath(model),findings=[];
+      const model=safeJson($('ad-input').value,'AD graph');
+      if(!textValue(model.start)||!Array.isArray(model.targets)||!model.targets.length||!model.targets.every(textValue)||!Array.isArray(model.edges))throw new Error('Supply a start principal, target names and an edges array.');
+      arrayField(model,'edges',e=>recordValue(e)&&textValue(e.from)&&textValue(e.to)&&textValue(e.right));
+      const path=shortestPath(model),findings=[],alreadyTarget=model.targets.includes(model.start);
+      if(alreadyTarget)findings.push({severity:'high',title:'Initial principal is already a protected target',evidence:model.start+' is in the supplied targets; zero edges are required.',remediation:'Review whether the starting identity should hold that privileged role.'});
+
       if(path.length)findings.push({severity:'high',title:'Synthetic privilege path reaches a protected target',evidence:path.map(e=>e.from+' -['+e.right+']-> '+e.to).join(' | '),remediation:'Break the path at its weakest justified edge; validate delegated ACLs, privileged-group membership, tiering, and change monitoring.'});
-      const summary={edges:(model.edges||[]).length,pathLength:path.length,target:path.length?path[path.length-1].to:'not reached'};
+      const summary={edges:(model.edges||[]).length,pathLength:path.length,target:alreadyTarget?model.start:path.length?path[path.length-1].to:'not reached'};
       setReport('ad-privilege-path',findings,summary);
       const target=$('ad-output');renderFindings(target,'Directory graph analysis',findings,summary);
       if(path.length){const visual=node('div',undefined,'security-path');visual.append(node('span',model.start));path.forEach(edge=>{visual.append(node('i','→ '+edge.right+' →'),node('span',edge.to));});target.append(visual);const list=node('ol');path.forEach(edge=>list.append(node('li',edge.from+' → '+edge.to+': '+(edge.control||'Review this delegated relationship.'))));target.append(node('h3','Defensive controls along the path'),list);}
-    }catch(error){$('ad-output').textContent=error.message;}
+    }catch(error){inputError('ad-output',error);}
   });
 
   // 5. Container configuration hardening analyzer.
@@ -164,6 +185,10 @@
   $('container-run')?.addEventListener('click',()=>{
     try{
       const c=safeJson($('container-input').value,'Container configuration'),findings=[];
+      if(!['privileged','user','networkMode','pidMode','readOnlyRootFilesystem','capAdd','securityOpt','mounts'].some(k=>k in c))throw new Error('Supply recognized container configuration fields.');
+      for(const k of ['privileged','readOnlyRootFilesystem'])booleanField(c,k);
+      for(const k of ['capAdd','securityOpt','mounts'])arrayField(c,k,textValue);
+
       if(c.privileged)findings.push({severity:'high',title:'Privileged container',evidence:'privileged=true grants an unusually broad host-facing privilege set.',remediation:'Run unprivileged; grant only the specific devices/capabilities required.'});
       if(String(c.user)==='0'||String(c.user).toLowerCase()==='root')findings.push({severity:'medium',title:'Container runs as root',evidence:'The configured runtime user is '+c.user+'.',remediation:'Use a non-root UID/GID and enforce it in the image and runtime policy.'});
       if(c.networkMode==='host'||c.pidMode==='host')findings.push({severity:'high',title:'Host namespace exposure',evidence:'networkMode='+c.networkMode+', pidMode='+c.pidMode+'.',remediation:'Use isolated namespaces unless host sharing is explicitly required and separately controlled.'});
@@ -174,14 +199,15 @@
       if(c.readOnlyRootFilesystem===false)findings.push({severity:'low',title:'Writable root filesystem',evidence:'readOnlyRootFilesystem=false.',remediation:'Prefer a read-only root filesystem and explicitly mount only required writable paths.'});
       const summary={findings:findings.length,high:findings.filter(f=>f.severity==='high').length,score:Math.max(0,100-findings.reduce((n,f)=>n+({high:22,medium:12,low:6}[f.severity]||2),0))};
       setReport('container-hardening',findings,summary);renderFindings($('container-output'),'Container hardening analysis',findings,summary);
-    }catch(error){$('container-output').textContent=error.message;}
+    }catch(error){inputError('container-output',error);}
   });
 
   // 6. Supplied inventory analysis only. No network or discovery APIs.
   const surfaceSample='web-lab,443,https,internet,on,current\nadmin-lab,22,ssh,internal,on,current\nlegacy-lab,23,telnet,internet,off,legacy\nfiles-lab,445,smb,internet,on,current\ndev-lab,8080,admin-http,internet,off,unknown';
-  $('surface-sample')?.addEventListener('click',()=>{$('surface-input').value=surfaceSample;});
+  $('surface-sample')?.addEventListener('click',()=>{invalidateReport();$('surface-input').value=surfaceSample;});
   function parseInventory(text){
-    return text.split(/\r?\n/).map(line=>line.trim()).filter(Boolean).map((line,index)=>{const [host,port,service,exposure,tls,status]=line.split(',').map(x=>x.trim());if(!host||!port||!service)throw new Error('Inventory line '+(index+1)+' needs host, port, and service.');return{host,port:Number(port),service:service.toLowerCase(),exposure:(exposure||'unknown').toLowerCase(),tls:(tls||'unknown').toLowerCase(),status:(status||'unknown').toLowerCase()};});
+    if(!text.trim())throw new Error('Enter at least one inventory record.');
+    return text.split(/\r?\n/).map(line=>line.trim()).filter(Boolean).map((line,index)=>{const [host,port,service,exposure,tls,status]=line.split(',').map(x=>x.trim());if(!host||!port||!service)throw new Error('Inventory line '+(index+1)+' needs host, port, and service.');if(!/^\d+$/.test(port)||Number(port)<1||Number(port)>65535)throw new Error('Inventory line '+(index+1)+' needs a whole port from 1–65535.');return{host,port:Number(port),service:service.toLowerCase(),exposure:(exposure||'unknown').toLowerCase(),tls:(tls||'unknown').toLowerCase(),status:(status||'unknown').toLowerCase()};});
   }
   $('surface-run')?.addEventListener('click',()=>{
     try{
@@ -194,10 +220,11 @@
       }
       const summary={services:rows.length,internetFacing:rows.filter(r=>r.exposure==='internet').length,findings:findings.length,high:findings.filter(f=>f.severity==='high').length};
       setReport('attack-surface-inventory',findings,summary);renderFindings($('surface-output'),'Inventory analysis',findings,summary);
-    }catch(error){$('surface-output').textContent=error.message;}
+    }catch(error){inputError('surface-output',error);}
   });
 
   $('security-export')?.addEventListener('click',()=>{
+    if(!reportState.tool)return;
     const payload={schema:'jr-security-research-report-v1',authorization:'User-supplied/synthetic/local analysis only',...reportState};
     const blob=new Blob([JSON.stringify(payload,null,2)+'\n'],{type:'application/json'});
     const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='security-research-report.json';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),0);

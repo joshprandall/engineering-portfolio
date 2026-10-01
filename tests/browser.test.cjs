@@ -27,9 +27,20 @@ async function run(){
   page.on('response',r=>{if(r.url().startsWith(base)&&r.status()>=400&&!/games\/evil-wizard/.test(r.url()))failures.push(`HTTP ${r.status()}: ${r.url()}`);});
   if(output)fs.mkdirSync(output,{recursive:true});
   if(!process.env.PORTFOLIO_SKIP_APPEARANCE)await require('./appearance.test.cjs')({browser,base,output,failures});
-  for(const [name,width,height] of [['phone',390,844],['small-phone',320,740],['tablet',820,1180],['desktop',1440,1000]]){
+  for(const [name,width,height] of [['phone',390,844],['phone-402',402,874],['phone-430',430,932],['small-phone',320,740],['tablet',820,1180],['desktop',1440,1000]]){
    console.log('Checking '+name);await page.setViewportSize({width,height});await page.goto(base+'/',{waitUntil:'domcontentloaded'});
    console.log('Loaded '+name);assert.equal(await page.locator('body').evaluate(e=>getComputedStyle(e).backgroundColor),'rgba(0, 0, 0, 0)','Living-scene body stays transparent');assert(await page.locator('.scene-backdrop').isVisible(),'Living background renders behind glass UI');
+   await page.waitForFunction(()=>Boolean(window.SitePageScroll));
+   assert.equal(await page.locator('.site-page-scroll').count(),1,name+': one shared page scroll control');
+   const pageScrollPaint=await page.locator('.site-page-scroll').evaluate(el=>{const s=getComputedStyle(el),t=getComputedStyle(el.firstElementChild);return{background:s.backgroundColor,border:s.borderTopWidth,shadow:s.boxShadow,thumbWidth:parseFloat(t.width),thumbBackground:t.backgroundColor,hidden:el.hidden};});
+   assert.equal(pageScrollPaint.background,'rgba(0, 0, 0, 0)',name+': page scroll control has no opaque rail');
+   assert.equal(pageScrollPaint.border,'0px',name+': page scroll control has no rail border');
+   assert.equal(pageScrollPaint.shadow,'none',name+': page scroll control has no rail shadow');
+   assert(pageScrollPaint.thumbWidth>=4,name+': page scroll thumb is visible');
+   if(await page.evaluate(()=>document.documentElement.scrollHeight>innerHeight+2)){
+     assert.equal(pageScrollPaint.hidden,false,name+': page scroll thumb is available on scrollable pages');
+     const beforeY=await page.evaluate(()=>scrollY);await page.locator('.site-page-scroll-thumb').focus();await page.keyboard.press('PageDown');await page.waitForTimeout(60);assert((await page.evaluate(()=>scrollY))>beforeY,name+': page scroll thumb supports keyboard navigation');await page.evaluate(()=>scrollTo(0,0));
+   }
    assert.equal(await page.locator('.solar-navigation[data-solar="portfolio"] .solar-planet-link[aria-label="Home"]').count(),0,'Homepage solar has no Home planet');
    assert.equal((await page.locator('.solar-navigation[data-solar="portfolio"] .solar-descriptor-title').innerText()).trim(),'About Me','Homepage solar defaults to About Me after Home removal');
    assert(await page.locator('#selected-work').isVisible(),'Current home project section renders');
@@ -63,6 +74,39 @@ async function run(){
      assert(translucent,route+' '+selector+' remains genuinely translucent, got '+JSON.stringify(paint));
     }
     await page.goto(base+'/',{waitUntil:'domcontentloaded'});
+
+    await page.goto(base+'/',{waitUntil:'domcontentloaded'});
+    const contact=page.locator('.home-page .contact');
+    const contactMetrics=await contact.evaluate(el=>{const s=getComputedStyle(el),r=el.getBoundingClientRect();return{left:r.left,right:r.right,padL:parseFloat(s.paddingLeft)||0,padR:parseFloat(s.paddingRight)||0};});
+    assert(contactMetrics.padL>=20&&contactMetrics.padR>=20,'Homepage contact keeps mobile internal padding: '+JSON.stringify(contactMetrics));
+    const contactCopyBox=await page.locator('.home-page .contact h2').boundingBox();assert(contactCopyBox&&contactCopyBox.x>=contactMetrics.left+18&&contactCopyBox.x+contactCopyBox.width<=contactMetrics.right-18,'Homepage contact copy stays inset');
+
+    const alignmentCases=[
+      ['/', '.home-project h3'],
+      ['/projects.html', '.project-card h2'],
+      ['/learn.html', '.domain-card :is(h2,h3)'],
+      ['/game-development.html', '.destination-card :is(h2,h3)']
+    ];
+    for(const [route,selector] of alignmentCases){
+      await page.goto(base+route,{waitUntil:'domcontentloaded'});
+      const copy=page.locator(selector+':visible').first();if(await copy.count())assert.notEqual(await copy.evaluate(el=>getComputedStyle(el).textAlign),'center',route+' '+selector+': existing card alignment must not be globally centered');
+    }
+
+    await page.goto(base+'/game-development.html',{waitUntil:'domcontentloaded'});
+    const gameCards=page.locator('#game-list .project-card:visible');if(await gameCards.count()>1){const a=await gameCards.nth(0).boundingBox(),b=await gameCards.nth(1).boundingBox();assert(a&&b&&b.y-(a.y+a.height)>=12,'Game cards retain an intentional mobile vertical gap');}
+    const listBox=await page.locator('#game-list').boundingBox(),engineBox=await page.locator('#engine-path').boundingBox();assert(listBox&&engineBox&&engineBox.y-(listBox.y+listBox.height)>=12,'Game list and engine section retain a mobile gap');
+
+    await page.goto(base+'/game-tools.html?topic=engine-architecture',{waitUntil:'domcontentloaded'});
+    const engineCanvas=page.locator('#tool-canvas'),engineControls=page.locator('.game-tool-controls');
+    const ec=await engineCanvas.boundingBox(),ectl=await engineControls.boundingBox();assert(ec&&ectl&&ec.height>=250&&ectl.y>=ec.y+ec.height-1,'Game Engine Architecture canvas expands before controls instead of clipping');
+    for(const label of ['Module count','Test coverage','Frame budget'])assert(await page.getByText(label,{exact:true}).isVisible(),label+' remains visible');
+    if(output)await page.screenshot({animations:'disabled',path:path.join(output,'game-engine-phone.png'),fullPage:true});
+
+    await page.goto(base+'/about.html',{waitUntil:'domcontentloaded'});await page.evaluate(()=>PortfolioTheme?.setTheme?.('light',false));
+    for(const summary of await page.locator('.career-timeline summary').all()){await summary.scrollIntoViewIfNeeded();const box=await summary.boundingBox();assert(box&&box.height>=44,'Career row must render content instead of a phantom divider');}
+    for(const row of await page.locator('.education-line').all()){await row.scrollIntoViewIfNeeded();const box=await row.boundingBox();assert(box&&box.height>=70,'Education row must render content instead of a phantom divider');}
+    if(output)await page.screenshot({animations:'disabled',path:path.join(output,'about-phone-light.png'),fullPage:true});
+    await page.goto(base+'/',{waitUntil:'domcontentloaded'});
    }
    if(name==='phone'||name==='small-phone'){
     await page.locator('#direction').scrollIntoViewIfNeeded();
@@ -76,14 +120,22 @@ async function run(){
    const pb=await portrait.boundingBox(),ab=await page.locator('.about-imagery').boundingBox();assert(pb&&ab&&pb.x>=ab.x-2&&pb.x+pb.width<=ab.x+ab.width+2,'Portrait stays inside systems composition');
    assert.equal(await page.locator('.quantum-banner').count(),0,'Quantum banner artwork is removed from the homepage DOM');
    assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true,`${name}: no horizontal overflow`);
+   const viewportCoverage=await page.evaluate(()=>{const body=document.body.getBoundingClientRect(),scene=document.querySelector('.scene-backdrop')?.getBoundingClientRect();return {innerWidth,bodyLeft:body.left,bodyRight:body.right,bodyWidth:body.width,sceneLeft:scene?.left,sceneRight:scene?.right,sceneWidth:scene?.width};});
+   assert(viewportCoverage.bodyRight>=viewportCoverage.innerWidth-1,`${name}: living body paints through the full viewport ${JSON.stringify(viewportCoverage)}`);
+   assert(viewportCoverage.sceneLeft<=0&&viewportCoverage.sceneRight>=viewportCoverage.innerWidth-1,`${name}: living scene covers the full physical viewport ${JSON.stringify(viewportCoverage)}`);
    await page.evaluate(()=>scrollTo({top:0,behavior:'instant'}));
    if(output){await page.screenshot({animations:'disabled',path:path.join(output,`home-${name}.png`),fullPage:true});if(await page.locator('#menu').isVisible()){await page.locator('#menu').click();await page.screenshot({animations:'disabled',path:path.join(output,`menu-${name}.png`)});await page.locator('#menu').click();}}
    await page.locator('#theme').click();assert.equal(await page.locator('html').getAttribute('data-theme'),'light');
+   const dayScrollPaint=await page.locator('.site-page-scroll').evaluate(el=>({background:getComputedStyle(el).backgroundColor,thumb:getComputedStyle(el.firstElementChild).backgroundColor,width:el.getBoundingClientRect().width,right:innerWidth-el.getBoundingClientRect().right}));
+   assert.equal(dayScrollPaint.background,'rgba(0, 0, 0, 0)',name+': Day page scroller retains no rail');
+   assert(dayScrollPaint.width<=16&&dayScrollPaint.right>=0,name+': Day page thumb stays slim at the far edge');
    const lightCardSurface=await page.locator('.home-project').first().evaluate(el=>{const s=getComputedStyle(el);return{color:s.backgroundColor,image:s.backgroundImage}});
    const surfaceText=`${lightCardSurface.color} ${lightCardSurface.image}`;
    const alphaValues=[...surfaceText.matchAll(/rgba\([^)]*,\s*([\d.]+)\)/g)].map(m=>Number(m[1]));
    const hasTranslucentLayer=alphaValues.some(alpha=>alpha>0&&alpha<=.60);
    assert(hasTranslucentLayer,`Light project tiles stay translucent, got ${lightCardSurface.color} / ${lightCardSurface.image}`);
+   const quantumPaint=await page.locator('.quantum-stage').evaluate(el=>{const c=getComputedStyle(el).backgroundColor,m=c.match(/rgba?\(([^)]+)\)/),p=m?m[1].split(',').map(x=>Number(x.trim())):[];return{color:c,alpha:p.length>3?p[3]:1};});
+   assert(quantumPaint.alpha>=.8,'Day Bell-pair interactive must use its component-owned high-opacity surface: '+JSON.stringify(quantumPaint));
    const lightInk=await page.locator('#hero-title').evaluate(el=>getComputedStyle(el).color);
    const lightRgb=(lightInk.match(/\d+/g)||[]).slice(0,3).map(Number);
    assert(lightRgb.length===3&&Math.max(...lightRgb)<80,`Light-mode hero text stays decisively dark, got ${lightInk}`);
@@ -110,20 +162,24 @@ async function run(){
   await page.goto(base+'/',{waitUntil:'domcontentloaded'});
   await page.evaluate(()=>window.PortfolioTheme.setTheme('light'));
   await page.waitForFunction(()=>document.documentElement.dataset.theme==='light'&&Boolean(window.SiteAudio));
-  await page.evaluate(()=>document.dispatchEvent(new CustomEvent('portfolio:scene',{detail:{id:'birds-water'}})));
-  assert.equal(await page.evaluate(()=>window.SiteAudio.scene),'birds-water','Day audio tracks the committed beach scene');
-  assert.equal(await page.evaluate(()=>window.SiteAudio.key),'beach','Beach scene selects beach ambience');
-  await page.evaluate(()=>document.dispatchEvent(new CustomEvent('portfolio:scene-will-change',{detail:{id:'forest-waterfall'}})));
-  const silenced=await page.evaluate(()=>({
-    pending:window.SiteAudio.pendingScene,
-    beach:window.SiteAudio.beachElements.map(a=>({paused:a.paused,muted:a.muted,volume:a.volume}))
-  }));
-  assert.equal(silenced.pending,'forest-waterfall','Audio records the pending visual scene');
-  assert(silenced.beach.every(a=>a.paused&&a.muted&&a.volume===0),'Outgoing beach ambience is silent before waterfall becomes visible');
-  await page.evaluate(()=>document.dispatchEvent(new CustomEvent('portfolio:scene',{detail:{id:'forest-waterfall'}})));
-  assert.equal(await page.evaluate(()=>window.SiteAudio.scene),'forest-waterfall','Committed waterfall scene becomes the audio source of truth');
-  assert.equal(await page.evaluate(()=>window.SiteAudio.pendingScene),'','Pending scene clears after commit');
-  assert.equal(await page.evaluate(()=>window.SiteAudio.key),'waterfall','Waterfall scene selects waterfall ambience immediately');
+  // Capture each synthetic event synchronously. Otherwise the real scene owner
+  // can commit its actual scene between separate cross-process evaluations.
+  const transitions=await page.evaluate(()=>{
+    const emit=(name,id)=>document.dispatchEvent(new CustomEvent(name,{detail:{id}}));
+    emit('portfolio:scene','birds-water');
+    const beach={scene:SiteAudio.scene,key:SiteAudio.key};
+    emit('portfolio:scene-will-change','forest-waterfall');
+    const silenced={pending:SiteAudio.pendingScene,beach:SiteAudio.outputLevels.slice(1)};
+    emit('portfolio:scene','forest-waterfall');
+    return {beach,silenced,waterfall:{scene:SiteAudio.scene,pending:SiteAudio.pendingScene,key:SiteAudio.key}};
+  });
+  assert.equal(transitions.beach.scene,'birds-water','Day audio tracks the committed beach scene');
+  assert.equal(transitions.beach.key,'beach','Beach scene selects beach ambience');
+  assert.equal(transitions.silenced.pending,'forest-waterfall','Audio records the pending visual scene');
+  assert(transitions.silenced.beach.every(a=>a.paused&&a.muted&&a.level===0),'Outgoing beach ambience is silent before waterfall becomes visible');
+  assert.equal(transitions.waterfall.scene,'forest-waterfall','Committed waterfall scene becomes the audio source of truth');
+  assert.equal(transitions.waterfall.pending,'','Pending scene clears after commit');
+  assert.equal(transitions.waterfall.key,'waterfall','Waterfall scene selects waterfall ambience immediately');
 
   // Hamburger navigation is intentionally solid even over moving scenery.
   await page.goto(base+'/',{waitUntil:'domcontentloaded'});

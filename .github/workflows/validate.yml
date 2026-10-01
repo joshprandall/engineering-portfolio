@@ -23,3 +23,75 @@ jobs:
 
       - name: Validate static site
         run: npm test
+
+  interface:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm ci
+      - name: Restore shared background media
+        run: python3 tools/restore_website2_assets.py --ambience
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Verify shared shell, mobile layout, navigation and interactions
+        env:
+          PORTFOLIO_RUNTIME_ROOT: .
+          PORTFOLIO_QA_DIR: visual-qa/interface
+        run: |
+          export PORTFOLIO_BROWSER_EXECUTABLE="$(command -v google-chrome)"
+          npm run test:browser
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: interface-browser
+          path: visual-qa/interface/
+          if-no-files-found: warn
+
+  ambience:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { engine: chromium, profile: desktop, mobile: 0, kbps: 0 }
+          - { engine: webkit, profile: desktop, mobile: 0, kbps: 0 }
+          - { engine: webkit, profile: phone, mobile: 1, kbps: 256 }
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm ci
+      - name: Restore immutable background media
+        run: |
+          python3 tools/restore_website2_assets.py --ambience
+          PORTFOLIO_REQUIRE_MEDIA=1 node --test tests/ambience-contract.test.cjs
+      - name: Install browser media support
+        run: |
+          npx playwright install --with-deps ${{ matrix.engine }}
+          if [ '${{ matrix.engine }}' = webkit ]; then sudo apt-get install -y gstreamer1.0-libav gstreamer1.0-plugins-ugly; fi
+      - name: Verify real background video and sound
+        env:
+          PORTFOLIO_BROWSER_ENGINE: ${{ matrix.engine }}
+          PORTFOLIO_MOBILE: ${{ matrix.mobile }}
+          PORTFOLIO_MEDIA_KBPS: ${{ matrix.kbps }}
+          PORTFOLIO_RUNTIME_ROOT: .
+          PORTFOLIO_QA_DIR: visual-qa/ambience/${{ matrix.engine }}-${{ matrix.profile }}
+        run: |
+          if [ "$PORTFOLIO_BROWSER_ENGINE" = chromium ]; then export PORTFOLIO_BROWSER_EXECUTABLE="$(command -v google-chrome)"; fi
+          npm run test:media-playback
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ambience-${{ matrix.engine }}-${{ matrix.profile }}
+          path: visual-qa/ambience/${{ matrix.engine }}-${{ matrix.profile }}/
+          if-no-files-found: error

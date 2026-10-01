@@ -1,0 +1,32 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> engineering-portfolio@1.0.0 test
+> node tools/run-tests.cjs
+
+Science-experiment release validation passed: 16 projects, 8,000 manifest records, orbital systems scene, deterministic science math and protected experience exclusions.
+(node:37) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/scratch/c0e1d8cfed43/engineering-portfolio/qubit-preview-20260921/qubit.js?test=1790632263344 is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/scratch/c0e1d8cfed43/engineering-portfolio/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+PASS global runtime + Security Research contract
+PASS learning/AI contract: 8,000 structurally checked records, 4,000 lab/model catalog entries, 66 interactive types, 8,000 teaching-pack records, 19 dedicated AI pages and solar descriptors.
+(node:237) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/scratch/c0e1d8cfed43/engineering-portfolio/games/3d-battle-chess/engine.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/scratch/c0e1d8cfed43/engineering-portfolio/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+PASS chess rules: perft 20/400/8902, mate, castling, en passant, promotion, pins, draws, undo and all AI levels.
+PASS review scheduling: calendar boundaries, legacy data, spaced attempts, wrong-answer recovery, due queue and domain scope
+PASS audio controller: stable fallback, transition silence, stale-event mute, suppression restoration, visibility and singleton ownership (modeled media).
+.....Creating full backup: /tmp/tmpx901epo7/public_html-before-20260929-055106-102410.tar.gz
+Verification failed. Previous files restored.
+..Creating full backup: /tmp/tmpyv8qjs_p/public_html-before-20260929-055106-136240.tar.gz
+Verification failed. Previous files restored.
+.Creating full backup: /tmp/tmpfk_kai4x/public_html-before-20260929-055106-160640.tar.gz
+Installed and verified 68 files. Games, Geometry Lab calculation modules and fusion video are unchanged; the lab theme shell is updated.
+..Creating full backup: /tmp/tmpmx8x0cb2/public_html-before-20260929-055106-201060.tar.gz
+Installed and verified 68 files. Games, Geometry Lab calculation modules and fusion video are unchanged; the lab theme shell is updated.
+........
+----------------------------------------------------------------------
+Ran 18 tests in 0.684s
+
+OK

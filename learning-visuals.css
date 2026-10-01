@@ -1,0 +1,15 @@
+/* Scoped teaching surfaces; the shared site composition is unchanged. */
+.teaching-model{margin:0;padding:clamp(1rem,3vw,1.65rem);border:1px solid var(--line2,var(--line));border-radius:16px;background:color-mix(in srgb,var(--panel2,#102130) 72%,transparent)}
+.teaching-model h3{margin:.25rem 0 1rem}.teaching-model p{line-height:1.65}
+.teaching-flow{list-style:none;padding:0;margin:1rem 0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.7rem}
+.teaching-flow li{min-width:0;padding:.85rem;border:1px solid var(--line2,var(--line));border-radius:12px;display:grid;gap:.6rem;align-content:start}
+.teaching-flow li>span{display:grid;place-items:center;width:1.8rem;height:1.8rem;border:1px solid currentColor;border-radius:50%;color:var(--accent);font-variant-numeric:tabular-nums}
+.teaching-flow strong{overflow-wrap:anywhere;font-size:.9rem;line-height:1.4}
+.teaching-prediction{border-left:3px solid var(--accent);padding:.5rem 1rem;margin-top:1rem}.teaching-prediction p{margin:.45rem 0}
+.teaching-context{font-size:.85rem;color:var(--muted)}
+.lab-workspace{margin-top:1.1rem;display:grid;gap:.65rem}.lab-workspace textarea{width:100%;min-height:8rem;padding:.8rem;border:1px solid var(--line2,var(--line));border-radius:10px;background:var(--panel2);color:var(--text);font:inherit;resize:vertical}
+.lab-workspace-status,.learning-pack-status{font-size:.9rem;color:var(--muted)}.learning-pack-status{padding:.8rem 0}.learning-pack-status button{margin-left:.5rem}
+.lab-model-reset{margin-top:.85rem}.quiz-feedback:empty{display:none}.quiz-feedback{padding:.8rem 0}.quiz-retry{margin-top:.8rem}
+.review-queue{margin-top:1.5rem}.review-queue-list{list-style:none;padding:0;display:grid;gap:.65rem}.review-queue-list li{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.8rem;border:1px solid var(--line2,var(--line));border-radius:10px}.review-queue-list a{min-width:0;overflow-wrap:anywhere}.review-queue-list time{flex-shrink:0;font-variant-numeric:tabular-nums}.review-queue-copy{color:var(--muted);line-height:1.6}
+.learning-record-note{max-width:74rem;margin:.7rem auto;padding:0 1rem;font-size:.9rem;line-height:1.6;color:var(--muted)}
+@media(max-width:40rem){.teaching-flow{grid-template-columns:repeat(2,minmax(0,1fr))}.review-queue-list li{align-items:flex-start;flex-direction:column;gap:.45rem}}

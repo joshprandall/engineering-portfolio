@@ -7,13 +7,60 @@
 
   const SCENE_SCRIPT_URL = new URL(document.currentScript?.src || location.href, location.href);
   const SITE_BASE = new URL('./', SCENE_SCRIPT_URL);
+  const BRANCH_PREVIEW_HOST = /(?:^|\.)raw\.githack\.com$/i.test(location.hostname);
+  const previewSceneUrls = new Map();
+  const previewSceneLoads = new Map();
+  const PREVIEW_SCENE_ASSETS = Object.freeze({
+    'forest-waterfall': Object.freeze({
+      video: { mime: 'video/mp4', parts: [
+        'preservation/ambience/0dd180961c009c20f5218a2801679b36b82be0837bc3e727908e1affffecd4a3/0.bin',
+        'preservation/ambience/0dd180961c009c20f5218a2801679b36b82be0837bc3e727908e1affffecd4a3/1.bin'
+      ] },
+      poster: { mime: 'image/jpeg', parts: ['preservation/ambience/1a668f48c1dda23df4d5b621e754993f5efed6fe887342e55a4a485cb9040e8c/0.bin'] }
+    }),
+    'forest-river': Object.freeze({
+      video: { mime: 'video/mp4', parts: [
+        'preservation/ambience/cd0a5c3823b6a773545ecf7f6c3c4c5eeb69a71c0c41135ecdff45b3601e5112/0.bin',
+        'preservation/ambience/cd0a5c3823b6a773545ecf7f6c3c4c5eeb69a71c0c41135ecdff45b3601e5112/1.bin'
+      ] },
+      poster: { mime: 'image/jpeg', parts: ['preservation/ambience/7ccbf50f35e2bf2c9cbe6c02d03bef4896be9a917460aaa45993c2697dd6834a/0.bin'] }
+    }),
+    'birds-water': Object.freeze({
+      video: { mime: 'video/mp4', parts: ['preservation/ambience/54af202eb77b482086a041e64fd005e995dffc56defb8b118ae82dd118fdf7a4/0.bin'] },
+      poster: { mime: 'image/jpeg', parts: ['preservation/ambience/1cef768c65f80887f2e77787229033a108f974ad80e823c037d1090bd6f944ed/0.bin'] }
+    })
+  });
+  async function previewSceneAssetUrl(scene, kind = 'video') {
+    if (!BRANCH_PREVIEW_HOST) return '';
+    const key = scene.id + ':' + kind;
+    if (previewSceneUrls.has(key)) return previewSceneUrls.get(key);
+    if (previewSceneLoads.has(key)) return previewSceneLoads.get(key);
+    const spec = PREVIEW_SCENE_ASSETS[scene.id]?.[kind];
+    if (!spec) return '';
+    const load = (async () => {
+      const buffers = [];
+      for (const part of spec.parts) {
+        const response = await fetch(new URL(part, SITE_BASE), { cache: 'force-cache' });
+        if (!response.ok) throw new Error('Preview scene HTTP ' + response.status + ': ' + part);
+        buffers.push(await response.arrayBuffer());
+      }
+      const url = URL.createObjectURL(new Blob(buffers, { type: spec.mime }));
+      previewSceneUrls.set(key, url);
+      return url;
+    })().finally(() => previewSceneLoads.delete(key));
+    previewSceneLoads.set(key, load);
+    return load;
+  }
+  const previewSceneUrl = scene => previewSceneAssetUrl(scene, 'video');
+  const previewPosterUrl = scene => previewSceneAssetUrl(scene, 'poster');
 
   const LIGHT_SCENES = [
     {
       id: 'forest-waterfall',
       src: new URL('assets/scenes/day/waterfall.mp4', SITE_BASE).href,
+      mobileSrc: new URL('assets/scenes/day/waterfall-mobile.mp4', SITE_BASE).href,
       remoteSrc: 'https://videos.pexels.com/video-files/7351460/7351460-hd_1920_1080_24fps.mp4',
-      poster: 'https://images.pexels.com/videos/7351460/pexels-photo-7351460.jpeg?auto=compress&cs=tinysrgb&w=1600',
+      poster: new URL('assets/scenes/day/waterfall-poster.jpg', SITE_BASE).href,
       page: 'https://www.pexels.com/video/waterfall-in-the-forest-7351460/',
       creator: 'K',
       label: 'Forest waterfall'
@@ -21,8 +68,9 @@
     {
       id: 'forest-river',
       src: new URL('assets/scenes/day/river.mp4', SITE_BASE).href,
+      mobileSrc: new URL('assets/scenes/day/river-mobile.mp4', SITE_BASE).href,
       remoteSrc: 'https://videos.pexels.com/video-files/33886656/14381142_1920_1080_25fps.mp4',
-      poster: 'https://images.pexels.com/videos/33886656/pexels-photo-33886656.jpeg?auto=compress&cs=tinysrgb&w=1600',
+      poster: new URL('assets/scenes/day/river-poster.jpg', SITE_BASE).href,
       page: 'https://www.pexels.com/video/serene-forest-river-scene-in-daylight-33886656/',
       creator: 'Christophe Génot',
       label: 'Forest river'
@@ -30,8 +78,9 @@
     {
       id: 'birds-water',
       src: new URL('assets/scenes/day/beach-birds.mp4', SITE_BASE).href,
+      mobileSrc: new URL('assets/scenes/day/beach-birds-mobile.mp4', SITE_BASE).href,
       remoteSrc: 'https://videos.pexels.com/video-files/9982425/9982425-hd_1920_1080_30fps.mp4',
-      poster: 'https://images.pexels.com/videos/9982425/pexels-photo-9982425.jpeg?auto=compress&cs=tinysrgb&w=1600',
+      poster: new URL('assets/scenes/day/beach-birds-poster.jpg', SITE_BASE).href,
       page: 'https://www.pexels.com/video/birds-flying-above-beach-at-sunset-9982425/',
       creator: 'Daniel Feldman',
       label: 'Beach at sunset'
@@ -40,6 +89,7 @@
 
   // Cycle the light-mode scenes while keeping each scene spatially fixed.
   const ROTATE_AFTER = 28;
+  const BEACH_LOOP_GUARD_SECONDS = 1.1;
   // Version bump resets old saved ordering so light mode starts with waterfall.
   const LIGHT_SCENE_KEY = 'jr-site-light-scene-v2';
   function storedLightSceneIndex() {
@@ -58,8 +108,8 @@
     const appearance = window.PortfolioTheme;
     const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
     const saveData = Boolean(connection && connection.saveData);
-    const localTestHost = location.hostname === '127.0.0.1' || location.hostname === 'localhost';
-    const mediaDisabled = localTestHost;
+    // Preview and CI exercise the same media path as production.
+    const mediaDisabled = false;
     const inAppBrowser = /FBAN|FBAV|Instagram|Messenger|Line\/|; wv\)/i.test(navigator.userAgent || '');
     const constrainedMedia = Boolean(
       inAppBrowser ||
@@ -69,19 +119,13 @@
     );
 
 
+    const compactMedia = saveData || constrainedMedia || matchMedia('(max-width: 900px), (pointer: coarse)').matches;
+
     // Warm image/video connections immediately so the background appears before
     // the rest of the page has finished settling.
-    ['https://videos.pexels.com','https://images.pexels.com'].forEach(href => {
-      if (document.querySelector('link[rel="preconnect"][href="' + href + '"]')) return;
-      const link = document.createElement('link');
-      link.rel = 'preconnect';
-      link.href = href;
-      link.crossOrigin = 'anonymous';
-      document.head.append(link);
-    });
     [
       new URL('assets/scenes/webb-cosmic-cliffs.webp', SITE_BASE).href,
-      LIGHT_SCENES[storedLightSceneIndex()].poster
+      ...LIGHT_SCENES.map(scene => scene.poster)
     ].forEach((href, i) => {
       if (document.querySelector('link[rel="preload"][href="' + href + '"]')) return;
       const link = document.createElement('link');
@@ -133,8 +177,8 @@
     appearance.bind(options);
 
     const canvas = backdrop.querySelector('.scene-canvas');
-    const ctx = canvas.getContext('2d', { alpha: true });
-    if (!ctx) return;
+    let ctx = null;
+    try { ctx = canvas.getContext('2d', { alpha: true }); } catch (_) {}
 
     const night = backdrop.querySelector('.scene-night');
     const nightDepth = backdrop.querySelector('.scene-night-depth');
@@ -144,13 +188,27 @@
     const videoB = backdrop.querySelector('.scene-video-b');
     const dayLink = options.querySelector('.scene-day-link');
     const dayCredit = options.querySelector('.scene-day-credit');
+    const dayPosters = new Map();
+    if (!mediaDisabled) LIGHT_SCENES.forEach(scene => {
+      const poster = new Image();
+      dayPosters.set(scene.id, poster);
+      if (BRANCH_PREVIEW_HOST) {
+        previewPosterUrl(scene).then(src => {
+          if (!src) return;
+          poster.src = src;
+          if (scene.id === LIGHT_SCENES[activeSceneIndex].id) dayFallback.style.backgroundImage = 'url("' + src + '")';
+        }).catch(error => console.error('JR preview poster fallback failed:', scene.id, error));
+      } else {
+        poster.src = scene.poster;
+      }
+    });
     let activeVideo = videoA;
     let standbyVideo = videoB;
     let activeSceneIndex = storedLightSceneIndex();
     let mediaReady = false;
     let mediaTimer = 0;
     let lightLoaded = false;
-    let transitionBusy = false;
+    let sceneLoadId = 0;
     let rotationElapsed = 0;
 
     let width = 0;
@@ -180,7 +238,16 @@
     function announceDaySceneWillChange(index) {
       const scene = LIGHT_SCENES[index];
       if (!scene) return;
+      backdrop.dataset.pendingDayScene = scene.id;
       document.dispatchEvent(new CustomEvent('portfolio:scene-will-change', { detail: { id: scene.id } }));
+    }
+
+    function commitVisibleDayScene(scene) {
+      if (scene.id !== LIGHT_SCENES[activeSceneIndex].id) return;
+      if (backdrop.dataset.visibleDayScene === scene.id && !backdrop.dataset.pendingDayScene) return;
+      backdrop.dataset.visibleDayScene = scene.id;
+      delete backdrop.dataset.pendingDayScene;
+      document.dispatchEvent(new CustomEvent('portfolio:scene', { detail: { id: scene.id } }));
     }
 
     function updateDayCredit() {
@@ -192,14 +259,21 @@
       }
       if (dayCredit) {
         const audioCredit = scene.id === 'forest-waterfall'
-          ? ' · Waterfall field audio · CC0'
+          ? ' · Waterfall field audio by Benzband · CC BY-SA 3.0'
           : scene.id === 'birds-water'
-            ? ' · Ocean waves + seagulls · CC0'
+            ? ' · Ocean waves + seagulls · U.S. Fish and Wildlife Service · public domain'
             : ' · Flowing creek/river audio · CC0';
         dayCredit.textContent = 'Video by ' + scene.creator + ' · Pexels License · real nature footage' + audioCredit + '.';
       }
-      if (!mediaDisabled) dayFallback.style.backgroundImage = 'url("' + scene.poster + '")';
-      document.dispatchEvent(new CustomEvent('portfolio:scene', { detail: { id: scene.id } }));
+      const poster = dayPosters.get(scene.id);
+      const posterUrl = poster?.currentSrc || poster?.src || scene.poster;
+      if (!mediaDisabled && posterUrl) dayFallback.style.backgroundImage = 'url("' + posterUrl + '")';
+      if (backdrop.dataset.visibleDayScene === scene.id && !backdrop.dataset.pendingDayScene) return;
+      if (backdrop.dataset.pendingDayScene !== scene.id) announceDaySceneWillChange(activeSceneIndex);
+      // Announce audio only after the matching local image or a video frame is
+      // ready. An old image load must never commit sound for a later scene.
+      if (mediaDisabled || (poster?.complete && poster.naturalWidth > 0)) commitVisibleDayScene(scene);
+      else poster?.addEventListener('load', () => commitVisibleDayScene(scene), { once: true });
     }
 
     function resize() {
@@ -220,7 +294,7 @@
       dpr = nextDpr;
       canvas.width = Math.max(1, Math.round(width * dpr));
       canvas.height = Math.max(1, Math.round(height * dpr));
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx?.setTransform(dpr, 0, 0, dpr, 0, 0);
 
       const starCount = mediaDisabled ? 34 : constrainedMedia ? (width < 700 ? 56 : 84) : width < 700 ? 68 : 124;
       const dustCount = mediaDisabled ? 10 : constrainedMedia ? (width < 700 ? 14 : 28) : width < 700 ? 20 : 42;
@@ -250,6 +324,11 @@
     }
 
     function configureVideo(video, scene, source) {
+      if (videoFrames.has(video)) {
+        video.cancelVideoFrameCallback?.(videoFrames.get(video));
+        videoFrames.delete(video);
+      }
+      clearVideoMotionWatch(video);
       video.pause();
       video.removeAttribute('src');
       video.poster = scene.poster;
@@ -260,134 +339,247 @@
       video.playsInline = true;
       video.setAttribute('playsinline','');
       video.setAttribute('webkit-playsinline','');
-      video.autoplay = true;
-      video.loop = true;
+      video.autoplay = theme === 'light' && motionAllowed() && !document.hidden;
+      // The short beach clip must never visibly wrap back to frame one.
+      // Waterfall/river retain normal looping as a fallback if rotation is delayed.
+      video.loop = scene.id !== 'birds-water';
       video.controls = false;
       video.disablePictureInPicture = true;
-      video.preload = mediaDisabled ? 'none' : (video === activeVideo ? 'auto' : 'metadata');
+      video.preload = mediaDisabled ? 'none' : 'auto';
       video.load();
     }
 
-    async function playSafely(video) {
+    async function playSafely(video, timeoutMs = 30000) {
       // Day mode must remain visually alive. OS reduced-motion removes extra
       // camera effects but does not replace real waterfall/river/beach footage
       // with a frozen poster. Only an explicit site pause or media-unavailable
       // condition may stop playback.
-      if (!video || theme !== 'light' || !motionAllowed() || mediaDisabled) return false;
-      try {
-        await video.play();
-        return true;
-      } catch (_) {
-        return false;
-      }
+      if (!video || theme !== 'light' || !motionAllowed() || mediaDisabled || document.hidden) return false;
+      video.autoplay = true;
+      // A play promise may stay pending while buffering or in an in-app
+      // browser. Never let it hold the scene rotation indefinitely.
+      return new Promise(resolve => {
+        let settled = false;
+        const finish = playing => {
+          if (settled) return;
+          settled = true;
+          clearTimeout(timer);
+          resolve(playing);
+        };
+        const timer = setTimeout(() => finish(false), timeoutMs);
+        try { Promise.resolve(video.play()).then(() => finish(true), () => finish(false)); }
+        catch (_) { finish(false); }
+      });
+    }
+
+    const videoFrames = new WeakMap();
+    const videoMotionTimers = new WeakMap();
+
+    function clearVideoMotionWatch(video) {
+      const timer = videoMotionTimers.get(video);
+      if (!timer) return;
+      clearTimeout(timer);
+      videoMotionTimers.delete(video);
+    }
+
+    function prewarmNextLightScene() {
+      if (!BRANCH_PREVIEW_HOST || mediaDisabled || LIGHT_SCENES.length < 2) return;
+      const next = LIGHT_SCENES[(activeSceneIndex + 1) % LIGHT_SCENES.length];
+      previewPosterUrl(next).then(src => {
+        const poster = dayPosters.get(next.id);
+        if (poster && src && !poster.src) poster.src = src;
+      }).catch(() => {});
+      previewSceneUrl(next).catch(() => {});
+    }
+
+    function revealVideo(video, loadId = sceneLoadId, confirmedProgress = false) {
+      const current = () => video === activeVideo && loadId === sceneLoadId &&
+        theme === 'light' && !document.hidden && motionAllowed() &&
+        !video.paused && video.readyState >= 2 && video.currentSrc === video.src;
+      if (!current()) return;
+      const reveal = () => {
+        videoFrames.delete(video);
+        clearVideoMotionWatch(video);
+        if (!current()) return;
+        dayFallback.classList.add('video-ready');
+        commitVisibleDayScene(LIGHT_SCENES[activeSceneIndex]);
+        prewarmNextLightScene();
+      };
+      // Real iPhone/WKWebView can expose requestVideoFrameCallback yet fail to
+      // deliver it for a composited background. Timeline movement is also
+      // proof that the Day clip is alive and safe to reveal.
+      if (confirmedProgress || typeof video.requestVideoFrameCallback !== 'function') { reveal(); return; }
+      if (!videoFrames.has(video)) videoFrames.set(video, video.requestVideoFrameCallback(reveal));
+    }
+
+    function watchVideoMotion(video, scene, loadId = sceneLoadId) {
+      clearVideoMotionWatch(video);
+      const start = Number(video.currentTime || 0);
+      const timer = setTimeout(async () => {
+        videoMotionTimers.delete(video);
+        if (video !== activeVideo || loadId !== sceneLoadId || theme !== 'light' ||
+            document.hidden || !motionAllowed() || video.paused || video.readyState < 2) return;
+
+        const now = Number(video.currentTime || 0);
+        const duration = Number(video.duration || 0);
+        let advance = now - start;
+        if (advance < 0 && duration > 0 && start > duration - 2 && now < 2) advance += duration;
+        if (advance > .05) {
+          revealVideo(video, loadId, true);
+          return;
+        }
+
+        // Raw previews reconstruct approved MP4 bytes as a Blob. Some real
+        // iPhone WebViews decode that Blob's first frame but never advance it.
+        // In that case use the original direct licensed stream for this scene.
+        const currentSrc = video.currentSrc || video.src || '';
+        if (BRANCH_PREVIEW_HOST && currentSrc.startsWith('blob:') && scene?.remoteSrc) {
+          configureVideo(video, scene, scene.remoteSrc);
+          const playing = await playSafely(video, 12000);
+          if (video !== activeVideo || loadId !== sceneLoadId || theme !== 'light' ||
+              document.hidden || !motionAllowed()) return;
+          if (playing) {
+            revealVideo(video, loadId);
+            watchVideoMotion(video, scene, loadId);
+          }
+          return;
+        }
+
+        const playing = await playSafely(video, 12000);
+        if (video !== activeVideo || loadId !== sceneLoadId || theme !== 'light' ||
+            document.hidden || !motionAllowed()) return;
+        if (playing) {
+          revealVideo(video, loadId);
+          watchVideoMotion(video, scene, loadId);
+        }
+      }, 1800);
+      videoMotionTimers.set(video, timer);
     }
 
     function pauseVideos() {
       [videoA, videoB].forEach(video => {
         try { video.muted = true; video.volume = 0; } catch (_) {}
+        video.autoplay = false;
+        clearVideoMotionWatch(video);
         video.pause();
       });
     }
 
+    [videoA, videoB].forEach(video => {
+      video.addEventListener('playing', () => {
+        if (video === activeVideo && !video.paused && video.readyState >= 2 &&
+            video.currentSrc === video.src && theme === 'light' && !document.hidden && motionAllowed()) {
+          revealVideo(video);
+          watchVideoMotion(video, LIGHT_SCENES[activeSceneIndex], sceneLoadId);
+        }
+      });
+      video.addEventListener('timeupdate', () => {
+        if (video !== activeVideo || video.paused || video.readyState < 2 ||
+            video.currentSrc !== video.src || theme !== 'light' || document.hidden ||
+            !motionAllowed()) return;
+
+        const current = Number(video.currentTime || 0);
+        if (current > .05) revealVideo(video, sceneLoadId, true);
+
+        const scene = LIGHT_SCENES[activeSceneIndex];
+        const duration = Number(video.duration || 0);
+        if (scene?.id === 'birds-water' && Number.isFinite(duration) && duration > 2 &&
+            duration - current <= BEACH_LOOP_GUARD_SECONDS) {
+          rotateLightScene();
+        }
+      });
+
+      video.addEventListener('ended', () => {
+        if (video === activeVideo && theme === 'light' && motionAllowed() &&
+            LIGHT_SCENES[activeSceneIndex]?.id === 'birds-water') {
+          rotateLightScene();
+        }
+      });
+      video.addEventListener('error', () => {
+        if (video === activeVideo) dayFallback.classList.remove('video-ready');
+      });
+    });
+
     function loadInitialLightScene() {
       updateDayCredit();
-      if (!mediaReady || lightLoaded || mediaDisabled) return;
+      if (!mediaReady || lightLoaded || mediaDisabled || !motionAllowed()) return;
       lightLoaded = true;
       activeVideo.classList.add('is-active');
 
-      const confirmPlaying = () => dayFallback.classList.add('video-ready');
-      activeVideo.addEventListener('playing', confirmPlaying);
-      activeVideo.addEventListener('error', () => dayFallback.classList.remove('video-ready'));
       prepareAndPlay(activeVideo, LIGHT_SCENES[activeSceneIndex]).then(playing => {
-        if (playing) dayFallback.classList.add('video-ready');
-      });
-    }
-
-    function waitForVideo(video, timeoutMs) {
-      return new Promise(resolve => {
-        if (video.readyState >= 3) {
-          resolve(true);
-          return;
-        }
-        let done = false;
-        const finish = value => {
-          if (done) return;
-          done = true;
-          clearTimeout(timer);
-          video.removeEventListener('canplay', ok);
-          video.removeEventListener('error', fail);
-          resolve(value);
-        };
-        const ok = () => finish(true);
-        const fail = () => finish(false);
-        const timer = setTimeout(() => finish(false), timeoutMs || 9000);
-        video.addEventListener('canplay', ok, { once: true });
-        video.addEventListener('error', fail, { once: true });
+        if (playing) revealVideo(activeVideo);
       });
     }
 
     async function prepareAndPlay(video, scene) {
-      const sources = [scene.src, scene.remoteSrc].filter(Boolean);
+      const loadId = ++sceneLoadId;
+      // Raw branch previews do not reconstruct the preserved large-media chunks.
+      // Use the already-approved original Pexels clip there; production still
+      // prefers the preserved local master/mobile renditions.
+      let previewSrc = '';
+      if (BRANCH_PREVIEW_HOST) {
+        try { previewSrc = await previewSceneUrl(scene); } catch (error) { console.error('JR preview scene fallback failed:', scene.id, error); }
+      }
+      const sources = (BRANCH_PREVIEW_HOST
+        ? [previewSrc, scene.remoteSrc, scene.mobileSrc, scene.src]
+        : compactMedia
+          ? [scene.mobileSrc, scene.src, scene.remoteSrc]
+          : [scene.src, scene.mobileSrc, scene.remoteSrc]
+      ).filter(Boolean);
       for (const source of sources) {
         configureVideo(video, scene, source);
-        const available = await waitForVideo(video, source === scene.src ? 7000 : 9000);
-        if (!available || theme !== 'light' || !motionAllowed()) continue;
-        try { video.currentTime = 0; } catch (_) {}
-        if (await playSafely(video)) return true;
+        // Start playback immediately: waiting for canplay before play can
+        // prevent mobile browsers from fetching enough video to become ready.
+        const playing = await playSafely(video, 30000);
+        if (loadId !== sceneLoadId || video !== activeVideo || theme !== 'light' || !motionAllowed() || document.hidden) return false;
+        if (playing) {
+          watchVideoMotion(video, scene, loadId);
+          return true;
+        }
+        // A loaded video blocked by autoplay can resume on the next user tap.
+        // Switching its source would discard useful buffered frames.
+        if (video.readyState >= 2 && !video.error) return false;
       }
       return false;
     }
 
-    async function rotateLightScene() {
-      // Rotate on phones and in-app browsers too. The previous constrainedMedia
-      // guard trapped many iPhones on the first river scene indefinitely.
-      if (transitionBusy || mediaDisabled || theme !== 'light' || !motionAllowed() || LIGHT_SCENES.length < 2) return;
-      transitionBusy = true;
-
+    function rotateLightScene() {
+      if (mediaDisabled || theme !== 'light' || !motionAllowed() || LIGHT_SCENES.length < 2) return;
       const nextIndex = (activeSceneIndex + 1) % LIGHT_SCENES.length;
-      const playing = await prepareAndPlay(standbyVideo, LIGHT_SCENES[nextIndex]);
-
-      if (!playing || theme !== 'light' || !motionAllowed()) {
-        try { standbyVideo.pause(); } catch (_) {}
-
-        // Do not let a slow/blocked remote video pin Day mode to one scene.
-        // Advance the licensed poster and matching ambience anyway; the next
-        // rotation will try video again.
-        if (theme === 'light' && motionAllowed()) {
-          announceDaySceneWillChange(nextIndex);
-          activeVideo.classList.remove('is-active');
-          standbyVideo.classList.remove('is-active');
-          try { activeVideo.pause(); } catch (_) {}
-          activeSceneIndex = nextIndex;
-          updateDayCredit();
-          dayFallback.classList.remove('video-ready');
-          
+      const nextScene = LIGHT_SCENES[nextIndex];
+      const nextPoster = dayPosters.get(nextScene.id);
+      if (!mediaDisabled && (!nextPoster || !nextPoster.complete || nextPoster.naturalWidth <= 0)) {
+        if (BRANCH_PREVIEW_HOST && nextPoster && !nextPoster.src) {
+          previewPosterUrl(nextScene).then(src => { if (src && !nextPoster.src) nextPoster.src = src; }).catch(() => {});
         }
-
-        transitionBusy = false;
-        rotationElapsed = 0;
         return;
       }
-
       announceDaySceneWillChange(nextIndex);
-      standbyVideo.classList.add('is-active');
-      activeVideo.classList.remove('is-active');
-      dayFallback.classList.add('video-ready');
-
       const oldVideo = activeVideo;
       activeVideo = standbyVideo;
       standbyVideo = oldVideo;
       activeSceneIndex = nextIndex;
       updateDayCredit();
-      
+      dayFallback.classList.remove('video-ready');
+      // Commit the scene on its own clock. The licensed poster appears while
+      // its video starts, and a stalled play promise cannot freeze the cycle.
+      activeVideo.classList.add('is-active');
+      oldVideo.classList.remove('is-active');
+      prepareAndPlay(activeVideo, nextScene).then(playing => {
+        if (playing) revealVideo(activeVideo);
+      });
 
       setTimeout(() => {
-        standbyVideo.pause();
-        try { standbyVideo.currentTime = 0; } catch (_) {}
+        if (oldVideo === activeVideo) return;
+        oldVideo.autoplay = false;
+        oldVideo.pause();
+        // Pausing alone leaves the outgoing download competing with the next
+        // scene. Release it after the crossfade, and discard its old frame.
+        oldVideo.removeAttribute('src');
+        oldVideo.load();
       }, 1900);
 
       rotationElapsed = 0;
-      transitionBusy = false;
     }
 
     function drawStars(cameraX, cameraY) {
@@ -502,6 +694,7 @@
       nightDepth.style.transform = 'translate3d(' + (cameraX * 1.04).toFixed(2) + 'px,' + (cameraY * 1.04).toFixed(2) + 'px,0)';
       nightGlow.style.transform = 'translate3d(' + (cameraX * .72).toFixed(2) + 'px,' + (cameraY * .72).toFixed(2) + 'px,0)';
 
+      if (!ctx) return;
       drawStars(cameraX, cameraY);
       if (!reducedMotion()) {
         drawDust();
@@ -526,9 +719,9 @@
     }
 
     function draw(dt) {
-      ctx.clearRect(0, 0, width, height);
+      ctx?.clearRect(0, 0, width, height);
       if (theme === 'dark') universe(dt || .033);
-      else livingEarth();
+      else if (ctx) livingEarth();
     }
 
     function frame(now) {
@@ -537,12 +730,13 @@
 
       const interval = reducedMotion() ? 1000 / 12 : (width < 700 || mediaDisabled ? 1000 / 22 : 1000 / 30);
       if (now - lastFrame >= interval) {
-        const dt = Math.min((now - lastFrame) / 1000 || .035, .12);
+        const elapsed = (now - lastFrame) / 1000 || .035;
+        const dt = Math.min(elapsed, .12);
         lastFrame = now;
         time += dt;
 
         if (theme === 'light') {
-          rotationElapsed += dt;
+          rotationElapsed += elapsed;
           if (rotationElapsed >= ROTATE_AFTER) rotateLightScene();
         }
 
@@ -599,8 +793,10 @@
 
     const retryLightPlayback = () => {
       if (theme === 'light' && mediaReady && motionAllowed()) {
-        playSafely(activeVideo).then(playing => {
-          if (playing) dayFallback.classList.add('video-ready');
+        const video = activeVideo;
+        const loadId = sceneLoadId;
+        playSafely(video).then(playing => {
+          if (playing && video === activeVideo && loadId === sceneLoadId) revealVideo(video, loadId);
         });
       }
     };
@@ -623,6 +819,8 @@
 
     addEventListener('resize', resize, { passive: true });
     addEventListener('pagehide', () => {
+      previewSceneUrls.forEach(url => { try { URL.revokeObjectURL(url); } catch (_) {} });
+      previewSceneUrls.clear();
       
       pauseVideos();
       
@@ -632,7 +830,10 @@
       cancelAnimationFrame(raf);
       raf = 0;
     });
-    addEventListener('pageshow', refresh);
+    addEventListener('pageshow', () => {
+      if (!mediaReady) releaseMedia();
+      refresh();
+    });
   };
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot, { once: true });

@@ -4,10 +4,206 @@
   "networkFetched": false,
   "dependencies": [
     {
+      "url": "http://incompleteideas.net/book/the-book-2nd.html",
+      "consumers": [
+        {
+          "source": "ai-reinforcement-learning.html",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
+      "url": "http://www.w3.org/2000/svg",
+      "consumers": [
+        {
+          "source": "solar-navigation.js",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
+      "url": "https://aima.cs.berkeley.edu/",
+      "consumers": [
+        {
+          "source": "ai-symbolic.html",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
+      "url": "https://arxiv.org/abs/1312.6114",
+      "consumers": [
+        {
+          "source": "ai-generative.html",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
+      "url": "https://arxiv.org/abs/1406.2661",
+      "consumers": [
+        {
+          "source": "ai-generative.html",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
+      "url": "https://arxiv.org/abs/1609.02907",
+      "consumers": [
+        {
+          "source": "ai-graph-neural-networks.html",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
+      "url": "https://arxiv.org/abs/1706.03762",
+      "consumers": [
+        {
+          "source": "ai-llm.html",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
+      "url": "https://arxiv.org/abs/1712.01815",
+      "consumers": [
+        {
+          "source": "ai-game.html",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
+      "url": "https://arxiv.org/abs/2005.11401",
+      "consumers": [
+        {
+          "source": "ai-memory.html",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
+      "url": "https://arxiv.org/abs/2006.11239",
+      "consumers": [
+        {
+          "source": "ai-generative.html",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
       "url": "https://arxiv.org/abs/2008.01540",
       "consumers": [
         {
           "source": "project-emergent.html",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
+      "url": "https://arxiv.org/abs/2012.05876",
+      "consumers": [
+        {
+          "source": "ai-neuro-symbolic.html",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
+      "url": "https://arxiv.org/abs/2103.00020",
+      "consumers": [
+        {
+          "source": "ai-multimodal.html",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
+      "url": "https://arxiv.org/abs/2104.13478",
+      "consumers": [
+        {
+          "source": "ai-geometric.html",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
+      "url": "https://arxiv.org/abs/2210.03629",
+      "consumers": [
+        {
+          "source": "ai-agentic.html",
           "evidence": "current-runtime"
         }
       ],
@@ -258,10 +454,6 @@
       "consumers": [
         {
           "source": "site-audio.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "site-audio.js",
           "evidence": "audit-repository"
         },
         {
@@ -278,10 +470,6 @@
     {
       "url": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Cape%20May%20Shorebirds%20closer.ogg",
       "consumers": [
-        {
-          "source": "site-audio.js",
-          "evidence": "current-runtime"
-        },
         {
           "source": "site-audio.js",
           "evidence": "audit-repository"
@@ -328,10 +516,6 @@
       "consumers": [
         {
           "source": "site-audio.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "site-audio.js",
           "evidence": "audit-repository"
         },
         {
@@ -356,10 +540,6 @@
     {
       "url": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Water%20fall.ogg",
       "consumers": [
-        {
-          "source": "site-audio.js",
-          "evidence": "current-runtime"
-        },
         {
           "source": "site-audio.js",
           "evidence": "audit-repository"
@@ -860,6 +1040,20 @@
       "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
     },
     {
+      "url": "https://docs.opencv.org/",
+      "consumers": [
+        {
+          "source": "ai-computer-vision.html",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
       "url": "https://docs.python.org/3/howto/functional.html",
       "consumers": [
         {
@@ -1000,6 +1194,20 @@
       "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
     },
     {
+      "url": "https://docs.ros.org/en/rolling/",
+      "consumers": [
+        {
+          "source": "ai-embodied.html",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
       "url": "https://doi.org/10.1088/2632-2153/ad8980",
       "consumers": [
         {
@@ -1022,6 +1230,20 @@
       "consumers": [
         {
           "source": "geometric-lab/app.js",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
+      "url": "https://dtai.cs.kuleuven.be/problog/tutorial/advanced/02_dpl.html",
+      "consumers": [
+        {
+          "source": "ai-neuro-symbolic.html",
           "evidence": "current-runtime"
         }
       ],
@@ -1310,14 +1532,42 @@
       "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
     },
     {
+      "url": "https://github.com/facebookresearch/faiss",
+      "consumers": [
+        {
+          "source": "ai-memory.html",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
+      "url": "https://github.com/facebookresearch/multimodal",
+      "consumers": [
+        {
+          "source": "ai-multimodal.html",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
       "url": "https://github.com/joshprandall",
       "consumers": [
         {
-          "source": "agent-workbench.html",
+          "source": "about.html",
           "evidence": "current-runtime"
         },
         {
-          "source": "expertise-experience.html",
+          "source": "agent-workbench.html",
           "evidence": "current-runtime"
         },
         {
@@ -1390,10 +1640,6 @@
         },
         {
           "source": "projects.html",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "resume.html",
           "evidence": "current-runtime"
         }
       ],
@@ -1492,6 +1738,48 @@
       "consumers": [
         {
           "source": "project-portfolio.html",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
+      "url": "https://github.com/joshprandall/engineering-portfolio/blob/main/security-research.js",
+      "consumers": [
+        {
+          "source": "security-research.html",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
+      "url": "https://github.com/joshprandall/engineering-portfolio/blob/main/tests/browser.test.cjs",
+      "consumers": [
+        {
+          "source": "security-research.html",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
+      "url": "https://github.com/joshprandall/engineering-portfolio/blob/main/tests/security-global-runtime.test.mjs",
+      "consumers": [
+        {
+          "source": "security-research.html",
           "evidence": "current-runtime"
         }
       ],
@@ -1617,10 +1905,6 @@
       "url": "https://groups.csail.mit.edu/gdpgroup/assets/mitlogo/MIT-logo-black-red-72x38.svg",
       "consumers": [
         {
-          "source": "direction.html",
-          "evidence": "current-runtime"
-        },
-        {
           "source": "index.html",
           "evidence": "current-runtime"
         },
@@ -1631,6 +1915,34 @@
         {
           "source": "index.html",
           "evidence": "audit-live"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
+      "url": "https://gymnasium.farama.org/",
+      "consumers": [
+        {
+          "source": "ai-reinforcement-learning.html",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
+      "url": "https://huggingface.co/docs/transformers/",
+      "consumers": [
+        {
+          "source": "ai-llm.html",
+          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -1658,10 +1970,6 @@
       "consumers": [
         {
           "source": "site-scenes.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "site-scenes.js",
           "evidence": "audit-repository"
         },
         {
@@ -1680,10 +1988,6 @@
       "consumers": [
         {
           "source": "site-scenes.js",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "site-scenes.js",
           "evidence": "audit-repository"
         },
         {
@@ -1700,10 +2004,6 @@
     {
       "url": "https://images.pexels.com/videos/9982425/pexels-photo-9982425.jpeg?auto=compress&cs=tinysrgb&w=1600",
       "consumers": [
-        {
-          "source": "site-scenes.js",
-          "evidence": "current-runtime"
-        },
         {
           "source": "site-scenes.js",
           "evidence": "audit-repository"
@@ -2462,6 +2762,34 @@
       "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
     },
     {
+      "url": "https://microsoft.github.io/z3guide/",
+      "consumers": [
+        {
+          "source": "ai-symbolic.html",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
+      "url": "https://modernrobotics.northwestern.edu/",
+      "consumers": [
+        {
+          "source": "ai-embodied.html",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
       "url": "https://ocw.mit.edu/courses/18-06-linear-algebra-spring-2010/",
       "consumers": [
         {
@@ -2494,6 +2822,24 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
+      "url": "https://openspiel.readthedocs.io/",
+      "consumers": [
+        {
+          "source": "ai-game.html",
+          "evidence": "current-runtime"
+        },
+        {
+          "source": "ai-multi-agent.html",
           "evidence": "current-runtime"
         }
       ],
@@ -2854,10 +3200,38 @@
       "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
     },
     {
+      "url": "https://owasp.org/www-project-top-10-for-large-language-model-applications/",
+      "consumers": [
+        {
+          "source": "ai-personal-agent.html",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
       "url": "https://pages.nist.gov/800-63-4/sp800-63b.html",
       "consumers": [
         {
           "source": "knowledge-data.js",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
+      "url": "https://pettingzoo.farama.org/",
+      "consumers": [
+        {
+          "source": "ai-multi-agent.html",
           "evidence": "current-runtime"
         }
       ],
@@ -2924,6 +3298,52 @@
       "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
     },
     {
+      "url": "https://pytorch-geometric.readthedocs.io/",
+      "consumers": [
+        {
+          "source": "ai-geometric.html",
+          "evidence": "current-runtime"
+        },
+        {
+          "source": "ai-graph-neural-networks.html",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
+      "url": "https://pytorch.org/docs/stable/",
+      "consumers": [
+        {
+          "source": "ai-deep-learning.html",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
+      "url": "https://pytorch.org/vision/stable/index.html",
+      "consumers": [
+        {
+          "source": "ai-computer-vision.html",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
       "url": "https://quantum.cloud.ibm.com/learning",
       "consumers": [
         {
@@ -2956,6 +3376,34 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
+      "url": "https://scikit-learn.org/stable/modules/model_evaluation.html",
+      "consumers": [
+        {
+          "source": "ai-build-your-own.html",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
+      "url": "https://scikit-learn.org/stable/user_guide.html",
+      "consumers": [
+        {
+          "source": "ai-machine-learning.html",
           "evidence": "current-runtime"
         }
       ],
@@ -3263,11 +3711,11 @@
       "fallbackContract": "Resolve same-site absolute media to preserved local bytes when available. Preserve existing URL until route migration and consumer checks pass.",
       "localCounterpart": {
         "path": "play-evil-wizard.html",
-        "size": 8113,
-        "sha256": "ff680127aae32022edf638326596be4152ebde900c2f1198e8da201a06656254",
+        "size": 8080,
+        "sha256": "84971c9cd995324d6265e6ea1c43b9c4c8e3b261ff9de5b35deb011efb0fddab",
         "source": {
           "kind": "git-blob",
-          "blob": "f80bddd67b4429108ab0c5591c7c420b7389f3bf"
+          "blob": "240b3befb6d1cf0fb56ea72b9be10d73ad0ad6a3"
         },
         "owningComponent": "portfolio",
         "deploymentClassification": "KEEP_PRODUCTION"
@@ -3288,11 +3736,11 @@
       "fallbackContract": "Resolve same-site absolute media to preserved local bytes when available. Preserve existing URL until route migration and consumer checks pass.",
       "localCounterpart": {
         "path": "project-battle-chess.html",
-        "size": 9342,
-        "sha256": "f49c4c6764170d574b2b0a6e9e83f4c0c3779c2f6d90265e08a66b072fc1b0f8",
+        "size": 9372,
+        "sha256": "ac073fd74190a0e29f4a1d34129c1ca1035033fc716e71ef160095d47b600327",
         "source": {
           "kind": "git-blob",
-          "blob": "bc5067e2452ee00c3c04831d900635d7da33fd29"
+          "blob": "5369f11af8c5ec69d133194a767f248fe7902bc7"
         },
         "owningComponent": "portfolio",
         "deploymentClassification": "KEEP_PRODUCTION"
@@ -3313,11 +3761,11 @@
       "fallbackContract": "Resolve same-site absolute media to preserved local bytes when available. Preserve existing URL until route migration and consumer checks pass.",
       "localCounterpart": {
         "path": "projects.html",
-        "size": 15283,
-        "sha256": "23eea8d7806d1a2e2edbd47976c428f4c7cb3e226e8b85c8d4b8c4fcbeeae368",
+        "size": 15297,
+        "sha256": "f4bbf43c22b8e4bc5f15affa16ad351741078da0ee99003cc071a779a15ac4f7",
         "source": {
           "kind": "git-blob",
-          "blob": "6ee92f9424aa5e415ee7e43af769c993d790701c"
+          "blob": "f627933f2634a3f4041eddc3dd110bb06b86d4ea"
         },
         "owningComponent": "portfolio",
         "deploymentClassification": "KEEP_PRODUCTION"
@@ -3328,6 +3776,20 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
+      "url": "https://www.deeplearningbook.org/",
+      "consumers": [
+        {
+          "source": "ai-deep-learning.html",
           "evidence": "current-runtime"
         }
       ],
@@ -3425,11 +3887,11 @@
       "url": "https://www.linkedin.com/in/joshua-randall-9ba04338",
       "consumers": [
         {
-          "source": "agent-workbench.html",
+          "source": "about.html",
           "evidence": "current-runtime"
         },
         {
-          "source": "expertise-experience.html",
+          "source": "agent-workbench.html",
           "evidence": "current-runtime"
         },
         {
@@ -3499,10 +3961,6 @@
         {
           "source": "projects.html",
           "evidence": "current-runtime"
-        },
-        {
-          "source": "resume.html",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
@@ -3544,6 +4002,36 @@
       "consumers": [
         {
           "source": "knowledge-data.js",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
+      "url": "https://www.nist.gov/itl/ai-risk-management-framework",
+      "consumers": [
+        {
+          "source": "ai-agentic.html",
+          "evidence": "current-runtime"
+        },
+        {
+          "source": "ai-build-your-own.html",
+          "evidence": "current-runtime"
+        },
+        {
+          "source": "ai-machine-learning.html",
+          "evidence": "current-runtime"
+        },
+        {
+          "source": "ai-personal-agent.html",
+          "evidence": "current-runtime"
+        },
+        {
+          "source": "ai-project-mind.html",
           "evidence": "current-runtime"
         }
       ],

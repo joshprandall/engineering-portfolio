@@ -1,0 +1,7 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> engineering-portfolio@1.0.0 test:chess-browser
+> node tests/chess-browser.test.cjs
+
+Using exact Three.js 0.180.0 npm bytes for isolated browser tests; live CDN availability is not asserted.
+PASS chess browser: desktop, touch, capture combat, undo, flip, repeated 2D/3D switching, orientation gate, module failure/retry and no-WebGL keyboard play.

@@ -71,6 +71,7 @@ body.living-scenes{position:relative;isolation:isolate;min-height:100vh;backgrou
 :root[data-theme=light] .scene-day-wrap{opacity:1}
 :root[data-theme=light] .scene-night-wrap{opacity:0}
 .scene-day-fallback{
+  z-index:1;
   background-color:#c5ddd4;
   background-position:center;
   background-size:cover;
@@ -82,7 +83,7 @@ body.living-scenes{position:relative;isolation:isolate;min-height:100vh;backgrou
   filter:saturate(1.12) contrast(1.02) brightness(.75);
   transition:opacity 1s ease
 }
-.scene-day-fallback.video-ready{opacity:.2}
+.scene-day-fallback.video-ready{opacity:0}
 @keyframes scene-day-fallback-drift{
   0%{transform:translate3d(-.55%,-.28%,0) scale(1.04)}
   50%{transform:translate3d(.18%,.34%,0) scale(1.045)}
@@ -99,6 +100,7 @@ body.living-scenes{position:relative;isolation:isolate;min-height:100vh;backgrou
   animation:scene-day-fallback-drift-reduced 60s ease-in-out infinite alternate!important;
 }
 .scene-video{
+  z-index:0;
   inset:-1%;
   width:102%;
   height:102%;
@@ -161,23 +163,10 @@ body.living-scenes{position:relative;isolation:isolate;min-height:100vh;backgrou
   from{transform:translate3d(-.8%,-.35%,0) scale(1.025)}
   to{transform:translate3d(.9%,.45%,0) scale(1.055)}
 }
-
-/* Let the living background read through the existing interface without sacrificing contrast. */
-.living-scenes>header{background:var(--scene-surface);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
-.living-scenes .site-header{background:var(--scene-surface);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
-.living-scenes .project-card,.living-scenes .home-project,.living-scenes .education-cards article{background:var(--scene-surface);border-color:var(--scene-border);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
 .living-scenes .stat-band,.living-scenes .home-spotlight,.living-scenes .section.alt{background:var(--scene-soft)}
 .living-scenes .home-section,.living-scenes .contact{border-color:var(--scene-border)}
-.living-scenes .home-project:hover{background:var(--surface)}
 .living-scenes .section-heading>p,.living-scenes .hero-intro{text-wrap:pretty}
 .living-scenes .site-footer,.living-scenes footer.wrap{background:transparent}
-
-/* Light mode deliberately exposes more of the real landscape color. */
-:root[data-theme=light] .living-scenes .project-card,
-:root[data-theme=light] .living-scenes .home-project,
-:root[data-theme=light] .living-scenes .education-cards article{background:rgba(250,252,247,.84)}
-:root[data-theme=light] .living-scenes>header,
-:root[data-theme=light] .living-scenes .site-header{background:rgba(248,251,246,.82)}
 
 /* Light-theme readability over moving real-world imagery. */
 :root[data-theme=light] .living-scenes h1,
@@ -216,14 +205,6 @@ body.living-scenes{position:relative;isolation:isolate;min-height:100vh;backgrou
 :root[data-scene-motion=paused] .scene-atmosphere,
 :root[data-scene-motion=paused] .scene-video{will-change:auto;animation-play-state:paused!important}
 @media print{.scene-backdrop,.scene-options,.appearance-toggle{display:none!important}.living-scenes{background:white!important;color:black!important}}
-
-/* The two labels describe the active appearance; the accessible name describes the action. */
-button.appearance-toggle,body.project-shell .tools #theme.appearance-toggle{display:inline-flex!important;align-items:center;justify-content:center;gap:8px;width:auto;min-width:44px;height:44px;min-height:44px;padding:0 12px;border:1px solid var(--line);border-radius:24px;background:var(--surface,var(--panel));color:var(--ink,var(--text));font:600 12px/1.2 system-ui,sans-serif;letter-spacing:.015em;white-space:nowrap;flex-shrink:0;box-shadow:inset 0 1px 0 #ffffff08}
-button.appearance-toggle svg{display:block;width:20px;height:20px;flex:none}
-button.appearance-toggle:hover{border-color:var(--accent);color:var(--accent)}
-button.appearance-toggle:focus-visible{outline:3px solid var(--blue,var(--accent));outline-offset:3px}
-:root[data-theme=light] button.appearance-toggle{background:#fffaf0;border-color:#c9cfb9;color:#765320;box-shadow:0 2px 8px #4f623b0a}
-.cap-header .appearance-toggle{margin-left:auto}
 .scene-options{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px 20px;max-width:1320px;width:calc(100% - 48px);margin:0 auto;padding:18px 0 24px;border-top:1px solid var(--scene-border);font:12px/1.7 system-ui,sans-serif;color:var(--muted)}
 .scene-options button{display:inline-flex;align-items:center;gap:7px;min-height:44px;padding:8px 12px;border:1px solid var(--line);border-radius:7px;background:var(--scene-surface);color:var(--ink,var(--text));font:inherit;cursor:pointer}
 .scene-options a{color:inherit;text-decoration:underline;text-underline-offset:3px}
@@ -233,50 +214,13 @@ button.appearance-toggle:focus-visible{outline:3px solid var(--blue,var(--accent
 :root[data-theme=light] .scene-source-day{display:block}
 .scene-options small{font-size:11px}
 
-/* Quiet ambient sound control — 5% default, 0–100% user range. */
-.scene-sound-control{position:relative;display:inline-flex;align-items:center}
-.scene-options .scene-sound-control>button{border-radius:999px;padding-inline:12px}
-.scene-options .scene-sound-control>button svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex:none}
-.scene-sound-panel{
-  position:absolute;right:0;bottom:calc(100% + 10px);z-index:40;
-  width:min(300px,calc(100vw - 24px));padding:14px;
-  border:1px solid var(--line);border-radius:14px;
-  background:color-mix(in srgb,var(--scene-surface) 94%,transparent);
-  -webkit-backdrop-filter:blur(14px) saturate(1.08);backdrop-filter:blur(14px) saturate(1.08);
-  box-shadow:0 14px 38px rgba(0,0,0,.22)
-}
-.scene-sound-panel[hidden]{display:none!important}
-.scene-sound-panel label{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 8px;font:600 12px/1.2 system-ui,sans-serif;color:var(--ink,var(--text))}
-.scene-sound-panel output{font-variant-numeric:tabular-nums;color:var(--muted)}
-.scene-sound-volume-row{display:grid;grid-template-columns:48px minmax(0,1fr) 48px;gap:10px;align-items:center;margin:2px 0 10px}
-.scene-sound-volume-row>button{display:grid;place-items:center;width:48px;height:48px;min-width:48px;padding:0;border:1px solid var(--line);border-radius:10px;background:var(--glass,var(--scene-surface));color:var(--ink,var(--text));font:700 1.2rem/1 system-ui;cursor:pointer}
-.scene-sound-volume-row>button:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
-.scene-sound-panel input[type=range]{-webkit-appearance:none;appearance:none;display:block;width:100%;height:54px;margin:0;padding:0 4px;background:transparent;cursor:pointer;accent-color:var(--accent);touch-action:none}
-.scene-sound-panel input[type=range]::-webkit-slider-runnable-track{height:12px;border-radius:999px;background:color-mix(in srgb,var(--line) 72%,transparent)}
-.scene-sound-panel input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:34px;height:34px;margin-top:-11px;border:2px solid color-mix(in srgb,var(--ink,var(--text)) 55%,transparent);border-radius:50%;background:var(--accent);box-shadow:0 2px 8px #0004}
-.scene-sound-panel input[type=range]::-moz-range-track{height:8px;border:0;border-radius:999px;background:color-mix(in srgb,var(--line) 72%,transparent)}
-.scene-sound-panel input[type=range]::-moz-range-thumb{width:34px;height:34px;border:2px solid color-mix(in srgb,var(--ink,var(--text)) 55%,transparent);border-radius:50%;background:var(--accent);box-shadow:0 2px 8px #0004}
-.scene-sound-panel input[type=range]:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:999px}
-.scene-options .scene-sound-panel .scene-sound-mute{width:100%;min-height:36px;justify-content:center;border-radius:10px;padding:6px 10px}
-@media(max-width:520px){
-  .scene-sound-panel{right:-4px}
-  .scene-options .scene-sound-control>button span{display:none}
-  .scene-options .scene-sound-control>button{width:44px;justify-content:center;padding:0}
-}
-
 @media(max-width:900px){
- button.appearance-toggle,body.project-shell .tools #theme.appearance-toggle{width:44px;min-width:44px;padding:0}
- button.appearance-toggle>span{display:none}
  .scene-veil{background:linear-gradient(180deg,rgba(10,20,25,.52),rgba(10,20,25,.64) 38%,rgba(10,20,25,.54))}
  :root[data-theme=light] .scene-veil{background:linear-gradient(180deg,rgba(24,42,34,.18),rgba(243,248,239,.52) 38%,rgba(22,40,31,.20))}
  .scene-options{width:calc(100% - 36px);font-size:11px;padding-block:16px}
  .scene-options p{max-width:260px}
 }
 @media(max-width:380px){
- .living-scenes .site-header .header-tools{gap:3px;margin-left:auto}
- .living-scenes .site-header .brand span{font-size:11px}
- .living-scenes .site-header .brand small{display:none}
- .living-scenes .site-header .brand{gap:7px}
 }
 @media(prefers-reduced-motion:reduce){.scene-image{will-change:auto}}
 :root[data-scene-motion=paused] .scene-image{will-change:auto}
@@ -315,7 +259,6 @@ button.appearance-toggle:focus-visible{outline:3px solid var(--blue,var(--accent
 :root[data-theme=light] .living-scenes .hero-note,
 :root[data-theme=light] .living-scenes .section-heading>p,
 :root[data-theme=light] .living-scenes .about-copy>p,
-:root[data-theme=light] .living-scenes .education-cards p,
 :root[data-theme=light] .living-scenes .credentials-content p,
 :root[data-theme=light] .living-scenes .quantum-intro>p,
 :root[data-theme=light] .living-scenes .quantum-intro .quantum-note{
@@ -335,61 +278,11 @@ button.appearance-toggle:focus-visible{outline:3px solid var(--blue,var(--accent
   text-decoration-color:rgba(9,45,38,.62)
 }
 
-
-/* Astra continuation — adaptive glass tiles, solid destinations, and artwork hierarchy.
-   This is CSS-only: the existing background loading and animation pipeline is intentionally unchanged. */
-.living-scenes .project-card,
-.living-scenes .home-project,
-.living-scenes .education-cards article{
-  border-radius:8px;
-  background:rgba(11,17,20,.50);
-  border-color:rgba(183,215,221,.22);
-  -webkit-backdrop-filter:blur(9px) brightness(.72) saturate(.92);
-  backdrop-filter:blur(9px) brightness(.72) saturate(.92)
-}
-.living-scenes .home-project:hover,
-.living-scenes .project-card:hover{
-  background:rgba(14,22,25,.61)
-}
-:root[data-theme=light] .living-scenes .project-card,
-:root[data-theme=light] .living-scenes .home-project,
-:root[data-theme=light] .living-scenes .education-cards article{
-  background:rgba(247,251,245,.38);
-  border-color:rgba(31,75,57,.24);
-  -webkit-backdrop-filter:blur(9px) brightness(1.07) saturate(.92);
-  backdrop-filter:blur(9px) brightness(1.07) saturate(.92)
-}
-:root[data-theme=light] .living-scenes .home-project:hover,
-:root[data-theme=light] .living-scenes .project-card:hover{
-  background:rgba(247,251,245,.54)
-}
-
 /* Main-page artwork lets the living environment remain visible; the portrait stays nearly opaque. */
 .living-scenes .systems-photo{opacity:.46}
 .living-scenes .direction-image img{opacity:.54}
 :root[data-theme=light] .living-scenes .systems-photo{opacity:.43;filter:brightness(.78) saturate(.9) contrast(.96)}
 :root[data-theme=light] .living-scenes .direction-image img{opacity:.50}
-
-/* The learning landing page is glass. Labs and opened learning experiences remain solid. */
-body.living-scenes[data-library-page="home"] .constellation-panel,
-body.living-scenes[data-library-page="home"] .domain-card,
-body.living-scenes[data-library-page="home"] .verification-strip,
-body.living-scenes[data-library-page="home"] .resume-strip{
-  background:rgba(13,19,22,.53);
-  border-color:var(--scene-border);
-  border-radius:8px;
-  -webkit-backdrop-filter:blur(10px) brightness(.74) saturate(.92);
-  backdrop-filter:blur(10px) brightness(.74) saturate(.92)
-}
-:root[data-theme=light] body.living-scenes[data-library-page="home"] .constellation-panel,
-:root[data-theme=light] body.living-scenes[data-library-page="home"] .domain-card,
-:root[data-theme=light] body.living-scenes[data-library-page="home"] .verification-strip,
-:root[data-theme=light] body.living-scenes[data-library-page="home"] .resume-strip{
-  background:rgba(248,251,246,.40);
-  border-color:rgba(36,83,63,.23);
-  -webkit-backdrop-filter:blur(10px) brightness(1.08) saturate(.90);
-  backdrop-filter:blur(10px) brightness(1.08) saturate(.90)
-}
 body.living-scenes[data-library-page="labs"] .lab-card,
 body.living-scenes[data-library-page="labs"] .lab-visual,
 body.living-scenes.reading #lesson-view,
@@ -417,58 +310,8 @@ body.living-scenes[data-library-page="labs"] .lab-visual{background:var(--bg2)}
   background:var(--surface)
 }
 
-/* Light mode keeps genuinely dark type over variable landscape footage. */
-:root[data-theme=light] .living-scenes .project-card,
-:root[data-theme=light] .living-scenes .home-project,
-:root[data-theme=light] .living-scenes .education-cards article,
-:root[data-theme=light] body.living-scenes[data-library-page="home"] .domain-card{
-  color:#040907
-}
-:root[data-theme=light] .living-scenes .project-card p,
-:root[data-theme=light] .living-scenes .home-project p,
-:root[data-theme=light] .living-scenes .education-cards article p,
-:root[data-theme=light] body.living-scenes[data-library-page="home"] .domain-card p{
-  color:#08140f!important;
-  text-shadow:0 1px 0 rgba(255,255,255,.76),0 0 6px rgba(255,255,255,.38)
-}
-
 @media(max-width:700px){
   .living-scenes .project-detail{padding-inline:20px}
-}
-
-
-/* 2026-09-24 visual correction — unmistakable glass, rounded tiles, orderly learning landing. */
-.living-scenes .project-card,
-.living-scenes .home-project,
-.living-scenes .education-cards article{
-  background:rgba(7,12,15,.18)!important;
-  border:1px solid rgba(176,214,222,.24)!important;
-  border-radius:20px!important;
-  box-shadow:0 18px 48px rgba(0,0,0,.14)!important;
-  -webkit-backdrop-filter:blur(5px) saturate(.92)!important;
-  backdrop-filter:blur(5px) saturate(.92)!important
-}
-.living-scenes .project-card:hover,
-.living-scenes .home-project:hover{
-  background:rgba(9,15,18,.28)!important;
-  border-color:rgba(240,165,117,.56)!important
-}
-.living-scenes .project-card .card-bottom,
-.living-scenes .home-project .project-open{
-  border-color:rgba(185,214,218,.20)!important
-}
-:root[data-theme=light] .living-scenes .project-card,
-:root[data-theme=light] .living-scenes .home-project,
-:root[data-theme=light] .living-scenes .education-cards article{
-  background:rgba(248,251,246,.22)!important;
-  border-color:rgba(27,71,53,.24)!important;
-  box-shadow:0 18px 48px rgba(34,55,42,.10)!important;
-  -webkit-backdrop-filter:blur(5px) saturate(.90)!important;
-  backdrop-filter:blur(5px) saturate(.90)!important
-}
-:root[data-theme=light] .living-scenes .project-card:hover,
-:root[data-theme=light] .living-scenes .home-project:hover{
-  background:rgba(248,251,246,.34)!important
 }
 
 /* Learning home: cards instead of spreadsheet-like divider lines. */
@@ -477,58 +320,18 @@ body.living-scenes[data-library-page="home"] .stat-band{
   background:transparent!important;
   padding:18px 0 10px
 }
-body.living-scenes[data-library-page="home"] .stats{
-  gap:12px;
-  grid-template-columns:repeat(5,minmax(0,1fr))
-}
-body.living-scenes[data-library-page="home"] .stats>div{
-  border:1px solid rgba(176,214,222,.20)!important;
-  border-radius:16px;
-  padding:22px 20px;
-  background:rgba(7,12,15,.16)!important;
-  -webkit-backdrop-filter:blur(5px);
-  backdrop-filter:blur(5px)
-}
 body.living-scenes[data-library-page="home"] .verification-strip{
   border:0!important;
   background:transparent!important;
   padding:20px 0
 }
-body.living-scenes[data-library-page="home"] .verification-inner{
-  border:1px solid rgba(176,214,222,.20);
-  border-radius:18px;
-  padding:24px;
-  background:rgba(7,12,15,.16);
-  -webkit-backdrop-filter:blur(5px);
-  backdrop-filter:blur(5px)
-}
 body.living-scenes[data-library-page="home"] .domain-grid{
   border:0!important;
   gap:14px
 }
-body.living-scenes[data-library-page="home"] .domain-card{
-  border:1px solid rgba(176,214,222,.20)!important;
-  border-radius:18px!important;
-  background:rgba(7,12,15,.16)!important;
-  -webkit-backdrop-filter:blur(5px);
-  backdrop-filter:blur(5px)
-}
-body.living-scenes[data-library-page="home"] .domain-card:hover{
-  background:rgba(9,15,18,.27)!important
-}
-:root[data-theme=light] body.living-scenes[data-library-page="home"] .stats>div,
-:root[data-theme=light] body.living-scenes[data-library-page="home"] .verification-inner,
-:root[data-theme=light] body.living-scenes[data-library-page="home"] .domain-card{
-  background:rgba(248,251,246,.22)!important;
-  border-color:rgba(27,71,53,.22)!important
-}
 @media(max-width:980px){
-  body.living-scenes[data-library-page="home"] .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
-  body.living-scenes[data-library-page="home"] .stats>div:last-child{grid-column:1/-1}
 }
 @media(max-width:520px){
-  body.living-scenes[data-library-page="home"] .stats{grid-template-columns:1fr}
-  body.living-scenes[data-library-page="home"] .stats>div:last-child{grid-column:auto}
 }
 
 
@@ -565,37 +368,6 @@ body.living-scenes[data-library-page="home"] .domain-card:hover{
 :root[data-theme=light] .scene-atmosphere{
   opacity:.55;
   mix-blend-mode:soft-light
-}
-:root[data-theme=light] .living-scenes>header,
-:root[data-theme=light] .living-scenes .site-header{
-  background:rgba(239,247,239,.70)!important;
-  border-color:rgba(24,72,49,.24)!important;
-  color:#031009!important;
-  -webkit-backdrop-filter:blur(14px) saturate(.92)!important;
-  backdrop-filter:blur(14px) saturate(.92)!important
-}
-:root[data-theme=light] .living-scenes header a,
-:root[data-theme=light] .living-scenes header button,
-:root[data-theme=light] .living-scenes .site-header a,
-:root[data-theme=light] .living-scenes .site-header button{
-  color:#06150d
-}
-:root[data-theme=light] .living-scenes .project-card,
-:root[data-theme=light] .living-scenes .home-project,
-:root[data-theme=light] .living-scenes .education-cards article,
-:root[data-theme=light] body.living-scenes[data-library-page="home"] .stats>div,
-:root[data-theme=light] body.living-scenes[data-library-page="home"] .verification-inner,
-:root[data-theme=light] body.living-scenes[data-library-page="home"] .domain-card{
-  background:rgba(244,249,242,.34)!important;
-  border-color:rgba(24,72,49,.28)!important;
-  -webkit-backdrop-filter:blur(3px) saturate(.92)!important;
-  backdrop-filter:blur(3px) saturate(.92)!important;
-  box-shadow:0 14px 36px rgba(23,52,38,.09)!important
-}
-:root[data-theme=light] .living-scenes .project-card:hover,
-:root[data-theme=light] .living-scenes .home-project:hover,
-:root[data-theme=light] body.living-scenes[data-library-page="home"] .domain-card:hover{
-  background:rgba(244,249,242,.46)!important
 }
 :root[data-theme=light] .living-scenes main h1,
 :root[data-theme=light] .living-scenes main h2,
@@ -634,13 +406,6 @@ body.living-scenes[data-library-page="home"] .domain-card:hover{
   color:#18110c!important;
   text-shadow:none!important
 }
-:root[data-theme=light] body.living-scenes[data-library-page="home"] .stats strong{
-  color:#8a3d18!important;
-  text-shadow:0 1px 1px rgba(255,255,255,.75)
-}
-:root[data-theme=light] body.living-scenes[data-library-page="home"] .stats span{
-  color:#10281d!important
-}
 @media(max-width:900px){
   :root[data-theme=light] .scene-veil{
     background:
@@ -668,58 +433,6 @@ body.living-scenes[data-library-page="home"] .resume-inner{
   background:rgba(244,249,242,.34);
   border-color:rgba(24,72,49,.28)
 }
-
-
-/* Glass system v4 — visible background through every landing/listing tile. */
-.living-scenes .home-project,
-.living-scenes .project-card,
-.living-scenes .education-cards article{
-  background:rgba(7,13,16,.16)!important;
-  background-image:none!important;
-  border:1px solid rgba(176,214,222,.28)!important;
-  border-radius:20px!important;
-  box-shadow:0 14px 36px rgba(0,0,0,.12)!important;
-  -webkit-backdrop-filter:blur(5px) saturate(.9)!important;
-  backdrop-filter:blur(5px) saturate(.9)!important
-}
-:root[data-theme="light"] .living-scenes .home-project,
-:root[data-theme="light"] .living-scenes .project-card,
-:root[data-theme="light"] .living-scenes .education-cards article{
-  background:rgba(248,251,246,.16)!important;
-  background-image:none!important;
-  border-color:rgba(32,78,59,.26)!important;
-  box-shadow:0 14px 34px rgba(28,47,36,.09)!important
-}
-.living-scenes .home-project:hover,.living-scenes .project-card:hover{background:rgba(7,13,16,.25)!important}
-:root[data-theme="light"] .living-scenes .home-project:hover,
-:root[data-theme="light"] .living-scenes .project-card:hover{background:rgba(248,251,246,.25)!important}
-
-/* Knowledge landing/listing grids are cards, not spreadsheet cells. Labs remain solid. */
-body.living-scenes[data-library-page="home"] .stats,
-body.living-scenes[data-library-page="home"] .domain-grid,
-body.living-scenes[data-library-page="home"] .principle-grid{
-  border:0!important;gap:14px!important
-}
-body.living-scenes[data-library-page="home"] .stats>div,
-body.living-scenes[data-library-page="home"] .domain-card,
-body.living-scenes[data-library-page="home"] .principle-grid>article{
-  border:1px solid rgba(176,214,222,.25)!important;
-  border-radius:18px!important;
-  background:rgba(7,13,16,.15)!important;
-  background-image:none!important;
-  box-shadow:0 12px 30px rgba(0,0,0,.09)!important;
-  -webkit-backdrop-filter:blur(5px) saturate(.9)!important;
-  backdrop-filter:blur(5px) saturate(.9)!important;
-  overflow:hidden
-}
-:root[data-theme="light"] body.living-scenes[data-library-page="home"] .stats>div,
-:root[data-theme="light"] body.living-scenes[data-library-page="home"] .domain-card,
-:root[data-theme="light"] body.living-scenes[data-library-page="home"] .principle-grid>article{
-  background:rgba(248,251,246,.15)!important;
-  border-color:rgba(32,78,59,.24)!important
-}
-body.living-scenes[data-library-page="home"] .stats>div{min-height:118px}
-body.living-scenes[data-library-page="home"] .domain-card:before{opacity:.48}
 body.living-scenes[data-library-page="labs"] .lab-card,
 body.living-scenes[data-library-page="labs"] .lab-visual{
   background:var(--panel)!important;
@@ -781,29 +494,6 @@ body.living-scenes[data-library-page="labs"] .lab-card{border-radius:18px!import
   text-shadow:0 1px 1px rgba(255,255,255,.94),0 0 4px rgba(255,255,255,.76)!important;
 }
 
-/* Glass cards already provide contrast; card text should be crisp, not outlined. */
-:root[data-theme="light"] .living-scenes .home-project *,
-:root[data-theme="light"] .living-scenes .project-card *,
-:root[data-theme="light"] .living-scenes .education-cards article *,
-:root[data-theme="light"] body.living-scenes[data-library-page="home"] .stats *,
-:root[data-theme="light"] body.living-scenes[data-library-page="home"] .domain-card *,
-:root[data-theme="light"] body.living-scenes[data-library-page="home"] .principle-grid>article *{
-  text-shadow:none!important;
-  -webkit-text-stroke:0 transparent!important;
-}
-:root[data-theme="light"] .living-scenes .home-project,
-:root[data-theme="light"] .living-scenes .project-card,
-:root[data-theme="light"] .living-scenes .education-cards article,
-:root[data-theme="light"] body.living-scenes[data-library-page="home"] .domain-card{
-  color:#07110b!important;
-}
-:root[data-theme="light"] .living-scenes .home-project p,
-:root[data-theme="light"] .living-scenes .project-card p,
-:root[data-theme="light"] .living-scenes .education-cards article p,
-:root[data-theme="light"] body.living-scenes[data-library-page="home"] .domain-card p{
-  color:#152a1f!important;
-}
-
 /* Accent copy remains warm but clean. */
 :root[data-theme="light"] .living-scenes main .eyebrow,
 :root[data-theme="light"] .living-scenes main .project-number,
@@ -859,29 +549,6 @@ body.living-scenes[data-library-page="labs"] .lab-card{border-radius:18px!import
   color:#0b3428!important;
   font-weight:800!important;
   text-shadow:0 1px 1px rgba(255,255,255,.92)!important;
-}
-:root[data-theme="light"] .living-scenes .home-project *,
-:root[data-theme="light"] .living-scenes .project-card *,
-:root[data-theme="light"] .living-scenes .education-cards article *,
-:root[data-theme="light"] body.living-scenes[data-library-page="home"] .stats *,
-:root[data-theme="light"] body.living-scenes[data-library-page="home"] .domain-card *,
-:root[data-theme="light"] body.living-scenes[data-library-page="home"] .principle-grid>article *{
-  text-shadow:none!important;
-  -webkit-text-stroke:0 transparent!important;
-}
-:root[data-theme="light"] .living-scenes .home-project h2,
-:root[data-theme="light"] .living-scenes .project-card h2,
-:root[data-theme="light"] .living-scenes .education-cards article h2,
-:root[data-theme="light"] body.living-scenes[data-library-page="home"] .domain-card h2{
-  color:#030705!important;
-  font-weight:800!important;
-}
-:root[data-theme="light"] .living-scenes .home-project p,
-:root[data-theme="light"] .living-scenes .project-card p,
-:root[data-theme="light"] .living-scenes .education-cards article p,
-:root[data-theme="light"] body.living-scenes[data-library-page="home"] .domain-card p{
-  color:#0b1711!important;
-  font-weight:650!important;
 }
 
 
@@ -1079,214 +746,6 @@ html[data-theme="light"] .living-scenes *{
 }
 
 
-/* 2026-09-24 learning light-mode typography correction.
-   Match the portfolio's local sans face and keep the circled header/kicker copy true black.
-   JR remains the intentional copper brand accent. */
-body[data-library-page="home"]{
-  --sans:"DM Sans",Arial,sans-serif;
-}
-:root[data-theme="light"] body.living-scenes[data-library-page="home"] .site-header .brand>span{
-  color:#000!important;
-  font-family:"DM Sans",Arial,sans-serif!important;
-  font-size:.92rem;
-  font-weight:700!important;
-  line-height:1.35!important;
-  letter-spacing:0!important;
-  text-shadow:none!important;
-  -webkit-text-stroke:0 transparent!important;
-  -webkit-font-smoothing:auto;
-}
-:root[data-theme="light"] body.living-scenes[data-library-page="home"] .site-header .brand>strong{
-  color:#954418!important;
-  font-family:"DM Sans",Arial,sans-serif!important;
-  font-weight:700!important;
-  text-shadow:none!important;
-  -webkit-text-stroke:0 transparent!important;
-}
-:root[data-theme="light"] body.living-scenes[data-library-page="home"] .hero .eyebrow{
-  color:#000!important;
-  font-family:"DM Sans",Arial,sans-serif!important;
-  font-weight:700!important;
-  letter-spacing:.14em!important;
-  text-shadow:none!important;
-  -webkit-text-stroke:0 transparent!important;
-  -webkit-font-smoothing:auto;
-}
-
-/* 2026-09-24 glass system v11 — translucent tiles across labs, learning, projects, and game showcases. */
-.living-scenes :is(
-  .project-card,
-  .home-project,
-  .education-cards article,
-  .game-notes article,
-  .game-launch,
-  .battle-launch,
-  .app-panel,
-  .science-console,
-  .science-output,
-  .agent-metric,
-  #agent-tasks li,
-  .domain-card,
-  .lesson-card,
-  .practice-card,
-  .mastery-card,
-  .lab-card,
-  .path-card,
-  .atlas-card,
-  .glossary-card,
-  .analogy-card,
-  .hands-on-card,
-  .sidebar-card,
-  .starter-card,
-  .rail-card,
-  .standalone-tile,
-  .verification-box,
-  .provenance-box,
-  .curriculum-panel,
-  .graph-panel,
-  .graph-detail,
-  .guide-card,
-  .note-card,
-  .probability-panel,
-  .experiment-controls,
-  .results,
-  .callout
-){
-  background:linear-gradient(145deg,rgba(7,13,16,.16),rgba(7,13,16,.08))!important;
-  border-color:rgba(176,214,222,.28)!important;
-  border-radius:18px!important;
-  box-shadow:0 14px 36px rgba(0,0,0,.11)!important;
-  -webkit-backdrop-filter:blur(3px) saturate(.94)!important;
-  backdrop-filter:blur(3px) saturate(.94)!important;
-}
-
-:root[data-theme="light"] .living-scenes :is(
-  .project-card,
-  .home-project,
-  .education-cards article,
-  .game-notes article,
-  .game-launch,
-  .battle-launch,
-  .app-panel,
-  .science-console,
-  .science-output,
-  .agent-metric,
-  #agent-tasks li,
-  .domain-card,
-  .lesson-card,
-  .practice-card,
-  .mastery-card,
-  .lab-card,
-  .path-card,
-  .atlas-card,
-  .glossary-card,
-  .analogy-card,
-  .hands-on-card,
-  .sidebar-card,
-  .starter-card,
-  .rail-card,
-  .standalone-tile,
-  .verification-box,
-  .provenance-box,
-  .curriculum-panel,
-  .graph-panel,
-  .graph-detail,
-  .guide-card,
-  .note-card,
-  .probability-panel,
-  .experiment-controls,
-  .results,
-  .callout
-){
-  background:linear-gradient(145deg,rgba(248,251,246,.16),rgba(248,251,246,.08))!important;
-  border-color:rgba(28,72,51,.28)!important;
-  box-shadow:0 14px 34px rgba(28,47,36,.09)!important;
-}
-
-/* Lab shells and their internal cards use the same glass rule instead of opaque panel variables. */
-.living-scenes .lab-workspace .lab-grid,
-.living-scenes #lab .lab-grid,
-body.living-scenes[data-library-page="labs"] .lab-card,
-.living-scenes .controls,
-.living-scenes .stage{
-  background:rgba(7,13,16,.12)!important;
-  background-image:none!important;
-  border-color:rgba(176,214,222,.28)!important;
-  border-radius:18px!important;
-  -webkit-backdrop-filter:blur(3px) saturate(.94)!important;
-  backdrop-filter:blur(3px) saturate(.94)!important;
-}
-.living-scenes .lab-workspace form,
-.living-scenes #lab form,
-body.living-scenes[data-library-page="labs"] .lab-visual{
-  background:rgba(7,13,16,.08)!important;
-  background-image:none!important;
-  -webkit-backdrop-filter:blur(2px) saturate(.96)!important;
-  backdrop-filter:blur(2px) saturate(.96)!important;
-}
-:root[data-theme="light"] .living-scenes .lab-workspace .lab-grid,
-:root[data-theme="light"] .living-scenes #lab .lab-grid,
-:root[data-theme="light"] body.living-scenes[data-library-page="labs"] .lab-card,
-:root[data-theme="light"] .living-scenes .controls,
-:root[data-theme="light"] .living-scenes .stage{
-  background:rgba(248,251,246,.12)!important;
-  border-color:rgba(28,72,51,.28)!important;
-}
-:root[data-theme="light"] .living-scenes .lab-workspace form,
-:root[data-theme="light"] .living-scenes #lab form,
-:root[data-theme="light"] body.living-scenes[data-library-page="labs"] .lab-visual{
-  background:rgba(248,251,246,.08)!important;
-}
-
-/* Nested tile surfaces stay lighter still so glass does not stack into an opaque block. */
-.living-scenes :is(
-  .science-paths span,
-  .science-check-list>div,
-  .science-pods span,
-  .retention-metrics>div,
-  .state-values>div
-){
-  background:rgba(7,13,16,.07)!important;
-  border-color:rgba(176,214,222,.24)!important;
-  -webkit-backdrop-filter:blur(2px)!important;
-  backdrop-filter:blur(2px)!important;
-}
-:root[data-theme="light"] .living-scenes :is(
-  .science-paths span,
-  .science-check-list>div,
-  .science-pods span,
-  .retention-metrics>div,
-  .state-values>div
-){
-  background:rgba(248,251,246,.07)!important;
-  border-color:rgba(28,72,51,.24)!important;
-}
-
-
-/* Homepage header sound control. */
-header .scene-sound-control{position:relative;display:inline-flex;align-items:center}
-header .scene-sound-control>button{
-  display:inline-flex;align-items:center;justify-content:center;gap:7px;
-  min-width:44px;height:44px;padding:0 12px;border:1px solid var(--line);
-  border-radius:24px;background:var(--surface,var(--panel));color:var(--ink,var(--text));
-  font:600 12px/1.2 system-ui,sans-serif;cursor:pointer;white-space:nowrap
-}
-header .scene-sound-control>button svg{
-  width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.7;
-  stroke-linecap:round;stroke-linejoin:round;flex:none
-}
-header .scene-sound-control>button:hover{border-color:var(--accent);color:var(--accent)}
-header .scene-sound-control>button:focus-visible{outline:3px solid var(--blue,var(--accent));outline-offset:3px}
-header .scene-sound-panel{
-  top:calc(100% + 10px);bottom:auto;right:0;
-  width:min(250px,calc(100vw - 24px))
-}
-@media(max-width:700px){
-  header .scene-sound-control>button{width:44px;padding:0}
-  header .scene-sound-control>button span{display:none}
-  header .scene-sound-panel{right:-46px}
-}
-
 /* Shared motion policy. Explicit Pause freezes scenery in place. OS
    reduced-motion is handled by the scene engine's low-amplitude mode rather
    than disabling the visual environment outright. */
@@ -1298,6 +757,7 @@ body.motion-paused .scene-backdrop *{animation-play-state:paused!important;trans
 .scene-night-wrap,.scene-day-wrap,
 .scene-image,.scene-video,.scene-canvas,.scene-atmosphere,.scene-veil,
 .scene-night-depth,.scene-night-glow{transform-origin:center center}
+
 .scene-video{transform:none!important}
 .scene-video.is-active,.scene-atmosphere{animation:none!important}
 @supports(height:100lvh){.scene-backdrop{height:100lvh}}
@@ -1311,34 +771,3 @@ body.motion-paused .scene-backdrop *{animation-play-state:paused!important;trans
   will-change:transform;
 }
 .scene-night-glow{will-change:transform}
-.scene-sound-panel{width:min(21rem,calc(100vw - 2rem))}
-.scene-sound-volume-row{grid-template-columns:48px minmax(0,1fr) 48px;gap:10px}
-.scene-sound-volume-row>button{width:48px;height:48px;min-width:48px;min-height:48px}
-.scene-sound-panel input[type=range]{
-  width:100%;
-  height:64px;
-  min-height:64px;
-  padding:0 7px;
-  margin:0;
-  touch-action:pan-y;
-  user-select:none;
-  -webkit-user-select:none;
-  cursor:ew-resize;
-}
-.scene-sound-panel input[type=range]::-webkit-slider-runnable-track{
-  height:14px;
-  border-radius:999px;
-}
-.scene-sound-panel input[type=range]::-webkit-slider-thumb{
-  width:42px;
-  height:42px;
-  margin-top:-14px;
-  border-width:2px;
-  box-shadow:0 2px 10px #0006;
-}
-.scene-sound-panel input[type=range]::-moz-range-track{height:14px}
-.scene-sound-panel input[type=range]::-moz-range-thumb{
-  width:42px;
-  height:42px;
-  box-shadow:0 2px 10px #0006;
-}
