@@ -229,7 +229,25 @@ def protected_hashes(site):
     return {p.relative_to(site).as_posix():digest(p) for p in site.rglob('*')
             if p.is_file() and protected(p.relative_to(site).as_posix())}
 
-def deploy(source, site, verify_public=None):
+def prune_old_site_backups(site, keep):
+    """Delete only older portfolio backup archives after a verified deployment."""
+    patterns = ('public_html-before-*.tar.gz', 'public_html-pre-repair-*.tar.gz')
+    removed = []
+    keep = keep.resolve()
+    for pattern in patterns:
+        for candidate in site.parent.glob(pattern):
+            try:
+                if candidate.resolve() == keep or not candidate.is_file():
+                    continue
+                candidate.unlink()
+                removed.append(candidate)
+            except OSError as error:
+                print('WARN: could not remove old backup:', candidate, error, flush=True)
+    print('Pruned old portfolio backups:', len(removed), flush=True)
+    for candidate in removed:
+        print('  -', candidate, flush=True)
+
+def deploy(source, site, verify_public=None, release_label=None, prune_backups=False):
     source, site = source.resolve(), site.resolve()
     validate_source(source)
     missing = [name for name in PROTECTED_REQUIRED if not (site/name).is_file()]
@@ -241,7 +259,8 @@ def deploy(source, site, verify_public=None):
             raise RuntimeError('A destination resolves outside public_html.')
     protected_before = protected_hashes(site)
     stamp = datetime.datetime.now().strftime('%Y%m%d-%H%M%S-%f')
-    backup_name = 'public_html-before-'+stamp+'.tar.gz'
+    safe_label = re.sub(r'[^A-Za-z0-9._-]+', '-', (release_label or '').strip()).strip('-')
+    backup_name = 'public_html-before-' + ((safe_label + '-') if safe_label else '') + stamp + '.tar.gz'
     backup = site.parent/backup_name
     partial = Path(str(backup)+'.part')
     try:
@@ -286,6 +305,8 @@ def deploy(source, site, verify_public=None):
             print('Verification failed. Previous files restored.',flush=True)
             raise
     print(f'Installed and verified {len(files)} files. Games, Geometry Lab calculation modules and fusion video are unchanged; the lab theme shell is updated.',flush=True)
+    if prune_backups:
+        prune_old_site_backups(site, backup)
     return backup
 
 def http_smoke(commit, site):
@@ -347,6 +368,8 @@ def http_smoke_day_media():
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('commit', help='Full 40-character SHA of the tested GitHub commit')
+    parser.add_argument('--release-label', default='', help='Optional label embedded in the rollback backup filename')
+    parser.add_argument('--prune-old-backups', action='store_true', help='After verified deployment, remove older public_html backup archives and keep the new rollback backup')
     args = parser.parse_args()
     if not re.fullmatch(r'[0-9a-f]{40}', args.commit):
         parser.error('commit must be a full lowercase SHA, not a branch name.')
@@ -366,7 +389,7 @@ def main():
         if not source.is_dir():
             raise RuntimeError('Archive does not contain the requested commit.')
         materialize_day_media(source, site)
-        backup = deploy(source,site,lambda:(http_smoke(args.commit,site), http_smoke_day_media()))
+        backup = deploy(source,site,lambda:(http_smoke(args.commit,site), http_smoke_day_media()), args.release_label, args.prune_old_backups)
     print('Website updated:',PUBLIC_URL)
     print('Commit:',args.commit)
     print('Backup:',backup)
