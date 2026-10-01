@@ -52,7 +52,7 @@ const server=http.createServer((req,res)=>{
  await p.screenshot({path:path.join(output,'volume-slider-night.png')});
  await p.waitForFunction(()=>SiteAudio.element.currentTime>0&&!SiteAudio.element.paused&&SiteAudio.volumeBackend==='gain',null,{timeout:20000});
  report.night=await p.evaluate(()=>({time:SiteAudio.element.currentTime,source:SiteAudio.element.currentSrc,volume:SiteAudio.volume,levels:SiteAudio.outputLevels}));assert(/dark-theme-user-v32\.(?:wav|mp3)$/.test(new URL(report.night.source).pathname));assert.equal(report.night.volume,.05);
- await p.evaluate(()=>{const a=SiteAudio.element;if(Number.isFinite(a.duration)&&a.duration>3){a.currentTime=Math.max(0,a.duration-1.1);a.dispatchEvent(new Event('timeupdate'))}});
+ await p.evaluate(()=>{const a=SiteAudio.element;if(Number.isFinite(a.duration)&&a.duration>3){a.currentTime=Math.max(0,a.duration-.25);a.dispatchEvent(new Event('timeupdate'))}});
  await p.waitForFunction(()=>SiteAudio.darkElements.filter(a=>!a.paused&&!a.muted).length===2,null,{timeout:6000});
  report.nightCrossfade=await p.evaluate(()=>({levels:SiteAudio.outputLevels.slice(1,3),owners:SiteAudio.darkElements.filter(a=>!a.paused&&!a.muted).length,volume:SiteAudio.volume}));
  assert(report.nightCrossfade.levels.reduce((n,x)=>n+x.level,0)<=report.nightCrossfade.volume+.001,'Night crossfade must not exceed selected site volume');
