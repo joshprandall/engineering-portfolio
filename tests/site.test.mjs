@@ -207,7 +207,7 @@ assert.match(livingScenes,/video\.loop\s*=\s*scene\.id\s*!==\s*'birds-water'/,'B
 assert.match(livingScenes,/BEACH_LOOP_GUARD_SECONDS[\s\S]*duration - current <= BEACH_LOOP_GUARD_SECONDS[\s\S]*rotateLightScene\(\)/,'Beach scene must rotate before its clip reaches the loop seam');
 assert.match(siteAudio,/DARK_CROSSFADE_SECONDS\s*=\s*0\.18/,'Night v32 uses a short scheduler-hiding crossfade over its already seamless PCM master');
 assert.match(siteAudio,/function beginDarkTransition\([\s\S]*darkActiveIndex = toIndex/,'Night ambience must alternate players across the loop seam');
-assert.match(siteAudio,/dark:\s*new URL\('assets\/audio\/dark-theme-user\.mp3'/,'Night must prioritize the smaller MP3 for faster mobile startup');
+assert.match(siteAudio,/dark:\s*new URL\('assets\/audio\/dark-theme-user-v32\.wav'/,'Night v32 must prioritize the seamless PCM WAV master');
 
 assert.match(livingScenes,/addEventListener\('timeupdate'[\s\S]*revealVideo\(video,\s*sceneLoadId,\s*true\)/,'Day video must reveal from proven timeline movement when iPhone frame callbacks starve');
 assert.match(livingScenes,/currentSrc\.startsWith\('blob:'\)[\s\S]*scene\?\.remoteSrc/,'A stalled raw-preview Blob video must fall back to the direct licensed Day stream');
