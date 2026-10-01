@@ -99,10 +99,10 @@ test('overlapping activities remain quiet until every activity releases its reas
 test('Night loop crossfades between two players without exceeding the selected site volume',async()=>{
  const h=harness({readonlyVolume:true});await flush();
  const first=h.S.element;first.currentTime=11;first.dispatchEvent(new Event('timeupdate'));await flush();
- h.frame(675);
+ h.frame(90);
  const mid=h.S.outputLevels.slice(1,3);assert(mid.every(p=>p.level>0),'Both Night players participate in the seam crossfade');
  assert(Math.abs(mid.reduce((n,p)=>n+p.level,0)-.05)<1e-9,'Night crossfade preserves the selected total site volume');
- h.frame(1400);
+ h.frame(220);
  assert.notEqual(h.S.element,first,'Night ownership alternates instead of restarting the same element at the seam');
  assert(first.paused,'Outgoing Night player stops after the crossfade');
  assert(!h.S.element.paused,'Incoming Night player continues seamlessly');
