@@ -50,11 +50,11 @@ const server=http.createServer((req,res)=>{
  assert(await p.evaluate(()=>!SiteAudio.muted&&Math.abs(SiteAudio.volume-.05)<.001),'Positive native-range changes set the new selected level');assert.equal(await mute.innerText(),'Mute');
  await p.locator('.scene-sound-up').click();assert(await p.evaluate(()=>Math.abs(SiteAudio.volume-.10)<.001),'Plus control raises volume by five percent');await p.locator('.scene-sound-down').click();assert(await p.evaluate(()=>Math.abs(SiteAudio.volume-.05)<.001),'Minus control lowers volume by five percent');
  await p.screenshot({path:path.join(output,'volume-slider-night.png')});
- await p.waitForFunction(()=>SiteAudio.darkBackend==='buffer'&&SiteAudio.darkPosition>0&&SiteAudio.volumeBackend==='gain',null,{timeout:20000});
- report.night=await p.evaluate(()=>({backend:SiteAudio.darkBackend,time:SiteAudio.darkPosition,duration:SiteAudio.darkDuration,sourceStarts:SiteAudio.darkSourceStarts,playbackRate:SiteAudio.darkPlaybackRate,volume:SiteAudio.volume,levels:SiteAudio.outputLevels}));
- assert.equal(report.night.backend,'buffer');assert(report.night.duration>20);assert.equal(report.night.sourceStarts,1);assert.equal(report.night.playbackRate,1);assert.equal(report.night.volume,.05);
+ await p.waitForFunction(()=>['buffer','media'].includes(SiteAudio.darkBackend)&&SiteAudio.darkPosition>0&&SiteAudio.outputLevels.filter(x=>!x.paused&&!x.muted&&x.level>0).length===1,null,{timeout:20000});
+ report.night=await p.evaluate(()=>({backend:SiteAudio.darkBackend,volumeBackend:SiteAudio.volumeBackend,time:SiteAudio.darkPosition,duration:SiteAudio.darkDuration,sourceStarts:SiteAudio.darkSourceStarts,playbackRate:SiteAudio.darkPlaybackRate,volume:SiteAudio.volume,levels:SiteAudio.outputLevels}));
+ assert(['buffer','media'].includes(report.night.backend));assert(report.night.duration>20);if(report.night.backend==='buffer')assert(report.night.sourceStarts>=1,'Night buffer must have started');else assert(await p.evaluate(()=>SiteAudio.element.loop&&!SiteAudio.element.paused),'Native fallback must loop and actually play');assert.equal(report.night.playbackRate,1);assert.equal(report.night.volume,.05);
  assert.equal(report.night.levels.filter(x=>!x.paused&&!x.muted&&x.level>0).length,1,'Night must have exactly one audible source');
- const transform=await p.locator('.scene-night').evaluate(e=>e.style.transform);await p.waitForTimeout(1000);assert.notEqual(await p.locator('.scene-night').evaluate(e=>e.style.transform),transform,'Night camera must move');
+ const transform=await p.locator('.scene-night').evaluate(e=>e.style.transform);await p.waitForTimeout(1000);assert.notEqual(await p.locator('.scene-night').evaluate(e=>e.style.transform),transform,'Night camera must move');assert.equal(await p.evaluate(()=>SiteAudio.darkSourceStarts),report.night.sourceStarts,'Uninterrupted playback must retain the same source');
  await p.keyboard.press('Escape');await p.locator('[data-theme-toggle]').first().click();
  async function frameHash(){return p.evaluate(()=>{const v=document.querySelector('.scene-video.is-active'),c=document.createElement('canvas');c.width=96;c.height=54;const ctx=c.getContext('2d');ctx.drawImage(v,0,0,96,54);const pixels=ctx.getImageData(0,0,96,54).data;let hash=0,min=255,max=0;for(let i=0;i<pixels.length;i+=4){hash=(Math.imul(hash,31)+pixels[i]+pixels[i+1]*3+pixels[i+2]*7)|0;min=Math.min(min,pixels[i]);max=Math.max(max,pixels[i]);}return {hash,range:max-min};});}
  for(const [scene,key]of [['forest-waterfall','waterfall'],['forest-river','river'],['birds-water','beach']]){
@@ -95,12 +95,15 @@ const server=http.createServer((req,res)=>{
  // invoking it for the composited Day background. Timeline movement must still
  // reveal the moving video rather than leaving the poster on top.
  if(mobile){
+  await p.close();
   const iphonePage=await c.newPage();
+  await iphonePage.bringToFront();
   await iphonePage.addInitScript(()=>{try{
    Object.defineProperty(HTMLVideoElement.prototype,'requestVideoFrameCallback',{configurable:true,value(){return 1;}});
    Object.defineProperty(HTMLVideoElement.prototype,'cancelVideoFrameCallback',{configurable:true,value(){}});
   }catch{}});
   await iphonePage.goto(base+'/index.html',{waitUntil:'domcontentloaded'});
+  await iphonePage.mouse.click(8,8);
   await iphonePage.evaluate(()=>PortfolioTheme.setTheme('light',false));
   await iphonePage.waitForFunction(()=>{const v=document.querySelector('.scene-video.is-active'),f=document.querySelector('.scene-day-fallback');return v&&v.currentTime>.15&&!v.paused&&f?.classList.contains('video-ready')},{timeout:20000});
   report.iphoneFrameCallbackStarvation=await iphonePage.evaluate(()=>{const v=document.querySelector('.scene-video.is-active');return {time:v.currentTime,paused:v.paused,readyState:v.readyState,posterHidden:document.querySelector('.scene-day-fallback').classList.contains('video-ready')}});

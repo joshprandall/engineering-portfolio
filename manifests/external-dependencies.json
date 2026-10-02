@@ -4437,11 +4437,11 @@
       "fallbackContract": "Resolve same-site absolute media to preserved local bytes when available. Preserve existing URL until route migration and consumer checks pass.",
       "localCounterpart": {
         "path": "play-evil-wizard.html",
-        "size": 8113,
-        "sha256": "e688f3e22654cd2a758df9c36b25b9b0c64d139b08c2957237cade3f984a7f21",
+        "size": 8867,
+        "sha256": "f91e91875e7911ae9d327c3f0170d27a3ef02900b621f55a575ba0264fe50190",
         "source": {
           "kind": "git-blob",
-          "blob": "fcfb42cbd94123ea493877cd55231f0dbaa5d030"
+          "blob": "aa7e6b734d6fc4c4f8bb282bb48adbfefe34a64f"
         },
         "owningComponent": "portfolio",
         "deploymentClassification": "KEEP_PRODUCTION"
@@ -4462,11 +4462,11 @@
       "fallbackContract": "Resolve same-site absolute media to preserved local bytes when available. Preserve existing URL until route migration and consumer checks pass.",
       "localCounterpart": {
         "path": "project-battle-chess.html",
-        "size": 9405,
-        "sha256": "9d427a7ae06f54fee61b64c1ed1070c61ec81070cd4d4331931342059cb87e35",
+        "size": 10186,
+        "sha256": "0e578cf21da794cc1557d259b67b1945d4fe00d5db96362e8472897f8304fb5c",
         "source": {
           "kind": "git-blob",
-          "blob": "93d476c82e8a3fb6d467757a627201350080fc58"
+          "blob": "e7c417dbab56415012e913db72189f479d7a9b28"
         },
         "owningComponent": "portfolio",
         "deploymentClassification": "KEEP_PRODUCTION"

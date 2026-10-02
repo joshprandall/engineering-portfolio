@@ -1279,7 +1279,7 @@
       }));
       media.push({
         level: darkGain?.gain.value || 0,
-        muted: false,
+        muted: !darkSource || muted(),
         paused: !darkSource,
         backend: 'buffer'
       });

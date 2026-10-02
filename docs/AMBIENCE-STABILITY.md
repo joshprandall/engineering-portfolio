@@ -34,6 +34,18 @@ Sites also routes every background video/audio file through its byte-range handl
 
 Never describe a preview-only fix or modeled-media test as verified OSU/device playback. Record the actual source revision and deployment result.
 
+For a Windows SMB hotfix, use `tools/deploy-smb-hotfix.ps1` with a reviewed
+before/after checksum manifest. It stages bytes on the server, applies only
+the existing public web access rules, retains a rollback copy, and verifies
+every published file through HTTPS. Do not copy local Windows ACLs into the
+web directory. The audio outage on October 2 was an HTTP 403 caused by such
+an ACL; the public reader lost access to `site-audio.js`.
+
+`npm run test:planet-selection` exercises each planet on Home, Learn, and AI
+Development in both themes with held mouse input, touch, label clicks, and
+keyboard selection. The animation preserves targets during a pointer press
+and retains focus instead of re-appending every planet on every frame.
+
 ## Component boundary and remaining coupling
 
 The background currently forms a shared subsystem across theme, scenes, audio, control and style files. A split into files is not full isolation. Global CSS can still reach its elements, HTML pages repeat the shared loader, and document events carry state between owners. The reviewed hashes and page-loading contract catch accidental edits; they do not make those dependencies disappear.

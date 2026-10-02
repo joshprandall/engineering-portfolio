@@ -10,3 +10,4 @@ Preserve the approved appearance and experiences. Backgrounds and matching sound
 - Preserve all immutable media chunks. Restore with python3 tools/restore_website2_assets.py --ambience before browser tests or packaging. Do not substitute similarly named remote media or omit missing sounds.
 - Keep the actual-media Chromium and WebKit checks passing. Model tests alone do not establish native browser playback. Physical iPhone/Messenger observations must be identified separately.
 - Preserve game and Geometry internals. Test the preview before replacing the OSU site.
+- Never copy private Windows ACLs into public_html. Use the verified SSH deployer (0644 files) or tools/deploy-smb-hotfix.ps1; check public HTTPS checksums and read permissions before declaring a release live. Planet-input regressions must pass npm run test:planet-selection in Chromium and WebKit.
