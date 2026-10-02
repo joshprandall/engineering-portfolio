@@ -139,18 +139,24 @@ Do not submit the commercial build until all of these are true:
 
 ## Immediate engineering backlog
 
-1. Freeze **Crown & Ash** as the working brand.
-2. Audit every asset, font, sound and dependency for commercial distribution rights.
-3. Vendor Three.js locally.
-4. Create the desktop packaging scaffold.
-5. Add persistent settings and save/resume.
-6. Add controller-first menu/game navigation.
-7. Strengthen AI tiers.
-8. Expand capture choreography and army differentiation.
-9. Add graphics/performance settings.
-10. Build automated desktop smoke tests.
-11. Create a Steam-ready demo branch.
-12. Create Steam store media only after the visual pass is strong enough to sell the game without explanation.
+Completed in the first productization release:
+
+- **Crown & Ash** is frozen as the working brand.
+- Three.js and OrbitControls are pinned and bundled locally; core 3D play no longer depends on a CDN.
+- Persistent settings, autosave/resume, FEN position tools, PGN export, graphics quality controls, optional fast play without battle animations, controller board input and a match-result/rematch flow are implemented.
+- An isolated Electron desktop package now produces unpacked Linux and Windows x64 applications; the Windows NSIS installer configuration is ready to run on Windows.
+
+Next production work:
+
+1. Audit every asset, font, sound and dependency for commercial distribution rights.
+2. Build controller-first focus navigation for every menu and dialog.
+3. Strengthen AI tiers.
+4. Expand capture choreography and army differentiation.
+5. Add time controls, match statistics, tactical challenges and achievements.
+6. Build automated desktop smoke tests on a Windows runner.
+7. Produce and sign the NSIS installer on Windows.
+8. Create a Steam-ready demo branch.
+9. Create Steam store media only after the visual pass is strong enough to sell the game without explanation.
 
 ## Sources
 

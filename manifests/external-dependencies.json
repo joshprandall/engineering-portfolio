@@ -388,10 +388,6 @@
       "consumers": [
         {
           "source": "games/3d-battle-chess/index.html",
-          "evidence": "current-runtime"
-        },
-        {
-          "source": "games/3d-battle-chess/index.html",
           "evidence": "audit-repository"
         },
         {
@@ -425,20 +421,6 @@
         {
           "source": "_before_true_glass_20260924-061812/games/3d-battle-chess/index.html",
           "evidence": "audit-live"
-        }
-      ],
-      "provider": "three-cdn",
-      "sha256": null,
-      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
-      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
-      "fallbackContract": "Pinned module loading failure activates the local shared-state 2D board; retry must retain match state. Keep version pins until tested migration."
-    },
-    {
-      "url": "https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/",
-      "consumers": [
-        {
-          "source": "games/3d-battle-chess/index.html",
-          "evidence": "current-runtime"
         }
       ],
       "provider": "three-cdn",

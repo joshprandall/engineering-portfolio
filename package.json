@@ -16,9 +16,15 @@
     "test:refinement-browser": "node tests/refinement-browser.test.cjs",
     "test:security-journeys": "node tests/security-journeys.test.cjs",
     "test:media-playback": "node tests/media-playback.test.cjs",
-    "test:glass-browser": "node tests/glass-browser.test.cjs"
+    "test:glass-browser": "node tests/glass-browser.test.cjs",
+    "vendor:crown-ash": "node tools/vendor-crown-ash.cjs",
+    "crown-ash:desktop": "npm --prefix products/crown-and-ash-desktop start",
+    "crown-ash:windows": "npm --prefix products/crown-and-ash-desktop run dist:win"
   },
   "devDependencies": {
     "playwright": "1.63.0"
+  },
+  "dependencies": {
+    "three": "0.180.0"
   }
 }

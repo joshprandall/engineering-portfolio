@@ -10,12 +10,13 @@ import {animateDuelV8} from './duels-v8.js';
 import {castleAttempt,castleNotation} from './castle-controls.js';
 import {ATTACK_NAMES} from './attacks.js';
 import {GameAudio} from './audio.js';
+import {loadSettings,saveSettings,loadSavedMatch,saveMatch,savedMatchSummary} from './game-storage.js';
 
 const $=s=>document.querySelector(s);
 const sceneEl=$('#scene'),board2d=$('#board2d'),logEl=$('#log'),turnEl=$('#turn'),stateEl=$('#state'),gameShell=$('#gameShell'),setupScreen=$('#setupScreen'),rotateGate=$('#rotateGate'),audio=new GameAudio();
 const themes=PALETTES;
-let theme='classic',selected=null,legal=[],busy=false,soundOn=true,aiTimer=null,generation=0,toastTimer=null,scene,camera,renderer,orbit,boardGroup,pieceGroup,fxGroup;
-let viewMode='3d',flipped=false,handCursor={x:4,y:6},keyboardCursor=false,fullscreenStarted=false,webglReady=false,initialized=false,started=false;
+let theme='classic',selected=null,legal=[],busy=false,soundOn=true,animatedCombat=true,quality='auto',aiTimer=null,generation=0,toastTimer=null,scene,camera,renderer,orbit,boardGroup,pieceGroup,fxGroup;
+let viewMode='3d',flipped=false,handCursor={x:4,y:6},keyboardCursor=false,fullscreenStarted=false,webglReady=false,initialized=false,started=false,resultShown=false,gamepadFrame=0,lastGamepadButtons=[];
 const reducedMotion=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const query=new URLSearchParams(location.search);
 const useV8Combat=query.get('combat')!=='v7';
@@ -47,29 +48,43 @@ function syncSoundUI(){
  $('#sound').setAttribute('aria-pressed',String(soundOn));
  $('#handSound').textContent=soundOn?'Sound on':'Sound off';
 }
+function currentSettings(){return{mode:$('#mode')?.value||$('#setupMode')?.value||'ai',theme,difficulty:$('#difficulty')?.value||$('#setupDifficulty')?.value||'2',view:viewMode,sound:soundOn,quality,animatedCombat}}
+function persistSettings(){saveSettings(currentSettings())}
+function persistMatch(){if(started)saveMatch({game,settings:currentSettings(),flipped})}
+function updateContinueButton(){const saved=loadSavedMatch(),button=$('#continueGameBtn');if(!button)return;button.classList.toggle('hidden',!saved);$('#continueSummary').textContent=savedMatchSummary(saved)||''}
+function syncCombatUI(){for(const selector of ['#combatToggle']){const el=$(selector);if(el){el.textContent=animatedCombat?'Battles on':'Battles off';el.setAttribute('aria-pressed',String(animatedCombat))}}}
 function syncSetupDifficulty(){
  const local=$('#setupMode')?.value==='local';
  if($('#setupDifficulty'))$('#setupDifficulty').disabled=local;
 }
-async function launchFromSetup(){
- const mode=$('#setupMode').value;
- const nextTheme=$('#setupTheme').value;
- const difficulty=$('#setupDifficulty').value;
- const nextView=$('#setupView').value;
- const nextSound=$('#setupSound').checked;
+function launchFromSetup(){return launchConfiguredGame(false)}
+async function launchConfiguredGame(resume=false){
+ const saved=resume?loadSavedMatch():null;
+ if(resume&&!saved){notice('No saved battle is available.');updateContinueButton();return}
+ const mode=saved?.settings.mode||$('#setupMode').value;
+ const nextTheme=saved?.settings.theme||$('#setupTheme').value;
+ const difficulty=saved?.settings.difficulty||$('#setupDifficulty').value;
+ const nextView=saved?.settings.view||$('#setupView').value;
+ const nextSound=saved?.settings.sound??$('#setupSound').checked;
+ const nextQuality=saved?.settings.quality||$('#setupQuality').value;
+ const nextCombat=saved?.settings.animatedCombat??$('#setupCombat').checked;
  $('#mode').value=mode;$('#theme').value=nextTheme;$('#difficulty').value=difficulty;
- theme=nextTheme;viewMode=nextView;soundOn=nextSound;
+ $('#quality').value=nextQuality;theme=nextTheme;viewMode=nextView;soundOn=nextSound;quality=nextQuality;animatedCombat=nextCombat;flipped=!!saved?.flipped;
+ if(saved){try{game.loadRecord(saved.game)}catch(error){notice(error.message);updateContinueButton();return}}else game.reset();
  setupScreen.classList.add('hidden');gameShell.classList.remove('hidden');gameShell.setAttribute('aria-hidden','false');
  document.body.classList.add('playing');started=true;fullscreenStarted=true;
  void enterFullscreen();
  const wasInitialized=initialized;
  init();
- await audio.setEnabled(soundOn);syncSoundUI();
+ await audio.setEnabled(soundOn);syncSoundUI();syncCombatUI();applyQuality();
  if(wasInitialized){
-  audio.setTheme(theme);createBoard();newGame();setView(viewMode,false);
+  audio.setTheme(theme);createBoard();selected=null;legal=[];drawPieces();renderStatus();setView(viewMode,false);
  }else{
   setView(viewMode,false);
  }
+ if(camera&&orbit){camera.position.set(flipped?-8.5:8.5,10,flipped?-9.5:9.5);orbit.target.set(0,.25,0);orbit.update()}
+ persistSettings();persistMatch();
+ if(mode==='ai'&&game.turn==='b'&&!game.status().over)queueComputer();
  updateRotateGate();
  requestAnimationFrame(()=>window.dispatchEvent(new Event('resize')));
 }
@@ -82,12 +97,17 @@ async function exitToSetup(){
  gameShell.classList.add('hidden');gameShell.setAttribute('aria-hidden','true');
  setupScreen.classList.remove('hidden');
  $('#controls').classList.remove('open');$('#menuBtn').setAttribute('aria-expanded','false');
+ const settings=loadSettings();$('#setupMode').value=settings.mode;$('#setupTheme').value=settings.theme;$('#setupDifficulty').value=settings.difficulty;$('#setupView').value=settings.view;$('#setupQuality').value=settings.quality;$('#setupSound').checked=settings.sound;$('#setupCombat').checked=settings.animatedCombat;syncSetupDifficulty();updateContinueButton();
  updateRotateGate();$('#startGameBtn')?.focus();
 }
 function connectSetup(){
+ const settings=loadSettings();
+ $('#setupMode').value=settings.mode;$('#setupTheme').value=settings.theme;$('#setupDifficulty').value=settings.difficulty;$('#setupView').value=settings.view;$('#setupQuality').value=settings.quality;$('#setupSound').checked=settings.sound;$('#setupCombat').checked=settings.animatedCombat;
  syncSetupDifficulty();
  $('#setupMode').addEventListener('change',syncSetupDifficulty);
  $('#startGameBtn').addEventListener('click',()=>void launchFromSetup());
+ $('#continueGameBtn').addEventListener('click',()=>void launchConfiguredGame(true));
+ updateContinueButton();
  window.addEventListener('orientationchange',()=>setTimeout(updateRotateGate,120));
 }
 
@@ -157,6 +177,14 @@ function renderStatus(){
  logEl.scrollTop=logEl.scrollHeight;
  $('#difficulty').disabled=$('#mode').value!=='ai';
  if(st.over)clearTimeout(aiTimer);
+ if(st.over&&!resultShown&&started){
+  resultShown=true;
+  const title=st.kind==='checkmate'?'Checkmate':st.kind==='stalemate'?'Stalemate':'Draw';
+  $('#gameOverTitle').textContent=title;
+  $('#gameOverText').textContent=st.winner?`${st.winner==='w'?'White':'Black'} claims the crown.`:`The battle ends by ${st.kind}.`;
+  $('#gameOver').classList.remove('hidden');
+  $('#rematch').focus();
+ }
  updateHandheldStatus();
 }
 function notice(message){const t=$('#toast');t.textContent=message;t.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove('show'),2500)}
@@ -168,7 +196,7 @@ async function applyMove(m,computer=false,promotion=null){
  if(!p||p.c!==game.turn||!game.legalMoves(m.x,m.y).some(c=>c.nx===m.nx&&c.ny===m.ny))return false;
  busy=true;
  if(p.t==='p'&&(m.ny===0||m.ny===7)&&!promotion)promotion=computer?'q':await promotionChoice();
- if(captured&&viewMode==='3d'&&webglReady){
+ if(captured&&animatedCombat&&viewMode==='3d'&&webglReady){
   const attacker=pieceGroup.children.find(o=>o.userData.x===m.x&&o.userData.y===m.y);
   const defender=pieceGroup.children.find(o=>o.userData.x===m.nx&&o.userData.y===(enPassant?m.y:m.ny));
   stateEl.textContent=roleNames[p.t]+' '+ATTACK_NAMES[theme][p.t]+'!';
@@ -180,7 +208,7 @@ async function applyMove(m,computer=false,promotion=null){
  if(!move){busy=false;renderStatus();return false}
  selected=null;legal=[];handCursor={x:m.nx,y:m.ny};drawPieces();renderStatus();
  if(!captured)void audio.move(p.t);
- busy=false;
+ busy=false;persistMatch();
  if(!computer&&$('#mode').value==='ai'&&game.turn==='b'&&!game.status().over)queueComputer();
  return true;
 }
@@ -268,23 +296,24 @@ function connectPointers(){
 }
 function newGame(){
  if(busy){notice('Wait for the attack to finish.');return}
- generation++;clearTimeout(aiTimer);busy=false;game.reset();selected=null;legal=[];handCursor={x:4,y:6};drawPieces();renderStatus();
+ generation++;clearTimeout(aiTimer);busy=false;resultShown=false;$('#gameOver').classList.add('hidden');game.reset();selected=null;legal=[];handCursor={x:4,y:6};drawPieces();renderStatus();persistMatch();
 }
 function undoMove(){
  if(busy)return;generation++;clearTimeout(aiTimer);
  if(!game.undo()){notice('No move to undo.');return}
  if($('#mode').value==='ai'&&game.turn==='b')game.undo();
- selected=null;legal=[];drawPieces();renderStatus();
+ selected=null;legal=[];resultShown=false;$('#gameOver').classList.add('hidden');drawPieces();renderStatus();persistMatch();
 }
 function flipBoard(){
  flipped=!flipped;
  if(camera&&orbit){camera.position.x*=-1;camera.position.z*=-1;orbit.update()}
- render2D();highlight();
+ render2D();highlight();persistMatch();
 }
 async function toggleSound(){
  soundOn=!soundOn;await audio.setEnabled(soundOn);
  $('#sound').textContent=soundOn?'Sound on':'Sound off';$('#sound').setAttribute('aria-pressed',String(soundOn));
  $('#handSound').textContent=soundOn?'Sound on':'Sound off';
+ persistSettings();persistMatch();
 }
 function setView(mode,announce=true){
  if(busy){if(announce)notice('Wait for the current move to finish.');return;}
@@ -315,6 +344,7 @@ function setView(mode,announce=true){
  }
  render2D();
  if(viewMode==='3d'&&renderer){const w=Math.max(1,sceneEl.clientWidth),h=Math.max(1,sceneEl.clientHeight);renderer.setSize(w,h,false)}
+ persistSettings();persistMatch();
  if(announce)notice(viewMode==='2d'?'2D board active · tap 3D to return':'3D board active · tap 2D to switch');
 }
 function updateHandheldStatus(){
@@ -349,29 +379,72 @@ function boardKeyboard(e){
  if(key==='n'){e.preventDefault();newGame();return}
  if(key==='escape'&&gameShell.classList.contains('immersive-fullscreen')){e.preventDefault();void exitFullscreen();return}
 }
+function applyQuality(){
+ if(!renderer)return;
+ const high=quality==='high'||quality==='auto'&&(navigator.hardwareConcurrency||4)>=8&&(devicePixelRatio||1)<=2.5;
+ const performance=quality==='performance';
+ renderer.setPixelRatio(Math.min(devicePixelRatio||1,performance?1:high?2:1.5));
+ renderer.shadowMap.enabled=!performance;
+ if(renderer.shadowMap.enabled)renderer.shadowMap.needsUpdate=true;
+}
+function toggleCombat(){animatedCombat=!animatedCombat;syncCombatUI();persistSettings();persistMatch();notice(animatedCombat?'Animated battles enabled.':'Animated battles disabled for faster play.')}
+function downloadText(filename,text,type='text/plain'){
+ const link=document.createElement('a'),url=URL.createObjectURL(new Blob([text],{type}));link.href=url;link.download=filename;document.body.appendChild(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),0);
+}
+async function copyFen(){
+ const fen=game.toFEN();$('#fenInput').value=fen;
+ try{await navigator.clipboard.writeText(fen);notice('FEN copied to the clipboard.')}catch{notice('FEN placed in the text box for copying.')}
+}
+function loadFenPosition(){
+ if(busy)return;
+ try{game.loadFEN($('#fenInput').value);generation++;clearTimeout(aiTimer);selected=null;legal=[];resultShown=false;$('#gameOver').classList.add('hidden');drawPieces();renderStatus();persistMatch();notice('Position loaded. Move history begins here.');if($('#mode').value==='ai'&&game.turn==='b'&&!game.status().over)queueComputer()}catch(error){notice(error.message)}
+}
+function gamepadLoop(){
+ if(!started){gamepadFrame=requestAnimationFrame(gamepadLoop);return}
+ const pad=navigator.getGamepads?.()[0];
+ if(pad){
+  const pressed=pad.buttons.map(button=>button.pressed),edge=index=>pressed[index]&&!lastGamepadButtons[index];
+  const now=performance.now(),axisReady=!gamepadLoop.lastAxis||now-gamepadLoop.lastAxis>170;
+  let dx=0,dy=0;if(axisReady){if(pad.axes[0]<-.55||pad.axes[6]<-.55)dx=-1;else if(pad.axes[0]>.55||pad.axes[6]>.55)dx=1;if(pad.axes[1]<-.55||pad.axes[7]<-.55)dy=-1;else if(pad.axes[1]>.55||pad.axes[7]>.55)dy=1;if(dx||dy){keyboardCursor=true;nudgeCursor(dx,dy);gamepadLoop.lastAxis=now}}
+  if(edge(0)){keyboardCursor=true;chooseSquare(handCursor.x,handCursor.y)}
+  if(edge(1)){selected=null;legal=[];highlight()}
+  if(edge(2))flipBoard();
+  if(edge(3))setView(viewMode==='3d'?'2d':'3d');
+  if(edge(4))undoMove();
+  if(edge(9)){const c=$('#controls'),open=c.classList.toggle('open');$('#menuBtn').setAttribute('aria-expanded',String(open))}
+  lastGamepadButtons=pressed;
+ }else lastGamepadButtons=[];
+ gamepadFrame=requestAnimationFrame(gamepadLoop);
+}
 function connectButtons(){
  $('#newGame').onclick=newGame;$('#undo').onclick=undoMove;$('#flip').onclick=flipBoard;$('#exitGame').onclick=()=>{void exitToSetup()};
  $('#viewToggle').onclick=e=>{void audio.ensure();setView(e.currentTarget.dataset.targetView||(viewMode==='3d'?'2d':'3d'))};
- $('#sound').onclick=()=>{void toggleSound()};$('#fullscreenBtn').onclick=()=>{void toggleFullscreen()};
- $('#theme').onchange=e=>{if(busy){e.target.value=theme;return}theme=e.target.value;audio.setTheme(theme);createBoard();drawPieces()};
- $('#mode').onchange=newGame;
- $('#difficulty').onchange=e=>{const p=computerProfile(Number(e.target.value));notice(`Computer strength: ${p.name} · search depth ${p.depth}`);if($('#mode').value==='ai'&&game.turn==='b'&&!busy)queueComputer()};
+ $('#sound').onclick=()=>{void toggleSound()};$('#combatToggle').onclick=toggleCombat;$('#fullscreenBtn').onclick=()=>{void toggleFullscreen()};
+ $('#saveGame').onclick=()=>{persistMatch();updateContinueButton();notice('Battle saved on this device.')};
+ $('#copyFen').onclick=()=>{void copyFen()};$('#downloadPgn').onclick=()=>downloadText('crown-and-ash-match.pgn',game.toPGN());$('#loadFen').onclick=loadFenPosition;
+ $('#rematch').onclick=newGame;$('#resultSetup').onclick=()=>{$('#gameOver').classList.add('hidden');void exitToSetup()};
+ $('#theme').onchange=e=>{if(busy){e.target.value=theme;return}theme=e.target.value;audio.setTheme(theme);createBoard();drawPieces();persistSettings();persistMatch()};
+ $('#quality').onchange=e=>{quality=e.target.value;applyQuality();persistSettings();persistMatch();notice(`Graphics quality: ${quality}.`)};
+ $('#mode').onchange=()=>{newGame();persistSettings()};
+ $('#difficulty').onchange=e=>{const p=computerProfile(Number(e.target.value));persistSettings();persistMatch();notice(`Computer strength: ${p.name} · search depth ${p.depth}`);if($('#mode').value==='ai'&&game.turn==='b'&&!busy)queueComputer()};
  $('#menuBtn').onclick=e=>{const c=$('#controls'),open=c.classList.toggle('open');e.currentTarget.setAttribute('aria-expanded',String(open))};
  $('#handUndo').onclick=undoMove;$('#handFlip').onclick=flipBoard;$('#handView').onclick=e=>{void audio.ensure();setView(e.currentTarget.dataset.targetView||(viewMode==='3d'?'2d':'3d'))};
  $('#handSound').onclick=()=>{void toggleSound()};$('#handNew').onclick=newGame;$('#handFullscreen').onclick=()=>{void toggleFullscreen()};
  document.addEventListener('fullscreenchange',syncFullscreenUI);
  document.addEventListener('webkitfullscreenchange',syncFullscreenUI);
+ window.addEventListener('gamepadconnected',()=>notice('Controller connected · A select · B cancel · X flip · Y view'));
  document.addEventListener('keydown',e=>{
   boardKeyboard(e);
   if(e.key==='Escape'&&!fullscreenActive()){
    $('#controls').classList.remove('open');$('#menuBtn').setAttribute('aria-expanded','false');
   }
  });
+ if(!gamepadFrame)gamepadFrame=requestAnimationFrame(gamepadLoop);
 }
 function init3D(){
  try{
   scene=new THREE.Scene();scene.fog=new THREE.Fog(themes[theme].back,15,35);camera=new THREE.PerspectiveCamera(43,1,.1,100);camera.position.set(8.5,10,9.5);
-  renderer=new THREE.WebGLRenderer({antialias:true,alpha:true});renderer.setPixelRatio(Math.min(devicePixelRatio||1,2));renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=.84;sceneEl.appendChild(renderer.domElement);
+  renderer=new THREE.WebGLRenderer({antialias:true,alpha:true,powerPreference:'high-performance'});renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=.84;sceneEl.appendChild(renderer.domElement);applyQuality();
  }catch(error){sceneEl.textContent='This browser could not start WebGL. '+error.message;return false}
  orbit=new OrbitControls(camera,renderer.domElement);orbit.enableDamping=true;orbit.target.set(0,.25,0);orbit.minDistance=7;orbit.maxDistance=22;orbit.maxPolarAngle=1.47;orbit.update();
  scene.add(new THREE.HemisphereLight(0xdcecf8,0x718397,1.15));

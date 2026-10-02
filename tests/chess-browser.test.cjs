@@ -19,13 +19,15 @@ const inputMove=async(page,value)=>{await page.evaluate(value=>{document.querySe
 try{
  for(const touch of (offline?[]:[false,true])){
   const context=await browser.newContext({viewport:touch?{width:844,height:390}:{width:1440,height:900},hasTouch:touch,isMobile:touch,userAgent:touch?'Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 Chrome/130 Mobile Safari/537.36':undefined});
-  const page=await context.newPage(),errors=[];page.on('pageerror',e=>errors.push(e.message));page.on('console',m=>{if(m.type()==='error'||m.type()==='warning')console.log('Chess:',m.text());});page.on('requestfailed',r=>console.log('Chess request:',r.url(),r.failure()?.errorText));await enter(page);
+  const page=await context.newPage(),errors=[],externalRuntime=[];page.on('pageerror',e=>errors.push(e.message));page.on('request',r=>{if(/cdn\.jsdelivr\.net\/npm\/three|unpkg\.com\/three/.test(r.url()))externalRuntime.push(r.url())});page.on('console',m=>{if(m.type()==='error'||m.type()==='warning')console.log('Chess:',m.text());});page.on('requestfailed',r=>console.log('Chess request:',r.url(),r.failure()?.errorText));await enter(page);
+  assert.deepEqual(externalRuntime,[],'3D startup must use bundled Three.js instead of a runtime CDN');
   assert.equal(await page.locator('#fallback-hint').count(),0,'Setup must not start an independent emergency game');
   assert.equal(await page.locator('#scene canvas').count(),1,'3D renderer starts');
   const toggle=()=>touch?page.locator('#handView').click():page.keyboard.press('v');await toggle();assert(await page.locator('#board2d').isVisible());
   const square=(x,y)=>page.locator(`#board2d [data-x="${x}"][data-y="${y}"]`);
   if(touch){await square(4,6).tap();await square(4,4).tap();}else{await square(4,6).click();await square(4,4).click();}
   let saved=await game(page);assert.equal(saved.moves.length,1);
+  await page.reload({waitUntil:'networkidle'});assert(await page.locator('#continueGameBtn').isVisible(),'Saved battle is offered after reload');await page.locator('#continueGameBtn').click();await page.waitForFunction(()=>document.querySelector('#board2d').children.length===64);assert.deepEqual(await game(page),saved,'Continue restores game state and undo history');
   for(let i=0;i<4;i++){await toggle();assert(await page.locator(i%2===0?'#scene':'#board2d').isVisible());assert.deepEqual(await game(page),saved,'View toggles preserve full game state/history');}
   await inputMove(page,'d7d5');await page.waitForFunction(()=>document.querySelectorAll('#log li').length===2);
   await toggle();await inputMove(page,'e4d5');await page.waitForFunction(()=>document.querySelectorAll('#log li').length===3,{},{timeout:15000});assert.equal((await game(page)).moves.at(-1).captured,'p');

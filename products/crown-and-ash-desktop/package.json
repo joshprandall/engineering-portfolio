@@ -1,0 +1,47 @@
+{
+  "name": "crown-and-ash-desktop",
+  "version": "0.2.0",
+  "private": true,
+  "description": "Offline Windows desktop distribution of Crown & Ash by Roughneck Games.",
+  "author": "Joshua Randall / Roughneck Games",
+  "main": "main.cjs",
+  "scripts": {
+    "sync-game": "node sync-game.cjs",
+    "start": "npm run sync-game && electron .",
+    "pack": "npm run sync-game && electron-builder --dir",
+    "dist:win": "npm run sync-game && electron-builder --win nsis --x64"
+  },
+  "devDependencies": {
+    "electron": "44.5.1",
+    "electron-builder": "26.15.3"
+  },
+  "build": {
+    "appId": "com.roughneckgames.crownandash",
+    "productName": "Crown & Ash",
+    "artifactName": "Crown-and-Ash-${version}-${arch}.${ext}",
+    "asar": true,
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "app/**/*",
+      "main.cjs",
+      "preload.cjs",
+      "package.json"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": ["x64"]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    }
+  }
+}
