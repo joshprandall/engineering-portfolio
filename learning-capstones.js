@@ -15,6 +15,7 @@
   const sample=section('Worked example',chosen.example);sample.querySelector('p').className='cap-example';root.append(sample);
   const steps=element('section',undefined,'cap-section');steps.append(element('h3','Hands-on lab procedure'));
   const ordered=element('ol');chosen.steps.forEach(s=>ordered.append(element('li',s)));steps.append(ordered);root.append(steps);
+  if(chosen.companions?.length){const companions=section('Executable companions','Run the matching notebook, retain your prediction and result, then complete the integration rubric.');for(const item of chosen.companions){const link=element('a','Download package for '+item.notebook,'button');link.href=item.download;link.download='';companions.append(link);}root.append(companions);}
   const quiz=element('section',undefined,'cap-section');quiz.append(element('h3','Check your understanding'),element('p',chosen.check.question));
   const form=element('form',undefined,'cap-check');const options=[];
   chosen.check.options.forEach((option,i)=>{const label=element('label'),input=element('input');input.type='radio';input.name='answer';input.value=String(i);input.required=true;label.append(input,element('span',option));form.append(label);options.push(input)});

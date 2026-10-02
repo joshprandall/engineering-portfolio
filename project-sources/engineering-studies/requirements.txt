@@ -1,0 +1,5 @@
+# Version used for the recorded NumPy outputs.
+numpy==2.3.5
+# Optional notebook interface; source modules need NumPy only.
+jupyterlab>=4,<5
+ipykernel>=6,<8

@@ -76,3 +76,17 @@ The committed runtime manifest refers to the source commit used to generate its 
 Restore tooling accepts only manifest-listed assets with matching size and SHA-256. The public fallback cannot silently replace a changed deployed video. Retain the current OSU backup and existing preservation release artifacts. Inspect license/credit requirements before adding a new asset.
 
 From an authenticated OSU shell, follow `DEPLOYMENT.md` with the final full SHA. The deployer preserves protected experiences, archives the current site, verifies writes and rolls back failures. Do not copy the full staging tree over production. Verify the actual deployed site afterward and record deployment and production verification as separate states.
+
+## Reviewed content overlays
+
+`knowledge-upgrades.js` applies eight explicit lesson-record updates after the
+unchanged base corpus loads. It preserves IDs, model bindings and existing state.
+The associated teaching packs are edited only at those lesson entries. The
+standalone `learning-experiments.js` calculators are additive and create no
+audio, timers or persisted state. `tools/build_study_pages.py` replaces only its
+own marked content sections inside existing routes, using authored
+`project-sources/engineering-studies/units.json`; it does not regenerate shells.
+
+Use `tools/build_content_companions.py` for deterministic packages. Notebook code
+execution, real kernel transport, optional MPI/GNP runtimes and browser/device
+acceptance are separate gates recorded in `docs/CONTENT-RELEASES.md`.

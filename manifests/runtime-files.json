@@ -3273,6 +3273,66 @@
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "assets/site-education.json",
+      "size": 841,
+      "sha256": "047994b48d49dac428e8abb449bac1c7e3103002da479ed01aae7c5282ba96b4",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "learning-experiments.js",
+      "size": 16367,
+      "sha256": "04e1a77eff342db1a074a7c42b31f5e9a89b2d1761eb17612feddc91c8f1075f",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "learning-experiments.css",
+      "size": 1155,
+      "sha256": "4691db862d41110fe4c27d7e07bbf8f80c83a49432a0ae256b528b7fa00f53ee",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "assets/downloads/engineering-foundations-3.1.zip",
+      "size": 35306,
+      "sha256": "b5fc04163aec1675a35cfed6787b1772d37cfa933b491546713d52603f409403",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "knowledge-upgrades.js",
+      "size": 58975,
+      "sha256": "55bb983dde487dd304693ccea1b50969cf23896e81a99efe5377da893eb03f1e",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "assets/downloads/engineering-studies-3.2-3.6.zip",
+      "size": 391467,
+      "sha256": "f96c4d32a1fbe42d8e32252dcb832d2f5097c549ff55ae3bfea4d4a212badd47",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
     }
   ],
   "fileCount": 293,

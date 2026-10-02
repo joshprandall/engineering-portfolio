@@ -1,0 +1,39 @@
+{
+  "prefix": {
+    "network": "192.168.10.64/26",
+    "upper": "192.168.10.127",
+    "total": 64,
+    "usable": 62
+  },
+  "eigen": {
+    "residual": 0
+  },
+  "bayes": {
+    "true_positive": 90,
+    "false_positive": 495,
+    "posterior": 0.15384615384615385
+  },
+  "qubit": {
+    "y_plus": 1,
+    "z_zero": 0.5
+  },
+  "bell": {
+    "XX": 1,
+    "YY": -1,
+    "ZZ": 1
+  },
+  "recovery": {
+    "rto_margin": 25,
+    "rpo_margin": -15,
+    "demonstrated": false
+  },
+  "ingestion": {
+    "after_injected_failure": 0,
+    "after_commit": 2,
+    "after_retry": 2
+  },
+  "slo": {
+    "allowed_bad": 1000,
+    "consumed_percent": 150
+  }
+}

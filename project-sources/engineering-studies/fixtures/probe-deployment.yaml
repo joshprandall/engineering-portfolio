@@ -1,0 +1,36 @@
+# Inspection fixture only. Choose an owned image implementing these endpoints
+# and a disposable cluster/namespace before applying; this release applies none.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: probe-teaching-fixture
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: probe-teaching-fixture
+  template:
+    metadata:
+      labels:
+        app: probe-teaching-fixture
+    spec:
+      containers:
+        - name: application
+          image: example.invalid/replace-with-your-owned-probe-demo:version
+          ports:
+            - containerPort: 8080
+          startupProbe:
+            httpGet: {path: /started, port: 8080}
+            failureThreshold: 30
+            periodSeconds: 10
+          readinessProbe:
+            httpGet: {path: /ready, port: 8080}
+            periodSeconds: 5
+            failureThreshold: 2
+          livenessProbe:
+            httpGet: {path: /live, port: 8080}
+            periodSeconds: 10
+            failureThreshold: 3
+          resources:
+            requests: {cpu: 100m, memory: 64Mi}
+            limits: {cpu: 500m, memory: 256Mi}

@@ -1,0 +1,266 @@
+[
+  {
+    "id": "cloud-subnetting",
+    "experiment": "prefix",
+    "title": "Subnetting Without Memorization",
+    "explanation": "An IPv4 address has 32 bits. A /26 prefix fixes the first 26 and leaves six that can vary. Six bits encode 2⁶ = 64 combinations. The network address is found by setting those six host bits to zero; setting them to one gives the upper address. Prefix notation identifies an aligned set of addresses, not a number of computers.\n\nFor 192.168.10.70/26, the last-octet blocks start at 0, 64, 128, and 192. Since 64 ≤ 70 < 128, the block is .64–.127. Equivalently, apply the mask 255.255.255.192. A host value cannot be used as an arbitrary block start.\n\nFor a conventional broadcast subnet with prefix at most /30, reserving the all-zero and all-one host patterns leaves 2^(32−prefix)−2 conventional host addresses. This usage rule is not the definition of CIDR. RFC 3021 permits both addresses on a /31 point-to-point link. A /32 denotes one address. Cloud platforms can reserve additional addresses, so their allocatable count may differ.\n\nA routing prefix and a broadcast LAN need not describe the same operational object. Longest-prefix routing, address assignment, and platform reservations are related decisions with different rules. First calculate the block; then state the intended use before reporting a host count.",
+    "example": "Predict 192.168.10.70/26: 32−26=6 host bits, 64 total addresses, network .64, upper address .127, conventional hosts .65–.126 (62). Change only the prefix to /27: 32 addresses, network .64, upper .95, 30 conventional hosts. For 192.0.2.0/31 on a point-to-point link, both .0 and .1 can identify endpoints.",
+    "objectives": [
+      "Derive a prefix block from its fixed and varying bits.",
+      "Explain why address count and allocatable-host count are different.",
+      "Reject malformed input and test the /31 and /32 boundaries."
+    ],
+    "lab": [
+      "Predict .70/26 on paper, including network, upper address, total, and host count.",
+      "Calculate in the companion experiment: expect .64/26, .127, 64 total, and 62 conventional hosts.",
+      "Change prefix to 27: expect .64–.95 and 32 total addresses.",
+      "Try 192.0.2.0/31 and /32. Explain the change in endpoint semantics.",
+      "Enter 10..0.1 or a fractional prefix. The result must be rejected and export disabled.",
+      "Reset the experiment, export the valid JSON result, and explain every field in your notes."
+    ],
+    "references": [
+      [
+        "RFC 4632 §3.1 — prefix notation and blocks",
+        "https://www.rfc-editor.org/rfc/rfc4632.html#section-3.1"
+      ],
+      [
+        "RFC 3021 §2 — 31-bit point-to-point prefixes",
+        "https://www.rfc-editor.org/rfc/rfc3021.html#section-2"
+      ]
+    ],
+    "integration": "Design four non-overlapping /26 allocations within one /24. Give the endpoints and explain how your answer changes if a provider reserves additional addresses.",
+    "advanced": "Prove that applying a contiguous bit mask and rounding an integer address down to a multiple of 2^(32−prefix) select the same block. Then investigate overlapping route prefixes."
+  },
+  {
+    "id": "math-eigen",
+    "experiment": "eigen",
+    "title": "Eigenvalues and Eigenvectors",
+    "explanation": "A matrix represents a linear transformation after choosing input and output bases. Multiplying A by a vector combines the columns of A using the vector components as weights. An eigenvector is a nonzero vector whose image lies on the same line: Av = λv. A negative eigenvalue reverses direction, and zero sends the vector to zero.\n\nFor A=[[2,1],[1,2]], multiplying (1,1) gives (3,3), so λ=3 is an eigenvalue with eigenvector (1,1). Multiplying (1,−1) gives (1,−1), so λ=1 is another eigenvalue. These are statements about directions, not unique vector lengths: any nonzero scalar multiple is also an eigenvector.\n\nTo find candidates algebraically, solve det(A−λI)=0. Here (2−λ)²−1 = λ²−4λ+3 = (λ−1)(λ−3), giving 1 and 3. Substitute into (A−λI)v=0 to obtain the corresponding directions. For distinct eigenvalues these two directions are independent; they form a basis in which this transformation is diagonal. Not every matrix has a complete eigenbasis.\n\nA computation should report the residual r=Av−λv. An absolute residual depends on the size of v, so compare ||r||/||v|| and, for broader numerical work, scale by the matrix norm as well. A tiny residual checks the submitted pair; it does not prove that all eigenpairs were found or that an ill-conditioned problem is harmless.",
+    "example": "A(1,1)=(3,3)=3(1,1), giving residual zero. If the same vector is paired with λ=2, r=(1,1), ||r||=√2 and ||r||/||v||=1. Scaling the vector by 100 scales the absolute residual by 100 but leaves the latter ratio unchanged.",
+    "objectives": [
+      "Calculate Av and verify an eigenpair.",
+      "Derive both eigenvalues of a two-by-two symmetric example.",
+      "Interpret residuals and reject the zero-vector shortcut."
+    ],
+    "lab": [
+      "Use A=[[2,1],[1,2]], v=(1,1), λ=3. Predict both output components before calculating.",
+      "Confirm Av=(3,3), λv=(3,3), and zero residual.",
+      "Change λ to 2. Predict residual norm √2 and relative residual 1.",
+      "Use v=(1,−1), λ=1, then incorrectly use λ=3. Compare.",
+      "Submit v=(0,0). The model must reject it rather than certify an eigenpair.",
+      "Export a valid case and reproduce it with the downloadable notebook."
+    ],
+    "references": [
+      [
+        "MIT 18.06 — Lecture 21: Eigenvalues and Eigenvectors",
+        "https://ocw.mit.edu/courses/18-06-linear-algebra-spring-2010/resources/lecture-21-eigenvalues-and-eigenvectors/"
+      ],
+      [
+        "MIT 18.06 — Lecture 22: Diagonalization and Powers of A",
+        "https://ocw.mit.edu/courses/18-06-linear-algebra-spring-2010/resources/lecture-22-diagonalization-and-powers-of-a/"
+      ]
+    ],
+    "integration": "Use the two eigendirections to calculate A⁵(2,0) without five repeated matrix multiplications, then check numerically.",
+    "advanced": "Investigate a defective matrix such as [[1,1],[0,1]]. Determine why it has fewer independent eigenvectors than its dimension."
+  },
+  {
+    "id": "math-bayes",
+    "experiment": "bayes",
+    "title": "Bayes’ Theorem",
+    "explanation": "Conditional probability changes the population over which a fraction is calculated. P(A|B) asks for the fraction of B cases that also satisfy A; P(B|A) asks the reverse question. These are generally different. From P(A∩B)=P(A|B)P(B)=P(B|A)P(A), Bayes’ rule follows: P(A|B)=P(B|A)P(A)/P(B), provided P(B)>0.\n\nLet A mean a machine truly has a fault and B mean a detector raises an alarm. In a fictional population of 10,000 machines with a 1% fault rate, 100 have the fault. With 90% sensitivity, 90 of those machines alarm. Of the 9,900 healthy machines, a 5% false-positive rate produces 495 false alarms. Therefore only 90/(90+495)≈15.38% of alarms identify true faults.\n\nThe denominator is the complete positive population. It combines true positives and false positives: P(B)=P(B|A)P(A)+P(B|not A)P(not A). Ignoring the healthy machines replaces the requested conditional probability with sensitivity. The answer changes when prevalence changes even if detector behavior stays fixed.\n\nThese are expected counts using assumed rates, not observations from a real deployment. Rates estimated from finite data have uncertainty and may drift across environments. Repeated tests cannot be multiplied as independent evidence unless their conditional dependence is justified. A useful investigation records assumptions before interpreting a posterior.",
+    "example": "At 1% prior, 90% sensitivity, and 5% false-positive rate, the posterior is 90/585≈0.153846. Change only the prior to 10%: 900 true positives and 450 false positives give 900/1350=2/3. A 90%-sensitive detector does not imply 90% of alarms are correct.",
+    "objectives": [
+      "Derive Bayes’ rule from conditional probability.",
+      "Calculate a posterior through a two-by-two count table.",
+      "Explain base-rate sensitivity and undefined zero-probability conditioning."
+    ],
+    "lab": [
+      "Predict whether the posterior is closer to 15% or 90% with the default inputs.",
+      "Calculate and check 90 true positives, 495 false positives, and posterior 0.153846.",
+      "Change the prior to 10%, keeping detector rates fixed. Expect posterior 2/3.",
+      "Set false-positive rate to zero with a positive prior and sensitivity. Explain posterior 1 under this idealized model.",
+      "Set both true-positive and false-positive rates to zero. Conditioning on a positive must be rejected as undefined.",
+      "Export the result and use the notebook to compare predicted counts with seeded samples."
+    ],
+    "references": [
+      [
+        "NIST Engineering Statistics Handbook §8.1.10 — Bayesian methodology",
+        "https://www.itl.nist.gov/div898/handbook/apr/section2/apr1a.htm"
+      ],
+      [
+        "Penn State STAT 414 Lesson 6 — Bayes’ theorem",
+        "https://online.stat.psu.edu/stat414/Lesson06"
+      ]
+    ],
+    "integration": "Compare two detectors using the same prior, then repeat after a prevalence shift. Report expected false alarms and missed faults rather than ranking by sensitivity alone.",
+    "advanced": "Treat detector rates as uncertain and examine how uncertainty propagates to the posterior. Do not multiply repeated alarms without modeling dependence."
+  },
+  {
+    "id": "advanced-qubit-superposition",
+    "experiment": "qubit",
+    "title": "Qubits and Superposition Without the Mysticism",
+    "explanation": "A pure qubit is a normalized vector α|0⟩+β|1⟩ with complex amplitudes and |α|²+|β|²=1. Measurement in the computational Z basis produces 0 with probability |α|² and 1 with probability |β|². These probabilities do not reveal every feature of the state.\n\nIgnoring an unobservable global phase, write |ψ⟩=cos(θ/2)|0⟩+exp(iφ)sin(θ/2)|1⟩. The angle θ ranges from 0 to π; φ describes relative phase. The corresponding Bloch vector is (sinθ cosφ, sinθ sinφ, cosθ). An ideal pure state has Bloch-vector norm one.\n\nThe probability of the positive outcome along a Pauli axis is (1+r_axis)/2. Thus P(X=+)=(1+sinθ cosφ)/2, P(Y=+)=(1+sinθ sinφ)/2, and P(Z=0)=(1+cosθ)/2. Rotating relative phase changes interference in X and Y even when Z probabilities stay fixed.\n\nAt θ=π/2, φ=0 the state is |+⟩: X gives + with certainty, while Z is balanced. At φ=π/2 the state is (|0⟩+i|1⟩)/√2 and Y gives + with certainty. Multiplying both amplitudes by the same complex phase changes none of these predictions. These calculations concern a pure, ideal qubit; mixed states and hardware errors require additional descriptions.",
+    "example": "Set θ=90°, φ=90°. The Bloch vector is (0,1,0) to rounding error. P(Z=0)=1/2, P(X=+)=1/2, P(Y=+)=1. At φ=180°, X=+ has probability zero, although Z remains balanced.",
+    "objectives": [
+      "Normalize a qubit state and distinguish amplitudes from probabilities.",
+      "Derive X/Y/Z probabilities from θ and φ.",
+      "Distinguish global phase, relative phase, and sampling uncertainty."
+    ],
+    "lab": [
+      "Set θ=90°, φ=0° in the companion. Predict all three probabilities.",
+      "Change φ to 90°. Confirm Y=+ is certain and Z remains balanced.",
+      "Change φ to 180°. Confirm X=+ vanishes.",
+      "Set θ=0° and vary φ. Explain why the state is unchanged.",
+      "Open the existing standalone qubit lab and compare predicted probabilities with a seeded shot sample.",
+      "Increase shots, export a result, and explain why more shots reduce sampling noise but do not repair a biased physical device."
+    ],
+    "references": [
+      [
+        "IBM Quantum — Basics of Quantum Information",
+        "https://quantum.cloud.ibm.com/learning/courses/basics-of-quantum-information"
+      ],
+      [
+        "Caltech Preskill notes — Quantum states and measurements",
+        "https://www.preskill.caltech.edu/ph229/"
+      ]
+    ],
+    "integration": "Prepare three pure states with identical Z statistics and show a measurement that distinguishes each from another. Explain why one shot is generally insufficient.",
+    "advanced": "Derive a density matrix and compute Tr(ρX), Tr(ρY), and Tr(ρZ). Then compare a pure state with the maximally mixed state."
+  },
+  {
+    "id": "advanced-entanglement",
+    "experiment": "bell",
+    "title": "Quantum Entanglement: A Joint State That Cannot Be Separated",
+    "explanation": "A joint pure state is entangled when it cannot be written as a product of subsystem states. The Bell state |Φ+⟩=(|00⟩+|11⟩)/√2 is entangled: its two amplitudes describe a coherent joint state. Measuring both qubits in Z gives 00 or 11, each with probability 1/2.\n\nThe classical mixture ρ_mix=(|00⟩⟨00|+|11⟩⟨11|)/2 has the same Z statistics, but lacks the off-diagonal coherence of |Φ+⟩⟨Φ+|. Z correlations alone therefore do not establish entanglement. For the Bell state, XX and ZZ correlations are +1, while YY is −1. For this mixture, XX and YY are zero and ZZ remains +1.\n\nThe companion uses ρ(v)=v|Φ+⟩⟨Φ+|+(1−v)ρ_mix for 0≤v≤1. Its same-basis correlation is C_Z=1, C_X=v, or C_Y=−v. Each local outcome is unbiased. The four joint probabilities are P(++ )=P(−−)=(1+C)/4 and P(+−)=P(−+)=(1−C)/4, with 0/1 replacing +/− for Z.\n\nTracing out either qubit gives I/2 for every v in this family. An observer cannot use local outcomes to learn the distant choice or send a message. A Bell-test claim additionally requires suitable measurement settings, assumptions, statistics, and experimental controls. This limited model teaches coherence and correlations; it does not by itself implement a loophole-free Bell test.",
+    "example": "At v=1 in X, ++ and −− occur with probability 1/2 each. At v=0 in X, all four outcomes occur with probability 1/4. Both cases produce 00 and 11 equally in Z. In Y, Φ+ instead gives opposite outcomes with certainty.",
+    "objectives": [
+      "Distinguish a Bell state from a classical mixture.",
+      "Calculate joint and marginal probabilities in three bases.",
+      "Explain why correlations do not enable signaling."
+    ],
+    "lab": [
+      "Choose Z and compare v=0 with v=1. Predict the identical outcome probabilities.",
+      "Choose X and compare the same endpoints. Expect four equal outcomes for v=0 and only matching outcomes for v=1.",
+      "Choose Y at v=1. Expect only opposite outcomes.",
+      "Set v=0.5 and calculate XX=0.5, YY=−0.5, ZZ=1.",
+      "For each case, sum probabilities to one and verify each local marginal is 1/2.",
+      "Export the result and reproduce the density-matrix calculation in the notebook."
+    ],
+    "references": [
+      [
+        "IBM Quantum — General Formulation of Quantum Information",
+        "https://quantum.cloud.ibm.com/learning/en/courses/general-formulation-of-quantum-information"
+      ],
+      [
+        "Caltech Preskill notes — Entanglement and density operators",
+        "https://www.preskill.caltech.edu/ph229/"
+      ]
+    ],
+    "integration": "Explain why a device that only reports matching Z outcomes has not supplied enough evidence for a Bell-state claim. Propose the additional measurements needed for this model comparison.",
+    "advanced": "Calculate the partial transpose of ρ(v) and inspect its eigenvalues. Then distinguish an entanglement witness from a Bell-inequality test."
+  },
+  {
+    "id": "cloud-recovery-rto-rpo",
+    "experiment": "recovery",
+    "title": "RTO and RPO: Two Different Recovery Targets",
+    "explanation": "Recovery Time Objective (RTO) and Recovery Point Objective (RPO) constrain different consequences of an outage. RTO is a target for how quickly the service must recover under a defined incident clock. RPO specifies the recoverable data point needed after an outage, often expressed as the maximum tolerable age or loss interval. The business impact analysis must define scope and clock boundaries.\n\nIn a fictional incident starting at 14:00, an RTO of 120 minutes requires the defined service to recover by 16:00. An RPO of 30 minutes requires a recoverable data point at least as recent as 13:30. Restoring at 15:35 from a verified 13:15 point meets the time objective but misses the data objective by 15 minutes. One result cannot substitute for the other.\n\nBackup-job success is an observation about a process. Demonstrated recovery requires evidence that the selected data is recoverable, the application starts, dependencies are available, identities and permissions work, and the required business checks pass. A recovered file count alone cannot establish transactional or application consistency.\n\nRecord the incident start, chosen restore point, restoration completion, validation result, dependency assumptions, and who approved the exercise outcome. A successful exercise supports that tested scenario; it does not guarantee the same result at another scale or during a different failure. Improve the runbook by investigating the limiting objective, not by changing the target after seeing the result.",
+    "example": "RTO=120 min, RPO=30 min, observed restoration=95 min, recoverable-point age=45 min, validation=passed. RTO margin is +25 min; RPO margin is −15 min. The exercise does not demonstrate compliance with both targets.",
+    "objectives": [
+      "Calculate RTO and RPO margins independently.",
+      "Distinguish backup completion from application recovery.",
+      "Document a bounded recovery exercise and its limitations."
+    ],
+    "lab": [
+      "Predict whether the default case passes both objectives.",
+      "Calculate: expect RTO margin +25 and RPO margin −15 minutes.",
+      "Change point age to 20 minutes; with validation passed, both targets are met within this fixture.",
+      "Change validation to failed. Explain why good time margins cannot establish usable recovery.",
+      "Set an observed duration exactly equal to its target and inspect the boundary.",
+      "Export a result and write a runbook improvement tied to the failed objective."
+    ],
+    "references": [
+      [
+        "NIST SP 800-34 Rev. 1 — Contingency Planning Guide",
+        "https://nvlpubs.nist.gov/nistpubs/legacy/sp/nistspecialpublication800-34r1.pdf"
+      ],
+      [
+        "NIST CSRC — Recovery Point Objective",
+        "https://csrc.nist.gov/glossary/term/recovery_point_objective"
+      ],
+      [
+        "NIST CSRC — Recovery Time Objective",
+        "https://csrc.nist.gov/glossary/term/recovery_time_objective"
+      ]
+    ],
+    "integration": "Create a dependency-aware recovery worksheet for a fictional application, identity service, and database. State the restore order and validation needed before declaring the application recovered.",
+    "advanced": "Evaluate how correlated failures, unavailable identity services, and larger data volumes change the assumptions of a recovery test."
+  },
+  {
+    "id": "software-testing-pyramid",
+    "experiment": "ingestion",
+    "title": "Testing at Multiple Layers",
+    "explanation": "Testing at multiple layers assigns a failure to the smallest useful scope. Unit tests can validate a pure record validator. Integration tests can prove that accepted records and their request identifier commit together in a real database. A browser or CLI journey can check the public interface. Passing one layer does not establish the others.\n\nConsider an inventory import requiring id, owner, and count. Parsing answers whether input is valid JSON. Schema validation answers whether it has the required structure and types. Domain validation checks such rules as a nonnegative integer count and unique identifiers. These checks do not prove that the inventory matches physical reality.\n\nValidate a complete batch before making it visible. In the downloadable SQLite example, insertion and the request receipt share one transaction. A duplicate request with the same content returns the prior result; reuse of the request identifier with different content is rejected. A database conflict rolls back the batch. This protects against partial writes and careless retries without claiming exactly-once delivery across arbitrary distributed systems.\n\nUse malformed JSON, a string instead of an integer, missing fields, unexpected fields, duplicate IDs, and a database conflict as distinct test cases. Use generated cases to check invariants, but do not replace concrete examples and independent expected results with tests that simply repeat the implementation. The browser companion performs parsing and validation only; persistence is exercised by the downloadable application.",
+    "example": "A1/Operations/3 and A2/Research/0 form a valid two-record batch. Changing A2.count to −1 rejects the entire batch. Changing it to the string \"3\" also rejects it: permissive coercion could conceal upstream schema errors. A successful validation is not a database commit.",
+    "objectives": [
+      "Separate syntax, schema, domain, and integration checks.",
+      "Explain all-or-nothing batch processing and retry identity.",
+      "Produce a test matrix with independent expected results."
+    ],
+    "lab": [
+      "Calculate the default two-record batch. Expect two accepted records and zero validation errors.",
+      "Set one count to −1. Expect zero accepted records.",
+      "Restore the count, then duplicate an id. Expect atomic rejection.",
+      "Try invalid JSON and an unexpected field; distinguish syntax from schema errors.",
+      "Run the downloadable SQLite tests, including a second-row conflict and request-id replay.",
+      "Export a valid browser result and explain why it is validation evidence rather than persistence evidence."
+    ],
+    "references": [
+      [
+        "Python json documentation — decoding and exceptions",
+        "https://docs.python.org/3/library/json.html"
+      ],
+      [
+        "SQLite — Atomic Commit",
+        "https://www.sqlite.org/atomiccommit.html"
+      ],
+      [
+        "SQLite — Transaction",
+        "https://www.sqlite.org/lang_transaction.html"
+      ]
+    ],
+    "integration": "Write a test matrix for a CSV-to-JSON inventory import. Include syntax, identity, escaping, duplicate requests, database conflicts, and a corrected-input retry.",
+    "advanced": "Explore concurrent writers, transaction isolation, and the difference between at-least-once delivery and idempotent application behavior."
+  },
+  {
+    "id": "leadership-sli-slo-sla",
+    "experiment": "slo",
+    "title": "SLI, SLO, SLA",
+    "explanation": "A Service Level Indicator (SLI) is a defined measurement of service behavior. A Service Level Objective (SLO) is a target for that indicator over a specified window. A Service Level Agreement (SLA) is an agreement with consequences and terms; it is not automatically created by publishing an internal target.\n\nFor a request-based success SLI, define eligible requests and bad outcomes before counting. Observed success is 1−bad/eligible. A 99.9% SLO permits a bad fraction of 0.001. Over 1,000,000 eligible requests that is 1,000 bad requests. If 1,500 are bad, observed success is 99.85%, the remaining budget is −500, and consumption is 150%.\n\nRequest-based and time-based indicators answer different questions. A failed request is not necessarily one minute of downtime. Traffic variation, exclusions, retries, partial failures, missing telemetry, and the measurement window all affect interpretation. A service that fails during peak demand can consume a request budget very differently from one that fails during quiet hours.\n\nAn error-budget policy connects measurements to pre-agreed actions: investigate, pause selected risky changes, improve resilience, or explicitly accept a tradeoff. The arithmetic does not choose the business policy. An incident review should distinguish the observed impact, contributing technical factors, decisions under uncertainty, and follow-up work with owners and verification criteria. Avoid changing eligibility rules after an incident merely to make the metric pass.",
+    "example": "With 1,000,000 eligible requests and 1,500 bad outcomes, SLI=1−1500/1000000=0.9985=99.85%. At target 99.9%, budget=1,000, remaining=−500, consumed=150%. If the target is exactly 100%, the allowed budget is zero and dividing by it is undefined.",
+    "objectives": [
+      "Distinguish SLI, SLO, and SLA.",
+      "Calculate a request-based budget with consistent units.",
+      "Write an incident decision supported by telemetry and explicit assumptions."
+    ],
+    "lab": [
+      "Predict the allowed bad requests at the default 99.9% target and one million requests.",
+      "Calculate and confirm budget 1,000, remaining −500, consumed 150%.",
+      "Change bad requests to 500. Expect 50% consumption and 500 remaining.",
+      "Set target to 100%. Explain the zero budget and undefined consumption ratio for nonzero errors.",
+      "Try bad requests greater than eligible requests. The model must reject that input.",
+      "Export a result and write a short incident decision separating measurements from policy choices."
+    ],
+    "references": [
+      [
+        "Google SRE Workbook — Implementing SLOs",
+        "https://sre.google/workbook/implementing-slos/"
+      ],
+      [
+        "Google SRE Workbook — Alerting on SLOs",
+        "https://sre.google/workbook/alerting-on-slos/"
+      ]
+    ],
+    "integration": "Write a fictional incident review containing impact, timeline, SLI evidence, budget calculation, contributing factors, and two follow-up actions with owners and completion evidence.",
+    "advanced": "Compare short- and long-window burn rates, then analyze how correlated failures and traffic variation affect alerting. Distinguish windowed ratios from statistical confidence."
+  }
+]
