@@ -50,13 +50,10 @@ const server=http.createServer((req,res)=>{
  assert(await p.evaluate(()=>!SiteAudio.muted&&Math.abs(SiteAudio.volume-.05)<.001),'Positive native-range changes set the new selected level');assert.equal(await mute.innerText(),'Mute');
  await p.locator('.scene-sound-up').click();assert(await p.evaluate(()=>Math.abs(SiteAudio.volume-.10)<.001),'Plus control raises volume by five percent');await p.locator('.scene-sound-down').click();assert(await p.evaluate(()=>Math.abs(SiteAudio.volume-.05)<.001),'Minus control lowers volume by five percent');
  await p.screenshot({path:path.join(output,'volume-slider-night.png')});
- await p.waitForFunction(()=>SiteAudio.element.currentTime>0&&!SiteAudio.element.paused&&SiteAudio.volumeBackend==='gain',null,{timeout:20000});
- report.night=await p.evaluate(()=>({time:SiteAudio.element.currentTime,source:SiteAudio.element.currentSrc,volume:SiteAudio.volume,levels:SiteAudio.outputLevels}));assert(/dark-theme-user-v32\.(?:wav|mp3)$/.test(new URL(report.night.source).pathname));assert.equal(report.night.volume,.05);
- await p.evaluate(()=>{const a=SiteAudio.element;if(Number.isFinite(a.duration)&&a.duration>3){a.currentTime=Math.max(0,a.duration-.25);a.dispatchEvent(new Event('timeupdate'))}});
- await p.waitForFunction(()=>SiteAudio.darkElements.filter(a=>!a.paused&&!a.muted).length===2,null,{timeout:6000});
- report.nightCrossfade=await p.evaluate(()=>({levels:SiteAudio.outputLevels.slice(1,3),owners:SiteAudio.darkElements.filter(a=>!a.paused&&!a.muted).length,volume:SiteAudio.volume}));
- assert(report.nightCrossfade.levels.reduce((n,x)=>n+x.level,0)<=report.nightCrossfade.volume+.001,'Night crossfade must not exceed selected site volume');
- await p.waitForFunction(()=>SiteAudio.darkElements.filter(a=>!a.paused&&!a.muted).length===1,null,{timeout:6000});
+ await p.waitForFunction(()=>SiteAudio.darkBackend==='buffer'&&SiteAudio.darkPosition>0&&SiteAudio.volumeBackend==='gain',null,{timeout:20000});
+ report.night=await p.evaluate(()=>({backend:SiteAudio.darkBackend,time:SiteAudio.darkPosition,duration:SiteAudio.darkDuration,sourceStarts:SiteAudio.darkSourceStarts,playbackRate:SiteAudio.darkPlaybackRate,volume:SiteAudio.volume,levels:SiteAudio.outputLevels}));
+ assert.equal(report.night.backend,'buffer');assert(report.night.duration>20);assert.equal(report.night.sourceStarts,1);assert.equal(report.night.playbackRate,1);assert.equal(report.night.volume,.05);
+ assert.equal(report.night.levels.filter(x=>!x.paused&&!x.muted&&x.level>0).length,1,'Night must have exactly one audible source');
  const transform=await p.locator('.scene-night').evaluate(e=>e.style.transform);await p.waitForTimeout(1000);assert.notEqual(await p.locator('.scene-night').evaluate(e=>e.style.transform),transform,'Night camera must move');
  await p.keyboard.press('Escape');await p.locator('[data-theme-toggle]').first().click();
  async function frameHash(){return p.evaluate(()=>{const v=document.querySelector('.scene-video.is-active'),c=document.createElement('canvas');c.width=96;c.height=54;const ctx=c.getContext('2d');ctx.drawImage(v,0,0,96,54);const pixels=ctx.getImageData(0,0,96,54).data;let hash=0,min=255,max=0;for(let i=0;i<pixels.length;i+=4){hash=(Math.imul(hash,31)+pixels[i]+pixels[i+1]*3+pixels[i+2]*7)|0;min=Math.min(min,pixels[i]);max=Math.max(max,pixels[i]);}return {hash,range:max-min};});}

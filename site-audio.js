@@ -3,7 +3,10 @@
 
   // Unified site ambience controller. This is the ONLY script that may create
   // or play background ambience/music.
-  if (window.SiteAudio || window.__JR_SITE_AUDIO_V31__) return;
+  if (window.SiteAudio || window.__JR_SITE_AUDIO_V33__) return;
+  window.__JR_SITE_AUDIO_V33__ = true;
+  // Claim older guards so a stale deferred controller cannot create a second
+  // ambience owner after the gapless controller has initialized.
   window.__JR_SITE_AUDIO_V31__ = true;
   window.__JR_SITE_AUDIO_V30__ = true;
   // Also claim the previous guard so a stale deferred V29 script cannot start
@@ -50,7 +53,6 @@
     new URL('assets/audio/day/beach-far.ogg', AUDIO_BASE).href
   ]);
   const BEACH_CROSSFADE_SECONDS = 1.2;
-  const DARK_CROSSFADE_SECONDS = 0.18;
 
   // Branch-preview hosts serve the source tree verbatim, while the release
   // build reconstructs approved Day audio from preserved Git chunks. Rebuild
@@ -199,13 +201,23 @@
   let currentKey = '';
   let unlocked = false;
   let switching = false;
-  let darkFallbackActive = false;
   let autoplayBlocked = false;
   let autoplayRetryTimers = [];
   const suppressionReasons = new Set();
   const levels = new Map();
   const gains = new Map();
   let audioContext = null;
+  let darkGain = null;
+  let darkBuffer = null;
+  let darkBufferPromise = null;
+  let darkDecodeFailed = false;
+  let darkSource = null;
+  let darkBackend = 'idle';
+  let darkStarted = false;
+  let darkStartContextTime = 0;
+  let darkStartOffset = 0;
+  let darkSourceStarts = 0;
+  let darkGeneration = 0;
   let pageActive = true;
   const platformAudioSession = (() => {
     try { return typeof navigator !== 'undefined' ? navigator.audioSession || null : null; }
@@ -252,7 +264,10 @@
     if (!audioContext) {
       try {
         audioContext = new Context();
-        for (const player of [audio, ...darkPlayers, ...beachPlayers]) {
+        darkGain = audioContext.createGain();
+        darkGain.gain.value = 0;
+        darkGain.connect(audioContext.destination);
+        for (const player of [audio, darkFallbackPlayer, ...beachPlayers]) {
           const gain = audioContext.createGain();
           gain.gain.value = levels.get(player) || 0;
           audioContext.createMediaElementSource(player).connect(gain);
@@ -270,10 +285,11 @@
       try { audioContext.resume().then(() => markAutoplayState(audioContext.state !== 'running')).catch(() => markAutoplayState(true)); }
       catch (_) { markAutoplayState(true); }
     }
+    return audioContext;
   }
 
   // Remove stale legacy players if a cached older script left one behind.
-  document.querySelectorAll('#jr-site-audio, #jr-site-audio-dark-a, #jr-site-audio-dark-b, #jr-site-audio-beach-a, #jr-site-audio-beach-b, #jr-dark-theme-music').forEach(node => {
+  document.querySelectorAll('#jr-site-audio, #jr-site-audio-dark-a, #jr-site-audio-dark-b, #jr-site-audio-dark-fallback, #jr-site-audio-beach-a, #jr-site-audio-beach-b, #jr-dark-theme-music').forEach(node => {
     try { node.pause(); } catch (_) {}
     try { node.remove(); } catch (_) {}
   });
@@ -294,20 +310,19 @@
   audio.playbackRate = 1;
   (document.body || document.documentElement).appendChild(audio);
 
-  function createDarkPlayer(id, preload = 'metadata') {
+  function createDarkFallbackPlayer() {
     const player = document.createElement('audio');
-    player.id = id;
-    player.preload = preload;
+    player.id = 'jr-site-audio-dark-fallback';
+    player.preload = 'metadata';
     player.autoplay = false;
     player.muted = true;
-    player.loop = false;
+    player.loop = true;
     player.playsInline = true;
     player.setAttribute('playsinline', '');
     player.setAttribute('aria-hidden', 'true');
     player.style.display = 'none';
     setPlayerLevel(player, 0);
-    player.src = SOURCES.dark;
-    player.dataset.darkFallback = '0';
+    player.src = SOURCES.darkFallback;
     player.dataset.previewFallback = '0';
     player.dataset.previewKey = '';
     (document.body || document.documentElement).appendChild(player);
@@ -315,16 +330,10 @@
     return player;
   }
 
-  const darkPlayers = [
-    createDarkPlayer('jr-site-audio-dark-a', 'auto'),
-    createDarkPlayer('jr-site-audio-dark-b', 'metadata')
-  ];
-
-  let darkActiveIndex = 0;
-  let darkStarted = false;
-  let darkTransitioning = false;
-  let darkFadeFrame = 0;
-  let darkGeneration = 0;
+  // The PCM Night master is decoded once and looped by one AudioBufferSourceNode.
+  // The single media element below is cold unless Web Audio is unavailable or
+  // WAV fetch/decode fails. Both backends are never allowed to run together.
+  const darkFallbackPlayer = createDarkFallbackPlayer();
 
   function createBeachPlayer(id, src) {
     const player = document.createElement('audio');
@@ -444,12 +453,14 @@
     try {
       setPlayerLevel(audio, currentKey && currentKey !== 'dark' && currentKey !== 'beach' ? cap : 0);
     } catch (_) {}
-    darkPlayers.forEach((player, index) => {
-      if (darkTransitioning && cap > 0) return;
-      try {
-        setPlayerLevel(player, currentKey === 'dark' && index === darkActiveIndex ? cap : 0);
-      } catch (_) {}
-    });
+    if (darkGain && audioContext) {
+      const level = currentKey === 'dark' && darkBackend === 'buffer' && darkStarted ? cap : 0;
+      try { darkGain.gain.setValueAtTime(level, audioContext.currentTime); } catch (_) {}
+    }
+    try {
+      setPlayerLevel(darkFallbackPlayer,
+        currentKey === 'dark' && darkBackend === 'media' && darkStarted ? cap : 0);
+    } catch (_) {}
     beachPlayers.forEach((player, index) => {
       if (beachTransitioning && cap > 0) return;
       try { setPlayerLevel(player, index === beachActiveIndex && beachStarted ? cap : 0); } catch (_) {}
@@ -471,220 +482,187 @@
 
   function saveDarkTime() {
     if (currentKey !== 'dark') return;
-    const player = darkPlayers[darkActiveIndex];
     try {
-      const value = Number(player?.currentTime || 0);
+      const value = currentDarkPosition();
       if (Number.isFinite(value) && value >= 0) {
         localStorage.setItem(DARK_TIME_KEY, String(value));
       }
     } catch (_) {}
   }
 
-  function restoreDarkTime(player = darkPlayers[darkActiveIndex]) {
-    if (currentKey !== 'dark' || !player) return;
+  function storedDarkTime(duration = 0) {
     try {
       const saved = Number(localStorage.getItem(DARK_TIME_KEY) || 0);
-      if (!Number.isFinite(saved) || saved < 0) return;
-      const duration = Number(player.duration || 0);
-      player.currentTime = duration > 0 ? saved % duration : saved;
-    } catch (_) {}
+      if (!Number.isFinite(saved) || saved < 0) return 0;
+      return duration > 0 ? saved % duration : saved;
+    } catch (_) { return 0; }
   }
 
-  function cancelDarkFade() {
-    if (!darkFadeFrame) return;
-    try { cancelAnimationFrame(darkFadeFrame); } catch (_) {}
-    darkFadeFrame = 0;
+  function currentDarkPosition() {
+    if (darkBackend === 'buffer' && darkSource && audioContext && darkBuffer?.duration) {
+      const elapsed = Math.max(0, audioContext.currentTime - darkStartContextTime);
+      return (darkStartOffset + elapsed) % darkBuffer.duration;
+    }
+    const duration = Number(darkFallbackPlayer.duration || 0);
+    const current = Number(darkFallbackPlayer.currentTime || 0);
+    return duration > 0 ? current % duration : Math.max(0, current);
+  }
+
+  function darkLoopCount() {
+    if (darkBackend !== 'buffer' || !darkSource || !audioContext || !darkBuffer?.duration) return 0;
+    const elapsed = Math.max(0, audioContext.currentTime - darkStartContextTime);
+    return Math.floor((darkStartOffset + elapsed) / darkBuffer.duration);
   }
 
   function stopDark(reset = true) {
     darkGeneration += 1;
-    cancelDarkFade();
-    darkTransitioning = false;
+    if (darkGain && audioContext) {
+      try { darkGain.gain.setValueAtTime(0, audioContext.currentTime); } catch (_) {}
+    }
+    if (darkSource) {
+      const source = darkSource;
+      darkSource = null;
+      try { source.onended = null; } catch (_) {}
+      try { source.stop(); } catch (_) {}
+      try { source.disconnect(); } catch (_) {}
+    }
+    invalidatePreviewPlayer(darkFallbackPlayer);
+    try { setPlayerLevel(darkFallbackPlayer, 0); } catch (_) {}
+    try { darkFallbackPlayer.muted = true; } catch (_) {}
+    try { darkFallbackPlayer.pause(); } catch (_) {}
+    if (reset) {
+      try { darkFallbackPlayer.currentTime = 0; } catch (_) {}
+      darkStartOffset = 0;
+    }
     darkStarted = false;
-    darkActiveIndex = 0;
-    darkPlayers.forEach(player => {
-      invalidatePreviewPlayer(player);
-      try { setPlayerLevel(player, 0); } catch (_) {}
-      try { player.muted = true; } catch (_) {}
-      try { player.pause(); } catch (_) {}
-      if (reset) {
-        try { player.currentTime = 0; } catch (_) {}
-      }
-    });
+    darkBackend = 'idle';
   }
 
-  function prepareDarkPlayer(player) {
-    if (!player) return;
-    player.loop = false;
+  function prepareDarkFallback() {
+    const player = darkFallbackPlayer;
+    player.loop = true;
     player.muted = false;
     player.defaultPlaybackRate = 1;
     player.playbackRate = 1;
     if (!BRANCH_PREVIEW_HOST &&
-        player.src !== SOURCES.dark &&
-        player.currentSrc !== SOURCES.dark &&
-        !(player.dataset.darkFallback === '1' && player.currentSrc === SOURCES.darkFallback)) {
-      player.src = SOURCES.dark;
-      player.dataset.darkFallback = '0';
+        player.src !== SOURCES.darkFallback &&
+        player.currentSrc !== SOURCES.darkFallback) {
+      player.src = SOURCES.darkFallback;
       try { player.load(); } catch (_) {}
     }
   }
 
-  function playDark() {
-    if (desiredKey() !== 'dark' || switching || darkTransitioning) return;
-    resumeVolumeGraph();
-    const player = darkPlayers[darkActiveIndex];
-    const generation = darkGeneration;
-    const cap = cappedVolume('dark');
+  function decodeAudioBuffer(bytes) {
+    return new Promise((resolve, reject) => {
+      let settled = false;
+      const accept = value => { if (!settled) { settled = true; resolve(value); } };
+      const decline = error => { if (!settled) { settled = true; reject(error); } };
+      try {
+        const result = audioContext.decodeAudioData(bytes, accept, decline);
+        if (result?.then) result.then(accept, decline);
+      } catch (error) { decline(error); }
+    });
+  }
 
-    if (BRANCH_PREVIEW_HOST &&
-        !(player.dataset.previewFallback === '1' && player.dataset.previewKey === 'dark' &&
-          (player.currentSrc || player.src || '').startsWith('blob:'))) {
-      usePreviewAudio(player, 'dark', { loop: false, play: false, level: cap }).then(ok => {
-        if (!ok || generation !== darkGeneration || desiredKey() !== 'dark') return;
-        restoreDarkTime(player);
-        player.muted = false;
-        setPlayerLevel(player, cap);
-        try {
-          const result = player.play();
-          if (result?.then) result.then(() => {
-            if (generation === darkGeneration && desiredKey() === 'dark') {
-              darkStarted = true;
-              markAutoplayState(false);
-            }
-          }).catch(error => {
-            if (error?.name === 'NotAllowedError') markAutoplayState(true);
-          });
-        } catch (error) {
-          if (error?.name === 'NotAllowedError') markAutoplayState(true);
-        }
-      });
-      return;
+  async function loadDarkBuffer() {
+    if (darkBuffer) return darkBuffer;
+    if (darkDecodeFailed) throw new Error('Night PCM decode previously failed');
+    if (darkBufferPromise) return darkBufferPromise;
+    if (!audioContext?.decodeAudioData) throw new Error('Web Audio decoding unavailable');
+    darkBufferPromise = (async () => {
+      const url = BRANCH_PREVIEW_HOST ? (await previewAudioUrl('dark') || SOURCES.dark) : SOURCES.dark;
+      const response = await fetch(url, { cache: 'force-cache' });
+      if (!response.ok) throw new Error('Night PCM HTTP ' + response.status);
+      const decoded = await decodeAudioBuffer(await response.arrayBuffer());
+      if (!decoded || !Number.isFinite(decoded.duration) || decoded.duration <= 0) {
+        throw new Error('Night PCM decoded to an invalid AudioBuffer');
+      }
+      darkBuffer = decoded;
+      return decoded;
+    })().catch(error => {
+      darkDecodeFailed = true;
+      throw error;
+    }).finally(() => { darkBufferPromise = null; });
+    return darkBufferPromise;
+  }
+
+  function playDarkFallback(generation) {
+    if (generation !== darkGeneration || desiredKey() !== 'dark' || switching) return;
+    prepareDarkFallback();
+    if (!darkStarted) {
+      const duration = Number(darkFallbackPlayer.duration || 0);
+      try { darkFallbackPlayer.currentTime = storedDarkTime(duration); } catch (_) {}
     }
-
-    prepareDarkPlayer(player);
-    if (!darkStarted) restoreDarkTime(player);
-    setPlayerLevel(player, cap);
+    darkBackend = 'media';
+    darkFallbackPlayer.loop = true;
+    darkFallbackPlayer.muted = false;
+    setPlayerLevel(darkFallbackPlayer, cappedVolume('dark'));
     try {
-      const result = player.play();
-      if (result?.then) result.then(() => {
-        if (generation === darkGeneration && desiredKey() === 'dark') {
-          darkStarted = true;
-          markAutoplayState(false);
-        }
+      const result = darkFallbackPlayer.play();
+      Promise.resolve(result).then(() => {
+        if (generation !== darkGeneration || desiredKey() !== 'dark') return;
+        darkStarted = true;
+        markAutoplayState(false);
       }).catch(error => {
-        if (generation !== darkGeneration) return;
-        if (error?.name === 'NotAllowedError') markAutoplayState(true);
+        if (generation === darkGeneration && error?.name === 'NotAllowedError') markAutoplayState(true);
       });
     } catch (error) {
       if (error?.name === 'NotAllowedError') markAutoplayState(true);
     }
   }
 
-  function beginDarkTransition() {
-    if (darkTransitioning || currentKey !== 'dark' || desiredKey() !== 'dark') return;
-    const fromIndex = darkActiveIndex;
-    const toIndex = 1 - fromIndex;
-    const from = darkPlayers[fromIndex];
-    const to = darkPlayers[toIndex];
+  async function playDark() {
+    if (desiredKey() !== 'dark' || switching || darkStarted) return;
+    const context = resumeVolumeGraph();
     const generation = darkGeneration;
-    darkTransitioning = true;
-
-    const beginFade = () => {
-      if (generation !== darkGeneration || currentKey !== 'dark' || desiredKey() !== 'dark') {
-        try { to.pause(); } catch (_) {}
-        darkTransitioning = false;
-        return;
-      }
-      const startedAt = performance.now();
-      const fadeMs = DARK_CROSSFADE_SECONDS * 1000;
-      const step = now => {
-        if (generation !== darkGeneration || currentKey !== 'dark' || desiredKey() !== 'dark') {
-          try { to.pause(); } catch (_) {}
-          darkTransitioning = false;
-          darkFadeFrame = 0;
-          return;
-        }
-        const progress = Math.min(1, Math.max(0, (now - startedAt) / fadeMs));
-        const cap = cappedVolume('dark');
-        setPlayerLevel(from, cap * (1 - progress));
-        setPlayerLevel(to, cap * progress);
-        if (progress < 1) {
-          darkFadeFrame = requestAnimationFrame(step);
-          return;
-        }
-        darkFadeFrame = 0;
-        try { from.pause(); from.currentTime = 0; } catch (_) {}
-        setPlayerLevel(from, 0);
-        setPlayerLevel(to, cap);
-        darkActiveIndex = toIndex;
-        darkTransitioning = false;
-        darkStarted = true;
-      };
-      darkFadeFrame = requestAnimationFrame(step);
-    };
-
-    const startNext = () => {
-      try { to.currentTime = 0; } catch (_) {}
-      to.loop = false;
-      to.muted = false;
-      setPlayerLevel(to, 0);
-      try {
-        const result = to.play();
-        Promise.resolve(result).then(beginFade).catch(() => {
-          darkTransitioning = false;
-        });
-      } catch (_) {
-        darkTransitioning = false;
-      }
-    };
-
-    if (BRANCH_PREVIEW_HOST &&
-        !(to.dataset.previewFallback === '1' && to.dataset.previewKey === 'dark' &&
-          (to.currentSrc || to.src || '').startsWith('blob:'))) {
-      usePreviewAudio(to, 'dark', { loop: false, play: false, level: 0 })
-        .then(ok => { if (ok) startNext(); else darkTransitioning = false; });
+    if (!context || !darkGain) {
+      playDarkFallback(generation);
       return;
     }
-
-    prepareDarkPlayer(to);
-    startNext();
+    try {
+      const buffer = await loadDarkBuffer();
+      if (generation !== darkGeneration || desiredKey() !== 'dark' || switching || darkSource) return;
+      try { darkFallbackPlayer.pause(); } catch (_) {}
+      try { darkFallbackPlayer.muted = true; } catch (_) {}
+      setPlayerLevel(darkFallbackPlayer, 0);
+      const source = audioContext.createBufferSource();
+      source.buffer = buffer;
+      source.loop = true;
+      source.loopStart = 0;
+      source.loopEnd = buffer.duration;
+      source.playbackRate.value = 1;
+      source.connect(darkGain);
+      const offset = storedDarkTime(buffer.duration);
+      darkGain.gain.setValueAtTime(cappedVolume('dark'), audioContext.currentTime);
+      darkSource = source;
+      darkBackend = 'buffer';
+      darkStartOffset = offset;
+      darkStartContextTime = audioContext.currentTime;
+      darkSourceStarts += 1;
+      darkStarted = true;
+      source.start(0, offset);
+      markAutoplayState(audioContext.state !== 'running');
+    } catch (error) {
+      if (generation !== darkGeneration || desiredKey() !== 'dark') return;
+      console.warn('JR Night PCM buffer unavailable; using media fallback.', error);
+      playDarkFallback(generation);
+    }
   }
 
-  darkPlayers.forEach((player, index) => {
-    player.addEventListener('loadedmetadata', () => {
-      if (currentKey === 'dark' && index === darkActiveIndex && !darkStarted) restoreDarkTime(player);
-    });
-    player.addEventListener('timeupdate', () => {
-      if (currentKey !== 'dark' || index !== darkActiveIndex || darkTransitioning) return;
-      const duration = Number(player.duration || 0);
-      const current = Number(player.currentTime || 0);
-      if (!Number.isFinite(duration) || duration <= 0 || !Number.isFinite(current)) return;
-      if (duration - current <= DARK_CROSSFADE_SECONDS + .3) beginDarkTransition();
-    });
-    player.addEventListener('ended', () => {
-      if (currentKey === 'dark' && index === darkActiveIndex && !darkTransitioning) beginDarkTransition();
-    });
-    player.addEventListener('error', () => {
-      if (player.dataset.darkFallback !== '1' && player.currentSrc !== SOURCES.darkFallback) {
-        player.dataset.darkFallback = '1';
-        try {
-          player.pause();
-          player.src = SOURCES.darkFallback;
-          player.load();
-          if (currentKey === 'dark' && index === darkActiveIndex && desiredKey() === 'dark') playDark();
-        } catch (_) {}
-        return;
-      }
-      console.error('JR Night ambience failed:', player.currentSrc, player.error);
-    });
-    player.addEventListener('volumechange', () => {
-      const cap = cappedVolume('dark');
-      if (!gains.has(player) && player.volume > cap) setPlayerLevel(player, cap);
-    });
-    player.addEventListener('ratechange', () => {
-      if (player.defaultPlaybackRate !== 1) player.defaultPlaybackRate = 1;
-      if (player.playbackRate !== 1) player.playbackRate = 1;
-    });
+  darkFallbackPlayer.addEventListener('error', () => {
+    if (darkBackend === 'media' && desiredKey() === 'dark') {
+      console.error('JR Night fallback failed:', darkFallbackPlayer.currentSrc, darkFallbackPlayer.error);
+    }
+  });
+  darkFallbackPlayer.addEventListener('volumechange', () => {
+    const cap = cappedVolume('dark');
+    if (!gains.has(darkFallbackPlayer) && darkFallbackPlayer.volume > cap) {
+      setPlayerLevel(darkFallbackPlayer, cap);
+    }
+  });
+  darkFallbackPlayer.addEventListener('ratechange', () => {
+    if (darkFallbackPlayer.defaultPlaybackRate !== 1) darkFallbackPlayer.defaultPlaybackRate = 1;
+    if (darkFallbackPlayer.playbackRate !== 1) darkFallbackPlayer.playbackRate = 1;
   });
 
   function cancelBeachFade() {
@@ -914,14 +892,9 @@
       switching = true;
       stop();
       currentKey = 'dark';
-      darkFallbackActive = false;
-      darkActiveIndex = 0;
       darkStarted = false;
-      darkTransitioning = false;
-      darkPlayers.forEach(player => {
-        player.dataset.darkFallback = '0';
-        if (!BRANCH_PREVIEW_HOST) prepareDarkPlayer(player);
-      });
+      darkBackend = 'idle';
+      prepareDarkFallback();
       switching = false;
       return;
     }
@@ -1051,8 +1024,7 @@
     if (force || currentKey !== key) applySource(key);
 
     if (key === 'dark') {
-      const active = darkPlayers[darkActiveIndex];
-      if (!switching && (!darkStarted || (active.paused && !darkTransitioning))) playDark();
+      if (!switching && !darkStarted) playDark();
       return;
     }
 
@@ -1257,8 +1229,7 @@
     }
 
     if (key === 'dark') {
-      const active = darkPlayers[darkActiveIndex];
-      if (unlocked && !switching && !darkTransitioning && (!darkStarted || active.paused)) playDark();
+      if (unlocked && !switching && !darkStarted) playDark();
       return;
     }
 
@@ -1291,15 +1262,37 @@
     get maxVolume() { return MAX_BACKGROUND_VOLUME; },
     get volume() { return preferredVolume(); },
     get volumeBackend() { return gains.size ? 'gain' : 'media'; },
-    get outputLevels() { return [audio, ...darkPlayers, ...beachPlayers].map(player => ({ level: gains.get(player)?.gain.value ?? player.volume, muted: player.muted, paused: player.paused })); },
+    get darkBackend() { return darkBackend; },
+    get darkDuration() { return darkBuffer?.duration || Number(darkFallbackPlayer.duration || 0); },
+    get darkPosition() { return currentDarkPosition(); },
+    get darkLoopCount() { return darkLoopCount(); },
+    get darkSourceStarts() { return darkSourceStarts; },
+    get darkPlaybackRate() {
+      return darkBackend === 'buffer' ? Number(darkSource?.playbackRate?.value || 1) : darkFallbackPlayer.playbackRate;
+    },
+    get outputLevels() {
+      const media = [audio, darkFallbackPlayer, ...beachPlayers].map(player => ({
+        level: gains.get(player)?.gain.value ?? player.volume,
+        muted: player.muted,
+        paused: player.paused,
+        backend: 'media'
+      }));
+      media.push({
+        level: darkGain?.gain.value || 0,
+        muted: false,
+        paused: !darkSource,
+        backend: 'buffer'
+      });
+      return media;
+    },
     setVolume: setPreferredVolume,
     setMuted,
     get element() {
-      if (currentKey === 'dark') return darkPlayers[darkActiveIndex];
+      if (currentKey === 'dark') return darkFallbackPlayer;
       if (currentKey === 'beach') return beachPlayers[beachActiveIndex];
       return audio;
     },
-    get darkElements() { return darkPlayers.slice(); },
+    get darkElements() { return [darkFallbackPlayer]; },
     get beachElements() { return beachPlayers.slice(); }
   });
   document.dispatchEvent(new CustomEvent('portfolio:site-audio-ready'));

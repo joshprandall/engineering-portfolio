@@ -205,9 +205,10 @@ assert.match(siteAudio,/audioSession[\s\S]*type\s*=\s*'playback'/,'Ambience must
 assert.match(siteAudio,/previewAudioUrls\.get\(key\)\s*\|\|\s*await previewAudioUrl/,'Cached preview audio must avoid a new fetch boundary');
 assert.match(livingScenes,/video\.loop\s*=\s*scene\.id\s*!==\s*'birds-water'/,'Beach Day video must not visibly loop');
 assert.match(livingScenes,/BEACH_LOOP_GUARD_SECONDS[\s\S]*duration - current <= BEACH_LOOP_GUARD_SECONDS[\s\S]*rotateLightScene\(\)/,'Beach scene must rotate before its clip reaches the loop seam');
-assert.match(siteAudio,/DARK_CROSSFADE_SECONDS\s*=\s*0\.18/,'Night v32 uses a short scheduler-hiding crossfade over its already seamless PCM master');
-assert.match(siteAudio,/function beginDarkTransition\([\s\S]*darkActiveIndex = toIndex/,'Night ambience must alternate players across the loop seam');
 assert.match(siteAudio,/dark:\s*new URL\('assets\/audio\/dark-theme-user-v32\.wav'/,'Night v32 must prioritize the seamless PCM WAV master');
+assert.match(siteAudio,/createBufferSource\(\)[\s\S]*source\.loop\s*=\s*true[\s\S]*source\.loopEnd\s*=\s*buffer\.duration/,'Night v32 must use one sample-accurate looping AudioBuffer source');
+assert.doesNotMatch(siteAudio,/DARK_CROSSFADE_SECONDS|beginDarkTransition|darkPlayers/,'Night must not restore the timer-driven two-player crossfade');
+assert.match(siteAudio,/function playDarkFallback\([\s\S]*darkFallbackPlayer\.loop\s*=\s*true/,'Night must retain one safe looping media fallback');
 
 assert.match(livingScenes,/addEventListener\('timeupdate'[\s\S]*revealVideo\(video,\s*sceneLoadId,\s*true\)/,'Day video must reveal from proven timeline movement when iPhone frame callbacks starve');
 assert.match(livingScenes,/currentSrc\.startsWith\('blob:'\)[\s\S]*scene\?\.remoteSrc/,'A stalled raw-preview Blob video must fall back to the direct licensed Day stream');
