@@ -25,3 +25,11 @@ test('complete background media is declared and is present in a restored release
  const rows=fs.existsSync(largePath)?JSON.parse(fs.readFileSync(largePath)).assets.map(a=>a.canonicalPath):JSON.parse(fs.readFileSync(stagedPath)).files.map(a=>a.path);
  for(const name of contract.requiredMedia){assert(fs.existsSync(path.join(root,name))||rows.includes(name),'Missing background media: '+name);if(process.env.PORTFOLIO_REQUIRE_MEDIA==='1')assert(fs.existsSync(path.join(root,name)),'Release missing restored media: '+name);}
 });
+
+test('day mode keeps strong readable type and the Bell-pair stage opaque',()=>{
+ const css=fs.readFileSync(path.join(root,'site-responsive.css'),'utf8');
+ assert.match(css,/:root\[data-theme="light"\][\s\S]*--ink:#0b1215/,'Day mode must keep a dark primary text token');
+ assert.match(css,/:root\[data-theme="light"\][\s\S]*--muted:#26373c/,'Day mode must keep a dark secondary text token');
+ assert.match(css,/\.quantum-stage\{[\s\S]*background:#08131c!important/,'Bell-pair stage must be opaque');
+ assert.match(css,/\.quantum-stage\{[\s\S]*backdrop-filter:none!important/,'Bell-pair stage must not reveal the animated scene through blur');
+});
