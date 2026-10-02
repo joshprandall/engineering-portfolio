@@ -28,7 +28,7 @@
   function targetCopy(includeTitle=true){
     const d=depthById.get(target)||depths[1];
     const higher=depthIndex(target)>=6;
-    return `${includeTitle?`<strong>${esc(d.title)}</strong> · `:''}${esc(d.copy)}${higher?' Current verified lessons remain labeled Foundation / Intermediate / Advanced; higher academic stages are treated as a study target until explicitly authored and reviewed.':''}`;
+    return `${includeTitle?`<strong>${esc(d.title)}</strong> · `:''}${esc(d.copy)}${higher?' Existing lessons remain labeled Foundation / Intermediate / Advanced; higher academic stages are treated as a study target until explicitly authored and reviewed.':''}`;
   }
   function counts(){
     const levels={Foundation:0,Intermediate:0,Advanced:0};

@@ -1,0 +1,23 @@
+.flagship-experiment { max-width:100%; min-width:0; }
+.flagship-experiment .lab-controls { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr)); gap:1rem; }
+.flagship-experiment label { display:flex; flex-direction:column; gap:.4rem; min-width:0; }
+.flagship-experiment input,.flagship-experiment select,.flagship-experiment textarea { box-sizing:border-box; width:100%; min-width:0; font:inherit; }
+.flagship-experiment textarea { resize:vertical; }
+.flagship-experiment dl { display:grid; grid-template-columns:minmax(0,2fr) minmax(0,1fr); gap:.4rem 1rem; }
+.flagship-experiment dd { margin:0 0 1rem; overflow-wrap:anywhere; }
+.flagship-experiment figure,.flagship-model { margin:1rem 0; overflow-x:auto; }
+.flagship-experiment figure svg { min-width:520px; }
+.flagship-experiment figcaption { font-size:1rem; }
+.flagship-model table { width:100%; min-width:34rem; border-collapse:collapse; }
+.flagship-model th,.flagship-model td { text-align:left; vertical-align:top; padding:.6rem; border-bottom:1px solid var(--line); overflow-wrap:anywhere; }
+.flagship-review { overflow-wrap:anywhere; }
+.quiz-option-explanations { margin-block:1rem; }
+@media(max-width:600px) {
+  .flagship-experiment dl { display:block; }
+  .flagship-experiment dt { margin-top:1rem; }
+}
+
+.study-companion { min-width:0; overflow-wrap:anywhere; }
+.study-companion pre { white-space:pre-wrap; overflow-wrap:anywhere; max-height:32rem; overflow:auto; font-size:1rem; }
+.study-companion details { margin-block:1rem; }
+.study-companion summary { cursor:pointer; }

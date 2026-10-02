@@ -1,0 +1,2058 @@
+[
+  {
+    "id": "classifier",
+    "title": "Fit a classifier without leaking the test set",
+    "release": "3.2",
+    "page": "ai-machine-learning.html",
+    "module": "ai_models",
+    "prerequisites": "Vectors, conditional probability, gradients, and the distinction between fitting and evaluation.",
+    "concept": "A binary logistic model assigns p(y=1|x)=sigmoid(wᵀx+b). Cross-entropy penalizes confident wrong predictions; its gradient averages x(p−y). Starting with zero weights predicts 1/2 for every example. A useful first check is whether training loss falls after a modest update, not whether the model looks sophisticated.\n\nThe companion generates 180 fictional two-feature observations with seed 7 and splits them into 100 training, 40 validation and 40 test examples before fitting anything. The scaler learns its mean and standard deviation from training data only. Even unsupervised preprocessing can leak information if it sees held-out observations. The test split is inspected after the training choices in this fixed demonstration; repeated tuning against it would invalidate its role.\n\nConfusion-matrix rows are true classes and columns are predicted classes. Compare the model with the training-majority baseline. Accuracy on 40 synthetic test cases is evidence about this fixture, not a production estimate. To extend the experiment, create a separate evaluation cohort with a changed boundary and inspect which errors increase.",
+    "example": "At zero weights, p=0.5 and loss=−log(0.5)≈0.6931. After 300 steps with learning rate 0.2, the notebook must show lower training loss. The confusion matrix must contain exactly 40 held-out examples.",
+    "model": [
+      [
+        "Training",
+        "100 rows; fit scaler and weights",
+        "Estimate parameters"
+      ],
+      [
+        "Validation",
+        "40 rows",
+        "Compare choices before freezing them"
+      ],
+      [
+        "Test",
+        "40 untouched rows",
+        "Evaluate the frozen procedure"
+      ]
+    ],
+    "code": "result=m.classifier()\nassert abs(result['initial_loss']-math.log(2))<1e-12\nassert result['final_loss']<result['initial_loss']\nassert sum(map(sum,result['test']['confusion']))==40\nprint(result)",
+    "challenge": "Change the data-generating coefficient or noise level in a copied function. Freeze the trained model, then measure the resulting error slice without refitting the scaler on the new cohort.",
+    "question": "Where should the scaler learn its mean?",
+    "options": [
+      "All 180 rows",
+      "Training rows only",
+      "Test rows only"
+    ],
+    "answer": 1,
+    "reasons": [
+      "That lets held-out distribution information enter fitting.",
+      "The fitted preprocessing is part of the training procedure.",
+      "That directly conditions preprocessing on evaluation data."
+    ],
+    "references": [
+      [
+        "scikit-learn — Common pitfalls: data leakage",
+        "https://scikit-learn.org/stable/common_pitfalls.html#data-leakage"
+      ]
+    ],
+    "review_date": "2026-10-02"
+  },
+  {
+    "id": "autodiff",
+    "title": "Derive and check a neural-network gradient",
+    "release": "3.2",
+    "page": "ai-deep-learning.html",
+    "module": "ai_models",
+    "prerequisites": "Matrix multiplication, derivatives, and the chain rule.",
+    "concept": "Let h=tanh(Wx), prediction=vᵀh, and loss=½(prediction−target)². Reverse-mode differentiation carries a sensitivity from the scalar loss back through each intermediate. The hidden sensitivity is (prediction−target)v⊙(1−h²); multiplying it by xᵀ gives the gradient of W. Array shape is part of the derivation: a two-entry sensitivity times a two-entry row produces a 2×2 gradient.\n\nThe companion implements these reverse-mode equations directly. It independently perturbs each weight by ±ε and estimates a central finite difference. Agreement is a useful implementation check because the numerical path does not reuse the gradient formula. It is not a proof for every network or nondifferentiable point. Very large ε creates truncation error; extremely small ε amplifies rounding.\n\nA small step opposite the gradient should reduce this smooth example's loss. This does not make every learning rate safe or guarantee convergence of a general deep network. PyTorch's autograd automates graph bookkeeping; understanding the hand calculation helps diagnose detached tensors, incorrect reductions and unexpected gradient shapes.",
+    "example": "Use x=(0.3,−0.7), W=[[0.2,−0.4],[0.5,0.1]], v=(0.8,−0.2), target 0.4. With ε=10⁻⁵, the maximum absolute gradient discrepancy should be below 10⁻⁸.",
+    "model": [
+      [
+        "Forward",
+        "x → Wx → tanh → vᵀh → loss",
+        "Store intermediates"
+      ],
+      [
+        "Reverse",
+        "loss sensitivity → hidden sensitivity → outer product",
+        "Apply the chain rule"
+      ],
+      [
+        "Independent check",
+        "Two loss evaluations per weight",
+        "Central finite difference"
+      ]
+    ],
+    "code": "result=m.autodiff()\nassert result['maximum_error']<1e-8\nassert result['loss_after_step']<result['loss']\nprint(result)\nprint('Larger epsilon:',m.autodiff(.01))",
+    "challenge": "Write out one gradient entry by hand. Sweep ε through 10⁻², 10⁻⁴, 10⁻⁶ and 10⁻⁸, and explain why a smaller ε is not always more accurate.",
+    "question": "Why compare with finite differences?",
+    "options": [
+      "They always train faster",
+      "They independently check the implemented derivative",
+      "They remove floating-point error"
+    ],
+    "answer": 1,
+    "reasons": [
+      "They require many forward evaluations.",
+      "The check follows a different computational path.",
+      "Finite differences themselves have rounding and truncation error."
+    ],
+    "references": [
+      [
+        "PyTorch — Learning with examples, including manual gradients and autograd",
+        "https://docs.pytorch.org/tutorials/beginner/pytorch_with_examples.html"
+      ]
+    ],
+    "review_date": "2026-10-02"
+  },
+  {
+    "id": "gnn",
+    "title": "Test message passing under node relabeling",
+    "release": "3.2",
+    "page": "ai-graph-neural-networks.html",
+    "module": "ai_models",
+    "prerequisites": "Adjacency matrices, vector features, permutations and pooling.",
+    "concept": "On a three-node path, use h=(1,2,4) and update h′=ReLU(0.5h+Ah). The shared message rule sums neighboring features and combines them with a scaled self feature. This gives h′=(2.5,6,4). Summation does not depend on the order in which neighbors are listed.\n\nRelabeling nodes by a permutation P changes features to Ph and adjacency to PAPᵀ. A permutation-equivariant layer must then return Ph′. A pooled sum is invariant because relabeling merely reorders its terms. These are separate properties: node outputs move with nodes, while the graph-level summary stays the same. Changing features without also permuting adjacency is a different graph-input pair, not a valid symmetry test.\n\nThe companion uses fixed weights and a tiny graph; it is an executable layer, not a trained GNN benchmark. Deeper message passing can mix information until nodes become hard to distinguish. Testing one permutation establishes one numerical check, while the algebraic form explains why the property holds for every consistent relabeling.",
+    "example": "Node 1 receives 1+4 from its neighbors and retains 0.5×2 from itself: 6. The pooled output is 12.5 before and after relabeling.",
+    "model": [
+      [
+        "Node update",
+        "h′=ReLU(0.5h+Ah)",
+        "Shared local rule"
+      ],
+      [
+        "Relabeling",
+        "A→PAPᵀ, h→Ph",
+        "Transform both inputs"
+      ],
+      [
+        "Graph output",
+        "Σᵢh′ᵢ=12.5",
+        "Invariant pooled scalar"
+      ]
+    ],
+    "code": "result=m.gnn()\nassert result['features']==[2.5,6.0,4.0]\nassert result['pooled_sum']==12.5\nassert result['permutation_residual']<1e-12\nprint(result)",
+    "challenge": "Enumerate all six permutations. Then deliberately permute only the features and explain why the outputs can change.",
+    "question": "A node-level output that reorders with node labels is:",
+    "options": [
+      "Invariant",
+      "Equivariant",
+      "Independent of graph structure"
+    ],
+    "answer": 1,
+    "reasons": [
+      "An invariant graph summary does not reorder.",
+      "The output transforms consistently with the input relabeling.",
+      "Messages still depend on graph edges."
+    ],
+    "references": [
+      [
+        "Gilmer et al. — Neural Message Passing for Quantum Chemistry",
+        "https://proceedings.mlr.press/v70/gilmer17a.html"
+      ]
+    ],
+    "review_date": "2026-10-02"
+  },
+  {
+    "id": "egnn",
+    "title": "Check an equivariant coordinate update",
+    "release": "3.2",
+    "page": "ai-geometric.html",
+    "module": "ai_models",
+    "prerequisites": "Distances, rotations, translations and graph message passing.",
+    "concept": "A distance-based message can remain unchanged when all coordinates rotate or translate together. The companion uses weights exp(−||xᵢ−xⱼ||²) and an update x′ᵢ=xᵢ+0.1Σⱼ(xᵢ−xⱼ)wᵢⱼ. Distances are invariant; displacement vectors rotate; summing weighted displacements therefore produces a coordinate update that rotates and translates with the input.\n\nThis is a deliberately small EGNN-style coordinate rule inspired by the paper's architecture, with fixed functions rather than learned networks. Three two-dimensional points are transformed by a rotation and translation, processed, and compared with transforming the original outputs. The residual should be near machine precision. Translation cancels in pairwise differences and reappears through the original coordinate xᵢ.\n\nEquivariance alone does not make a model accurate, stable across many layers, or appropriate for every physical quantity. A task may require conservation laws, reflection-sensitive features or boundary conditions that this update does not encode. A symmetry test should specify the transformation group and the type of each output.",
+    "example": "Use points (0,0), (1,0), (0,2), rotation 0.7 radians and translation (3,−2). Compare f(Qx+t) with Qf(x)+t; the residual should be below 10⁻¹².",
+    "model": [
+      [
+        "Scalar message",
+        "Distance squared",
+        "Invariant to rigid transformations"
+      ],
+      [
+        "Coordinate difference",
+        "xᵢ−xⱼ",
+        "Rotates as a vector"
+      ],
+      [
+        "Output test",
+        "f(Qx+t)−Qf(x)−t",
+        "Near-zero residual"
+      ]
+    ],
+    "code": "result=m.egnn()\nassert result['equivariance_residual']<1e-12\nprint(result)\nassert m.egnn(1.2)['equivariance_residual']<1e-12",
+    "challenge": "Replace the distance weight with the absolute x coordinate of a node. Repeat the translation test and locate the symmetry violation.",
+    "question": "Which quantity stays unchanged by rotating the whole point set?",
+    "options": [
+      "Each x coordinate",
+      "Pairwise Euclidean distance",
+      "Each displacement vector component"
+    ],
+    "answer": 1,
+    "reasons": [
+      "Individual coordinates depend on the coordinate frame.",
+      "Rigid rotation preserves Euclidean length.",
+      "The vector rotates; its individual components generally change."
+    ],
+    "references": [
+      [
+        "Satorras et al. — E(n) Equivariant Graph Neural Networks",
+        "https://proceedings.mlr.press/v139/satorras21a.html"
+      ]
+    ],
+    "review_date": "2026-10-02"
+  },
+  {
+    "id": "attention",
+    "title": "Inspect a causal attention block",
+    "release": "3.2",
+    "page": "ai-llm.html",
+    "module": "ai_models",
+    "prerequisites": "Matrix multiplication, dot products, softmax and sequence order.",
+    "concept": "Attention forms query, key and value vectors with distinct linear maps. Scores QKᵀ/√d compare each query with keys. Row-wise softmax creates weights that combine the value vectors. In a causal sequence model, positions after the query position receive a masked score before softmax; their weights must be zero.\n\nThe companion processes three two-dimensional tokens with one attention head, a residual connection and a small feed-forward transformation. Weights are fixed and inspectable. It is a tiny transformer-style block rather than a trained language model: there is no tokenizer, corpus, optimizer, vocabulary projection, positional encoding or generation service. Those omissions matter when moving from this mechanism to a usable predictor.\n\nA strong causality check changes only the last token. Earlier outputs must stay exactly unchanged in this implementation. Inspecting a plausible-looking attention heatmap would not establish that property. Normalized attention weights describe this internal mixing operation; they are not automatically calibrated explanations of a model's reasoning or factual reliability.",
+    "example": "The first token can attend only to itself, so its weight row is (1,0,0). Every row sums to one. Increasing the last token by 20 must leave the first two outputs unchanged.",
+    "model": [
+      [
+        "Scores",
+        "QKᵀ/√d",
+        "Token-to-token compatibility"
+      ],
+      [
+        "Mask",
+        "Future scores = −∞",
+        "Causal information boundary"
+      ],
+      [
+        "Mixing",
+        "softmax(scores)V",
+        "Weighted value vectors"
+      ]
+    ],
+    "code": "result=m.attention()\nassert result['attention'][0]==[1.0,0.0,0.0]\nassert max(abs(x-1) for x in result['row_sums'])<1e-12\nassert result['earlier_token_change']==0\nprint(result)",
+    "challenge": "Remove the mask in a copied function and repeat the future-token perturbation. Explain which prediction task would then leak future information.",
+    "question": "Where should the causal mask act?",
+    "options": [
+      "After converting weights into prose",
+      "On attention scores before softmax",
+      "Only on the final displayed answer"
+    ],
+    "answer": 1,
+    "reasons": [
+      "No prose exists in this block.",
+      "Masking scores prevents future values from receiving weight.",
+      "A display change cannot undo information used in computation."
+    ],
+    "references": [
+      [
+        "Vaswani et al. — Attention Is All You Need, §3",
+        "https://arxiv.org/abs/1706.03762"
+      ]
+    ],
+    "review_date": "2026-10-02"
+  },
+  {
+    "id": "retrieval",
+    "title": "Retrieve evidence and abstain when it is absent",
+    "release": "3.2",
+    "page": "ai-memory.html",
+    "module": "ai_models",
+    "prerequisites": "Tokenization, vectors, cosine similarity, and source provenance.",
+    "concept": "Retrieval selects candidate evidence; generation turns context into an answer. Those are different stages with different failure modes. This companion implements lexical TF-IDF retrieval over four fictional documents and returns quoted passages with document IDs. It performs no language-model generation and does not verify a passage's truth merely because its score is high.\n\nEach token's inverse-document-frequency weight grows when it appears in fewer documents. Cosine similarity compares normalized vectors. The query recovery data age should rank the recovery passage first. A query with no corpus tokens has a zero vector; the implementation returns an explicit abstention instead of dividing by zero or fabricating evidence.\n\nOne document contains a quoted malicious instruction. It remains inert text in the corpus. The retrieval function has no tool executor, credentials or network capability. In a larger RAG system, retrieved text must still be treated as untrusted data; good retrieval scores are neither authorization nor a defense against injection. Evaluate retrieval recall separately from the factual support of any generated answer.",
+    "example": "The default query returns d1 first. An out-of-vocabulary query such as xyzzy produces no evidence and an abstention. Searching for disclose secrets may retrieve d4, but must not perform the quoted instruction.",
+    "model": [
+      [
+        "Index",
+        "Four local text fixtures",
+        "Known corpus and IDs"
+      ],
+      [
+        "Retriever",
+        "TF-IDF cosine",
+        "Lexical ranking"
+      ],
+      [
+        "Response",
+        "Quoted passages or abstain",
+        "No generated claim of truth"
+      ]
+    ],
+    "code": "result=m.retrieval()\nassert result['retrieved'][0]['id']=='d1'\nassert not m.retrieval('xyzzy')['retrieved']\nassert m.retrieval('disclose secrets')['retrieved'][0]['id']=='d4'\nprint(result)",
+    "challenge": "Create five labeled queries including one missing answer and one adversarial passage. Record recall@k and unsupported-answer rate as separate metrics.",
+    "question": "A high retrieval score establishes:",
+    "options": [
+      "That a document is true",
+      "That a tool request is authorized",
+      "Similarity under the selected representation"
+    ],
+    "answer": 2,
+    "reasons": [
+      "Similarity is not fact checking.",
+      "Retrieved content carries no execution authority.",
+      "The score measures the defined matching function."
+    ],
+    "references": [
+      [
+        "Lewis et al. — Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks",
+        "https://arxiv.org/abs/2005.11401"
+      ],
+      [
+        "OWASP — LLM Prompt Injection Prevention Cheat Sheet",
+        "https://cheatsheetseries.owasp.org/cheatsheets/LLM_Prompt_Injection_Prevention_Cheat_Sheet.html"
+      ]
+    ],
+    "review_date": "2026-10-02"
+  },
+  {
+    "id": "agent",
+    "title": "Execute a typed tool and recover after a failure",
+    "release": "3.2",
+    "page": "ai-agentic.html",
+    "module": "ai_models",
+    "prerequisites": "Function contracts, transactions, capability checks and idempotency.",
+    "concept": "A tool-using system needs an execution contract independent of the language used to request the action. The companion accepts one schema: record_count with an integer count, a named idempotency key and an explicit capability flag. Unknown tools, malformed arguments and ungranted capabilities fail before an effect is accepted.\n\nThe effect and request digest are committed together in an in-memory SQLite transaction. A simulated crash then occurs before the workflow's next checkpoint. Replaying the same request finds the committed digest and returns the existing result instead of duplicating the effect. Reusing the key for different arguments fails. This demonstrates the required state transitions inside one process; the database is not durable across program termination.\n\nExactly-once behavior cannot be assumed for arbitrary remote tools. A remote payment or message service must support its own idempotency or a suitable reconciliation protocol. The local fixture deliberately performs no network call, shell command or external account change. Attempts are bounded to two in the scripted scenario; a production worker would persist its cumulative attempt budget separately from a rollbackable workflow checkpoint.",
+    "example": "Default execution logs effect.committed, checkpoint.restored, effect.replayed. The final effect count is one. Removing the capability must raise PermissionError; replaying a changed count must raise ValueError.",
+    "model": [
+      [
+        "Validate",
+        "Known tool + integer arguments",
+        "Reject malformed requests"
+      ],
+      [
+        "Authorize",
+        "Explicit record_count capability",
+        "Gate the effect"
+      ],
+      [
+        "Commit / replay",
+        "Key + payload digest + effect",
+        "Avoid duplicate accepted effects"
+      ]
+    ],
+    "code": "result=m.agent()\nassert result['effect_count']==1\nassert result['events']==['effect.committed','checkpoint.restored','effect.replayed']\nprint(result)\ntry:\n    m.agent(allowed=False)\nexcept PermissionError:\n    print('Denied as expected')\nelse:\n    raise AssertionError('Capability boundary failed')",
+    "challenge": "Add a second tool with a distinct schema and capability. Test invalid arguments, denied permission, same-payload retry and conflicting-payload retry before adding any external side effect.",
+    "question": "What makes a replay safe in this fixture?",
+    "options": [
+      "The request sounds reasonable",
+      "A matching key and payload digest in the effect transaction",
+      "Calling the tool twice quickly"
+    ],
+    "answer": 1,
+    "reasons": [
+      "Natural-language plausibility is not an execution guarantee.",
+      "The stored digest distinguishes a retry from a conflicting new request.",
+      "Timing does not prevent duplicate effects."
+    ],
+    "references": [
+      [
+        "SQLite — Atomic Commit",
+        "https://www.sqlite.org/atomiccommit.html"
+      ],
+      [
+        "Yao et al. — ReAct",
+        "https://openreview.net/forum?id=WE_vluYUL-X"
+      ]
+    ],
+    "review_date": "2026-10-02"
+  },
+  {
+    "id": "mind",
+    "title": "Coordinate roles with testable artifacts",
+    "release": "3.2",
+    "page": "ai-project-mind.html",
+    "module": "ai_models",
+    "prerequisites": "Typed tools, dependency graphs, hashing and explicit acceptance criteria.",
+    "concept": "A coordinator should know which artifact satisfies each task dependency. The local MIND companion uses three deterministic roles. The planner records inputs (1,2,3) and expected sum 6. The executor computes the sum. The verifier compares the computed artifact with the explicit expected value. Each role's serialized artifact receives a SHA-256 digest in the event ledger.\n\nThis differs from counting evidence-looking words: a verifier must inspect the actual artifact and a discriminating criterion. A digest identifies bytes; it does not certify their truth or the competence of the author. Dependencies are checked before a role runs, and a JSON round trip demonstrates a serializable checkpoint. A failed validation produces blocked, not a decorated completion status.\n\nThe fixture represents coordination protocol, not autonomous LLM collaboration or distributed consensus. All roles run sequentially in one process. To extend it, introduce an artifact schema, injected failures, persisted attempts, cancellation and an idempotent executor. Separate a role's claim that it succeeded from the verifier's observable result.",
+    "example": "The valid fixture produces sum 6 and three artifact digests. Injecting failed validation leaves status blocked even though the plan and computation artifacts exist.",
+    "model": [
+      [
+        "Planner",
+        "Inputs + expected result",
+        "Defines the contract"
+      ],
+      [
+        "Executor",
+        "Computed sum",
+        "Produces an inspectable artifact"
+      ],
+      [
+        "Verifier",
+        "Equality check + status",
+        "Gates acceptance"
+      ]
+    ],
+    "code": "result=m.mind()\nassert result['artifacts']['execute']['sum']==6\nassert len(result['ledger'])==3\nassert m.mind(True)['status']=='blocked'\nprint(result)",
+    "challenge": "Replace the sum with a parser-validation task. Store the input fixture, exact output, schema version and check result; then reject a stale artifact from a previous input.",
+    "question": "What does an artifact hash establish?",
+    "options": [
+      "The exact artifact bytes it identifies",
+      "That the artifact is scientifically true",
+      "That a human approved execution"
+    ],
+    "answer": 0,
+    "reasons": [
+      "A digest supports identity and integrity comparisons.",
+      "Truth requires a claim-specific check.",
+      "Approval is a separate recorded authorization event."
+    ],
+    "references": [
+      [
+        "SQLite — Transactions",
+        "https://www.sqlite.org/lang_transaction.html"
+      ],
+      [
+        "Ongaro and Ousterhout — In Search of an Understandable Consensus Algorithm",
+        "https://www.usenix.org/conference/atc14/technical-sessions/presentation/ongaro"
+      ]
+    ],
+    "review_date": "2026-10-02"
+  },
+  {
+    "id": "density",
+    "title": "Track a noisy state with a density operator",
+    "release": "3.3",
+    "page": "project-qubit.html",
+    "module": "quantum_models",
+    "prerequisites": "Complex vectors, outer products, trace and eigenvalues.",
+    "concept": "A density operator represents both pure states and probabilistic mixtures. It must be Hermitian, positive semidefinite and trace one. For |+⟩ the matrix has four entries equal to 1/2; its purity Tr(ρ²) is one. A classical mixture of |0⟩ and |1⟩ instead has zero off-diagonal coherence and purity 1/2.\n\nAmplitude damping uses K₀=diag(1,√(1−γ)) and K₁=[[0,√γ],[0,0]]. The channel sums KᵢρKᵢ†. For the initial |+⟩, the resulting matrix is [[(1+γ)/2,√(1−γ)/2],[√(1−γ)/2,(1−γ)/2]]. This is a specific relaxation channel, not a universal hardware noise model. At γ=1 it resets the state to pure |0⟩, illustrating that noise does not always monotonically reduce purity.\n\nThe notebook checks trace, eigenvalues and purity. A negative eigenvalue beyond numerical tolerance is a physical-validity error, not merely a strange probability plot. Compare channel composition with replacing amplitudes by classical probabilities; discarding off-diagonal terms removes measurable phase information.",
+    "example": "At γ=0.4, P(0)=0.7, coherence=√0.6/2, and purity=0.88. At γ=0 the initial state is unchanged; at γ=1, P(0)=1 and purity returns to one.",
+    "model": [
+      [
+        "State",
+        "ρ, trace one and nonnegative eigenvalues",
+        "A valid probability operator"
+      ],
+      [
+        "Channel",
+        "ΣᵢKᵢρKᵢ†",
+        "Trace-preserving map"
+      ],
+      [
+        "Checks",
+        "Trace, spectrum, purity",
+        "Distinct invariants and diagnostics"
+      ]
+    ],
+    "code": "result=m.density(.4)\nassert abs(result['trace']-1)<1e-12\nassert min(result['eigenvalues'])>-1e-12\nassert abs(result['purity']-.88)<1e-12\nassert abs(m.density(1)['purity']-1)<1e-12\nprint(result)",
+    "challenge": "Derive the matrix above, then compare amplitude damping with dephasing at the same final coherence. Explain why identical coherence does not require identical populations.",
+    "question": "Which property is required of every density operator?",
+    "options": [
+      "Trace zero",
+      "Nonnegative eigenvalues and trace one",
+      "Only real entries"
+    ],
+    "answer": 1,
+    "reasons": [
+      "Trace is one for a normalized state.",
+      "These conditions, with Hermiticity, make probabilities valid.",
+      "Valid quantum states can contain complex coherence."
+    ],
+    "references": [
+      [
+        "IBM Quantum Learning — Fundamentals of Quantum Algorithms",
+        "https://quantum.cloud.ibm.com/learning/courses/fundamentals-of-quantum-algorithms"
+      ],
+      [
+        "Preskill — Quantum Computation lecture notes",
+        "https://www.preskill.caltech.edu/ph219/"
+      ]
+    ],
+    "review_date": "2026-10-02"
+  },
+  {
+    "id": "kickback",
+    "title": "Move an eigenphase onto an ancilla",
+    "release": "3.3",
+    "page": "project-qpe.html",
+    "module": "quantum_models",
+    "prerequisites": "Tensor products, controlled gates, eigenvectors and the Hadamard gate.",
+    "concept": "If U|u⟩=e^(2πiφ)|u⟩, applying controlled-U to |+⟩|u⟩ gives (|0⟩+e^(2πiφ)|1⟩)|u⟩/√2. The target remains in its eigenstate while the control acquires a relative phase. That phase is global only within the target branch; it is relative between the two control branches and can therefore affect interference.\n\nThe companion explicitly constructs the two-qubit controlled matrix for U=diag(1,e^(2πiφ)), with the ancilla listed first and target |1⟩. A final Hadamard on the ancilla gives P(0)=cos²(πφ). Measuring the control directly in Z before that Hadamard would always give one half and miss the relative phase.\n\nThe eigenstate assumption matters. A superposed target can correlate the control with different eigenphases. QPE uses a larger control register and powers of U to resolve that information rather than inferring a unique phase from a single probability.",
+    "example": "At φ=1/8, the ancilla probability after H is cos²(π/8)≈0.853553. The target remains |1⟩ with probability one.",
+    "model": [
+      [
+        "Prepare",
+        "|+⟩⊗|1⟩",
+        "Control branches are coherent"
+      ],
+      [
+        "Controlled U",
+        "Phase on the control-1 branch",
+        "Relative phase encodes φ"
+      ],
+      [
+        "Interfere",
+        "Hadamard then measure",
+        "P(0)=cos²(πφ)"
+      ]
+    ],
+    "code": "result=m.kickback()\nassert abs(result['ancilla_zero_probability']-result['expected'])<1e-12\nassert abs(result['target_one_probability']-1)<1e-12\nprint(result)",
+    "challenge": "Calculate φ=0, 1/4 and 1/2 by hand. Explain why one ancilla probability cannot uniquely identify every phase on the unit circle.",
+    "question": "Why can the kicked-back phase be observed?",
+    "options": [
+      "It is a relative phase between ancilla branches",
+      "Every global phase is measurable",
+      "The target transmits a classical message"
+    ],
+    "answer": 0,
+    "reasons": [
+      "Interference compares those coherent branches.",
+      "A common global phase has no observable effect.",
+      "The unitary acts on the joint system; this is not a messaging protocol."
+    ],
+    "references": [
+      [
+        "IBM Quantum Learning — Fundamentals of Quantum Algorithms",
+        "https://quantum.cloud.ibm.com/learning/courses/fundamentals-of-quantum-algorithms"
+      ],
+      [
+        "Preskill — Quantum Computation lecture notes",
+        "https://www.preskill.caltech.edu/ph219/"
+      ]
+    ],
+    "review_date": "2026-10-02"
+  },
+  {
+    "id": "qft",
+    "title": "Verify a quantum Fourier transform as a unitary",
+    "release": "3.3",
+    "page": "project-qpe.html",
+    "module": "quantum_models",
+    "prerequisites": "Complex exponentials, orthogonality and matrix conjugate transpose.",
+    "concept": "For N=2ⁿ, the chosen forward convention is F[y,x]=exp(2πixy/N)/√N. The inverse is F†, with the opposite sign. The transform maps each basis vector to a uniform-magnitude superposition with a particular phase pattern. Measuring a transformed basis state therefore yields uniform probabilities even though its phases distinguish it from other transformed states.\n\nThe notebook constructs the full matrix for up to eight qubits and checks F†F≈I. It transforms |1⟩, then applies the inverse and verifies recovery of |1⟩. This dense classical implementation scales quadratically in N; it is a reference calculation rather than an efficient quantum circuit implementation.\n\nCircuit diagrams can use reversed wire order and different bit significance. A successful round trip alone will not detect a consistently reversed convention, so write down the basis order and test individual phase entries as well. QFT becomes useful inside interference algorithms; measuring its amplitudes does not return a full classical Fourier spectrum in one shot.",
+    "example": "With three qubits N=8, each probability after F|1⟩ is 1/8. Inverting must return the original state with residual below 10⁻¹².",
+    "model": [
+      [
+        "Forward convention",
+        "exp(+2πixy/N)/√N",
+        "State the sign"
+      ],
+      [
+        "Inverse",
+        "Conjugate transpose",
+        "Cancels the transform"
+      ],
+      [
+        "Measurement",
+        "|amplitude|²",
+        "Does not expose all phases"
+      ]
+    ],
+    "code": "result=m.qft(3)\nassert max(abs(p-.125) for p in result['probabilities'])<1e-12\nassert result['unitary_residual']<1e-12\nassert result['roundtrip_residual']<1e-12\nprint(result)",
+    "challenge": "Compute one row inner product analytically as a geometric sum. Then compare F and F† on a nontrivial superposition, specifying basis order.",
+    "question": "Why is F† the inverse?",
+    "options": [
+      "Because every entry is real",
+      "Because the normalized columns are orthonormal",
+      "Because measurement reverses F"
+    ],
+    "answer": 1,
+    "reasons": [
+      "Most Fourier entries are complex.",
+      "Column orthonormality gives F†F=I.",
+      "Measurement generally destroys the state information needed to invert."
+    ],
+    "references": [
+      [
+        "IBM Quantum Learning — Fundamentals of Quantum Algorithms",
+        "https://quantum.cloud.ibm.com/learning/courses/fundamentals-of-quantum-algorithms"
+      ],
+      [
+        "Preskill — Quantum Computation lecture notes",
+        "https://www.preskill.caltech.edu/ph219/"
+      ]
+    ],
+    "review_date": "2026-10-02"
+  },
+  {
+    "id": "qpe",
+    "title": "Measure phase error on a circle",
+    "release": "3.3",
+    "page": "project-qpe.html",
+    "module": "quantum_models",
+    "prerequisites": "Phase kickback, the inverse QFT and probability-weighted error.",
+    "concept": "After ideal kickback, control amplitude k is exp(2πiφk)/√N. Applying the inverse DFT gives the QPE output amplitudes. The notebook calculates that matrix-vector product independently of the sine-quotient formula in the existing browser lab. Exact grid phases yield one ideal output bin; off-grid phases distribute probability across several bins.\n\nPhase is periodic. Near φ=0.99, a reported phase of 0 is only 0.01 away around the circle, although ordinary subtraction gives −0.99. Circular error wraps the difference into [−1/2,1/2). The notebook reports both linear and circular RMSE, each weighted by the exact probability distribution. The browser retains its existing linear sample statistic and adds the circular sample statistic.\n\nExact probability-weighted RMSE and finite-shot sample RMSE are different quantities. Seed, shot count, bit order and any mixture parameter belong in the exported result. A uniform probability mixture is a teaching approximation, not calibrated device noise. The simulator does not implement controlled powers of a supplied Hamiltonian or demonstrate hardware advantage.",
+    "example": "For φ=1/8 and n=3, bin 001 has probability one. For φ=0.99, compare linear and circular RMSE; the circular result should be smaller.",
+    "model": [
+      [
+        "Resolution",
+        "1/2ⁿ",
+        "Grid spacing, not guaranteed error"
+      ],
+      [
+        "Linear error",
+        "y/N−φ",
+        "Treats endpoints as far apart"
+      ],
+      [
+        "Circular error",
+        "wrap(y/N−φ)",
+        "Respects periodic phase"
+      ]
+    ],
+    "code": "result=m.qpe(.125,3)\nassert result['dominant']==1\nassert abs(result['probabilities'][1]-1)<1e-12\nwrapped=m.qpe(.99,3)\nassert wrapped['circular_rmse']<wrapped['linear_rmse']\nprint(result)\nprint('Near wrap:',wrapped)",
+    "challenge": "Predict the distribution as n increases for a fixed off-grid phase. Compare exact RMSE with several finite-shot runs from the existing browser lab.",
+    "question": "The distance from phase 0.99 to 0 around the circle is:",
+    "options": [
+      "0.99",
+      "0.01",
+      "Exactly zero"
+    ],
+    "answer": 1,
+    "reasons": [
+      "That is the linear distance across a coordinate cut.",
+      "The shortest periodic separation crosses the endpoint.",
+      "The phases are close but distinct."
+    ],
+    "references": [
+      [
+        "IBM Quantum Learning — Fundamentals of Quantum Algorithms",
+        "https://quantum.cloud.ibm.com/learning/courses/fundamentals-of-quantum-algorithms"
+      ],
+      [
+        "Preskill — Quantum Computation lecture notes",
+        "https://www.preskill.caltech.edu/ph219/"
+      ]
+    ],
+    "review_date": "2026-10-02"
+  },
+  {
+    "id": "grover",
+    "title": "Observe amplification and overshooting",
+    "release": "3.3",
+    "page": "learn-advanced.html",
+    "module": "quantum_models",
+    "prerequisites": "Normalized state vectors, reflections and amplitude versus probability.",
+    "concept": "With one marked state among N possibilities, initialize every amplitude to 1/√N. The oracle changes the marked amplitude's sign, and diffusion reflects all amplitudes about their mean. Repeating this pair rotates the state in the plane spanned by marked and unmarked components.\n\nLet θ=arcsin(1/√N). After k iterations the marked probability is sin²((2k+1)θ). More iterations do not always improve success: the state can rotate past the marked direction. The companion applies the sign flip and mean reflection directly, checks normalization, and compares the result with the analytic formula.\n\nThe oracle here is an explicitly selected array index. Constructing an oracle for a real problem has a cost that this fixture does not model. The dense classical simulation is an educational reference, not a search speedup. Multiple marked states, noisy gates and unknown solution count require a changed analysis.",
+    "example": "For N=8, marked index 5 and two iterations, success is 0.9453125. Try five iterations and observe the reduction instead of assuming monotonic improvement.",
+    "model": [
+      [
+        "Oracle",
+        "Flip one amplitude sign",
+        "Encodes the marked set"
+      ],
+      [
+        "Diffusion",
+        "aᵢ→2mean(a)−aᵢ",
+        "Reflection"
+      ],
+      [
+        "Iteration count",
+        "sin²((2k+1)θ)",
+        "Oscillatory success"
+      ]
+    ],
+    "code": "result=m.grover()\nassert abs(result['marked_probability']-.9453125)<1e-12\nassert abs(result['marked_probability']-result['expected'])<1e-12\nassert abs(result['normalization']-1)<1e-12\nprint(result)\nprint('Overshoot:',m.grover(iterations=5))",
+    "challenge": "Derive the best nearby integer iteration count for N=4,8,16. Include the cost of evaluating the oracle when comparing an actual algorithm.",
+    "question": "Why can extra Grover iterations reduce success?",
+    "options": [
+      "The state rotates past the target direction",
+      "Unitary gates destroy normalization",
+      "The oracle becomes classical"
+    ],
+    "answer": 0,
+    "reasons": [
+      "The amplification dynamics are oscillatory.",
+      "The state remains normalized.",
+      "The selected oracle is unchanged between iterations."
+    ],
+    "references": [
+      [
+        "IBM Quantum Learning — Fundamentals of Quantum Algorithms",
+        "https://quantum.cloud.ibm.com/learning/courses/fundamentals-of-quantum-algorithms"
+      ],
+      [
+        "Preskill — Quantum Computation lecture notes",
+        "https://www.preskill.caltech.edu/ph219/"
+      ]
+    ],
+    "review_date": "2026-10-02"
+  },
+  {
+    "id": "order_finding",
+    "title": "Separate order finding from factoring post-processing",
+    "release": "3.3",
+    "page": "learn-advanced.html",
+    "module": "quantum_models",
+    "prerequisites": "Modular arithmetic, greatest common divisors and even orders.",
+    "concept": "For coprime a and N, the multiplicative order is the least positive r with aʳ≡1 mod N. If r is even and a^(r/2) is neither +1 nor −1 modulo N, gcd(a^(r/2)−1,N) and gcd(a^(r/2)+1,N) can reveal nontrivial factors. The conditions are part of the argument, not implementation details to skip.\n\nThe companion finds r by classical repeated modular multiplication and performs this post-processing. For a=2,N=15 the powers are 2,4,8,1, so r=4; gcd(3,15)=3 and gcd(5,15)=5. It also handles the easy case where gcd(a,N)>1 before order finding.\n\nShor's quantum algorithm uses a quantum order-finding procedure and classical reconstruction. This notebook implements the arithmetic bridge, not full Shor, reversible modular exponentiation, continued-fraction recovery from sampled phases, or a cryptographically meaningful computation. A demonstration factoring 15 does not establish practical cryptographic resource requirements.",
+    "example": "Run (a,N)=(2,15): order 4 and factors 3,5. Run (4,15): order 2 and the same factors. Identify a base for which the post-processing conditions fail.",
+    "model": [
+      [
+        "Classical precheck",
+        "gcd(a,N)",
+        "May immediately find a factor"
+      ],
+      [
+        "Order",
+        "Smallest r with aʳ≡1",
+        "Computed classically here"
+      ],
+      [
+        "Post-processing",
+        "Two gcd calculations",
+        "Requires nontrivial even-order case"
+      ]
+    ],
+    "code": "result=m.order_finding()\nassert result['order']==4\nassert result['sequence']==[2,4,8,1]\nassert result['factors']==[3,5]\nprint(result)",
+    "challenge": "Enumerate valid bases below 15 and classify which succeed by a direct gcd, a useful even order, or no factor from this attempt.",
+    "question": "This companion implements:",
+    "options": [
+      "A full fault-tolerant Shor circuit",
+      "Classical order search and factoring post-processing",
+      "A quantum hardware benchmark"
+    ],
+    "answer": 1,
+    "reasons": [
+      "No reversible modular-exponentiation circuit is executed.",
+      "Its scope is the inspectable arithmetic bridge.",
+      "Every calculation runs classically on the CPU."
+    ],
+    "references": [
+      [
+        "IBM Quantum Learning — Fundamentals of Quantum Algorithms",
+        "https://quantum.cloud.ibm.com/learning/courses/fundamentals-of-quantum-algorithms"
+      ],
+      [
+        "Preskill — Quantum Computation lecture notes",
+        "https://www.preskill.caltech.edu/ph219/"
+      ]
+    ],
+    "review_date": "2026-10-02"
+  },
+  {
+    "id": "vqe",
+    "title": "Compare a variational energy with exact diagonalization",
+    "release": "3.3",
+    "page": "learn-advanced.html",
+    "module": "quantum_models",
+    "prerequisites": "Hermitian matrices, expectation values and constrained optimization.",
+    "concept": "Use H=Z⊗I+I⊗Z+0.5X⊗X and normalized ansatz |ψ(θ)⟩=cosθ|00⟩+sinθ|11⟩. Its energy is E(θ)=2cos(2θ)+0.5sin(2θ). The variational principle says a normalized state's energy cannot fall below the exact ground energy; a lower result indicates a convention, normalization or calculation problem.\n\nThe even-parity block is [[2,0.5],[0.5,−2]], with eigenvalues ±√4.25. The odd-parity block has eigenvalues ±0.5, so the full ground energy is −√4.25≈−2.061553. The notebook diagonalizes the full 4×4 matrix and separately searches 2,001 ansatz angles. This ansatz can represent the ground state, but the finite grid usually leaves a small positive optimization error.\n\nThis is an exact-expectation variational calculation. It has no shot noise, hardware execution or noisy optimizer. A more expressive ansatz is not automatically easier to train. Separate ansatz limitation, optimization error, finite-shot uncertainty and hardware bias when interpreting a real VQE result.",
+    "example": "The computed energy should lie at or above −√4.25 and within 2×10⁻⁵ for the default grid. Coarsening the grid changes optimization error without changing the Hamiltonian.",
+    "model": [
+      [
+        "Hamiltonian",
+        "ZI+IZ+0.5XX",
+        "Four-dimensional Hermitian matrix"
+      ],
+      [
+        "Ansatz",
+        "cosθ|00⟩+sinθ|11⟩",
+        "Normalized even-parity states"
+      ],
+      [
+        "Reference",
+        "Exact diagonalization",
+        "Checks the variational bound"
+      ]
+    ],
+    "code": "result=m.vqe()\nassert abs(result['exact_ground_energy']+math.sqrt(4.25))<1e-12\nassert -1e-12<=result['error']<2e-5\nprint(result)\nprint('Coarse search:',m.vqe(21))",
+    "challenge": "Add an ansatz restriction or a different Hamiltonian term. Explain whether a remaining energy gap is caused by the search grid or by states the ansatz cannot represent.",
+    "question": "An energy below the exact ground value suggests:",
+    "options": [
+      "A guaranteed quantum advantage",
+      "A calculation or normalization error in this model",
+      "Perfect optimization"
+    ],
+    "answer": 1,
+    "reasons": [
+      "It violates the stated variational bound.",
+      "The exact reference is a lower bound for normalized states.",
+      "Perfect optimization reaches, rather than undercuts, the ground energy."
+    ],
+    "references": [
+      [
+        "Peruzzo et al. — A variational eigenvalue solver",
+        "https://doi.org/10.1038/ncomms5213"
+      ],
+      [
+        "IBM Quantum Learning — Fundamentals of Quantum Algorithms",
+        "https://quantum.cloud.ibm.com/learning/courses/fundamentals-of-quantum-algorithms"
+      ]
+    ],
+    "review_date": "2026-10-02"
+  },
+  {
+    "id": "repetition",
+    "title": "Decode bit-flip syndromes and expose the limit",
+    "release": "3.3",
+    "page": "learn-advanced.html",
+    "module": "quantum_models",
+    "prerequisites": "Pauli operators, parity and independent error probabilities.",
+    "concept": "The three-qubit repetition code encodes |0⟩ as |000⟩ and |1⟩ as |111⟩. Stabilizers Z₀Z₁ and Z₁Z₂ reveal parity differences without directly measuring the encoded logical bit. A single X error on qubit 0,1,2 produces syndrome 10,11,01 respectively, which identifies a corrective X in the single-error model.\n\nUnder independent bit-flip probability p, a majority decoder fails when two or three qubits flip: 3p²(1−p)+p³=3p²−2p³. The notebook enumerates all eight error patterns, weights their probabilities and verifies that polynomial. Double errors can share a syndrome with a single error and be miscorrected, so a syndrome is not a uniquely identified arbitrary error.\n\nThe code does not protect an arbitrary logical state against phase errors. A phase flip can act logically without changing these Z-type check outcomes. General quantum error correction needs complementary information and a noise-aware fault-tolerant measurement procedure; this perfect-syndrome toy does not establish a surface-code threshold.",
+    "example": "At p=0.1, the logical bit-error probability is 0.028. Compare with physical p=0.1, then test p=0.6 and explain why repetition is not helpful there.",
+    "model": [
+      [
+        "Checks",
+        "Z₀Z₁, Z₁Z₂",
+        "Two parity bits"
+      ],
+      [
+        "Correctable model",
+        "At most one X",
+        "Distinct nonzero syndromes"
+      ],
+      [
+        "Failure",
+        "Two or three X errors",
+        "3p²−2p³"
+      ]
+    ],
+    "code": "result=m.repetition(.1)\nassert abs(result['logical_bit_error']-.028)<1e-12\nassert abs(result['logical_bit_error']-result['expected'])<1e-12\nassert result['syndromes']['010']=='11'\nassert not result['phase_errors_corrected']\nprint(result)",
+    "challenge": "Construct two error patterns with the same syndrome but different logical consequences. Explain why repeated noisy measurements require a decoder over both space and time.",
+    "question": "What does this repetition code fail to protect against?",
+    "options": [
+      "Any single bit flip under perfect checks",
+      "General phase errors on an arbitrary logical state",
+      "Normalization"
+    ],
+    "answer": 1,
+    "reasons": [
+      "That is the error model it corrects.",
+      "Z-type parity checks alone do not reveal all phase errors.",
+      "Normalization is preserved by the Pauli operations."
+    ],
+    "references": [
+      [
+        "IBM Quantum Learning — Fundamentals of Quantum Algorithms",
+        "https://quantum.cloud.ibm.com/learning/courses/fundamentals-of-quantum-algorithms"
+      ],
+      [
+        "Preskill — Quantum Computation lecture notes",
+        "https://www.preskill.caltech.edu/ph219/"
+      ]
+    ],
+    "review_date": "2026-10-02"
+  },
+  {
+    "id": "gnp_audit",
+    "title": "Audit the recorded geometry benchmark",
+    "release": "3.4",
+    "page": "project-geometric-ai.html",
+    "module": "systems_models",
+    "prerequisites": "Curvature, regression error, data provenance and fair comparisons.",
+    "concept": "A benchmark claim needs a dataset, reference target, prediction arrays, metric and a stated information budget. This companion preserves the existing Geometry Lab and independently recomputes mean absolute errors from its six recorded sphere/torus runs. Each case contains 1,200 points; noise levels are 0, 0.01 and 0.03. The model choice, weight hashes, pinned upstream revision and historical timing definition travel with the fixture.\n\nThe GNP estimator received exact clean-surface normal orientations, while the local polynomial baseline estimated a PCA frame from coordinates. That difference supplies extra geometric information to one method and limits a direct fairness claim. Recomputing a metric confirms the arithmetic on saved arrays; it does not rerun model inference, validate unseen surfaces, or reproduce a paper's benchmark.\n\nThe clean sphere's stored GNP MAE is approximately 0.0286977 and the baseline's 0.0447102. These six examples are descriptive, with no seed ensemble or uncertainty estimate. The 2026 kernel-extension paper is a separate research reference and its methods are not implemented in the protected browser lab. A useful next study would control normal estimation, neighborhood policy and tuning budget across methods.",
+    "example": "Load the package fixture, recompute |prediction−truth| for every point and average it per case. Confirm six rows of 1,200 points and compare with the original metadata.",
+    "model": [
+      [
+        "Inputs",
+        "Coordinates plus exact normals for GNP",
+        "Document unequal information"
+      ],
+      [
+        "Metric",
+        "MAE on recorded arrays",
+        "Reproduce arithmetic"
+      ],
+      [
+        "Inference status",
+        "Historical CPU runs",
+        "No new throughput claim"
+      ]
+    ],
+    "code": "result=m.gnp_audit()\nassert len(result['rows'])==6\nassert all(row['n']==1200 for row in result['rows'])\nassert abs(result['rows'][0]['gnp_mae']-.028697663595279057)<1e-7\nprint(result)",
+    "challenge": "Design an equal-information comparison using estimated normals for both methods. Specify several seeds, shape families, held-out evaluation and timing boundaries before running it.",
+    "question": "Recomputing these six MAEs establishes:",
+    "options": [
+      "A new broad generalization result",
+      "Metric consistency for the stored predictions",
+      "Equivalent information given to both methods"
+    ],
+    "answer": 1,
+    "reasons": [
+      "Six stored cases cannot establish that.",
+      "The calculation independently checks the saved numeric arrays.",
+      "The exact-normal versus PCA distinction remains."
+    ],
+    "references": [
+      [
+        "Quackenbush and Atzberger — Geometric Neural Operators",
+        "https://arxiv.org/abs/2404.10843"
+      ],
+      [
+        "Transferable Foundation Models for Geometric Tasks",
+        "https://arxiv.org/abs/2503.04649"
+      ],
+      [
+        "Extending Neural Operators — 2026 preprint, extensions not implemented here",
+        "https://arxiv.org/abs/2603.03621"
+      ],
+      [
+        "Pinned upstream implementation; GPL-3.0",
+        "https://github.com/atzberg/geo_neural_op/tree/4ba306ac20f5674b773a8ba980aabeef33ed5385"
+      ]
+    ],
+    "review_date": "2026-10-02"
+  },
+  {
+    "id": "pde_inverse",
+    "title": "Separate an exact diffusion mode from an inverse problem",
+    "release": "3.4",
+    "page": "project-geometric-ai.html",
+    "module": "systems_models",
+    "prerequisites": "Differential equations, eigenfunctions, likelihoods and normalization.",
+    "concept": "On a sphere of radius r, y/r is a degree-one spherical harmonic with Laplace–Beltrami eigenvalue −2/r². Therefore u(y,t)=0.5+0.5(y/r)exp(−2Dt/r²) solves the surface heat equation for this particular initial field. The surface mean stays 0.5 and the north–south contrast decays exponentially. This analytic example is not a numerical solver for arbitrary geometry or arbitrary initial conditions.\n\nThe inverse companion uses fictional curvature observations 0.98,1.04,1.01 with independent Gaussian noise σ=0.05 and a uniform radius prior on [0.4,2.5]. A discrete radius grid receives weights proportional to exp[−Σ(Kᵢ−1/r²)²/(2σ²)]. Subtracting the largest log weight before exponentiating avoids unnecessary underflow without changing normalized probabilities.\n\nA narrow posterior can still be wrong if observations are correlated, σ is misspecified, or the prior truncates the plausible radius. The equal-tail interval is a posterior statement under this model, not a universal guarantee about repeated measurements. Compare grids before interpreting digits beyond their spacing.",
+    "example": "For r=1,D=0.2,t=1, contrast is exp(−0.4)≈0.670320. The north and south values sum to one. The radius posterior should concentrate near one for the supplied observations.",
+    "model": [
+      [
+        "Forward model",
+        "One spherical harmonic",
+        "Exact exponential decay"
+      ],
+      [
+        "Likelihood",
+        "Independent Gaussian curvature noise",
+        "Explicit uncertainty assumption"
+      ],
+      [
+        "Posterior",
+        "501 normalized grid weights",
+        "Resolution and prior limits"
+      ]
+    ],
+    "code": "result=m.pde_inverse()\nassert abs(result['north']+result['south']-1)<1e-12\nassert abs(result['decay']-math.exp(-.4))<1e-12\nassert abs(result['posterior_sum']-1)<1e-12\nassert .95<result['posterior_mean']<1.05\nprint(result)\nprint('Finer grid:',m.pde_inverse(grid_points=1001))",
+    "challenge": "Double σ in a copied function and compare interval width. Then shift all observations together to model a calibration error and explain why independent-noise uncertainty can be misleading.",
+    "question": "What does the diffusion formula solve?",
+    "options": [
+      "Every heat equation on every surface",
+      "One specified spherical initial mode",
+      "A trained neural PDE surrogate"
+    ],
+    "answer": 1,
+    "reasons": [
+      "The geometry and initial condition are restricted.",
+      "Its eigenfunction structure gives the exact time dependence.",
+      "No neural estimator appears in this calculation."
+    ],
+    "references": [
+      [
+        "Geometry Lab methods — analytic diffusion and radius likelihood",
+        "https://github.com/joshprandall/engineering-portfolio/blob/e31cdd9efe0007159d4dd130e9bd5d5d9a7bb41e/geometric-lab/METHODS.md"
+      ],
+      [
+        "LeVeque — Finite Difference Methods for Ordinary and Partial Differential Equations",
+        "https://doi.org/10.1137/1.9780898717839"
+      ]
+    ],
+    "review_date": "2026-10-02"
+  },
+  {
+    "id": "kuramoto",
+    "title": "Check synchronization against numerical resolution",
+    "release": "3.4",
+    "page": "project-emergent.html",
+    "module": "systems_models",
+    "prerequisites": "Ordinary differential equations, graphs, phases and numerical integration.",
+    "concept": "The model evolves phase θᵢ with intrinsic frequency ωᵢ and degree-normalized coupling KΣⱼAᵢⱼsin(θⱼ−θᵢ)/max(1,dᵢ). The order parameter R=|N⁻¹Σᵢexp(iθᵢ)| lies between zero and one and measures instantaneous phase concentration. It is not a measure of intelligence, a physical universe, or proof that every oscillator is frequency-locked.\n\nThe companion creates a fixed seeded random graph, frequencies and initial phases, then runs explicit Euler integration to the same final time with steps Δt and Δt/2. It compares phases using wrapped differences and reports both R values. Holding the graph and initial condition fixed isolates discretization effects; changing the random seed at the same time would confound that comparison.\n\nOne refinement comparison is a diagnostic rather than a convergence proof. Repeat another halving and then an ensemble of seeds before claiming a stable regime. The companion's NumPy random stream differs from the browser's seeded generator, so matching seed numbers alone does not imply identical graphs. The existing browser model and its animation remain unchanged.",
+    "example": "Use 12 nodes, edge probability 0.25, seed 7, K=1.2 and duration 4. Compare steps 0.02 and 0.01; every reported order parameter must remain in [0,1].",
+    "model": [
+      [
+        "Dynamics",
+        "Intrinsic frequency + neighbor phase coupling",
+        "State the degree normalization"
+      ],
+      [
+        "Observable",
+        "R from complex phase average",
+        "Instantaneous coherence"
+      ],
+      [
+        "Numerical check",
+        "Same fixture, half the time step",
+        "Estimate discretization sensitivity"
+      ]
+    ],
+    "code": "result=m.kuramoto()\nassert 0<=result['order_coarse']<=1\nassert 0<=result['order_fine']<=1\nassert result['phase_rms_difference']<.1\nprint(result)\nprint('Second refinement:',m.kuramoto(dt=.01))",
+    "challenge": "Run ten seeds at several coupling strengths. Report the seed distribution and a time-step refinement check instead of selecting the most coherent animation.",
+    "question": "Which change isolates time-discretization error?",
+    "options": [
+      "Change seed and time step together",
+      "Hold the fixture fixed and halve the time step",
+      "Choose only the largest observed R"
+    ],
+    "answer": 1,
+    "reasons": [
+      "That mixes two sources of variation.",
+      "The comparison controls graph and initial conditions.",
+      "Selection by the desired outcome biases the report."
+    ],
+    "references": [
+      [
+        "Strogatz — From Kuramoto to Crawford, Physica D 143 (2000)",
+        "https://doi.org/10.1016/S0167-2789(00)00094-4"
+      ]
+    ],
+    "review_date": "2026-10-02"
+  },
+  {
+    "id": "hpc",
+    "title": "Connect scaling bounds, arithmetic intensity and collectives",
+    "release": "3.4",
+    "page": "learn-advanced.html",
+    "module": "systems_models",
+    "prerequisites": "Runtime fractions, rates, units, arrays and reductions.",
+    "concept": "Amdahl's model gives speedup 1/[(1−p)+p/N] for a fixed workload with parallel fraction p. At p=0.8 and N=8, the ideal speedup is 3.333…, not eight. Communication, synchronization, scheduling and memory contention add costs outside this simple upper bound.\n\nThe Roofline model bounds attained compute rate by min(peak FLOP/s, bandwidth×arithmetic intensity). Multiplying 100 GB/s by 2 FLOP/byte gives 200 GFLOP/s; a 1,000 GFLOP/s compute ceiling is not attainable at that intensity. The ridge point is peak/bandwidth, here 10 FLOP/byte. Peak and bandwidth must describe the relevant memory level and precision.\n\nThe core notebook simulates partitioning integers 1..100 among ranks and summing partial results sequentially. The optional mpi_sum.py actually calls MPI Allreduce when run under mpiexec with mpi4py installed. These are separate execution statuses. A correctness result of 5,050 is not a measured parallel speedup. For performance, record machine, versions, rank placement, warm-up, repetitions and timing boundaries.",
+    "example": "Defaults yield ideal speedup 10/3, Roofline bound 200 GFLOP/s and reduction result 5,050. Change intensity from 2 to 20 and observe the compute ceiling cap at 1,000.",
+    "model": [
+      [
+        "Amdahl",
+        "Serial and parallel time fractions",
+        "Scaling upper bound"
+      ],
+      [
+        "Roofline",
+        "min(peak,B×I)",
+        "Compute or memory bound"
+      ],
+      [
+        "Allreduce",
+        "Local sums → shared total",
+        "Communication semantics"
+      ]
+    ],
+    "code": "result=m.hpc()\nassert abs(result['amdahl_speedup']-10/3)<1e-12\nassert result['roofline_gflops']==200\nassert result['simulated_reduce']==5050\nassert m.hpc(intensity=20)['roofline_gflops']==1000\nprint(result)",
+    "challenge": "Run the optional MPI program on 1,2,4 ranks in a suitable environment. Separate the correctness result from performance and explain why a tiny workload may slow down.",
+    "question": "At 2 FLOP/byte and 100 GB/s, the bandwidth bound is:",
+    "options": [
+      "200 GFLOP/s",
+      "1,000 GFLOP/s regardless of intensity",
+      "50 GB/s"
+    ],
+    "answer": 0,
+    "reasons": [
+      "The units cancel bytes, yielding a compute rate.",
+      "That is the separate peak ceiling.",
+      "This divides incompatible quantities for the requested bound."
+    ],
+    "references": [
+      [
+        "Williams et al. — Roofline",
+        "https://doi.org/10.1145/1498765.1498785"
+      ],
+      [
+        "MPI Forum — MPI 5.0 standard",
+        "https://www.mpi-forum.org/docs/mpi-5.0/mpi50-report.pdf"
+      ]
+    ],
+    "review_date": "2026-10-02"
+  },
+  {
+    "id": "kubernetes",
+    "title": "Distinguish readiness from liveness during a failure",
+    "release": "3.4",
+    "page": "learn-cloud.html",
+    "module": "systems_models",
+    "prerequisites": "Pods, service endpoints, health checks and application dependencies.",
+    "concept": "A startup probe can give a slow application time to initialize before liveness and readiness checks take effect. Once started, readiness answers whether the container should receive normal service traffic; liveness answers whether the container is considered unhealthy enough for a restart under its configured policy. A pod can be running and live while unready.\n\nThe companion models one decision instant with three booleans. Started=true, ready=false, live=true removes normal endpoint eligibility without requesting a restart. Started=true, live=false requests a restart in this simplified model. Started=false suppresses the other decisions. The fixture omits failure thresholds, periods, initial delays, backoff, controller latency and service options, so it is not a Kubernetes emulator.\n\nFor a dependency outage, an indiscriminate liveness failure can cause restart loops without fixing the dependency. Investigate events, application responses and endpoint membership before changing probes. The downloadable manifest is an inspection fixture with no credentials; applying it to a real cluster requires a separate environment and image choice. No cluster deployment or recovery test is claimed by this notebook.",
+    "example": "The default case is started but unready and live: eligible_endpoint=false, restart_requested=false. Flip only live to false and observe the independent restart decision.",
+    "model": [
+      [
+        "Startup",
+        "Initialization complete?",
+        "Gates subsequent checks"
+      ],
+      [
+        "Readiness",
+        "Ready to receive traffic?",
+        "Endpoint eligibility"
+      ],
+      [
+        "Liveness",
+        "Restart warranted?",
+        "Container recovery action"
+      ]
+    ],
+    "code": "result=m.kubernetes()\nassert not result['eligible_endpoint']\nassert not result['restart_requested']\nassert m.kubernetes(live=False)['restart_requested']\nassert not m.kubernetes(started=False,live=False)['restart_requested']\nprint(result)",
+    "challenge": "Write a dependency-outage timeline. Predict pod phase, readiness, service endpoints and restart count separately, then identify the read-only observations needed to test each prediction.",
+    "question": "A live but unready container necessarily needs:",
+    "options": [
+      "An immediate restart",
+      "Removal from normal ready endpoints, under the stated service model",
+      "Deletion of its persistent volume"
+    ],
+    "answer": 1,
+    "reasons": [
+      "Readiness alone does not request a restart.",
+      "Traffic eligibility and process health are distinct.",
+      "Readiness does not authorize destructive storage changes."
+    ],
+    "references": [
+      [
+        "Kubernetes — Configure Liveness, Readiness and Startup Probes",
+        "https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/"
+      ]
+    ],
+    "review_date": "2026-10-02"
+  },
+  {
+    "id": "security",
+    "title": "Test a parser and measure a detection rule",
+    "release": "3.4",
+    "page": "security-research.html",
+    "module": "systems_models",
+    "prerequisites": "Input contracts, finite numbers, confusion matrices and authorized defensive testing.",
+    "concept": "A parser must validate semantics as well as delimiters. This local fixture accepts two nonempty comma-separated fields and a finite numeric reading. It rejects missing fields, extra fields, NaN and infinity. Seeded valid cases and explicitly malformed cases exercise the contract without sending traffic to any host.\n\nA separate fictional login dataset labels four events. Alerting at three failures catches one malicious event, misses another and also flags a benign event. The confusion matrix is [[1,1],[1,1]] with true classes as rows and predictions as columns. An alert is a triage signal under the chosen rule, not a confirmed compromise.\n\nForty generated valid examples plus six malformed examples do not prove the parser secure against every input. Extend the corpus with size limits, Unicode, encodings and resource constraints appropriate to the actual boundary. Preserve failing inputs and an expected outcome. Defensive evidence should distinguish a synthetic fixture, a reproduced bug, and a result observed in an authorized environment.",
+    "example": "Run seed 7 with 40 valid readings. Expect 40 accepted and all six malformed readings rejected. Confirm one false positive and one false negative in the detection fixture.",
+    "model": [
+      [
+        "Parser boundary",
+        "Syntax + nonempty fields + finite value",
+        "Reject before downstream use"
+      ],
+      [
+        "Detection",
+        "Threshold on a fictional event count",
+        "Triage signal"
+      ],
+      [
+        "Evaluation",
+        "Labeled confusion matrix",
+        "Expose both kinds of error"
+      ]
+    ],
+    "code": "result=m.security()\nassert result['valid_accepted']==40\nassert result['invalid_rejected']==6\nassert result['detection_confusion']==[[1,1],[1,1]]\nprint(result)",
+    "challenge": "Add a maximum input length and an explicit identifier grammar. Keep the new rejection cases as regression fixtures; explain how alert threshold changes trade false positives against misses.",
+    "question": "What does a detection alert prove?",
+    "options": [
+      "A compromise always occurred",
+      "That the event matched the defined rule",
+      "That all malicious events were detected"
+    ],
+    "answer": 1,
+    "reasons": [
+      "Benign events can match the rule.",
+      "That is the direct supported conclusion.",
+      "The fixture contains a false negative."
+    ],
+    "references": [
+      [
+        "OWASP — Application Security Verification Standard",
+        "https://owasp.org/www-project-application-security-verification-standard/"
+      ],
+      [
+        "MITRE ATT&CK — knowledge base and scope",
+        "https://attack.mitre.org/"
+      ]
+    ],
+    "review_date": "2026-10-02"
+  },
+  {
+    "id": "constraint",
+    "title": "Keep learned scores inside explicit constraints",
+    "release": "3.4",
+    "page": "ai-neuro-symbolic.html",
+    "module": "systems_models",
+    "prerequisites": "Binary choices, objective functions and feasibility.",
+    "concept": "A predicted score and a feasible decision are different objects. Three candidate choices have scores 0.8,0.6,0.7. At most two may be selected, and choices 0 and 2 cannot coexist. Thresholding all scores at 0.5 selects all three and violates both constraints.\n\nThe companion enumerates all eight assignments, removes infeasible ones and maximizes the score sum over the remainder. It chooses (1,1,0) with objective 1.4. This small exact solver demonstrates the interface between uncertain learned preferences and explicit symbolic constraints. The scores are fixtures, not a trained or calibrated model.\n\nFeasibility is only as meaningful as the encoded constraints. A perfectly solved incomplete model can still produce an unacceptable real-world decision. For a larger problem, choose a suitable SAT/SMT, integer-programming or constraint solver and validate its translation. Record unsatisfiable inputs distinctly from an implementation failure or a low-quality feasible optimum.",
+    "example": "At capacity two, the best feasible selection is choices 0 and 1. At capacity zero the all-zero assignment remains feasible, with objective zero.",
+    "model": [
+      [
+        "Scores",
+        "0.8, 0.6, 0.7",
+        "Preference objective"
+      ],
+      [
+        "Constraints",
+        "Capacity ≤2; not both 0 and 2",
+        "Feasible set"
+      ],
+      [
+        "Solver",
+        "Enumerate eight assignments",
+        "Exact optimum of this model"
+      ]
+    ],
+    "code": "result=m.constraint()\nassert result['selected']==[1,1,0]\nassert abs(result['objective']-1.4)<1e-12\nassert m.constraint(capacity=0)['selected']==[0,0,0]\nprint(result)",
+    "challenge": "Add a requirement to choose at least one item, then set capacity to zero. Return an explicit infeasible status and test that it cannot be mistaken for a successful empty plan.",
+    "question": "A high learned score authorizes violating a hard constraint:",
+    "options": [
+      "Always",
+      "Only when confidence exceeds 90%",
+      "No, unless the actual constraint policy is explicitly changed"
+    ],
+    "answer": 2,
+    "reasons": [
+      "The objective does not override feasibility.",
+      "A score is not an authorization mechanism.",
+      "Constraints define the permitted decisions in this model."
+    ],
+    "references": [
+      [
+        "Z3 Guide — introduction and solver concepts",
+        "https://microsoft.github.io/z3guide/docs/logic/intro/"
+      ]
+    ],
+    "review_date": "2026-10-02"
+  },
+  {
+    "id": "reinforcement",
+    "title": "Compare a learned policy with an exact plan",
+    "release": "3.4",
+    "page": "ai-reinforcement-learning.html",
+    "module": "systems_models",
+    "prerequisites": "States, actions, rewards, discounted returns and exploration.",
+    "concept": "The environment is a five-state chain, starting at 0 and ending at 4. Actions move left or right with clamping at the endpoints. Reaching state 4 gives reward 1; other transitions cost 0.02. Q-learning updates Q(s,a) toward r+γmaxₐ′Q(s′,a′), except that terminal transitions have no bootstrapped continuation.\n\nThe companion uses seed 7, 300 episodes, learning rate 0.3, discount 0.9 and ε-greedy exploration at 0.2. It then evaluates the greedy policy without exploration and compares its trajectory with the known shortest plan [0,1,2,3,4]. The undiscounted reward on that path is 0.94; the optimization target uses a discounted return, so those quantities must not be conflated.\n\nThis deterministic chain is deliberately easy. A successful seed does not establish robust generalization, safe exploration or a policy for a different transition model. Distinguish termination from a time limit when bootstrapping. Reward design can also encourage shortcuts that conflict with the intended task; a planner baseline helps expose avoidable complexity and wrong objectives.",
+    "example": "The default learned policy should reach the goal along the four-move path. Evaluate multiple seeds separately from training and retain any failed runs.",
+    "model": [
+      [
+        "Experience",
+        "(s,a,r,s′,terminal)",
+        "Observed transition"
+      ],
+      [
+        "Update",
+        "r+γmax Q(s′,·)",
+        "No bootstrap after true termination"
+      ],
+      [
+        "Reference",
+        "Exact shortest plan",
+        "Separate learning from planning"
+      ]
+    ],
+    "code": "result=m.reinforcement()\nassert result['reached_goal']\nassert result['trajectory']==result['optimal_plan']\nassert abs(result['undiscounted_return']-.94)<1e-12\nprint(result)",
+    "challenge": "Introduce a stochastic slip probability and evaluate a frozen policy on several seeds. Compare average return, failure rate and an exact planner that knows the changed transition model.",
+    "question": "At a true terminal transition the Q-learning target is:",
+    "options": [
+      "r only",
+      "r+γmax Q of an arbitrary next state",
+      "Always zero"
+    ],
+    "answer": 0,
+    "reasons": [
+      "There is no continuation after termination.",
+      "That bootstraps value beyond the defined episode.",
+      "The terminal reward still matters."
+    ],
+    "references": [
+      [
+        "Sutton and Barto — Reinforcement Learning, second edition",
+        "http://incompleteideas.net/book/the-book-2nd.html"
+      ],
+      [
+        "Gymnasium — handling time limits",
+        "https://gymnasium.farama.org/tutorials/gymnasium_basics/handling_time_limits/"
+      ]
+    ],
+    "review_date": "2026-10-02"
+  },
+  {
+    "id": "diffusion",
+    "title": "Fit a denoiser at one noise level",
+    "release": "3.5",
+    "page": "ai-generative.html",
+    "module": "extensions",
+    "prerequisites": "Gaussian variables, regression and train/test separation.",
+    "concept": "The forward-noising equation is xₜ=√ᾱx₀+√(1−ᾱ)ε. Here x₀ and ε are independent standard Gaussians. The optimal conditional-mean predictor is √ᾱxₜ, with expected squared error 1−ᾱ. The notebook fits a scalar coefficient on 2,000 training pairs and evaluates it on 2,000 different pairs.\n\nThis demonstrates one learnable denoising problem and an analytic baseline. It is not a multi-step reverse diffusion sampler or an image generator. Knowing the injected noise would make perfect algebraic reconstruction possible, but a real denoiser must estimate information that is not supplied. Compare the fitted coefficient and held-out error with the analytic values before extending to a schedule of noise levels.",
+    "example": "At ᾱ=0.4, the optimal coefficient is √0.4≈0.632456 and expected MSE is 0.6. Finite-sample fitted values fluctuate around those references.",
+    "model": [
+      [
+        "Forward",
+        "Signal + independent noise",
+        "Known sampling distribution"
+      ],
+      [
+        "Fit",
+        "One coefficient from training pairs",
+        "Learn a conditional predictor"
+      ],
+      [
+        "Evaluate",
+        "Held-out MSE against 0.6",
+        "Sampling variability remains"
+      ]
+    ],
+    "code": "result=m.diffusion()\nassert abs(result['fitted_coefficient']-math.sqrt(.4))<.08\nassert abs(result['heldout_mse']-.6)<.1\nprint(result)",
+    "challenge": "Repeat across seeds and ᾱ. Explain how a one-step denoiser differs from the learned reverse process in the DDPM paper.",
+    "question": "The noise ε is available to this fitted predictor at evaluation:",
+    "options": [
+      "Yes, as a secret shortcut",
+      "No; it receives xₜ only",
+      "Only after a text prompt"
+    ],
+    "answer": 1,
+    "reasons": [
+      "That would change the estimation task.",
+      "The hidden clean value and noise are not predictor inputs.",
+      "This is a scalar numeric model without text."
+    ],
+    "references": [
+      [
+        "Ho et al. — Denoising Diffusion Probabilistic Models",
+        "https://arxiv.org/abs/2006.11239"
+      ]
+    ],
+    "review_date": "2026-10-02"
+  },
+  {
+    "id": "vision",
+    "title": "Inspect a spatial filter and its boundary assumptions",
+    "release": "3.5",
+    "page": "ai-computer-vision.html",
+    "module": "extensions",
+    "prerequisites": "Arrays, convolution/correlation and image sampling.",
+    "concept": "A local image filter combines nearby intensities with a spatial kernel. The notebook applies a horizontal Sobel-style correlation kernel to a synthetic 7×7 vertical step edge. Valid correlation produces a 5×5 output because it uses only positions where the entire 3×3 kernel fits.\n\nThe kernel sums to zero, so adding a constant brightness offset leaves the interior response unchanged. This algebraic property does not imply robustness to contrast scaling, clipping, noise, rotation or boundary padding. The operation is explicitly correlation: the kernel is not flipped as in the mathematical definition of convolution. Deep-learning libraries often use this convention while naming the operation convolution.\n\nAn edge response is not object recognition. A trained classifier additionally needs a dataset, target labels, split policy and task-level evaluation. Preserve this simple filter as a diagnostic baseline when studying learned features.",
+    "example": "The vertical step gives maximum response 4. Adding 0.3 to every input pixel changes the valid response only by floating-point rounding.",
+    "model": [
+      [
+        "Input",
+        "7×7 step image",
+        "Synthetic fixture"
+      ],
+      [
+        "Kernel",
+        "Zero-sum 3×3 weights",
+        "Local contrast response"
+      ],
+      [
+        "Output",
+        "5×5 valid map",
+        "Boundary pixels omitted"
+      ]
+    ],
+    "code": "result=m.vision()\nassert result['maximum_response']==4\nassert result['brightness_shift_residual']<1e-12\nprint(result)",
+    "challenge": "Compare valid, zero-padded and reflected boundaries in copied code. Rotate the edge and describe which orientation the selected kernel responds to.",
+    "question": "The unchanged response under an additive brightness shift follows from:",
+    "options": [
+      "Zero kernel sum",
+      "A semantic understanding of the image",
+      "A large training set"
+    ],
+    "answer": 0,
+    "reasons": [
+      "The constant term cancels when the weights sum to zero.",
+      "No semantic model is present.",
+      "The kernel is fixed and untrained."
+    ],
+    "references": [
+      [
+        "PyTorch — Conv2d cross-correlation definition",
+        "https://docs.pytorch.org/docs/stable/generated/torch.nn.Conv2d.html"
+      ]
+    ],
+    "review_date": "2026-10-02"
+  },
+  {
+    "id": "multimodal",
+    "title": "Make modality disagreement visible",
+    "release": "3.5",
+    "page": "ai-multimodal.html",
+    "module": "extensions",
+    "prerequisites": "Class scores, label alignment and calibration.",
+    "concept": "Two input types can disagree even when each produces a confident output. The fixture combines text scores (0.9,0.1) and image scores (0.1,0.9) using a chosen image weight. At equal weight the fused scores are (0.5,0.5), so the displayed first-class choice is merely the implementation's tie break.\n\nLinear fusion assumes compatible labels and interpretable score scales. Neither is guaranteed by putting two models next to each other. If the image is absent, this fixture explicitly falls back to text; replacing missing data with a confident all-zero vector would have a different meaning. Real evaluation should include contradiction, missingness and subgroup slices, not just aggregate accuracy.\n\nThese are fictional score vectors, not image/text embeddings or an implementation of CLIP. The referenced work motivates studying alignment; it does not validate this hand-selected fusion policy.",
+    "example": "Weight 0.5 yields a tie; weight 0.8 favors class 1. Missing image returns the original text vector rather than pretending an image was processed.",
+    "model": [
+      [
+        "Text",
+        "0.9,0.1",
+        "First-class evidence"
+      ],
+      [
+        "Image",
+        "0.1,0.9",
+        "Contradictory second-class evidence"
+      ],
+      [
+        "Fusion",
+        "Weighted average or explicit fallback",
+        "Preserve disagreement"
+      ]
+    ],
+    "code": "result=m.multimodal()\nassert result['fused']==[.5,.5]\nassert m.multimodal(.8)['decision']==1\nassert m.multimodal(missing=True)['fused']==[.9,.1]\nprint(result)",
+    "challenge": "Introduce a third class and a mismatched label order. Write a schema check that rejects the mismatch before fusing scores.",
+    "question": "An equal-weight tie demonstrates:",
+    "options": [
+      "Certain agreement",
+      "Unresolved opposing evidence under this policy",
+      "That one modality is necessarily wrong"
+    ],
+    "answer": 1,
+    "reasons": [
+      "The input vectors disagree.",
+      "The arithmetic alone does not resolve the conflict.",
+      "The fixture has no independent ground-truth observation."
+    ],
+    "references": [
+      [
+        "Radford et al. — Learning Transferable Visual Models From Natural Language Supervision",
+        "https://proceedings.mlr.press/v139/radford21a.html"
+      ]
+    ],
+    "review_date": "2026-10-02"
+  },
+  {
+    "id": "robot",
+    "title": "Check a reachable target with forward kinematics",
+    "release": "3.5",
+    "page": "ai-embodied.html",
+    "module": "extensions",
+    "prerequisites": "Trigonometry, coordinate frames and workspace constraints.",
+    "concept": "For two planar unit links, the endpoint is (cos q₁+cos(q₁+q₂), sin q₁+sin(q₁+q₂)). The law of cosines gives cos q₂=(x²+y²−2)/2. A value outside [−1,1] means the requested point is unreachable under this geometry and must be rejected rather than clamped into a fabricated solution.\n\nThe companion chooses one elbow branch, solves q₁ and q₂, then independently recomputes the endpoint with forward kinematics. This is position geometry only: it includes no collision map, joint limits, torque, dynamics, feedback control or real robot connection. A reachable point is not automatically a safe motion. Plan a trajectory and validate the omitted constraints before considering physical actuation.",
+    "example": "For target (1,1), one solution is q₁=0 and q₂=π/2. Forward kinematics returns (1,1) with residual near zero; target (3,0) is rejected.",
+    "model": [
+      [
+        "Inverse problem",
+        "Target → candidate angles",
+        "Choose an elbow branch"
+      ],
+      [
+        "Forward check",
+        "Angles → endpoint",
+        "Measure residual"
+      ],
+      [
+        "Missing constraints",
+        "Collision, limits, dynamics",
+        "No actuation claim"
+      ]
+    ],
+    "code": "result=m.robot()\nassert result['residual']<1e-12\ntry:\n    m.robot(3,0)\nexcept ValueError:\n    print('Unreachable target rejected')\nelse:\n    raise AssertionError('Unreachable target accepted')\nprint(result)",
+    "challenge": "Compute the second elbow branch. Add joint limits and reject a geometrically reachable point if both solutions violate the limits.",
+    "question": "A low position residual alone establishes:",
+    "options": [
+      "Collision-free motion",
+      "Agreement with the stated geometric endpoint",
+      "Safe motor torque"
+    ],
+    "answer": 1,
+    "reasons": [
+      "No obstacles are modeled.",
+      "That is the quantity the residual checks.",
+      "No dynamics or actuator limits are modeled."
+    ],
+    "references": [
+      [
+        "Lynch and Park — Modern Robotics, Chapter 6 inverse kinematics",
+        "https://modernrobotics.northwestern.edu/chapters/chapter6/"
+      ]
+    ],
+    "review_date": "2026-10-02"
+  },
+  {
+    "id": "personal",
+    "title": "Bound memory by consent, purpose and expiry",
+    "release": "3.5",
+    "page": "ai-personal-agent.html",
+    "module": "extensions",
+    "prerequisites": "Data minimization, explicit state and expiration semantics.",
+    "concept": "A personal assistant needs a policy for what it retains, why it retains it and when the data stops being eligible for use. The fixture stores a fictional display preference only when consent is true and the current time precedes the expiry time. At expiry it returns no active memory.\n\nThis is an ephemeral policy calculation, not a user account or a persistent memory service. It does not infer consent from the text of a request or quietly keep a second copy. A real design must propagate deletion and expiry through caches, indexes, logs and backups according to its declared policy. Test denied consent and exact expiry boundaries as carefully as the successful path.",
+    "example": "With consent=false, memory is empty. With consent=true, now=10, expiry=20 it is available; at now=20 it is no longer active.",
+    "model": [
+      [
+        "Consent",
+        "Explicit boolean",
+        "Gate retention"
+      ],
+      [
+        "Purpose",
+        "Display preference",
+        "Bound use"
+      ],
+      [
+        "Expiry",
+        "now < expiry",
+        "Reject at the boundary"
+      ]
+    ],
+    "code": "result=m.personal()\nassert not result['stored']\nassert m.personal(consent=True)['stored']\nassert not m.personal(consent=True,now=20)['stored']\nprint(result)",
+    "challenge": "Add a deletion operation to a persistent local prototype and demonstrate that both its primary record and derived index stop returning the preference.",
+    "question": "At the exact expiry time, this policy returns:",
+    "options": [
+      "The memory forever",
+      "No active memory",
+      "A new implicit consent grant"
+    ],
+    "answer": 1,
+    "reasons": [
+      "That contradicts the time boundary.",
+      "The policy requires now to be strictly less than expiry.",
+      "Expiry does not grant consent."
+    ],
+    "references": [
+      [
+        "NIST — Privacy Framework",
+        "https://www.nist.gov/privacy-framework"
+      ]
+    ],
+    "review_date": "2026-10-02"
+  },
+  {
+    "id": "build_system",
+    "title": "Integrate tools with acceptance checks",
+    "release": "3.5",
+    "page": "ai-build-your-own.html",
+    "module": "extensions",
+    "prerequisites": "The typed-agent and checkpoint/replay companions.",
+    "concept": "Building an assistant begins with a bounded task and observable acceptance criteria. This integration fixture combines a permitted tool effect, replay after an injected failure, denial without the capability, and rejection of a conflicting idempotency key. All three checks must pass before adding any new tool boundary.\n\nThe model that proposes a tool call should not own permission validation, schema validation or the effect ledger. Those belong in inspectable application code. This package deliberately uses deterministic requests so the execution guarantees can be tested without conflating model behavior with tool reliability. A future model adapter needs its own evaluation, budgets, timeout and cancellation behavior, and must not place server secrets in browser source.",
+    "example": "The integration report must show one_effect=true, permission_denied=true and conflict_rejected=true. A fluent textual answer cannot substitute for any of these checks.",
+    "model": [
+      [
+        "Proposal",
+        "Structured tool request",
+        "Untrusted until validated"
+      ],
+      [
+        "Execution",
+        "Schema + permission + idempotency",
+        "Application-owned boundary"
+      ],
+      [
+        "Acceptance",
+        "Observable success and failure cases",
+        "Evidence before expansion"
+      ]
+    ],
+    "code": "result=m.build_system()\nassert result['one_effect'] and result['permission_denied'] and result['conflict_rejected']\nprint(result)",
+    "challenge": "Add a timeout fixture and a persisted attempt counter. Demonstrate bounded retries without duplicating the effect, then document which external services would need their own idempotency support.",
+    "question": "Where should tool authorization live?",
+    "options": [
+      "Only inside a prompt",
+      "In an independently enforced execution layer",
+      "In the color of the output"
+    ],
+    "answer": 1,
+    "reasons": [
+      "Prompt text alone does not enforce a capability boundary.",
+      "The application must validate every effectful request.",
+      "Visual presentation is not authorization."
+    ],
+    "references": [
+      [
+        "OWASP — LLM Prompt Injection Prevention",
+        "https://cheatsheetseries.owasp.org/cheatsheets/LLM_Prompt_Injection_Prevention_Cheat_Sheet.html"
+      ],
+      [
+        "SQLite — Atomic Commit",
+        "https://www.sqlite.org/atomiccommit.html"
+      ]
+    ],
+    "review_date": "2026-10-02"
+  },
+  {
+    "id": "cache",
+    "title": "Compare cached and full attention outputs",
+    "release": "3.5",
+    "page": "ai-llm.html",
+    "module": "extensions",
+    "prerequisites": "Causal attention, tensor dimensions and memory accounting.",
+    "concept": "In autoregressive inference, past keys and values can be reused when their token representations remain unchanged under the model's causal computation. The new query attends over cached past entries plus the new token. The companion computes one new-token output both from a full concatenated K/V array and from an incrementally extended cache, then compares the results.\n\nFor batch one, uncompressed K/V storage is 2×layers×tokens×KV heads×head dimension×bytes per element. The factor two counts keys and values. Grouped-query attention uses KV-head count here, not query-head count. This formula omits allocation overhead, temporary activations and quantization metadata; it is a capacity estimate, not a throughput benchmark.",
+    "example": "With 32 layers, 4,096 tokens, 8 KV heads, dimension 128 and two bytes per element, the raw cache is 536,870,912 bytes = 512 MiB.",
+    "model": [
+      [
+        "Reuse",
+        "Past keys and values",
+        "Avoid recomputing unchanged entries"
+      ],
+      [
+        "Append",
+        "New token K/V",
+        "Extend context"
+      ],
+      [
+        "Check",
+        "Cached output − full output",
+        "Numerical equivalence"
+      ]
+    ],
+    "code": "result=m.cache()\nassert result['maximum_difference']<1e-12\nassert result['example_bytes']==536870912\nprint(result)",
+    "challenge": "Add a cache-length limit and specify its eviction policy. Compare the resulting output with full-context attention and explain why eviction changes the problem.",
+    "question": "The raw memory formula uses:",
+    "options": [
+      "Query heads in every architecture",
+      "KV heads and both K and V arrays",
+      "Only the new token"
+    ],
+    "answer": 1,
+    "reasons": [
+      "Grouped-query attention can use fewer KV heads.",
+      "These are the arrays actually stored.",
+      "Past entries dominate a long-context cache."
+    ],
+    "references": [
+      [
+        "Hugging Face Transformers — Cache strategies",
+        "https://huggingface.co/docs/transformers/kv_cache"
+      ]
+    ],
+    "review_date": "2026-10-02"
+  },
+  {
+    "id": "quantization",
+    "title": "Measure reconstruction error before claiming speed",
+    "release": "3.5",
+    "page": "ai-llm.html",
+    "module": "extensions",
+    "prerequisites": "Rounding, dynamic range and numerical error.",
+    "concept": "Symmetric quantization chooses scale=max|w|/(2^(b−1)−1), rounds w/scale to an integer and reconstructs by multiplying by scale. With no clipping beyond the chosen range, nearest rounding limits absolute reconstruction error to approximately half a step.\n\nThe notebook quantizes four fixed weights at 8 and 4 bits. This checks numerical reconstruction, not model accuracy or speed. An implementation must actually use suitable integer kernels, account for scales and packing, and evaluate downstream behavior before claiming memory or latency improvements. Outliers can expand the shared scale and worsen resolution for small weights.",
+    "example": "At 8 bits the maximum integer magnitude is 127. The observed reconstruction error must be no larger than scale/2, apart from numerical tolerance.",
+    "model": [
+      [
+        "Scale",
+        "max|w| / integer limit",
+        "Connect ranges"
+      ],
+      [
+        "Round",
+        "Integer code",
+        "Lose precision"
+      ],
+      [
+        "Reconstruct",
+        "code × scale",
+        "Measure numeric error"
+      ]
+    ],
+    "code": "result=m.quantization()\nassert result['maximum_error']<=result['half_step']+1e-12\nprint(result)\nprint('Four bits:',m.quantization(4))",
+    "challenge": "Add one large outlier and compare errors on the smaller weights. Explain when per-channel scaling might help and what metadata it adds.",
+    "question": "A small weight-reconstruction error proves lower inference latency:",
+    "options": [
+      "Yes",
+      "No; kernels and workload must be measured",
+      "Only because the values are integers"
+    ],
+    "answer": 1,
+    "reasons": [
+      "Numerical error is not a timing measurement.",
+      "Hardware and implementation determine speed.",
+      "Integer labels alone do not select an optimized kernel."
+    ],
+    "references": [
+      [
+        "Hugging Face — Quantization concepts",
+        "https://huggingface.co/docs/optimum/en/concept_guides/quantization"
+      ]
+    ],
+    "review_date": "2026-10-02"
+  },
+  {
+    "id": "lora",
+    "title": "Fit a low-rank update while freezing the base",
+    "release": "3.5",
+    "page": "ai-llm.html",
+    "module": "extensions",
+    "prerequisites": "Matrix factorization, gradients and parameter counts.",
+    "concept": "A low-rank adapter represents an update ΔW=BA with rank at most r while leaving a base matrix W₀ unchanged. The companion fits a rank-two target update for a 6×8 matrix. It initializes A with small random values and B at zero, then updates both using gradients of the reconstruction loss.\n\nInitializing both factors to zero would make both gradients zero at the start, trapping this factorization. A frozen base also needs an actual immutability check, not just a label on a diagram. The notebook compares base bytes before and after fitting and reports adapter versus dense parameter counts. It is a matrix-fit demonstration, not a language-model fine-tuning benchmark or a claim that every task admits a low-rank solution.",
+    "example": "Rank two uses 2×8+6×2=28 adapter parameters versus 48 dense entries. The base remains unchanged and loss should fall from its initial value.",
+    "model": [
+      [
+        "Base",
+        "W₀ frozen",
+        "Retain pretrained parameters"
+      ],
+      [
+        "Adapter",
+        "B(6×2) A(2×8)",
+        "Rank ≤2"
+      ],
+      [
+        "Training",
+        "Gradient updates to A and B",
+        "Check loss and base identity"
+      ]
+    ],
+    "code": "result=m.lora()\nassert result['base_unchanged']\nassert result['adapter_parameters']==28\nassert result['rank']<=2\nassert result['final_loss']<result['initial_loss']\nprint(result)",
+    "challenge": "Fit a full-rank target with ranks one and two. Separate optimization failure from the best possible low-rank approximation error.",
+    "question": "Why avoid setting both adapter factors to zero?",
+    "options": [
+      "It changes the frozen base",
+      "Both factor gradients can vanish initially",
+      "It always exceeds memory"
+    ],
+    "answer": 1,
+    "reasons": [
+      "The base is a separate parameter.",
+      "Each factor gradient includes the other factor.",
+      "The issue here is optimization, not allocation."
+    ],
+    "references": [
+      [
+        "Hu et al. — LoRA",
+        "https://arxiv.org/abs/2106.09685"
+      ]
+    ],
+    "review_date": "2026-10-02"
+  },
+  {
+    "id": "game",
+    "title": "Solve a small game exactly before learning it",
+    "release": "3.5",
+    "page": "ai-game.html",
+    "module": "extensions",
+    "prerequisites": "Turn-based games, terminal states and dynamic programming.",
+    "concept": "In this normal-play subtraction game, a player removes one or two stones and the player taking the last stone wins. Position zero is losing for the player to move. A positive position is winning if any legal move leads to a losing position for the opponent. The companion builds this table from small positions upward.\n\nFor five stones, taking two leaves three, a losing position. This is exact dynamic programming for a fully known game, not an RL agent and not a change to either protected portfolio game. It provides a clean baseline for a later learned policy: compare decisions against the solved state table, including losing states where no winning move exists.",
+    "example": "States 0,3,6,… are losing. At five stones the winning move takes two; at three stones the function reports no forced-winning move.",
+    "model": [
+      [
+        "Terminal",
+        "Zero stones",
+        "Losing for the next player"
+      ],
+      [
+        "Recurrence",
+        "Any move to a losing state?",
+        "Winning-state test"
+      ],
+      [
+        "Policy",
+        "Select such a move",
+        "Exact model-based baseline"
+      ]
+    ],
+    "code": "result=m.game(5)\nassert result['winning'] and result['optimal_take']==2\nassert not m.game(3)['winning']\nprint(result)",
+    "challenge": "Train a small policy against the solved opponent and report agreement by state. Do not score an arbitrary move in a losing state as a missed guaranteed win.",
+    "question": "A losing state means:",
+    "options": [
+      "No legal move exists in every case",
+      "No forced win against optimal play under the rules",
+      "The program crashed"
+    ],
+    "answer": 1,
+    "reasons": [
+      "Three stones has legal moves but is losing.",
+      "Every legal move gives the opponent a winning position.",
+      "It is a valid game-theoretic result."
+    ],
+    "references": [
+      [
+        "Sutton and Barto — Reinforcement Learning, game examples and value functions",
+        "http://incompleteideas.net/book/the-book-2nd.html"
+      ]
+    ],
+    "review_date": "2026-10-02"
+  },
+  {
+    "id": "qaoa",
+    "title": "Optimize one MaxCut edge with p=1 QAOA",
+    "release": "3.6",
+    "page": "learn-advanced.html",
+    "module": "quantum_models",
+    "prerequisites": "Pauli operators, phase gates, expectation values and classical search.",
+    "concept": "For one edge, C=(I−Z⊗Z)/2 rewards different measured bits. Starting in |++⟩, apply exp(−iγC) and then exp(−iβX) to each qubit. The notebook searches a grid of angles and computes the exact expected cut value. This two-qubit objective has a classical maximum of one, giving a direct reference.\n\nQAOA alternates a cost unitary with a mixer and uses a classical optimizer, but a tiny exact-expectation grid search does not establish advantage. Increasing depth changes expressivity and optimization cost. Report graph, depth, angle convention, optimizer, sampling and reference solver before comparing larger results.",
+    "example": "The default 61×61 grid includes angles achieving an expected cut of one to numerical precision. Every energy evaluation uses a normalized state vector.",
+    "model": [
+      [
+        "Cost",
+        "(I−ZZ)/2",
+        "Reward a cut edge"
+      ],
+      [
+        "Mixer",
+        "Single-qubit X rotations",
+        "Move amplitude between assignments"
+      ],
+      [
+        "Reference",
+        "Exact classical maximum =1",
+        "Bound interpretation"
+      ]
+    ],
+    "code": "result=m.qaoa()\nassert abs(result['expected_cut']-1)<1e-12\nprint(result)",
+    "challenge": "Extend to a three-node path and compare with enumeration of all classical bit strings. Keep the p=1 and angle conventions explicit.",
+    "question": "A perfect result on one edge demonstrates:",
+    "options": [
+      "A solved small fixture",
+      "General quantum advantage",
+      "Fault tolerance"
+    ],
+    "answer": 0,
+    "reasons": [
+      "The exact reference makes this test inspectable.",
+      "No scaling comparison was performed.",
+      "No error-correction process was simulated."
+    ],
+    "references": [
+      [
+        "Farhi et al. — A Quantum Approximate Optimization Algorithm",
+        "https://arxiv.org/abs/1411.4028"
+      ]
+    ],
+    "review_date": "2026-10-02"
+  },
+  {
+    "id": "hamiltonian",
+    "title": "Measure product-formula error",
+    "release": "3.6",
+    "page": "learn-advanced.html",
+    "module": "quantum_models",
+    "prerequisites": "Matrix exponentials, noncommuting operators and operator norms.",
+    "concept": "For H=X+Z, the exact propagator is exp(−itH). Because X and Z do not commute, exp(−itX)exp(−itZ) is generally different. The companion splits time into r steps and compares [exp(−itX/r)exp(−itZ/r)]ʳ with an exact eigen-decomposition reference.\n\nBoth propagators are unitary to rounding error, so normalization alone cannot show that the approximate dynamics are accurate. Measure the operator-norm difference and inspect refinement at fixed total time. This first-order product formula is a small reference calculation, not a gate-count estimate for arbitrary many-body simulation.",
+    "example": "At t=0.7, compare 16 and 32 steps. The finer result should reduce operator error while both retain tiny unitarity residuals.",
+    "model": [
+      [
+        "Target",
+        "exp(−it(X+Z))",
+        "Exact dynamics"
+      ],
+      [
+        "Approximation",
+        "Repeated separated X and Z steps",
+        "Noncommutation creates error"
+      ],
+      [
+        "Checks",
+        "Accuracy and unitarity",
+        "Different properties"
+      ]
+    ],
+    "code": "result=m.hamiltonian()\nassert result['unitary_residual']<1e-12\nassert m.hamiltonian(steps=32)['operator_error']<result['operator_error']\nprint(result)",
+    "challenge": "Reverse the factor order, then implement a symmetric half-X/full-Z/half-X step and compare convergence at equal step size.",
+    "question": "A unitary approximation is necessarily accurate:",
+    "options": [
+      "Yes",
+      "No; it may preserve norm while evolving the wrong state",
+      "Only for complex matrices"
+    ],
+    "answer": 1,
+    "reasons": [
+      "Unitarity and closeness to the target are different conditions.",
+      "The notebook measures their residuals separately.",
+      "Both exact and approximate propagators are complex."
+    ],
+    "references": [
+      [
+        "IBM Quantum Learning — Fundamentals of Quantum Algorithms",
+        "https://quantum.cloud.ibm.com/learning/courses/fundamentals-of-quantum-algorithms"
+      ],
+      [
+        "Preskill — Quantum Computation lecture notes",
+        "https://www.preskill.caltech.edu/ph219/"
+      ]
+    ],
+    "review_date": "2026-10-02"
+  },
+  {
+    "id": "stabilizers",
+    "title": "Check commuting Pauli parity measurements",
+    "release": "3.6",
+    "page": "learn-advanced.html",
+    "module": "quantum_models",
+    "prerequisites": "Tensor products, Pauli anticommutation and stabilizer syndromes.",
+    "concept": "The four-data-qubit toy uses checks XXXX, ZZII and IZZI. Each pair commutes: overlapping X and Z factors anticommute at two positions, yielding a positive net sign. An X error on qubit 1 anticommutes with both Z checks but commutes with the X check, producing syndrome (0,1,1).\n\nThis calculation teaches check compatibility and syndrome construction. It is not a full surface-code patch, repeated syndrome circuit or decoder. Surface-code analysis also needs boundaries, logical operators, data and measurement noise, code distance, decoding and resource accounting. A commuting set alone does not establish a threshold or fault-tolerant logical gate.",
+    "example": "Construct the 16×16 matrices and verify every commutator has norm zero. Insert one X on qubit 1 and obtain syndrome [0,1,1].",
+    "model": [
+      [
+        "Checks",
+        "XXXX, ZZII, IZZI",
+        "Compatible Pauli observables"
+      ],
+      [
+        "Error",
+        "IXII",
+        "One explicit data error"
+      ],
+      [
+        "Syndrome",
+        "Commutation signs",
+        "Locates a check violation"
+      ]
+    ],
+    "code": "result=m.stabilizers()\nassert result['maximum_commutator']==0\nassert result['x_on_qubit_one_syndrome']==[0,1,1]\nprint(result)",
+    "challenge": "Find an operator commuting with all checks but acting nontrivially on the codespace. Explain why the syndrome can miss a logical operation.",
+    "question": "A zero syndrome guarantees no logical error:",
+    "options": [
+      "Always",
+      "No; a logical operator can commute with all checks",
+      "Only if the display is green"
+    ],
+    "answer": 1,
+    "reasons": [
+      "Stabilizer checks cannot distinguish every logical state.",
+      "Logical operators are the key counterexample.",
+      "The algebra, not color, determines the syndrome."
+    ],
+    "references": [
+      [
+        "Fowler et al. — Surface codes: Towards practical large-scale quantum computation",
+        "https://arxiv.org/abs/1208.0928"
+      ]
+    ],
+    "review_date": "2026-10-02"
+  },
+  {
+    "id": "hardware",
+    "title": "Use T1 and T2 with an explicit noise convention",
+    "release": "3.6",
+    "page": "learn-advanced.html",
+    "module": "quantum_models",
+    "prerequisites": "Exponential decay, populations, coherence and time units.",
+    "concept": "In a simple Markovian relaxation-plus-dephasing model, excited-state population decays as exp(−t/T1), while off-diagonal coherence decays as exp(−t/T2). The rates obey 1/T2=1/(2T1)+1/Tφ, so nonnegative pure dephasing requires T2≤2T1. The notebook rejects parameter combinations outside that model.\n\nThese quantities are not interchangeable with gate fidelity, readout error, connectivity or logical error rate. Device modalities also have different control and engineering constraints. This companion uses arbitrary consistent time units and fictional parameters; it does not rank current hardware vendors or substitute historical roadmap claims for measured performance.",
+    "example": "For t=20,T1=100,T2=80, population survival is exp(−0.2) and coherence fraction exp(−0.25). T2=250 is rejected under the stated model.",
+    "model": [
+      [
+        "T1",
+        "Population relaxation",
+        "Excited-state survival"
+      ],
+      [
+        "T2",
+        "Coherence decay",
+        "Includes relaxation contribution"
+      ],
+      [
+        "Tφ",
+        "Additional dephasing",
+        "Nonnegative rate"
+      ]
+    ],
+    "code": "result=m.hardware()\nassert abs(result['excited_survival']-math.exp(-.2))<1e-12\nassert result['pure_dephasing_rate']>=0\nprint(result)",
+    "challenge": "Build a comparison table for two fictional devices using coherence, gates, readout and topology. Show why one long coherence time cannot alone determine algorithm performance.",
+    "question": "In this model a valid T2 must satisfy:",
+    "options": [
+      "T2≤2T1",
+      "T2 is always equal to T1",
+      "T2 has no relation to relaxation"
+    ],
+    "answer": 0,
+    "reasons": [
+      "Relaxation contributes at least 1/(2T1) to decoherence.",
+      "Pure dephasing can vary independently.",
+      "The stated model includes that contribution."
+    ],
+    "references": [
+      [
+        "National Academies — Quantum Computing: Progress and Prospects (2019; historical foundations)",
+        "https://doi.org/10.17226/25196"
+      ],
+      [
+        "Preskill — Quantum Computation lecture notes",
+        "https://www.preskill.caltech.edu/ph219/"
+      ]
+    ],
+    "review_date": "2026-10-02"
+  },
+  {
+    "id": "network",
+    "title": "Separate heralding probability from conditional fidelity",
+    "release": "3.6",
+    "page": "learn-advanced.html",
+    "module": "quantum_models",
+    "prerequisites": "Bell states, mixed states and conditional probability.",
+    "concept": "A Werner link can be written ρ=w|Φ+⟩⟨Φ+|+(1−w)I/4, with Bell fidelity (1+3w)/4. Under the idealized swapping assumptions in this fixture, two independent identical links give visibility w² and conditional fidelity (1+3w²)/4. A separate simplified heralding model has success probability η²/2.\n\nConditional quality and probability of success answer different questions. Reporting fidelity only after successful heralding does not reveal link throughput or waiting-time effects. This fixture omits memory decay, scheduling, purification, dark counts and imperfect operations, so it is an algebraic networking exercise rather than an engineering rate forecast.",
+    "example": "For w=0.9 and η=0.5, input fidelity is 0.925, swapped fidelity 0.8575, and heralded success probability 0.125.",
+    "model": [
+      [
+        "Input state",
+        "Werner visibility w",
+        "Bell fidelity"
+      ],
+      [
+        "Swap quality",
+        "Visibility w²",
+        "Independent ideal links"
+      ],
+      [
+        "Heralding",
+        "η²/2",
+        "Separate conditional success model"
+      ]
+    ],
+    "code": "result=m.network()\nassert abs(result['swapped_fidelity']-.8575)<1e-12\nassert result['heralded_success']==.125\nprint(result)",
+    "challenge": "Add a waiting-time memory-decay factor and compare average delivered fidelity with conditional instantaneous fidelity.",
+    "question": "High conditional fidelity alone determines delivery rate:",
+    "options": [
+      "Yes",
+      "No; heralding and timing are separate",
+      "Only for classical networks"
+    ],
+    "answer": 1,
+    "reasons": [
+      "Quality conditional on success omits failures and time.",
+      "Both quantities are needed for an operational estimate.",
+      "The distinction also applies to quantum links."
+    ],
+    "references": [
+      [
+        "Briegel et al. — Quantum Repeaters",
+        "https://doi.org/10.1103/PhysRevLett.81.5932"
+      ]
+    ],
+    "review_date": "2026-10-02"
+  },
+  {
+    "id": "sensing",
+    "title": "Compare GHZ and product probes under dephasing",
+    "release": "3.6",
+    "page": "learn-advanced.html",
+    "module": "quantum_models",
+    "prerequisites": "Parameter estimation, Fisher information and noise assumptions.",
+    "concept": "For frequency estimation at fixed interrogation time t, this convention gives product-probe QFI Nt²exp(−2γt) and GHZ-probe QFI N²t²exp(−2Nγt). The GHZ phase accumulates N times faster, but independent dephasing also damps its coherence N times faster. In the noiseless limit the expressions recover N and N² scaling at fixed t.\n\nThe comparison fixes interrogation time; optimizing time with a fixed total experimental budget is a different resource question. QFI is an information bound, not a measured estimator variance. Preparation, readout, correlated noise and accessible measurements can further constrain a real sensor. A larger ideal expression alone does not establish a usable sensing advantage.",
+    "example": "For N=4,γ=0.1,t=1, compare 4e⁻⁰·² with 16e⁻⁰·⁸. Then increase time and observe how the GHZ dephasing penalty grows.",
+    "model": [
+      [
+        "Signal",
+        "Frequency-dependent phase",
+        "Longer time increases sensitivity"
+      ],
+      [
+        "Product probes",
+        "Nt²e^(−2γt)",
+        "Independent information"
+      ],
+      [
+        "GHZ probes",
+        "N²t²e^(−2Nγt)",
+        "Enhanced signal and fragility"
+      ]
+    ],
+    "code": "result=m.sensing()\nassert abs(result['product_qfi']-4*math.exp(-.2))<1e-12\nassert abs(result['ghz_qfi']-16*math.exp(-.8))<1e-12\nprint(result)",
+    "challenge": "Optimize interrogation time for each probe family when total laboratory time is fixed. State how the number of independent repetitions changes the comparison.",
+    "question": "What is held fixed in the displayed comparison?",
+    "options": [
+      "Interrogation time",
+      "All possible laboratory resource budgets",
+      "Measured estimator variance"
+    ],
+    "answer": 0,
+    "reasons": [
+      "Both formulas use the same specified t.",
+      "Preparation and repetition budgets are not included.",
+      "The output is a QFI bound, not measured variance."
+    ],
+    "references": [
+      [
+        "Huelga et al. — Improvement of Frequency Standards with Quantum Entanglement",
+        "https://arxiv.org/abs/quant-ph/9707014"
+      ]
+    ],
+    "review_date": "2026-10-02"
+  },
+  {
+    "id": "fault_tolerance",
+    "title": "Use a distillation scaling law within its limits",
+    "release": "3.6",
+    "page": "learn-advanced.html",
+    "module": "extensions",
+    "prerequisites": "Error probabilities, asymptotic approximations and logical resource accounting.",
+    "concept": "An idealized 15-to-1 magic-state distillation protocol has leading small-input-error behavior approximately 35p³ for its output error. The companion applies that leading-order recurrence for one to three rounds and counts 15ʳ input states before accounting for rejected attempts.\n\nThis cubic suppression is not a complete factory cost or a threshold calculation. It assumes the relevant ideal Clifford operations and suitable independent input error model. Rejection probabilities, correlations, faulty logical operations, layout, routing, storage and scheduling all change practical resources. Keep the distinction between physical qubits, logical qubits, distilled states and algorithm-level failure probability explicit.",
+    "example": "For p=0.01, the leading-order output is 35×10⁻⁶=0.000035 after one round, using 15 nominal inputs per output before rejection overhead.",
+    "model": [
+      [
+        "Input",
+        "Small independent error p",
+        "Model assumption"
+      ],
+      [
+        "Leading term",
+        "35p³",
+        "Asymptotic suppression"
+      ],
+      [
+        "Resources",
+        "15ʳ nominal inputs",
+        "Incomplete factory accounting"
+      ]
+    ],
+    "code": "result=m.fault_tolerance()\nassert abs(result['leading_order_output_error']-.000035)<1e-15\nassert result['input_states_per_output']==15\nprint(result)",
+    "challenge": "Add a declared acceptance probability and expected input cost. Explain which physical and logical error processes remain absent from the estimate.",
+    "question": "The value 15ʳ includes all practical overhead:",
+    "options": [
+      "Yes",
+      "No; rejected attempts and implementation costs are omitted",
+      "Only if p is small"
+    ],
+    "answer": 1,
+    "reasons": [
+      "It is a nominal input-state count.",
+      "The scope explicitly excludes those costs.",
+      "Small p does not eliminate architectural overhead."
+    ],
+    "references": [
+      [
+        "Bravyi and Kitaev — Universal quantum computation with ideal Clifford gates and noisy ancillas",
+        "https://arxiv.org/abs/quant-ph/0403025"
+      ],
+      [
+        "Litinski — Magic State Distillation: Not as Costly as You Think",
+        "https://arxiv.org/abs/1905.06903"
+      ]
+    ],
+    "review_date": "2026-10-02"
+  }
+]

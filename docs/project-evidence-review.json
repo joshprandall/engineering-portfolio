@@ -1,0 +1,130 @@
+[
+  {
+    "page": "project-recovery.html",
+    "title": "Recovery Readiness Auditor",
+    "problem": "A configured backup schedule does not establish a usable recovery.",
+    "implementation": "The source project audits recovery-readiness evidence. The new recovery notebook separately checks fictional RTO, RPO and application-validation results.",
+    "evidence": "Source-linked project plus executed educational fixture; no restore of a production workload was performed.",
+    "next": "Retain a dated restoration log, data-integrity check and business acceptance record for an actual recovery test."
+  },
+  {
+    "page": "project-dependency.html",
+    "title": "Infrastructure Dependency Analyzer",
+    "problem": "A change can affect services through dependencies that a flat server list hides.",
+    "implementation": "Model resources and directed dependency edges, then inspect the assumptions behind an impact path before using it in a change review.",
+    "evidence": "The linked project source is the implementation record. A dependency path is a hypothesis about impact until checked against the real environment.",
+    "next": "Compare a known service dependency with observed configuration and record stale, missing and directional edges."
+  },
+  {
+    "page": "project-lifecycle.html",
+    "title": "Employee Lifecycle Toolkit",
+    "problem": "Joiner, mover and leaver changes cross identity, access and ownership boundaries.",
+    "implementation": "Keep requested changes, approval, actual effects and rollback evidence as separate records; idempotency matters when a workflow resumes.",
+    "evidence": "Source-linked automation project. This content release did not execute identity changes or validate a customer environment.",
+    "next": "Use a sandbox account and a bounded access matrix to test creation, modification, denial and cleanup before operational use."
+  },
+  {
+    "page": "project-asset-inventory.html",
+    "title": "Asset Inventory Reconciler",
+    "problem": "Repeated or malformed inventory input can duplicate records or conceal inconsistencies.",
+    "implementation": "The foundation companion demonstrates schema rejection, atomic SQLite insertion, injected rollback and matching-payload retries.",
+    "evidence": "The new companion is executed locally; it does not establish that the separately linked project was deployed or that inventory data are accurate.",
+    "next": "Define matching keys and conflict ownership, then test duplicate, missing and contradictory source records."
+  },
+  {
+    "page": "project-kubernetes-lab.html",
+    "title": "Kubernetes Operations Lab",
+    "problem": "A running pod can still be unable to serve traffic.",
+    "implementation": "Separate startup, readiness, liveness, endpoint membership and service response when investigating a failure.",
+    "evidence": "Source/manifest evidence and an executed probe-decision fixture; no live cluster rollout was performed in this release.",
+    "next": "Run a controlled dependency outage in a disposable cluster and preserve pod events, endpoints, restarts and application responses."
+  },
+  {
+    "page": "project-advanced-computing.html",
+    "title": "Advanced Computing Learning Library",
+    "problem": "An attractive simulation needs assumptions and reproducible numerical checks.",
+    "implementation": "The authored sequence connects linear algebra, AI mechanisms, quantum state calculations and performance bounds.",
+    "evidence": "Executed CPU teaching companions with exact or analytic references. They do not establish hardware advantage or graduate-level certification.",
+    "next": "Choose one calculation, reproduce it independently and identify the experiment needed to extend its scope."
+  },
+  {
+    "page": "project-learning-library.html",
+    "title": "Cloud & Systems Knowledge Library",
+    "problem": "Catalog size can be confused with individually authored depth.",
+    "implementation": "Eight existing lessons now have scoped reviews, 40 explained questions and runnable foundation notebooks. Forty-one linked study companions add bounded extensions.",
+    "evidence": "8,000 legacy record IDs and 300 legacy path IDs remain stable; the new sequence does not reclassify every generated practice entry as reviewed.",
+    "next": "Retain predictions, failed cases, source locators and integration artifacts while using self-reported progress."
+  },
+  {
+    "page": "project-mind.html",
+    "title": "Project MIND Agent Workbench",
+    "problem": "Evidence-looking words cannot independently verify a claimed outcome.",
+    "implementation": "The existing workflow preview organizes a dry-run plan; the new companion compares actual typed artifacts with explicit acceptance criteria and tests replay.",
+    "evidence": "Deterministic local workflow and executed in-memory coordination fixtures; no live LLM agents, external tools or distributed consensus run.",
+    "next": "Add persisted attempts, artifact schema versions and stale-result rejection before connecting a new external execution boundary."
+  },
+  {
+    "page": "project-portfolio.html",
+    "title": "Engineering Portfolio",
+    "problem": "Content changes must preserve the approved experience and remain reviewable.",
+    "implementation": "The upgrade uses scoped lesson overrides and appended study sections while preserving the baseline corpus, shared ambience and protected engines.",
+    "evidence": "Review-branch implementation and local checks. A branch or runtime package is not evidence of OSU deployment.",
+    "next": "Review the exact commit, package hashes, browser evidence and outstanding acceptance gates before a separately approved deployment."
+  },
+  {
+    "page": "project-qpe.html",
+    "title": "Quantum Phase Estimation",
+    "problem": "Linear phase error can be misleading near the zero/one boundary.",
+    "implementation": "The existing probability model now reports circular sample RMSE alongside its retained linear statistic; a notebook independently computes ideal probabilities by inverse DFT.",
+    "evidence": "Classical ideal-state simulation and toy uniform-mixture model; no controlled hardware unitary or calibrated device noise.",
+    "next": "Compare exact-grid, off-grid and wrap-boundary phases, then distinguish exact distributions from finite-shot samples."
+  },
+  {
+    "page": "project-qubit.html",
+    "title": "One Qubit, Two Outcomes",
+    "problem": "Computational-basis probabilities alone hide relative phase.",
+    "implementation": "The existing general pure-state lab varies both θ and φ and measures X, Y and Z. New companions check probabilities and amplitude-damping density operators.",
+    "evidence": "Executed ideal-state calculations and classical browser simulation; not a quantum device or a two-qubit hardware experiment.",
+    "next": "Use θ=90°, φ=90° to distinguish Y certainty from Z randomness, then compare a pure state with a mixed state."
+  },
+  {
+    "page": "project-emergent.html",
+    "title": "Emergent Systems Explorer",
+    "problem": "A coherent-looking animation can conceal time-step or seed effects.",
+    "implementation": "The existing seeded oscillator model is paired with a separate fixed-fixture Euler refinement comparison and an ensemble extension task.",
+    "evidence": "Deterministic browser simulation plus executed CPU convergence fixture. No claim that the model reproduces fundamental physics or a physical universe.",
+    "next": "Hold initial conditions fixed for time-step checks, then compare multiple seeds at each coupling strength."
+  },
+  {
+    "page": "project-geometric-ai.html",
+    "title": "Geometry & Physics Lab",
+    "problem": "Saved predictions, live calculations and research extensions need distinct evidence.",
+    "implementation": "The protected lab retains its calculation modules and six recorded GNP cases. New notebooks recompute metrics and check the restricted diffusion/inverse models.",
+    "evidence": "Historical GNP inference plus new metric auditing. The optional pinned-upstream adapter is separate from the checked CPU notebooks.",
+    "next": "Run an equal-information normal-estimation comparison before making a broad model superiority claim."
+  },
+  {
+    "page": "project-fusion.html",
+    "title": "Providing Energy from Fusion",
+    "problem": "A technical presentation explains a topic but is not an experimental energy demonstration.",
+    "implementation": "The existing presentation and media remain available as authored communication artifacts.",
+    "evidence": "Presentation/media evidence; this upgrade did not reproduce a fusion experiment or alter the protected video.",
+    "next": "Use claim-specific references and distinguish plasma physics, engineering gain and whole-system economics when extending the presentation."
+  },
+  {
+    "page": "project-battle-chess.html",
+    "title": "Crown & Ash",
+    "problem": "A launcher, source implementation and a playable engine are different acceptance surfaces.",
+    "implementation": "The existing chess launcher and protected engine files remain separate from the learning companions.",
+    "evidence": "Engine bytes preserved in this content release. New learning-model checks do not imply a new full-game acceptance run.",
+    "next": "Use the established chess browser gate for launch, interaction, restart and return before deployment."
+  },
+  {
+    "page": "play-evil-wizard.html",
+    "title": "Evil Wizard",
+    "problem": "A production-only game export must remain a complete versioned unit.",
+    "implementation": "The existing launcher retains the protected host export boundary; content work does not replace its runtime, PCK or WASM assets.",
+    "evidence": "Production export preservation remains a separate gate. No claim that notebook tests validate the hosted game.",
+    "next": "Run the established hosted-export launch and relaunch checks in the target environment."
+  }
+]

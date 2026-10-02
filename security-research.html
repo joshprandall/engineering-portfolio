@@ -23,7 +23,7 @@
 
   <script defer src="site-resilience.js"></script>
   <script defer src="security-research.js?v=20260928-refinement"></script>
-<script defer src="site-scenes.js?v=20260929-ambience-phone-v2"></script><script defer src="site-audio.js?v=20260929-ambience-phone-v2"></script><script defer src="site-sound-control.js?v=20260929-ambience-phone-v2"></script></head>
+<script defer src="site-scenes.js?v=20260929-ambience-phone-v2"></script><script defer src="site-audio.js?v=20260929-ambience-phone-v2"></script><script defer src="site-sound-control.js?v=20260929-ambience-phone-v2"></script><link rel="stylesheet" href="learning-experiments.css?v=20261002-content"></head>
 <body class="destination-page security-research-page">
 <a class="skip" href="#main">Skip to content</a>
 <header class="site-global-header">
@@ -143,7 +143,22 @@
       <a class="button" href="https://github.com/joshprandall/engineering-portfolio/blob/main/tests/browser.test.cjs" target="_blank" rel="noopener noreferrer">Browser tests ↗︎</a>
     </div>
   </section>
-</main>
+<!-- STUDY COMPANIONS START --><div class="wrap"><section class="section study-companion" id="study-security"><p class="eyebrow">AUTHORED STUDY COMPANION / 3.4</p><h2>Test a parser and measure a detection rule</h2><p><strong>Prerequisites.</strong> Input contracts, finite numbers, confusion matrices and authorized defensive testing.</p><p>A parser must validate semantics as well as delimiters. This local fixture accepts two nonempty comma-separated fields and a finite numeric reading. It rejects missing fields, extra fields, NaN and infinity. Seeded valid cases and explicitly malformed cases exercise the contract without sending traffic to any host.</p><p>A separate fictional login dataset labels four events. Alerting at three failures catches one malicious event, misses another and also flags a benign event. The confusion matrix is [[1,1],[1,1]] with true classes as rows and predictions as columns. An alert is a triage signal under the chosen rule, not a confirmed compromise.</p><p>Forty generated valid examples plus six malformed examples do not prove the parser secure against every input. Extend the corpus with size limits, Unicode, encodings and resource constraints appropriate to the actual boundary. Preserve failing inputs and an expected outcome. Defensive evidence should distinguish a synthetic fixture, a reproduced bug, and a result observed in an authorized environment.</p><div class="flagship-model"><table><caption>Test a parser and measure a detection rule — model structure</caption><thead><tr><th scope="col">Element</th><th scope="col">Model</th><th scope="col">Interpretation</th></tr></thead><tbody><tr><th scope="row">Parser boundary</th><td>Syntax + nonempty fields + finite value</td><td>Reject before downstream use</td></tr><tr><th scope="row">Detection</th><td>Threshold on a fictional event count</td><td>Triage signal</td></tr><tr><th scope="row">Evaluation</th><td>Labeled confusion matrix</td><td>Expose both kinds of error</td></tr></tbody></table></div><h3>Predict, run, compare</h3><p>Run seed 7 with 40 valid readings. Expect 40 accepted and all six malformed readings rejected. Confirm one false positive and one false negative in the detection fixture.</p><p><a class="button primary" href="assets/downloads/engineering-studies-3.2-3.6.zip" download>Download executable notebooks and source</a> <a class="button" href="https://github.com/joshprandall/engineering-portfolio/tree/content/website-3-approved-upgrades/project-sources/engineering-studies" target="_blank" rel="noopener noreferrer">Inspect source ↗</a></p><p>Open <strong>security.ipynb</strong> in the package. Run cells in order, compare with the reference, then change the stated input. Restart the kernel to reset.</p><details><summary>Computed reference result — local CPU fixture</summary><pre>{
+  &quot;valid_accepted&quot;: 40,
+  &quot;invalid_rejected&quot;: 6,
+  &quot;invalid_total&quot;: 6,
+  &quot;detection_confusion&quot;: [
+    [
+      1,
+      1
+    ],
+    [
+      1,
+      1
+    ]
+  ],
+  &quot;scope&quot;: &quot;bounded fictional local parser and labeled detection fixtures; no host scanning&quot;
+}</pre><p>This is the recorded result of the included code under the package environment. It is not a live service or device measurement.</p></details><h3>Extend the experiment</h3><p>Add a maximum input length and an explicit identifier grammar. Keep the new rejection cases as regression fixtures; explain how alert threshold changes trade false positives against misses.</p><details><summary>Check your reasoning: What does a detection alert prove?</summary><ol><li><strong>A compromise always occurred</strong> — Benign events can match the rule.</li><li><strong>That the event matched the defined rule</strong> — Correct. That is the direct supported conclusion.</li><li><strong>That all malicious events were detected</strong> — The fixture contains a false negative.</li></ol><p>This is an explained self-check, not a certification of mastery.</p></details><h3>Claim-specific sources</h3><ul><li><a href="https://owasp.org/www-project-application-security-verification-standard/" target="_blank" rel="noopener noreferrer">OWASP — Application Security Verification Standard</a></li><li><a href="https://attack.mitre.org/" target="_blank" rel="noopener noreferrer">MITRE ATT&amp;CK — knowledge base and scope</a></li></ul><p class="muted">Reviewed 2026-10-02: this worked example and its explicit assumptions. Source links and notebook results do not establish production or hardware validation.</p></section></div><!-- STUDY COMPANIONS END --></main>
 
 <footer class="wrap"><span>© 2026 Joshua Randall · Albany, Oregon</span><div><a href="#top">Back to top ↑</a></div><small>Security engineering through controlled evidence, reproducible tests, and defensive interpretation.</small></footer>
 <dialog aria-labelledby="search-title" id="search-dialog"><div class="dialog-head"><h2 id="search-title">Explore the portfolio</h2><button aria-label="Close search" data-close="">✕</button></div><label for="search-input">Search skills, experience, projects, and research</label><input autocomplete="off" id="search-input" placeholder="Try security, quantum, or systems…" type="search"/><div id="search-results"></div><p class="muted">Escape to close · Tab to navigate results</p></dialog>
