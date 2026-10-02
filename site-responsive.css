@@ -594,3 +594,51 @@ body.living-scenes :is(
 :root[data-theme] body.living-scenes .foundation-mark{color:var(--blue)}
 body.living-scenes .vnext-qubit-frame{background:transparent}
 
+
+
+/* 2026-10-02 day-mode legibility + Bell-pair stage correction.
+   Day typography uses stronger foreground values. The Bell-pair visualization
+   is intentionally opaque so the animated scene cannot reduce its contrast. */
+:root[data-theme="light"]{
+  --ink:#0b1215;
+  --muted:#26373c;
+  --line:#9ba9a6;
+}
+:root[data-theme="light"] body{
+  color:var(--ink)!important;
+  font-weight:500;
+}
+:root[data-theme="light"] :is(
+  p,li,small,label,.muted,.brand small,.hero-note,.status,footer,
+  .section-heading>p,.project-card p,.roadmap p
+){
+  color:var(--muted)!important;
+  font-weight:600;
+}
+:root[data-theme="light"] :is(
+  h1,h2,h3,strong,.brand>span,nav a,.button,
+  .site-global-header .global-controls>button
+){
+  color:var(--ink)!important;
+  font-weight:700;
+}
+
+/* This is the one intentional non-glass content panel. */
+.quantum-stage{
+  background:#08131c!important;
+  -webkit-backdrop-filter:none!important;
+  backdrop-filter:none!important;
+  color:#f8fdff!important;
+}
+:root[data-theme="light"] .quantum-stage{
+  background:#08131c!important;
+  border-color:#4d8392!important;
+  box-shadow:0 18px 44px rgba(3,15,20,.32)!important;
+}
+:root[data-theme="light"] .quantum-stage :is(
+  .quantum-stage-label,.quantum-controls label,.bell-bars>div,
+  .bell-bars output,#bell-result
+){
+  color:#f6fdff!important;
+  font-weight:800!important;
+}
