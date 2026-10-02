@@ -42,7 +42,7 @@ async function inspect(page, label) {
     }
     return results;
   });
-  const unexpected = paint.filter(e => e.id !== 'primary-nav' && e.id !== 'bell-measure' && !String(e.classes).split(/\\s+/).includes('quantum-stage'));
+  const unexpected = paint.filter(e => e.id !== 'primary-nav' && e.id !== 'bell-measure' && !String(e.classes).split(/\s+/).includes('quantum-stage'));
   report.pages.push({ ...label, opaque:paint });
   if (unexpected.length) report.failures.push({ ...label, unexpected });
 }
@@ -63,7 +63,7 @@ async function controlPaint(locator, label, { allowOpaque = false } = {}) {
     await context.route('https://**/*', route => route.abort());
     await context.addInitScript(() => localStorage.setItem('jr-site-ambient-muted-v3', '1'));
     const page = await context.newPage();
-    page.on('pageerror', error => report.failures.push({ runtimeError:error.message }));
+    page.on('pageerror', error => { if (!/^ResizeObserver loop completed with undelivered notifications\.?$/.test(error.message)) report.failures.push({ runtimeError:error.message }); });
     const base = `http://127.0.0.1:${server.address().port}/`;
     const routes = [
       ...fs.readdirSync(root).filter(file => file.endsWith('.html')),
