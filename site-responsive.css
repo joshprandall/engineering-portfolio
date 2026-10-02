@@ -219,7 +219,7 @@ body[data-library-page] .filters select{min-width:0;max-width:100%}
 .about-lede{max-width:66ch;color:var(--ink,var(--text));font-size:clamp(1.15rem,2.4vw,1.5rem);line-height:1.55}
 .about-hero-copy>p:not(.eyebrow):not(.about-lede){max-width:70ch}
 .about-profile-photo{margin:0;align-self:center}
-.about-profile-photo img{display:block;width:min(100%,24rem);height:auto;margin-inline:auto;object-fit:contain;object-position:center;border:1px solid var(--line);border-radius:16px;filter:brightness(.86) contrast(1.08) saturate(.92);box-shadow:0 18px 45px rgba(0,0,0,.22)}
+.about-profile-photo img{display:block;width:min(100%,24rem);height:auto;margin-inline:auto;object-fit:contain;object-position:center;border:1px solid var(--line);border-radius:16px;filter:brightness(.84) contrast(1.08) saturate(.9);box-shadow:0 18px 45px rgba(0,0,0,.22)}
 .about-profile-photo figcaption{margin-top:.65rem;text-align:center;color:var(--muted);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase}
 .about-facts{display:flex;flex-wrap:wrap;gap:.45rem 1rem;margin:1.4rem 0;color:var(--muted);font-size:.86rem}
 .about-facts span+span::before{content:"•";margin-right:1rem;color:var(--accent)}
