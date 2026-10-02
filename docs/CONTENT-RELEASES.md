@@ -110,6 +110,18 @@ add an evidence-retention criterion without changing their IDs.
 - Broader full-site, exact-commit, WebKit/media and production acceptance are
   separately recorded; none is inferred from the refinement result.
 
+## Exact-commit package
+
+Source commit `c6a1ef06bc278dc45003b815b9dd3d4130ce2de8` builds a runtime
+package of 297 files / 439,764,684 bytes. The validator reports 72 pages, 8,000
+base learning records, 76 teaching chunks and zero issues. The refreshed runtime
+hash manifest is committed separately; these counts exclude development sources
+and do not imply that every base record was rewritten or newly reviewed.
+
+Both downloadable ZIPs were extracted, every checksum was checked and their
+Python suites passed from the extracted directories. The separately restored
+immutable assets matched the existing size and hash manifest.
+
 ## Production gate
 
 Review and approve the exact tested commit separately before OSU deployment.

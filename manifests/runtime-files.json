@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "sourceCommit": "510006658056637447d0cc20d64010017df36d24",
+  "sourceCommit": "c6a1ef06bc278dc45003b815b9dd3d4130ce2de8",
   "bytePolicy": "Exact Git blobs; artifacts verified against committed SHA-256 and size.",
   "files": [
     {
@@ -16,11 +16,11 @@
     },
     {
       "path": "agent-workbench.html",
-      "size": 6442,
-      "sha256": "83ad7489f6b856c82c2d0b0df41188542bb09683bceab71b7f09be287fd02712",
+      "size": 6965,
+      "sha256": "3792494a011557d721faa35f1354ecb00e63703a96780ecc7362f71bd7e426ee",
       "source": {
         "kind": "git-blob",
-        "blob": "d701c6cb3fc3f957962db567975239b03ef19b12"
+        "blob": "dd6d9550f6221d8549a8b98262a182fe6496560d"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -38,11 +38,11 @@
     },
     {
       "path": "ai-agentic.html",
-      "size": 7232,
-      "sha256": "f5b407cb59e0b9d835a0504b9b4eb522f73c2399377ce58bd0e3087076df9488",
+      "size": 12092,
+      "sha256": "13b25fee2866319abda0ff602bee61659ccec6ba180ac00dab5f8b9f276dcf6c",
       "source": {
         "kind": "git-blob",
-        "blob": "100d919fde47efade06c3017386292d4d69fd898"
+        "blob": "eac9877a4cdb23ddbafdd54631a284dd51f27920"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -71,33 +71,33 @@
     },
     {
       "path": "ai-build-your-own.html",
-      "size": 7091,
-      "sha256": "fb84e40ef6e8cccb420855897dd83399f061ce235be7f7dcb4d28347cce041c8",
+      "size": 11357,
+      "sha256": "94f407a921017c0fd3056e0fbebbd3c8eaf64289f404668bcf073de8bdc70873",
       "source": {
         "kind": "git-blob",
-        "blob": "323b7cd6035274019baa9e522902d6e885c0d3d5"
+        "blob": "0ebd2730b25fd945603a6c11792d80c1dcb53062"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "ai-computer-vision.html",
-      "size": 7228,
-      "sha256": "017c41de9172bae3400849cf53245a17454cda5967c2c9136c47243ab92f7b01",
+      "size": 11737,
+      "sha256": "10bcacb30591fc602e51be0f99e3464ca05e9566bd0b6de753c13fabbb27d00b",
       "source": {
         "kind": "git-blob",
-        "blob": "333379f2bbd586328aedd2a99bf70ebfb66e382e"
+        "blob": "612484012065e57b90d41f493bcb4febb3223af0"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "ai-deep-learning.html",
-      "size": 7364,
-      "sha256": "a393ec93a29ff0b58ea84d19af1fe5020c221221743ea0a224ad496ad4857384",
+      "size": 12158,
+      "sha256": "223a02609925a20f5392cdf284480bf579121d3b5eadcc5b032d30f346b2e46e",
       "source": {
         "kind": "git-blob",
-        "blob": "11c78230af1ca3cb4155a39876b8e0b432f488e0"
+        "blob": "a1f7046e7fc1d9ec982973e9b3fbc26830cf85af"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -115,165 +115,165 @@
     },
     {
       "path": "ai-embodied.html",
-      "size": 7012,
-      "sha256": "363b63d18f9c049537b0da2b2a4f9b51ebaf38cb8f0d54a60722abfef07ae7c4",
+      "size": 10991,
+      "sha256": "da5b9da468faead73dfe6a4dad9d1cfa8aa08f539abd25cc5b9432dfca86ca58",
       "source": {
         "kind": "git-blob",
-        "blob": "fc60161ecee0607755766e223f304d22c9f54152"
+        "blob": "a568fe0961242593cb1279fb18a9b46780320ae5"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "ai-game.html",
-      "size": 6906,
-      "sha256": "0f48c59de052b4a13910181487efc30e4238739c026ded06df5874ce1a77e814",
+      "size": 10856,
+      "sha256": "6c02189a28d4d066670b6d574bd86489a0e8f69d2644752bb3d7f5c2d14194b7",
       "source": {
         "kind": "git-blob",
-        "blob": "e34eec160099129325114b70873bf9e81203cbe7"
+        "blob": "fe7c9842c25618099d6eb933525a31dda71b70da"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "ai-generative.html",
-      "size": 7195,
-      "sha256": "ca93e59254fefe090ffdc091baf37ce5297678e6e0844180526612f17c122da4",
+      "size": 11244,
+      "sha256": "92adb88d92d0ea82a139c7978b2f515f0a955acf3827a6a3a05a900d4a426ae9",
       "source": {
         "kind": "git-blob",
-        "blob": "1af24138110a54a81d6dfd0b1b00ad2a617113d0"
+        "blob": "306e358977e39124a3ccbbe83f2fd7e672f6ebda"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "ai-geometric.html",
-      "size": 7471,
-      "sha256": "d0f06da1b05dbe012341d2c89e8e80e5d675cdfe9a46b09761fafc462cf7c1ff",
+      "size": 12136,
+      "sha256": "1aef135df46c35f0d36147a084316550751efadbab0d5d999308a906e2b590ea",
       "source": {
         "kind": "git-blob",
-        "blob": "fb6d830455811935217eaa4bd31c93fde49db947"
+        "blob": "c641a5c0316a293b8f6b73d3c94ea99cc87e172f"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "ai-graph-neural-networks.html",
-      "size": 7154,
-      "sha256": "30c95ca7f96bc7c4f8ae4df424abd3c7718e1b1aef11c0805065313495d98be6",
+      "size": 11237,
+      "sha256": "cfef680b43f1e4c941e70c4e39fd643df93e4b082192619a71c496d3ff6e9a5c",
       "source": {
         "kind": "git-blob",
-        "blob": "7f26e104ff4cc58a8b8ce4cefc1b28a9ee31f51d"
+        "blob": "38d96b19f9901241862db31fb01de0c054d176d8"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "ai-llm.html",
-      "size": 7303,
-      "sha256": "759d6bd3b4d754edaf5ca49da14a9b8f0ffdbcbc9d492cb991f757b6518750ae",
+      "size": 23667,
+      "sha256": "f54b7a45ec70fb1c35f9e8079981c42140b2e5dae73d08f95026fd76926fc523",
       "source": {
         "kind": "git-blob",
-        "blob": "2be4bb1da46922d465eab991109e388d0a624dc9"
+        "blob": "57abed54f269276d76b2dd6476b90d9a93c6f958"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "ai-machine-learning.html",
-      "size": 7270,
-      "sha256": "8d824572800053053ef66d8af3f7d5cd5ec74215a11f2a9b73072918373dee49",
+      "size": 12224,
+      "sha256": "2c5b8f1638da0b408e05927a09d996373a00b88bab1050556434d362c60d78dd",
       "source": {
         "kind": "git-blob",
-        "blob": "0f6a4b39eb9007b4bdbb5fc841d1274f80ccef2a"
+        "blob": "42dc1891e0a0915c3382d05f1f00354bab63431b"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "ai-memory.html",
-      "size": 6969,
-      "sha256": "24f7fcf37904ee7f4846dc099914d4dc38e823b331336b39067aa0d588a38751",
+      "size": 12243,
+      "sha256": "1b71a83782d24fccdf19e16550bf0e968489fea7e2aa6d5b93ebadd617b6af8d",
       "source": {
         "kind": "git-blob",
-        "blob": "c1973b3e806aeb2311d113571d39be5fa95464ed"
+        "blob": "3d00fbb86184ebe370618434d23c49f84afd8f16"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "ai-multi-agent.html",
-      "size": 7032,
-      "sha256": "4d306070197973c466afef6b90b9ed409ffcd6bc42154930dd2ae094ece747e3",
+      "size": 7509,
+      "sha256": "35affb5d2740759cf70ce54df1e68d121a76249193c8a1b518dd67a6b909cdab",
       "source": {
         "kind": "git-blob",
-        "blob": "f0c8bda49052f185faee8826a910a852fdc031cc"
+        "blob": "02dddd9c17ad3326f01ecb209d7a6c26fe345690"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "ai-multimodal.html",
-      "size": 7126,
-      "sha256": "6c2590c0a5783204ae7c4c330e75cb1742bd14a7a6a7ee5258cf6933d271e940",
+      "size": 11334,
+      "sha256": "9a9a0fb8a12a3de8c146e9b2f79cd78fef7f31ef0ea3facb14f5a6d532193c77",
       "source": {
         "kind": "git-blob",
-        "blob": "827d55aa73f2dbc60dd421535f28eb0c09f5605b"
+        "blob": "ec2dfc3b02b415628cb808c07600ef4081343d7f"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "ai-neuro-symbolic.html",
-      "size": 7132,
-      "sha256": "c88ecb8e875829f1334a061c89446bf28e30a7fba121748d64e7f46707716e43",
+      "size": 11494,
+      "sha256": "6dca515e7f64cf42b27ba64d47194791f740b67651f1093eebec950655ae03c0",
       "source": {
         "kind": "git-blob",
-        "blob": "d4bfbacd2bd6ad4d5b5236510086a59f4fb87162"
+        "blob": "c2016c43467679b24d71fdb0c5bc10f5b1e64277"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "ai-personal-agent.html",
-      "size": 7538,
-      "sha256": "bd244e26fc157a1d572b0da394ecc005ad6c3dc9256f33d2ed740ee40b10d533",
+      "size": 11263,
+      "sha256": "9df916e23d226238cb415b0fe506af66501131400453843e53667c62983591ac",
       "source": {
         "kind": "git-blob",
-        "blob": "8adfce554d12b6fe2bab281634aa755cc7d17da2"
+        "blob": "ee076e8185a31c8f22e5f7ddc2e2057031b5e862"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "ai-project-mind.html",
-      "size": 7516,
-      "sha256": "e51319596e2f106af7b38524f3b07f460a5496567eba7b485f1c7edece8617ca",
+      "size": 13038,
+      "sha256": "f54b8ed938d4914a3c6603449ab74a36a8ebf27f88ad3655131fef4452e6daa6",
       "source": {
         "kind": "git-blob",
-        "blob": "9d2a8b896a2123bfdfd967b942037abd61878b8c"
+        "blob": "1465783ff47c480204677e3d12d8dfbbde08e8c7"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "ai-reinforcement-learning.html",
-      "size": 7270,
-      "sha256": "e8bf813db33548a969ea2d9f309a4b628863557d49b3e1067d57a04eb1f11f96",
+      "size": 12250,
+      "sha256": "a09f6ab0fdd3adbf095292bac442cf58374d959f0f7a633d9575ac426c4c5e71",
       "source": {
         "kind": "git-blob",
-        "blob": "206cb8d8cd3e4a5f36e89a6978d1da7d13121254"
+        "blob": "f28159499039b74d54a0bf642a7d8ad2d6c623d3"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "ai-symbolic.html",
-      "size": 6836,
-      "sha256": "68f4e0db7f71a07eac6bb1506873d60f3b3ab1d3937ba4c9e96bca7aac4eff31",
+      "size": 7328,
+      "sha256": "e2318a8bdb9518e0f416394467021adec9f161ad8de92ded9aeba780dd12c342",
       "source": {
         "kind": "git-blob",
-        "blob": "36116a3ba1bf74ed39722fb95d76d0b496cfd233"
+        "blob": "8cb2c61cce9a648de2b48034e6a141e857005c7b"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -290,34 +290,35 @@
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
+      "path": "assets/Joshua_Randall_Master_Resume.docx",
+      "size": 37409,
+      "sha256": "073f02b97e2d60f86766b7ccf097f701b52a8fb39284f1277af2bfacc0612a64",
+      "source": {
+        "kind": "git-blob",
+        "blob": "728c3da400f58bab92d3e71aff7f953e43ca79e7"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "assets/Recovery_Readiness_Auditor.zip",
+      "size": 8597,
+      "sha256": "8205c4c2b1102398c53d4de315522bb3b92ef154d0f4c40bf4d5da1a1647e1e9",
+      "source": {
+        "kind": "git-blob",
+        "blob": "16ad588ba830b6f3dbb57d0c81168cd4b2b0cc03",
+        "provenance": "Z:/public_html/assets/Recovery_Readiness_Auditor.zip"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
       "path": "assets/audio/CREDITS.md",
       "size": 1432,
       "sha256": "8d8762b31d5384db1d46901493b244d82ef50d4037237f349d2471d90fa4d30f",
       "source": {
         "kind": "git-blob",
         "blob": "ea90dbb82ed0df692c4037d8a1e7f17b0bfd16eb"
-      },
-      "owningComponent": "portfolio",
-      "deploymentClassification": "KEEP_PRODUCTION"
-    },
-    {
-      "path": "assets/audio/dark-theme-user.mp3",
-      "size": 483831,
-      "sha256": "7bb6e261c7de036ee9ebffeafaf5bba2befdeabe0580d2701088505f33300eb4",
-      "source": {
-        "kind": "git-blob",
-        "blob": "6e1722b15220c5d696af496f435b008e0b9711c6"
-      },
-      "owningComponent": "portfolio",
-      "deploymentClassification": "KEEP_PRODUCTION"
-    },
-    {
-      "path": "assets/audio/dark-theme-user.wav",
-      "size": 3002348,
-      "sha256": "e5e1144506681a091b98975016b48992443cc93ccf6898e203864fab90e1bb6d",
-      "source": {
-        "kind": "git-blob",
-        "blob": "1ed8a7037eeb1cc7bc9d0d4f872f16e9e45f183a"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -414,6 +415,28 @@
         "kind": "git-chunks",
         "sha256": "751e8ae1b88744a9090cf8ea569519eb77428d9834a00f99fe2a21a622dc1183",
         "provenance": "Preserved existing approved Day media, 2026-09-29. River container optimized without changing encoded frames; MP3 versions transcode the same original field recordings; posters are frames from these videos."
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "assets/downloads/engineering-foundations-3.1.zip",
+      "size": 35306,
+      "sha256": "b5fc04163aec1675a35cfed6787b1772d37cfa933b491546713d52603f409403",
+      "source": {
+        "kind": "git-blob",
+        "blob": "ac42129f785e0ea84d290c3be59369699d2cf395"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "assets/downloads/engineering-studies-3.2-3.6.zip",
+      "size": 392370,
+      "sha256": "1e8038977c279863e4701e7ae520b6631828bd2d42250fc3a1f65bd6d7936f0b",
+      "source": {
+        "kind": "git-blob",
+        "blob": "26c913bb9543e409146740a8f08a7557d0b5dee2"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -554,17 +577,6 @@
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
-      "path": "assets/Joshua_Randall_Master_Resume.docx",
-      "size": 37409,
-      "sha256": "073f02b97e2d60f86766b7ccf097f701b52a8fb39284f1277af2bfacc0612a64",
-      "source": {
-        "kind": "git-blob",
-        "blob": "728c3da400f58bab92d3e71aff7f953e43ca79e7"
-      },
-      "owningComponent": "portfolio",
-      "deploymentClassification": "KEEP_PRODUCTION"
-    },
-    {
       "path": "assets/joshua-randall-headshot.jpg",
       "size": 89637,
       "sha256": "24d61be42c1564b120360abaec9fcfa6c4d55736fbe888eb0cadaffe42ad64d4",
@@ -582,18 +594,6 @@
       "source": {
         "kind": "git-blob",
         "blob": "9ed5bb41a22cabed2b9c976c394383006e514ec7"
-      },
-      "owningComponent": "portfolio",
-      "deploymentClassification": "KEEP_PRODUCTION"
-    },
-    {
-      "path": "assets/Recovery_Readiness_Auditor.zip",
-      "size": 8597,
-      "sha256": "8205c4c2b1102398c53d4de315522bb3b92ef154d0f4c40bf4d5da1a1647e1e9",
-      "source": {
-        "kind": "git-blob",
-        "blob": "16ad588ba830b6f3dbb57d0c81168cd4b2b0cc03",
-        "provenance": "Z:/public_html/assets/Recovery_Readiness_Auditor.zip"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -730,22 +730,22 @@
     },
     {
       "path": "assets/site-navigation.json",
-      "size": 3166,
-      "sha256": "db8673a3be625e76053b1a8101bddf6947debd4aa470688ab5e1725c9673aca9",
+      "size": 3214,
+      "sha256": "636c4837f7ae0fe23b03c72637d1357d82a9479be58a2559724626bb3eb0f5d6",
       "source": {
         "kind": "git-blob",
-        "blob": "d43e64f7ab9b7bf3a360da0f8e6aa24eba341f84"
+        "blob": "ee59151a8902afa55983455f6eb75799f966c909"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "assets/site-search.json",
-      "size": 2294940,
-      "sha256": "efd638f7184efb770de48af7a9f0cedcaee043696e61c5d4274b15a89181c99c",
+      "size": 2294815,
+      "sha256": "39d846836ddb3dd70fe6b1bc5a57636b5faf34c21052f21068207be336d2f33c",
       "source": {
         "kind": "git-blob",
-        "blob": "361cd967b78202bc959cddf574e667ed18c54ac4"
+        "blob": "1e9b36fa8bfcf53b5344dcb4c167211a9d5bf955"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -873,11 +873,11 @@
     },
     {
       "path": "deep-learning/advanced/quantum.json",
-      "size": 512518,
-      "sha256": "282f16dccafdb4e9dd2262339ca38b4fd7e164f84157ec5e0f9e5352b594fd78",
+      "size": 510082,
+      "sha256": "bec35092b9e2a44f8525ff25c89ee40864c2832268900bce0d4940a8d487f282",
       "source": {
         "kind": "git-blob",
-        "blob": "c5e9835678edbbcc78756b13fa3b6ceb981a6654"
+        "blob": "91671f9a07be998fb97ef316f7bf779190c85354"
       },
       "owningComponent": "deep-learning",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -950,11 +950,11 @@
     },
     {
       "path": "deep-learning/cloud/networking.json",
-      "size": 809311,
-      "sha256": "485cdd8e5d71943285027edfd87c055ab224a1dbb08833b01196c2bef72895c1",
+      "size": 808140,
+      "sha256": "6626f12b256368bdf2ac7e12d141fca646cb4d440f2d19bf21f7cd7c7c591c81",
       "source": {
         "kind": "git-blob",
-        "blob": "2973744d46db9c22f87f58cbe749b875df711975"
+        "blob": "f33f03b078286b8641db000f47795f00a0a962cd"
       },
       "owningComponent": "deep-learning",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -972,11 +972,11 @@
     },
     {
       "path": "deep-learning/cloud/recovery.json",
-      "size": 422741,
-      "sha256": "b4c3bf7e1220636f17376812354739363f0d0246f65d01110f382793d153dba7",
+      "size": 421787,
+      "sha256": "cb76432be86325c5a38f00e4334adabbd2c1ebf04409e32e7edfa94e6271f8bb",
       "source": {
         "kind": "git-blob",
-        "blob": "51d8f34486d27936653b824208148d7f0deb8e71"
+        "blob": "9e5acf5f6badcf7581a8161b2788476ff31f12b1"
       },
       "owningComponent": "deep-learning",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -1203,11 +1203,11 @@
     },
     {
       "path": "deep-learning/leadership/operations.json",
-      "size": 410481,
-      "sha256": "55af73fdfd4c350eeeaea941776aa9f55858af1b0d7a0a3a2f4c2f6b3e7e9f6c",
+      "size": 409665,
+      "sha256": "da82770336c4b609cf06ce948e440b708f8eff11c7752f546f0258feee7c3e60",
       "source": {
         "kind": "git-blob",
-        "blob": "1613d817d9f1ea6ac24463a54a8f2775e4575177"
+        "blob": "d175522de3980a63cece472ea23bb599c9ee4b4c"
       },
       "owningComponent": "deep-learning",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -1346,11 +1346,11 @@
     },
     {
       "path": "deep-learning/math/linear-algebra.json",
-      "size": 489949,
-      "sha256": "93df4ab18ba91cded0688c9144619e0d9542805f08f2508fe008c02b35e1b315",
+      "size": 489479,
+      "sha256": "cde60c793aabda97974d53fadc578ffef32e88a979bc19494b7cd7c262135254",
       "source": {
         "kind": "git-blob",
-        "blob": "b801fbab25d0d46f1e08edddb567cfb791e59fa8"
+        "blob": "aec380115de9eb557b1c5396fac9c33f24151c79"
       },
       "owningComponent": "deep-learning",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -1368,11 +1368,11 @@
     },
     {
       "path": "deep-learning/math/probability.json",
-      "size": 435503,
-      "sha256": "ba6ee11568c12d5877381001314673fbfc5f24d1f82b048d0248949f8b2f2038",
+      "size": 435359,
+      "sha256": "6c58121da98fd469da772594a9c33e089083e40d5f34137e2307bce665356f2e",
       "source": {
         "kind": "git-blob",
-        "blob": "524aa1cf3b9321713994d914c97ca2741c499d82"
+        "blob": "95664d8982c357dc2b9935d7275f500e54e8587b"
       },
       "owningComponent": "deep-learning",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -1610,11 +1610,11 @@
     },
     {
       "path": "deep-learning/software/testing.json",
-      "size": 430625,
-      "sha256": "a57237747ec4fdc3b7122f2cbdf7718464bc6adda21650853e2f0443853c0b1d",
+      "size": 429928,
+      "sha256": "915a75a1c312692f6d65d1ff293c9746fa0c92acdf892d404a53b8b3bc2a3011",
       "source": {
         "kind": "git-blob",
-        "blob": "8a5faa52387cee06d51879558c04aa80c24a5d13"
+        "blob": "5c1dc5eb903c0dba0391d3354fb4f7a1f63924fc"
       },
       "owningComponent": "deep-learning",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -1682,7 +1682,7 @@
         "kind": "git-blob",
         "blob": "53841ad0d8eb9e420b9ff10c63a55f47b0f4595a"
       },
-      "owningComponent": "game-tools",
+      "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
@@ -1693,7 +1693,7 @@
         "kind": "git-blob",
         "blob": "77f6cc1896c2234f875bb6612c0fabb8b7b6c929"
       },
-      "owningComponent": "game-tools",
+      "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
@@ -1704,7 +1704,18 @@
         "kind": "git-blob",
         "blob": "97360d69acf08f81ba6a9e3827bbb0c4aa961556"
       },
-      "owningComponent": "game-tools",
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "games/3d-battle-chess/CREDITS.md",
+      "size": 945,
+      "sha256": "981e2a89f484b45efc1c7eaa7976c1c634199c323b6acadc6a5805115afce774",
+      "source": {
+        "kind": "git-blob",
+        "blob": "d5b8c7905c3c4fc8ed19a663ee71edb26ce89e91"
+      },
+      "owningComponent": "games/3d-battle-chess",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
@@ -1956,17 +1967,6 @@
       "source": {
         "kind": "git-blob",
         "blob": "63bb4faca48d5a2ef0dbc2a8aa6c3df31c5c37de"
-      },
-      "owningComponent": "games/3d-battle-chess",
-      "deploymentClassification": "KEEP_PRODUCTION"
-    },
-    {
-      "path": "games/3d-battle-chess/CREDITS.md",
-      "size": 945,
-      "sha256": "981e2a89f484b45efc1c7eaa7976c1c634199c323b6acadc6a5805115afce774",
-      "source": {
-        "kind": "git-blob",
-        "blob": "d5b8c7905c3c4fc8ed19a663ee71edb26ce89e91"
       },
       "owningComponent": "games/3d-battle-chess",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -2263,6 +2263,28 @@
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
+      "path": "geometric-lab/CREDITS.md",
+      "size": 3209,
+      "sha256": "9fd555c80e9aa33a4ef7b39271a447f4f21f53e06d7dd5a182be965a7df2de90",
+      "source": {
+        "kind": "git-blob",
+        "blob": "999592b49dbc9b051f645334bd53b8982cfa8e57"
+      },
+      "owningComponent": "geometric-lab",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "geometric-lab/METHODS.md",
+      "size": 6779,
+      "sha256": "656257883c770195b21fe3a238ede19f065e42a4aec16e94b5ad3cc17d9dab27",
+      "source": {
+        "kind": "git-blob",
+        "blob": "4c7c05fa7037a78e5d2472b7fa41a2948be137d5"
+      },
+      "owningComponent": "geometric-lab",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
       "path": "geometric-lab/app.js",
       "size": 40180,
       "sha256": "70d16437c136527b3069c34c62a8bcf40ee3b3d95d1b907805226fa44063ed3e",
@@ -2296,17 +2318,6 @@
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
-      "path": "geometric-lab/CREDITS.md",
-      "size": 3209,
-      "sha256": "9fd555c80e9aa33a4ef7b39271a447f4f21f53e06d7dd5a182be965a7df2de90",
-      "source": {
-        "kind": "git-blob",
-        "blob": "999592b49dbc9b051f645334bd53b8982cfa8e57"
-      },
-      "owningComponent": "geometric-lab",
-      "deploymentClassification": "KEEP_PRODUCTION"
-    },
-    {
       "path": "geometric-lab/index.html",
       "size": 5109,
       "sha256": "6a6eb8acca2aa338ff64549089e098f5d5208a96d6feb90aef48804bf3773081",
@@ -2324,17 +2335,6 @@
       "source": {
         "kind": "git-blob",
         "blob": "4cde0e254712d60527940fa01e8b5546743c7112"
-      },
-      "owningComponent": "geometric-lab",
-      "deploymentClassification": "KEEP_PRODUCTION"
-    },
-    {
-      "path": "geometric-lab/METHODS.md",
-      "size": 6779,
-      "sha256": "656257883c770195b21fe3a238ede19f065e42a4aec16e94b5ad3cc17d9dab27",
-      "source": {
-        "kind": "git-blob",
-        "blob": "4c7c05fa7037a78e5d2472b7fa41a2948be137d5"
       },
       "owningComponent": "geometric-lab",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -2406,6 +2406,17 @@
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
+      "path": "knowledge-upgrades.js",
+      "size": 58975,
+      "sha256": "55bb983dde487dd304693ccea1b50969cf23896e81a99efe5377da893eb03f1e",
+      "source": {
+        "kind": "git-blob",
+        "blob": "b0bf9817b0291d01ef269e82d0d704e8df39b082"
+      },
+      "owningComponent": "learning",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
       "path": "knowledge.css",
       "size": 90857,
       "sha256": "7d24afa48a6f00f8694faca631eb76fb35d0ce3266ed538d9901482df45dc70c",
@@ -2418,11 +2429,11 @@
     },
     {
       "path": "knowledge.js",
-      "size": 200292,
-      "sha256": "26061e433e21d42e5915b456aff8c02d0d9a0a46fa260079d401119c096c8b78",
+      "size": 204392,
+      "sha256": "cb089b5c9ca5ef05e18ecdb60bdca9c6ebb3c22dae0b1e4b10f40055ae709cb6",
       "source": {
         "kind": "git-blob",
-        "blob": "1fdd9c734e8e66df05dcbb9e0d751bac4bfcb1d3"
+        "blob": "851fb52dfdd1b71b38c2d0fb64de9440c08f1787"
       },
       "owningComponent": "learning",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -2451,33 +2462,33 @@
     },
     {
       "path": "labs/qpe.js",
-      "size": 3883,
-      "sha256": "f230626678a14ff26b45578a8f1c3b379cdb48992416616cfe3a5ebd2b870a4d",
+      "size": 4118,
+      "sha256": "de25734c1354da2189ae4b9c5534b66ac37cb0e5b369ff1ef9570afbd355023d",
       "source": {
         "kind": "git-blob",
-        "blob": "665191d52366215427d57efca99e18c870f79e27"
+        "blob": "eff0125eb64fc3b8b8207ac295a8c710dd49f347"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "learn-advanced.html",
-      "size": 4091,
-      "sha256": "395e46a0c67f3cbfa3c48b3331332a6e9ddfb3e331c586dd7cbe3ffde29ba101",
+      "size": 53118,
+      "sha256": "237639c932ce43144cb7065011724e0493f8ccbd9064f4e8ac9359b95b875dbe",
       "source": {
         "kind": "git-blob",
-        "blob": "9e92e6a8f9e02392385ff75550e49b01e6cfa483"
+        "blob": "6ae52f356d2ff1c70a0c506147919039e332cf90"
       },
       "owningComponent": "learning",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "learn-browse.html",
-      "size": 22162,
-      "sha256": "0e7497998b9082c5346eb7d9cfcdc3320fdf0bedaac8746f45a9e02bda16328c",
+      "size": 22224,
+      "sha256": "ee13782e314638865a1aca2fc2de7ded7923bfba16fae1d45410783588bf3e9b",
       "source": {
         "kind": "git-blob",
-        "blob": "a6fe1e08181b9637936047b5b07db7a8769eb3df"
+        "blob": "528b21834dd0c2d4cc031fddb6917d2470e443e1"
       },
       "owningComponent": "learning",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -2495,11 +2506,11 @@
     },
     {
       "path": "learn-cloud.html",
-      "size": 4058,
-      "sha256": "d698c301568b70b32b216381b4bf3edc3229c30fd4726e117587b33429a9fb36",
+      "size": 9087,
+      "sha256": "00024d8417a6757b29680dc9eeda7851e0dd8e4831e74092adfb591521a0c5ed",
       "source": {
         "kind": "git-blob",
-        "blob": "fb9e84289053fa7aa650f28d852ddfa3a2bfed39"
+        "blob": "d57bd6de8fa470589cfe5ef0aac7fd01b4d93ad7"
       },
       "owningComponent": "learning",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -2517,22 +2528,22 @@
     },
     {
       "path": "learn-glossary.html",
-      "size": 22167,
-      "sha256": "9f88bb5050dcce77bc79ba1c6ef3c5136b2529619a2d00a673e5360e77967010",
+      "size": 22229,
+      "sha256": "07370b7be287357d0e8508b6172889948f1c2910ceef95a228cd4f5eaa45a4d5",
       "source": {
         "kind": "git-blob",
-        "blob": "0e617627b9b0d1096bdfc00b4bb7dde08032416e"
+        "blob": "3d7fcacccacb612d2b469036d06a53f501072860"
       },
       "owningComponent": "learning",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "learn-labs.html",
-      "size": 22161,
-      "sha256": "3d4857a6f52609f3099fb56b718b1f4475f694f2abcecbca15c89b701508902e",
+      "size": 22223,
+      "sha256": "ccea34601ff8026e5f50609d4efc7f907a5f45ccf5798c0a083fa85238135cf4",
       "source": {
         "kind": "git-blob",
-        "blob": "da1e6b8efe85080f8531ef02a126326034487d5b"
+        "blob": "6dfadb6b8f5f8950e0bfd818662abd99ddbf24d0"
       },
       "owningComponent": "learning",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -2550,22 +2561,22 @@
     },
     {
       "path": "learn-map.html",
-      "size": 22157,
-      "sha256": "6175ab08b88581decd17b7167fe3c7fb202a78c92fc6315e4a1c27fce5386c25",
+      "size": 22219,
+      "sha256": "96488f23451b51fd6b8374835a4732757d2cfb70a74339619277372c84d1eceb",
       "source": {
         "kind": "git-blob",
-        "blob": "e6e4e70e889e7c2bfb559a3bf6aa10467cd48667"
+        "blob": "b2838ec07f678b7cbb03aaeddc0b515ff43a37d1"
       },
       "owningComponent": "learning",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "learn-mastery.html",
-      "size": 22156,
-      "sha256": "9954779c91e6bc603d24ae76765fe882e4dbe0171f9a99627d4202a7e7dec480",
+      "size": 22218,
+      "sha256": "13dce535406f65a6a5be95d025aeef2adc675cfedd7dd4be7c21450beab7634b",
       "source": {
         "kind": "git-blob",
-        "blob": "a578526377151db6369919961884af9a9b7da413"
+        "blob": "fb75bbdb2abd60a661c7dd84b21527843715a59c"
       },
       "owningComponent": "learning",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -2583,11 +2594,11 @@
     },
     {
       "path": "learn-paths.html",
-      "size": 20411,
-      "sha256": "b43a4f9be94402eb0aa1acb11af3813f9baf1515759100563f6ad76c1fd4f196",
+      "size": 24653,
+      "sha256": "462c0a6d5d3c29916ca8772e14a74f29d700ab3401f757ba8b0f61e9df95363a",
       "source": {
         "kind": "git-blob",
-        "blob": "0e0614c47c9061b9bceda6b9bc7937c8cf1e284c"
+        "blob": "ac5e33d742353d95f3987b49c5771153b67c493f"
       },
       "owningComponent": "learning",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -2605,11 +2616,11 @@
     },
     {
       "path": "learn-practice.html",
-      "size": 22157,
-      "sha256": "322b2b1b6f1f898c8b0c43c64c93d2a82f3d2d9bd2c51160f0cde11963ab110d",
+      "size": 22219,
+      "sha256": "91976f3dc9fce88aa2cd28d0032c596b0c9e431348e30acaa2aa99ad620e6edf",
       "source": {
         "kind": "git-blob",
-        "blob": "7dbff911227425795e5d9d4c6e3eabc7bb43af5b"
+        "blob": "93eb910cdbc0eb2c3fd246a953dbcf90e265bab4"
       },
       "owningComponent": "learning",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -2627,22 +2638,22 @@
     },
     {
       "path": "learn-verify.html",
-      "size": 22159,
-      "sha256": "f56d54794f0b47a5c01a5f66b5efc6b78ca88b2209fa607585151c5de37ea7b6",
+      "size": 22221,
+      "sha256": "bf3aeddc21945fb3d30822579745ea549d353d957bae4537898744b26c74d79d",
       "source": {
         "kind": "git-blob",
-        "blob": "ca7cd88c91d9b97b84b5051bf0aaebdee57a78e5"
+        "blob": "8a36275926e4580a92e672f5a2101967f9429eb9"
       },
       "owningComponent": "learning",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "learn.html",
-      "size": 25661,
-      "sha256": "e0acb0ae5558e0ffe68c9eef3cba4579157562ef437f616d6139ad17793bc148",
+      "size": 25723,
+      "sha256": "3ab7324213e5a7676775832e9d697ebc88d48f30eab805d6ab219304e06cc22e",
       "source": {
         "kind": "git-blob",
-        "blob": "c946d34e7d71c221d3a3c88ce467b813c8215157"
+        "blob": "192f317932f2350465a86961683e95dda22a98da"
       },
       "owningComponent": "learning",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -2660,22 +2671,22 @@
     },
     {
       "path": "learning-capstones.js",
-      "size": 4310,
-      "sha256": "cbbd523cab105b6be202ddc729a793be6345ae2fbe6897f6c980a003280e7d22",
+      "size": 4694,
+      "sha256": "b760c0432ac545ab4021ad07dc1ab849b411baed932cf20a1a59c806c5e80e01",
       "source": {
         "kind": "git-blob",
-        "blob": "523d2ec45753d5b02382f909badae27c1f05b7a2"
+        "blob": "5859ac87121985ffd5392fc8fcf1d511a0491934"
       },
       "owningComponent": "learning",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "learning-capstones.json",
-      "size": 18541,
-      "sha256": "ceed50df5b7ba67be378dc82c8cb5a7993b972da12fd8758586f9b2b56f72605",
+      "size": 22647,
+      "sha256": "f38557dd5a813a01d8465f59d5e994ea03834e76c1b1cd7491d6d5e8c6f2f2d9",
       "source": {
         "kind": "git-blob",
-        "blob": "9349442c80b8440e4d53af1d37bf3b32333259c8"
+        "blob": "5c3cdd7f269a9f9c5752b86b861fb6e6d6fc6f1b"
       },
       "owningComponent": "learning",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -2693,11 +2704,33 @@
     },
     {
       "path": "learning-depth.js",
-      "size": 9413,
-      "sha256": "e5a448c9e625f7bd7fc7494da4738a7de176387931ab84b03ccd0d867b015c51",
+      "size": 9405,
+      "sha256": "39af667e5ef1bec43d8b587b1738435a32e1c4e72ed1ca0a802b1359e405941d",
       "source": {
         "kind": "git-blob",
-        "blob": "8bee2cf8169365f8bd96bae7c42c8309321a460f"
+        "blob": "b24fd51c777a374e6b9df04cd9dcdb88c32eae75"
+      },
+      "owningComponent": "learning",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "learning-experiments.css",
+      "size": 1564,
+      "sha256": "6a49474ca46b64e5f6f7e3b1277dd6fd9fc26b891e2ac98646fe8ac8a53cd33c",
+      "source": {
+        "kind": "git-blob",
+        "blob": "81d0840c2a762efecc416a3d87410c6db6843938"
+      },
+      "owningComponent": "learning",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "learning-experiments.js",
+      "size": 16367,
+      "sha256": "04e1a77eff342db1a074a7c42b31f5e9a89b2d1761eb17612feddc91c8f1075f",
+      "source": {
+        "kind": "git-blob",
+        "blob": "a8b35fdf0a56e2aa1b4c41d40912b84356556d39"
       },
       "owningComponent": "learning",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -2759,22 +2792,22 @@
     },
     {
       "path": "lesson.html",
-      "size": 22336,
-      "sha256": "2182e4db586c6c4adef32ed49b923c7af9733996eec42a637f05b482b4459585",
+      "size": 22545,
+      "sha256": "2cc51e8097f476567fb6301cbf1ab3ec517f612b2200b17e865b95a4ef68ca0a",
       "source": {
         "kind": "git-blob",
-        "blob": "c82ff1c04d60c432b42ce3e37ccc4d1c1f2ef549"
+        "blob": "124c42240d6b80a5b84a7afe9a46d4113df64b27"
       },
       "owningComponent": "learning",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "play-evil-wizard.html",
-      "size": 8113,
-      "sha256": "e688f3e22654cd2a758df9c36b25b9b0c64d139b08c2957237cade3f984a7f21",
+      "size": 8867,
+      "sha256": "f91e91875e7911ae9d327c3f0170d27a3ef02900b621f55a575ba0264fe50190",
       "source": {
         "kind": "git-blob",
-        "blob": "fcfb42cbd94123ea493877cd55231f0dbaa5d030"
+        "blob": "aa7e6b734d6fc4c4f8bb282bb48adbfefe34a64f"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -2814,165 +2847,165 @@
     },
     {
       "path": "project-advanced-computing.html",
-      "size": 5494,
-      "sha256": "72e8e398bfaaacf419acbee1c921566af2a0f40b2f002b5f34a0c38ad5498c76",
+      "size": 6304,
+      "sha256": "1f4489cfeb4381f5b9420b9db0d546a7c9313af3852ee5db3db317c9ff87db5a",
       "source": {
         "kind": "git-blob",
-        "blob": "9018e13619562cf1c44886d0cc06b8512d3ee166"
+        "blob": "7bcb3ee526692182ddeaf5644849272cde1aeceb"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "project-asset-inventory.html",
-      "size": 5211,
-      "sha256": "650d79395dfcd8e48782f8de5e747cb0387437e5864620179e001ceca47aa921",
+      "size": 6074,
+      "sha256": "e2fc20b1a4ffedc41fc15c73e21f1c01f228678ce8d0c47a71cb938cb150b179",
       "source": {
         "kind": "git-blob",
-        "blob": "0fd89501fe8bb2dacf77cbf91f0309fecf0d137f"
+        "blob": "607bd6d39e657730ee233c156e5f4c4fd6fafd72"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "project-battle-chess.html",
-      "size": 9405,
-      "sha256": "9d427a7ae06f54fee61b64c1ed1070c61ec81070cd4d4331931342059cb87e35",
+      "size": 10186,
+      "sha256": "0e578cf21da794cc1557d259b67b1945d4fe00d5db96362e8472897f8304fb5c",
       "source": {
         "kind": "git-blob",
-        "blob": "93d476c82e8a3fb6d467757a627201350080fc58"
+        "blob": "e7c417dbab56415012e913db72189f479d7a9b28"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "project-dependency.html",
-      "size": 6639,
-      "sha256": "af5d2c6457628a29b9a447f10c3f3b7f46842b5a47a8f7d44c60281c825fe71b",
+      "size": 7498,
+      "sha256": "89200df13b5214fdccd5e1f7e0d47e96b605fbd284d9ecb741c88c6cc19c8132",
       "source": {
         "kind": "git-blob",
-        "blob": "af49b619854da379cec22c1e2db3361d6fd5e545"
+        "blob": "161c1e49983f6f6f7796746ff58cbef8a87bccf9"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "project-emergent.html",
-      "size": 6467,
-      "sha256": "e435b93ac52b58be2857aef11b57b8bb032a72bfb8cb2affccb175fb905cc37b",
+      "size": 12006,
+      "sha256": "885dcdabca74ce396edf53c4a21ecbf58e0e0d15b5f1d6c431a9890986cbd7b3",
       "source": {
         "kind": "git-blob",
-        "blob": "85b0ca4170f02418815574884a8ee0f8db5eba17"
+        "blob": "a4065a86fba0cdc9de383179f0113a13780471ee"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "project-fusion.html",
-      "size": 5626,
-      "sha256": "5a4e1453e53aad7e93a369bc74d33b43376457c345976f1b6b2f7b69763acc68",
+      "size": 6410,
+      "sha256": "f2abd7b33e998a1397a87839b9acca8e650efb170ae5b68bcbef06fe2ab3ca61",
       "source": {
         "kind": "git-blob",
-        "blob": "83ddd02472709be96f8522fe72061940a162cd6c"
+        "blob": "f223894377313ce7323d2e35276347a37430b3be"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "project-geometric-ai.html",
-      "size": 5875,
-      "sha256": "dd9619e985138104ab13fa81b2eb7cc39ba18e55219e5bd2e16c02475eb42df0",
+      "size": 19526,
+      "sha256": "82bc01141fabe03c94d729ef8c7b3b6ad02ada878214d44a9af4fb2958af33d2",
       "source": {
         "kind": "git-blob",
-        "blob": "e60f0e0deb46f12f9e790b579f5a7694d5dfee3a"
+        "blob": "0ce509963a63ec7b01633ac9fba332d01acc39ae"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "project-kubernetes-lab.html",
-      "size": 5200,
-      "sha256": "865a83556605e915c4decaf2d9f32d91cc103ac16dcf05439a5ab8e612e24803",
+      "size": 5982,
+      "sha256": "4b9a09d1bf13b11863c5412b61059381391a35b3f443e8d9f254f4023416da4f",
       "source": {
         "kind": "git-blob",
-        "blob": "704ae69d70b42ca233d34e876ea1e38468070158"
+        "blob": "a308668fe857cd5c32b93cb259a11ffbe8651385"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "project-learning-library.html",
-      "size": 5421,
-      "sha256": "2f955baed1caeda10daa8bc5c8bc2a2c48336e65d8c6d40d70ff92bcc480cea3",
+      "size": 6860,
+      "sha256": "2df1969c5cad213b8a10c0e5f8b63b6c372198263eba353a09e3610362d9ca99",
       "source": {
         "kind": "git-blob",
-        "blob": "dfe1304b37fd3acd4998b4cd06612d2145ffb70e"
+        "blob": "6c918dcf453d6a274dfeac57958cf6b29351271c"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "project-lifecycle.html",
-      "size": 6712,
-      "sha256": "7f7dd9c4bf44446a8780cc7e74333f6fab545a6f8390e848ccbdc2a3c1e0ab72",
+      "size": 7543,
+      "sha256": "55a05b5e549a16f66b037ed72904b680e7014691b9c9a9f8f200f69b95ca8cfd",
       "source": {
         "kind": "git-blob",
-        "blob": "6161ae314dd87fcdec4a16769c140b0cc9a84477"
+        "blob": "911a20c0fe791da698a3d7ba262a397e914db223"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "project-mind.html",
-      "size": 5765,
-      "sha256": "130fe188557cd6b4feeb521ab90c50184b4a68e2bc1aa929e81642291203c348",
+      "size": 6629,
+      "sha256": "0c397879cdeced1786c03559797e3cba45a0718ea5428153e3732908ef8a8671",
       "source": {
         "kind": "git-blob",
-        "blob": "5dbd811323fcdcd7ed0c3147b4f4201290f45a99"
+        "blob": "391ec1248418f90684238d00c039e498cbc30385"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "project-portfolio.html",
-      "size": 5864,
-      "sha256": "5a14b5502a5430e126668a20fc93dccb94c1de44c159460f9b69a2624cf604ff",
+      "size": 6699,
+      "sha256": "8f813db18ed1a86f3c9b6f9a16c1c4315d83735e2618789405c3ecb5ba948efc",
       "source": {
         "kind": "git-blob",
-        "blob": "1f749289a5b4f92ceae15e8685c59ff807d9adc7"
+        "blob": "bd8f50e2c425dba72336c8a8f4ef3ff40bab10e6"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "project-qpe.html",
-      "size": 6609,
-      "sha256": "776c8e72ca8c5d15bbd747d7ce6b2889a11360de2090f0335f95e87de7339eb5",
+      "size": 20675,
+      "sha256": "ad69930a2d197c65a87dfbd440ea6285bf60a47b2fbc381e6fb72d13fc91f59a",
       "source": {
         "kind": "git-blob",
-        "blob": "fa0852bc118b3564041e1613a211fcb81acf5ed8"
+        "blob": "9545c741ce7d027ea05acc114d1bab72971cdae4"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "project-qubit.html",
-      "size": 5527,
-      "sha256": "87dcc8b4d3f67eeccb484a5cf420957cedfa3620213b25ba263679ebfd6ca6ad",
+      "size": 11185,
+      "sha256": "4e5d43d10bcfeaf853d5dc0e5112a18e56452af5ed37a7baeb9a6d0812879b23",
       "source": {
         "kind": "git-blob",
-        "blob": "6980936c45cf33785ba1d723744d61cadbd694ef"
+        "blob": "875dc9d05cbf06bb13a9f3c6ea87f0a01305319c"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "project-recovery.html",
-      "size": 6453,
-      "sha256": "29213918601d042102986aa0073faf12749f1403842789cdd9ad4c63e4f61fb8",
+      "size": 7285,
+      "sha256": "0cbfee4489d6762c266f5756233fa4d92c42927e82fc33949951c1fb4895c05c",
       "source": {
         "kind": "git-blob",
-        "blob": "70a5b4f9d34c2f1e53a3b2cd29d00b5020663e74"
+        "blob": "cf3d6a088042cd39ee095b83fa8cbc396861a06f"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -3089,11 +3122,11 @@
     },
     {
       "path": "security-research.html",
-      "size": 13790,
-      "sha256": "22c7c93f68ac97397fec85c538fdd9a398de3aeb8ebadd2afaa97060106f28e5",
+      "size": 18464,
+      "sha256": "88016a6570bcdefa1a57a1f0a476f615dae9225363867cba537bde9718c7e6a6",
       "source": {
         "kind": "git-blob",
-        "blob": "5c5eb22a8a85a2eb14a05875f0abf6e4004e4c08"
+        "blob": "0ed285b9466f8133437a759503dcc4e4abc9f270"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -3111,11 +3144,11 @@
     },
     {
       "path": "site-audio.js",
-      "size": 46156,
-      "sha256": "89e821cca3b64af5db74e5379cb6826701243b3acc582a6591b75b3fbc80ae15",
+      "size": 46159,
+      "sha256": "b8120764f8181f43bd7cd0a8a311b81f5c11883e8eac9ad5cb6d34657fabf3e0",
       "source": {
         "kind": "git-blob",
-        "blob": "96a4599cbc621da4b7012b78db1b1c19ef416130"
+        "blob": "103185dd418a0dc0fa619a46d66669b154e38f0d"
       },
       "owningComponent": "site-audio",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -3139,7 +3172,7 @@
         "kind": "git-blob",
         "blob": "e16b38c2327c07c33cad1f94954fab780f4881f6"
       },
-      "owningComponent": "shared-shell",
+      "owningComponent": "site-page-scroll",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
@@ -3172,7 +3205,7 @@
         "kind": "git-blob",
         "blob": "99051cc17bb0d54d5910ff9feb4d686b729fc6c7"
       },
-      "owningComponent": "shared-shell",
+      "owningComponent": "site-responsive",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
@@ -3227,7 +3260,7 @@
         "kind": "git-blob",
         "blob": "33442ad3d6bd2344d5eaf102a0de6c02e2908613"
       },
-      "owningComponent": "shared-shell",
+      "owningComponent": "site-sound-control",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
@@ -3249,7 +3282,7 @@
         "kind": "git-blob",
         "blob": "5bc2b7387825ea8738543d6e9aa4075f1d2bb847"
       },
-      "owningComponent": "shared-shell",
+      "owningComponent": "site-theme",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
@@ -3273,68 +3306,8 @@
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
-    },
-    {
-      "path": "assets/site-education.json",
-      "size": 841,
-      "sha256": "047994b48d49dac428e8abb449bac1c7e3103002da479ed01aae7c5282ba96b4",
-      "source": {
-        "kind": "candidate-worktree"
-      },
-      "owningComponent": "portfolio",
-      "deploymentClassification": "KEEP_PRODUCTION"
-    },
-    {
-      "path": "learning-experiments.js",
-      "size": 16367,
-      "sha256": "04e1a77eff342db1a074a7c42b31f5e9a89b2d1761eb17612feddc91c8f1075f",
-      "source": {
-        "kind": "candidate-worktree"
-      },
-      "owningComponent": "portfolio",
-      "deploymentClassification": "KEEP_PRODUCTION"
-    },
-    {
-      "path": "learning-experiments.css",
-      "size": 1155,
-      "sha256": "4691db862d41110fe4c27d7e07bbf8f80c83a49432a0ae256b528b7fa00f53ee",
-      "source": {
-        "kind": "candidate-worktree"
-      },
-      "owningComponent": "portfolio",
-      "deploymentClassification": "KEEP_PRODUCTION"
-    },
-    {
-      "path": "assets/downloads/engineering-foundations-3.1.zip",
-      "size": 35306,
-      "sha256": "b5fc04163aec1675a35cfed6787b1772d37cfa933b491546713d52603f409403",
-      "source": {
-        "kind": "candidate-worktree"
-      },
-      "owningComponent": "portfolio",
-      "deploymentClassification": "KEEP_PRODUCTION"
-    },
-    {
-      "path": "knowledge-upgrades.js",
-      "size": 58975,
-      "sha256": "55bb983dde487dd304693ccea1b50969cf23896e81a99efe5377da893eb03f1e",
-      "source": {
-        "kind": "candidate-worktree"
-      },
-      "owningComponent": "portfolio",
-      "deploymentClassification": "KEEP_PRODUCTION"
-    },
-    {
-      "path": "assets/downloads/engineering-studies-3.2-3.6.zip",
-      "size": 391467,
-      "sha256": "f96c4d32a1fbe42d8e32252dcb832d2f5097c549ff55ae3bfea4d4a212badd47",
-      "source": {
-        "kind": "candidate-worktree"
-      },
-      "owningComponent": "portfolio",
-      "deploymentClassification": "KEEP_PRODUCTION"
     }
   ],
-  "fileCount": 293,
-  "byteSize": 442504410
+  "fileCount": 297,
+  "byteSize": 439764684
 }
