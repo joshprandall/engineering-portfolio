@@ -26,13 +26,25 @@ The hash check deliberately fails if content work changes a protected runtime ow
 
 1. Run npm test for controller, lifecycle, page contract and existing portfolio regressions.
 2. Restore media with python3 tools/restore_website2_assets.py --ambience. Set PORTFOLIO_REQUIRE_MEDIA=1 when running tests/ambience-contract.test.cjs against a release.
-3. The Site validation workflow runs real-media tests in Chromium and WebKit, blocks external requests, decodes changing video frames, checks all Day sound identities, Night motion/music, pause, navigation preferences and canvas fallback. A third job uses mobile WebKit with each video stream limited to 256 KiB/s; it requires sustained pixel and playback progress in all three scenes. A restart is not accepted as a loop unless playback was actually near the clip end. It also verifies a transparent, slider-only control and keyboard mute/volume behavior. Each job saves screenshots, recordings and a JSON result. Desktop WebKit is not a physical iPhone/Messenger certification.
+3. The Site validation workflow runs real-media tests in Chromium and WebKit, blocks external requests, decodes changing video frames, checks all Day sound identities, Night motion/music, pause, navigation preferences and canvas fallback. A third job uses mobile WebKit with each video stream limited to 256 KiB/s; it requires sustained pixel and playback progress in all three scenes. A restart is not accepted as a loop unless playback was actually near the clip end. It also verifies the approved opaque Sound panel, one native slider, mute/volume buttons, keyboard behavior and mobile fit. Each job saves screenshots, recordings and a JSON result. Desktop WebKit is not a physical iPhone/Messenger certification.
 4. The OSU overlay and deployer require complete verified Day media. Missing audio must stop packaging; the old optional-download behavior is removed.
 5. Build the exact selected commit with tools/build_runtime.py and refresh reviewed runtime metadata when deliberately changing runtime bytes. Confirm protected game/Geometry hashes and preview the result before production replacement.
 
 Sites also routes every background video/audio file through its byte-range handler, including short files. Safari probes require a correct 206, Content-Range and fixed Content-Length. The hosting tests verify range boundaries, complete file hashes and the river's leading seek index.
 
 Never describe a preview-only fix or modeled-media test as verified OSU/device playback. Record the actual source revision and deployment result.
+
+For a Windows SMB hotfix, use `tools/deploy-smb-hotfix.ps1` with a reviewed
+before/after checksum manifest. It stages bytes on the server, applies only
+the existing public web access rules, retains a rollback copy, and verifies
+every published file through HTTPS. Do not copy local Windows ACLs into the
+web directory. The audio outage on October 2 was an HTTP 403 caused by such
+an ACL; the public reader lost access to `site-audio.js`.
+
+`npm run test:planet-selection` exercises each planet on Home, Learn, and AI
+Development in both themes with held mouse input, touch, label clicks, and
+keyboard selection. The animation preserves targets during a pointer press
+and retains focus instead of re-appending every planet on every frame.
 
 ## Component boundary and remaining coupling
 

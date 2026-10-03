@@ -89,6 +89,14 @@ jobs:
         run: |
           if [ "$PORTFOLIO_BROWSER_ENGINE" = chromium ]; then export PORTFOLIO_BROWSER_EXECUTABLE="$(command -v google-chrome)"; fi
           npm run test:media-playback
+      - name: Verify moving planet input
+        env:
+          PORTFOLIO_BROWSER_ENGINE: ${{ matrix.engine }}
+          PORTFOLIO_RUNTIME_ROOT: .
+          PORTFOLIO_QA_DIR: visual-qa/ambience/${{ matrix.engine }}-${{ matrix.profile }}/planets
+        run: |
+          if [ "$PORTFOLIO_BROWSER_ENGINE" = chromium ]; then export PORTFOLIO_BROWSER_EXECUTABLE="$(command -v google-chrome)"; fi
+          npm run test:planet-selection
       - uses: actions/upload-artifact@v4
         if: always()
         with:

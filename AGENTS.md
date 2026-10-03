@@ -5,8 +5,9 @@ Preserve the approved appearance and experiences. Backgrounds and matching sound
 - Read docs/AMBIENCE-STABILITY.md before changing shared appearance, scenes, audio, controls, or deployment packaging.
 - Add content using the existing shared shell. Keep the version and ordered deferred scripts in manifests/ambience.json. Never create another background audio owner or a page-specific scene timer.
 - Ordinary content updates must pass npm test without changing the reviewed runtime hashes. An intentional background repair must include focused regressions and explicitly update those hashes after verification; do not update them merely to silence a failure.
-- Keep the volume UI as one native slider with no backing panel, blur, border or shadow.
+- Preserve the approved Sound control: one native volume slider in the existing opaque panel, with its current mute and volume buttons. Preserve its contrast, border, shadow and mobile fit; do not redesign it during content or runtime repairs.
 - Treat the background as one shared subsystem. Content pages must not own scene state, media lifecycle, or background-specific CSS overrides. See the documented remaining coupling before a structural refactor.
 - Preserve all immutable media chunks. Restore with python3 tools/restore_website2_assets.py --ambience before browser tests or packaging. Do not substitute similarly named remote media or omit missing sounds.
 - Keep the actual-media Chromium and WebKit checks passing. Model tests alone do not establish native browser playback. Physical iPhone/Messenger observations must be identified separately.
 - Preserve game and Geometry internals. Test the preview before replacing the OSU site.
+- Never copy private Windows ACLs into public_html. Use the verified SSH deployer (0644 files) or tools/deploy-smb-hotfix.ps1; check public HTTPS checksums and read permissions before declaring a release live. Planet-input regressions must pass npm run test:planet-selection in Chromium and WebKit.

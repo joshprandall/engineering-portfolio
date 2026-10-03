@@ -3306,6 +3306,16 @@
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "assets/site-education.json",
+      "size": 841,
+      "sha256": "047994b48d49dac428e8abb449bac1c7e3103002da479ed01aae7c5282ba96b4",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
     }
   ],
   "fileCount": 297,

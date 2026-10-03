@@ -280,6 +280,13 @@
     section.dataset.approvedSolar='1';
     section.classList.add('approved-cinematic-solar');
     svg.setAttribute('viewBox',cfg.viewBox);
+    // An image role hides its interactive descendants from keyboard/AT users.
+    svg.setAttribute('role','group');
+    const activePointers=new Set();
+    const releasePointer=event=>activePointers.delete(event.pointerId);
+    document.addEventListener('pointerup',releasePointer,{capture:true});
+    document.addEventListener('pointercancel',releasePointer,{capture:true});
+    window.addEventListener('blur',()=>activePointers.clear());
 
     const {sunId}=ensureDefs(svg,sectionIndex);
 
@@ -311,6 +318,7 @@
         ?(ringInfo.ring===0?21:ringInfo.ring===1?19:18)
         :(ringInfo.ring===0?23:21);
       const group=E('g',{'class':'approved-planet-link','role':'button','tabindex':'0','aria-label':`Select ${name}`,'aria-pressed':'false'});
+      group.style.touchAction='manipulation';
       const body=E('circle',{r:size,fill:`url(#approved-planet-${sectionIndex}-${i%palettes.length})`,'class':'approved-planet-body'});
       group.append(body);
 
@@ -319,9 +327,14 @@
       }
 
       // Deliberately larger invisible interaction target for phones/tablets.
-      group.append(E('circle',{r:Math.max(30,size+12),'class':'approved-hit','aria-hidden':'true'}));
+      const hit=E('circle',{r:Math.max(30,size+12),'class':'approved-hit','aria-hidden':'true'});
+      group.append(hit);
 
       const text=E('text',{y:size+10,'class':`approved-label${kind==='ai-builds'?' approved-ai-label':''}`});
+      // The visible name is part of the target, including its full text box.
+      text.style.pointerEvents='all';
+      const labelHit=E('rect',{'class':'approved-label-hit',fill:'transparent','pointer-events':'all','aria-hidden':'true'});
+      group.append(labelHit);
       labelLines(name).forEach((line,j)=>{
         const t=E('tspan',{x:0,dy:j===0?0:(kind==='ai-builds'?12:15)});
         t.textContent=line;text.append(t);
@@ -330,6 +343,7 @@
 
       const activate=()=>selectPlanet(i);
       group.addEventListener('click',activate);
+      group.addEventListener('pointerdown',event=>activePointers.add(event.pointerId));
       group.addEventListener('keydown',e=>{
         if(e.key==='Enter'||e.key===' '){e.preventDefault();activate();}
       });
@@ -341,7 +355,7 @@
 
       backLayer.append(group);
       return {
-        link,group,name,destination,ringInfo,ring,size,
+        link,group,hit,text,labelHit,name,destination,ringInfo,ring,size,
         phase:-Math.PI/2+(Math.PI*2*ringInfo.index/ringInfo.total)+ringInfo.offset
       };
     });
@@ -374,6 +388,16 @@
 
     selectPlanet(0);
 
+    function sizeLabelTargets(){
+      planets.forEach(p=>{
+        const box=p.text.getBBox();
+        Object.entries({x:box.x-2,y:box.y-2,width:box.width+4,height:box.height+4}).forEach(([name,value])=>p.labelHit.setAttribute(name,String(value)));
+      });
+    }
+    sizeLabelTargets();
+    if('ResizeObserver' in window)new ResizeObserver(sizeLabelTargets).observe(svg);
+    document.fonts?.ready.then(sizeLabelTargets);
+
     let raf=0,last=performance.now(),elapsed=0,visible=true;
 
     function draw(){
@@ -393,23 +417,31 @@
       const behind=positioned.filter(p=>p.depth<0).sort((a,b)=>a.y-b.y);
       const ahead=positioned.filter(p=>p.depth>=0).sort((a,b)=>a.y-b.y);
 
-      behind.forEach(p=>{
-        p.group.setAttribute('transform',`translate(${p.x.toFixed(2)} ${p.y.toFixed(2)}) scale(${p.scale.toFixed(3)})`);
-        p.group.style.opacity=String(.72+(p.depth+1)*.16);
-        backLayer.append(p.group);
-      });
-      ahead.forEach(p=>{
-        p.group.setAttribute('transform',`translate(${p.x.toFixed(2)} ${p.y.toFixed(2)}) scale(${p.scale.toFixed(3)})`);
-        p.group.style.opacity='1';
-        frontLayer.append(p.group);
-      });
+      const unitsPerPixel=Number(cfg.viewBox.split(' ')[2])/Math.max(1,svg.getBoundingClientRect().width);
+      function paintLayer(layer,items){
+        items.forEach((p,index)=>{
+          p.group.setAttribute('transform',`translate(${p.x.toFixed(2)} ${p.y.toFixed(2)}) scale(${p.scale.toFixed(3)})`);
+          p.group.style.opacity=p.depth<0?String(.72+(p.depth+1)*.16):'1';
+          p.hit.setAttribute('r',String(Math.max(30,p.size+12,22*unitsPerPixel/p.scale)));
+          // Re-appending on every frame detaches pressed/focused targets. Move
+          // only when depth order changes, and preserve keyboard focus then.
+          if(layer.children[index]!==p.group){
+            const focused=document.activeElement===p.group;
+            layer.insertBefore(p.group,layer.children[index]||null);
+            if(focused&&document.activeElement!==p.group)p.group.focus({preventScroll:true});
+          }
+        });
+      }
+      paintLayer(backLayer,behind);
+      paintLayer(frontLayer,ahead);
     }
 
     function stop(){if(raf)cancelAnimationFrame(raf);raf=0;}
     function frame(now){
       raf=0;
       const dt=Math.min(40,now-last);last=now;
-      if(!paused())elapsed+=dt/1000;
+      // Keep the target still between press and release, including touch taps.
+      if(!paused()&&!activePointers.size)elapsed+=dt/1000;
       draw();
       if(visible&&!document.hidden&&!paused())raf=requestAnimationFrame(frame);
     }

@@ -1,5 +1,5 @@
 {
-  "version": "20260929-ambience-phone-v2",
+  "version": "20261002-audio-planets-v4",
   "pages": [
     "about.html",
     "agent-workbench.html",
@@ -67,13 +67,14 @@
     "security-research.html"
   ],
   "owners": {
-    "site-theme.js": "1b6b49ded441294c1e7833acb26f3d6ab7be81206a7a50a13811e0619628a21e",
+    "site-theme.js": "d296ae70a306e78a901d2fdc024bcd799ce806d63d81f64ded4ce8290c2044c2",
     "site-scenes.js": "01e7cacf4aaac3ba7eebaa02bb93da87cc192f25614ad3d6787c3ff60735eab1",
-    "site-audio.js": "b8120764f8181f43bd7cd0a8a311b81f5c11883e8eac9ad5cb6d34657fabf3e0",
+    "site-audio.js": "bf02f1050fcdfec373be2374afc4fe64c581c2198fa0d1a0906197edd3c6ae2f",
     "site-sound-control.js": "25b27f2e5127158a9c3d5b19ac302ab4f322aa01e8a439b3e6de224da390f778",
     "site-scenes.css": "6a36bf42a458ef9d29ae8b134fb8f1f8bd969216958fc506651a20b687a01934",
     "site-responsive.css": "484e6f7e696c852b2955bcc9ce4dc332d0d979bfda689632382e6afed11c25f3",
-    "site-page-scroll.js": "f2e1404100fbf773df3e4ea0813755126dc5aeed1d016907192928eccc299322"
+    "site-page-scroll.js": "f2e1404100fbf773df3e4ea0813755126dc5aeed1d016907192928eccc299322",
+    "solar-navigation.js": "75ad5cc27b17b9a2860fd1ec3ac041ef5dbfb124d67c9dc615132a8260feedcb"
   },
   "requiredMedia": [
     "assets/audio/dark-theme-user-v32.mp3",
