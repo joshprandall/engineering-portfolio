@@ -34,7 +34,12 @@ try {
       [System.IO.File]::WriteAllBytes($temporary,[System.IO.File]::ReadAllBytes((Join-Path $SourceRoot $entry.path)))
       Set-WebAccess $temporary
       if ((Get-FileHash -Algorithm SHA256 -LiteralPath $temporary).Hash -ine $entry.sha256) { throw ('Staged checksum failed: '+$entry.path) }
-      Move-Item -LiteralPath $temporary -Destination $target -Force
+      if ((Get-FileHash -Algorithm SHA256 -LiteralPath $target).Hash -ine $entry.previousSha256) { throw ('Live file changed during publishing: '+$entry.path) }
+      # OSU permits writing existing files but does not grant SMB delete/rename
+      # rights. Write verified bytes into the existing file to retain its owner
+      # and access rules; the complete backup below supports rollback.
+      [System.IO.File]::WriteAllBytes($target,[System.IO.File]::ReadAllBytes($temporary))
+      Set-WebAccess $target
       if ((Get-FileHash -Algorithm SHA256 -LiteralPath $target).Hash -ine $entry.sha256) { throw ('Published checksum failed: '+$entry.path) }
       if (-not ((Get-Acl -LiteralPath $target).Access | Where-Object { $_.IdentityReference.Value -eq 'Everyone' -and $_.AccessControlType -eq 'Allow' -and ($_.FileSystemRights -band [System.Security.AccessControl.FileSystemRights]::ReadData) })) { throw ('Missing public-read permission: '+$entry.path) }
     } finally {

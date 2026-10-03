@@ -99,6 +99,9 @@ const server=http.createServer((req,res)=>{
   const iphonePage=await c.newPage();
   await iphonePage.bringToFront();
   await iphonePage.addInitScript(()=>{try{
+   sessionStorage.setItem('ambience-test-started','1');
+   localStorage.setItem('jr-site-theme','light');
+   localStorage.setItem('jr-site-motion','running');
    Object.defineProperty(HTMLVideoElement.prototype,'requestVideoFrameCallback',{configurable:true,value(){return 1;}});
    Object.defineProperty(HTMLVideoElement.prototype,'cancelVideoFrameCallback',{configurable:true,value(){}});
   }catch{}});

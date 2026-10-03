@@ -29,11 +29,26 @@ Verification before publication:
 - Chrome: real decoded Night playback, one complete PCM loop with one source
   start at rate 1, all three moving Day videos with matching sound, volume/mute,
   navigation preferences, motion pause/resume and canvas fallback pass.
-- Windows WebKit lacks Web Audio and exercises the intended native MP3
-  fallback. Its Day videos and matching audio decode and progress. This is
+- Windows WebKit mobile: real native MP3 fallback, all three changing Day
+  videos and matching audio, preferences, navigation, motion and canvas fallback
+  pass, including the simulated starved video-frame-callback regression. This is
   browser-engine coverage, not a physical iPhone or Messenger certification.
 
 `tools/deploy-smb-hotfix.ps1` preflights reviewed before/after checksums, creates
-a rollback copy, writes server-side staged bytes with the existing public-read
-rules, verifies every published file through HTTPS, and rolls back on failure.
+a rollback copy, verifies server-side staged bytes, writes those bytes into the
+existing files to preserve OSU ownership and access rules, verifies every
+published file through HTTPS, and rolls back on failure. OSU SMB permissions
+allow writing existing files but do not allow replacement by rename.
 The scene engine, recordings, games and Geometry calculations are unchanged.
+
+Release `20261002-audio-planets-v4` was published through the guarded SMB path.
+All 67 changed web files matched their reviewed SHA-256 through public HTTPS.
+The server backup is `website-hotfix-backup-20261003-000058`, outside public_html.
+Live Chrome verified the versioned scripts, Projects selection through its
+visible label, the Sound panel, and progressing decoded Day video and audio.
+
+Independent review found an older overlay glass-style failure for an opaque
+primary button that already exists on main. The visual check remains enabled;
+this repair preserves the current visible design and does not claim that
+unrelated baseline conflict is resolved. The source PR remains a draft until
+release checks and that conflict are reconciled.
