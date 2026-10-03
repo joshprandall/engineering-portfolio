@@ -45,6 +45,7 @@ const server=http.createServer((req,res)=>{
     await page.waitForFunction(()=>Boolean(window.SiteAudio),null,{timeout:15000});
     const video=page.locator(`video:has(source[src="assets/content/${key}-method.mp4"])`);
     assert.equal(await video.count(),1,route+' has one local teaching video');
+    assert.notEqual(await video.getAttribute('controls'),null,'the visitor can start playback');
     assert.equal(await video.getAttribute('autoplay'),null,'teaching video never autoplays');
     assert.equal(await video.getAttribute('poster'),`assets/content/${poster}`);
     assert.equal(await video.locator('track[kind="captions"]').getAttribute('src'),`assets/content/${key}-method.vtt`);
@@ -55,7 +56,15 @@ const server=http.createServer((req,res)=>{
     const dimensions=await video.evaluate(e=>{const r=e.getBoundingClientRect();return {left:r.left,right:r.right,width:r.width}});
     assert(dimensions.left>=-1&&dimensions.right<=width+1&&dimensions.width>200,route+' video fits viewport');
     if(width===1280){
-     await video.evaluate(e=>{e.muted=true;e.textTracks[0].mode='showing';return e.play();});
+     await video.evaluate(e=>{e.muted=true;e.textTracks[0].mode='showing';});
+     // Browser automation's page.evaluate lacks the user activation of a Play click.
+     await video.evaluate(e=>{
+      const trigger=document.createElement('button');trigger.id='qa-video-play';
+      trigger.textContent='Start video';trigger.style='position:fixed;left:10px;top:10px;z-index:9999';
+      trigger.addEventListener('click',()=>{e.play().catch(()=>{});});
+      document.body.append(trigger);
+     });
+     await page.locator('#qa-video-play').click();
      try { await page.waitForFunction(name=>{const v=document.querySelector(`video source[src="assets/content/${name}-method.mp4"]`)?.parentElement;return v&&v.readyState>=2&&v.currentTime>.25;},key,{timeout:20000}); }
      catch(error){const state=await video.evaluate(e=>({ready:e.readyState,network:e.networkState,time:e.currentTime,paused:e.paused,rate:e.playbackRate,error:e.error?.message,source:e.currentSrc}));throw Error(route+' video stalled: '+JSON.stringify(state)+' '+error.message);}
      await page.waitForFunction(name=>document.querySelector(`video source[src="assets/content/${name}-method.mp4"]`)?.parentElement?.textTracks[0]?.cues?.length===4,key,{timeout:10000});

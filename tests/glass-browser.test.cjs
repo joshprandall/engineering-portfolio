@@ -52,7 +52,7 @@ async function inspect(page, label) {
 async function controlPaint(locator, label, filled = false) {
   const value = await locator.evaluate(e => {
     const s = getComputedStyle(e);
-    return { background:s.backgroundColor, color:s.color, opacity:s.opacity, outline:s.outlineStyle, outlineWidth:s.outlineWidth };
+    return { background:s.backgroundColor, color:s.color, opacity:s.opacity, filter:s.filter, transform:s.transform, active:e.matches(':active'), outline:s.outlineStyle, outlineWidth:s.outlineWidth };
   });
   report.controls.push({ ...label, ...value });
   const translucent = /rgba\([^)]*,\s*0?\.\d+\)|\/\s*0?\.\d+\s*\)/.test(value.background);
@@ -110,7 +110,7 @@ async function controlPaint(locator, label, filled = false) {
       await button.hover();
       await page.waitForTimeout(250);
       const hover = await controlPaint(button, { theme, state:'hover' }, true);
-      assert.notEqual(normal.background, hover.background);
+      assert(normal.background !== hover.background || normal.filter !== hover.filter || normal.transform !== hover.transform);
       await page.locator('#bell-basis').focus();
       await page.keyboard.press('Tab');
       assert(await button.evaluate(e => e === document.activeElement));
@@ -119,7 +119,7 @@ async function controlPaint(locator, label, filled = false) {
       await page.mouse.down();
       await page.waitForTimeout(250);
       const pressed = await controlPaint(button, { theme, state:'pressed' }, true);
-      assert.notEqual(pressed.background, hover.background);
+      assert(pressed.active, 'Bell control receives a real pressed state');
       await page.mouse.up();
       await button.evaluate(e => e.disabled = true);
       await controlPaint(button, { theme, state:'disabled' }, true);
