@@ -34,9 +34,10 @@ const server=http.createServer((req,res)=>{
   for(const width of [390,1280]){
    const context=await browser.newContext({viewport:{width,height:width===390?844:900},isMobile:width===390,hasTouch:width===390});
    await context.route('https://**/*',route=>route.abort());
-   const page=await context.newPage();page.on('pageerror',error=>report.errors.push(error.message));
    const base=`http://127.0.0.1:${server.address().port}`;
    for(const [route,key,poster]of cases){
+    const page=await context.newPage();page.on('pageerror',error=>report.errors.push(error.message));
+    try{
     await page.goto(base+'/'+route,{waitUntil:'domcontentloaded'});
     await page.waitForFunction(()=>Boolean(window.SiteAudio),null,{timeout:15000});
     const video=page.locator(`video:has(source[src="assets/content/${key}-method.mp4"])`);
@@ -51,12 +52,15 @@ const server=http.createServer((req,res)=>{
     const dimensions=await video.evaluate(e=>{const r=e.getBoundingClientRect();return {left:r.left,right:r.right,width:r.width}});
     assert(dimensions.left>=-1&&dimensions.right<=width+1&&dimensions.width>200,route+' video fits viewport');
     if(width===1280){
-     await video.evaluate(e=>{e.muted=true;return e.play();});
-     await page.waitForFunction(name=>{const v=document.querySelector(`video source[src="assets/content/${name}-method.mp4"]`)?.parentElement;return v&&v.readyState>=2&&v.currentTime>.25;},key,{timeout:15000});
-     const state=await video.evaluate(e=>({duration:e.duration,width:e.videoWidth,height:e.videoHeight,time:e.currentTime,track:e.textTracks[0]?.mode}));
+     await video.evaluate(e=>{e.muted=true;e.textTracks[0].mode='showing';return e.play();});
+     try { await page.waitForFunction(name=>{const v=document.querySelector(`video source[src="assets/content/${name}-method.mp4"]`)?.parentElement;return v&&v.readyState>=2&&v.currentTime>.25;},key,{timeout:20000}); }
+     catch(error){const state=await video.evaluate(e=>({ready:e.readyState,network:e.networkState,time:e.currentTime,error:e.error?.message,source:e.currentSrc}));throw Error(route+' video stalled: '+JSON.stringify(state)+' '+error.message);}
+     await page.waitForFunction(name=>document.querySelector(`video source[src="assets/content/${name}-method.mp4"]`)?.parentElement?.textTracks[0]?.cues?.length===4,key,{timeout:10000});
+     const state=await video.evaluate(e=>({duration:e.duration,width:e.videoWidth,height:e.videoHeight,time:e.currentTime,track:e.textTracks[0]?.mode,cues:e.textTracks[0]?.cues?.length}));
      assert.equal(state.duration,24);assert(state.width>=640&&state.height>=360);assert(state.time>.25);
      report.checks.push({route,width,...state});await video.evaluate(e=>e.pause());
     }else report.checks.push({route,width,svgDecoded:true,videoFits:true});
+    }finally{await page.close();}
    }
    await context.close();
   }

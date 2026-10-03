@@ -67,7 +67,7 @@
     const metrics=node('div',undefined,'security-metrics');
     for(const [label,value] of [['Requested',input],['Vulnerable resolver',vulnerable],['Bounded resolver',blocked?'Rejected':secure]]){const box=node('div');box.append(node('strong',value),node('span',label));metrics.append(box);}
     target.append(metrics);
-    if(findings.length)renderFindings(target,'Controlled finding',findings,{virtualOnly:'yes'});
+    if(findings.length){const detail=node('div');renderFindings(detail,'Controlled finding',findings,{virtualOnly:'yes'});target.append(detail);}
   });
 
   // 2. Deterministic mutation fuzzer against a local parser.

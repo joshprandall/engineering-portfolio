@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "sourceCommit": "8af56412419ddd510ea28d348322e6f05d88c1dd",
+  "sourceCommit": "b6a9885c43ad0b6a794f1d078b03931ed30ee0a7",
   "bytePolicy": "Exact Git blobs; artifacts verified against committed SHA-256 and size.",
   "files": [
     {
@@ -3288,21 +3288,21 @@
     {
       "path": "security-research.html",
       "size": 25348,
-      "sha256": "2f7513ef08c92443b5c95be5e34e4b9da5c0d1416eb7aa63123579700b9c5c5f",
+      "sha256": "adabe42a3e894602129446f86037273ea29f6cf6731fa40749a84f705be9aac3",
       "source": {
         "kind": "git-blob",
-        "blob": "db27dfbea277d12958accbcb9705a57460e87557"
+        "blob": "374a19575c3680fc5b5fc21fef8134af21a6b219"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "security-research.js",
-      "size": 22946,
-      "sha256": "1bcde47c5fdd5f6a32ba816068eb48a0aab25f67a887db4f23dfd9508c93efcd",
+      "size": 22995,
+      "sha256": "fe015d73b502e7d4e7744db446a235fc03a2b35f3cc36928aaaf5b6d882c8834",
       "source": {
         "kind": "git-blob",
-        "blob": "5c6acf5a08cd32c47335f9a9f1fe149cdb4b12ef"
+        "blob": "838bd96a0646b66b14e1b5c03a34a88ba5fd19bd"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -3474,5 +3474,5 @@
     }
   ],
   "fileCount": 312,
-  "byteSize": 440072100
+  "byteSize": 440072149
 }
