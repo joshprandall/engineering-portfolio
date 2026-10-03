@@ -9,7 +9,7 @@ const gameRoot=path.join(root,'games/3d-battle-chess');
 const html=fs.readFileSync(path.join(gameRoot,'index.html'),'utf8');
 assert.match(html,/"three":"\.\/vendor\/three\/three\.module\.js"/,'3D runtime must use the bundled Three.js module');
 assert.doesNotMatch(html,/cdn\.jsdelivr\.net|unpkg\.com/,'Core game startup must not depend on a CDN');
-for(const relative of ['vendor/three/three.module.js','vendor/three/addons/controls/OrbitControls.js','vendor/three/LICENSE'])assert(fs.statSync(path.join(gameRoot,relative)).size>0,`${relative} must be bundled`);
+for(const relative of ['vendor/three/three.module.js','vendor/three/three.core.js','vendor/three/addons/controls/OrbitControls.js','vendor/three/LICENSE'])assert(fs.statSync(path.join(gameRoot,relative)).size>0,`${relative} must be bundled`);
 for(const id of ['continueGameBtn','setupQuality','setupCombat','saveGame','copyFen','downloadPgn','loadFen','gameOver'])assert.match(html,new RegExp(`id="${id}"`),`${id} must exist`);
 const desktopRoot=path.join(root,'products/crown-and-ash-desktop'),desktopPackage=JSON.parse(fs.readFileSync(path.join(desktopRoot,'package.json'),'utf8')),desktopMain=fs.readFileSync(path.join(desktopRoot,'main.cjs'),'utf8');
 assert.equal(desktopPackage.build.appId,'com.roughneckgames.crownandash');assert.equal(desktopPackage.build.win.target[0].target,'nsis');assert.match(desktopMain,/contextIsolation:true/);assert.match(desktopMain,/nodeIntegration:false/);assert.match(desktopMain,/sandbox:true/);assert.match(desktopMain,/setWindowOpenHandler/);
