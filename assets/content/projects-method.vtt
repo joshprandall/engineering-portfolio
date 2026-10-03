@@ -1,0 +1,13 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:06.000
+State the problem. Define a measurable user outcome.
+
+00:00:06.000 --> 00:00:12.000
+Trace the system. Follow input, transformation, and visible result.
+
+00:00:12.000 --> 00:00:18.000
+Run a check. Use the local demo and inspect its output.
+
+00:00:18.000 --> 00:00:24.000
+Report the boundary. Separate simulated results from untested claims.

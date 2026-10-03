@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 270" role="img" aria-labelledby="title desc">
+  <title id="title">Engineering evidence path</title>
+  <desc id="desc">A four-stage flow: define the failure question, trace the system, run a bounded check, and state the evidence boundary.</desc>
+  <rect width="960" height="270" rx="28" fill="#0b1a2d"/>
+  <path d="M70 127H890" stroke="#44718b" stroke-width="3" stroke-dasharray="8 9"/>
+  <g font-family="system-ui,sans-serif" text-anchor="middle" font-size="18" fill="#f0f8fb">
+    <g transform="translate(130 127)"><circle r="47" fill="#103c52" stroke="#6ce6e8" stroke-width="3"/><text y="7">01</text><text y="89">Question</text></g>
+    <g transform="translate(355 127)"><circle r="47" fill="#103c52" stroke="#6ce6e8" stroke-width="3"/><text y="7">02</text><text y="89">Trace</text></g>
+    <g transform="translate(580 127)"><circle r="47" fill="#103c52" stroke="#6ce6e8" stroke-width="3"/><text y="7">03</text><text y="89">Check</text></g>
+    <g transform="translate(805 127)"><circle r="47" fill="#103c52" stroke="#6ce6e8" stroke-width="3"/><text y="7">04</text><text y="89">Boundary</text></g>
+  </g>
+  <text x="480" y="35" fill="#a6e8e9" font-size="17" font-family="system-ui,sans-serif" text-anchor="middle">A reproducible claim needs a reproducible path</text>
+</svg>

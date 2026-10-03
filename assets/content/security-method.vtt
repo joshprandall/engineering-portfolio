@@ -1,0 +1,13 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:06.000
+Use a synthetic fixture. Local request: ../lab-secret.txt
+
+00:00:06.000 --> 00:00:12.000
+Reproduce the boundary. A naive virtual resolver escapes /lab.
+
+00:00:12.000 --> 00:00:18.000
+Block the escape. A bounded resolver rejects the request.
+
+00:00:18.000 --> 00:00:24.000
+Record the evidence. Save expected versus observed; repeat the test.
