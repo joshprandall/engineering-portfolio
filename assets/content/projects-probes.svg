@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 310" role="img" aria-labelledby="title desc">
+  <title id="title">Startup, readiness and liveness have different decisions</title>
+  <desc id="desc">Startup gates later probes. After startup, readiness controls endpoint eligibility and liveness can request a restart. A live but unready container should not be considered an eligible endpoint.</desc>
+  <rect width="960" height="310" rx="24" fill="#0b1a2d"/>
+  <g font-family="system-ui,sans-serif" text-anchor="middle" fill="#effaff" font-size="18">
+    <rect x="60" y="92" width="220" height="115" rx="14" fill="#16465a" stroke="#67dce5"/><text x="170" y="132">Startup complete?</text><text x="170" y="163" font-size="15">gates later decisions</text>
+    <rect x="370" y="32" width="230" height="100" rx="14" fill="#16465a" stroke="#67dce5"/><text x="485" y="73">Ready?</text><text x="485" y="103" font-size="15">eligible endpoint</text>
+    <rect x="370" y="179" width="230" height="100" rx="14" fill="#16465a" stroke="#67dce5"/><text x="485" y="222">Live?</text><text x="485" y="250" font-size="15">restart decision</text>
+    <rect x="690" y="92" width="220" height="115" rx="14" fill="#16465a" stroke="#67dce5"/><text x="800" y="133">Observe</text><text x="800" y="162" font-size="15">events · endpoints · response</text>
+  </g>
+  <g stroke="#8ce8e7" stroke-width="4" fill="none"><path d="M281 145h42v-64h36"/><path d="M323 145v84h36"/><path d="M601 81h45v64h33"/><path d="M601 229h45v-84"/></g>
+  <text x="480" y="301" fill="#bfd3df" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14">One-instant model; real probe thresholds and controller timing are omitted.</text>
+</svg>

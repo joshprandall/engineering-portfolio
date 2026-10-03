@@ -1,0 +1,136 @@
+{
+  "version": "20261003-professional-content-v2",
+  "publicUrl": "https://web.engr.oregonstate.edu/~randjosh/",
+  "files": [
+    {
+      "path": "ai-development.html",
+      "sha256": "5d6cac1b923fc29043b725fefa8cc0afde996c37124c073b3ba7c31d70976e05",
+      "previousSha256": "1d2a13ac0a633a9aa33d4e95766e3bdc99726ca9190da063f940d726ec0e10df"
+    },
+    {
+      "path": "assets/content/ai-evaluation-workflow.svg",
+      "sha256": "1d08f688e3348a201bf6ab723c0aacee2523a8a0f946015dead925f82455a4fb",
+      "previousSha256": null
+    },
+    {
+      "path": "assets/content/ai-method.mp4",
+      "sha256": "5b9a188f061f634532232765530341da14a0366f2b2bcbe0dae67c05e556d9b2",
+      "previousSha256": null
+    },
+    {
+      "path": "assets/content/ai-method.vtt",
+      "sha256": "859207c4be7d306ec2b8fcdad4b15749240b127574278dac5c635e54be99caf8",
+      "previousSha256": null
+    },
+    {
+      "path": "assets/content/learn-method.mp4",
+      "sha256": "be7db7279b0c8dd577fec3cec6b2e4a6da10a8987938237170b0e11f166a50b1",
+      "previousSha256": null
+    },
+    {
+      "path": "assets/content/learn-method.svg",
+      "sha256": "9531ff86aeb18d27bafffc54b801e21ac08c70c250d43e7300973b008349bf23",
+      "previousSha256": null
+    },
+    {
+      "path": "assets/content/learn-method.vtt",
+      "sha256": "c873fdb37824b6efcac44212550015be39625c219d9979017f3a8b71fcdd75c4",
+      "previousSha256": null
+    },
+    {
+      "path": "assets/content/learn-qubit.svg",
+      "sha256": "14ae2e4e20cb32be3e535693c947d0a679417908e855304f0ac9ace43a5f2d39",
+      "previousSha256": null
+    },
+    {
+      "path": "assets/content/projects-ingestion.svg",
+      "sha256": "b11e93a85df34c717381b2716337d9038d76490377e365503900dc28d36b71c7",
+      "previousSha256": null
+    },
+    {
+      "path": "assets/content/projects-method.mp4",
+      "sha256": "2c23940864b717566ab2aa52051be236854d99063bb628c5d7afd229b81e9c00",
+      "previousSha256": null
+    },
+    {
+      "path": "assets/content/projects-method.svg",
+      "sha256": "1c3e04ed49d1c5718d2e3875377220bc9a6acb397d880215de271c21b2726d13",
+      "previousSha256": null
+    },
+    {
+      "path": "assets/content/projects-method.vtt",
+      "sha256": "fae85688a8d70ad8e0d478d2b9c28651a14d3a7c6a0cdbd880d36fb9e3920027",
+      "previousSha256": null
+    },
+    {
+      "path": "assets/content/projects-probes.svg",
+      "sha256": "33cf6694dcb416ff69a8789deba1919ab1ca1bfaea6e242f10ba016b4b2da552",
+      "previousSha256": null
+    },
+    {
+      "path": "assets/content/security-boundary.svg",
+      "sha256": "0853922e781f15d80383eceb05de84e7631d0ac3ea50bf89c49496da457091a6",
+      "previousSha256": null
+    },
+    {
+      "path": "assets/content/security-method.mp4",
+      "sha256": "451ad640f6ae680a6969f94921c26a86676ed7b1c02ca9664e95c8814290c529",
+      "previousSha256": null
+    },
+    {
+      "path": "assets/content/security-method.vtt",
+      "sha256": "da4b6f2ef258aaf147662ad2bb30487b987e755c57e39d253ad03651c77d5cfe",
+      "previousSha256": null
+    },
+    {
+      "path": "learn-math.html",
+      "sha256": "4a8a97cfdfea37315821782e9635d990a51eb5ca8b0fdb43e4fc6e0ef21c8ac5",
+      "previousSha256": "d801fdcc5be5fc79cc46d7c54002ccbc40a235b5c77e8cfc6c32be281ce31fda"
+    },
+    {
+      "path": "learn-physics.html",
+      "sha256": "a958bd1836b8af304103b6f255479901c7f2c8efdc2804e186ea6c2ecd240651",
+      "previousSha256": "dcaed05cc40f45969a24a0b79fe43fac5a390be6d1c7bf61b9d15a35f068bb04"
+    },
+    {
+      "path": "learn-software.html",
+      "sha256": "5f8496e931016e4548bf16392922790953ac1f29ddcd03f1abbc4ec0b90f2930",
+      "previousSha256": "6891f1c220fc7a66823c1b481c376218b752c97a2661d985d9935b789a3490a2"
+    },
+    {
+      "path": "learn.html",
+      "sha256": "3550a3392473c0102276773add88a159958c4bad7e10ec0bf6498ee1c75e30d6",
+      "previousSha256": "76b59f25263d8981f61a5a5ee3a6a455caf477c7384cd8b8b73a68f571dcb977"
+    },
+    {
+      "path": "project-asset-inventory.html",
+      "sha256": "533989cc08173c24393a4c58f3d3e88b7c6abec5e7ac28c65af15e60108adf16",
+      "previousSha256": "610f2b643c4012ee2c2b4e326deff3e4511825ade64fe45d703940956ad79316"
+    },
+    {
+      "path": "project-dependency.html",
+      "sha256": "6664722299ea9200e92707edbeda2017e25e6d7121d977444bda3880bf1a4554",
+      "previousSha256": "b7100092a76420e153fa7104638e82db8d3c8f255877463b41ca085d7d5a097e"
+    },
+    {
+      "path": "project-kubernetes-lab.html",
+      "sha256": "789f2e825e2fbad5ff9db196357e2fcf801698100fbfacf92613301b444803cf",
+      "previousSha256": "cf9aeb9b2fa8f4a53fc4b24915c4af9e0502747a9f579bae5017889b770caac3"
+    },
+    {
+      "path": "projects.html",
+      "sha256": "44feedea9d2743fbeb2691429e51ef0726f929fafd70fb964a9bf4e2ac7f2829",
+      "previousSha256": "26ba164d4a77ae119ef502ffa3f463fb6d2a8bb849f6c10bf419731bcefc69dc"
+    },
+    {
+      "path": "security-research.html",
+      "sha256": "adabe42a3e894602129446f86037273ea29f6cf6731fa40749a84f705be9aac3",
+      "previousSha256": "d451fc51889f55ee656af53d29bf6435d8678cea45d15756ca298cfc846321ac"
+    },
+    {
+      "path": "security-research.js",
+      "sha256": "fe015d73b502e7d4e7744db446a235fc03a2b35f3cc36928aaaf5b6d882c8834",
+      "previousSha256": "1bcde47c5fdd5f6a32ba816068eb48a0aab25f67a887db4f23dfd9508c93efcd"
+    }
+  ]
+}

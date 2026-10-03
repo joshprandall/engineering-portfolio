@@ -1,0 +1,13 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:06.000
+Define the task. What is predicted, classified, or generated?
+
+00:00:06.000 --> 00:00:12.000
+Build a baseline. Compare against a simple reference.
+
+00:00:12.000 --> 00:00:18.000
+Hold out evidence. Measure errors on unseen examples.
+
+00:00:18.000 --> 00:00:24.000
+State the limits. Describe data limits and human review.

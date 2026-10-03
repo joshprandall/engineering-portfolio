@@ -97,6 +97,16 @@ jobs:
         run: |
           if [ "$PORTFOLIO_BROWSER_ENGINE" = chromium ]; then export PORTFOLIO_BROWSER_EXECUTABLE="$(command -v google-chrome)"; fi
           npm run test:planet-selection
+      - name: Verify professional learning media and defensive lab
+        if: matrix.profile != 'phone'
+        env:
+          PORTFOLIO_BROWSER_ENGINE: ${{ matrix.engine }}
+          PORTFOLIO_RUNTIME_ROOT: .
+          PORTFOLIO_QA_DIR: visual-qa/ambience/${{ matrix.engine }}-${{ matrix.profile }}/content
+        run: |
+          if [ "$PORTFOLIO_BROWSER_ENGINE" = chromium ]; then export PORTFOLIO_BROWSER_EXECUTABLE="$(command -v google-chrome)"; fi
+          npm run test:professional-content
+          if [ "$PORTFOLIO_BROWSER_ENGINE" = chromium ]; then node tests/security-content.test.cjs; fi
       - uses: actions/upload-artifact@v4
         if: always()
         with:

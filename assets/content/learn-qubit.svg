@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 370" role="img" aria-labelledby="title desc">
+  <title id="title">Basis measurement of a single qubit</title>
+  <desc id="desc">A state with amplitudes cos theta over two for zero and sine theta over two for one has probabilities equal to their squares. Relative phase phi is not visible in this single Z-basis measurement.</desc>
+  <rect width="780" height="370" rx="22" fill="#10212c"/>
+  <text x="390" y="53" text-anchor="middle" fill="#f4f8f9" font-family="system-ui, sans-serif" font-size="27" font-weight="700">A state is more than a coin flip</text>
+  <rect x="42" y="91" width="696" height="72" rx="13" fill="#213f50" stroke="#8cc8d1" stroke-width="3"/>
+  <text x="390" y="136" text-anchor="middle" fill="#f4f8f9" font-family="system-ui, sans-serif" font-size="24">|ψ⟩ = cos(θ/2)|0⟩ + eⁱᵠ sin(θ/2)|1⟩</text>
+  <path d="M390 164v42m0 0-116 45m116-45 116 45" fill="none" stroke="#e6bb67" stroke-width="5" stroke-linecap="round"/>
+  <rect x="82" y="250" width="250" height="71" rx="13" fill="#213f50" stroke="#8cc8d1" stroke-width="3"/>
+  <rect x="448" y="250" width="250" height="71" rx="13" fill="#213f50" stroke="#8cc8d1" stroke-width="3"/>
+  <g fill="#f4f8f9" font-family="system-ui, sans-serif" font-size="22" text-anchor="middle"><text x="207" y="295">P(0) = cos²(θ/2)</text><text x="573" y="295">P(1) = sin²(θ/2)</text></g>
+  <text x="390" y="353" text-anchor="middle" fill="#f4f8f9" font-family="system-ui, sans-serif" font-size="16">The phase φ matters for other measurement bases and interference.</text>
+</svg>

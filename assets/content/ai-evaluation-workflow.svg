@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="520" viewBox="0 0 1000 520" role="img" aria-labelledby="title desc">
+  <title id="title">A reproducible AI development workflow</title>
+  <desc id="desc">Define a narrow task and data contract. Split data before fitting. Compare a simple baseline and candidate using validation data. Freeze choices, evaluate once on untouched test data, then document limits and monitor after release. Test data never feeds training or tuning.</desc>
+  <defs>
+    <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#081b2d"/><stop offset="1" stop-color="#12394a"/></linearGradient>
+    <linearGradient id="card" x2="1"><stop stop-color="#153247"/><stop offset="1" stop-color="#1c4553"/></linearGradient>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 10 5 0 10Z" fill="#6ce2e3"/></marker>
+    <style>
+      text{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#eefaff}
+      .k{fill:#6ce2e3;font-size:16px;font-weight:700;letter-spacing:1.4px}
+      .head{font-size:23px;font-weight:700}
+      .copy{font-size:16px;fill:#d2e8ed}
+      .card{fill:url(#card);stroke:#4a8595;stroke-width:2}
+      .path{stroke:#6ce2e3;stroke-width:3;fill:none;marker-end:url(#arrow)}
+      .caution{fill:#fae9a9;font-size:15px}
+    </style>
+  </defs>
+  <rect width="1000" height="520" rx="24" fill="url(#bg)"/>
+  <text x="40" y="50" class="k">FROM DEMO TO EVIDENCE</text>
+  <text x="40" y="87" class="head" font-size="29">Build a model whose result can be checked</text>
+  <g transform="translate(40 120)">
+    <rect class="card" width="275" height="126" rx="15"/>
+    <text class="k" x="20" y="30">01 / DEFINE</text>
+    <text class="head" x="20" y="64">Task + data contract</text>
+    <text class="copy" x="20" y="90">Who, input, target, failure cost</text>
+    <text class="copy" x="20" y="112">and provenance</text>
+  </g>
+  <path class="path" d="M321 183H357"/>
+  <g transform="translate(365 120)">
+    <rect class="card" width="275" height="126" rx="15"/>
+    <text class="k" x="20" y="30">02 / PARTITION</text>
+    <text class="head" x="20" y="64">Split before fitting</text>
+    <text class="copy" x="20" y="90">Train 100 · validate 40</text>
+    <text class="copy" x="20" y="112">Hold out 40 untouched cases</text>
+  </g>
+  <path class="path" d="M646 183H682"/>
+  <g transform="translate(690 120)">
+    <rect class="card" width="270" height="126" rx="15"/>
+    <text class="k" x="20" y="30">03 / COMPARE</text>
+    <text class="head" x="20" y="64">Baseline → model</text>
+    <text class="copy" x="20" y="90">Fit scaler on train only</text>
+    <text class="copy" x="20" y="112">Choose using validation</text>
+  </g>
+  <path class="path" d="M824 252V291"/>
+  <g transform="translate(690 300)">
+    <rect class="card" width="270" height="126" rx="15"/>
+    <text class="k" x="20" y="30">04 / TEST ONCE</text>
+    <text class="head" x="20" y="64">Freeze → evaluate</text>
+    <text class="copy" x="20" y="90">Report confusion matrix,</text>
+    <text class="copy" x="20" y="112">baseline and error slices</text>
+  </g>
+  <path class="path" d="M683 363H647"/>
+  <g transform="translate(365 300)">
+    <rect class="card" width="275" height="126" rx="15"/>
+    <text class="k" x="20" y="30">05 / RELEASE GATE</text>
+    <text class="head" x="20" y="64">Document + monitor</text>
+    <text class="copy" x="20" y="90">Record limits, versions,</text>
+    <text class="copy" x="20" y="112">drift checks and rollback</text>
+  </g>
+  <path class="path" d="M358 363H322"/>
+  <g transform="translate(40 300)">
+    <rect x="0" y="0" width="275" height="126" rx="15" fill="#343b38" stroke="#c2ac63" stroke-width="2"/>
+    <text x="20" y="30" class="k" fill="#fae9a9">BOUNDARY</text>
+    <text x="20" y="64" class="head">No test-set feedback</text>
+    <text x="20" y="90" class="copy">Repeated tuning against test</text>
+    <text x="20" y="112" class="copy">invalidates the estimate</text>
+  </g>
+  <text x="40" y="474" class="caution">Illustrative split from the included 180-row synthetic classifier; no production performance is implied.</text>
+</svg>

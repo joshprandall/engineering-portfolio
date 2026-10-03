@@ -22,7 +22,7 @@
   <script defer src="site-search.js"></script>
 
   <script defer src="site-resilience.js"></script>
-  <script defer src="security-research.js?v=20260928-refinement"></script>
+  <script defer src="security-research.js?v=20261003-content-v1"></script>
 <script defer src="site-scenes.js?v=20261002-audio-planets-v4"></script><script defer src="site-audio.js?v=20261002-audio-planets-v4"></script><script defer src="site-sound-control.js?v=20261002-audio-planets-v4"></script><link rel="stylesheet" href="learning-experiments.css?v=20261002-content"></head>
 <body class="destination-page security-research-page">
 <a class="skip" href="#main">Skip to content</a>
@@ -59,6 +59,29 @@
       <article><span>02</span><h3>Controlled proof</h3><p>Use deterministic synthetic inputs or intentionally vulnerable demo code rather than uncontrolled targets.</p></article>
       <article><span>03</span><h3>Defensive interpretation</h3><p>Connect each finding to concrete remediation, detection, regression tests, and residual limitations.</p></article>
     </div>
+    <article class="security-workspace" aria-labelledby="security-case-title">
+      <p class="eyebrow">WORKED CASE / VIRTUAL FILE BOUNDARY</p>
+      <h3 id="security-case-title">From a modeled threat to a verifiable fix</h3>
+      <p><strong>Asset and boundary.</strong> A fictional document service permits requests under <code>/srv/app/public</code>; its virtual secret lies outside that root. The modeled actor can supply a relative document path, but has no filesystem or network access in this browser exercise.</p>
+      <figure>
+        <img src="assets/content/security-boundary.svg" width="960" height="480" loading="lazy" alt="Flow diagram: user path enters a virtual resolver; an unbounded normalization reaches an out-of-root secret, while a bounded resolver rejects the escape before access." style="display:block;max-width:100%;height:auto"/>
+        <figcaption>Original diagram of the synthetic trust boundary. The paths are teaching fixtures, not a measurement of a deployed service.</figcaption>
+      </figure>
+      <ol>
+        <li><strong>Hypothesis:</strong> normalization without a root containment check could resolve <code>../lab-secret.txt</code> outside the allowed directory.</li>
+        <li><strong>Test:</strong> keep the default input in <a href="#vulnerability-lab">the path-boundary analyzer</a>, then select “Analyze controlled case.” Compare its vulnerable and bounded outcomes. Try an in-root path such as <code>index.txt</code> as a negative control.</li>
+        <li><strong>Evidence:</strong> record the input, the two normalized virtual destinations, whether the boundary was crossed, and the expected authorized outcome. The output and exported JSON report are local analysis artifacts; they contain no real host file contents.</li>
+        <li><strong>Mitigation and regression:</strong> resolve against the intended root, enforce containment after canonicalization, then test both an escape and an allowed path. In a real service also consider symlinks, encoded separators, platform path rules, race conditions, and authorization per object.</li>
+      </ol>
+      <p><strong>Conclusion supported here:</strong> the supplied in-memory resolver model rejects this traversal case after its boundary check. That result alone cannot establish that an unrelated production application is safe.</p>
+      <video controls preload="none" playsinline width="960" poster="assets/content/security-boundary.svg" aria-label="Captioned walkthrough of the synthetic path boundary case" style="display:block;max-width:100%;height:auto;margin-top:1rem">
+        <source src="assets/content/security-method.mp4" type="video/mp4"/>
+        <track kind="captions" src="assets/content/security-method.vtt" srclang="en" label="English" default/>
+        <p>The video cannot play in this browser. The complete walkthrough appears below.</p>
+      </video>
+      <details><summary>Video transcript: virtual path-boundary walkthrough</summary><p>First, define the authorized virtual root and the document path controlled by the requester. Enter the synthetic parent-directory case in the path-boundary analyzer. The vulnerable resolver normalizes it outside the root; the bounded resolver rejects it. Compare with an allowed in-root path. Preserve the exact input, outputs, and expected result as a regression case. This simulation does not read files or test a live service.</p></details>
+      <p>Method references: <a href="https://csrc.nist.gov/pubs/sp/800/30/r1/final" target="_blank" rel="noopener noreferrer">NIST SP 800-30 Rev. 1, risk assessment</a> and <a href="https://wstg.owasp.org/stable/4-Web_Application_Security_Testing/05-Authorization_Testing/01-Testing_Directory_Traversal_File_Include/" target="_blank" rel="noopener noreferrer">OWASP WSTG, directory traversal testing</a>.</p>
+    </article>
   </section>
 
   <section class="wrap security-lab" id="vulnerability-lab" aria-labelledby="vulnerability-title">
@@ -71,7 +94,7 @@
       </div>
       <div class="security-output" id="vuln-output" aria-live="polite"></div>
     </div>
-    <details><summary>Methodology, remediation &amp; limitations</summary><p>The vulnerable resolver normalizes user input without re-checking that the result remains inside a permitted virtual root. The fixed resolver rejects boundary escapes after normalization. The demonstration models the class of failure; it does not read the host filesystem or issue network requests.</p></details>
+    <details><summary>Methodology, evidence &amp; limitations</summary><p>Run <code>../lab-secret.txt</code>, then <code>index.txt</code>. Capture the normalized virtual path, both resolver decisions, and the expected access boundary. The first is a positive fixture; the second tests that the fix still permits an authorized document. The vulnerable resolver normalizes without re-checking containment; the fixed resolver rejects boundary escapes. A real filesystem also needs symlink and race-condition review. This model reads no host files or network resources. See the <a href="#security-case-title">worked case</a> and <a href="https://wstg.owasp.org/stable/4-Web_Application_Security_Testing/05-Authorization_Testing/01-Testing_Directory_Traversal_File_Include/" target="_blank" rel="noopener noreferrer">OWASP WSTG</a>.</p></details>
   </section>
 
   <section class="wrap security-lab" id="fuzzing-lab" aria-labelledby="fuzzing-title">
@@ -86,7 +109,7 @@
       </div>
       <div class="security-output" id="fuzz-output" aria-live="polite"></div>
     </div>
-    <details><summary>Methodology, remediation &amp; limitations</summary><p>The target is intentionally tiny and local. The exercise demonstrates seed corpora, mutation, crash detection, deterministic replay, and input minimization. It is not a coverage-guided native-code fuzzer and does not execute external binaries.</p></details>
+    <details><summary>Methodology, evidence &amp; limitations</summary><p>Use seed <code>1337</code> and 300 iterations. Save the seed, iteration count, first failing input, minimized input, and exception class; rerun unchanged settings to check repeatability. Then change the seed to separate a reproducible bug from one particular mutation sequence. A robust parser should handle malformed URI escapes as a controlled validation failure rather than an uncaught exception. The model is a tiny local parser, not coverage-guided native fuzzing, and it executes no external binaries. See <a href="https://owasp.org/www-project-web-security-testing-guide/" target="_blank" rel="noopener noreferrer">OWASP WSTG</a> for broader test planning.</p></details>
   </section>
 
   <section class="wrap security-lab" id="linux-lab" aria-labelledby="linux-title">
@@ -97,7 +120,7 @@
       <div class="security-actions"><button class="button" id="linux-sample" type="button">Load intentionally vulnerable sample</button><button class="button primary" id="linux-run" type="button">Audit snapshot</button></div>
       <div class="security-output" id="linux-output" aria-live="polite"></div>
     </div>
-    <details><summary>Methodology, remediation &amp; limitations</summary><p>This is configuration analysis, not host enumeration. Findings are mapped to least privilege, ownership/mode correction, sudo scope reduction, capability removal, secret handling, and PATH hardening.</p></details>
+    <details><summary>Methodology, evidence &amp; limitations</summary><p>Load the vulnerable sample and audit it. For each finding, record the modeled path or rule, configured mode/capability, the privileged identity involved, and the change owner. Make a copy of the JSON and remove one risky condition at a time; rerun to check that the corresponding finding clears. Review writable PATH components, SUID necessity, sudo scope, secret permissions, and capabilities against the actual workload before applying a fix. This is supplied-data configuration analysis, not host enumeration; mode strings and rule text are simplified indicators, and a clean report cannot prove a machine secure. Risk framing: <a href="https://csrc.nist.gov/pubs/sp/800/30/r1/final" target="_blank" rel="noopener noreferrer">NIST SP 800-30 Rev. 1</a>.</p></details>
   </section>
 
   <section class="wrap security-lab" id="ad-lab" aria-labelledby="ad-title">
@@ -108,7 +131,7 @@
       <div class="security-actions"><button class="button" id="ad-sample" type="button">Load lab graph</button><button class="button primary" id="ad-run" type="button">Find privilege paths</button></div>
       <div class="security-output" id="ad-output" aria-live="polite"></div>
     </div>
-    <details><summary>Methodology, remediation &amp; limitations</summary><p>The graph uses synthetic principals and permissions. It demonstrates relationship reasoning and shortest-path analysis only; it does not query LDAP, authenticate to a domain, request tickets, or perform lateral movement.</p></details>
+    <details><summary>Methodology, evidence &amp; limitations</summary><p>Load the lab graph and follow the displayed shortest path from the starting principal to the protected group. Record every edge, its delegated right, target, and proposed owner for review. In a copied fixture, remove one unjustified edge and rerun: the path should disappear unless another route exists. A real assessment must verify current ACLs, group nesting, privileged tiering, and change history with authorization. This graph does not query LDAP, request tickets, authenticate, or move between hosts; shortest path does not measure exploitability or likelihood. Use <a href="https://csrc.nist.gov/pubs/sp/800/30/r1/final" target="_blank" rel="noopener noreferrer">NIST risk assessment guidance</a> for contextual risk decisions.</p></details>
   </section>
 
   <section class="wrap security-lab" id="container-lab" aria-labelledby="container-title">
@@ -119,7 +142,7 @@
       <div class="security-actions"><button class="button" id="container-sample" type="button">Load risky lab configuration</button><button class="button primary" id="container-run" type="button">Analyze configuration</button></div>
       <div class="security-output" id="container-output" aria-live="polite"></div>
     </div>
-    <details><summary>Methodology, remediation &amp; limitations</summary><p>The analyzer evaluates configuration metadata supplied in the page. It does not start containers, mount sockets, invoke a runtime API, or attempt an escape.</p></details>
+    <details><summary>Methodology, evidence &amp; limitations</summary><p>Load the risky sample and record its privilege, UID, namespace modes, mounts, capabilities, seccomp choice, and read-only-root setting. Copy the JSON; set <code>privileged</code> to false, remove the runtime socket mount and high-impact capabilities, and compare the findings. Treat the numerical score as this page’s heuristic, not a recognized security rating. Validate any proposed change against application needs, runtime policy, image provenance, and host configuration. The tool reads only supplied metadata; it starts no containers and attempts no escape. See <a href="https://cheatsheetseries.owasp.org/cheatsheets/Docker_Security_Cheat_Sheet.html" target="_blank" rel="noopener noreferrer">OWASP Docker Security Cheat Sheet</a>.</p></details>
   </section>
 
   <section class="wrap security-lab" id="surface-lab" aria-labelledby="surface-title">
@@ -130,7 +153,7 @@
       <div class="security-actions"><button class="button" id="surface-sample" type="button">Load synthetic inventory</button><button class="button primary" id="surface-run" type="button">Analyze inventory</button><button class="button" id="security-export" type="button">Export latest report</button></div>
       <div class="security-output" id="surface-output" aria-live="polite"></div>
     </div>
-    <details><summary>Methodology, remediation &amp; limitations</summary><p>The browser version never opens sockets or probes hosts. It analyzes supplied inventory only. A finding is an engineering lead for review, not proof that a service is exploitable.</p></details>
+    <details><summary>Methodology, evidence &amp; limitations</summary><p>Run the synthetic inventory and triage internet exposure, management protocols, TLS state, and lifecycle status. Export the report, then identify a service owner and a source of truth for each row. Confirm actual reachability and product versions through an authorized inventory process before prioritizing changes; <code>unknown</code> means evidence is missing, not that a version is vulnerable. The CSV accepts a simplified six-column fixture, not arbitrary quoted CSV. This browser tool opens no sockets or probes hosts. See <a href="https://www.cisa.gov/cybersecurity-performance-goals" target="_blank" rel="noopener noreferrer">CISA Cross-Sector Cybersecurity Performance Goals</a> for asset-management context.</p></details>
   </section>
 
   <section class="wrap security-close" aria-labelledby="security-close-title">
