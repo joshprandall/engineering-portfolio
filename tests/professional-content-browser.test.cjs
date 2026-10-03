@@ -29,13 +29,16 @@ const server=http.createServer((req,res)=>{
 });
 (async()=>{
  await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
- const browser=await playwright[engine].launch({headless:true,executablePath:process.env.PORTFOLIO_BROWSER_EXECUTABLE||undefined,...(engine==='chromium'?{args:['--no-sandbox']}:{})});
  try{
+  const base=`http://127.0.0.1:${server.address().port}`;
+  for(const [route,key,poster]of cases){
+   // WebKit retains decoder state across navigations; test each asset in an independent browser.
+   const browser=await playwright[engine].launch({headless:true,executablePath:process.env.PORTFOLIO_BROWSER_EXECUTABLE||undefined,...(engine==='chromium'?{args:['--no-sandbox']}:{})});
+   try{
   for(const width of [390,1280]){
    const context=await browser.newContext({viewport:{width,height:width===390?844:900},isMobile:width===390,hasTouch:width===390});
+   try{
    await context.route('https://**/*',route=>route.abort());
-   const base=`http://127.0.0.1:${server.address().port}`;
-   for(const [route,key,poster]of cases){
     const page=await context.newPage();page.on('pageerror',error=>report.errors.push(error.message));
     try{
     await page.goto(base+'/'+route,{waitUntil:'domcontentloaded'});
@@ -54,18 +57,19 @@ const server=http.createServer((req,res)=>{
     if(width===1280){
      await video.evaluate(e=>{e.muted=true;e.textTracks[0].mode='showing';return e.play();});
      try { await page.waitForFunction(name=>{const v=document.querySelector(`video source[src="assets/content/${name}-method.mp4"]`)?.parentElement;return v&&v.readyState>=2&&v.currentTime>.25;},key,{timeout:20000}); }
-     catch(error){const state=await video.evaluate(e=>({ready:e.readyState,network:e.networkState,time:e.currentTime,error:e.error?.message,source:e.currentSrc}));throw Error(route+' video stalled: '+JSON.stringify(state)+' '+error.message);}
+     catch(error){const state=await video.evaluate(e=>({ready:e.readyState,network:e.networkState,time:e.currentTime,paused:e.paused,rate:e.playbackRate,error:e.error?.message,source:e.currentSrc}));throw Error(route+' video stalled: '+JSON.stringify(state)+' '+error.message);}
      await page.waitForFunction(name=>document.querySelector(`video source[src="assets/content/${name}-method.mp4"]`)?.parentElement?.textTracks[0]?.cues?.length===4,key,{timeout:10000});
      const state=await video.evaluate(e=>({duration:e.duration,width:e.videoWidth,height:e.videoHeight,time:e.currentTime,track:e.textTracks[0]?.mode,cues:e.textTracks[0]?.cues?.length}));
      assert.equal(state.duration,24);assert(state.width>=640&&state.height>=360);assert(state.time>.25);
      report.checks.push({route,width,...state});await video.evaluate(e=>e.pause());
     }else report.checks.push({route,width,svgDecoded:true,videoFits:true});
     }finally{await page.close();}
+   }finally{await context.close();}
    }
-   await context.close();
+   }finally{await browser.close();}
   }
   assert.deepEqual(report.errors,[]);
   assert.deepEqual(report.missing.filter(p=>p.startsWith('/assets/content/')),[]);
   report.passed=true;console.log('PASS',engine,'four professional content videos/visuals on desktop and mobile.');
- }finally{fs.mkdirSync(output,{recursive:true});fs.writeFileSync(path.join(output,'professional-content.json'),JSON.stringify(report,null,2));await browser.close();server.close();}
+ }finally{fs.mkdirSync(output,{recursive:true});fs.writeFileSync(path.join(output,'professional-content.json'),JSON.stringify(report,null,2));server.close();}
 })().catch(error=>{console.error(error);server.close();process.exitCode=1;});
