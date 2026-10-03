@@ -52,6 +52,7 @@ const server=http.createServer((req,res)=>{
     const image=page.locator(`img[src="assets/content/${poster}"]`);
     await image.scrollIntoViewIfNeeded();await image.evaluate(e=>e.decode());
     assert(await image.evaluate(e=>e.naturalWidth>0),'original SVG must render');
+    await video.scrollIntoViewIfNeeded();
     assert(await page.locator('main').innerText().then(t=>/transcript/i.test(t)),route+' needs a transcript');
     const dimensions=await video.evaluate(e=>{const r=e.getBoundingClientRect();return {left:r.left,right:r.right,width:r.width}});
     assert(dimensions.left>=-1&&dimensions.right<=width+1&&dimensions.width>200,route+' video fits viewport');
