@@ -42,17 +42,21 @@ async function inspect(page, label) {
     }
     return results;
   });
-  const unexpected = paint.filter(e => e.id !== 'primary-nav');
+  // Approved filled controls must remain legible over the moving scene.
+  const opaqueControls = new Set(['primary-nav','bell-measure','toast']);
+  const unexpected = paint.filter(e => !opaqueControls.has(e.id) &&
+    !e.classes.split(/\s+/).some(name => name === 'skip' || name === 'scene-sound-panel'));
   report.pages.push({ ...label, opaque:paint });
   if (unexpected.length) report.failures.push({ ...label, unexpected });
 }
-async function controlPaint(locator, label) {
+async function controlPaint(locator, label, filled = false) {
   const value = await locator.evaluate(e => {
     const s = getComputedStyle(e);
     return { background:s.backgroundColor, color:s.color, opacity:s.opacity, outline:s.outlineStyle, outlineWidth:s.outlineWidth };
   });
   report.controls.push({ ...label, ...value });
-  assert(/rgba\([^)]*,\s*0?\.\d+\)|\/\s*0?\.\d+\s*\)/.test(value.background), JSON.stringify({ ...label, ...value }));
+  const translucent = /rgba\([^)]*,\s*0?\.\d+\)|\/\s*0?\.\d+\s*\)/.test(value.background);
+  assert(filled ? /^rgb\(/.test(value.background) : translucent, JSON.stringify({ ...label, ...value }));
   return value;
 }
 (async () => {
@@ -102,23 +106,23 @@ async function controlPaint(locator, label) {
       const button = page.locator('#bell-measure');
       await button.scrollIntoViewIfNeeded();
       await page.mouse.move(0,0);
-      const normal = await controlPaint(button, { theme, state:'default' });
+      const normal = await controlPaint(button, { theme, state:'default' }, true);
       await button.hover();
       await page.waitForTimeout(250);
-      const hover = await controlPaint(button, { theme, state:'hover' });
+      const hover = await controlPaint(button, { theme, state:'hover' }, true);
       assert.notEqual(normal.background, hover.background);
       await page.locator('#bell-basis').focus();
       await page.keyboard.press('Tab');
       assert(await button.evaluate(e => e === document.activeElement));
-      const focus = await controlPaint(button, { theme, state:'focus' });
+      const focus = await controlPaint(button, { theme, state:'focus' }, true);
       assert.notEqual(focus.outline, 'none');
       await page.mouse.down();
       await page.waitForTimeout(250);
-      const pressed = await controlPaint(button, { theme, state:'pressed' });
+      const pressed = await controlPaint(button, { theme, state:'pressed' }, true);
       assert.notEqual(pressed.background, hover.background);
       await page.mouse.up();
       await button.evaluate(e => e.disabled = true);
-      await controlPaint(button, { theme, state:'disabled' });
+      await controlPaint(button, { theme, state:'disabled' }, true);
       await button.evaluate(e => e.disabled = false);
       await page.locator('#search-open').click();
       await inspect(page, { route:'index.html', theme, width:390, state:'search-open' });
@@ -127,7 +131,7 @@ async function controlPaint(locator, label) {
       await inspect(page, { route:'index.html', theme, width:390, state:'sound-open' });
       await page.keyboard.press('Escape');
       await page.locator('.skip').focus();
-      await controlPaint(page.locator('.skip'), { theme, state:'skip-focus' });
+      await controlPaint(page.locator('.skip'), { theme, state:'skip-focus' }, true);
       await page.locator('#toast').evaluate(e => { e.textContent = 'Saved on this device'; e.classList.add('show'); });
       await inspect(page, { route:'index.html', theme, width:390, state:'toast-visible' });
       await page.goto(base + 'geometric-lab/index.html');

@@ -83,7 +83,8 @@ def build(name, title, steps):
                '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-s:v', f'{WIDTH}x{HEIGHT}',
                '-r', str(FPS), '-i', 'pipe:0', '-an', '-c:v', 'libx264',
                '-threads', '2', '-preset', 'veryfast', '-crf', '28',
-               '-pix_fmt', 'yuv420p', '-movflags', '+faststart', str(target)]
+               '-pix_fmt', 'yuv420p', '-profile:v', 'baseline', '-level:v', '3.1',
+               '-bf', '0', '-g', '24', '-movflags', '+faststart', str(target)]
     process = subprocess.Popen(command, stdin=subprocess.PIPE)
     try:
         for index in range(len(steps)):

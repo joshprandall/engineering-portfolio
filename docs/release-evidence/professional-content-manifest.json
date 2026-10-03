@@ -1,5 +1,5 @@
 {
-  "version": "20261003-professional-content-v1",
+  "version": "20261003-professional-content-v2",
   "publicUrl": "https://web.engr.oregonstate.edu/~randjosh/",
   "files": [
     {
@@ -14,7 +14,7 @@
     },
     {
       "path": "assets/content/ai-method.mp4",
-      "sha256": "9ddb02c83f2301094b57a6bf3092ad88923525aa1c3d333dfb649fd5c08292d3",
+      "sha256": "5b9a188f061f634532232765530341da14a0366f2b2bcbe0dae67c05e556d9b2",
       "previousSha256": null
     },
     {
@@ -24,7 +24,7 @@
     },
     {
       "path": "assets/content/learn-method.mp4",
-      "sha256": "c2b5184de1aa3f7b36457ecaa6ca7ea56640daaac75e3449a47f08e7b45da21a",
+      "sha256": "be7db7279b0c8dd577fec3cec6b2e4a6da10a8987938237170b0e11f166a50b1",
       "previousSha256": null
     },
     {
@@ -49,7 +49,7 @@
     },
     {
       "path": "assets/content/projects-method.mp4",
-      "sha256": "de6fdddd613373d134a3392e568b9b470b31a71dcca23fcd6656cb431f00bb2c",
+      "sha256": "2c23940864b717566ab2aa52051be236854d99063bb628c5d7afd229b81e9c00",
       "previousSha256": null
     },
     {
@@ -74,7 +74,7 @@
     },
     {
       "path": "assets/content/security-method.mp4",
-      "sha256": "5204a3f2949ec7f622f2584d390d755812bbb11938e62cea6d95bb1e65948ef3",
+      "sha256": "451ad640f6ae680a6969f94921c26a86676ed7b1c02ca9664e95c8814290c529",
       "previousSha256": null
     },
     {

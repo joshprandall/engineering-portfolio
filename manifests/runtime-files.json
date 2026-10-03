@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "sourceCommit": "b6a9885c43ad0b6a794f1d078b03931ed30ee0a7",
+  "sourceCommit": "c8ce9b6deadc57f10aab7878dd0dd74075913bf9",
   "bytePolicy": "Exact Git blobs; artifacts verified against committed SHA-256 and size.",
   "files": [
     {
@@ -432,11 +432,11 @@
     },
     {
       "path": "assets/content/ai-method.mp4",
-      "size": 61240,
-      "sha256": "9ddb02c83f2301094b57a6bf3092ad88923525aa1c3d333dfb649fd5c08292d3",
+      "size": 233294,
+      "sha256": "5b9a188f061f634532232765530341da14a0366f2b2bcbe0dae67c05e556d9b2",
       "source": {
         "kind": "git-blob",
-        "blob": "2e5ecb22c9be2afa8c39fa7f1ea999c571ff7b09"
+        "blob": "f56b77f66b13260f492337234ce822e2bf7d569e"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -454,11 +454,11 @@
     },
     {
       "path": "assets/content/learn-method.mp4",
-      "size": 62537,
-      "sha256": "c2b5184de1aa3f7b36457ecaa6ca7ea56640daaac75e3449a47f08e7b45da21a",
+      "size": 233739,
+      "sha256": "be7db7279b0c8dd577fec3cec6b2e4a6da10a8987938237170b0e11f166a50b1",
       "source": {
         "kind": "git-blob",
-        "blob": "0a836983e9602d5b2c5060579fd60917c69993b9"
+        "blob": "3a806e15e5f46e8bfbd9ee001f7f35bcc161cc06"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -509,11 +509,11 @@
     },
     {
       "path": "assets/content/projects-method.mp4",
-      "size": 63555,
-      "sha256": "de6fdddd613373d134a3392e568b9b470b31a71dcca23fcd6656cb431f00bb2c",
+      "size": 237667,
+      "sha256": "2c23940864b717566ab2aa52051be236854d99063bb628c5d7afd229b81e9c00",
       "source": {
         "kind": "git-blob",
-        "blob": "2c12eda9975c503bd7d39a5315de9b4675e651c2"
+        "blob": "f4b9c3f65160e72a2d530f2e43323b9059c51c2f"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -564,11 +564,11 @@
     },
     {
       "path": "assets/content/security-method.mp4",
-      "size": 65541,
-      "sha256": "5204a3f2949ec7f622f2584d390d755812bbb11938e62cea6d95bb1e65948ef3",
+      "size": 244352,
+      "sha256": "451ad640f6ae680a6969f94921c26a86676ed7b1c02ca9664e95c8814290c529",
       "source": {
         "kind": "git-blob",
-        "blob": "e3af7ff999b09f95bab1cf801000d54010f3753b"
+        "blob": "bd7e6e95718ca735a509c18f2a81cb2bcef2a81f"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -3474,5 +3474,5 @@
     }
   ],
   "fileCount": 312,
-  "byteSize": 440072149
+  "byteSize": 440768328
 }
