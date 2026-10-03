@@ -13,6 +13,7 @@ class ManifestContracts(unittest.TestCase):
         manifest=read('site-routes.json');routes={r['path'] for r in manifest['routes']}
         self.assertEqual(routes,{p for p in runtime if p.endswith('.html')})
         self.assertTrue({'expertise-experience.html','game-development.html','lesson.html'}<=routes)
+        self.assertIn('assets/site-education.json',runtime)
         self.assertEqual(manifest['unresolvedReferences'],[])
         for route in manifest['routes']:
             self.assertTrue(set(route['runtimeDependencies'])<=runtime,route['path'])

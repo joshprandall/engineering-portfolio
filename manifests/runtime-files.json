@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "sourceCommit": "c8ce9b6deadc57f10aab7878dd0dd74075913bf9",
+  "sourceCommit": "11f4023ec16b145aa4e402ce47c7a6025534f925",
   "bytePolicy": "Exact Git blobs; artifacts verified against committed SHA-256 and size.",
   "files": [
     {
@@ -104,11 +104,11 @@
     },
     {
       "path": "ai-development.html",
-      "size": 16770,
-      "sha256": "5d6cac1b923fc29043b725fefa8cc0afde996c37124c073b3ba7c31d70976e05",
+      "size": 16910,
+      "sha256": "251cc40daeff84370423e4cdd11534eb250db5dd78bb06a158bd40ba18bbbe85",
       "source": {
         "kind": "git-blob",
-        "blob": "143a1b8165baa1b36c9f73b0d6d874cf5407c29f"
+        "blob": "25521b659efbf186ff3a9e4f27c8aef0802cf78a"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -889,6 +889,17 @@
       "source": {
         "kind": "git-blob",
         "blob": "2bd73189aca10d76a924166f667c94da3ecfa9dd"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "assets/site-education.json",
+      "size": 841,
+      "sha256": "047994b48d49dac428e8abb449bac1c7e3103002da479ed01aae7c5282ba96b4",
+      "source": {
+        "kind": "git-blob",
+        "blob": "27a95189811dbefa8746e610c9282c937898622e"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -2770,11 +2781,11 @@
     },
     {
       "path": "learn-physics.html",
-      "size": 7743,
-      "sha256": "a958bd1836b8af304103b6f255479901c7f2c8efdc2804e186ea6c2ecd240651",
+      "size": 7778,
+      "sha256": "fd05e91e114c04d99d53bfa28767745e8fd861756bf36a81ca276e628a582e20",
       "source": {
         "kind": "git-blob",
-        "blob": "f4495023d1152dceeaf2b634bf4d0b87d27075c6"
+        "blob": "486106fee6761c7bd3c1912c3e8842a3d3119fd4"
       },
       "owningComponent": "learning",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -2814,11 +2825,11 @@
     },
     {
       "path": "learn.html",
-      "size": 28408,
-      "sha256": "3550a3392473c0102276773add88a159958c4bad7e10ec0bf6498ee1c75e30d6",
+      "size": 28548,
+      "sha256": "18877ae96643050d522a7e4819bc9898e6584fddcd6e78266adc127893909224",
       "source": {
         "kind": "git-blob",
-        "blob": "ac8de51c256841547b980f3e2574b5bd7609643d"
+        "blob": "624aa46c0426cc3531dc292bb16da855be0c9787"
       },
       "owningComponent": "learning",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -3023,11 +3034,11 @@
     },
     {
       "path": "project-asset-inventory.html",
-      "size": 8992,
-      "sha256": "533989cc08173c24393a4c58f3d3e88b7c6abec5e7ac28c65af15e60108adf16",
+      "size": 9027,
+      "sha256": "e6551c081ae69e77818d4ab90de150b7832b90639def7bed449a31a188d6c861",
       "source": {
         "kind": "git-blob",
-        "blob": "0cf8b7282de0a36d056b69cdb84a2a1785e6a3e7"
+        "blob": "29313b80f6a423a7808edec09862516937bcdab9"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -3045,11 +3056,11 @@
     },
     {
       "path": "project-dependency.html",
-      "size": 9401,
-      "sha256": "6664722299ea9200e92707edbeda2017e25e6d7121d977444bda3880bf1a4554",
+      "size": 9436,
+      "sha256": "c2b17820b4013032376d3b34dd4aaf438553185d5668a646ee1919ef31ad15c5",
       "source": {
         "kind": "git-blob",
-        "blob": "31b997039cc521e786aefd48742f72ad69587118"
+        "blob": "2f71a47304a59e7c91e0e8081a89b398ec6d1712"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -3089,11 +3100,11 @@
     },
     {
       "path": "project-kubernetes-lab.html",
-      "size": 8822,
-      "sha256": "789f2e825e2fbad5ff9db196357e2fcf801698100fbfacf92613301b444803cf",
+      "size": 8857,
+      "sha256": "3f9111d600a34f942cdee22d093fecaa79a865edce8141f619a4bb38e0a982cb",
       "source": {
         "kind": "git-blob",
-        "blob": "b5e9902fb3618020a7f537aed3a7dc606129c4c4"
+        "blob": "4d24382cc2f515817374d2b2b56371b3a07ea536"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -3177,11 +3188,11 @@
     },
     {
       "path": "projects.html",
-      "size": 17120,
-      "sha256": "44feedea9d2743fbeb2691429e51ef0726f929fafd70fb964a9bf4e2ac7f2829",
+      "size": 17260,
+      "sha256": "b77ff8f434d05e796f462222e235f7d26f554b30ea53b0cd233cbb57be43d8a5",
       "source": {
         "kind": "git-blob",
-        "blob": "3ba467b08450d0945d4dafaf15d9f36a1cbf3f9b"
+        "blob": "8f4a67ce715f7d8a95ac0b1de0dc07a10f706371"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -3287,11 +3298,11 @@
     },
     {
       "path": "security-research.html",
-      "size": 25348,
-      "sha256": "adabe42a3e894602129446f86037273ea29f6cf6731fa40749a84f705be9aac3",
+      "size": 25501,
+      "sha256": "b77d56f8cad86696d2a5a2a3799ae6413047d887d8506e417be339441ab2f655",
       "source": {
         "kind": "git-blob",
-        "blob": "374a19575c3680fc5b5fc21fef8134af21a6b219"
+        "blob": "ac223c9da6d7888c2d46e6ffe36d6aee457a40d9"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -3473,6 +3484,6 @@
       "deploymentClassification": "KEEP_PRODUCTION"
     }
   ],
-  "fileCount": 312,
-  "byteSize": 440768328
+  "fileCount": 313,
+  "byteSize": 440769882
 }

@@ -34,6 +34,9 @@ def build(commit,refresh=False):
     paths=set()
     for route in routes['routes']:paths.add(route['path']);paths.update(route['runtimeDependencies'])
     paths.update(p for p in old if p.startswith('deep-learning/'))
+    # Keep generated shell data aligned with prepare_runtime_metadata.py even
+    # when no HTML route references it directly yet.
+    paths.update(p for p in blobs if p.startswith('assets/site-') and p.endswith('.json'))
     paths.update(asset_by_path)
     paths.update(p for p in blobs if p in {'assets/audio/CREDITS.md','assets/scenes/CREDITS.md'})
     paths.update(r['localCounterpart']['path'] for r in external['dependencies'] if 'localCounterpart' in r)
