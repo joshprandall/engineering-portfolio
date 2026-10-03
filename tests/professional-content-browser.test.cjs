@@ -5,6 +5,7 @@ const playwright=require('playwright');
 const engine=process.env.PORTFOLIO_BROWSER_ENGINE||'chromium';
 const root=path.resolve(process.env.PORTFOLIO_RUNTIME_ROOT||'.');
 const output=path.resolve(process.env.PORTFOLIO_QA_DIR||'visual-qa/professional-content');
+const release='20261003-professional-content-v3';
 const mime={'.html':'text/html','.js':'text/javascript','.css':'text/css','.json':'application/json','.svg':'image/svg+xml','.vtt':'text/vtt','.mp4':'video/mp4','.wav':'audio/wav','.mp3':'audio/mpeg','.ogg':'audio/ogg','.png':'image/png','.jpg':'image/jpeg','.webp':'image/webp','.ttf':'font/ttf'};
 const cases=[
  ['learn.html','learn','learn-method.svg'],
@@ -43,13 +44,13 @@ const server=http.createServer((req,res)=>{
     try{
     await page.goto(base+'/'+route,{waitUntil:'domcontentloaded'});
     await page.waitForFunction(()=>Boolean(window.SiteAudio),null,{timeout:15000});
-    const video=page.locator(`video:has(source[src="assets/content/${key}-method.mp4"])`);
+    const video=page.locator(`video:has(source[src="assets/content/${key}-method.mp4?v=${release}"])`);
     assert.equal(await video.count(),1,route+' has one local teaching video');
     assert.notEqual(await video.getAttribute('controls'),null,'the visitor can start playback');
     assert.equal(await video.getAttribute('autoplay'),null,'teaching video never autoplays');
-    assert.equal(await video.getAttribute('poster'),`assets/content/${poster}`);
-    assert.equal(await video.locator('track[kind="captions"]').getAttribute('src'),`assets/content/${key}-method.vtt`);
-    const image=page.locator(`img[src="assets/content/${poster}"]`);
+    assert.equal(await video.getAttribute('poster'),`assets/content/${poster}?v=${release}`);
+    assert.equal(await video.locator('track[kind="captions"]').getAttribute('src'),`assets/content/${key}-method.vtt?v=${release}`);
+    const image=page.locator(`img[src="assets/content/${poster}?v=${release}"]`);
     await image.scrollIntoViewIfNeeded();await image.evaluate(e=>e.decode());
     assert(await image.evaluate(e=>e.naturalWidth>0),'original SVG must render');
     await video.scrollIntoViewIfNeeded();
@@ -66,9 +67,9 @@ const server=http.createServer((req,res)=>{
       document.body.append(trigger);
      });
      await page.locator('#qa-video-play').click();
-     try { await page.waitForFunction(name=>{const v=document.querySelector(`video source[src="assets/content/${name}-method.mp4"]`)?.parentElement;return v&&v.readyState>=2&&v.currentTime>.25;},key,{timeout:20000}); }
+     try { await page.waitForFunction(({name,release})=>{const v=document.querySelector(`video source[src="assets/content/${name}-method.mp4?v=${release}"]`)?.parentElement;return v&&v.readyState>=2&&v.currentTime>.25;},{name:key,release},{timeout:20000}); }
      catch(error){const state=await video.evaluate(e=>({ready:e.readyState,network:e.networkState,time:e.currentTime,paused:e.paused,rate:e.playbackRate,error:e.error?.message,source:e.currentSrc}));throw Error(route+' video stalled: '+JSON.stringify(state)+' '+error.message);}
-     await page.waitForFunction(name=>document.querySelector(`video source[src="assets/content/${name}-method.mp4"]`)?.parentElement?.textTracks[0]?.cues?.length===4,key,{timeout:10000});
+     await page.waitForFunction(({name,release})=>document.querySelector(`video source[src="assets/content/${name}-method.mp4?v=${release}"]`)?.parentElement?.textTracks[0]?.cues?.length===4,{name:key,release},{timeout:10000});
      const state=await video.evaluate(e=>({duration:e.duration,width:e.videoWidth,height:e.videoHeight,time:e.currentTime,track:e.textTracks[0]?.mode,cues:e.textTracks[0]?.cues?.length}));
      assert.equal(state.duration,24);assert(state.width>=640&&state.height>=360);assert(state.time>.25);
      report.checks.push({route,width,...state});await video.evaluate(e=>e.pause());

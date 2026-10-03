@@ -7,7 +7,14 @@ $ErrorActionPreference='Stop'
 $manifest=Get-Content -Raw -LiteralPath $ManifestPath | ConvertFrom-Json
 if ($manifest.publicUrl -cne 'https://web.engr.oregonstate.edu/~randjosh/' -or
     $manifest.version -notmatch '^[A-Za-z0-9-]+$' -or
+    $manifest.payloadCommit -notmatch '^[a-f0-9]{40}$' -or
     @($manifest.files).Count -eq 0) { throw 'Invalid release manifest' }
+$sourceHeadRaw=& git -C $SourceRoot rev-parse HEAD
+if ($LASTEXITCODE -ne 0 -or $null -eq $sourceHeadRaw) { throw 'SourceRoot is not a Git checkout' }
+$sourceHead=([string]$sourceHeadRaw).Trim()
+if ($sourceHead -notmatch '^[a-f0-9]{40}$') { throw 'SourceRoot does not resolve to an exact commit' }
+& git -C $SourceRoot merge-base --is-ancestor $manifest.payloadCommit $sourceHead
+if ($LASTEXITCODE -ne 0) { throw 'Manifest payload commit is not an ancestor of SourceRoot HEAD' }
 $reference=Get-Acl -LiteralPath (Join-Path $PublicRoot 'site-scenes.js')
 $directoryReference=Get-Acl -LiteralPath (Join-Path $PublicRoot 'assets/audio')
 $sections=[System.Security.AccessControl.AccessControlSections]::Access
@@ -33,8 +40,36 @@ function Assert-PublicRead([string]$FilePath) {
     ($_.FileSystemRights -band [System.Security.AccessControl.FileSystemRights]::ReadData)
   })) { throw ('Missing public-read permission: '+$FilePath) }
 }
+function Get-ProtectedSnapshot {
+  $protected=New-Object System.Collections.Generic.SortedDictionary[string,string]
+  $roots=@(
+    'games/3d-battle-chess',
+    'games/evil-wizard',
+    'geometric-lab',
+    'assets/fusion-presentation.mp4',
+    'site-theme.js',
+    'site-scenes.js',
+    'site-audio.js',
+    'site-sound-control.js',
+    'site-scenes.css'
+  )
+  foreach ($relative in $roots) {
+    $path=Join-Path $PublicRoot $relative
+    if (-not (Test-Path -LiteralPath $path)) { throw ('Protected path is missing: '+$relative) }
+    if ([System.IO.Directory]::Exists($path)) {
+      foreach ($file in Get-ChildItem -LiteralPath $path -File -Recurse | Sort-Object FullName) {
+        $name=$file.FullName.Substring($PublicRoot.Length).TrimStart([char[]]@('\','/')) -replace '\\','/'
+        $protected[$name]=(Get-FileHash -Algorithm SHA256 -LiteralPath $file.FullName).Hash.ToLowerInvariant()
+      }
+    } else {
+      $protected[$relative]=(Get-FileHash -Algorithm SHA256 -LiteralPath $path).Hash.ToLowerInvariant()
+    }
+  }
+  return ,$protected
+}
 
 # Preflight every reviewed source and old live byte before creating anything.
+$protectedBefore=Get-ProtectedSnapshot
 $seen=[System.Collections.Generic.HashSet[string]]::new([StringComparer]::OrdinalIgnoreCase)
 foreach ($entry in $manifest.files) {
   $allowed=$entry.path -cmatch '^[a-z0-9-]+\.html$' -or
@@ -106,6 +141,7 @@ try {
         $type=[string]$response.Content.Headers.ContentType.MediaType
         if ($entry.path -like '*.vtt' -and $type -ne 'text/vtt') { throw ('Caption MIME failed: '+$entry.path+' '+$type) }
         if ($entry.path -like '*.mp4' -and $type -ne 'video/mp4') { throw ('Video MIME failed: '+$entry.path+' '+$type) }
+        if ($entry.path -like '*.svg' -and $type -ne 'image/svg+xml') { throw ('SVG MIME failed: '+$entry.path+' '+$type) }
         $bytes=$response.Content.ReadAsByteArrayAsync().GetAwaiter().GetResult()
         $hash=[System.Security.Cryptography.SHA256]::Create()
         try { $actual=([BitConverter]::ToString($hash.ComputeHash($bytes))).Replace('-','') } finally { $hash.Dispose() }
@@ -122,6 +158,13 @@ try {
         if ([int]$response.StatusCode -ne 206 -or $response.Content.Headers.ContentRange.From -ne 0 -or
             $response.Content.Headers.ContentRange.To -ne 1023) { throw ('Video byte range failed: '+$entry.path) }
       } finally { $response.Dispose();$request.Dispose() }
+    }
+    $protectedAfter=Get-ProtectedSnapshot
+    if ($protectedBefore.Count -ne $protectedAfter.Count) { throw 'Protected path inventory changed during release' }
+    foreach ($name in $protectedBefore.Keys) {
+      if (-not $protectedAfter.ContainsKey($name) -or $protectedAfter[$name] -ne $protectedBefore[$name]) {
+        throw ('Protected path changed during release: '+$name)
+      }
     }
   } finally { $client.Dispose() }
 } catch {

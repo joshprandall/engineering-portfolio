@@ -28,11 +28,11 @@ const server = http.createServer((req, res) => {
     await page.locator('#vuln-run').click();
     assert.match(await page.locator('#vuln-output').textContent(), /No boundary escape reproduced/);
     assert.match(await page.locator('#vuln-output').textContent(), /\/srv\/app\/public\/index.txt/);
-    const image = page.locator('img[src="assets/content/security-boundary.svg"]');
+    const image = page.locator('img[src="assets/content/security-boundary.svg?v=20261003-professional-content-v3"]');
     await image.scrollIntoViewIfNeeded();
     await image.evaluate(el => el.decode());
     assert.equal(await image.evaluate(el => el.complete && el.naturalWidth > 0), true);
-    assert.equal(await page.locator('video[controls][preload="none"] track[kind="captions"]').getAttribute('src'), 'assets/content/security-method.vtt');
+    assert.equal(await page.locator('video[controls][preload="none"] track[kind="captions"]').getAttribute('src'), 'assets/content/security-method.vtt?v=20261003-professional-content-v3');
     assert.match(await page.locator('main').textContent(), /Video transcript: virtual path-boundary walkthrough/);
     assert.deepEqual(errors, []);
     console.log('PASS Security content: escape and allowed-path controls, rendered original visual, video captions and transcript.');

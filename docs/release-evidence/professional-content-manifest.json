@@ -1,10 +1,11 @@
 {
-  "version": "20261003-professional-content-v2",
+  "version": "20261003-professional-content-v3",
+  "payloadCommit": "b052862258c02949d09d3f999d8d335904772307",
   "publicUrl": "https://web.engr.oregonstate.edu/~randjosh/",
   "files": [
     {
       "path": "ai-development.html",
-      "sha256": "5d6cac1b923fc29043b725fefa8cc0afde996c37124c073b3ba7c31d70976e05",
+      "sha256": "251cc40daeff84370423e4cdd11534eb250db5dd78bb06a158bd40ba18bbbe85",
       "previousSha256": "1d2a13ac0a633a9aa33d4e95766e3bdc99726ca9190da063f940d726ec0e10df"
     },
     {
@@ -89,7 +90,7 @@
     },
     {
       "path": "learn-physics.html",
-      "sha256": "a958bd1836b8af304103b6f255479901c7f2c8efdc2804e186ea6c2ecd240651",
+      "sha256": "fd05e91e114c04d99d53bfa28767745e8fd861756bf36a81ca276e628a582e20",
       "previousSha256": "dcaed05cc40f45969a24a0b79fe43fac5a390be6d1c7bf61b9d15a35f068bb04"
     },
     {
@@ -99,32 +100,32 @@
     },
     {
       "path": "learn.html",
-      "sha256": "3550a3392473c0102276773add88a159958c4bad7e10ec0bf6498ee1c75e30d6",
+      "sha256": "18877ae96643050d522a7e4819bc9898e6584fddcd6e78266adc127893909224",
       "previousSha256": "76b59f25263d8981f61a5a5ee3a6a455caf477c7384cd8b8b73a68f571dcb977"
     },
     {
       "path": "project-asset-inventory.html",
-      "sha256": "533989cc08173c24393a4c58f3d3e88b7c6abec5e7ac28c65af15e60108adf16",
+      "sha256": "e6551c081ae69e77818d4ab90de150b7832b90639def7bed449a31a188d6c861",
       "previousSha256": "610f2b643c4012ee2c2b4e326deff3e4511825ade64fe45d703940956ad79316"
     },
     {
       "path": "project-dependency.html",
-      "sha256": "6664722299ea9200e92707edbeda2017e25e6d7121d977444bda3880bf1a4554",
+      "sha256": "c2b17820b4013032376d3b34dd4aaf438553185d5668a646ee1919ef31ad15c5",
       "previousSha256": "b7100092a76420e153fa7104638e82db8d3c8f255877463b41ca085d7d5a097e"
     },
     {
       "path": "project-kubernetes-lab.html",
-      "sha256": "789f2e825e2fbad5ff9db196357e2fcf801698100fbfacf92613301b444803cf",
+      "sha256": "3f9111d600a34f942cdee22d093fecaa79a865edce8141f619a4bb38e0a982cb",
       "previousSha256": "cf9aeb9b2fa8f4a53fc4b24915c4af9e0502747a9f579bae5017889b770caac3"
     },
     {
       "path": "projects.html",
-      "sha256": "44feedea9d2743fbeb2691429e51ef0726f929fafd70fb964a9bf4e2ac7f2829",
+      "sha256": "b77ff8f434d05e796f462222e235f7d26f554b30ea53b0cd233cbb57be43d8a5",
       "previousSha256": "26ba164d4a77ae119ef502ffa3f463fb6d2a8bb849f6c10bf419731bcefc69dc"
     },
     {
       "path": "security-research.html",
-      "sha256": "adabe42a3e894602129446f86037273ea29f6cf6731fa40749a84f705be9aac3",
+      "sha256": "b77d56f8cad86696d2a5a2a3799ae6413047d887d8506e417be339441ab2f655",
       "previousSha256": "d451fc51889f55ee656af53d29bf6435d8678cea45d15756ca298cfc846321ac"
     },
     {

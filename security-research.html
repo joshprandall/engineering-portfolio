@@ -22,7 +22,7 @@
   <script defer src="site-search.js"></script>
 
   <script defer src="site-resilience.js"></script>
-  <script defer src="security-research.js?v=20261003-content-v1"></script>
+  <script defer src="security-research.js?v=20261003-professional-content-v3"></script>
 <script defer src="site-scenes.js?v=20261002-audio-planets-v4"></script><script defer src="site-audio.js?v=20261002-audio-planets-v4"></script><script defer src="site-sound-control.js?v=20261002-audio-planets-v4"></script><link rel="stylesheet" href="learning-experiments.css?v=20261002-content"></head>
 <body class="destination-page security-research-page">
 <a class="skip" href="#main">Skip to content</a>
@@ -64,7 +64,7 @@
       <h3 id="security-case-title">From a modeled threat to a verifiable fix</h3>
       <p><strong>Asset and boundary.</strong> A fictional document service permits requests under <code>/srv/app/public</code>; its virtual secret lies outside that root. The modeled actor can supply a relative document path, but has no filesystem or network access in this browser exercise.</p>
       <figure>
-        <img src="assets/content/security-boundary.svg" width="960" height="480" loading="lazy" alt="Flow diagram: user path enters a virtual resolver; an unbounded normalization reaches an out-of-root secret, while a bounded resolver rejects the escape before access." style="display:block;max-width:100%;height:auto"/>
+        <img src="assets/content/security-boundary.svg?v=20261003-professional-content-v3" width="960" height="480" loading="lazy" alt="Flow diagram: user path enters a virtual resolver; an unbounded normalization reaches an out-of-root secret, while a bounded resolver rejects the escape before access." style="display:block;max-width:100%;height:auto"/>
         <figcaption>Original diagram of the synthetic trust boundary. The paths are teaching fixtures, not a measurement of a deployed service.</figcaption>
       </figure>
       <ol>
@@ -74,9 +74,9 @@
         <li><strong>Mitigation and regression:</strong> resolve against the intended root, enforce containment after canonicalization, then test both an escape and an allowed path. In a real service also consider symlinks, encoded separators, platform path rules, race conditions, and authorization per object.</li>
       </ol>
       <p><strong>Conclusion supported here:</strong> the supplied in-memory resolver model rejects this traversal case after its boundary check. That result alone cannot establish that an unrelated production application is safe.</p>
-      <video controls preload="none" playsinline width="960" poster="assets/content/security-boundary.svg" aria-label="Captioned walkthrough of the synthetic path boundary case" style="display:block;max-width:100%;height:auto;margin-top:1rem">
-        <source src="assets/content/security-method.mp4" type="video/mp4"/>
-        <track kind="captions" src="assets/content/security-method.vtt" srclang="en" label="English" default/>
+      <video controls preload="none" playsinline width="960" poster="assets/content/security-boundary.svg?v=20261003-professional-content-v3" aria-label="Captioned walkthrough of the synthetic path boundary case" style="display:block;max-width:100%;height:auto;margin-top:1rem">
+        <source src="assets/content/security-method.mp4?v=20261003-professional-content-v3" type="video/mp4"/>
+        <track kind="captions" src="assets/content/security-method.vtt?v=20261003-professional-content-v3" srclang="en" label="English" default/>
         <p>The video cannot play in this browser. The complete walkthrough appears below.</p>
       </video>
       <details><summary>Video transcript: virtual path-boundary walkthrough</summary><p>First, define the authorized virtual root and the document path controlled by the requester. Enter the synthetic parent-directory case in the path-boundary analyzer. The vulnerable resolver normalizes it outside the root; the bounded resolver rejects it. Compare with an allowed in-root path. Preserve the exact input, outputs, and expected result as a regression case. This simulation does not read files or test a live service.</p></details>
