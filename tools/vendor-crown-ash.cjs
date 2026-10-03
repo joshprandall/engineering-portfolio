@@ -9,6 +9,7 @@ if(manifest.version!=='0.180.0')throw Error(`Expected three 0.180.0, found ${man
 
 const files=[
  ['build/three.module.js','three.module.js'],
+ ['build/three.core.js','three.core.js'],
  ['examples/jsm/controls/OrbitControls.js','addons/controls/OrbitControls.js'],
  ['LICENSE','LICENSE']
 ];
