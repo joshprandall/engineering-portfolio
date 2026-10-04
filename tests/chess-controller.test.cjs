@@ -42,9 +42,10 @@ const sleep=ms=>new Promise(r=>setTimeout(r,ms));
   };
   const stick=async(x,y)=>{
    await page.evaluate(([x,y])=>{window.__testPad.axes[0]=x;window.__testPad.axes[1]=y;window.__testPad.timestamp++;},[x,y]);
-   await sleep(210);
+   // A short deflection is one deliberate step; the neutral cooldown exceeds the game's 170 ms repeat interval.
+   await sleep(70);
    await page.evaluate(()=>{window.__testPad.axes[0]=0;window.__testPad.axes[1]=0;window.__testPad.timestamp++;});
-   await sleep(80);
+   await sleep(190);
   };
 
   await stick(1,0);
