@@ -31,6 +31,15 @@ function write(key,value){
  try{storage()?.setItem(key,JSON.stringify(value));return true}catch{return false}
 }
 
+function remove(key){
+ try{storage()?.removeItem(key);return true}catch{return false}
+}
+
+function validGameRecord(record){
+ if(!record||![1,2].includes(record.version)||!Array.isArray(record.moves)||record.moves.length>1000)return false;
+ return record.moves.every(move=>move&&/^[a-h][1-8]$/.test(move.from)&&/^[a-h][1-8]$/.test(move.to)&&(!move.promotion||['q','r','b','n'].includes(move.promotion)));
+}
+
 export function normalizeSettings(value={}){
  const next={...DEFAULT_SETTINGS};
  for(const key of Object.keys(choices))if(choices[key].has(String(value[key])))next[key]=String(value[key]);
@@ -44,7 +53,10 @@ export function saveSettings(value){const next=normalizeSettings(value);write(SE
 
 export function loadSavedMatch(){
  const saved=read(MATCH_KEY);
- if(!saved||saved.version!==1||!saved.game||!saved.settings)return null;
+ if(!saved||saved.version!==1||!saved.settings||!validGameRecord(saved.game)){
+  if(saved)remove(MATCH_KEY);
+  return null;
+ }
  return {...saved,settings:normalizeSettings(saved.settings)};
 }
 
@@ -53,9 +65,7 @@ export function saveMatch({game,settings,flipped=false}){
  return write(MATCH_KEY,saved)?saved:null;
 }
 
-export function clearSavedMatch(){
- try{storage()?.removeItem(MATCH_KEY);return true}catch{return false}
-}
+export function clearSavedMatch(){return remove(MATCH_KEY)}
 
 export function savedMatchSummary(saved=loadSavedMatch()){
  if(!saved)return null;
