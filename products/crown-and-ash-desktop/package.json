@@ -2,8 +2,8 @@
   "name": "crown-and-ash-desktop",
   "version": "0.2.0",
   "private": true,
-  "description": "Offline Windows desktop distribution of Crown & Ash by Roughneck Games.",
-  "author": "Joshua Randall / Roughneck Games",
+  "description": "Offline Windows desktop distribution of Crown & Ash, a CindrVault title under Roughneck Forge.",
+  "author": "Joshua Randall / Roughneck Forge / CindrVault",
   "main": "main.cjs",
   "scripts": {
     "sync-game": "node sync-game.cjs",
@@ -33,7 +33,9 @@
       "target": [
         {
           "target": "nsis",
-          "arch": ["x64"]
+          "arch": [
+            "x64"
+          ]
         }
       ]
     },
