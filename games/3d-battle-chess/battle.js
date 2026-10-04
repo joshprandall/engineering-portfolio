@@ -381,10 +381,11 @@ function boardKeyboard(e){
 }
 function applyQuality(){
  if(!renderer)return;
- const high=quality==='high'||quality==='auto'&&(navigator.hardwareConcurrency||4)>=8&&(devicePixelRatio||1)<=2.5;
- const performance=quality==='performance';
- renderer.setPixelRatio(Math.min(devicePixelRatio||1,performance?1:high?2:1.5));
- renderer.shadowMap.enabled=!performance;
+ const dpr=devicePixelRatio||1,cores=navigator.hardwareConcurrency||4,memory=Number(navigator.deviceMemory||0);
+ const performance=quality==='performance',constrainedAuto=quality==='auto'&&(handheldDevice()||cores<6||(memory>0&&memory<=4));
+ const high=quality==='high'||quality==='auto'&&!constrainedAuto&&cores>=8&&dpr<=2.5;
+ renderer.setPixelRatio(Math.min(dpr,performance||constrainedAuto?1:high?2:1.5));
+ renderer.shadowMap.enabled=quality==='high'||quality==='auto'&&!constrainedAuto;
  if(renderer.shadowMap.enabled)renderer.shadowMap.needsUpdate=true;
 }
 function toggleCombat(){animatedCombat=!animatedCombat;syncCombatUI();persistSettings();persistMatch();notice(animatedCombat?'Animated battles enabled.':'Animated battles disabled for faster play.')}
@@ -405,7 +406,12 @@ function gamepadLoop(){
  if(pad){
   const pressed=pad.buttons.map(button=>button.pressed),edge=index=>pressed[index]&&!lastGamepadButtons[index];
   const now=performance.now(),axisReady=!gamepadLoop.lastAxis||now-gamepadLoop.lastAxis>170;
-  let dx=0,dy=0;if(axisReady){if(pad.axes[0]<-.55||pad.axes[6]<-.55)dx=-1;else if(pad.axes[0]>.55||pad.axes[6]>.55)dx=1;if(pad.axes[1]<-.55||pad.axes[7]<-.55)dy=-1;else if(pad.axes[1]>.55||pad.axes[7]>.55)dy=1;if(dx||dy){keyboardCursor=true;nudgeCursor(dx,dy);gamepadLoop.lastAxis=now}}
+  let dx=0,dy=0;
+  // Standard Gamepad mapping exposes D-pad as buttons 12–15 on Xbox and PlayStation controllers.
+  if(edge(14))dx=-1;else if(edge(15))dx=1;
+  if(edge(12))dy=-1;else if(edge(13))dy=1;
+  if(dx||dy){keyboardCursor=true;nudgeCursor(dx,dy)}
+  else if(axisReady){if(pad.axes[0]<-.55||pad.axes[6]<-.55)dx=-1;else if(pad.axes[0]>.55||pad.axes[6]>.55)dx=1;if(pad.axes[1]<-.55||pad.axes[7]<-.55)dy=-1;else if(pad.axes[1]>.55||pad.axes[7]>.55)dy=1;if(dx||dy){keyboardCursor=true;nudgeCursor(dx,dy);gamepadLoop.lastAxis=now}}
   if(edge(0)){keyboardCursor=true;chooseSquare(handCursor.x,handCursor.y)}
   if(edge(1)){selected=null;legal=[];highlight()}
   if(edge(2))flipBoard();
