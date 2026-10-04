@@ -51,6 +51,18 @@ jobs:
       - name: Verify productization contract
         run: node tests/chess-productization.test.mjs
 
+      - name: Verify 30-character roster integrity
+        run: node tests/chess-roster-integrity.test.mjs
+
+      - name: Verify faction audio behavior
+        run: node tests/chess-audio.test.mjs
+
+      - name: Verify Xbox and PlayStation-compatible controller behavior
+        env:
+          PORTFOLIO_RUNTIME_ROOT: ${{ github.workspace }}
+          PORTFOLIO_BROWSER_EXECUTABLE: C:\Program Files\Google\Chrome\Application\chrome.exe
+        run: node tests/chess-controller.test.cjs
+
       - name: Verify complete browser gameplay
         env:
           PORTFOLIO_RUNTIME_ROOT: ${{ github.workspace }}
@@ -64,6 +76,31 @@ jobs:
       - name: Build Windows installer
         working-directory: products/crown-and-ash-desktop
         run: npm run dist:win
+
+      - name: Smoke-test packaged Windows runtime
+        working-directory: products/crown-and-ash-desktop
+        shell: pwsh
+        env:
+          CROWN_ASH_SMOKE: "1"
+        run: |
+          $exe = Get-ChildItem -Path "dist/win-unpacked" -Filter "*.exe" -File |
+            Where-Object { $_.Name -notmatch "^(elevate|Uninstall)" } |
+            Select-Object -First 1
+          if (-not $exe) {
+            throw "Packaged Crown & Ash executable not found in dist/win-unpacked."
+          }
+
+          Write-Host "Launching packaged smoke target: $($exe.FullName)"
+          $process = Start-Process -FilePath $exe.FullName -PassThru
+          if (-not $process.WaitForExit(45000)) {
+            try { $process.Kill($true) } catch {}
+            throw "Packaged Crown & Ash smoke test timed out after 45 seconds."
+          }
+          if ($process.ExitCode -ne 0) {
+            throw "Packaged Crown & Ash smoke test failed with exit code $($process.ExitCode)."
+          }
+
+          Write-Host "Packaged Crown & Ash smoke test passed."
 
       - name: Upload unsigned Windows test build
         uses: actions/upload-artifact@v4
