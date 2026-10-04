@@ -16,7 +16,7 @@
     "electron-builder": "26.15.3"
   },
   "build": {
-    "appId": "com.roughneckforge.crownandash",
+    "appId": "com.roughneckgames.crownandash",
     "productName": "Crown & Ash",
     "artifactName": "Crown-and-Ash-${version}-${arch}.${ext}",
     "asar": true,
