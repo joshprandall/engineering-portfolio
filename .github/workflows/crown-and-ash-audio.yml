@@ -1,0 +1,24 @@
+name: Crown & Ash Audio
+
+on:
+  pull_request:
+    paths:
+      - "games/3d-battle-chess/audio.js"
+      - "tests/chess-audio.test.mjs"
+      - ".github/workflows/crown-and-ash-audio.yml"
+
+jobs:
+  verify-audio:
+    runs-on: windows-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+
+      - name: Verify faction audio behavior
+        run: node tests/chess-audio.test.mjs
