@@ -28,8 +28,9 @@ const sleep=ms=>new Promise(r=>setTimeout(r,ms));
   await page.locator('#setupSound').uncheck();
   await page.locator('#startGameBtn').click();
   await page.waitForFunction(()=>document.querySelector('#board2d').children.length===64);
-  // Let the requestAnimationFrame-driven gamepad poller observe the synthetic standard controller before the first input pulse.
-  await sleep(250);
+  // The emergency 2D board can appear before the advanced module is ready. The hidden renderer canvas proves init3D/connectButtons/gamepadLoop have completed.
+  await page.waitForFunction(()=>!!document.querySelector('#scene canvas'),{},{timeout:15000});
+  await sleep(100);
 
   const game=()=>page.evaluate(async()=>{const {game}=await import('/games/3d-battle-chess/shared-game.js');return{moves:game.moves.map(m=>({...m})),turn:game.turn};});
   const cursor=()=>page.locator('#board2d .cursor').evaluate(el=>({x:Number(el.dataset.x),y:Number(el.dataset.y)}));
