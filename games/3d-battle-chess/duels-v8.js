@@ -5,6 +5,17 @@ import {PALETTES} from './pieces.js';
 
 const STEP=1/120;
 const material=(color,emissive=0)=>new THREE.MeshStandardMaterial({color,roughness:.56,metalness:.24,emissive,emissiveIntensity:emissive ? .30 : 0});
+const clamp01=x=>Math.max(0,Math.min(1,x));
+const ease=x=>{x=clamp01(x);return x*x*(3-2*x);};
+const CAMERA_LANE={p:-.28,n:.52,b:-.42,r:.18,q:.68,k:-.58};
+const CAMERA_DISTANCE={melee:5.55,body:5.30,'teleport-melee':5.15,projectile:6.25,beam:6.45,area:6.65};
+function duelCameraCue({time,pose,contactAge,role,kind,mobile}){
+ const phase=pose?.state==='anticipate'?pose.t*.22:pose?.state==='commit'?.22+pose.t*.78:['contact','follow-through','recover','complete'].includes(pose?.state)?1:0;
+ const hit=contactAge>=0?Math.exp(-contactAge*5.5):0,lane=(CAMERA_LANE[role]||0)*(.35+phase*.65);
+ const distance=(CAMERA_DISTANCE[kind]||5.8)-phase*.42-hit*.22;
+ const height=(mobile?2.18:2.48)+(kind==='body'?.10:kind==='area'?.16:0)+hit*.08;
+ return {position:[lane,height,distance],target:[lane*.08,1.04+hit*.04,0],blend:ease(time/.34)};
+}
 
 export function animateDuelV8({source,victim,theme='classic',role='p',fxGroup,camera,orbit,boardGroup,pieceGroup,reducedMotion=false,onImpact}){
  if(!source||!victim||reducedMotion){onImpact?.();return Promise.resolve({impacts:1,skipped:!!reducedMotion,v8:true});}
@@ -29,7 +40,7 @@ export function animateDuelV8({source,victim,theme='classic',role='p',fxGroup,ca
  const caption=document.createElement('div');caption.style.cssText='position:absolute;bottom:60px;left:50%;transform:translateX(-50%);width:max-content;max-width:calc(100% - 24px);text-align:center;background:#081824e8;border:1px solid #58778b;border-radius:10px;padding:8px 12px';
  caption.textContent=`${attackDef.name} takes position`;head.append(title,skip);ui.append(head,caption);stage?.append(ui);
  boardGroup.visible=false;pieceGroup.visible=false;orbit.enabled=false;
- const mobile=camera.aspect<.85,cameraGoal=new THREE.Vector3(0,mobile?2.25:2.5,mobile?5.0:6.15),targetGoal=new THREE.Vector3(0,1.05,0);
+ const mobile=camera.aspect<.85,attackKind=director.runtime.attack.kind,cameraGoal=new THREE.Vector3(),targetGoal=new THREE.Vector3();
  const state={done:false,skipped:false,impactCalled:false,time:0,phase:''};skip.onclick=()=>{state.skipped=true;};
  const oldOnImpact=onImpact;
  // Director owns the physical contact event. We track it from the result to avoid
@@ -57,7 +68,8 @@ export function animateDuelV8({source,victim,theme='classic',role='p',fxGroup,ca
       pose.state==='commit'?`${attackDef.name}!`:
       pose.state==='follow-through'?'Following through':pose.state.replace('-', ' '));
    }
-   const cam=Math.min(1,state.time/.32);camera.position.lerpVectors(oldCamera,cameraGoal,cam);orbit.target.lerpVectors(oldTarget,targetGoal,cam);camera.lookAt(orbit.target);
+   const contactAge=lastResult?.contact?Math.max(0,state.time-lastResult.contact.time):-1,cue=duelCameraCue({time:state.time,pose,contactAge,role:attacker.t,kind:attackKind,mobile});
+   cameraGoal.set(...cue.position);targetGoal.set(...cue.target);camera.position.lerpVectors(oldCamera,cameraGoal,cue.blend);orbit.target.lerpVectors(oldTarget,targetGoal,cue.blend);camera.lookAt(orbit.target);
    if(lastResult?.complete||state.time>6){
     if(!state.impactCalled){state.impactCalled=true;oldOnImpact?.();}
     const impacts=lastResult?.contact?1:0;cleanup();resolve({impacts,skipped:false,v8:true,attack:attackDef.attack});return;
