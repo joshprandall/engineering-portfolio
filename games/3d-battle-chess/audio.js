@@ -19,7 +19,12 @@ export class GameAudio{
     return true;
   }
   setMode(mode){this.mode=mode==='2d'?'2d':'3d'}
-  setTheme(theme){this.theme=theme||'classic'}
+  setTheme(theme){
+    const next=theme||'classic';
+    if(next===this.theme)return;
+    this.theme=next;
+    if(this.ctx&&this.enabled&&this.music.length){this.stopMusic();this.startMusic();}
+  }
   async setEnabled(enabled){
     this.enabled=!!enabled;
     if(this.enabled)await this.ensure();
