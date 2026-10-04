@@ -28,7 +28,7 @@ on:
 jobs:
   verify-and-package:
     runs-on: windows-latest
-    timeout-minutes: 20
+    timeout-minutes: 25
     steps:
       - name: Check out source
         uses: actions/checkout@v4
@@ -64,6 +64,9 @@ jobs:
       - name: Build Windows installer
         working-directory: products/crown-and-ash-desktop
         run: npm run dist:win
+
+      - name: Verify installed Windows lifecycle
+        run: node tests/chess-windows-installed-smoke.cjs
 
       - name: Upload unsigned Windows test build
         uses: actions/upload-artifact@v4
