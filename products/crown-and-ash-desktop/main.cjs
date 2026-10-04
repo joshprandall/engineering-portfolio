@@ -1,7 +1,23 @@
+const fs=require('node:fs');
 const path=require('node:path');
 const {app,BrowserWindow,Menu,shell}=require('electron');
 
 app.setName('Crown & Ash');
+
+function finishSmoke(result,exitCode){
+ console.log(`CROWN_ASH_DESKTOP_READY ${JSON.stringify(result)}`);
+ const resultPath=process.env.CROWN_ASH_SMOKE_RESULT;
+ if(resultPath){
+  try{
+   fs.mkdirSync(path.dirname(resultPath),{recursive:true});
+   fs.writeFileSync(resultPath,JSON.stringify(result,null,2),'utf8');
+  }catch(error){
+   console.error(`CROWN_ASH_SMOKE_RESULT_WRITE_FAILED ${error.message}`);
+   exitCode=1;
+  }
+ }
+ app.exit(exitCode);
+}
 
 function createWindow(){
  const gameRoot=path.join(__dirname,'app');
@@ -38,11 +54,19 @@ function createWindow(){
   if(!app.isPackaged&&(input.key==='F12'||input.control&&input.shift&&input.key.toLowerCase()==='i'))window.webContents.toggleDevTools();
  });
  if(process.env.CROWN_ASH_SMOKE==='1'){
-  window.webContents.once('did-fail-load',(_event,code,description)=>{console.error(`CROWN_ASH_DESKTOP_LOAD_FAILED ${code} ${description}`);app.exit(1)});
+  window.webContents.once('did-fail-load',(_event,code,description)=>{
+   const result={ready:false,error:`load failed ${code}: ${description}`};
+   console.error(`CROWN_ASH_DESKTOP_LOAD_FAILED ${code} ${description}`);
+   finishSmoke(result,1);
+  });
   window.webContents.once('did-finish-load',async()=>{
-   const result=await window.webContents.executeJavaScript("({title:document.title,start:!!document.querySelector('#startGameBtn'),localThree:document.querySelector('script[type=importmap]')?.textContent.includes('./vendor/three/')})");
-   console.log(`CROWN_ASH_DESKTOP_READY ${JSON.stringify(result)}`);
-   app.exit(result.start&&result.localThree?0:1);
+   try{
+    const result=await window.webContents.executeJavaScript("({ready:true,title:document.title,start:!!document.querySelector('#startGameBtn'),localThree:document.querySelector('script[type=importmap]')?.textContent.includes('./vendor/three/')===true,desktopBridge:window.crownAndAshDesktop?.desktop===true,protocol:location.protocol})");
+    const ok=result.title==='Crown & Ash'&&result.start&&result.localThree&&result.desktopBridge&&result.protocol==='file:';
+    finishSmoke(result,ok?0:1);
+   }catch(error){
+    finishSmoke({ready:false,error:error.message},1);
+   }
   });
  }
  void window.loadFile(gameEntry);
