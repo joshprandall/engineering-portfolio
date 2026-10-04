@@ -36,9 +36,10 @@ const sleep=ms=>new Promise(r=>setTimeout(r,ms));
   const cursor=()=>page.locator('#board2d .cursor').evaluate(el=>({x:Number(el.dataset.x),y:Number(el.dataset.y)}));
   const pulse=async index=>{
    await page.evaluate(index=>{const b=window.__testPad.buttons[index];b.pressed=true;b.touched=true;b.value=1;window.__testPad.timestamp++;},index);
-   await sleep(70);
+   await sleep(90);
    await page.evaluate(index=>{const b=window.__testPad.buttons[index];b.pressed=false;b.touched=false;b.value=0;window.__testPad.timestamp++;},index);
-   await sleep(70);
+   // Leave enough neutral time for a low-FPS CI render frame to record release before the next edge.
+   await sleep(180);
   };
   const stick=async(x,y)=>{
    await page.evaluate(([x,y])=>{window.__testPad.axes[0]=x;window.__testPad.axes[1]=y;window.__testPad.timestamp++;},[x,y]);
