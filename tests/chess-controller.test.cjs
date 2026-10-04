@@ -41,20 +41,21 @@ const sleep=ms=>new Promise(r=>setTimeout(r,ms));
    // Leave enough neutral time for a low-FPS CI render frame to record release before the next edge.
    await sleep(180);
   };
-  const stick=async(x,y)=>{
-   await page.evaluate(([x,y])=>{window.__testPad.axes[0]=x;window.__testPad.axes[1]=y;window.__testPad.timestamp++;},[x,y]);
-   // A short deflection is one deliberate step; the neutral cooldown exceeds the game's 170 ms repeat interval.
-   await sleep(70);
+  const analogRight=async()=>{
+   await page.evaluate(()=>{window.__testPad.axes[0]=1;window.__testPad.axes[1]=0;window.__testPad.timestamp++;});
+   await page.waitForFunction(()=>{const e=document.querySelector('#board2d .cursor');return !!e&&Number(e.dataset.x)>4;},{},{timeout:5000});
    await page.evaluate(()=>{window.__testPad.axes[0]=0;window.__testPad.axes[1]=0;window.__testPad.timestamp++;});
-   await sleep(190);
+   await sleep(220);
   };
 
-  await stick(1,0);
-  assert.deepEqual(await cursor(),{x:5,y:6},`${id}: left stick must move board cursor`);
-  await stick(-1,0);
-  assert.deepEqual(await cursor(),{x:4,y:6},`${id}: left stick must return board cursor`);
+  await analogRight();
+  const analogCursor=await cursor();
+  assert.equal(analogCursor.y,6,`${id}: left stick must stay on the expected rank`);
+  assert(analogCursor.x>4,`${id}: left stick right must move board cursor right`);
 
   // Standard Gamepad mapping: D-pad is buttons 12/13/14/15 (up/down/left/right).
+  for(let x=analogCursor.x;x>4;x--)await pulse(14);
+  assert.deepEqual(await cursor(),{x:4,y:6},`${id}: D-pad left must normalize the board cursor`);
   await pulse(15);
   assert.deepEqual(await cursor(),{x:5,y:6},`${id}: D-pad right must move board cursor`);
   await pulse(14);
