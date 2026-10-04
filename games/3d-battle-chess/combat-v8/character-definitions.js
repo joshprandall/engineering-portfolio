@@ -6,8 +6,6 @@ export const RIG_TYPES={
   HEAVY:'heavy-biped',
   CASTER:'caster-biped',
   CREATURE:'creature',
-  FUNGAL:'fungal-creature',
-  SERPENT:'serpent-creature',
   MECH:'mech'
 };
 
@@ -38,10 +36,10 @@ export const CHARACTER_SETS={
   label:'Monsters',
   p:c('Goblin Raider',RIG_TYPES.CREATURE,'monsters-p-goblin-rush',0.72,'skittering','goblin','claws','ragdoll-tumble',{stance:'hunched'}),
   n:c('Dire Beast',RIG_TYPES.CREATURE,'monsters-n-dire-pounce',1.24,'quadruped','dire-beast','fangs','beast-roll',{stance:'predator',legs:4}),
-  b:c('Bog Shaman',RIG_TYPES.FUNGAL,'monsters-b-shaman-curse',0.90,'rooted','fungal-antlers','spore-orb','wilt-collapse',{stance:'rooted'}),
+  b:c('Bog Shaman',RIG_TYPES.CASTER,'monsters-b-shaman-curse',0.90,'shambling','fungal-antlers','spore-orb','wilt-collapse',{stance:'ritual'}),
   r:c('Ogre Brute',RIG_TYPES.HEAVY,'monsters-r-ogre-body-slam',2.65,'lumbering','ogre','fists','heavy-sprawl',{stance:'brawler'}),
   q:c('Winged Demon',RIG_TYPES.CREATURE,'monsters-q-demon-rake',1.18,'aerial','winged-demon','talons','wing-crash',{stance:'predator',wings:true}),
-  k:c('Horned Tyrant',RIG_TYPES.SERPENT,'monsters-k-tyrant-gore',2.05,'coiling','hooded-serpent','crown-horns','coil-collapse',{stance:'dominant'})
+  k:c('Horned Tyrant',RIG_TYPES.HEAVY,'monsters-k-tyrant-gore',2.05,'stomping','hooded-serpent','crown-horns','coil-collapse',{stance:'dominant'})
  },
  brick:{
   label:'Brick Battle',
