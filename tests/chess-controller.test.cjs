@@ -36,10 +36,10 @@ const sleep=ms=>new Promise(r=>setTimeout(r,ms));
   const cursor=()=>page.locator('#board2d .cursor').evaluate(el=>({x:Number(el.dataset.x),y:Number(el.dataset.y)}));
   const pulse=async index=>{
    await page.evaluate(index=>{const b=window.__testPad.buttons[index];b.pressed=true;b.touched=true;b.value=1;window.__testPad.timestamp++;},index);
-   await sleep(90);
+   // CI software rendering can drop below 10 fps; keep each synthetic edge visible across multiple frames.
+   await sleep(300);
    await page.evaluate(index=>{const b=window.__testPad.buttons[index];b.pressed=false;b.touched=false;b.value=0;window.__testPad.timestamp++;},index);
-   // Leave enough neutral time for a low-FPS CI render frame to record release before the next edge.
-   await sleep(180);
+   await sleep(300);
   };
   const analogRight=async()=>{
    await page.evaluate(()=>{window.__testPad.axes[0]=1;window.__testPad.axes[1]=0;window.__testPad.timestamp++;});
