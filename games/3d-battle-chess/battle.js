@@ -405,7 +405,12 @@ function gamepadLoop(){
  if(pad){
   const pressed=pad.buttons.map(button=>button.pressed),edge=index=>pressed[index]&&!lastGamepadButtons[index];
   const now=performance.now(),axisReady=!gamepadLoop.lastAxis||now-gamepadLoop.lastAxis>170;
-  let dx=0,dy=0;if(axisReady){if(pad.axes[0]<-.55||pad.axes[6]<-.55)dx=-1;else if(pad.axes[0]>.55||pad.axes[6]>.55)dx=1;if(pad.axes[1]<-.55||pad.axes[7]<-.55)dy=-1;else if(pad.axes[1]>.55||pad.axes[7]>.55)dy=1;if(dx||dy){keyboardCursor=true;nudgeCursor(dx,dy);gamepadLoop.lastAxis=now}}
+  let dx=0,dy=0;
+  // Standard Gamepad mapping exposes D-pad as buttons 12–15 on Xbox and PlayStation controllers.
+  if(edge(14))dx=-1;else if(edge(15))dx=1;
+  if(edge(12))dy=-1;else if(edge(13))dy=1;
+  if(dx||dy){keyboardCursor=true;nudgeCursor(dx,dy)}
+  else if(axisReady){if(pad.axes[0]<-.55||pad.axes[6]<-.55)dx=-1;else if(pad.axes[0]>.55||pad.axes[6]>.55)dx=1;if(pad.axes[1]<-.55||pad.axes[7]<-.55)dy=-1;else if(pad.axes[1]>.55||pad.axes[7]>.55)dy=1;if(dx||dy){keyboardCursor=true;nudgeCursor(dx,dy);gamepadLoop.lastAxis=now}}
   if(edge(0)){keyboardCursor=true;chooseSquare(handCursor.x,handCursor.y)}
   if(edge(1)){selected=null;legal=[];highlight()}
   if(edge(2))flipBoard();
