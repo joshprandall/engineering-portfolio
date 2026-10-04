@@ -36,17 +36,17 @@ export const CHARACTER_SETS={
   label:'Monsters',
   p:c('Goblin Raider',RIG_TYPES.CREATURE,'monsters-p-goblin-rush',0.72,'skittering','goblin','claws','ragdoll-tumble',{stance:'hunched'}),
   n:c('Dire Beast',RIG_TYPES.CREATURE,'monsters-n-dire-pounce',1.24,'quadruped','dire-beast','fangs','beast-roll',{stance:'predator',legs:4}),
-  b:c('Bog Shaman',RIG_TYPES.CASTER,'monsters-b-shaman-curse',0.90,'shambling','shaman-antlers','totem-staff','curse-collapse',{stance:'ritual'}),
+  b:c('Bog Shaman',RIG_TYPES.CASTER,'monsters-b-shaman-curse',0.90,'shambling','fungal-antlers','spore-orb','wilt-collapse',{stance:'ritual'}),
   r:c('Ogre Brute',RIG_TYPES.HEAVY,'monsters-r-ogre-body-slam',2.65,'lumbering','ogre','fists','heavy-sprawl',{stance:'brawler'}),
   q:c('Winged Demon',RIG_TYPES.CREATURE,'monsters-q-demon-rake',1.18,'aerial','winged-demon','talons','wing-crash',{stance:'predator',wings:true}),
-  k:c('Horned Tyrant',RIG_TYPES.HEAVY,'monsters-k-tyrant-gore',2.05,'stomping','horned-tyrant','horns','tyrant-fall',{stance:'dominant'})
+  k:c('Horned Tyrant',RIG_TYPES.HEAVY,'monsters-k-tyrant-gore',2.05,'stomping','hooded-serpent','crown-horns','coil-collapse',{stance:'dominant'})
  },
  brick:{
   label:'Brick Battle',
   p:c('Block Trooper',RIG_TYPES.STANDARD,'brick-p-block-jab',0.86,'toy-step','block-trooper','block-spear','brick-burst',{stance:'square'}),
   n:c('Spring Rider',RIG_TYPES.AGILE,'brick-n-spring-vault',1.00,'springy','spring-rider','spring-lance','brick-burst',{stance:'coiled'}),
   b:c('Gear Caster',RIG_TYPES.CASTER,'brick-b-gear-bolt',0.96,'clockwork','gear-caster','gear-wand','brick-burst',{stance:'mechanical'}),
-  r:c('Block Golem',RIG_TYPES.MECH,'brick-r-block-topple',2.55,'stomping','block-golem','block-fists','brick-collapse',{stance:'massive'}),
+  r:c('Bastion Golem',RIG_TYPES.MECH,'brick-r-block-topple',2.55,'stomping','bastion-golem','block-fists','brick-collapse',{stance:'massive'}),
   q:c('Spinner Champion',RIG_TYPES.AGILE,'brick-q-spinner-combo',1.12,'spinning','spinner-champion','dual-block-blades','brick-burst',{stance:'dynamic'}),
   k:c('Builder King',RIG_TYPES.HEAVY,'brick-k-builder-hammer',1.72,'deliberate','builder-king','builder-hammer','brick-collapse',{stance:'command'})
  },
@@ -55,7 +55,7 @@ export const CHARACTER_SETS={
   p:c('Pulse Trooper',RIG_TYPES.STANDARD,'cosmic-p-pulse-shot',0.88,'tactical','pulse-trooper','pulse-rifle','systems-fail',{stance:'ready'}),
   n:c('Jump-Jet Lancer',RIG_TYPES.AGILE,'cosmic-n-jet-lance',1.06,'jet-assisted','jet-lancer','energy-lance','jet-crash',{stance:'forward',jets:true}),
   b:c('Psionic Seer',RIG_TYPES.CASTER,'cosmic-b-psionic-lance',0.94,'hovering','psionic-seer','psi-focus','energy-collapse',{stance:'focus'}),
-  r:c('Siege Mech',RIG_TYPES.MECH,'cosmic-r-siege-cannon',3.10,'tracked-heavy','siege-mech','siege-cannon','mech-collapse',{stance:'weapons-platform'}),
+  r:c('Siege Organism',RIG_TYPES.MECH,'cosmic-r-siege-cannon',3.10,'tracked-heavy','siege-organism','siege-cannon','mech-collapse',{stance:'weapons-platform'}),
   q:c('Plasma Commander',RIG_TYPES.AGILE,'cosmic-q-plasma-orbit',1.26,'zero-g-fluid','plasma-commander','orbiting-plasma','energy-collapse',{stance:'command'}),
   k:c('Star Sovereign',RIG_TYPES.MECH,'cosmic-k-gravity-wave',1.90,'regal-hover','star-sovereign','gravity-core','core-shutdown',{stance:'regal'})
  }
