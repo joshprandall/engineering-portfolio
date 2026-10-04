@@ -51,6 +51,9 @@ jobs:
       - name: Verify productization contract
         run: node tests/chess-productization.test.mjs
 
+      - name: Verify 30-character roster integrity
+        run: node tests/chess-roster-integrity.test.mjs
+
       - name: Verify complete browser gameplay
         env:
           PORTFOLIO_RUNTIME_ROOT: ${{ github.workspace }}

@@ -34,7 +34,11 @@ export class ChessGame{
 }
 export function computerProfile(level=2){
  const n=Math.max(1,Math.min(3,Number(level)||2));
- return n===1?{level:1,name:'Recruit',depth:1,window:260}:n===3?{level:3,name:'Champion',depth:3,window:0}:{level:2,name:'Warrior',depth:2,window:55};
+ return n===1
+  ?{level:1,name:'Recruit',depth:1,window:320,pool:10,positional:.55,structure:.25,kingSafety:.15}
+  :n===3
+   ?{level:3,name:'Champion',depth:3,window:0,pool:1,positional:1.25,structure:1,kingSafety:1.15}
+   :{level:2,name:'Warrior',depth:2,window:45,pool:4,positional:.9,structure:.55,kingSafety:.6};
 }
 export function chooseComputerMove(game,level=2){
  const profile=computerProfile(level),values={p:100,n:320,b:330,r:500,q:900,k:0};
@@ -45,18 +49,38 @@ export function chooseComputerMove(game,level=2){
   const development=(p.t==='n'||p.t==='b')&&((p.c==='b'&&y>0)||(p.c==='w'&&y<7))?10:0;
   return advance+center*centerWeight+development;
  };
- const evaluate=()=>{
-  let sum=0;
+ const sideScore=color=>{
+  let score=0,bishops=0,king=null;
+  const pawns=Array(8).fill(0);
   for(let y=0;y<8;y++)for(let x=0;x<8;x++){
-   const p=game.piece(x,y);if(!p)continue;
-   const v=values[p.t]+positional(p,x,y);
-   sum+=(p.c==='b'?1:-1)*v;
+   const p=game.piece(x,y);if(!p||p.c!==color)continue;
+   score+=values[p.t]+positional(p,x,y)*profile.positional;
+   if(p.t==='b')bishops++;
+   if(p.t==='p')pawns[x]++;
+   if(p.t==='k')king={x,y};
   }
-  return sum;
+  if(bishops>=2)score+=24*profile.structure;
+  for(let file=0;file<8;file++){
+   if(pawns[file]>1)score-=(pawns[file]-1)*12*profile.structure;
+   if(pawns[file]&&!pawns[file-1]&&!pawns[file+1])score-=6*profile.structure;
+  }
+  if(king){
+   const homeY=color==='b'?0:7,shieldY=king.y+(color==='b'?1:-1);
+   if(king.y===homeY&&(king.x===2||king.x===6))score+=28*profile.kingSafety;
+   for(let dx=-1;dx<=1;dx++){
+    const x=king.x+dx,p=inside(x,shieldY)?game.piece(x,shieldY):null;
+    if(p?.c===color&&p.t==='p')score+=6*profile.kingSafety;
+   }
+  }
+  return score;
  };
+ const evaluate=()=>sideScore('b')-sideScore('w');
  const ordering=m=>{
   const target=game.piece(m.nx,m.ny),piece=game.piece(m.x,m.y);
-  return (target?values[target.t]+120:0)+(piece?.t==='p'&&(m.ny===0||m.ny===7)?800:0);
+  const capture=target?values[target.t]*10-(values[piece?.t]||0):0;
+  const promotion=piece?.t==='p'&&(m.ny===0||m.ny===7)?9000:0;
+  const castle=piece?.t==='k'&&Math.abs(m.nx-m.x)===2?180:0;
+  return capture+promotion+castle;
  };
  function search(ply,alpha,beta){
   const st=game.status();
@@ -76,6 +100,13 @@ export function chooseComputerMove(game,level=2){
  }
  const options=game.allLegal();
  if(!options.length)return null;
+ // Any level must convert a forced mate in one instead of randomizing it away.
+ for(const m of options){
+  game.move(m.x,m.y,m.nx,m.ny);
+  const st=game.status();
+  game.undo();
+  if(st.over&&st.winner==='b')return m;
+ }
  const scored=[];
  for(const m of options){
   game.move(m.x,m.y,m.nx,m.ny);
@@ -86,17 +117,9 @@ export function chooseComputerMove(game,level=2){
  scored.sort((a,b)=>b.v-a.v);
  const top=scored[0].v;
  const candidates=scored.filter(s=>top-s.v<=profile.window);
- if(profile.level===1){
-  // Recruit intentionally varies among plausible moves instead of always finding the engine's top line.
-  const pool=candidates.slice(0,Math.min(10,candidates.length));
-  return pool[Math.floor(Math.random()*pool.length)]?.m||scored[0].m;
- }
- if(profile.level===2){
-  // Warrior keeps modest variety while avoiding obvious large material losses.
-  const pool=candidates.slice(0,Math.min(4,candidates.length));
-  return pool[Math.floor(Math.random()*pool.length)]?.m||scored[0].m;
- }
- // Champion searches deepest and only randomizes exact ties.
+ const pool=candidates.slice(0,Math.min(profile.pool,candidates.length));
+ if(profile.level<3)return pool[Math.floor(Math.random()*pool.length)]?.m||scored[0].m;
+ // Champion is deterministic unless multiple lines are exactly equivalent.
  const best=scored.filter(s=>s.v===top);
  return best[Math.floor(Math.random()*best.length)]?.m||scored[0].m;
 }
