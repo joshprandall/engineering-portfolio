@@ -60,7 +60,7 @@ const roots=[
 
 const findInstalledExecutables=()=>roots.flatMap(root=>walk(
   root,
-  full=>path.basename(full).toLowerCase()==='crown & ash.exe'
+  full=>path.basename(full).toLowerCase()==='crown-and-ash.exe'
 ));
 
 const before=new Set(findInstalledExecutables());
@@ -70,7 +70,12 @@ let profile;
 
 try{
   console.log(`Installing Crown & Ash test package: ${installer}`);
-  run(installer,['/S'],{timeout:120_000,stdio:['ignore','pipe','pipe']});
+  const install=run(installer,['/S'],{timeout:120_000,stdio:['ignore','pipe','pipe']});
+  assert.doesNotMatch(
+    `${install.stdout||''}\n${install.stderr||''}`,
+    /is not recognized as an internal or external command/i,
+    'NSIS install emitted a Windows command-parsing error.'
+  );
 
   const appCandidates=findInstalledExecutables().filter(full=>{
     if(!before.has(full))return true;
@@ -79,6 +84,7 @@ try{
   assert(appCandidates.length>0,'Installed Crown & Ash executable was not found after silent NSIS install.');
   appCandidates.sort((a,b)=>fs.statSync(b).mtimeMs-fs.statSync(a).mtimeMs);
   appExe=appCandidates[0];
+  assert.equal(path.basename(appExe),'Crown-and-Ash.exe','Installed executable name must remain shell-safe.');
   console.log(`Installed executable: ${appExe}`);
 
   profile=fs.mkdtempSync(path.join(os.tmpdir(),'crown-ash-fresh-profile-'));
