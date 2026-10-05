@@ -7,7 +7,7 @@ const root=path.resolve(process.env.PORTFOLIO_RUNTIME_ROOT||path.join(__dirname,
 const pageUrl=pathToFileURL(path.join(root,'games','3d-battle-chess','index.html')).href;
 const sleep=ms=>new Promise(r=>setTimeout(r,ms));
 
-(async()=>{
+module.exports=(async()=>{
  const browser=await chromium.launch({
   headless:true,
   executablePath:process.env.PORTFOLIO_BROWSER_EXECUTABLE||undefined,
@@ -86,4 +86,4 @@ const sleep=ms=>new Promise(r=>setTimeout(r,ms));
  }finally{
   await browser.close();
  }
-})().catch(error=>{console.error(error);process.exitCode=1;});
+})().catch(error=>{console.error(error);process.exitCode=1;throw error;});
