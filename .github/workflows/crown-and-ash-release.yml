@@ -28,7 +28,7 @@ on:
 jobs:
   verify-and-package:
     runs-on: windows-latest
-    timeout-minutes: 20
+    timeout-minutes: 25
     steps:
       - name: Check out source
         uses: actions/checkout@v4
@@ -64,6 +64,17 @@ jobs:
       - name: Build Windows installer
         working-directory: products/crown-and-ash-desktop
         run: npm run dist:win
+
+      - name: Verify installed Windows lifecycle
+        shell: pwsh
+        run: |
+          $installer = Get-ChildItem -Path "products/crown-and-ash-desktop/dist" -Filter "Crown-and-Ash-*-x64.exe" -File |
+            Select-Object -First 1
+          if (-not $installer) {
+            throw "Crown & Ash NSIS installer not found."
+          }
+
+          node tests/chess-windows-installed-smoke.cjs $installer.FullName
 
       - name: Upload unsigned Windows test build
         uses: actions/upload-artifact@v4
