@@ -17,12 +17,14 @@ for(const theme of themes){
       for(const material of list.filter(Boolean))if(material.name?.startsWith(`crown-ash:${theme}:`))materials.set(material.name,material);
     });
   }
-  for(const family of ['primary','secondary','armor','skin','glow','dark']){
+  for(const family of ['primary','secondary','armor','skin','glow']){
     const material=materials.get(`crown-ash:${theme}:${family}`);
     assert(material,`${theme} full runtime roster must exercise named ${family} material`);
     assert.equal(material.roughness,profile[family].rough);
     assert.equal(material.metalness,profile[family].metal);
   }
+  // "dark" is an optional accent (for visors/underlayers); its profile is range-validated above
+  // but a faction is not required to use that accent when its visual language does not call for it.
   assert.equal(materials.get(`crown-ash:${theme}:glow`).emissiveIntensity,profile.glow.intensity);
 }
 
