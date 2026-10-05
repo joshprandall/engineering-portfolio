@@ -13,4 +13,4 @@ async function loadAdvanced(){
   else document.getElementById('state').textContent='3D is still unavailable. Your 2D game is unchanged.';
  }finally{loading=false;}
 }
-await loadAdvanced();
+try{await import('./controller-setup.js');}\ncatch(error){console.warn('Controller setup navigation unavailable:',error);}\nawait loadAdvanced();
