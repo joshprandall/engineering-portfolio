@@ -48,7 +48,7 @@ export function applyBoardPresence(group,{time=0,selected=null,turn='w',reducedM
     });
     const chosen=!!selected&&selected.x===data.x&&selected.y===data.y;
     const active=data.side===turn;
-    const bob=reducedMotion?0:Math.sin(time*1.7+(data.x||0)*.71+(data.y||0)*.43)*(.004+(active?.003:0));
+    const bob=reducedMotion?0:Math.sin(time*1.7+(data.x||0)*.71+(data.y||0)*.43)*(.004+(active ? .003 : 0));
     piece.position.y=base.y+bob+(chosen?.035:0);
     if(piece.scale?.setScalar)piece.scale.setScalar(base.scale*(1+(chosen?.025:0)));
     if(piece.rotation)piece.rotation.y=base.rotationY+(reducedMotion?0:Math.sin(time*.7+(data.x||0))*(chosen?.028:.008));
