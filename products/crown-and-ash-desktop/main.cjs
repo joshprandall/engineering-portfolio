@@ -4,7 +4,10 @@ const {app,BrowserWindow,Menu,shell}=require('electron');
 
 app.setName('Crown & Ash');
 
+let smokeFinished=false;
 function finishSmoke(result,exitCode){
+ if(smokeFinished)return;
+ smokeFinished=true;
  console.log(`CROWN_ASH_DESKTOP_READY ${JSON.stringify(result)}`);
  const resultPath=process.env.CROWN_ASH_SMOKE_RESULT;
  if(resultPath){
@@ -16,6 +19,7 @@ function finishSmoke(result,exitCode){
    exitCode=1;
   }
  }
+ process.exitCode=exitCode;
  app.exit(exitCode);
 }
 
