@@ -27,9 +27,11 @@ const server=http.createServer((req,res)=>{
  assert.deepEqual([...edition.capabilitiesFor('basic').themes],['classic']);
  assert.equal(edition.capabilitiesFor('basic').animatedCombat,false);
  assert.equal(edition.capabilitiesFor('basic').cinematicCaptures,false);
+ assert.equal(edition.capabilitiesFor('basic').livingBoardPresence,false);
  assert.deepEqual([...edition.capabilitiesFor('full').themes],['classic','arcane','monsters','brick','cosmic']);
  assert.equal(edition.capabilitiesFor('full').animatedCombat,true);
  assert.equal(edition.capabilitiesFor('full').cinematicCaptures,true);
+ assert.equal(edition.capabilitiesFor('full').livingBoardPresence,true);
 
  const preload=fs.readFileSync(path.join(root,'products','crown-and-ash-desktop','preload.cjs'),'utf8');
  assert.match(preload,/edition:'full'/,'desktop preload must identify the Full Edition');

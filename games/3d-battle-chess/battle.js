@@ -12,6 +12,7 @@ import {ATTACK_NAMES} from './attacks.js';
 import {GameAudio} from './audio.js';
 import {loadSettings,saveSettings,loadSavedMatch,saveMatch,savedMatchSummary} from './game-storage.js';
 import {currentEdition,currentCapabilities,FULL_EDITION} from './edition.js';
+import {applyBoardPresence} from './board-presence.js';
 
 const $=s=>document.querySelector(s);
 const sceneEl=$('#scene'),board2d=$('#board2d'),logEl=$('#log'),turnEl=$('#turn'),stateEl=$('#state'),gameShell=$('#gameShell'),setupScreen=$('#setupScreen'),rotateGate=$('#rotateGate'),audio=new GameAudio();
@@ -494,7 +495,7 @@ function init3D(){
  boardGroup=new THREE.Group();pieceGroup=new THREE.Group();fxGroup=new THREE.Group();scene.add(boardGroup,pieceGroup,fxGroup);webglReady=true;
  createBoard();
  const resize=()=>{if(viewMode!=='3d')return;const w=Math.max(1,sceneEl.clientWidth),h=Math.max(1,sceneEl.clientHeight);renderer.setSize(w,h,false);camera.aspect=w/h;camera.fov=camera.aspect<.85?62:43;camera.updateProjectionMatrix()};
- new ResizeObserver(resize).observe(sceneEl);resize();renderer.setAnimationLoop(()=>{if(started&&viewMode==='3d'&&!document.hidden){orbit.update();renderer.render(scene,camera)}});
+ new ResizeObserver(resize).observe(sceneEl);resize();renderer.setAnimationLoop(()=>{if(started&&viewMode==='3d'&&!document.hidden){if(capabilities.livingBoardPresence&&!busy)applyBoardPresence(pieceGroup,{time:performance.now()/1000,selected,turn:game.turn,reducedMotion});orbit.update();renderer.render(scene,camera)}});
  return true;
 }
 function init(){

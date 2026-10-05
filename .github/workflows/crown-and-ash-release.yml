@@ -54,6 +54,9 @@ jobs:
       - name: Verify 30-character roster integrity
         run: node tests/chess-roster-integrity.test.mjs
 
+      - name: Verify Full Edition living board presence
+        run: node tests/chess-board-presence.test.mjs
+
       - name: Verify faction audio behavior
         run: node tests/chess-audio.test.mjs
 

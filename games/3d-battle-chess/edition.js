@@ -8,7 +8,8 @@ const BASIC_CAPABILITIES=Object.freeze({
  animatedCombat:false,
  cinematicCaptures:false,
  premiumFactions:false,
- premiumAudio:false
+ premiumAudio:false,
+ livingBoardPresence:false
 });
 
 const FULL_CAPABILITIES=Object.freeze({
@@ -18,7 +19,8 @@ const FULL_CAPABILITIES=Object.freeze({
  animatedCombat:true,
  cinematicCaptures:true,
  premiumFactions:true,
- premiumAudio:true
+ premiumAudio:true,
+ livingBoardPresence:true
 });
 
 export function resolveEdition({desktop=false,edition='',protocol=''}={}){
