@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en" id="top">
+<head>
+<script src="site-theme.js?v=20260929-ambience-phone-v2"></script>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Quantum learning from intuitive foundations through mathematics, circuits, algorithms, noise, error correction, hardware, programming, post-quantum cryptography and current 2026 research.">
+<title>Quantum | Learn | Joshua Randall</title>
+<link rel="icon" href="assets/favicon.svg"><link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="site-resilience.css"><link rel="stylesheet" href="site-scenes.css?v=20260929-ambience-phone-v2"><link rel="stylesheet" href="site-sections.css"><link rel="stylesheet" href="site-responsive.css?v=20260929-glass-controls"><link rel="stylesheet" href="learning-hubs.css?v=20261004-knowledge">
+<script defer src="site-navigation.js"></script><script defer src="site-search.js"></script><script defer src="site-resilience.js"></script><script defer src="site-scenes.js?v=20260929-ambience-phone-v2"></script><script defer src="site-audio.js?v=20260929-ambience-phone-v2"></script><script defer src="site-sound-control.js?v=20260929-ambience-phone-v2"></script><script defer src="quantum-lab.js?v=20261004-knowledge"></script>
+</head>
+<body class="destination-page"><a class="skip" href="#main">Skip to content</a>
+<header class="site-global-header"><a class="brand" href="index.html" aria-label="Joshua Randall home"><strong>JR</strong><span>Joshua Randall<small>Systems. Software. Possibility.</small></span></a><nav id="primary-nav" aria-label="Primary"><a href="index.html">Home</a><a href="about.html">About Me</a><a href="expertise-experience.html">Expertise &amp; Experience</a><a href="resume.html">Résumé</a><a href="direction.html">Direction</a><a href="projects.html">Projects</a><a href="learn.html">Learn</a><a href="game-development.html">Game Development</a><a href="ai-development.html">AI Development</a></nav><div class="global-controls tools"><button id="search-open" aria-label="Search portfolio">⌕ <span>Search</span><kbd>/</kbd></button><button id="theme" data-theme-toggle aria-label="Switch color theme">◐</button><button id="menu" aria-controls="primary-nav" aria-expanded="false" aria-label="Open navigation">☰</button></div></header>
+
+<main id="main" class="learning-hub">
+<section class="wrap hub-hero">
+<p class="eyebrow">LEARN / QUANTUM / INTUITION → MATHEMATICS → HARDWARE → RESEARCH</p>
+<h1>Quantum, from<br><em>“what is a qubit?” to fault tolerance.</em></h1>
+<p class="hub-lede">Start without assuming prior quantum mechanics. Build the mathematics only when it earns its keep. Then move through state vectors, measurement, phase, entanglement, circuits, algorithms, noise, density operators, error correction, physical qubits, quantum-classical workflows, post-quantum security, and current experiments. Every advanced claim should answer three questions: what was actually demonstrated, under what assumptions, and what remains unsolved?</p>
+<div class="hub-note"><strong>Scientific boundary.</strong> Quantum computing is an active research field. A company roadmap is not an experiment; a simulation is not hardware; a logical-memory demonstration is not a complete fault-tolerant computer; and a speedup on one benchmark is not universal “quantum supremacy.” This page labels those distinctions deliberately.</div>
+<div class="hub-actions"><a class="button primary" href="#qubit-lab">Touch a qubit model</a><a class="button" href="#roadmap">Follow the learning path</a><a class="button" href="#research">2026 research radar</a><a class="button" href="project-qubit.html">Existing qubit project →</a></div>
+<nav class="hub-jump" aria-label="Quantum curriculum sections"><a href="#plain-language">Plain language</a><a href="#math">Math</a><a href="#qubit-lab">Qubit lab</a><a href="#circuits">Circuits</a><a href="#algorithms">Algorithms</a><a href="#noise">Noise &amp; QEC</a><a href="#hardware">Hardware</a><a href="#programming">Programming</a><a href="#pqc">Post-quantum</a><a href="#research">Research radar</a><a href="#sources">Sources</a></nav>
+</section>
+
+<section class="wrap hub-section" id="plain-language">
+<p class="eyebrow">01 / FIRST INTUITION</p><h2>Quantum ideas without the mythology.</h2>
+<div class="hub-grid">
+<article class="hub-card"><h3>A qubit is not a tiny classical bit</h3><p>A pure qubit state is a normalized vector in a two-dimensional complex vector space. We often write <span class="math">|ψ⟩ = α|0⟩ + β|1⟩</span>, with <span class="math">|α|² + |β|² = 1</span>.</p></article>
+<article class="hub-card"><h3>Superposition is not “seeing both answers”</h3><p>The amplitudes can interfere before measurement. A computational-basis measurement returns one classical outcome. The useful resource is coherent manipulation of amplitudes, not reading every branch at once.</p></article>
+<article class="hub-card"><h3>Phase matters</h3><p>States with identical measurement probabilities can behave differently later because relative phase changes interference. Global phase is unobservable; relative phase is operational.</p></article>
+<article class="hub-card"><h3>Entanglement is joint structure</h3><p>Some multi-qubit states cannot be factored into independent states for each qubit. Measurements can show correlations that require the joint state to describe correctly.</p></article>
+<article class="hub-card"><h3>Measurement changes what can be predicted next</h3><p>Measurement is part of the model, not a passive peek. The measurement basis determines which observable is being resolved and what post-measurement state remains.</p></article>
+<article class="hub-card"><h3>Quantum is not automatically faster</h3><p>A quantum algorithm needs a problem structure that can exploit interference, plus an end-to-end cost model that includes state preparation, oracles, error correction, measurement and classical work.</p></article>
+</div>
+<div id="quantum-quiz" class="hub-panel"><h3>Fast misconception check</h3><p id="quantum-question"></p><div class="hub-actions"><button class="button" type="button" data-qanswer="true">True</button><button class="button" type="button" data-qanswer="false">False</button></div><p id="quantum-answer" aria-live="polite"></p></div>
+</section>
+
+<section class="wrap hub-section" id="math">
+<p class="eyebrow">02 / THE MINIMUM MATHEMATICS</p><h2>Learn the math in the order quantum uses it.</h2>
+<div class="hub-path">
+<article><h3>Complex numbers</h3><p>Magnitude, phase, conjugation and Euler's formula. Quantum amplitudes are complex; probabilities are squared magnitudes.</p></article>
+<article><h3>Vectors and inner products</h3><p>Basis vectors, normalization, orthogonality, bra-ket notation and projection.</p></article>
+<article><h3>Matrices and linear operators</h3><p>Matrix-vector multiplication, Hermitian and unitary matrices, eigenvalues/eigenvectors and observables.</p></article>
+<article><h3>Tensor products</h3><p>Build multi-qubit state spaces and understand why the state dimension grows as <span class="math">2ⁿ</span>.</p></article>
+<article><h3>Probability</h3><p>Born probabilities, conditional probability, expectation values, sampling error and Bayesian reasoning for experiments.</p></article>
+<article><h3>Density operators and channels</h3><p>Mixed states, partial trace, Kraus operators, purity and open-system dynamics. This is where realistic noise models become natural.</p></article>
+</div>
+<div class="hub-actions"><a class="button" href="learn-math.html">Mathematics planet →</a><a class="button" href="learn-physics.html">Physics planet →</a><a class="button" href="learn-advanced.html#study-density">Density-operator study companion →</a></div>
+</section>
+
+<section class="wrap hub-section" id="qubit-lab">
+<p class="eyebrow">03 / SINGLE-QUBIT LAB</p><h2>Change a state. Apply a gate. Predict the measurement.</h2>
+<p class="hub-copy">This is an exact two-amplitude state-vector model in the browser. θ controls latitude on the Bloch sphere; φ controls relative phase. Gates multiply the state by their 2×2 unitary matrices.</p>
+<div class="hub-lab">
+<div class="hub-panel"><div class="hub-controls">
+<label for="theta">θ (0° → 180°)</label><input id="theta" type="range" min="0" max="180" value="0">
+<label for="phi">φ (0° → 360°)</label><input id="phi" type="range" min="0" max="360" value="0">
+<div class="hub-actions" aria-label="Quantum gates"><button class="button" type="button" data-gate="X">X</button><button class="button" type="button" data-gate="Y">Y</button><button class="button" type="button" data-gate="Z">Z</button><button class="button" type="button" data-gate="H">H</button><button class="button" type="button" data-gate="S">S</button><button class="button" type="button" data-gate="T">T</button><button class="button" id="state-reset" type="button">Reset |0⟩</button></div>
+</div>
+<div class="state-readout"><div><small>α</small><strong id="alpha"></strong></div><div><small>β</small><strong id="beta"></strong></div><div><small>P(0)</small><strong id="p0"></strong></div><div><small>P(1)</small><strong id="p1"></strong></div></div><p id="gate-history"></p></div>
+<div class="hub-panel"><canvas id="bloch-canvas" width="500" height="300" aria-label="Bloch sphere projection"></canvas><p>The drawing shows an x-z projection while reporting y numerically. It is a learning visualization, not a complete 3-D renderer.</p></div>
+</div>
+<div class="hub-lab"><div class="hub-panel hub-controls"><label for="shots">Measurement shots</label><input id="shots" type="number" min="1" max="100000" value="1024"><label for="shot-seed">Deterministic seed</label><input id="shot-seed" type="number" value="42"><button id="sample-shots" class="button primary" type="button">Sample measurements</button></div><div class="hub-panel"><div id="shot-output" class="hub-output" aria-live="polite"></div></div></div>
+</section>
+
+<section class="wrap hub-section" id="circuits">
+<p class="eyebrow">04 / FROM ONE QUBIT TO CIRCUITS</p><h2>Build computation from reversible transformations and measurement.</h2>
+<div class="hub-grid">
+<article class="hub-card"><h3>Single-qubit gates</h3><p>X/Y/Z rotations, Hadamard, phase gates and arbitrary rotations. Learn each both as a matrix and as a Bloch-sphere transformation.</p></article>
+<article class="hub-card"><h3>Controlled operations</h3><p>CNOT/CZ and controlled rotations connect qubit subspaces. Use them to create Bell states and understand conditional dynamics.</p></article>
+<article class="hub-card"><h3>Entanglement</h3><p>Create <span class="math">(|00⟩+|11⟩)/√2</span>; verify that the joint state cannot be written as two independent single-qubit states.</p></article>
+<article class="hub-card"><h3>Measurement bases</h3><p>Computational (Z), X and Y bases correspond to different observables. Basis-change gates turn one measurement into another.</p></article>
+<article class="hub-card"><h3>Classical control</h3><p>Real circuits combine quantum gates with measurement results, reset, feed-forward, dynamic circuits and classical orchestration.</p></article>
+<article class="hub-card"><h3>Compilation / transpilation</h3><p>Abstract circuits must be mapped to the device's native gate set, topology, calibration state and timing constraints.</p></article>
+</div>
+</section>
+
+<section class="wrap hub-section" id="algorithms">
+<p class="eyebrow">05 / ALGORITHMS</p><h2>Understand the mathematical mechanism before the headline.</h2>
+<div class="hub-grid">
+<article class="hub-card"><h3>Deutsch–Jozsa / Bernstein–Vazirani</h3><p>Small teaching algorithms for phase kickback, interference and query-complexity reasoning.</p></article>
+<article class="hub-card"><h3>Quantum Fourier Transform</h3><p>Maps amplitudes into a frequency-like basis and underlies phase estimation and order finding. Learn the circuit, approximations and inverse.</p></article>
+<article class="hub-card"><h3>Phase estimation</h3><p>Estimate eigenphases of unitary operators. Connect controlled powers, inverse QFT and precision/resource tradeoffs.</p><a href="project-qpe.html">Open QPE project →</a></article>
+<article class="hub-card"><h3>Amplitude amplification / Grover</h3><p>Repeated reflections rotate amplitude toward marked states. More iterations are not always better: the process overshoots.</p></article>
+<article class="hub-card"><h3>Order finding / Shor</h3><p>The quantum core estimates periodic structure; classical number theory turns a suitable order into factors. Oracle/arithmetic implementation cost matters.</p></article>
+<article class="hub-card"><h3>Hamiltonian simulation</h3><p>Approximate the dynamics generated by a Hamiltonian. Central to the strongest long-term scientific motivations for quantum computing.</p></article>
+<article class="hub-card"><h3>Variational algorithms</h3><p>VQE/QAOA-style workflows alternate parameterized circuits with classical optimization. Always benchmark against strong classical baselines.</p></article>
+<article class="hub-card"><h3>Quantum walks / linear algebra</h3><p>Families of algorithms can produce polynomial or exponential theoretical speedups under specific access and structure assumptions.</p></article>
+</div>
+<div class="hub-lab"><div class="hub-panel hub-controls"><h3>Amplitude-amplification estimator</h3><label for="grover-n">Search-space size N</label><input id="grover-n" type="number" min="2" max="1000000000000" value="1024"><label for="grover-m">Marked items M</label><input id="grover-m" type="number" min="1" value="1"></div><div class="hub-panel"><div id="grover-output" class="hub-output" aria-live="polite"></div></div></div>
+</section>
+
+<section class="wrap hub-section" id="noise">
+<p class="eyebrow">06 / NOISE, ERROR CORRECTION &amp; FAULT TOLERANCE</p><h2>Useful quantum computing is a systems-engineering problem.</h2>
+<div class="hub-grid">
+<article class="hub-card"><h3>Noise is more than bit flips</h3><p>Relaxation, dephasing, leakage, coherent errors, crosstalk, loss, measurement error and drift can have different spatial/temporal correlations.</p></article>
+<article class="hub-card"><h3>Error detection without reading the logical state</h3><p>Stabilizer measurements reveal syndromes—evidence about errors—without directly measuring the encoded logical information.</p></article>
+<article class="hub-card"><h3>Threshold</h3><p>Below an architecture/code threshold, increasing code distance can suppress logical errors. Above it, adding qubits may make logical performance worse.</p></article>
+<article class="hub-card"><h3>Decoder</h3><p>Syndromes must be interpreted quickly enough to infer likely corrections or update a Pauli frame. Decoding is itself a demanding classical workload.</p></article>
+<article class="hub-card"><h3>Logical operations</h3><p>Memory alone is not computation. Fault-tolerant architectures need logical gates, lattice surgery or other mechanisms, state preparation, magic states where required, routing and control.</p></article>
+<article class="hub-card"><h3>Resource estimation</h3><p>Count logical qubits, logical gates/cycles, code distances, physical qubits, factories, decoder/control throughput, runtime and failure budget—not just “qubits.”</p></article>
+</div>
+<div class="hub-lab"><div class="hub-panel hub-controls"><h3>QEC intuition model</h3><label for="physical-error">Physical error p</label><input id="physical-error" type="number" min="0.00000001" max="0.2" step="0.0001" value="0.001"><label for="threshold-error">Assumed threshold p<sub>th</sub></label><input id="threshold-error" type="number" min="0.0000001" max="0.2" step="0.001" value="0.01"><label for="code-distance">Odd code distance d</label><input id="code-distance" type="number" min="3" max="99" step="2" value="5"><div class="meter" aria-hidden="true"><span id="qec-meter"></span></div></div><div class="hub-panel"><div class="hub-output" id="qec-output" aria-live="polite"></div></div></div>
+</section>
+
+<section class="wrap hub-section" id="hardware">
+<p class="eyebrow">07 / PHYSICAL QUBITS</p><h2>Different hardware makes different tradeoffs.</h2>
+<div class="hub-grid">
+<article class="hub-card"><h3>Superconducting circuits</h3><p>Fast gates and lithographic integration; demanding cryogenics, calibration, control and crosstalk management. Used by Google, IBM and others.</p></article>
+<article class="hub-card"><h3>Trapped ions</h3><p>Atomic qubits with high-fidelity operations and flexible connectivity, traded against slower gates and demanding optical/control systems.</p></article>
+<article class="hub-card"><h3>Neutral atoms</h3><p>Reconfigurable atomic arrays, Rydberg interactions and loss-aware techniques make connectivity and large arrays especially interesting for QEC architectures.</p></article>
+<article class="hub-card"><h3>Photonic</h3><p>Encodes quantum information in light; strengths include networking and room-temperature propagation, with loss, sources, detectors and fault-tolerant resource overhead as central engineering issues.</p></article>
+<article class="hub-card"><h3>Semiconductor spin</h3><p>Electron/nuclear spin qubits may leverage semiconductor fabrication and compact devices; control, uniformity, connectivity and cryogenic systems remain active research areas.</p></article>
+<article class="hub-card"><h3>Topological approaches</h3><p>Seek hardware-level protection from non-local degrees of freedom. The field is scientifically active; extraordinary claims require reproducible evidence and should not be treated as settled merely because a device is branded “topological.”</p></article>
+</div>
+</section>
+
+<section class="wrap hub-section" id="programming">
+<p class="eyebrow">08 / QUANTUM SOFTWARE</p><h2>Write circuits, but learn the classical system around them.</h2>
+<div class="hub-grid">
+<article class="hub-card"><h3>Qiskit</h3><p>Python ecosystem for circuits, transpilation, primitives, simulators, hardware workflows and IBM Quantum services.</p><a href="https://quantum.cloud.ibm.com/docs/" target="_blank" rel="noopener noreferrer">IBM Quantum docs ↗</a></article>
+<article class="hub-card"><h3>Cirq</h3><p>Python framework emphasizing device-aware circuit construction, simulation and Google's quantum research ecosystem.</p><a href="https://quantumai.google/cirq/start/intro" target="_blank" rel="noopener noreferrer">Cirq introduction ↗</a></article>
+<article class="hub-card"><h3>Q# / resource estimation</h3><p>Language/tooling for quantum algorithms and estimating fault-tolerant resources under explicit architecture assumptions.</p><a href="https://learn.microsoft.com/azure/quantum/qsharp-overview" target="_blank" rel="noopener noreferrer">Q# overview ↗</a></article>
+<article class="hub-card"><h3>Classical simulation</h3><p>State-vector, stabilizer, tensor-network and specialized simulators have very different scaling. Choose the representation that matches the circuit structure.</p></article>
+<article class="hub-card"><h3>Hybrid orchestration</h3><p>Real workflows include classical preprocessing, circuit generation, compilation, queueing, control, execution, decoding/error mitigation, analysis and reproducibility metadata.</p></article>
+<article class="hub-card"><h3>Verification</h3><p>Test against analytically solvable cases, invariants, simulator cross-checks, noise-free limits and strong classical baselines before drawing hardware conclusions.</p></article>
+</div>
+<div class="hub-actions"><a class="button primary" href="assets/downloads/engineering-studies-3.2-3.6.zip" download>Download executable study notebooks</a><a class="button" href="learn-advanced.html">Advanced Computing studies →</a></div>
+</section>
+
+<section class="wrap hub-section" id="pqc">
+<p class="eyebrow">09 / POST-QUANTUM SECURITY</p><h2>Quantum computing also changes classical-system planning.</h2>
+<p class="hub-copy">Post-quantum cryptography (PQC) is classical cryptography designed to resist attacks from both classical and future large-scale quantum computers. It is not “quantum encryption.” NIST finalized FIPS 203 (ML-KEM), FIPS 204 (ML-DSA) and FIPS 205 (SLH-DSA) in August 2024 and continues migration/backup-standard work. In 2026 NIST explicitly advises organizations to begin migration planning now.</p>
+<div class="hub-grid">
+<article class="hub-card"><h3>Inventory</h3><p>Find where public-key cryptography is used: TLS, PKI, VPN, code signing, firmware, identities, backups, archives, HSMs and long-lived data.</p></article>
+<article class="hub-card"><h3>Crypto agility</h3><p>Design systems so algorithms and parameters can be replaced without rebuilding the product architecture.</p></article>
+<article class="hub-card"><h3>Hybrid transition</h3><p>Some migrations combine established and PQC mechanisms while ecosystems standardize and interoperability matures. Follow protocol-specific guidance.</p></article>
+<article class="hub-card"><h3>Harvest-now-decrypt-later</h3><p>Data with long confidentiality lifetimes can be captured today and attacked later, so migration urgency depends partly on how long information must remain secret.</p></article>
+</div>
+<p><a class="button" href="https://www.nist.gov/pqc" target="_blank" rel="noopener noreferrer">NIST Post-Quantum Cryptography ↗</a></p>
+</section>
+
+<section class="wrap hub-section" id="roadmap">
+<p class="eyebrow">10 / LEARNING ROADMAP</p><h2>A route from zero to reading current papers.</h2>
+<div class="hub-path">
+<article><h3>Intuition</h3><p>Qubit, probability, phase, interference, entanglement, measurement. Use the interactive model until you can predict H, X and Z behavior.</p></article>
+<article><h3>Linear algebra</h3><p>Complex vectors, matrices, eigenvectors, tensor products. Derive simple gate actions by hand.</p></article>
+<article><h3>Circuits</h3><p>Bell states, teleportation, phase kickback, basis changes and simple oracle circuits. Simulate and test invariants.</p></article>
+<article><h3>Algorithms</h3><p>Grover/amplitude amplification, QFT, phase estimation, order finding, Hamiltonian simulation and variational methods. Write the complexity assumptions beside every speedup claim.</p></article>
+<article><h3>Open systems</h3><p>Density matrices, channels, tomography, noise, error mitigation and experimental statistics.</p></article>
+<article><h3>Error correction</h3><p>Stabilizers, repetition/surface/color codes, thresholds, decoders, logical gates and resource estimation.</p></article>
+<article><h3>Hardware + control</h3><p>Choose a modality and learn the physical Hamiltonian, control stack, calibration, readout, connectivity, error mechanisms and cryogenic/optical/electronic systems.</p></article>
+<article><h3>Research practice</h3><p>Read preprints and peer-reviewed work critically; reproduce toy limits; track corrections; separate measured data from simulations and future targets; document uncertainty.</p></article>
+</div>
+</section>
+
+<section class="wrap hub-section" id="research">
+<p class="eyebrow">11 / RESEARCH RADAR — REVIEWED OCTOBER 4, 2026</p><h2>What is happening now, with evidence labels.</h2>
+<p class="hub-copy">This is a curated snapshot, not a claim to cover every laboratory. Items are chosen because they teach an important systems concept: logical error suppression, adaptive control, modality tradeoffs, hardware/code co-design, state preparation, or quantum-classical integration.</p>
+<div class="hub-panel">
+<article class="research-item"><p class="research-meta">Peer-reviewed experiment · Nature · July 8, 2026</p><h3>Reinforcement learning control of quantum error correction</h3><p>Google Quantum AI demonstrated an RL controller on Willow that used QEC detection events as a learning signal, reporting 3.5× improved logical stability against injected drift and additional improvement after conventional calibration. This is a control/QEC experiment, not a general-purpose fault-tolerant computer.</p><a href="https://www.nature.com/articles/s41586-026-10759-2" target="_blank" rel="noopener noreferrer">Nature paper ↗</a></article>
+<article class="research-item"><p class="research-meta">Peer-reviewed experiment · Nature Physics · June 12, 2026</p><h3>Logical qubits with erasure conversion using metastable neutral atoms</h3><p>A neutral-atom experiment used atom-state engineering to convert some errors into detectable erasures and investigated logical-qubit protection. The broader lesson is that hardware can be co-designed so the error model becomes friendlier to a code.</p><a href="https://www.nature.com/articles/s41567-026-03309-0" target="_blank" rel="noopener noreferrer">Nature Physics paper ↗</a></article>
+<article class="research-item"><p class="research-meta">Peer-reviewed experiment · Nature · 2026 issue</p><h3>Fault-tolerant neutral-atom architecture elements</h3><p>Experiments with reconfigurable arrays up to hundreds of neutral atoms explored repeated QEC, logical operations and architecture components, including below-threshold behavior under stated conditions. This is evidence about key building blocks, not completion of the full architecture.</p><a href="https://www.nature.com/articles/s41586-025-09848-5" target="_blank" rel="noopener noreferrer">Nature paper ↗</a></article>
+<article class="research-item"><p class="research-meta">Peer-reviewed analysis/experiment · Nature Communications · July 29, 2026</p><h3>Surface-code scaling on heavy-hex superconducting processors</h3><p>Work on IBM heavy-hex hardware examined how code embedding, SWAPs and dynamical decoupling affect surface-code scaling, including why naïve suppression metrics can mislead. It is a useful example of code/hardware/control co-design.</p><a href="https://www.nature.com/articles/s41467-026-76090-6" target="_blank" rel="noopener noreferrer">Nature Communications paper ↗</a></article>
+<article class="research-item"><p class="research-meta">Peer-reviewed experiment · Nature · 2026</p><h3>Weight-four parity checks in a spin-shuttling architecture</h3><p>A silicon spin device with coherent shuttling demonstrated the connectivity and parity-check operations needed for a surface-code stabilizer plaquette. This is a hardware/control milestone, not yet a large logical processor.</p><a href="https://www.nature.com/articles/s41586-026-10766-3" target="_blank" rel="noopener noreferrer">Nature paper ↗</a></article>
+<article class="research-item"><p class="research-meta">Peer-reviewed theory · npj Quantum Information · October 1, 2026</p><h3>Distance-preserving unitary preparation of Pauli states in surface codes</h3><p>A newly published scheme addresses fault-tolerant logical-state preparation while preserving code distance as systems scale. It is a theoretical/algorithmic contribution rather than a hardware demonstration.</p><a href="https://www.nature.com/articles/s41534-026-01362-4" target="_blank" rel="noopener noreferrer">npj Quantum Information paper ↗</a></article>
+<article class="research-item"><p class="research-meta">Roadmap / stated target · IBM · updated March 2026</p><h3>Nighthawk, Loon and quantum-centric HPC goals</h3><p>IBM's 2026 roadmap states goals for Nighthawk circuits, quantum-HPC workflows and a real-time error-correction decoder prototype. These are company targets and plans; they should be tracked against later demonstrated results rather than quoted as completed achievements.</p><a href="https://www.ibm.com/roadmaps/quantum/2026/" target="_blank" rel="noopener noreferrer">IBM 2026 roadmap ↗</a></article>
+<article class="research-item"><p class="research-meta">Standards deployment · NIST · current in 2026</p><h3>Post-quantum migration is an engineering task now</h3><p>NIST's finalized ML-KEM, ML-DSA and SLH-DSA standards are available for deployment, and NIST's current guidance emphasizes beginning migration rather than waiting for a cryptographically relevant quantum computer.</p><a href="https://www.nist.gov/pqc" target="_blank" rel="noopener noreferrer">NIST PQC ↗</a></article>
+</div>
+</section>
+
+<section class="wrap hub-section" id="sources">
+<p class="eyebrow">12 / PRIMARY SOURCES &amp; STUDY</p><h2>Build from maintained curricula and papers.</h2>
+<ul class="hub-source-list">
+<li><a href="https://quantum.cloud.ibm.com/learning/en/courses" target="_blank" rel="noopener noreferrer">IBM Quantum Learning ↗</a> — courses from introductory quantum computing through algorithms and quantum error correction.</li>
+<li><a href="https://quantumai.google/cirq/start/intro" target="_blank" rel="noopener noreferrer">Google Quantum AI — Cirq introduction ↗</a> — device-aware circuit programming.</li>
+<li><a href="https://www.preskill.caltech.edu/ph219/" target="_blank" rel="noopener noreferrer">John Preskill's quantum computation lecture notes ↗</a> — rigorous theory reference.</li>
+<li><a href="https://www.nature.com/articles/s41586-024-08449-y" target="_blank" rel="noopener noreferrer">Quantum error correction below the surface-code threshold ↗</a> — Willow below-threshold result; note the 2026 author correction linked by Nature.</li>
+<li><a href="https://research.google/blog/dynamic-surface-codes-open-new-avenues-for-quantum-error-correction/" target="_blank" rel="noopener noreferrer">Dynamic surface codes, January 2026 ↗</a> — current QEC circuit research explained by the research team.</li>
+<li><a href="https://csrc.nist.gov/Projects/Post-Quantum-Cryptography" target="_blank" rel="noopener noreferrer">NIST Post-Quantum Cryptography project ↗</a>.</li>
+</ul>
+<p class="muted">Research snapshot reviewed October 4, 2026. “Latest” in research changes quickly; paper publication dates, corrections and whether a result is experimental, simulated, theoretical or roadmap-only are intentionally shown.</p>
+</section>
+</main>
+
+<section class="contact wrap"><div><p class="eyebrow">FROM INTUITION TO EVIDENCE</p><h2>Ask what the model predicts.<br/>Then ask what the experiment measured.</h2><p>Quantum becomes much clearer when mathematics, software, hardware and experimental evidence stay connected.</p></div><div class="contact-actions"><a class="button primary" href="learn.html">Back to Learn ↗︎</a><a href="learn-coding.html">Coding curriculum ↗︎</a><a href="project-qpe.html">QPE project ↗︎</a></div></section>
+<footer class="wrap"><span>© 2026 Joshua Randall · Albany, Oregon</span><div><button data-scene-motion>Pause animation</button><a href="#top">Back to top ↑</a></div></footer>
+<dialog aria-labelledby="search-title" id="search-dialog"><div class="dialog-head"><h2 id="search-title">Explore the portfolio</h2><button aria-label="Close search" data-close>✕</button></div><label for="search-input">Search sections, projects, skills, and lessons</label><input autocomplete="off" id="search-input" type="search"><div id="search-results"></div></dialog><div aria-live="polite" id="toast" role="status"></div>
+</body></html>
