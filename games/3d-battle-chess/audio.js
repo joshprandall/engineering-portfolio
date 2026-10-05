@@ -1,5 +1,14 @@
 const AudioCtor=()=>window.AudioContext||window.webkitAudioContext;
 
+export const AUDIO_THEME_PROFILES=Object.freeze({
+  classic:Object.freeze({root:55,ratios:[1,1.5,2],waves:['sine','triangle','sine'],gains:[.55,.18,.12],master:.032,lfoRate:.09,lfoDepth:.007,movePitch:1,moveWave:'triangle'}),
+  arcane:Object.freeze({root:58.27,ratios:[1,1.25,2.5],waves:['sine','sine','triangle'],gains:[.46,.20,.14],master:.030,lfoRate:.13,lfoDepth:.010,movePitch:1.12,moveWave:'sine'}),
+  monsters:Object.freeze({root:46.25,ratios:[1,1.2,1.5],waves:['triangle','sine','triangle'],gains:[.58,.16,.12],master:.034,lfoRate:.065,lfoDepth:.006,movePitch:.82,moveWave:'sawtooth'}),
+  brick:Object.freeze({root:65.41,ratios:[1,1.5,2],waves:['triangle','square','triangle'],gains:[.48,.10,.13],master:.028,lfoRate:.18,lfoDepth:.004,movePitch:1.18,moveWave:'square'}),
+  cosmic:Object.freeze({root:49,ratios:[1,Math.SQRT2,2],waves:['sine','triangle','sawtooth'],gains:[.50,.13,.10],master:.029,lfoRate:.045,lfoDepth:.012,movePitch:1.34,moveWave:'sine'})
+});
+
+
 export class GameAudio{
   constructor(){
     this.enabled=true;
@@ -32,25 +41,22 @@ export class GameAudio{
   }
   startMusic(){
     if(!this.ctx||this.music.length||!this.enabled)return;
-    const now=this.ctx.currentTime;
+    const now=this.ctx.currentTime,profile=AUDIO_THEME_PROFILES[this.theme]||AUDIO_THEME_PROFILES.classic;
     const master=this.ctx.createGain();
     master.gain.setValueAtTime(.0001,now);
-    master.gain.exponentialRampToValueAtTime(.032,now+.7);
+    master.gain.exponentialRampToValueAtTime(profile.master,now+.7);
     master.connect(this.ctx.destination);
-    const themeRoots={classic:55,arcane:58.27,monsters:46.25,brick:65.41,cosmic:49};
-    const root=themeRoots[this.theme]||55;
-    const ratios=[1,1.5,2];
-    for(const [i,ratio] of ratios.entries()){
+    for(const [i,ratio] of profile.ratios.entries()){
       const osc=this.ctx.createOscillator(),gain=this.ctx.createGain();
-      osc.type=i===0?'sine':this.theme==='cosmic'?'triangle':'sine';
-      osc.frequency.value=root*ratio;
-      gain.gain.value=i===0?.55:.18;
+      osc.type=profile.waves[i]||'sine';
+      osc.frequency.value=profile.root*ratio;
+      gain.gain.value=profile.gains[i]??.12;
       osc.connect(gain).connect(master);
       osc.start();
       this.music.push({osc,gain});
     }
     const lfo=this.ctx.createOscillator(),lfoGain=this.ctx.createGain();
-    lfo.frequency.value=.09;lfoGain.gain.value=.007;
+    lfo.frequency.value=profile.lfoRate;lfoGain.gain.value=profile.lfoDepth;
     lfo.connect(lfoGain).connect(master.gain);lfo.start();
     this.music.push({osc:lfo,gain:lfoGain});
     this.master=master;
@@ -82,9 +88,13 @@ export class GameAudio{
   async move(role='p'){
     if(this.mode!=='3d'||!this.enabled)return;
     if(!await this.ensure())return;
-    const f={p:105,n:135,b:155,r:80,q:175,k:92}[role]||110;
-    this.tone(f,.07,.032,'triangle',f*.72);
-    if(role==='n'||role==='r'||role==='k')this.noise(.055,.018,.02,90);
+    const profile=AUDIO_THEME_PROFILES[this.theme]||AUDIO_THEME_PROFILES.classic;
+    const base={p:105,n:135,b:155,r:80,q:175,k:92}[role]||110,f=base*profile.movePitch;
+    this.tone(f,.07,.032,profile.moveWave,f*.72);
+    if(role==='n'||role==='r'||role==='k')this.noise(.055,.018,.02,this.theme==='monsters'?55:90);
+    if(this.theme==='arcane'&&(role==='b'||role==='q'||role==='k'))this.tone(f*2.25,.11,.012,'sine',f*1.45,.025);
+    if(this.theme==='cosmic')this.tone(f*1.6,.08,.010,'sine',f*.95,.015);
+    if(this.theme==='brick')this.noise(.04,.010,.012,1200);
   }
   async attack(theme='classic',role='p'){
     if(this.mode!=='3d'||!this.enabled)return;
