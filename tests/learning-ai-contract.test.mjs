@@ -41,12 +41,15 @@ for(const l of D.lessons){
 }
 for(const p of D.paths)for(const id of p.lesson_ids)assert(ids.has(id),p.id+': unresolved path record '+id);
 const solar=read('solar-navigation.js');
-for(const [page,count] of [['index.html',6],['learn.html',7],['ai-development.html',19]]){
+for(const [page,count] of [['index.html',6],['learn.html',9],['ai-development.html',19]]){
  const html=read(page),hrefs=[...html.matchAll(/class="solar-planet-link" href="([^"]+)"/g)].map(m=>m[1]);
  assert.equal(hrefs.length,count,page+': wrong solar destination count');
  for(const href of hrefs){const file=href.split(/[?#]/)[0];assert(exists(file),page+': missing solar destination '+href);}
  assert(!html.includes('solar-orbits')&&!html.includes('solar-capabilities'),page+': duplicate solar tile navigation returned');
 }
+const learningSolar=read('learn.html');
+assert(learningSolar.includes('href="learn-coding.html" aria-label="Coding"'),'Learn solar must include Coding');
+assert(learningSolar.includes('href="learn-quantum.html" aria-label="Quantum"'),'Learn solar must include Quantum');
 const homeSolar=read('index.html');
 assert(homeSolar.includes('href="security-research.html" aria-label="Security Research"'),'Homepage solar must include Security Research as a dedicated destination');
 assert(!homeSolar.includes('class="solar-planet-link" href="index.html" aria-label="Home"'),'Homepage solar must not include redundant Home destination');

@@ -1,0 +1,45 @@
+/* Dedicated learning hubs: additive only; no ambience, navigation, or shared-shell overrides. */
+.learning-hub{padding-block:clamp(2rem,5vw,5rem)}
+.learning-hub .hub-hero{padding-block:clamp(2.5rem,6vw,6rem);border-bottom:1px solid var(--line)}
+.learning-hub .hub-hero h1{max-width:16ch;margin:.4rem 0 1rem}
+.learning-hub .hub-lede{max-width:78ch;font-size:clamp(1.05rem,2vw,1.28rem);line-height:1.7}
+.learning-hub .hub-note{max-width:78rem;margin:1.4rem 0 0;padding:1rem 1.2rem;border:1px solid var(--line);border-radius:14px;background:var(--glass)!important;line-height:1.65}
+.learning-hub .hub-actions,.learning-hub .hub-jump{display:flex;flex-wrap:wrap;gap:.65rem;margin-top:1.2rem}
+.learning-hub .hub-jump a{min-height:44px;display:inline-flex;align-items:center;padding:.55rem .75rem;border:1px solid var(--line);border-radius:999px;text-decoration:none;background:var(--glass)}
+.learning-hub .hub-section{padding-block:clamp(2.5rem,5vw,5rem);border-bottom:1px solid var(--line)}
+.learning-hub .hub-section>h2{max-width:24ch}
+.learning-hub .hub-copy{max-width:80ch;line-height:1.75}
+.learning-hub .hub-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,16rem),1fr));gap:1rem;margin-top:1.4rem}
+.learning-hub .hub-card,.learning-hub .hub-panel{padding:clamp(1rem,2.2vw,1.35rem);border:1px solid var(--line);border-radius:14px;background:var(--glass)!important;-webkit-backdrop-filter:blur(7px);backdrop-filter:blur(7px)}
+.learning-hub .hub-card h3,.learning-hub .hub-panel h3{margin:.15rem 0 .55rem}
+.learning-hub .hub-card p,.learning-hub .hub-panel p{line-height:1.65}
+.learning-hub .hub-card ul,.learning-hub .hub-panel ul,.learning-hub .hub-card ol,.learning-hub .hub-panel ol{display:grid;gap:.45rem;padding-left:1.2rem}
+.learning-hub .hub-badge{display:inline-block;margin:0 .3rem .3rem 0;padding:.24rem .5rem;border:1px solid var(--line);border-radius:999px;font-size:.75rem;font-weight:800;letter-spacing:.03em}
+.learning-hub .hub-lab{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:1rem;margin-top:1.4rem}
+.learning-hub .hub-controls{display:grid;gap:.75rem}
+.learning-hub label{font-weight:800}
+.learning-hub input,.learning-hub select,.learning-hub textarea{box-sizing:border-box;width:100%;max-width:100%;border:1px solid var(--line);border-radius:10px;background:var(--glass-strong,var(--glass));color:var(--ink,var(--text));font:inherit}
+.learning-hub input,.learning-hub select{min-height:46px;padding:.55rem .65rem}
+.learning-hub textarea{min-height:12rem;padding:.75rem;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;line-height:1.5;resize:vertical}
+.learning-hub .hub-output{min-height:4rem;margin-top:.8rem;padding:.85rem;border:1px dashed var(--line);border-radius:10px;line-height:1.6;overflow-wrap:anywhere}
+.learning-hub .hub-output pre{white-space:pre-wrap;word-break:break-word}
+.learning-hub .code-frame{width:100%;min-height:11rem;border:1px solid var(--line);border-radius:10px;background:#fff}
+.learning-hub .hub-table-wrap{overflow:auto;margin-top:1rem;border:1px solid var(--line);border-radius:12px}
+.learning-hub table{width:100%;border-collapse:collapse;min-width:46rem}
+.learning-hub th,.learning-hub td{padding:.7rem;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.learning-hub th{font-size:.82rem;letter-spacing:.04em}
+.learning-hub .meter{height:.7rem;border:1px solid var(--line);border-radius:999px;overflow:hidden}
+.learning-hub .meter>span{display:block;height:100%;width:0;background:currentColor;opacity:.65;transition:width .2s ease}
+.learning-hub .hub-path{counter-reset:hubstep;display:grid;gap:1rem;margin-top:1.2rem}
+.learning-hub .hub-path article{counter-increment:hubstep;position:relative;padding:1rem 1rem 1rem 4rem;border-left:1px solid var(--line)}
+.learning-hub .hub-path article::before{content:counter(hubstep);position:absolute;left:.7rem;top:1rem;width:2rem;height:2rem;display:grid;place-items:center;border:1px solid var(--line);border-radius:50%;font-weight:900}
+.learning-hub .hub-source-list{display:grid;gap:.6rem;padding-left:1.2rem}
+.learning-hub .research-item{padding:1rem 0;border-bottom:1px solid var(--line)}
+.learning-hub .research-item:last-child{border-bottom:0}
+.learning-hub .research-meta{font-size:.82rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.learning-hub .math{font-family:ui-serif,Georgia,serif}
+.learning-hub .state-readout{display:grid;grid-template-columns:repeat(auto-fit,minmax(9rem,1fr));gap:.65rem;margin-top:.8rem}
+.learning-hub .state-readout>div{padding:.7rem;border:1px solid var(--line);border-radius:10px}
+.learning-hub .state-readout strong{display:block;font-size:1.2rem}
+.learning-hub canvas{width:100%;height:auto;max-height:22rem;border:1px solid var(--line);border-radius:12px;background:color-mix(in srgb,var(--glass) 70%,transparent)}
+@media(max-width:52rem){.learning-hub .hub-lab{grid-template-columns:minmax(0,1fr)}.learning-hub .hub-actions .button{width:100%}.learning-hub .hub-jump{display:grid}.learning-hub table{min-width:38rem}}

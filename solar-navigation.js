@@ -37,11 +37,11 @@
       ]
     },
     learning:{
-      // Same cinematic visual language as AI, with seven subject planets.
+      // Same cinematic visual language as AI, now with dedicated Coding and Quantum subjects.
       viewBox:'0 0 820 620',cx:410,cy:310,sun:42,speed:.075,
       rings:[
-        {rx:160,ry:78,count:3,offset:0},
-        {rx:285,ry:158,count:4,offset:.39}
+        {rx:165,ry:80,count:4,offset:0},
+        {rx:290,ry:162,count:5,offset:.39}
       ]
     },
     'ai-builds':{
@@ -121,6 +121,14 @@
     "Physics": [
       "Physics",
       "From mechanics and waves through electricity, magnetism, thermodynamics, modern physics, and quantum ideas."
+    ],
+    "Coding": [
+      "Coding",
+      "A practical programming atlas spanning language families, paradigms, algorithms, debugging, testing, web, systems, data, AI, games, embedded, HPC, hardware and quantum code—with local learning tools."
+    ],
+    "Quantum": [
+      "Quantum",
+      "From qubit intuition and linear algebra through circuits, algorithms, noise, error correction, hardware, software, post-quantum security, and current peer-reviewed research."
     ]
   },
   "ai-builds": {
@@ -217,6 +225,8 @@
       'Advanced Computing':['Advanced','Computing'],
       'Software Engineering':['Software','Engineering'],
       'Leadership & IT Management':['Leadership &','IT Management'],
+      'Coding':['Coding'],
+      'Quantum':['Quantum'],
       'Machine Learning':['Machine','Learning'],
       'Deep Learning':['Deep','Learning'],
       'Generative AI':['Generative','AI'],

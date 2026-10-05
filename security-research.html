@@ -22,7 +22,7 @@
   <script defer src="site-search.js"></script>
 
   <script defer src="site-resilience.js"></script>
-  <script defer src="security-research.js?v=20260928-refinement"></script>
+  <script defer src="security-research.js?v=20260928-refinement"></script><script defer src="security-extended.js?v=20261004-knowledge"></script>
 <script defer src="site-scenes.js?v=20260929-ambience-phone-v2"></script><script defer src="site-audio.js?v=20260929-ambience-phone-v2"></script><script defer src="site-sound-control.js?v=20260929-ambience-phone-v2"></script><link rel="stylesheet" href="learning-experiments.css?v=20261002-content"></head>
 <body class="destination-page security-research-page">
 <a class="skip" href="#main">Skip to content</a>
@@ -48,6 +48,9 @@
       <a href="#ad-lab">Active Directory paths</a>
       <a href="#container-lab">Container hardening</a>
       <a href="#surface-lab">Attack-surface inventory</a>
+      <a href="#agentsec-lab">Agentic AI boundaries</a>
+      <a href="#supply-lab">Software supply chain</a>
+      <a href="#pqc-lab">PQC readiness</a>
     </div>
   </section>
 
@@ -131,6 +134,37 @@
       <div class="security-output" id="surface-output" aria-live="polite"></div>
     </div>
     <details><summary>Methodology, remediation &amp; limitations</summary><p>The browser version never opens sockets or probes hosts. It analyzes supplied inventory only. A finding is an engineering lead for review, not proof that a service is exploitable.</p></details>
+  </section>
+
+  <section class="wrap security-lab" id="agentsec-lab" aria-labelledby="agentsec-title">
+    <div class="security-lab-head"><p class="eyebrow">07 / AGENTIC AI SECURITY</p><h2 id="agentsec-title">Capability-boundary analyzer</h2><p>Model an AI agent's tools, action scopes, approvals, memory, untrusted inputs and secret handling. The analyzer flags excessive agency and missing control boundaries without calling a model or external service.</p></div>
+    <div class="security-workspace"><label for="agentsec-input">Agent capability model JSON</label><textarea id="agentsec-input" rows="14" spellcheck="false">{"goal":"Read-only research assistant","tools":[{"name":"docs.search","mode":"read","scope":"approved-corpus","approval":false}],"memory":{"durable":false},"untrustedContent":["documents"],"contentIsolation":true,"secretsInPrompt":false}</textarea><div class="security-actions"><button class="button" id="agentsec-sample" type="button">Load intentionally risky sample</button><button class="button primary" id="agentsec-run" type="button">Review agent boundary</button></div><div class="security-output" id="agentsec-output" aria-live="polite"></div></div>
+    <details><summary>Methodology &amp; learning targets</summary><p>Review goal hijacking, tool misuse, identity/privilege abuse, untrusted content, memory poisoning, secret exposure, action approvals, scope, auditability, failure recovery and kill-switch behavior. The browser model is a teaching aid aligned with modern agentic-security concerns; it is not a penetration test or compliance assessment.</p></details>
+  </section>
+
+  <section class="wrap security-lab" id="supply-lab" aria-labelledby="supply-title">
+    <div class="security-lab-head"><p class="eyebrow">08 / SOFTWARE SUPPLY CHAIN</p><h2 id="supply-title">Provenance &amp; build-integrity reviewer</h2><p>Analyze a synthetic build/dependency inventory for immutable inputs, build provenance, component inventory and secret exposure. The model teaches why “CI passed” is not the same as “artifact provenance is trustworthy.”</p></div>
+    <div class="security-workspace"><label for="supply-input">Synthetic component model JSON</label><textarea id="supply-input" rows="14" spellcheck="false">{"components":[{"name":"release-artifact","sourcePinned":true,"provenance":"signed-hosted","sbom":true,"secretsInBuild":false}]}</textarea><div class="security-actions"><button class="button" id="supply-sample" type="button">Load mixed-trust sample</button><button class="button primary" id="supply-run" type="button">Review supply chain</button></div><div class="security-output" id="supply-output" aria-live="polite"></div></div>
+    <details><summary>Methodology &amp; limitations</summary><p>Use this to reason about pinned sources, provenance, software inventories/SBOMs, isolated builds and credentials. SLSA-style provenance increases confidence about where and how an artifact was produced; it does not prove the source itself is vulnerability-free.</p></details>
+  </section>
+
+  <section class="wrap security-lab" id="pqc-lab" aria-labelledby="pqc-title">
+    <div class="security-lab-head"><p class="eyebrow">09 / POST-QUANTUM READINESS</p><h2 id="pqc-title">Cryptographic inventory triage</h2><p>Prioritize quantum-vulnerable public-key dependencies from a user-supplied inventory. This is configuration/risk reasoning only; it does not probe TLS endpoints, certificates or external systems.</p></div>
+    <div class="security-workspace"><label for="pqc-input">Cryptographic inventory JSON</label><textarea id="pqc-input" rows="14" spellcheck="false">{"systems":[{"name":"example-service","protocol":"TLS","algorithm":"ECDHE/ECDSA","dataLifetimeYears":5,"owner":"Platform"}]}</textarea><div class="security-actions"><button class="button" id="pqc-sample" type="button">Load migration sample</button><button class="button primary" id="pqc-run" type="button">Review PQC readiness</button></div><div class="security-output" id="pqc-output" aria-live="polite"></div></div>
+    <details><summary>Methodology &amp; limitations</summary><p>NIST's 2026 migration guidance emphasizes cryptographic visibility/inventory and crypto agility. This simplified analyzer flags modeled RSA/ECC/DH-family dependencies and recognizes standardized PQC names, but real migration requires protocol/vendor support, interoperability testing, implementation validation, ownership and lifecycle planning.</p></details>
+  </section>
+
+  <section class="wrap security-method" aria-labelledby="secure-program-title">
+    <p class="eyebrow">SECURE ENGINEERING CURRICULUM / 2026</p><h2 id="secure-program-title">Move from isolated findings to a secure development system.</h2>
+    <div class="security-method-grid">
+      <article><span>DESIGN</span><h3>Threat model + requirements</h3><p>Assets, identities, trust boundaries, abuse cases and security requirements before implementation. Use OWASP ASVS 5.0 where web-application verification requirements fit.</p></article>
+      <article><span>BUILD</span><h3>Secure SDLC</h3><p>Apply NIST SSDF practices across source, build, dependencies, testing, vulnerability response and root-cause learning. NIST published a Version 1.2 draft in December 2025; 1.1 remains the finalized baseline.</p></article>
+      <article><span>SUPPLY</span><h3>Provenance + inventory</h3><p>Pin inputs, isolate builds, generate verifiable provenance, retain component inventories and protect signing/release identities.</p></article>
+      <article><span>VERIFY</span><h3>Test at boundaries</h3><p>Static/dynamic analysis, property tests, fuzzing, configuration review, authorization tests and regression cases built from real failures.</p></article>
+      <article><span>OPERATE</span><h3>Detect + recover</h3><p>Telemetry, alert quality, incident response, backups, recovery exercises, patching, asset ownership and measurable remediation.</p></article>
+      <article><span>EVOLVE</span><h3>AI + PQC transition</h3><p>Agent/tool permission boundaries, untrusted context handling, AI supply-chain risks, cryptographic inventory and crypto-agility planning are now part of modern security engineering.</p></article>
+    </div>
+    <div class="security-actions"><a class="button" href="https://owasp.org/projects/asvs" target="_blank" rel="noopener noreferrer">OWASP ASVS 5.0 ↗︎</a><a class="button" href="https://csrc.nist.gov/projects/ssdf" target="_blank" rel="noopener noreferrer">NIST SSDF ↗︎</a><a class="button" href="https://genai.owasp.org/" target="_blank" rel="noopener noreferrer">OWASP GenAI Security ↗︎</a><a class="button" href="https://pages.nist.gov/nccoe-migration-post-quantum-cryptography/" target="_blank" rel="noopener noreferrer">NIST PQC migration ↗︎</a></div>
   </section>
 
   <section class="wrap security-close" aria-labelledby="security-close-title">
