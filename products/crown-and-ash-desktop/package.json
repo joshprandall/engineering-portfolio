@@ -30,6 +30,7 @@
       "package.json"
     ],
     "win": {
+      "executableName": "Crown-and-Ash",
       "target": [
         {
           "target": "nsis",
@@ -39,6 +40,7 @@
     },
     "nsis": {
       "oneClick": false,
+      "runAfterFinish": false,
       "allowToChangeInstallationDirectory": true,
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true
