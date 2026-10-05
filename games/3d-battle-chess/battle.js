@@ -11,15 +11,20 @@ import {castleAttempt,castleNotation} from './castle-controls.js';
 import {ATTACK_NAMES} from './attacks.js';
 import {GameAudio} from './audio.js';
 import {loadSettings,saveSettings,loadSavedMatch,saveMatch,savedMatchSummary} from './game-storage.js';
+import {currentEdition,currentCapabilities,FULL_EDITION} from './edition.js';
 
 const $=s=>document.querySelector(s);
 const sceneEl=$('#scene'),board2d=$('#board2d'),logEl=$('#log'),turnEl=$('#turn'),stateEl=$('#state'),gameShell=$('#gameShell'),setupScreen=$('#setupScreen'),rotateGate=$('#rotateGate'),audio=new GameAudio();
 const themes=PALETTES;
-let theme='classic',selected=null,legal=[],busy=false,soundOn=true,animatedCombat=true,quality='auto',aiTimer=null,generation=0,toastTimer=null,scene,camera,renderer,orbit,boardGroup,pieceGroup,fxGroup;
+const edition=currentEdition(window),capabilities=currentCapabilities(window);
+let theme='classic',selected=null,legal=[],busy=false,soundOn=true,animatedCombat=capabilities.animatedCombat,quality='auto',aiTimer=null,generation=0,toastTimer=null,scene,camera,renderer,orbit,boardGroup,pieceGroup,fxGroup;
 let viewMode='3d',flipped=false,handCursor={x:4,y:6},keyboardCursor=false,fullscreenStarted=false,webglReady=false,initialized=false,started=false,resultShown=false,gamepadFrame=0,lastGamepadButtons=[];
 const reducedMotion=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const query=new URLSearchParams(location.search);
-const useV8Combat=query.get('combat')!=='v7';
+const useV8Combat=capabilities.cinematicCaptures&&query.get('combat')!=='v7';
+const themeLabels={classic:'Classic',arcane:'Arcane',monsters:'Monsters',brick:'Brick Battle',cosmic:'Cosmic War'};
+const normalizeTheme=value=>capabilities.themes.includes(value)?value:'classic';
+const normalizeCombat=value=>capabilities.animatedCombat&&value!==false;
 const handheldDevice=()=>{
  const ua=navigator.userAgent||'';
  const explicit=/Android|iPhone|iPad|iPod|Mobile|Tablet/i.test(ua);
@@ -48,7 +53,33 @@ function syncSoundUI(){
  $('#sound').setAttribute('aria-pressed',String(soundOn));
  $('#handSound').textContent=soundOn?'Sound on':'Sound off';
 }
-function currentSettings(){return{mode:$('#mode')?.value||$('#setupMode')?.value||'ai',theme,difficulty:$('#difficulty')?.value||$('#setupDifficulty')?.value||'2',view:viewMode,sound:soundOn,quality,animatedCombat}}
+function syncEditionSelect(select){
+ if(!select)return;
+ const wanted=new Set(capabilities.themes);
+ for(const option of [...select.options])if(!wanted.has(option.value))option.remove();
+ for(const value of capabilities.themes)if(![...select.options].some(option=>option.value===value)){
+  const option=document.createElement('option');option.value=value;option.textContent=themeLabels[value]||value;select.append(option);
+ }
+ select.value=normalizeTheme(select.value);
+}
+function applyEditionUI(){
+ const full=edition===FULL_EDITION;
+ document.documentElement.dataset.crownAshEdition=edition;
+ document.title=`Crown & Ash — ${capabilities.label}`;
+ syncEditionSelect($('#setupTheme'));syncEditionSelect($('#theme'));
+ for(const el of document.querySelectorAll('[data-full-only]')){el.hidden=!full;el.classList.toggle('hidden',!full);if(full)el.style.removeProperty('display');else el.style.setProperty('display','none','important');}
+ const setupCombat=$('#setupCombat');
+ if(setupCombat){setupCombat.disabled=!full;setupCombat.checked=full&&normalizeCombat(setupCombat.checked);}
+ const combatToggle=$('#combatToggle');
+ if(combatToggle)combatToggle.disabled=!full;
+ const lead=document.querySelector('.setup-lead');
+ if(lead)lead.textContent=full
+  ?'Choose a faction, opponent, and presentation profile. Full Edition captures become cinematic character confrontations while chess legality remains authoritative.'
+  :'Crown & Ash Basic Edition delivers complete chess in the browser with a polished Classic board, computer or local play, save/load, match tools, controller support, and 2D/3D views. The cinematic Full Edition is reserved for Windows/Steam.';
+ const kicker=document.querySelector('.setup-kicker');
+ if(kicker)kicker.textContent=full?'CINDRVAULT PRESENTS / CROWN & ASH FULL EDITION':'CINDRVAULT PRESENTS / CROWN & ASH BASIC EDITION';
+}
+function currentSettings(){return{mode:$('#mode')?.value||$('#setupMode')?.value||'ai',theme:normalizeTheme(theme),difficulty:$('#difficulty')?.value||$('#setupDifficulty')?.value||'2',view:viewMode,sound:soundOn,quality,animatedCombat:normalizeCombat(animatedCombat),edition}}
 function persistSettings(){saveSettings(currentSettings())}
 function persistMatch(){if(started)saveMatch({game,settings:currentSettings(),flipped})}
 function updateContinueButton(){const saved=loadSavedMatch(),button=$('#continueGameBtn');if(!button)return;button.classList.toggle('hidden',!saved);$('#continueSummary').textContent=savedMatchSummary(saved)||''}
@@ -62,12 +93,12 @@ async function launchConfiguredGame(resume=false){
  const saved=resume?loadSavedMatch():null;
  if(resume&&!saved){notice('No saved battle is available.');updateContinueButton();return}
  const mode=saved?.settings.mode||$('#setupMode').value;
- const nextTheme=saved?.settings.theme||$('#setupTheme').value;
+ const nextTheme=normalizeTheme(saved?.settings.theme||$('#setupTheme').value);
  const difficulty=saved?.settings.difficulty||$('#setupDifficulty').value;
  const nextView=saved?.settings.view||$('#setupView').value;
  const nextSound=saved?.settings.sound??$('#setupSound').checked;
  const nextQuality=saved?.settings.quality||$('#setupQuality').value;
- const nextCombat=saved?.settings.animatedCombat??$('#setupCombat').checked;
+ const nextCombat=normalizeCombat(saved?.settings.animatedCombat??$('#setupCombat').checked);
  $('#mode').value=mode;$('#theme').value=nextTheme;$('#difficulty').value=difficulty;
  $('#quality').value=nextQuality;theme=nextTheme;viewMode=nextView;soundOn=nextSound;quality=nextQuality;animatedCombat=nextCombat;flipped=!!saved?.flipped;
  if(saved){try{game.loadRecord(saved.game)}catch(error){notice(error.message);updateContinueButton();return}}else game.reset();
@@ -97,12 +128,13 @@ async function exitToSetup(){
  gameShell.classList.add('hidden');gameShell.setAttribute('aria-hidden','true');
  setupScreen.classList.remove('hidden');
  $('#controls').classList.remove('open');$('#menuBtn').setAttribute('aria-expanded','false');
- const settings=loadSettings();$('#setupMode').value=settings.mode;$('#setupTheme').value=settings.theme;$('#setupDifficulty').value=settings.difficulty;$('#setupView').value=settings.view;$('#setupQuality').value=settings.quality;$('#setupSound').checked=settings.sound;$('#setupCombat').checked=settings.animatedCombat;syncSetupDifficulty();updateContinueButton();
+ const settings=loadSettings();applyEditionUI();$('#setupMode').value=settings.mode;$('#setupTheme').value=normalizeTheme(settings.theme);$('#setupDifficulty').value=settings.difficulty;$('#setupView').value=settings.view;$('#setupQuality').value=settings.quality;$('#setupSound').checked=settings.sound;$('#setupCombat').checked=normalizeCombat(settings.animatedCombat);syncSetupDifficulty();updateContinueButton();
  updateRotateGate();$('#startGameBtn')?.focus();
 }
 function connectSetup(){
+ applyEditionUI();
  const settings=loadSettings();
- $('#setupMode').value=settings.mode;$('#setupTheme').value=settings.theme;$('#setupDifficulty').value=settings.difficulty;$('#setupView').value=settings.view;$('#setupQuality').value=settings.quality;$('#setupSound').checked=settings.sound;$('#setupCombat').checked=settings.animatedCombat;
+ $('#setupMode').value=settings.mode;$('#setupTheme').value=normalizeTheme(settings.theme);$('#setupDifficulty').value=settings.difficulty;$('#setupView').value=settings.view;$('#setupQuality').value=settings.quality;$('#setupSound').checked=settings.sound;$('#setupCombat').checked=normalizeCombat(settings.animatedCombat);
  syncSetupDifficulty();
  $('#setupMode').addEventListener('change',syncSetupDifficulty);
  $('#startGameBtn').addEventListener('click',()=>void launchFromSetup());
@@ -388,7 +420,10 @@ function applyQuality(){
  renderer.shadowMap.enabled=quality==='high'||quality==='auto'&&!constrainedAuto;
  if(renderer.shadowMap.enabled)renderer.shadowMap.needsUpdate=true;
 }
-function toggleCombat(){animatedCombat=!animatedCombat;syncCombatUI();persistSettings();persistMatch();notice(animatedCombat?'Animated battles enabled.':'Animated battles disabled for faster play.')}
+function toggleCombat(){
+ if(!capabilities.animatedCombat){animatedCombat=false;syncCombatUI();notice('Cinematic battles are reserved for Crown & Ash Full Edition.');return}
+ animatedCombat=!animatedCombat;syncCombatUI();persistSettings();persistMatch();notice(animatedCombat?'Animated battles enabled.':'Animated battles disabled for faster play.')
+}
 function downloadText(filename,text,type='text/plain'){
  const link=document.createElement('a'),url=URL.createObjectURL(new Blob([text],{type}));link.href=url;link.download=filename;document.body.appendChild(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),0);
 }
@@ -429,7 +464,7 @@ function connectButtons(){
  $('#saveGame').onclick=()=>{persistMatch();updateContinueButton();notice('Battle saved on this device.')};
  $('#copyFen').onclick=()=>{void copyFen()};$('#downloadPgn').onclick=()=>downloadText('crown-and-ash-match.pgn',game.toPGN());$('#loadFen').onclick=loadFenPosition;
  $('#rematch').onclick=newGame;$('#resultSetup').onclick=()=>{$('#gameOver').classList.add('hidden');void exitToSetup()};
- $('#theme').onchange=e=>{if(busy){e.target.value=theme;return}theme=e.target.value;audio.setTheme(theme);createBoard();drawPieces();persistSettings();persistMatch()};
+ $('#theme').onchange=e=>{if(busy){e.target.value=theme;return}theme=normalizeTheme(e.target.value);e.target.value=theme;audio.setTheme(theme);createBoard();drawPieces();persistSettings();persistMatch()};
  $('#quality').onchange=e=>{quality=e.target.value;applyQuality();persistSettings();persistMatch();notice(`Graphics quality: ${quality}.`)};
  $('#mode').onchange=()=>{newGame();persistSettings()};
  $('#difficulty').onchange=e=>{const p=computerProfile(Number(e.target.value));persistSettings();persistMatch();notice(`Computer strength: ${p.name} · search depth ${p.depth}`);if($('#mode').value==='ai'&&game.turn==='b'&&!busy)queueComputer()};
@@ -475,7 +510,7 @@ connectSetup();
 
 // Adopt the singleton used by the emergency renderer; never reset during handoff.
 export function resumePreservedGame(){
- theme=$('#theme').value;viewMode='3d';soundOn=$('#setupSound').checked;
+ theme=normalizeTheme($('#theme').value);viewMode='3d';soundOn=$('#setupSound').checked;animatedCombat=normalizeCombat($('#setupCombat').checked);
  setupScreen.classList.add('hidden');gameShell.classList.remove('hidden');gameShell.setAttribute('aria-hidden','false');
  document.body.classList.add('playing');started=true;fullscreenStarted=true;
  init();void audio.setEnabled(soundOn);syncSoundUI();drawPieces();renderStatus();setView('3d',false);updateRotateGate();
