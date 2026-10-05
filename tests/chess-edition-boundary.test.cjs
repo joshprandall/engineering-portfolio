@@ -20,7 +20,7 @@ const server=http.createServer((req,res)=>{
 });
 
 (async()=>{
- const edition=await import(pathToFileURL(path.join(gameRoot,'edition.mjs')).href);
+ const edition=await import(pathToFileURL(path.join(gameRoot,'edition.js')).href);
  assert.equal(edition.resolveEdition({desktop:false,edition:'full',protocol:'https:'}),'basic');
  assert.equal(edition.resolveEdition({desktop:true,edition:'full',protocol:'https:'}),'basic','web protocol cannot unlock Full Edition');
  assert.equal(edition.resolveEdition({desktop:true,edition:'full',protocol:'file:'}),'full','desktop file runtime unlocks Full Edition');
