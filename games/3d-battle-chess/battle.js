@@ -11,7 +11,7 @@ import {castleAttempt,castleNotation} from './castle-controls.js';
 import {ATTACK_NAMES} from './attacks.js';
 import {GameAudio} from './audio.js';
 import {loadSettings,saveSettings,loadSavedMatch,saveMatch,savedMatchSummary} from './game-storage.js';
-import {currentEdition,currentCapabilities,FULL_EDITION} from './edition.mjs';
+import {currentEdition,currentCapabilities,FULL_EDITION} from './edition.js';
 
 const $=s=>document.querySelector(s);
 const sceneEl=$('#scene'),board2d=$('#board2d'),logEl=$('#log'),turnEl=$('#turn'),stateEl=$('#state'),gameShell=$('#gameShell'),setupScreen=$('#setupScreen'),rotateGate=$('#rotateGate'),audio=new GameAudio();
@@ -67,7 +67,7 @@ function applyEditionUI(){
  document.documentElement.dataset.crownAshEdition=edition;
  document.title=`Crown & Ash — ${capabilities.label}`;
  syncEditionSelect($('#setupTheme'));syncEditionSelect($('#theme'));
- for(const el of document.querySelectorAll('[data-full-only]')){el.hidden=!full;el.classList.toggle('hidden',!full);}
+ for(const el of document.querySelectorAll('[data-full-only]')){el.hidden=!full;el.classList.toggle('hidden',!full);el.style.display=full?'':'none';}
  const setupCombat=$('#setupCombat');
  if(setupCombat){setupCombat.disabled=!full;setupCombat.checked=full&&normalizeCombat(setupCombat.checked);}
  const combatToggle=$('#combatToggle');
