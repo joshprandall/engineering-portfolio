@@ -48,7 +48,12 @@ class FakeAudioContext {
 }
 
 global.window={AudioContext:FakeAudioContext};
-const {GameAudio}=await import('../games/3d-battle-chess/audio.js');
+const {GameAudio,AUDIO_THEME_PROFILES}=await import('../games/3d-battle-chess/audio.js');
+
+assert.equal(Object.keys(AUDIO_THEME_PROFILES).length,5,'all five factions need explicit audio landscapes');
+assert.notDeepEqual(AUDIO_THEME_PROFILES.arcane.ratios,AUDIO_THEME_PROFILES.monsters.ratios,'Arcane and Monsters ambience must not share the same harmonic profile');
+assert(AUDIO_THEME_PROFILES.cosmic.movePitch>AUDIO_THEME_PROFILES.monsters.movePitch,'Cosmic movement should read brighter than Monsters');
+assert(AUDIO_THEME_PROFILES.arcane.lfoRate>AUDIO_THEME_PROFILES.cosmic.lfoRate,'Arcane ambience should pulse faster than Cosmic');
 
 const audio=new GameAudio();
 audio.setTheme('classic');
@@ -63,6 +68,8 @@ audio.setTheme('cosmic');
 assert(firstClassicOsc.stopped.length>0,'changing faction theme must stop the old ambience');
 assert.equal(audio.music.length,4,'theme refresh must leave exactly one ambient bed running');
 assert.equal(audio.music[0].osc.frequency.value,49,'cosmic ambience should use the cosmic root');
+assert.equal(audio.music[1].osc.frequency.value,49*Math.SQRT2,'cosmic ambience should use its distinctive interval structure');
+assert.equal(audio.music[2].osc.type,'sawtooth','cosmic third voice should carry a sharper synthetic texture');
 assert(ctx.oscillators.length>oscillatorCountBeforeThemeSwitch,'changing theme must create a replacement ambience');
 
 const oscillatorCountAfterThemeSwitch=ctx.oscillators.length;
