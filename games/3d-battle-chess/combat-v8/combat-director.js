@@ -8,6 +8,7 @@ import {body,applyImpulse,integrate,driveToward} from './physics.js';
 import {AttackExecutorV8} from './attack-executor.js';
 import {choreographyPose} from './choreography.js';
 import {defeatPose} from './defeat-choreography.js';
+import {defensePose} from './defense-choreography.js';
 import {CombatEffectsV8} from './effects.js';
 
 const roleMass=role=>({p:.85,n:1.08,b:.96,r:2.45,q:1.20,k:1.58})[role]||1;
@@ -42,8 +43,9 @@ export class CombatDirectorV8{
    lean:pose.rootDrive*.12+(signature.lean||0),brace:.3,weaponArc:style.weaponArc,...signature,
    wingBeat:this.attackerDef.wings?Math.sin(this.elapsed*9)*.34:0,orbitAngle:this.elapsed*2.4
   });
+  const defense=defensePose(this.defenderDef,{attackerPose:pose,attackKind:kind});
   const defeated=defeatPose(this.defenderDef,this.contact?.reaction,this.contact?this.elapsed-this.contact.time:0);
-  poseRig(this.defender,{brace:this.contact?.reaction?.fall ? .15 : .55,...defeated});
+  poseRig(this.defender,this.contact?{brace:this.contact.reaction?.fall ? .15 : .55,...defeated}:defense);
   const tip=new THREE.Vector3();weaponWorldPoint(this.attacker,tip);
   if(!this.contact){
    const event=this.executor.update({
