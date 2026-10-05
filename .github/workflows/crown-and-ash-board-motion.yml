@@ -1,0 +1,31 @@
+name: Crown & Ash Board Motion
+
+on:
+  pull_request:
+    paths:
+      - "games/3d-battle-chess/board-motion.js"
+      - "games/3d-battle-chess/battle.js"
+      - "games/3d-battle-chess/edition.js"
+      - "tests/chess-board-motion.test.mjs"
+      - ".github/workflows/crown-and-ash-board-motion.yml"
+  workflow_dispatch:
+
+jobs:
+  board-motion:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Verify Full Edition board motion and presence
+        run: node tests/chess-board-motion.test.mjs
