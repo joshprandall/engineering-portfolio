@@ -1,0 +1,45 @@
+name: Crown & Ash Edition Boundary
+
+on:
+  pull_request:
+    paths:
+      - "games/3d-battle-chess/**"
+      - "products/crown-and-ash-desktop/preload.cjs"
+      - "tests/chess-edition-boundary.test.cjs"
+      - ".github/workflows/crown-and-ash-edition.yml"
+
+jobs:
+  verify-editions:
+    runs-on: windows-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Refresh pinned offline Three.js bundle
+        run: npm run vendor:crown-ash
+
+      - name: Verify Basic versus Full edition boundary
+        env:
+          PORTFOLIO_RUNTIME_ROOT: ${{ github.workspace }}
+          PORTFOLIO_BROWSER_EXECUTABLE: C:\Program Files\Google\Chrome\Application\chrome.exe
+        run: node tests/chess-edition-boundary.test.cjs
+
+      - name: Install desktop dependencies
+        working-directory: products/crown-and-ash-desktop
+        run: npm ci
+
+      - name: Exercise Full Edition desktop runtime
+        working-directory: products/crown-and-ash-desktop
+        env:
+          CROWN_ASH_SMOKE: "1"
+        run: npm start
