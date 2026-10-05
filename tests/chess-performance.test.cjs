@@ -42,8 +42,10 @@ const server=http.createServer((req,res)=>{
       deviceScaleFactor:2
     });
     await context.addInitScript(()=>{
-      try{Object.defineProperty(navigator,'hardwareConcurrency',{configurable:true,get:()=>2});}catch{}
-      try{Object.defineProperty(navigator,'deviceMemory',{configurable:true,get:()=>4});}catch{}
+      for(const target of [globalThis.navigator,globalThis.Navigator?.prototype].filter(Boolean)){
+        try{Object.defineProperty(target,'hardwareConcurrency',{configurable:true,get:()=>2});}catch{}
+        try{Object.defineProperty(target,'deviceMemory',{configurable:true,get:()=>4});}catch{}
+      }
     });
 
     const page=await context.newPage();
@@ -72,12 +74,20 @@ const server=http.createServer((req,res)=>{
     await page.waitForFunction(()=>document.querySelector('#board2d')?.children.length===64,{},{timeout:15000});
     evidence.gameReadyMs=Date.now()-started;
 
-    evidence.renderScale=await page.evaluate(()=>{
+    Object.assign(evidence,await page.evaluate(()=>{
       const canvas=document.querySelector('#scene canvas');
-      if(!canvas)return null;
+      if(!canvas)return {renderScale:null};
       const rect=canvas.getBoundingClientRect();
-      return Number((canvas.width/Math.max(1,rect.width)).toFixed(2));
-    });
+      return {
+        renderScale:Number((canvas.width/Math.max(1,rect.width)).toFixed(2)),
+        canvasBufferWidth:canvas.width,
+        canvasCssWidth:Number(rect.width.toFixed(2)),
+        sceneWidth:document.querySelector('#scene')?.clientWidth||0,
+        hardwareConcurrency:navigator.hardwareConcurrency,
+        deviceMemory:navigator.deviceMemory??null,
+        devicePixelRatio
+      };
+    }));
 
     const toggleTimes=[];
     for(let i=0;i<4;i++){
@@ -106,6 +116,10 @@ const server=http.createServer((req,res)=>{
     }));
     evidence.finalState=finalState;
 
+    console.log('Crown & Ash performance evidence before assertions:');
+    console.log(JSON.stringify(evidence,null,2));
+    assert.equal(evidence.hardwareConcurrency,2,'Constrained profile must expose two logical cores');
+    assert.equal(evidence.deviceMemory,4,'Constrained profile must expose 4 GiB device memory');
     assert(evidence.setupReadyMs<12000,'Constrained setup must become interactive within 12s');
     assert(evidence.gameReadyMs<15000,'Constrained 3D game must become playable within 15s');
     assert(evidence.renderScale!==null&&evidence.renderScale<=1.25,'Auto quality must downshift render scale on constrained hardware');
