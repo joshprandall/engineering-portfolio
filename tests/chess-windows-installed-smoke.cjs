@@ -60,7 +60,7 @@ const roots=[
 
 const findInstalledExecutables=()=>roots.flatMap(root=>walk(
   root,
-  full=>path.basename(full).toLowerCase()==='crown & ash.exe'
+  full=>path.basename(full).toLowerCase()==='crown-and-ash.exe'
 ));
 
 const before=new Set(findInstalledExecutables());
@@ -79,6 +79,7 @@ try{
   assert(appCandidates.length>0,'Installed Crown & Ash executable was not found after silent NSIS install.');
   appCandidates.sort((a,b)=>fs.statSync(b).mtimeMs-fs.statSync(a).mtimeMs);
   appExe=appCandidates[0];
+  assert.equal(path.basename(appExe),'Crown-and-Ash.exe','Installed executable name must remain shell-safe.');
   console.log(`Installed executable: ${appExe}`);
 
   profile=fs.mkdtempSync(path.join(os.tmpdir(),'crown-ash-fresh-profile-'));
