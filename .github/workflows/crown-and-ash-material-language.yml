@@ -1,0 +1,29 @@
+name: Crown & Ash Material Language
+
+on:
+  pull_request:
+    paths:
+      - "games/3d-battle-chess/combat-v8/character-factory.js"
+      - "tests/chess-material-language.test.mjs"
+      - ".github/workflows/crown-and-ash-material-language.yml"
+  workflow_dispatch:
+
+jobs:
+  faction-materials:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Verify faction material response
+        run: node tests/chess-material-language.test.mjs

@@ -69,6 +69,48 @@ function floatingOrbs(rig,m,count=3,radius=.34){
  const s=rig.scale;for(let i=0;i<count;i++){const a=i*Math.PI*2/count;const o=mesh(rig.torso,sphere(.065*s),m.glow,Math.cos(a)*radius*s,.18*s,Math.sin(a)*radius*s);o.userData.v8Orb=i;}
 }
 
+const ROLE_CUE_NAMES={
+ p:'shield-disc',
+ n:'high-crest',
+ b:'split-halo',
+ r:'battlement',
+ q:'wide-diadem',
+ k:'tall-crown'
+};
+
+function addRoleCue(root,rig,definition,m){
+ const s=rig.scale,role=definition.role;
+ if(role==='p'){
+  const shield=mesh(rig.torso,cyl(.19*s,.19*s,.055*s,12),m.armor,0,.08*s,.25*s);
+  shield.rotation.x=Math.PI/2;
+  mesh(rig.torso,box(.10*s,.26*s,.045*s),m.glow,0,.08*s,.285*s).rotation.z=Math.PI/4;
+ }
+ if(role==='n'){
+  const crest=mesh(rig.head,box(.07*s,.38*s,.18*s),m.armor,0,.31*s,-.03*s);
+  crest.rotation.x=-.12;
+  mesh(rig.head,cone(.06*s,.20*s,6),m.glow,0,.55*s,-.03*s);
+ }
+ if(role==='b'){
+  const left=mesh(rig.head,torus(.21*s,.026*s),m.glow,-.055*s,.24*s,0);
+  const right=mesh(rig.head,torus(.21*s,.026*s),m.glow,.055*s,.24*s,0);
+  left.rotation.set(Math.PI/2,.42,0);right.rotation.set(Math.PI/2,-.42,0);
+ }
+ if(role==='r'){
+  for(const x of[-.19,-.063,.063,.19])mesh(rig.torso,box(.11*s,.18*s,.18*s),m.armor,x*s,.43*s,.02*s);
+  mesh(rig.torso,box(.52*s,.08*s,.22*s),m.dark,0,.34*s,.01*s);
+ }
+ if(role==='q'){
+  mesh(rig.head,torus(.25*s,.032*s),m.glow,0,.26*s,0).rotation.x=Math.PI/2;
+  for(const x of[-.20,-.10,0,.10,.20])mesh(rig.head,cone(.045*s,(x===0?.24:.17)*s,5),m.armor,x*s,.42*s,0);
+ }
+ if(role==='k'){
+  mesh(rig.head,box(.08*s,.44*s,.08*s),m.armor,0,.43*s,0);
+  mesh(rig.head,box(.30*s,.075*s,.08*s),m.glow,0,.47*s,0);
+  mesh(rig.head,cone(.055*s,.20*s,6),m.glow,0,.72*s,0);
+ }
+ root.userData.roleCue=ROLE_CUE_NAMES[role]||'unknown';
+}
+
 const SCULPTS={
  'classic-p':(r,m)=>{shoulderPads(r,m,.20);mesh(r.left.hand,box(.40*r.scale,.50*r.scale,.075*r.scale),m.armor,0,-.20*r.scale,.25*r.scale);visor(r,m,.28);},
  'classic-n':(r,m)=>{shoulderPads(r,m,.25);visor(r,m,.30);const s=r.scale;mesh(r.head,box(.07*s,.34*s,.15*s),m.glow,0,.28*s,-.04*s);cape(r,m,.38,.42);},
@@ -108,8 +150,10 @@ const SCULPTS={
 
 export function sculptCharacter(root,rig,definition,materials){
  const fn=SCULPTS[definition.id];if(fn)fn(rig,materials);
+ addRoleCue(root,rig,definition,materials);
  root.userData.visualSignature=definition.id;
  return root;
 }
 
 export function visualRecipeIds(){return Object.keys(SCULPTS);}
+export function roleCueName(role){return ROLE_CUE_NAMES[role]||null;}

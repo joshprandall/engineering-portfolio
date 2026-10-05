@@ -1,0 +1,30 @@
+name: Crown & Ash Camera Choreography
+
+on:
+  pull_request:
+    paths:
+      - "games/3d-battle-chess/duels-v8.js"
+      - "games/3d-battle-chess/combat-v8/camera-choreography.js"
+      - "tests/chess-camera-choreography.test.mjs"
+      - ".github/workflows/crown-and-ash-camera.yml"
+  workflow_dispatch:
+
+jobs:
+  camera-choreography:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Verify capture camera choreography
+        run: node tests/chess-camera-choreography.test.mjs
