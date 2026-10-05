@@ -37,6 +37,7 @@ This checklist is for internal release-candidate verification of Crown & Ash, th
 - [ ] Xbox-standard controller flow passes.
 - [ ] PlayStation-compatible standard Gamepad flow passes.
 - [ ] Touch/mobile Basic Edition flow passes.
+- [ ] Automated accessibility/keyboard journey passes: semantic labels, live regions, reduced-motion preference, and keyboard-only legal move.
 - [ ] 2D fallback remains playable when WebGL is unavailable.
 - [ ] Orientation/full-screen behavior passes supported automated coverage.
 
