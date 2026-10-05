@@ -23,7 +23,8 @@ jobs:
       - run: python -m pip install numpy==2.3.5 nbformat nbclient ipykernel
       - run: python -m unittest discover -s project-sources/engineering-studies -p 'test_*.py'
       - run: python tools/check_content_notebooks.py engineering-foundations engineering-studies
-      - run: node --test tests/content-experiments.test.cjs tests/study-companions.test.cjs
+      - run: node --check coding-lab.js && node --check quantum-lab.js && node --check ai-engineering-tools.js && node --check security-extended.js && node --check game-engine-tools.js && node --check projects-evidence.js
+      - run: node --test tests/content-experiments.test.cjs tests/study-companions.test.cjs tests/knowledge-expansion.test.cjs
       - run: python tools/restore_website2_assets.py --ambience
       - run: npx playwright install --with-deps chromium
       - run: node tests/content-browser.test.cjs
