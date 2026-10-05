@@ -14,6 +14,9 @@ jobs:
   final-audit:
     runs-on: windows-latest
     timeout-minutes: 30
+    env:
+      PORTFOLIO_RUNTIME_ROOT: ${{ github.workspace }}
+      PORTFOLIO_BROWSER_EXECUTABLE: C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe
     steps:
       - name: Check out source
         uses: actions/checkout@v4
