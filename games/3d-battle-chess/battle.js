@@ -67,7 +67,7 @@ function applyEditionUI(){
  document.documentElement.dataset.crownAshEdition=edition;
  document.title=`Crown & Ash — ${capabilities.label}`;
  syncEditionSelect($('#setupTheme'));syncEditionSelect($('#theme'));
- for(const el of document.querySelectorAll('[data-full-only]'))el.hidden=!full;
+ for(const el of document.querySelectorAll('[data-full-only]')){el.hidden=!full;el.classList.toggle('hidden',!full);}
  const setupCombat=$('#setupCombat');
  if(setupCombat){setupCombat.disabled=!full;setupCombat.checked=full&&normalizeCombat(setupCombat.checked);}
  const combatToggle=$('#combatToggle');
