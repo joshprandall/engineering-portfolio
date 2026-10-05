@@ -1,0 +1,35 @@
+name: Crown & Ash Performance Candidate
+
+on:
+  pull_request:
+    paths:
+      - "games/3d-battle-chess/**"
+      - "tests/chess-performance.test.cjs"
+      - ".github/workflows/crown-and-ash-performance.yml"
+  workflow_dispatch:
+
+jobs:
+  constrained-performance:
+    runs-on: windows-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+
+      - name: Install test dependencies
+        run: npm ci
+
+      - name: Refresh pinned offline Three.js bundle
+        run: npm run vendor:crown-ash
+
+      - name: Verify constrained-hardware performance and compatibility
+        env:
+          PORTFOLIO_RUNTIME_ROOT: ${{ github.workspace }}
+          PORTFOLIO_BROWSER_EXECUTABLE: C:\Program Files\Google\Chrome\Application\chrome.exe
+        run: node tests/chess-performance.test.cjs

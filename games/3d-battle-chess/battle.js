@@ -381,10 +381,11 @@ function boardKeyboard(e){
 }
 function applyQuality(){
  if(!renderer)return;
- const high=quality==='high'||quality==='auto'&&(navigator.hardwareConcurrency||4)>=8&&(devicePixelRatio||1)<=2.5;
- const performance=quality==='performance';
- renderer.setPixelRatio(Math.min(devicePixelRatio||1,performance?1:high?2:1.5));
- renderer.shadowMap.enabled=!performance;
+ const dpr=devicePixelRatio||1,cores=navigator.hardwareConcurrency||4,memory=Number(navigator.deviceMemory||0);
+ const performance=quality==='performance',constrainedAuto=quality==='auto'&&(handheldDevice()||cores<6||(memory>0&&memory<=4));
+ const high=quality==='high'||quality==='auto'&&!constrainedAuto&&cores>=8&&dpr<=2.5;
+ renderer.setPixelRatio(Math.min(dpr,performance||constrainedAuto?1:high?2:1.5));
+ renderer.shadowMap.enabled=quality==='high'||quality==='auto'&&!constrainedAuto;
  if(renderer.shadowMap.enabled)renderer.shadowMap.needsUpdate=true;
 }
 function toggleCombat(){animatedCombat=!animatedCombat;syncCombatUI();persistSettings();persistMatch();notice(animatedCombat?'Animated battles enabled.':'Animated battles disabled for faster play.')}
