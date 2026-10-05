@@ -2,11 +2,13 @@ import * as THREE from 'three';
 
 // Procedural, original silhouettes. Geometry is deliberately small for mobile GPUs.
 export const PALETTES={
+ // Classic is intentionally frozen as the Website Basic Edition presentation baseline.
  classic:{light:0x9ca9a2,dark:0x617782,w:0xe4d2b5,b:0x314858,trim:0xb18b56,glow:0xcda569,back:0x182d3f},
- arcane:{light:0x859ba3,dark:0x4f617f,w:0xc8e3d8,b:0x3e365f,trim:0xae9a69,glow:0x69d8e5,back:0x1c2941},
- monsters:{light:0xa5ad88,dark:0x61745b,w:0xd1d5a7,b:0x493a4b,trim:0x9b7549,glow:0x9ce17d,back:0x1d332d},
- brick:{light:0xa4a6a1,dark:0x576e80,w:0xead49b,b:0x9f3444,trim:0xbfb6a4,glow:0xe5ae52,back:0x20394c},
- cosmic:{light:0x7c96a6,dark:0x41556c,w:0xbcd9d7,b:0x314b63,trim:0xcc81a8,glow:0x65daca,back:0x16263e}
+ // Full Edition factions use stronger, original color-language separation without changing geometry.
+ arcane:{light:0x8aaeb8,dark:0x4a4f78,w:0xd8f2dc,b:0x49306f,trim:0xb79ad7,glow:0x62e7f5,back:0x211737},
+ monsters:{light:0xaab07a,dark:0x50694f,w:0xd8d29a,b:0x513044,trim:0xb0783f,glow:0xa7e56e,back:0x162b25},
+ brick:{light:0xb7c2cc,dark:0x476a80,w:0xf0d37f,b:0xb7374a,trim:0xd9c9a5,glow:0xffbe4a,back:0x18344a},
+ cosmic:{light:0x789aac,dark:0x354a65,w:0xb9e6ff,b:0x1c315d,trim:0xe07bb7,glow:0x55ead7,back:0x0d1730}
 };
 const sphere=(r=.1)=>new THREE.SphereGeometry(r,12,8);
 const cyl=(top,bottom,height,n=12)=>new THREE.CylinderGeometry(top,bottom,height,n);
