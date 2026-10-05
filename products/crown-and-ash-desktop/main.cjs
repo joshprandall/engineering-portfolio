@@ -65,9 +65,29 @@ function createWindow(){
   });
   window.webContents.once('did-finish-load',async()=>{
    try{
-    const result=await window.webContents.executeJavaScript("({ready:true,title:document.title,start:!!document.querySelector('#startGameBtn'),localThree:document.querySelector('script[type=importmap]')?.textContent.includes('./vendor/three/')===true,desktopBridge:window.crownAndAshDesktop?.desktop===true,edition:window.crownAndAshDesktop?.edition||null,protocol:location.protocol})");
-    const branded=typeof result.title==='string'&&result.title.startsWith('Crown & Ash');
-    const ok=branded&&result.start&&result.localThree&&result.desktopBridge&&result.edition==='full'&&result.protocol==='file:';
+    const result=await window.webContents.executeJavaScript(`new Promise(resolve=>{
+     const deadline=Date.now()+15000;
+     const sample=()=>({
+      ready:document.documentElement.dataset.crownAshEdition==='full',
+      title:document.title,
+      start:!!document.querySelector('#startGameBtn'),
+      localThree:document.querySelector('script[type=importmap]')?.textContent.includes('./vendor/three/')===true,
+      desktopBridge:window.crownAndAshDesktop?.desktop===true,
+      edition:window.crownAndAshDesktop?.edition||null,
+      uiEdition:document.documentElement.dataset.crownAshEdition||null,
+      themes:[...document.querySelectorAll('#setupTheme option')].map(option=>option.value),
+      protocol:location.protocol
+     });
+     const check=()=>{
+      const state=sample();
+      if(state.ready||Date.now()>=deadline){resolve(state);return}
+      setTimeout(check,100);
+     };
+     check();
+    })`);
+    const fullTitle=result.title==='Crown & Ash — Full Edition';
+    const fullThemes=['classic','arcane','monsters','brick','cosmic'].every(value=>result.themes?.includes(value));
+    const ok=result.ready&&fullTitle&&fullThemes&&result.start&&result.localThree&&result.desktopBridge&&result.edition==='full'&&result.uiEdition==='full'&&result.protocol==='file:';
     finishSmoke(result,ok?0:1);
    }catch(error){
     finishSmoke({ready:false,error:error.message},1);
