@@ -30,7 +30,14 @@ function walk(root,predicate,depth=5){
   const found=[];
   function visit(dir,level){
     if(level>depth)return;
-    for(const entry of fs.readdirSync(dir,{withFileTypes:true})){
+    let entries;
+    try{
+      entries=fs.readdirSync(dir,{withFileTypes:true});
+    }catch(error){
+      if(error&&['EACCES','EPERM','ENOENT'].includes(error.code))return;
+      throw error;
+    }
+    for(const entry of entries){
       const full=path.join(dir,entry.name);
       if(entry.isDirectory())visit(full,level+1);
       else if(predicate(full,entry))found.push(full);
