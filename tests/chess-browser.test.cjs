@@ -30,7 +30,7 @@ try{
   await page.reload({waitUntil:'networkidle'});assert(await page.locator('#continueGameBtn').isVisible(),'Saved battle is offered after reload');await page.locator('#continueGameBtn').click();await page.waitForFunction(()=>document.querySelector('#board2d').children.length===64);assert.deepEqual(await game(page),saved,'Continue restores game state and undo history');
   for(let i=0;i<4;i++){await toggle();assert(await page.locator(i%2===0?'#scene':'#board2d').isVisible());assert.deepEqual(await game(page),saved,'View toggles preserve full game state/history');}
   await inputMove(page,'d7d5');await page.waitForFunction(()=>document.querySelectorAll('#log li').length===2);
-  await toggle();await inputMove(page,'e4d5');await page.waitForFunction(()=>document.querySelectorAll('#log li').length===3,{},{timeout:15000});assert.equal((await game(page)).moves.at(-1).captured,'p');
+  await toggle();const duelVisible=page.waitForSelector('.v8-duel-ui',{state:'visible',timeout:5000});await inputMove(page,'e4d5');await duelVisible;assert.match(await page.locator('.v8-duel-ui').textContent(),/Skip battle/,'Animated capture must enter the V8 duel presentation');await page.waitForFunction(()=>document.querySelectorAll('#log li').length===3,{},{timeout:15000});assert.equal((await game(page)).moves.at(-1).captured,'p');
   if(touch)await page.locator('#handUndo').click();else await page.keyboard.press('u');assert.equal((await game(page)).moves.length,2);
   if(touch)await page.locator('#handFlip').click();else await page.keyboard.press('f');assert.equal((await game(page)).moves.length,2);
   assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);
