@@ -9,15 +9,17 @@ for(const theme of themes){
     assert(profile[family].rough>=0&&profile[family].rough<=1,`${theme} ${family} roughness in range`);
     assert(profile[family].metal>=0&&profile[family].metal<=1,`${theme} ${family} metalness in range`);
   }
-  const root=createV8Character({t:'q',c:'w'},theme);
   const materials=new Map();
-  root.traverse(node=>{
-    const list=Array.isArray(node.material)?node.material:[node.material];
-    for(const material of list.filter(Boolean))if(material.name?.startsWith(`crown-ash:${theme}:`))materials.set(material.name,material);
-  });
+  for(const role of ['p','n','b','r','q','k']){
+    const root=createV8Character({t:role,c:'w'},theme);
+    root.traverse(node=>{
+      const list=Array.isArray(node.material)?node.material:[node.material];
+      for(const material of list.filter(Boolean))if(material.name?.startsWith(`crown-ash:${theme}:`))materials.set(material.name,material);
+    });
+  }
   for(const family of ['primary','secondary','armor','skin','glow','dark']){
     const material=materials.get(`crown-ash:${theme}:${family}`);
-    assert(material,`${theme} runtime character must carry named ${family} material`);
+    assert(material,`${theme} full runtime roster must exercise named ${family} material`);
     assert.equal(material.roughness,profile[family].rough);
     assert.equal(material.metalness,profile[family].metal);
   }
