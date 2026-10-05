@@ -73,7 +73,8 @@ test('Game Development adds engineering tools without touching game runtime file
   assert.match(html,/PYREFRAME \/ ENGINE DIRECTION/);
   assert.match(html,/design direction, not a claim/i);
   assert.match(js,/1000\/fps/);
-  assert.match(js,/Maximum catch-up steps/);
+  assert.match(html,/Maximum catch-up steps/);
+  assert.match(js,/sim-max-steps/);
 });
 
 test('Projects and About expose evidence boundaries and capability depth',()=>{
