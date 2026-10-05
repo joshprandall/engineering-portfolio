@@ -5,6 +5,7 @@ on:
     paths:
       - "games/3d-battle-chess/**"
       - "tests/chess-controller.test.cjs"
+      - "tests/chess-controller-focus.test.cjs"
       - ".github/workflows/crown-and-ash-controller.yml"
   push:
     branches:
@@ -12,6 +13,7 @@ on:
     paths:
       - "games/3d-battle-chess/**"
       - "tests/chess-controller.test.cjs"
+      - "tests/chess-controller-focus.test.cjs"
       - ".github/workflows/crown-and-ash-controller.yml"
 
 jobs:
@@ -35,3 +37,8 @@ jobs:
           PORTFOLIO_RUNTIME_ROOT: ${{ github.workspace }}
           PORTFOLIO_BROWSER_EXECUTABLE: C:\Program Files\Google\Chrome\Application\chrome.exe
         run: node tests/chess-controller.test.cjs
+      - name: Verify controller focus across setup, menus, promotion, and results
+        env:
+          PORTFOLIO_RUNTIME_ROOT: ${{ github.workspace }}
+          PORTFOLIO_BROWSER_EXECUTABLE: C:\Program Files\Google\Chrome\Application\chrome.exe
+        run: node tests/chess-controller-focus.test.cjs
