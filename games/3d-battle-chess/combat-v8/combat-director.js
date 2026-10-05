@@ -45,7 +45,7 @@ export class CombatDirectorV8{
   });
   const defense=defensePose(this.defenderDef,{attackerPose:pose,attackKind:kind});
   const defeated=defeatPose(this.defenderDef,this.contact?.reaction,this.contact?this.elapsed-this.contact.time:0);
-  poseRig(this.defender,this.contact?{brace:this.contact.reaction?.fall?.15:.55,...defeated}:defense);
+  poseRig(this.defender,this.contact?{brace:this.contact.reaction?.fall ? .15 : .55,...defeated}:defense);
   const tip=new THREE.Vector3();weaponWorldPoint(this.attacker,tip);
   if(!this.contact){
    const event=this.executor.update({
