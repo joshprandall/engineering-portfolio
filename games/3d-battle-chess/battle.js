@@ -12,6 +12,7 @@ import {ATTACK_NAMES} from './attacks.js';
 import {GameAudio} from './audio.js';
 import {loadSettings,saveSettings,loadSavedMatch,saveMatch,savedMatchSummary} from './game-storage.js';
 import {currentEdition,currentCapabilities,FULL_EDITION} from './edition.js';
+import {animateBoardMove,applyBoardPresence} from './board-motion.js';
 
 const $=s=>document.querySelector(s);
 const sceneEl=$('#scene'),board2d=$('#board2d'),logEl=$('#log'),turnEl=$('#turn'),stateEl=$('#state'),gameShell=$('#gameShell'),setupScreen=$('#setupScreen'),rotateGate=$('#rotateGate'),audio=new GameAudio();
@@ -228,8 +229,21 @@ async function applyMove(m,computer=false,promotion=null){
  if(!p||p.c!==game.turn||!game.legalMoves(m.x,m.y).some(c=>c.nx===m.nx&&c.ny===m.ny))return false;
  busy=true;
  if(p.t==='p'&&(m.ny===0||m.ny===7)&&!promotion)promotion=computer?'q':await promotionChoice();
+ const attacker=pieceGroup?.children?.find(o=>o.userData.x===m.x&&o.userData.y===m.y);
+ let moveSoundPlayed=false;
+ if(!captured&&capabilities.weightedLocomotion&&viewMode==='3d'&&webglReady&&attacker){
+  stateEl.textContent=roleNames[p.t]+' advances';
+  void audio.move(p.t);moveSoundPlayed=true;
+  await animateBoardMove({
+   root:attacker,
+   from:{x:m.x,y:m.y},
+   to:{x:m.nx,y:m.ny},
+   role:p.t,
+   locomotion:attacker.userData?.definition?.locomotion||'',
+   reducedMotion
+  });
+ }
  if(captured&&animatedCombat&&viewMode==='3d'&&webglReady){
-  const attacker=pieceGroup.children.find(o=>o.userData.x===m.x&&o.userData.y===m.y);
   const defender=pieceGroup.children.find(o=>o.userData.x===m.nx&&o.userData.y===(enPassant?m.y:m.ny));
   stateEl.textContent=roleNames[p.t]+' '+ATTACK_NAMES[theme][p.t]+'!';
   void audio.move(p.t);
@@ -239,7 +253,7 @@ async function applyMove(m,computer=false,promotion=null){
  const move=game.move(m.x,m.y,m.nx,m.ny,promotion||'q');
  if(!move){busy=false;renderStatus();return false}
  selected=null;legal=[];handCursor={x:m.nx,y:m.ny};drawPieces();renderStatus();
- if(!captured)void audio.move(p.t);
+ if(!captured&&!moveSoundPlayed)void audio.move(p.t);
  busy=false;persistMatch();
  if(!computer&&$('#mode').value==='ai'&&game.turn==='b'&&!game.status().over)queueComputer();
  return true;
@@ -494,7 +508,12 @@ function init3D(){
  boardGroup=new THREE.Group();pieceGroup=new THREE.Group();fxGroup=new THREE.Group();scene.add(boardGroup,pieceGroup,fxGroup);webglReady=true;
  createBoard();
  const resize=()=>{if(viewMode!=='3d')return;const w=Math.max(1,sceneEl.clientWidth),h=Math.max(1,sceneEl.clientHeight);renderer.setSize(w,h,false);camera.aspect=w/h;camera.fov=camera.aspect<.85?62:43;camera.updateProjectionMatrix()};
- new ResizeObserver(resize).observe(sceneEl);resize();renderer.setAnimationLoop(()=>{if(started&&viewMode==='3d'&&!document.hidden){orbit.update();renderer.render(scene,camera)}});
+ new ResizeObserver(resize).observe(sceneEl);resize();renderer.setAnimationLoop(()=>{
+  if(started&&viewMode==='3d'&&!document.hidden){
+    if(capabilities.livingBoardPresence&&!busy)applyBoardPresence(pieceGroup,{time:performance.now()/1000,selected,turn:game.turn,reducedMotion});
+    orbit.update();renderer.render(scene,camera);
+  }
+ });
  return true;
 }
 function init(){
