@@ -53,7 +53,7 @@ const server=http.createServer((req,res)=>{let f=path.resolve(root,'.'+new URL(r
 
   await page.goto(base+'game-development.html',{waitUntil:'domcontentloaded'});await page.locator('#frame-output').waitFor();assert.match(await page.locator('#frame-output').innerText(),/16\.67 ms per frame/);assert.equal(await page.locator('[data-release]').count(),10);
 
-  await page.goto(base+'projects.html',{waitUntil:'domcontentloaded'});await page.locator('#project-filter').fill('quantum');assert((await page.locator('.project-card:visible').count())>=2);await page.locator('[data-project-category="knowledge"]').click();assert.equal(await page.locator('.project-card:visible').count(),2);
+  await page.goto(base+'projects.html',{waitUntil:'domcontentloaded'});await page.locator('#project-filter').fill('quantum');assert((await page.locator('.project-card:visible').count())>=2);await page.locator('#project-filter').fill('');await page.locator('[data-project-category="knowledge"]').click();assert.equal(await page.locator('.project-card:visible').count(),2);
 
   for(const route of ['learn-coding.html','learn-quantum.html','ai-development.html','security-research.html','game-development.html','projects.html']){
     await page.goto(base+route,{waitUntil:'domcontentloaded'});
