@@ -16,7 +16,7 @@ export function castleAttempt(game, selected, x, y) {
   return {move, side: rookX === 7 ? 'kingside' : 'queenside'};
 }
 export function castleNotation(game, input) {
-  const text = input.trim().toLowerCase().replaceAll('0', 'o');
+  const text = String(input ?? '').trim().toLowerCase().replaceAll('0', 'o').replace(/[+#?!]+$/, '');
   const side = text === 'o-o' ? 7 : text === 'o-o-o' ? 0 : null;
   if (side === null) return null;
   const y = game.turn === 'w' ? 7 : 0;
