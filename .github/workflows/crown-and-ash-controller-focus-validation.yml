@@ -1,0 +1,78 @@
+name: Crown & Ash Controller Focus Validation
+
+on:
+  push:
+    branches:
+      - "ai/crown-and-ash-controller-focus-rc9-r2-20261005"
+
+jobs:
+  full-regression:
+    runs-on: windows-latest
+    timeout-minutes: 30
+    steps:
+      - name: Check out isolated branch
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+      - name: Install test dependencies
+        run: npm ci
+      - name: Refresh pinned offline Three.js bundle
+        run: npm run vendor:crown-ash
+      - name: Verify unit and presentation contracts
+        shell: pwsh
+        run: |
+          node tests/chess-rules.test.mjs
+          node tests/chess-productization.test.mjs
+          node tests/chess-roster-integrity.test.mjs
+          node tests/chess-audio.test.mjs
+          node tests/chess-board-motion.test.mjs
+          node tests/chess-camera-choreography.test.mjs
+          node tests/chess-combat-choreography.test.mjs
+          node tests/chess-combat-vfx.test.mjs
+          node tests/chess-contact-physics.test.mjs
+          node tests/chess-material-language.test.mjs
+          node tests/chess-role-readability.test.mjs
+      - name: Verify browser controller edition and performance behavior
+        shell: pwsh
+        env:
+          PORTFOLIO_RUNTIME_ROOT: ${{ github.workspace }}
+          PORTFOLIO_BROWSER_EXECUTABLE: C:\Program Files\Google\Chrome\Application\chrome.exe
+        run: |
+          node tests/chess-edition-boundary.test.cjs
+          node tests/chess-controller.test.cjs
+          node tests/chess-controller-focus.test.cjs
+          node tests/chess-browser.test.cjs
+          node tests/chess-performance.test.cjs
+      - name: Verify offline browser operation
+        shell: pwsh
+        env:
+          PORTFOLIO_RUNTIME_ROOT: ${{ github.workspace }}
+          PORTFOLIO_BROWSER_EXECUTABLE: C:\Program Files\Google\Chrome\Application\chrome.exe
+          CHESS_OFFLINE_ONLY: "1"
+        run: node tests/chess-browser.test.cjs
+      - name: Install desktop packaging dependencies
+        working-directory: products/crown-and-ash-desktop
+        run: npm ci
+      - name: Build Windows installer
+        working-directory: products/crown-and-ash-desktop
+        run: npm run dist:win
+      - name: Smoke-test packaged Windows runtime
+        working-directory: products/crown-and-ash-desktop
+        shell: pwsh
+        env:
+          CROWN_ASH_SMOKE: "1"
+        run: |
+          $exe = Get-ChildItem -Path "dist/win-unpacked" -Filter "*.exe" -File | Where-Object { $_.Name -notmatch "^(elevate|Uninstall)" } | Select-Object -First 1
+          if (-not $exe) { throw "Packaged Crown & Ash executable not found." }
+          $process = Start-Process -FilePath $exe.FullName -PassThru
+          if (-not $process.WaitForExit(45000)) { try { $process.Kill($true) } catch {}; throw "Packaged Crown & Ash smoke test timed out." }
+          if ($process.ExitCode -ne 0) { throw "Packaged smoke test failed." }
+      - name: Verify installed Windows lifecycle
+        shell: pwsh
+        run: |
+          $installer = Get-ChildItem -Path "products/crown-and-ash-desktop/dist" -Filter "Crown-and-Ash-*-x64.exe" -File | Select-Object -First 1
+          if (-not $installer) { throw "Crown & Ash NSIS installer not found." }
+          node tests/chess-windows-installed-smoke.cjs $installer.FullName
