@@ -9,6 +9,7 @@ const mime={'.html':'text/html','.js':'text/javascript','.css':'text/css','.json
 const server=http.createServer((req,res)=>{
   try{
     const pathname=decodeURIComponent(new URL(req.url,'http://local').pathname);
+    if(pathname==='/favicon.ico'){res.writeHead(204);res.end();return;}
     const file=path.resolve(root,'.'+pathname+(pathname.endsWith('/')?'index.html':''));
     if(!file.startsWith(root+path.sep))throw Error('outside');
     res.setHeader('Content-Type',mime[path.extname(file)]||'application/octet-stream');
