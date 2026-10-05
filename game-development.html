@@ -15,7 +15,7 @@
 <link href="site-scenes.css?v=20260929-ambience-phone-v2" rel="stylesheet"/>
 
 
-<script defer src="site-navigation.js"></script><script defer src="site-search.js"></script><link rel="stylesheet" href="site-sections.css"><link rel="stylesheet" href="site-responsive.css?v=20260929-glass-controls"><script defer src="site-scenes.js?v=20260929-ambience-phone-v2"></script><script defer src="site-audio.js?v=20260929-ambience-phone-v2"></script><script defer src="site-sound-control.js?v=20260929-ambience-phone-v2"></script></head>
+<script defer src="site-navigation.js"></script><script defer src="site-search.js"></script><link rel="stylesheet" href="site-sections.css"><link rel="stylesheet" href="site-responsive.css?v=20260929-glass-controls"><script defer src="site-scenes.js?v=20260929-ambience-phone-v2"></script><script defer src="site-audio.js?v=20260929-ambience-phone-v2"></script><script defer src="site-sound-control.js?v=20260929-ambience-phone-v2"></script><link rel="stylesheet" href="learning-hubs.css?v=20261004-knowledge"><script defer src="game-engine-tools.js?v=20261004-knowledge"></script></head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
 <header class="site-global-header"><a class="brand" href="index.html" aria-label="Joshua Randall home"><strong>JR</strong><span>Joshua Randall<small>Systems. Software. Possibility.</small></span></a><nav id="primary-nav" aria-label="Primary"><a href="index.html">Home</a><a href="about.html">About Me</a><a href="expertise-experience.html">Expertise &amp; Experience</a><a href="resume.html">Résumé</a><a href="direction.html">Direction</a><a href="projects.html">Projects</a><a href="learn.html">Learn</a><a href="game-development.html">Game Development</a><a href="ai-development.html">AI Development</a></nav><div class="global-controls tools"><button id="search-open" aria-label="Search portfolio">⌕ <span>Search</span><kbd>/</kbd></button><button id="theme" data-theme-toggle aria-label="Switch color theme">◐</button><button id="menu" aria-controls="primary-nav" aria-expanded="false" aria-label="Open navigation">☰</button></div></header>
@@ -52,7 +52,74 @@
       </article>
     </div>
   </section>
-<section id="engine-path" class="wrap"><h2>Build the worlds behind the games</h2><p>Keep current releases independent while developing a Joshua-owned engine architecture. The full engine is future work.</p><div class="destination-grid"><article class="destination-card"><h3>Future Games</h3><p>Planned releases will appear here when playable.</p><a href="game-tools.html?topic=future-games" target="_blank" rel="noopener">Explore this path →</a></article><article class="destination-card"><h3>Custom Game Engine Development</h3><p>Explore the design, build a minimal subsystem, then verify behavior and performance before integration.</p><a href="game-tools.html?topic=engine-architecture" target="_blank" rel="noopener">Explore this path →</a></article><article class="destination-card"><h3>Game AI</h3><p>Explore the design, build a minimal subsystem, then verify behavior and performance before integration.</p><a href="game-tools.html?topic=game-ai" target="_blank" rel="noopener">Explore this path →</a></article><article class="destination-card"><h3>Graphics &amp; Rendering</h3><p>Explore the design, build a minimal subsystem, then verify behavior and performance before integration.</p><a href="game-tools.html?topic=graphics-rendering" target="_blank" rel="noopener">Explore this path →</a></article><article class="destination-card"><h3>Physics</h3><p>Explore the design, build a minimal subsystem, then verify behavior and performance before integration.</p><a href="game-tools.html?topic=physics" target="_blank" rel="noopener">Explore this path →</a></article><article class="destination-card"><h3>Animation</h3><p>Explore the design, build a minimal subsystem, then verify behavior and performance before integration.</p><a href="game-tools.html?topic=animation" target="_blank" rel="noopener">Explore this path →</a></article><article class="destination-card"><h3>Procedural Generation</h3><p>Explore the design, build a minimal subsystem, then verify behavior and performance before integration.</p><a href="game-tools.html?topic=procedural-generation" target="_blank" rel="noopener">Explore this path →</a></article><article class="destination-card"><h3>Technical Art</h3><p>Explore the design, build a minimal subsystem, then verify behavior and performance before integration.</p><a href="game-tools.html?topic=technical-art" target="_blank" rel="noopener">Explore this path →</a></article><article class="destination-card"><h3>Audio</h3><p>Explore the design, build a minimal subsystem, then verify behavior and performance before integration.</p><a href="game-tools.html?topic=audio" target="_blank" rel="noopener">Explore this path →</a></article><article class="destination-card"><h3>Multiplayer</h3><p>Explore the design, build a minimal subsystem, then verify behavior and performance before integration.</p><a href="game-tools.html?topic=multiplayer" target="_blank" rel="noopener">Explore this path →</a></article><article class="destination-card"><h3>Engine Architecture</h3><p>Explore the design, build a minimal subsystem, then verify behavior and performance before integration.</p><a href="game-tools.html?topic=engine-architecture" target="_blank" rel="noopener">Explore this path →</a></article></div></section></main>
+<section id="engine-path" class="wrap learning-hub">
+  <section class="hub-section">
+    <p class="eyebrow">GAME ENGINEERING / FROM LOOP TO RELEASE</p>
+    <h2>Build the worlds behind the games.</h2>
+    <p class="hub-copy">The playable games stay isolated from this learning layer. These workbenches teach the systems beneath a modern game: simulation state, rendering, physics, animation, AI, audio, input, assets, networking, persistence, profiling, tooling, packaging and release validation. PyreFrame is the long-term custom-engine direction; the page does not pretend that future engine work is already shipped.</p>
+    <div class="hub-grid">
+      <article class="hub-card"><h3>Game loop &amp; state</h3><p>Separate authoritative simulation state from presentation. Understand variable vs fixed timesteps, interpolation, deterministic replay, scene/state transitions and pause/resume behavior.</p><a href="game-tools.html?topic=engine-architecture" target="_blank" rel="noopener">Engine architecture workbench →</a></article>
+      <article class="hub-card"><h3>Graphics &amp; rendering</h3><p>Coordinate spaces, cameras, projection, meshes, materials, lighting, shadows, post-processing, GPU buffers, shaders, frame graphs, culling and render budgets.</p><a href="game-tools.html?topic=graphics-rendering" target="_blank" rel="noopener">Rendering workbench →</a></article>
+      <article class="hub-card"><h3>Physics</h3><p>Integration, collision detection/response, constraints, character motion, broad/narrow phase, continuous collision and when gameplay physics should diverge from physical realism.</p><a href="game-tools.html?topic=physics" target="_blank" rel="noopener">Physics workbench →</a></article>
+      <article class="hub-card"><h3>Animation</h3><p>Skeletons, skinning, keyframes, blending, state machines, inverse kinematics, root motion, procedural motion and animation/gameplay synchronization.</p><a href="game-tools.html?topic=animation" target="_blank" rel="noopener">Animation workbench →</a></article>
+      <article class="hub-card"><h3>Game AI</h3><p>Steering, finite-state machines, behavior trees, utility systems, navigation, planning, tactical search, learning agents and deterministic/debuggable decision traces.</p><a href="game-tools.html?topic=game-ai" target="_blank" rel="noopener">Game AI workbench →</a></article>
+      <article class="hub-card"><h3>Procedural systems</h3><p>Seeds, noise, grammars, constraint systems, generation validation and preserving designer control/reproducibility.</p><a href="game-tools.html?topic=procedural-generation" target="_blank" rel="noopener">Procedural workbench →</a></article>
+      <article class="hub-card"><h3>Technical art &amp; assets</h3><p>Import pipelines, coordinate/unit conventions, LODs, compression, texture/material budgets, batching, shader variants and reproducible asset builds.</p><a href="game-tools.html?topic=technical-art" target="_blank" rel="noopener">Technical-art workbench →</a></article>
+      <article class="hub-card"><h3>Audio</h3><p>Event routing, buses, spatial audio, music states, dynamic mixing, asset streaming, platform policies and lifetime ownership for audio nodes/resources.</p><a href="game-tools.html?topic=audio" target="_blank" rel="noopener">Audio workbench →</a></article>
+      <article class="hub-card"><h3>Multiplayer</h3><p>Authoritative state, snapshots, latency/jitter, interpolation, prediction, reconciliation, lag compensation, interest management, anti-cheat boundaries and session recovery.</p><a href="game-tools.html?topic=multiplayer" target="_blank" rel="noopener">Networking workbench →</a></article>
+      <article class="hub-card"><h3>Input &amp; accessibility</h3><p>Keyboard/mouse, Xbox/PlayStation-standard gamepads, touch, focus navigation, dead zones, remapping, readable UI, reduced motion and platform-specific interaction constraints.</p></article>
+      <article class="hub-card"><h3>Persistence &amp; replay</h3><p>Versioned save schemas, migration, checksums, deterministic event/replay logs, corruption recovery, cloud/local boundaries and crash-safe writes.</p></article>
+      <article class="hub-card"><h3>Tools &amp; editor architecture</h3><p>Inspectable state, hot reload, content validation, profiling overlays, asset databases, build automation and developer workflows that shorten iteration time.</p></article>
+      <article class="hub-card"><h3>Release engineering</h3><p>Rules tests, browser/device matrices, packaging, install/start/uninstall lifecycle, offline dependencies, crash recovery, license/provenance review and artifacts that can be reproduced.</p></article>
+      <article class="hub-card"><h3>Future games</h3><p>Turn ideas into vertical slices with measurable exit criteria before expanding content or engine scope.</p><a href="game-tools.html?topic=future-games" target="_blank" rel="noopener">Roadmap workbench →</a></article>
+    </div>
+  </section>
+
+  <section class="hub-section" id="frame-budget">
+    <p class="eyebrow">LOCAL TOOL / FRAME BUDGET</p><h2>Every feature spends time somewhere.</h2>
+    <p class="hub-copy">A 60 FPS target gives only 16.67 ms for an entire frame. Budget early, profile on representative hardware, and treat CPU and GPU timelines as separate resources that can overlap or stall each other.</p>
+    <div class="hub-lab"><div class="hub-panel hub-controls">
+      <label for="frame-fps">Target FPS</label><input id="frame-fps" type="number" min="15" max="360" value="60">
+      <label for="budget-sim">Simulation %</label><input id="budget-sim" type="number" min="0" max="100" value="20">
+      <label for="budget-render">Rendering %</label><input id="budget-render" type="number" min="0" max="100" value="45">
+      <label for="budget-physics">Physics %</label><input id="budget-physics" type="number" min="0" max="100" value="12">
+      <label for="budget-ai">AI %</label><input id="budget-ai" type="number" min="0" max="100" value="8">
+      <label for="budget-other">Audio / I/O / tools %</label><input id="budget-other" type="number" min="0" max="100" value="10">
+      <div class="meter" aria-hidden="true"><span id="frame-meter"></span></div>
+    </div><div class="hub-panel"><div id="frame-output" class="hub-output" aria-live="polite"></div></div></div>
+  </section>
+
+  <section class="hub-section" id="fixed-step">
+    <p class="eyebrow">LOCAL TOOL / SIMULATION TIMESTEP</p><h2>Keep simulation time from becoming render-rate dependent.</h2>
+    <div class="hub-lab"><div class="hub-panel hub-controls"><label for="sim-hz">Simulation Hz</label><input id="sim-hz" type="number" min="10" max="1000" value="60"><label for="sim-frame-ms">Observed frame time (ms)</label><input id="sim-frame-ms" type="number" min="0" max="1000" value="33"><label for="sim-max-steps">Maximum catch-up steps</label><input id="sim-max-steps" type="number" min="1" max="20" value="5"></div><div class="hub-panel"><div id="sim-output" class="hub-output" aria-live="polite"></div></div></div>
+  </section>
+
+  <section class="hub-section" id="platform-matrix">
+    <p class="eyebrow">PLATFORM QA</p><h2>A game is not finished when it works on the developer's machine.</h2>
+    <div class="hub-lab"><div class="hub-panel hub-controls"><label for="platform-select">Target environment</label><select id="platform-select"><option value="desktop">Desktop / laptop</option><option value="handheld">Phone / tablet</option><option value="controller">Controller-first</option><option value="networked">Networked multiplayer</option><option value="vr">XR / VR</option></select></div><div class="hub-panel" id="platform-output"></div></div>
+  </section>
+
+  <section class="hub-section" id="release-readiness">
+    <p class="eyebrow">RELEASE GATE / TEACHING CHECKLIST</p><h2>Make “ready” an evidence statement.</h2>
+    <div id="release-gate" class="hub-grid"></div><div class="hub-panel"><strong id="release-score"></strong><div class="meter" aria-hidden="true"><span id="release-meter"></span></div><p>This does not certify a commercial game. It teaches the difference between a feature working once and a product surviving packaging, supported inputs, representative hardware and recovery paths.</p></div>
+  </section>
+
+  <section class="hub-section" id="game-stack">
+    <p class="eyebrow">CURRENT ENGINEERING REFERENCES / 2026</p><h2>Know the standards beneath the engines.</h2>
+    <div class="hub-grid">
+      <article class="hub-card"><h3>WebGPU</h3><p>Modern web API for GPU rendering and general-purpose compute. The W3C specification remains in the Candidate Recommendation process in 2026, so implementation/version details should be checked.</p><a href="https://www.w3.org/TR/webgpu/" target="_blank" rel="noopener noreferrer">W3C WebGPU ↗</a></article>
+      <article class="hub-card"><h3>Vulkan</h3><p>Explicit cross-platform graphics/compute API where synchronization, memory management and pipeline construction are more directly controlled by the application.</p><a href="https://docs.vulkan.org/" target="_blank" rel="noopener noreferrer">Khronos Vulkan docs ↗</a></article>
+      <article class="hub-card"><h3>SDL3</h3><p>Low-level cross-platform access to input, audio, windows and graphics integration—a useful reference point for understanding the platform layer beneath a custom engine.</p><a href="https://wiki.libsdl.org/SDL3/FrontPage" target="_blank" rel="noopener noreferrer">SDL3 documentation ↗</a></article>
+      <article class="hub-card"><h3>Godot 4.x</h3><p>Open-source engine reference for scenes/nodes, rendering, physics, scripting, import pipelines and editor tooling. Compare architecture choices rather than copying an engine wholesale.</p><a href="https://docs.godotengine.org/en/stable/" target="_blank" rel="noopener noreferrer">Godot stable docs ↗</a></article>
+      <article class="hub-card"><h3>OpenXR</h3><p>Cross-platform API family for XR application/runtime interoperability. Relevant if PyreFrame eventually targets immersive devices.</p><a href="https://registry.khronos.org/OpenXR/" target="_blank" rel="noopener noreferrer">OpenXR registry ↗</a></article>
+    </div>
+  </section>
+
+  <section class="hub-section" id="pyreframe-direction">
+    <p class="eyebrow">PYREFRAME / ENGINE DIRECTION</p><h2>A custom engine should solve a concrete problem.</h2>
+    <p class="hub-copy">The long-term PyreFrame direction is to keep platform/input, simulation, rendering, physics, audio, assets, tools and game logic behind explicit boundaries; make deterministic/testing surfaces first-class; and let higher-level Pyre Foundry tooling automate repetitive development work without owning unverifiable release decisions. That is a design direction, not a claim that a full Godot/Unreal-class engine exists today.</p>
+  </section>
+</section></main>
 
 <section class="contact wrap" id="connect">
   <div><p class="eyebrow">BUILD / TEST / PLAY / ITERATE</p><h2>Interactive systems<br/>with consequences.</h2><p>Games are where software architecture, state, UX, simulation, graphics, sound, and performance meet.</p></div>
