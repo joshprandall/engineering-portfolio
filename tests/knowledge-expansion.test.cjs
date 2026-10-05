@@ -90,6 +90,17 @@ test('Projects and About expose evidence boundaries and capability depth',()=>{
   assert.match(about,/distinguishes active engineering study/i);
 });
 
+
+test('Release tooling packages every new learning hub dependency',()=>{
+  const prep=read('tools/prepare_runtime_metadata.py'),deploy=read('tools/deploy_osu_live.py');
+  for(const file of ['learn-coding.html','learn-quantum.html','learning-hubs.css','coding-lab.js','quantum-lab.js','ai-engineering-tools.js','security-extended.js','game-engine-tools.js','projects-evidence.js']){
+    assert.match(deploy,new RegExp(file.replace(/[.]/g,'\\.')),file+' must be required by verified deployment');
+  }
+  for(const file of ['learning-hubs.css','coding-lab.js','quantum-lab.js','ai-engineering-tools.js','security-extended.js','game-engine-tools.js','projects-evidence.js']){
+    assert.match(prep,new RegExp(file.replace(/[.]/g,'\\.')),file+' must be discoverable by runtime metadata preparation');
+  }
+});
+
 test('Global search guarantees new destinations even before generated index refresh',()=>{
   const js=read('site-search.js');
   for(const route of ['learn-coding.html','learn-quantum.html','security-research.html','ai-development.html','game-development.html','projects.html'])assert.match(js,new RegExp(route.replace('.','\\.')));
