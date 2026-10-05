@@ -99,4 +99,4 @@ for (const entry of reparsed.files) {
 }
 
 console.log(`PASS Crown & Ash Windows artifact integrity: ${path.basename(expectedInstaller)}, shell-safe executable, ASAR packaging, and SHA-256 manifest verified.`);
-console.log(`Integrity manifest: ${manifestPath}`);
+console.log(`Integrity manifest: ${manifestPath}`);\nconsole.log(JSON.stringify(manifest));
