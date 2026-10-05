@@ -2,10 +2,10 @@ import * as THREE from 'three';
 import {CombatDirectorV8} from './combat-v8/combat-director.js';
 import {getCharacterDefinition} from './combat-v8/character-definitions.js';
 import {PALETTES} from './pieces.js';
+import {duelCameraCue} from './combat-v8/camera-choreography.js';
 
 const STEP=1/120;
 const material=(color,emissive=0)=>new THREE.MeshStandardMaterial({color,roughness:.56,metalness:.24,emissive,emissiveIntensity:emissive ? .30 : 0});
-
 export function animateDuelV8({source,victim,theme='classic',role='p',fxGroup,camera,orbit,boardGroup,pieceGroup,reducedMotion=false,onImpact}){
  if(!source||!victim||reducedMotion){onImpact?.();return Promise.resolve({impacts:1,skipped:!!reducedMotion,v8:true});}
  const attacker={t:source.userData.role||role,c:source.userData.side||'w'};
@@ -29,7 +29,7 @@ export function animateDuelV8({source,victim,theme='classic',role='p',fxGroup,ca
  const caption=document.createElement('div');caption.style.cssText='position:absolute;bottom:60px;left:50%;transform:translateX(-50%);width:max-content;max-width:calc(100% - 24px);text-align:center;background:#081824e8;border:1px solid #58778b;border-radius:10px;padding:8px 12px';
  caption.textContent=`${attackDef.name} takes position`;head.append(title,skip);ui.append(head,caption);stage?.append(ui);
  boardGroup.visible=false;pieceGroup.visible=false;orbit.enabled=false;
- const mobile=camera.aspect<.85,cameraGoal=new THREE.Vector3(0,mobile?2.25:2.5,mobile?5.0:6.15),targetGoal=new THREE.Vector3(0,1.05,0);
+ const mobile=camera.aspect<.85,attackKind=director.runtime.attack.kind,cameraGoal=new THREE.Vector3(),targetGoal=new THREE.Vector3();
  const state={done:false,skipped:false,impactCalled:false,time:0,phase:''};skip.onclick=()=>{state.skipped=true;};
  const oldOnImpact=onImpact;
  // Director owns the physical contact event. We track it from the result to avoid
@@ -57,7 +57,8 @@ export function animateDuelV8({source,victim,theme='classic',role='p',fxGroup,ca
       pose.state==='commit'?`${attackDef.name}!`:
       pose.state==='follow-through'?'Following through':pose.state.replace('-', ' '));
    }
-   const cam=Math.min(1,state.time/.32);camera.position.lerpVectors(oldCamera,cameraGoal,cam);orbit.target.lerpVectors(oldTarget,targetGoal,cam);camera.lookAt(orbit.target);
+   const contactAge=lastResult?.contact?Math.max(0,state.time-lastResult.contact.time):-1,cue=duelCameraCue({time:state.time,pose,contactAge,role:attacker.t,kind:attackKind,mobile,theme});
+   cameraGoal.set(...cue.position);targetGoal.set(...cue.target);camera.position.lerpVectors(oldCamera,cameraGoal,cue.blend);orbit.target.lerpVectors(oldTarget,targetGoal,cue.blend);camera.lookAt(orbit.target);
    if(lastResult?.complete||state.time>6){
     if(!state.impactCalled){state.impactCalled=true;oldOnImpact?.();}
     const impacts=lastResult?.contact?1:0;cleanup();resolve({impacts,skipped:false,v8:true,attack:attackDef.attack});return;

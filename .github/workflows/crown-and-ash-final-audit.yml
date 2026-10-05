@@ -1,0 +1,88 @@
+name: Crown & Ash Final Audit
+
+on:
+  pull_request:
+    paths:
+      - "games/3d-battle-chess/**"
+      - "products/crown-and-ash-desktop/**"
+      - "tests/chess-*.cjs"
+      - "tests/chess-*.mjs"
+      - ".github/workflows/crown-and-ash-*.yml"
+  workflow_dispatch:
+
+jobs:
+  final-audit:
+    runs-on: windows-latest
+    timeout-minutes: 30
+    env:
+      PORTFOLIO_RUNTIME_ROOT: ${{ github.workspace }}
+      PORTFOLIO_BROWSER_EXECUTABLE: C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Refresh pinned offline Three.js bundle
+        run: npm run vendor:crown-ash
+
+      - name: Verify final audit contract
+        run: node tests/chess-final-audit.test.mjs
+
+      - name: Verify source-level release gates
+        shell: pwsh
+        run: |
+          $tests = @(
+            "tests/chess-rules.test.mjs",
+            "tests/chess-productization.test.mjs",
+            "tests/chess-roster-integrity.test.mjs",
+            "tests/chess-audio.test.mjs",
+            "tests/chess-edition-boundary.test.cjs",
+            "tests/chess-combat-choreography.test.mjs",
+            "tests/chess-combat-vfx.test.mjs",
+            "tests/chess-contact-physics.test.mjs",
+            "tests/chess-role-readability.test.mjs",
+            "tests/chess-material-language.test.mjs",
+            "tests/chess-board-motion.test.mjs",
+            "tests/chess-camera-choreography.test.mjs",
+            "tests/chess-state-recovery.test.mjs",
+            "tests/chess-faction-palette.test.mjs",
+            "tests/chess-attack-followthrough.test.mjs",
+            "tests/chess-presentation-phase.test.mjs"
+          )
+          foreach ($test in $tests) {
+            Write-Host "AUDIT $test"
+            node $test
+            if ($LASTEXITCODE -ne 0) { throw "Final audit failed: $test" }
+          }
+
+      - name: Verify browser gameplay
+        env:
+          PORTFOLIO_RUNTIME_ROOT: ${{ github.workspace }}
+          PORTFOLIO_BROWSER_EXECUTABLE: C:\Program Files\Google\Chrome\Application\chrome.exe
+        run: node tests/chess-browser.test.cjs
+
+      - name: Verify controller behavior
+        env:
+          PORTFOLIO_RUNTIME_ROOT: ${{ github.workspace }}
+          PORTFOLIO_BROWSER_EXECUTABLE: C:\Program Files\Google\Chrome\Application\chrome.exe
+        run: node tests/chess-controller.test.cjs
+
+      - name: Verify accessibility and keyboard play
+        env:
+          PORTFOLIO_RUNTIME_ROOT: ${{ github.workspace }}
+          PORTFOLIO_BROWSER_EXECUTABLE: C:\Program Files\Google\Chrome\Application\chrome.exe
+        run: node tests/chess-accessibility.test.cjs
+
+      - name: Verify constrained performance
+        env:
+          PORTFOLIO_RUNTIME_ROOT: ${{ github.workspace }}
+          PORTFOLIO_BROWSER_EXECUTABLE: C:\Program Files\Google\Chrome\Application\chrome.exe
+        run: node tests/chess-performance.test.cjs

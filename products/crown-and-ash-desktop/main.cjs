@@ -1,7 +1,27 @@
+const fs=require('node:fs');
 const path=require('node:path');
 const {app,BrowserWindow,Menu,shell}=require('electron');
 
 app.setName('Crown & Ash');
+
+let smokeFinished=false;
+function finishSmoke(result,exitCode){
+ if(smokeFinished)return;
+ smokeFinished=true;
+ console.log(`CROWN_ASH_DESKTOP_READY ${JSON.stringify(result)}`);
+ const resultPath=process.env.CROWN_ASH_SMOKE_RESULT;
+ if(resultPath){
+  try{
+   fs.mkdirSync(path.dirname(resultPath),{recursive:true});
+   fs.writeFileSync(resultPath,JSON.stringify(result,null,2),'utf8');
+  }catch(error){
+   console.error(`CROWN_ASH_SMOKE_RESULT_WRITE_FAILED ${error.message}`);
+   exitCode=1;
+  }
+ }
+ process.exitCode=exitCode;
+ app.exit(exitCode);
+}
 
 function createWindow(){
  const gameRoot=path.join(__dirname,'app');
@@ -38,11 +58,40 @@ function createWindow(){
   if(!app.isPackaged&&(input.key==='F12'||input.control&&input.shift&&input.key.toLowerCase()==='i'))window.webContents.toggleDevTools();
  });
  if(process.env.CROWN_ASH_SMOKE==='1'){
-  window.webContents.once('did-fail-load',(_event,code,description)=>{console.error(`CROWN_ASH_DESKTOP_LOAD_FAILED ${code} ${description}`);app.exit(1)});
+  window.webContents.once('did-fail-load',(_event,code,description)=>{
+   const result={ready:false,error:`load failed ${code}: ${description}`};
+   console.error(`CROWN_ASH_DESKTOP_LOAD_FAILED ${code} ${description}`);
+   finishSmoke(result,1);
+  });
   window.webContents.once('did-finish-load',async()=>{
-   const result=await window.webContents.executeJavaScript("({title:document.title,start:!!document.querySelector('#startGameBtn'),localThree:document.querySelector('script[type=importmap]')?.textContent.includes('./vendor/three/')})");
-   console.log(`CROWN_ASH_DESKTOP_READY ${JSON.stringify(result)}`);
-   app.exit(result.start&&result.localThree?0:1);
+   try{
+    const result=await window.webContents.executeJavaScript(`new Promise(resolve=>{
+     const deadline=Date.now()+15000;
+     const sample=()=>({
+      ready:document.documentElement.dataset.crownAshEdition==='full',
+      title:document.title,
+      start:!!document.querySelector('#startGameBtn'),
+      localThree:document.querySelector('script[type=importmap]')?.textContent.includes('./vendor/three/')===true,
+      desktopBridge:window.crownAndAshDesktop?.desktop===true,
+      edition:window.crownAndAshDesktop?.edition||null,
+      uiEdition:document.documentElement.dataset.crownAshEdition||null,
+      themes:[...document.querySelectorAll('#setupTheme option')].map(option=>option.value),
+      protocol:location.protocol
+     });
+     const check=()=>{
+      const state=sample();
+      if(state.ready||Date.now()>=deadline){resolve(state);return}
+      setTimeout(check,100);
+     };
+     check();
+    })`);
+    const fullTitle=result.title==='Crown & Ash — Full Edition';
+    const fullThemes=['classic','arcane','monsters','brick','cosmic'].every(value=>result.themes?.includes(value));
+    const ok=result.ready&&fullTitle&&fullThemes&&result.start&&result.localThree&&result.desktopBridge&&result.edition==='full'&&result.uiEdition==='full'&&result.protocol==='file:';
+    finishSmoke(result,ok?0:1);
+   }catch(error){
+    finishSmoke({ready:false,error:error.message},1);
+   }
   });
  }
  void window.loadFile(gameEntry);

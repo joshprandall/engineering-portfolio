@@ -1,0 +1,29 @@
+name: Crown & Ash Contact Physics
+
+on:
+  pull_request:
+    paths:
+      - "games/3d-battle-chess/combat-v8/physics.js"
+      - "tests/chess-contact-physics.test.mjs"
+      - ".github/workflows/crown-and-ash-contact-physics.yml"
+  workflow_dispatch:
+
+jobs:
+  contact-physics:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Verify impact lift, gravity, landing and weight
+        run: node tests/chess-contact-physics.test.mjs
