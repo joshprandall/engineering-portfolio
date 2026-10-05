@@ -1,0 +1,66 @@
+name: Crown & Ash Audio Candidate
+
+on:
+  push:
+    branches:
+      - ai/crown-and-ash-theme-audio-20261004
+    paths:
+      - "games/3d-battle-chess/audio.js"
+      - "tests/chess-audio.test.mjs"
+      - ".github/workflows/crown-and-ash-audio.yml"
+  pull_request:
+    paths:
+      - "games/3d-battle-chess/audio.js"
+      - "tests/chess-audio.test.mjs"
+      - ".github/workflows/crown-and-ash-audio.yml"
+
+jobs:
+  verify-audio:
+    runs-on: windows-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - name: Verify faction audio behavior
+        run: node tests/chess-audio.test.mjs
+
+  verify-and-package:
+    runs-on: windows-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+      - name: Install game test dependencies
+        run: npm ci
+      - name: Refresh pinned offline Three.js bundle
+        run: npm run vendor:crown-ash
+      - name: Verify chess rules
+        run: node tests/chess-rules.test.mjs
+      - name: Verify productization contract
+        run: node tests/chess-productization.test.mjs
+      - name: Verify complete browser gameplay
+        env:
+          PORTFOLIO_RUNTIME_ROOT: ${{ github.workspace }}
+          PORTFOLIO_BROWSER_EXECUTABLE: C:\Program Files\Google\Chrome\Application\chrome.exe
+        run: node tests/chess-browser.test.cjs
+      - name: Install desktop packaging dependencies
+        working-directory: products/crown-and-ash-desktop
+        run: npm ci
+      - name: Build Windows installer
+        working-directory: products/crown-and-ash-desktop
+        run: npm run dist:win
+      - name: Upload unsigned Windows test build
+        uses: actions/upload-artifact@v4
+        with:
+          name: crown-and-ash-theme-audio-windows-unsigned
+          path: products/crown-and-ash-desktop/dist/Crown-and-Ash-*-x64.exe
+          if-no-files-found: error
