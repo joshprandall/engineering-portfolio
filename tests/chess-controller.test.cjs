@@ -8,6 +8,7 @@ const server=http.createServer((req,res)=>{try{const pathname=decodeURIComponent
 const sleep=ms=>new Promise(r=>setTimeout(r,ms));
 
 (async()=>{
+ await require('./chess-controller-setup.test.cjs');
  await new Promise(r=>server.listen(0,'127.0.0.1',r));
  const base=`http://127.0.0.1:${server.address().port}`;
  const browser=await chromium.launch({headless:true,executablePath:process.env.PORTFOLIO_BROWSER_EXECUTABLE||undefined,args:['--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader']});
