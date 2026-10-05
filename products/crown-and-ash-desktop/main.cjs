@@ -65,9 +65,9 @@ function createWindow(){
   });
   window.webContents.once('did-finish-load',async()=>{
    try{
-    const result=await window.webContents.executeJavaScript("({ready:true,title:document.title,start:!!document.querySelector('#startGameBtn'),localThree:document.querySelector('script[type=importmap]')?.textContent.includes('./vendor/three/')===true,desktopBridge:window.crownAndAshDesktop?.desktop===true,protocol:location.protocol})");
+    const result=await window.webContents.executeJavaScript("({ready:true,title:document.title,start:!!document.querySelector('#startGameBtn'),localThree:document.querySelector('script[type=importmap]')?.textContent.includes('./vendor/three/')===true,desktopBridge:window.crownAndAshDesktop?.desktop===true,edition:window.crownAndAshDesktop?.edition||null,protocol:location.protocol})");
     const branded=typeof result.title==='string'&&result.title.startsWith('Crown & Ash');
-    const ok=branded&&result.start&&result.localThree&&result.desktopBridge&&result.protocol==='file:';
+    const ok=branded&&result.start&&result.localThree&&result.desktopBridge&&result.edition==='full'&&result.protocol==='file:';
     finishSmoke(result,ok?0:1);
    }catch(error){
     finishSmoke({ready:false,error:error.message},1);
