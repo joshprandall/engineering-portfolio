@@ -1,0 +1,30 @@
+name: Crown & Ash State Recovery
+
+on:
+  pull_request:
+    paths:
+      - "games/3d-battle-chess/engine.js"
+      - "games/3d-battle-chess/game-storage.js"
+      - "tests/chess-state-recovery.test.mjs"
+      - ".github/workflows/crown-and-ash-state-recovery.yml"
+  workflow_dispatch:
+
+jobs:
+  state-recovery:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Verify save/load, undo, FEN and PGN recovery
+        run: node tests/chess-state-recovery.test.mjs
