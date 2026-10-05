@@ -38,8 +38,8 @@ test('Quantum hub separates experiment, simulation, theory and roadmaps',()=>{
   assert.match(html,/Logical qubits with erasure conversion/);
   assert.match(html,/Post-quantum migration/);
   assert.match(js,/matrices=\{/);
-  for(const gate of ['X','Y','Z','H','S','T'])assert.match(js,new RegExp(gate+":\["));
-  assert.match(js,/teaching heuristic|intuition/i);
+  for(const gate of ['X','Y','Z','H','S','T'])assert(js.includes(gate+':[['),gate+' matrix missing');
+  assert.match(js,/Teaching-model|intuition/i);
 });
 
 test('AI Development exposes architecture, evaluation and production controls',()=>{
