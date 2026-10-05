@@ -1,4 +1,5 @@
 const assert=require('node:assert/strict');
+const crypto=require('node:crypto');
 const fs=require('node:fs');
 const os=require('node:os');
 const path=require('node:path');
@@ -13,7 +14,19 @@ const installerArg=process.argv[2];
 assert(installerArg,'Usage: node tests/chess-windows-installed-smoke.cjs <installer.exe>');
 const installer=path.resolve(installerArg);
 assert(fs.existsSync(installer),`Installer not found: ${installer}`);
-assert(fs.statSync(installer).size>1_000_000,`Installer is unexpectedly small: ${installer}`);
+assert(fs.statSync(installer).size>20_000_000,`Installer is unexpectedly small: ${installer}`);
+const desktopPackage=JSON.parse(fs.readFileSync(path.join(__dirname,'..','products','crown-and-ash-desktop','package.json'),'utf8'));
+assert.equal(path.basename(installer),`Crown-and-Ash-${desktopPackage.version}-x64.exe`,'Installer filename must match product version and x64 release naming.');
+
+function sha256(file){
+  const hash=crypto.createHash('sha256');
+  const bytes=fs.readFileSync(file);
+  hash.update(bytes);
+  return hash.digest('hex');
+}
+const installerSha256=sha256(installer);
+assert.match(installerSha256,/^[a-f0-9]{64}$/,'Installer SHA-256 is invalid.');
+console.log(`Installer SHA-256: ${installerSha256}`);
 
 function run(file,args,options={}){
   const result=spawnSync(file,args,{
@@ -86,6 +99,17 @@ try{
   appExe=appCandidates[0];
   assert.equal(path.basename(appExe),'Crown-and-Ash.exe','Installed executable name must remain shell-safe.');
   console.log(`Installed executable: ${appExe}`);
+  assert(fs.statSync(appExe).size>20_000_000,`Installed executable is unexpectedly small: ${appExe}`);
+  const resourcesDir=path.join(path.dirname(appExe),'resources');
+  const appAsar=path.join(resourcesDir,'app.asar');
+  assert(fs.existsSync(appAsar),'Installed release is missing resources/app.asar.');
+  assert(fs.statSync(appAsar).size>100_000,'Installed app.asar is unexpectedly small.');
+  assert.equal(fs.existsSync(path.join(resourcesDir,'app')),false,'Installed release must not expose a loose resources/app source tree.');
+  const appExeSha256=sha256(appExe);
+  const appAsarSha256=sha256(appAsar);
+  assert.notEqual(appExeSha256,appAsarSha256,'Executable and app.asar must not share the same digest.');
+  console.log(`Installed executable SHA-256: ${appExeSha256}`);
+  console.log(`Installed app.asar SHA-256: ${appAsarSha256}`);
 
   profile=fs.mkdtempSync(path.join(os.tmpdir(),'crown-ash-fresh-profile-'));
   const resultPath=path.join(profile,'smoke-result.json');
@@ -129,7 +153,7 @@ try{
   }
   assert.equal(fs.existsSync(appExe),false,'Crown & Ash executable remained after silent uninstall.');
 
-  console.log('PASS Crown & Ash Windows installed lifecycle: silent NSIS install, installed fresh-profile offline/runtime assertions, clean smoke exit, and silent uninstall.');
+  console.log('PASS Crown & Ash Windows installed lifecycle + artifact integrity: versioned installer, SHA-256 evidence, ASAR packaging, silent install, installed fresh-profile offline/runtime assertions, clean smoke exit, and silent uninstall.');
 }finally{
   if(profile)fs.rmSync(profile,{recursive:true,force:true});
 }
