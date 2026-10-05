@@ -33,3 +33,13 @@ jobs:
           PORTFOLIO_RUNTIME_ROOT: ${{ github.workspace }}
           PORTFOLIO_BROWSER_EXECUTABLE: C:\Program Files\Google\Chrome\Application\chrome.exe
         run: node tests/chess-edition-boundary.test.cjs
+
+      - name: Install desktop dependencies
+        working-directory: products/crown-and-ash-desktop
+        run: npm ci
+
+      - name: Exercise Full Edition desktop runtime
+        working-directory: products/crown-and-ash-desktop
+        env:
+          CROWN_ASH_SMOKE: "1"
+        run: npm start
