@@ -40,9 +40,9 @@ function createWindow(){
  if(process.env.CROWN_ASH_SMOKE==='1'){
   window.webContents.once('did-fail-load',(_event,code,description)=>{console.error(`CROWN_ASH_DESKTOP_LOAD_FAILED ${code} ${description}`);app.exit(1)});
   window.webContents.once('did-finish-load',async()=>{
-   const result=await window.webContents.executeJavaScript("({title:document.title,start:!!document.querySelector('#startGameBtn'),localThree:document.querySelector('script[type=importmap]')?.textContent.includes('./vendor/three/')})");
+   const result=await window.webContents.executeJavaScript("({title:document.title,start:!!document.querySelector('#startGameBtn'),localThree:document.querySelector('script[type=importmap]')?.textContent.includes('./vendor/three/'),edition:window.crownAndAshDesktop?.edition||null,desktopBridge:window.crownAndAshDesktop?.desktop===true,protocol:location.protocol})");
    console.log(`CROWN_ASH_DESKTOP_READY ${JSON.stringify(result)}`);
-   app.exit(result.start&&result.localThree?0:1);
+   app.exit(result.start&&result.localThree&&result.desktopBridge&&result.edition==='full'&&result.protocol==='file:'?0:1);
   });
  }
  void window.loadFile(gameEntry);
