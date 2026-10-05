@@ -12,6 +12,7 @@ const requiredTests=[
  'tests/chess-roster-integrity.test.mjs',
  'tests/chess-audio.test.mjs',
  'tests/chess-controller.test.cjs',
+ 'tests/chess-accessibility.test.cjs',
  'tests/chess-browser.test.cjs',
  'tests/chess-edition-boundary.test.cjs',
  'tests/chess-combat-choreography.test.mjs',
@@ -32,6 +33,7 @@ const requiredTests=[
 const requiredWorkflows=[
  '.github/workflows/crown-and-ash-release.yml',
  '.github/workflows/crown-and-ash-controller.yml',
+ '.github/workflows/crown-and-ash-accessibility.yml',
  '.github/workflows/crown-and-ash-edition.yml',
  '.github/workflows/crown-and-ash-combat.yml',
  '.github/workflows/crown-and-ash-vfx.yml',
