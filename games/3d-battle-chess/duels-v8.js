@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import {CombatDirectorV8} from './combat-v8/combat-director.js';
 import {getCharacterDefinition} from './combat-v8/character-definitions.js';
 import {PALETTES} from './pieces.js';
-import {duelCameraCue} from './combat-v8/camera-choreography.js';
+import {duelArenaLightingCue,duelArenaLightingProfile,duelCameraCue} from './combat-v8/camera-choreography.js';
 
 const STEP=1/120;
 const material=(color,emissive=0)=>new THREE.MeshStandardMaterial({color,roughness:.56,metalness:.24,emissive,emissiveIntensity:emissive ? .30 : 0});
@@ -17,6 +17,11 @@ export function animateDuelV8({source,victim,theme='classic',role='p',fxGroup,ca
  const floor=new THREE.Mesh(new THREE.CylinderGeometry(3.25,3.42,.19,48),material(theme==='monsters'?0x25352a:theme==='cosmic'?0x172b42:0x283949));floor.position.y=-.15;floor.receiveShadow=true;arena.add(floor);
  const ring=new THREE.Mesh(new THREE.TorusGeometry(2.55,.03,7,72),material(palette.glow,palette.glow));ring.rotation.x=Math.PI/2;ring.position.y=-.045;arena.add(ring);
  const director=new CombatDirectorV8({attacker,defender,theme,onContact:()=>{onImpact?.();}});
+ const attackKind=director.runtime.attack.kind,lightingProfile=duelArenaLightingProfile(theme,attacker.t,attackKind);
+ const keyLight=new THREE.PointLight(lightingProfile.keyColor,lightingProfile.keyBase,8.5,2);keyLight.position.set(...lightingProfile.keyPosition);
+ const rimLight=new THREE.PointLight(lightingProfile.rimColor,lightingProfile.rimBase,8.5,2);rimLight.position.set(...lightingProfile.rimPosition);
+ floor.material.emissive.setHex(lightingProfile.floorGlow);floor.material.emissiveIntensity=.035;
+ arena.add(keyLight,rimLight);
  director.attacker.scale.setScalar(1.48);director.defender.scale.setScalar(1.48);
  arena.add(director.attacker,director.defender,director.effectsGroup);
 
@@ -29,7 +34,7 @@ export function animateDuelV8({source,victim,theme='classic',role='p',fxGroup,ca
  const caption=document.createElement('div');caption.style.cssText='position:absolute;bottom:60px;left:50%;transform:translateX(-50%);width:max-content;max-width:calc(100% - 24px);text-align:center;background:#081824e8;border:1px solid #58778b;border-radius:10px;padding:8px 12px';
  caption.textContent=`${attackDef.name} takes position`;head.append(title,skip);ui.append(head,caption);stage?.append(ui);
  boardGroup.visible=false;pieceGroup.visible=false;orbit.enabled=false;
- const mobile=camera.aspect<.85,attackKind=director.runtime.attack.kind,cameraGoal=new THREE.Vector3(),targetGoal=new THREE.Vector3();
+ const mobile=camera.aspect<.85,cameraGoal=new THREE.Vector3(),targetGoal=new THREE.Vector3();
  const state={done:false,skipped:false,impactCalled:false,time:0,phase:''};skip.onclick=()=>{state.skipped=true;};
  const oldOnImpact=onImpact;
  // Director owns the physical contact event. We track it from the result to avoid
@@ -57,7 +62,12 @@ export function animateDuelV8({source,victim,theme='classic',role='p',fxGroup,ca
       pose.state==='commit'?`${attackDef.name}!`:
       pose.state==='follow-through'?'Following through':pose.state.replace('-', ' '));
    }
-   const contactAge=lastResult?.contact?Math.max(0,state.time-lastResult.contact.time):-1,cue=duelCameraCue({time:state.time,pose,contactAge,role:attacker.t,kind:attackKind,mobile,theme});
+   const contactAge=lastResult?.contact?Math.max(0,state.time-lastResult.contact.time):-1;
+   const lightCue=duelArenaLightingCue({time:state.time,pose,contactAge,role:attacker.t,kind:attackKind,theme});
+   keyLight.intensity=lightCue.keyIntensity;rimLight.intensity=lightCue.rimIntensity;
+   ring.material.emissiveIntensity=lightCue.ringEmissive;ring.scale.setScalar(lightCue.ringScale);
+   floor.material.emissiveIntensity=lightCue.floorEmissive;
+   const cue=duelCameraCue({time:state.time,pose,contactAge,role:attacker.t,kind:attackKind,mobile,theme});
    cameraGoal.set(...cue.position);targetGoal.set(...cue.target);camera.position.lerpVectors(oldCamera,cameraGoal,cue.blend);orbit.target.lerpVectors(oldTarget,targetGoal,cue.blend);camera.lookAt(orbit.target);
    if(lastResult?.complete||state.time>6){
     if(!state.impactCalled){state.impactCalled=true;oldOnImpact?.();}

@@ -19,6 +19,16 @@ export const CAMERA_KIND_DISTANCE=Object.freeze({
   area:6.65
 });
 
+export const ARENA_THEME_LIGHTS=Object.freeze({
+  classic:Object.freeze({keyColor:0xffddb0,rimColor:0x9bdcff,floorGlow:0x42657d,key:2.05,rim:1.20}),
+  arcane:Object.freeze({keyColor:0xd8b4fe,rimColor:0x67e8f9,floorGlow:0x7c3aed,key:2.18,rim:1.34}),
+  monsters:Object.freeze({keyColor:0xd9f99d,rimColor:0xf59e0b,floorGlow:0x365314,key:2.10,rim:1.22}),
+  brick:Object.freeze({keyColor:0xffb86b,rimColor:0x60a5fa,floorGlow:0xb45309,key:2.14,rim:1.18}),
+  cosmic:Object.freeze({keyColor:0x67e8f9,rimColor:0xc084fc,floorGlow:0x0ea5e9,key:2.22,rim:1.38})
+});
+
+const ROLE_LIGHT_WEIGHT=Object.freeze({p:.86,n:1,b:1.03,r:1.18,q:1.14,k:1.20});
+const KIND_LIGHT_WEIGHT=Object.freeze({melee:1,body:1.02,'teleport-melee':1.05,projectile:.94,beam:1.08,area:1.12});
 const themeHeight=theme=>({classic:0,arcane:.06,monsters:-.08,brick:-.03,cosmic:.11})[theme]||0;
 
 function phaseForPose(pose){
@@ -30,6 +40,42 @@ function phaseForPose(pose){
   if(state==='recover')return 1-t*.22;
   if(state==='complete')return .78;
   return .10;
+}
+
+export function duelArenaLightingProfile(theme='classic',role='p',kind='melee'){
+  const base=ARENA_THEME_LIGHTS[theme]||ARENA_THEME_LIGHTS.classic;
+  const roleWeight=ROLE_LIGHT_WEIGHT[role]||ROLE_LIGHT_WEIGHT.p;
+  const kindWeight=KIND_LIGHT_WEIGHT[kind]||1;
+  return Object.freeze({
+    keyColor:base.keyColor,
+    rimColor:base.rimColor,
+    floorGlow:base.floorGlow,
+    keyBase:base.key*roleWeight*kindWeight,
+    rimBase:base.rim*(.92+roleWeight*.08)*kindWeight,
+    keyPosition:Object.freeze([-2.45,3.15,2.55]),
+    rimPosition:Object.freeze([2.75,2.55,-2.85])
+  });
+}
+
+export function duelArenaLightingCue({time=0,pose,contactAge=-1,theme='classic',role='p',kind='melee'}={}){
+  const profile=duelArenaLightingProfile(theme,role,kind);
+  const state=pose?.state||'engage';
+  const drive=clamp01(pose?.attack||0);
+  const follow=clamp01(pose?.follow||0);
+  const anticipation=(state==='anticipate') ? .09+.09*(.5+.5*Math.sin(Math.max(0,time)*8.5)) : 0;
+  const commit=state==='commit'?drive:drive*.35;
+  const followGlow=state==='follow-through'?follow:follow*.25;
+  const impact=contactAge>=0?Math.max(0,1-Math.max(0,contactAge)/.62):0;
+  const settle=(state==='recover'||state==='complete') ? .92 : 1;
+  return {
+    ...profile,
+    keyIntensity:profile.keyBase*(1+anticipation+commit*.38+followGlow*.10+impact*.72)*settle,
+    rimIntensity:profile.rimBase*(1+anticipation*.35+commit*.20+followGlow*.16+impact*1.05)*settle,
+    ringEmissive:.30+drive*.12+followGlow*.08+impact*.48,
+    ringScale:1+impact*.052,
+    floorEmissive:.035+drive*.012+impact*.075,
+    impact
+  };
 }
 
 export function duelCameraCue({time=0,pose,contactAge=-1,role='p',kind='melee',mobile=false,theme='classic'}={}){

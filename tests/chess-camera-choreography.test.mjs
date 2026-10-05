@@ -1,8 +1,9 @@
 import assert from 'node:assert/strict';
-import {CAMERA_KIND_DISTANCE,CAMERA_ROLE_PROFILES,duelCameraCue} from '../games/3d-battle-chess/combat-v8/camera-choreography.js';
+import {ARENA_THEME_LIGHTS,CAMERA_KIND_DISTANCE,CAMERA_ROLE_PROFILES,duelArenaLightingCue,duelArenaLightingProfile,duelCameraCue} from '../games/3d-battle-chess/combat-v8/camera-choreography.js';
 
 assert.equal(Object.keys(CAMERA_ROLE_PROFILES).length,6);
 assert.equal(Object.keys(CAMERA_KIND_DISTANCE).length,6);
+assert.equal(Object.keys(ARENA_THEME_LIGHTS).length,5,'all premium factions need authored duel lighting');
 
 const anticipate=duelCameraCue({
   time:.5,pose:{state:'anticipate',t:.75},contactAge:-1,role:'r',kind:'body',mobile:false,theme:'classic'
@@ -43,4 +44,21 @@ for(const role of Object.keys(CAMERA_ROLE_PROFILES)){
     assert(cue.blend>=0&&cue.blend<=1);
   }
 }
-console.log('PASS Crown & Ash capture-camera choreography: role/kind framing, anticipation, impact decay, mobile safety.');
+
+const lightSignatures=new Set(Object.entries(ARENA_THEME_LIGHTS).map(([theme,p])=>`${theme}:${p.keyColor}:${p.rimColor}:${p.floorGlow}`));
+assert.equal(lightSignatures.size,5,'premium factions should retain distinct key/rim/floor light signatures');
+
+const lightPawn=duelArenaLightingProfile('classic','p','melee');
+const heavyRook=duelArenaLightingProfile('classic','r','body');
+assert(heavyRook.keyBase>lightPawn.keyBase,'heavy rook combat should carry more key-light weight than a pawn');
+
+const preImpact=duelArenaLightingCue({time:.9,pose:{state:'commit',attack:.9},contactAge:-1,theme:'arcane',role:'q',kind:'beam'});
+const atImpact=duelArenaLightingCue({time:1.0,pose:{state:'follow-through',attack:1,follow:.25},contactAge:.01,theme:'arcane',role:'q',kind:'beam'});
+const recovered=duelArenaLightingCue({time:1.8,pose:{state:'recover',attack:0,follow:0},contactAge:.9,theme:'arcane',role:'q',kind:'beam'});
+assert(atImpact.keyIntensity>preImpact.keyIntensity,'contact should create a readable key-light impact pulse');
+assert(atImpact.rimIntensity>preImpact.rimIntensity,'contact should create a stronger rim-light impact pulse');
+assert(atImpact.ringEmissive>recovered.ringEmissive,'arena ring should flare at impact then settle');
+assert(atImpact.floorEmissive>recovered.floorEmissive,'arena floor glow should pulse at contact then settle');
+for(const value of [atImpact.keyIntensity,atImpact.rimIntensity,atImpact.ringEmissive,atImpact.ringScale,atImpact.floorEmissive])assert(Number.isFinite(value)&&value>0);
+
+console.log('PASS Crown & Ash capture presentation: camera framing plus faction/role/impact-responsive duel lighting.');
