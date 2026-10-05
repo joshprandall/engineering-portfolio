@@ -70,7 +70,12 @@ let profile;
 
 try{
   console.log(`Installing Crown & Ash test package: ${installer}`);
-  run(installer,['/S'],{timeout:120_000,stdio:['ignore','pipe','pipe']});
+  const install=run(installer,['/S'],{timeout:120_000,stdio:['ignore','pipe','pipe']});
+  assert.doesNotMatch(
+    `${install.stdout||''}\n${install.stderr||''}`,
+    /is not recognized as an internal or external command/i,
+    'NSIS install emitted a Windows command-parsing error.'
+  );
 
   const appCandidates=findInstalledExecutables().filter(full=>{
     if(!before.has(full))return true;
