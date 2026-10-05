@@ -140,6 +140,7 @@ function connectSetup(){
  $('#startGameBtn').addEventListener('click',()=>void launchFromSetup());
  $('#continueGameBtn').addEventListener('click',()=>void launchConfiguredGame(true));
  updateContinueButton();
+ if(!gamepadFrame)gamepadFrame=requestAnimationFrame(gamepadLoop);
  window.addEventListener('orientationchange',()=>setTimeout(updateRotateGate,120));
 }
 
@@ -435,24 +436,95 @@ function loadFenPosition(){
  if(busy)return;
  try{game.loadFEN($('#fenInput').value);generation++;clearTimeout(aiTimer);selected=null;legal=[];resultShown=false;$('#gameOver').classList.add('hidden');drawPieces();renderStatus();persistMatch();notice('Position loaded. Move history begins here.');if($('#mode').value==='ai'&&game.turn==='b'&&!game.status().over)queueComputer()}catch(error){notice(error.message)}
 }
+function visibleControllerTarget(el){
+ return !!el&&!el.disabled&&!el.hidden&&el.getClientRects().length>0&&getComputedStyle(el).visibility!=='hidden';
+}
+function controllerUiTargets(){
+ const promotion=$('#promotion');
+ if(started&&promotion&&!promotion.classList.contains('hidden'))return [...promotion.querySelectorAll('button')].filter(visibleControllerTarget);
+ const result=$('#gameOver');
+ if(started&&result&&!result.classList.contains('hidden'))return [...result.querySelectorAll('button')].filter(visibleControllerTarget);
+ if(!started)return [...setupScreen.querySelectorAll('select,input,button')].filter(visibleControllerTarget);
+ const controls=$('#controls');
+ if(controls?.classList.contains('open'))return [...controls.querySelectorAll('select,input,button,textarea')].filter(visibleControllerTarget);
+ return [];
+}
+function moveControllerFocus(targets,step){
+ if(!targets.length)return null;
+ const current=document.activeElement,index=targets.indexOf(current);
+ const next=index<0?(step<0?targets.length-1:0):(index+step+targets.length)%targets.length;
+ targets[next].focus();
+ return targets[next];
+}
+function adjustControllerControl(el,step){
+ if(!el)return false;
+ if(el.tagName==='SELECT'){
+  const options=[...el.options].filter(option=>!option.disabled);
+  if(!options.length)return false;
+  const index=Math.max(0,options.indexOf(el.selectedOptions[0]));
+  const next=options[(index+step+options.length)%options.length];
+  if(next){el.value=next.value;el.dispatchEvent(new Event('change',{bubbles:true}));return true}
+ }
+ if(el.matches('input[type="checkbox"],input[type="radio"]')){el.click();return true}
+ return false;
+}
+function activateControllerControl(targets){
+ let el=document.activeElement;
+ if(!targets.includes(el))el=moveControllerFocus(targets,1);
+ if(!el)return;
+ if(el.tagName==='SELECT'){adjustControllerControl(el,1);return}
+ el.click();
+}
+function setControllerMenu(open){
+ const controls=$('#controls');
+ if(!controls)return;
+ controls.classList.toggle('open',open);
+ $('#menuBtn')?.setAttribute('aria-expanded',String(open));
+ if(open){const targets=controllerUiTargets();if(targets.length)targets[0].focus()}
+ else $('#menuBtn')?.focus();
+}
+function closeControllerContext(){
+ if(started&&!$('#promotion')?.classList.contains('hidden')){notice('Choose a promotion piece to continue.');return}
+ if(started&&!$('#gameOver')?.classList.contains('hidden')){$('#resultSetup')?.click();return}
+ if(started&&$('#controls')?.classList.contains('open')){setControllerMenu(false);return}
+ if(started){selected=null;legal=[];highlight()}
+}
 function gamepadLoop(){
- if(!started){gamepadFrame=requestAnimationFrame(gamepadLoop);return}
  const pad=navigator.getGamepads?.()[0];
  if(pad){
   const pressed=pad.buttons.map(button=>button.pressed),edge=index=>pressed[index]&&!lastGamepadButtons[index];
   const now=performance.now(),axisReady=!gamepadLoop.lastAxis||now-gamepadLoop.lastAxis>170;
-  let dx=0,dy=0;
-  // Standard Gamepad mapping exposes D-pad as buttons 12–15 on Xbox and PlayStation controllers.
-  if(edge(14))dx=-1;else if(edge(15))dx=1;
-  if(edge(12))dy=-1;else if(edge(13))dy=1;
-  if(dx||dy){keyboardCursor=true;nudgeCursor(dx,dy)}
-  else if(axisReady){if(pad.axes[0]<-.55||pad.axes[6]<-.55)dx=-1;else if(pad.axes[0]>.55||pad.axes[6]>.55)dx=1;if(pad.axes[1]<-.55||pad.axes[7]<-.55)dy=-1;else if(pad.axes[1]>.55||pad.axes[7]>.55)dy=1;if(dx||dy){keyboardCursor=true;nudgeCursor(dx,dy);gamepadLoop.lastAxis=now}}
-  if(edge(0)){keyboardCursor=true;chooseSquare(handCursor.x,handCursor.y)}
-  if(edge(1)){selected=null;legal=[];highlight()}
-  if(edge(2))flipBoard();
-  if(edge(3))setView(viewMode==='3d'?'2d':'3d');
-  if(edge(4))undoMove();
-  if(edge(9)){const c=$('#controls'),open=c.classList.toggle('open');$('#menuBtn').setAttribute('aria-expanded',String(open))}
+  const uiTargets=controllerUiTargets();
+  if(uiTargets.length){
+   const active=document.activeElement;
+   if(edge(12))moveControllerFocus(uiTargets,-1);
+   else if(edge(13))moveControllerFocus(uiTargets,1);
+   if(edge(14)){if(!adjustControllerControl(active,-1))moveControllerFocus(uiTargets,-1)}
+   else if(edge(15)){if(!adjustControllerControl(active,1))moveControllerFocus(uiTargets,1)}
+   if(axisReady){
+    let moved=false;
+    if(pad.axes[1]<-.55||pad.axes[7]<-.55){moveControllerFocus(uiTargets,-1);moved=true}
+    else if(pad.axes[1]>.55||pad.axes[7]>.55){moveControllerFocus(uiTargets,1);moved=true}
+    else if(pad.axes[0]<-.55||pad.axes[6]<-.55){const target=document.activeElement;if(!adjustControllerControl(target,-1))moveControllerFocus(uiTargets,-1);moved=true}
+    else if(pad.axes[0]>.55||pad.axes[6]>.55){const target=document.activeElement;if(!adjustControllerControl(target,1))moveControllerFocus(uiTargets,1);moved=true}
+    if(moved)gamepadLoop.lastAxis=now;
+   }
+   if(edge(0))activateControllerControl(controllerUiTargets());
+   if(edge(1))closeControllerContext();
+   if(started&&edge(9))setControllerMenu(!$('#controls').classList.contains('open'));
+  }else if(started){
+   let dx=0,dy=0;
+   if(edge(14))dx=-1;else if(edge(15))dx=1;
+   if(edge(12))dy=-1;else if(edge(13))dy=1;
+   if(dx||dy){keyboardCursor=true;nudgeCursor(dx,dy)}
+   else if(axisReady){if(pad.axes[0]<-.55||pad.axes[6]<-.55)dx=-1;else if(pad.axes[0]>.55||pad.axes[6]>.55)dx=1;if(pad.axes[1]<-.55||pad.axes[7]<-.55)dy=-1;else if(pad.axes[1]>.55||pad.axes[7]>.55)dy=1;if(dx||dy){keyboardCursor=true;nudgeCursor(dx,dy);gamepadLoop.lastAxis=now}}
+   if(edge(0)){keyboardCursor=true;chooseSquare(handCursor.x,handCursor.y)}
+   if(edge(1))closeControllerContext();
+   if(edge(2))flipBoard();
+   if(edge(3))setView(viewMode==='3d'?'2d':'3d');
+   if(edge(4))undoMove();
+   if(edge(9))setControllerMenu(true);
+  }
   lastGamepadButtons=pressed;
  }else lastGamepadButtons=[];
  gamepadFrame=requestAnimationFrame(gamepadLoop);
