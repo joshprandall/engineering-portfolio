@@ -1,7 +1,8 @@
 const clamp=x=>Math.max(0,Math.min(1,x));
 const pulse=(t,a=1)=>Math.sin(clamp(t)*Math.PI)*a;
 const snap=t=>{t=clamp(t);return t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;};
-const base=(o={})=>({lean:0,turn:0,head:0,guard:.25,weapon:0,torsoRoll:0,rightX:0,rightZ:0,leftX:0,leftZ:0,stepBias:0,rootSway:0,...o});
+const mix=(a,b,t)=>a+(b-a)*t;
+const base=(o={})=>({lean:0,turn:0,head:0,guard:.25,weapon:0,torsoRoll:0,rightX:0,rightZ:0,leftX:0,leftZ:0,stepBias:0,rootSway:0,pelvisRoll:0,weaponRoll:0,rightElbow:0,leftElbow:0,leftLegX:0,rightLegX:0,leftKnee:0,rightKnee:0,...o});
 
 const C={
  'classic-p-shield-thrust':(p)=>base({lean:p.attack*.24-p.windup*.12,guard:.75,weapon:-p.windup*.32+p.attack*.18,rightX:-p.windup*.60+p.attack*1.25,leftX:-.35,stepBias:p.attack*.55}),
@@ -40,8 +41,54 @@ const C={
  'cosmic-k-gravity-wave':(p)=>base({lean:-.10,guard:.88,rightX:-.48+p.attack*.28,leftX:-.48+p.attack*.28,rightZ:.48,leftZ:-.48,head:-.12,rootSway:pulse(p.t,.08)})
 };
 
+const ROLE_FINISH={
+ p:{guard:.52,follow:{lean:.08,rightX:.16,leftX:-.06,stepBias:.10,weaponRoll:.05}},
+ n:{guard:.42,follow:{lean:.14,turn:.12,torsoRoll:.07,rightX:.10,stepBias:.16,rightLegX:-.08}},
+ b:{guard:.64,follow:{turn:.18,torsoRoll:.09,weaponRoll:.16,rootSway:.04,leftElbow:.08}},
+ r:{guard:.68,follow:{lean:.17,head:.06,pelvisRoll:.05,rightX:.08,leftLegX:.06,rightLegX:-.06}},
+ q:{guard:.58,follow:{turn:.24,torsoRoll:.11,weaponRoll:.20,rootSway:.05,rightElbow:.07}},
+ k:{guard:.62,follow:{lean:.11,turn:.10,head:-.05,weaponRoll:.12,leftX:-.05,leftLegX:.04}}
+};
+const THEME_FINISH={
+ classic:{guard:0,turn:0,head:0,torsoRoll:0,rootSway:0,weaponRoll:.03,pelvisRoll:0},
+ arcane:{guard:.04,turn:.04,head:-.02,torsoRoll:.03,rootSway:.08,weaponRoll:.14,pelvisRoll:.02},
+ monsters:{guard:-.08,turn:.07,head:.08,torsoRoll:.13,rootSway:.04,weaponRoll:.05,pelvisRoll:.08},
+ brick:{guard:.02,turn:.05,head:0,torsoRoll:.04,rootSway:.015,weaponRoll:.08,pelvisRoll:.04},
+ cosmic:{guard:.05,turn:.03,head:-.05,torsoRoll:.03,rootSway:.045,weaponRoll:.12,pelvisRoll:.025}
+};
+const DYNAMIC_KEYS=['lean','turn','head','guard','weapon','torsoRoll','rightX','rightZ','leftX','leftZ','stepBias','rootSway','pelvisRoll','weaponRoll','rightElbow','leftElbow','leftLegX','rightLegX','leftKnee','rightKnee'];
+const add=(o,key,value)=>{o[key]=(o[key]||0)+value;};
+
+function finishPose(attackId,p,pose){
+ const [theme='classic',role='p']=String(attackId).split('-');
+ const roleFinish=ROLE_FINISH[role]||ROLE_FINISH.p,themeFinish=THEME_FINISH[theme]||THEME_FINISH.classic;
+ const out={...pose};
+ const follow=snap(p.follow||0);
+ if(follow){
+  for(const [key,value] of Object.entries(roleFinish.follow))add(out,key,value*follow);
+  for(const key of ['turn','head','torsoRoll','rootSway','weaponRoll','pelvisRoll'])add(out,key,(themeFinish[key]||0)*follow);
+  out.guard=Math.max(0,(out.guard||0)+(themeFinish.guard||0)*follow);
+ }
+ const recover=snap(p.recover||0);
+ if(recover){
+  const target=base({
+   guard:Math.max(.2,roleFinish.guard+(themeFinish.guard||0)*.35),
+   head:(themeFinish.head||0)*.20,
+   turn:(themeFinish.turn||0)*.12,
+   torsoRoll:(themeFinish.torsoRoll||0)*.10,
+   rootSway:(themeFinish.rootSway||0)*.08,
+   weaponRoll:(themeFinish.weaponRoll||0)*.10,
+   pelvisRoll:(themeFinish.pelvisRoll||0)*.08
+  });
+  for(const key of DYNAMIC_KEYS)out[key]=mix(out[key]||0,target[key]||0,recover);
+ }
+ if(p.state==='complete')return base({guard:roleFinish.guard});
+ return out;
+}
+
 export function choreographyPose(attackId,pose){
- const fn=C[attackId];return fn?fn(pose):base();
+ const fn=C[attackId],raw=fn?fn(pose):base();
+ return finishPose(attackId,pose,raw);
 }
 export function choreographyIds(){return Object.keys(C);}
 export function choreographyFingerprint(attackId){
