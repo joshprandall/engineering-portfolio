@@ -59,6 +59,20 @@ function piecesForImpact(group,profile,palette){
 export function effectProfile(attackId){return PROFILE[attackId]||{trail:'arc',impact:'sparks',scale:1};}
 export function effectProfileIds(){return Object.keys(PROFILE);}
 
+export function impactEnvelope(profile={},elapsed=0){
+ const t=Math.max(0,elapsed),weight=Math.max(.55,Number(profile.scale)||1);
+ return {
+  flashVisible:t<.16,
+  flashScale:1+Math.min(.18,t)*8*weight,
+  ringVisible:t<.70,
+  ringScale:(.72+t*4.6)*weight,
+  ringOpacity:Math.max(0,.78*(1-t/.70)),
+  groundVisible:t<1.05,
+  groundScale:(.62+t*2.5)*weight,
+  groundOpacity:Math.max(0,.46*(1-t/1.05))
+ };
+}
+
 export class CombatEffectsV8{
  constructor(theme,attackId){
   this.theme=theme;this.attack=getAttack(attackId);this.profile=effectProfile(attackId);this.group=new THREE.Group();this.group.name=`v8-fx-${attackId}`;
@@ -69,6 +83,8 @@ export class CombatEffectsV8{
   this.area=new THREE.Mesh(new THREE.TorusGeometry(.34,.035,7,42),mat(this.palette.glow,.72));this.area.rotation.x=Math.PI/2;this.area.visible=false;this.group.add(this.area);
   this.portalA=new THREE.Mesh(new THREE.TorusGeometry(.40,.025,7,40),mat(this.palette.glow,.72));this.portalB=this.portalA.clone();this.portalA.visible=this.portalB.visible=false;this.group.add(this.portalA,this.portalB);
   this.flash=new THREE.Mesh(new THREE.SphereGeometry(.11,10,7),mat(0xfff0c8,.95));this.flash.visible=false;this.group.add(this.flash);
+  this.shockwave=new THREE.Mesh(new THREE.TorusGeometry(.32,.032,8,48),mat(this.palette.glow,.78));this.shockwave.rotation.x=Math.PI/2;this.shockwave.visible=false;this.group.add(this.shockwave);
+  this.groundPulse=new THREE.Mesh(new THREE.RingGeometry(.18,.25,42),mat(this.palette.glow,.46));this.groundPulse.rotation.x=-Math.PI/2;this.groundPulse.visible=false;this.group.add(this.groundPulse);
   this.fragments=piecesForImpact(this.group,this.profile,this.palette);
  }
  projectileGeometry(){
@@ -109,10 +125,14 @@ export class CombatEffectsV8{
   }else if(!contact)this.flash.visible=false;
   if(contact&&this.impactTime===null){
    this.impactTime=elapsed;this.flash.visible=true;const c=contact.hit?.volume?.center||defenderPosition;this.flash.position.set(c.x,c.y,c.z);
+   this.shockwave.position.set(c.x,c.y,c.z);this.groundPulse.position.set(defenderPosition.x,.035,defenderPosition.z);
    for(let i=0;i<this.fragments.length;i++){const f=this.fragments[i];f.mesh.visible=true;f.mesh.position.copy(this.flash.position);f.mesh.userData.origin=this.flash.position.clone();}
   }
   if(this.impactTime!==null){
-   const t=elapsed-this.impactTime;this.flash.visible=t<.16;this.flash.scale.setScalar(1+t*8);
+   const t=elapsed-this.impactTime,envelope=impactEnvelope(profile,t);
+   this.flash.visible=envelope.flashVisible;this.flash.scale.setScalar(envelope.flashScale);
+   this.shockwave.visible=envelope.ringVisible;this.shockwave.scale.setScalar(envelope.ringScale);this.shockwave.material.opacity=envelope.ringOpacity;this.shockwave.rotation.z+=.08;
+   this.groundPulse.visible=envelope.groundVisible;this.groundPulse.scale.setScalar(envelope.groundScale);this.groundPulse.material.opacity=envelope.groundOpacity;this.groundPulse.rotation.z-=.035;
    for(const f of this.fragments){
     if(t>1.25){f.mesh.visible=false;continue}
     f.mesh.visible=true;const r=t*f.speed,origin=f.mesh.userData.origin||new THREE.Vector3();

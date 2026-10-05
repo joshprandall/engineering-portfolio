@@ -7,15 +7,48 @@ import {sculptCharacter} from './character-visuals.js';
 const {box,sphere,cyl,cone,mesh}=GEO;
 const mat=(color,rough=.65,metal=.12,emissive=0,intensity=0)=>new THREE.MeshStandardMaterial({color,roughness:rough,metalness:metal,emissive,emissiveIntensity:intensity});
 
+const MATERIAL_PROFILES={
+ classic:{
+  primary:{rough:.58,metal:.18},secondary:{rough:.82,metal:.05},armor:{rough:.34,metal:.58},
+  skin:{rough:.76,metal:.03},glow:{rough:.22,metal:.50,intensity:.54},dark:{rough:.76,metal:.10}
+ },
+ arcane:{
+  primary:{rough:.50,metal:.24},secondary:{rough:.70,metal:.12},armor:{rough:.27,metal:.44},
+  skin:{rough:.72,metal:.04},glow:{rough:.17,metal:.38,intensity:.88},dark:{rough:.66,metal:.18}
+ },
+ monsters:{
+  primary:{rough:.88,metal:.02},secondary:{rough:.92,metal:.01},armor:{rough:.60,metal:.12},
+  skin:{rough:.94,metal:0},glow:{rough:.36,metal:.06,intensity:.38},dark:{rough:.86,metal:.02}
+ },
+ brick:{
+  primary:{rough:.40,metal:.08},secondary:{rough:.50,metal:.05},armor:{rough:.28,metal:.14},
+  skin:{rough:.46,metal:.04},glow:{rough:.24,metal:.18,intensity:.46},dark:{rough:.44,metal:.08}
+ },
+ cosmic:{
+  primary:{rough:.27,metal:.64},secondary:{rough:.35,metal:.46},armor:{rough:.19,metal:.80},
+  skin:{rough:.44,metal:.30},glow:{rough:.12,metal:.72,intensity:1.00},dark:{rough:.27,metal:.52}
+ }
+};
+
+export function materialProfileForTheme(theme){
+ const key=MATERIAL_PROFILES[theme]?theme:'classic';
+ return structuredClone(MATERIAL_PROFILES[key]);
+}
+
 function materialsFor(definition,side){
- const p=PALETTES[definition.theme]||PALETTES.classic,dark=side==='b';
+ const p=PALETTES[definition.theme]||PALETTES.classic,dark=side==='b',profile=MATERIAL_PROFILES[definition.theme]||MATERIAL_PROFILES.classic;
+ const make=(name,color,spec,emissive=0,intensity=0)=>{
+  const material=mat(color,spec.rough,spec.metal,emissive,intensity);
+  material.name=`crown-ash:${definition.theme}:${name}`;
+  return material;
+ };
  return {
-  primary:mat(dark?p.b:p.w,.72,definition.theme==='cosmic' ? .35 : .08),
-  secondary:mat(dark?0x172536:0x4a3929,.82,.05),
-  armor:mat(dark?0x7b98ab:p.trim,.42,.42),
-  skin:mat(definition.theme==='monsters'?(dark?0x516753:0x859665):(dark?0x71808c:0xc3a184),.82,.04),
-  glow:mat(p.glow,.25,.45,p.glow,.72),
-  dark:mat(0x14202b,.78,.12)
+  primary:make('primary',dark?p.b:p.w,profile.primary),
+  secondary:make('secondary',dark?0x172536:0x4a3929,profile.secondary),
+  armor:make('armor',dark?0x7b98ab:p.trim,profile.armor),
+  skin:make('skin',definition.theme==='monsters'?(dark?0x516753:0x859665):(dark?0x71808c:0xc3a184),profile.skin),
+  glow:make('glow',p.glow,profile.glow,p.glow,profile.glow.intensity),
+  dark:make('dark',0x14202b,profile.dark)
  };
 }
 
