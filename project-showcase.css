@@ -1,0 +1,34 @@
+/* 2026-11-09 advanced engineering project showcase */
+.project-showcase-page .showcase-hero{padding-bottom:clamp(2.5rem,5vw,4rem)!important}
+.project-showcase-page .showcase-hero h1{max-width:18ch!important}
+.showcase-tags{display:flex;flex-wrap:wrap;gap:.55rem;margin:1rem 0 1.4rem}
+.showcase-tags span{padding:.42rem .7rem;border:1px solid var(--line);border-radius:999px;background:var(--glass);font-size:.75rem;color:var(--muted)}
+.showcase-evidence-grid,.showcase-architecture-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.85rem}
+.showcase-evidence-grid article,.showcase-architecture-grid article{min-width:0;padding:clamp(1.15rem,2.2vw,1.7rem);border:1px solid var(--line);border-radius:14px;background:var(--glass);backdrop-filter:blur(6px)}
+.showcase-evidence-grid span{display:block;color:var(--accent);font-weight:900;letter-spacing:.12em;font-size:.72rem;margin-bottom:.7rem}
+.showcase-evidence-grid p,.showcase-architecture-grid p{margin:0;line-height:1.65}
+.showcase-architecture-grid h3{font-size:1.05rem;line-height:1.25;margin-bottom:.55rem}
+.showcase-lab{margin-top:1.5rem;border:1px solid var(--line);border-radius:16px;background:var(--glass);backdrop-filter:blur(8px);overflow:hidden}
+.showcase-lab-toolbar{display:flex;flex-wrap:wrap;gap:.65rem;padding:1rem;border-bottom:1px solid var(--line)}
+.showcase-lab-status{padding:.9rem 1rem;border-bottom:1px solid var(--line);font-size:.85rem;color:var(--muted)}
+.showcase-lab-visual{padding:1rem;display:grid;gap:.8rem}
+.showcase-lab-output{padding:0 1rem 1rem}
+.showcase-metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(9rem,1fr));gap:.65rem}
+.showcase-metric{padding:.8rem;border:1px solid var(--line);border-radius:10px;background:color-mix(in srgb,var(--glass-strong) 82%,transparent)}
+.showcase-metric span{display:block;font-size:.66rem;letter-spacing:.1em;color:var(--muted);text-transform:uppercase}
+.showcase-metric strong{display:block;font-size:1.15rem;margin-top:.25rem}
+.showcase-table{width:100%;border-collapse:collapse;font-size:.8rem}
+.showcase-table th,.showcase-table td{padding:.58rem .55rem;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+.showcase-table th{color:var(--accent);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase}
+.showcase-callout{padding:.85rem 1rem;border-left:3px solid var(--accent);background:var(--glass);line-height:1.6}
+.showcase-topology{display:grid;grid-template-columns:repeat(auto-fit,minmax(7rem,1fr));gap:.6rem}
+.showcase-node{padding:.75rem;border:1px solid var(--line);border-radius:10px;text-align:center;background:var(--glass-strong)}
+.showcase-node.down{border-color:#d96a5f;opacity:.65}.showcase-node.hot{border-color:#e4b75d}
+.showcase-boundary{border-top:1px solid var(--line)}
+.project-program{padding-block:clamp(2.5rem,5vw,4.5rem);border-bottom:1px solid var(--line)}
+.project-program .project-program-intro{max-width:72ch}
+.project-program .project-grid{margin-top:1.5rem}
+.project-card.project-card-new{border-color:color-mix(in srgb,var(--accent) 38%,var(--line));background:linear-gradient(145deg,color-mix(in srgb,var(--glass) 90%,transparent),color-mix(in srgb,var(--accent) 7%,transparent))}
+.project-card.project-card-new .status{color:var(--blue)}
+@media(max-width:58rem){.showcase-evidence-grid,.showcase-architecture-grid{grid-template-columns:1fr}}
+@media(max-width:42rem){.showcase-lab-toolbar{display:grid}.showcase-lab-toolbar .button{width:100%}.showcase-table{font-size:.72rem}.project-showcase-page .showcase-hero h1{max-width:15ch!important}}
