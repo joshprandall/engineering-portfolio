@@ -594,3 +594,9 @@ body.living-scenes :is(
 :root[data-theme] body.living-scenes .foundation-mark{color:var(--blue)}
 body.living-scenes .vnext-qubit-frame{background:transparent}
 
+
+
+/* 2026-11-09 contact tile inset repair */
+body:not(.home-page) .contact.wrap{
+  padding-inline:clamp(1.25rem,3vw,3rem)!important;
+}
