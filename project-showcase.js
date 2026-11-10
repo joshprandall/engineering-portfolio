@@ -72,7 +72,7 @@
     const alternate = step === 2;
     const rows = alternate ? traceB : traceA;
     return {
-      status: 'Client evidence window ' + (alternate ? 'B' : 'A'),
+      status: step === 0 ? 'Wireless evidence ready · run analysis' : alternate ? 'Client evidence window B · alternate trace analyzed' : 'Client evidence window A · roam/auth analysis complete',
       visual:
         metrics([
           ['Hypothesis', alternate ? 'client-local' : 'roam + auth'],
@@ -153,7 +153,7 @@
     const rows = allFlows.filter((f) => protocol === 'ALL' || f[2] === protocol);
     const totalBytes = rows.reduce((sum, row) => sum + row[3], 0);
     return {
-      status: 'Rust aggregation model · ' + protocol,
+      status: step === 0 ? 'Synthetic flow dataset ready · run aggregation' : protocol === 'TCP' ? 'Rust aggregation complete · TCP filter' : 'Rust aggregation complete · all protocols',
       visual:
         metrics([
           ['Flows', String(rows.length)],
@@ -177,7 +177,7 @@
       ['14:03:21', 'security', 'edge-02', conflicting ? 'no policy change' : 'ACL change 4m earlier', conflicting ? 'info' : 'medium']
     ];
     return {
-      status: 'Evidence graph · ' + (conflicting ? 'conflicting signal' : 'baseline'),
+      status: step === 0 ? 'Incident evidence ready · run correlation' : conflicting ? 'Evidence graph · conflicting signal injected' : 'Evidence graph · correlation complete',
       visual:
         metrics([
           ['Signals', String(rows.length)],
@@ -212,7 +212,7 @@
           ['Resource', 'telemetry-read', 'moderate']
         ];
     return {
-      status: 'Policy evaluation · ' + (drift ? 'drift' : 'baseline'),
+      status: step === 0 ? 'Access request ready · evaluate policy' : drift ? 'Policy evaluation · drift detected' : 'Policy evaluation · baseline request complete',
       visual:
         metrics([
           ['Decision', drift ? 'DENY / REVIEW' : 'ALLOW'],
@@ -264,7 +264,7 @@
       ? [['NODE-A', '2', '80 GB', 'hot link', '52'], ['NODE-B', '4', '320 GB', 'remote', '70'], ['NODE-C/D', '4', '304 GB', 'paired', '88']]
       : [['NODE-A', '4', '320 GB', 'local', '96'], ['NODE-B', '4', '320 GB', 'remote', '72'], ['NODE-C', '2', '160 GB', 'local', '80']];
     return {
-      status: 'Synthetic GPU fabric · ' + (hot ? 'hotspot injected' : 'baseline'),
+      status: step === 0 ? 'GPU workload ready · schedule placement' : hot ? 'Synthetic GPU fabric · hotspot-aware placement complete' : 'Synthetic GPU fabric · baseline placement complete',
       visual:
         metrics([
           ['Workload', hot ? 'LLM fine-tune' : 'CFD solver'],
@@ -290,7 +290,7 @@
       ['Validation', 'CPU', '1.00', 'required']
     ];
     return {
-      status: 'Hybrid router · ' + (queued ? 'QPU queue high' : 'baseline'),
+      status: step === 0 ? 'Hybrid workload batch ready · route workload' : queued ? 'Hybrid router · QPU queue-aware reroute complete' : 'Hybrid router · baseline routing complete',
       visual:
         metrics([
           ['Selected', queued ? 'GPU + CPU sim' : 'QPU + CPU verify'],
