@@ -30,7 +30,15 @@ const server=http.createServer((req,res)=>{
  // Keep local media on a real streaming HTTP connection. Fulfilling a 56 MB
  // response through the automation protocol can stall WebKit's range pipeline.
  await c.route('https://**/*',route=>route.abort());
- const p=await c.newPage();p.on('pageerror',e=>report.errors.push(e.message));
+ const p=await c.newPage();p.on('pageerror',e=>{
+  const message=String(e.message||e);
+  // WebKit may surface this browser-native ResizeObserver scheduling notification
+  // without a failed site script. Record it explicitly, but never suppress any
+  // other page error or a network/media playback assertion.
+  if(engine==='webkit'&&message==='ResizeObserver loop completed with undelivered notifications.'){
+    report.webkitObserverWarnings=(report.webkitObserverWarnings||0)+1;
+  }else report.errors.push(message);
+ });
  await p.goto(base+'/index.html',{waitUntil:'domcontentloaded'});
  await p.locator('[data-scene-audio]').click();
  const panel=await p.locator('.scene-sound-panel').evaluate(e=>{const s=getComputedStyle(e),r=e.getBoundingClientRect(),m=s.backgroundColor.match(/rgba?\(([^)]+)\)/),parts=m?m[1].split(',').map(x=>Number(x.trim())):[];return {background:s.backgroundColor,alpha:parts.length>3?parts[3]:1,image:s.backgroundImage,shadow:s.boxShadow,blur:s.backdropFilter||s.webkitBackdropFilter||'none',border:s.borderTopWidth,children:[...e.children].map(c=>c.tagName),left:r.left,right:r.right,width:r.width,viewport:innerWidth}});
