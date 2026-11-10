@@ -923,3 +923,26 @@ body:not(.home-page) .contact.wrap{
 }
 .pioneer-logo-mark svg{display:block;width:100%;height:auto}
 @media(max-width:38rem){.pioneer-logo-mark{width:min(9rem,100%)}}
+
+
+/* 2026-11-09 projects contact panel spacing */
+.projects-page .contact.wrap{
+  padding-inline:clamp(2rem,4vw,4rem)!important;
+  gap:clamp(3rem,7vw,8rem)!important;
+}
+.projects-page .contact>div:first-child{
+  max-width:44rem;
+}
+.projects-page .contact-actions{
+  min-width:min(19rem,32vw);
+}
+@media(max-width:52rem){
+  .projects-page .contact.wrap{
+    padding-inline:clamp(1.4rem,5vw,2.25rem)!important;
+    gap:2rem!important;
+  }
+  .projects-page .contact-actions{
+    min-width:0;
+    width:min(100%,24rem);
+  }
+}
