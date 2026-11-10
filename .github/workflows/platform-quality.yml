@@ -62,6 +62,11 @@ jobs:
           node --check security-toolkit.js
           node --check security-research.js
 
+      - name: Install browser-test dependencies
+        run: |
+          npm ci
+          npx playwright install --with-deps chromium
+
       - name: Run learning and AI contract tests
         run: |
           node --test tests/learning-ai-contract.test.mjs
