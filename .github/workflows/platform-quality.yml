@@ -1,0 +1,125 @@
+name: Learning AI Cyber Quality Gate
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "deep-learning/**"
+      - "knowledge*.js"
+      - "learn*.html"
+      - "lesson.html"
+      - "learning-academy.*"
+      - "assets/learning-academy.json"
+      - "ai-*.html"
+      - "ai-build-lab.*"
+      - "ai-mastery.*"
+      - "assets/ai-build-mastery.json"
+      - "security-research.*"
+      - "security-toolkit.*"
+      - "assets/security-toolkit.json"
+      - "site-navigation.js"
+      - "tools/validate_learning_ai_security.py"
+      - ".github/workflows/platform-quality.yml"
+  pull_request:
+    paths:
+      - "deep-learning/**"
+      - "knowledge*.js"
+      - "learn*.html"
+      - "lesson.html"
+      - "learning-academy.*"
+      - "assets/learning-academy.json"
+      - "ai-*.html"
+      - "ai-build-lab.*"
+      - "ai-mastery.*"
+      - "assets/ai-build-mastery.json"
+      - "security-research.*"
+      - "security-toolkit.*"
+      - "assets/security-toolkit.json"
+      - "site-navigation.js"
+      - "tools/validate_learning_ai_security.py"
+      - ".github/workflows/platform-quality.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  validate-platforms:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Validate learning corpus, AI build contracts, and Cyber Range
+        run: python3 tools/validate_learning_ai_security.py
+
+      - name: Validate JavaScript syntax
+        run: |
+          node --check site-navigation.js
+          node --check learning-academy.js
+          node --check ai-mastery.js
+          node --check ai-build-lab.js
+          node --check security-toolkit.js
+          node --check security-research.js
+
+      - name: Run learning and AI contract tests
+        run: |
+          node --test tests/learning-ai-contract.test.mjs
+          node --test tests/content-browser.test.cjs
+          node --test tests/content-experiments.test.cjs
+
+      - name: HTTP smoke test the three learning platforms
+        run: |
+          python3 -m http.server 8766 --bind 127.0.0.1 >/tmp/platform-http.log 2>&1 &
+          SERVER_PID=$!
+          trap 'kill $SERVER_PID' EXIT
+          sleep 1
+          python3 - <<'PY'
+          import json
+          import urllib.request
+
+          base = "http://127.0.0.1:8766/"
+          pages = [
+              "learn.html",
+              "lesson.html",
+              "learn-cloud.html",
+              "learn-advanced.html",
+              "learn-software.html",
+              "learn-cyber.html",
+              "learn-leadership.html",
+              "learn-math.html",
+              "learn-physics.html",
+              "ai-development.html",
+              "ai-machine-learning.html",
+              "ai-llm.html",
+              "ai-agentic.html",
+              "ai-build-your-own.html",
+              "security-research.html",
+          ]
+          assets = [
+              "learning-academy.js",
+              "learning-academy.css",
+              "assets/learning-academy.json",
+              "ai-mastery.js",
+              "ai-mastery.css",
+              "assets/ai-build-mastery.json",
+              "security-toolkit.js",
+              "security-toolkit.css",
+              "assets/security-toolkit.json",
+          ]
+
+          for path in pages + assets:
+              with urllib.request.urlopen(base + path, timeout=8) as response:
+                  assert response.status == 200, (path, response.status)
+
+          with urllib.request.urlopen(base + "assets/security-toolkit.json", timeout=8) as response:
+              assert len(json.load(response)["tools"]) == 50
+
+          with urllib.request.urlopen(base + "assets/ai-build-mastery.json", timeout=8) as response:
+              assert len(json.load(response)["systems"]) == 19
+
+          with urllib.request.urlopen(base + "assets/learning-academy.json", timeout=8) as response:
+              assert len(json.load(response)["programs"]) == 7
+
+          print("HTTP smoke test passed for Learn, AI Builder Academy, and Cyber Range")
+          PY
