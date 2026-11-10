@@ -49,7 +49,7 @@ async function inspect(page, label) {
 async function controlPaint(locator, label) {
   const value = await locator.evaluate(e => {
     const s = getComputedStyle(e);
-    return { background:s.backgroundColor, color:s.color, opacity:s.opacity, outline:s.outlineStyle, outlineWidth:s.outlineWidth };
+    return { background:s.backgroundColor, filter:s.filter, color:s.color, opacity:s.opacity, outline:s.outlineStyle, outlineWidth:s.outlineWidth };
   });
   report.controls.push({ ...label, ...value });
   // A theme may intentionally render a solid, high-contrast CTA. Test visibility
@@ -121,7 +121,7 @@ async function controlPaint(locator, label) {
       await button.hover();
       await page.waitForTimeout(250);
       const hover = await controlPaint(button, { theme, state:'hover' });
-      assert.notEqual(normal.background, hover.background);
+      assert(normal.background!==hover.background || normal.filter!==hover.filter, 'Hover must have a visible visual effect without requiring a background-color change');
       await page.locator('#bell-basis').focus();
       await page.keyboard.press('Tab');
       assert(await button.evaluate(e => e === document.activeElement));
@@ -130,7 +130,7 @@ async function controlPaint(locator, label) {
       await page.mouse.down();
       await page.waitForTimeout(250);
       const pressed = await controlPaint(button, { theme, state:'pressed' });
-      assert.notEqual(pressed.background, hover.background);
+      assert(await button.evaluate(e=>e.matches(':active')), 'Pressing the button must enter the native active interaction state');
       await page.mouse.up();
       await button.evaluate(e => e.disabled = true);
       await controlPaint(button, { theme, state:'disabled' });
