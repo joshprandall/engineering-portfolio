@@ -19,9 +19,11 @@ const waitForKnowledge=()=>new Promise(resolve=>{
   check();
 });
 
+const needsKnowledge = page === 'learn.html' || page === 'lesson.html';
+
 Promise.all([
  fetch('assets/learning-academy.json?v=20261109-v1',{cache:'no-cache'}).then(r=>r.json()),
- waitForKnowledge()
+ needsKnowledge ? waitForKnowledge() : Promise.resolve(null)
 ]).then(([academy,D])=>{
  const programs=new Map(academy.programs.map(p=>[p.id,p]));
  const domainNames={cloud:'Cloud & Systems',advanced:'Advanced Computing',software:'Software Engineering',cyber:'Cybersecurity',leadership:'Leadership & IT Management',math:'Mathematics',physics:'Physics'};
