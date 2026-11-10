@@ -1,0 +1,25 @@
+/* AI Builder Academy — 2026-11-09 */
+.ai-mastery-overview,.ai-build-master{padding-block:clamp(3rem,6vw,6rem);border-block:1px solid var(--line)}
+.ai-mastery-overview h2,.ai-build-master h2{max-width:22ch}
+.ai-builder-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,18rem),1fr));gap:.8rem;margin-top:1.4rem}
+.ai-builder-card,.ai-build-panel,.ai-build-step,.ai-build-metric{padding:clamp(1rem,2vw,1.35rem);border:1px solid var(--line);border-radius:14px;background:var(--glass);-webkit-backdrop-filter:blur(7px);backdrop-filter:blur(7px)}
+.ai-builder-card{display:flex;flex-direction:column}
+.ai-builder-card h3{margin:.3rem 0 .55rem}
+.ai-builder-card p{line-height:1.65}
+.ai-builder-card .button{margin-top:auto;align-self:flex-start}
+.ai-builder-meta{display:flex;gap:.4rem;flex-wrap:wrap;margin:.6rem 0}
+.ai-build-grid{display:grid;grid-template-columns:minmax(0,.72fr) minmax(0,1.28fr);gap:clamp(1.5rem,4vw,4rem);align-items:start}
+.ai-build-stack{display:grid;gap:.7rem}
+.ai-build-panel h3{margin:.3rem 0 .55rem}
+.ai-build-panel ul,.ai-build-panel ol{padding-left:1.2rem;display:grid;gap:.45rem}
+.ai-build-steps{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.7rem}
+.ai-build-step span{display:block;color:var(--accent);font-size:.68rem;font-weight:900;letter-spacing:.12em}
+.ai-build-step strong{display:block;margin:.35rem 0}
+.ai-build-metrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.7rem;margin-top:.7rem}
+.ai-build-code{position:relative;margin-top:.8rem;border:1px solid var(--line);border-radius:12px;background:color-mix(in srgb,var(--glass-strong) 88%,#000);overflow:hidden}
+.ai-build-code header{display:flex;justify-content:space-between;gap:1rem;align-items:center;padding:.7rem .85rem;border-bottom:1px solid var(--line)}
+.ai-build-code pre{overflow:auto;padding:1rem;margin:0;font-size:.78rem;line-height:1.55}
+.ai-build-checklist{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.6rem;margin-top:1rem}
+.ai-build-checklist article{padding:.85rem;border:1px solid var(--line);border-radius:10px;background:var(--glass)}
+@media(max-width:64rem){.ai-build-grid{grid-template-columns:1fr}.ai-build-checklist{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:44rem){.ai-build-steps,.ai-build-metrics,.ai-build-checklist{grid-template-columns:1fr}}
