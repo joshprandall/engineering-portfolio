@@ -1,0 +1,8 @@
+[package]
+name = "rust-flow-telemetry"
+version = "0.1.0"
+edition = "2021"
+description = "Synthetic flow telemetry aggregator for Joshua Randall's engineering portfolio"
+license = "MIT"
+
+[dependencies]
