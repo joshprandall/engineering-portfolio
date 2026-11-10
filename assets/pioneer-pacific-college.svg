@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 110" role="img" aria-labelledby="title desc">
+<title id="title">Pioneer Pacific College</title>
+<desc id="desc">Blue and gold open-book mark with Pioneer Pacific College wordmark, based on the college's historical branding.</desc>
+<rect width="520" height="110" rx="10" fill="#ffffff"/>
+<g transform="translate(18 18)">
+  <path d="M8 16c22-9 43-8 62 1v43c-19-9-40-9-62 0z" fill="#0a6199"/>
+  <path d="M72 17c19-9 40-10 62-1v44c-22-9-43-9-62 0z" fill="#0a6199"/>
+  <path d="M69 18C54 25 44 35 36 51c10-3 21-2 33 3z" fill="#ffffff"/>
+  <path d="M74 18c15 7 25 17 33 33-10-3-21-2-33 3z" fill="#ffffff"/>
+  <path d="M7 67c23-6 44-6 63 1 19-7 40-7 64-1" fill="none" stroke="#f2b41f" stroke-width="4" stroke-linecap="round"/>
+</g>
+<text x="172" y="48" font-family="Georgia, 'Times New Roman', serif" font-size="31" fill="#7c7468">Pioneer Pacific</text>
+<text x="239" y="82" font-family="Georgia, 'Times New Roman', serif" font-size="31" fill="#7c7468">College</text>
+</svg>
