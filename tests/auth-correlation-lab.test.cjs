@@ -1,0 +1,41 @@
+'use strict';
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const path = require('node:path');
+const {spawnSync} = require('node:child_process');
+const html = fs.readFileSync(path.join(__dirname,'..','learn-cyber.html'),'utf8');
+const sec = html.match(/<section id="auth-correlation-lab"[\s\S]*?<\/section>/);
+assert(sec,'Missing auth evidence lab');
+const lab = sec[0];
+assert(lab.includes('aria-labelledby="auth-correlation-lab-title"'));
+assert.equal((lab.match(/<details>/g)||[]).length,4);
+assert.equal((lab.match(/<summary>/g)||[]).length,4);
+assert(lab.includes('https://attack.mitre.org/techniques/T1110/'));
+assert(lab.includes('https://csrc.nist.gov/pubs/sp/800/61/r3/final'));
+assert(lab.toLowerCase().includes('synthetic') && lab.includes('not a live monitor'));
+const fixture = lab.match(/<pre data-auth-fixture="csv"><code>([\s\S]*?)<\/code><\/pre>/);
+const script = lab.match(/<pre><code data-auth-example="python">([\s\S]*?)<\/code><\/pre>/);
+assert(fixture && script);
+const csv = fixture[1].trim();
+const rows = csv.split(/\r?\n/);
+assert.equal(rows.length,13);
+assert.equal(rows[0],'timestamp,account,source,result');
+const data = rows.slice(1).map(line=>{
+  const [timestamp,account,source,result]=line.split(',');
+  assert(['failed','success'].includes(result));
+  assert(/^(192\.0\.2\.|198\.51\.100\.|203\.0\.113\.)/.test(source));
+  return {timestamp,account,source,result,time:Date.parse(timestamp)};
+});
+const alerts = data.filter(e=>e.result==='success').flatMap(e=>{
+  const failed = data.filter(f=>f.result==='failed' && f.account===e.account && f.source===e.source &&
+    f.time<=e.time && e.time-f.time<=600000).length;
+  return failed>=3 ? [{account:e.account,source:e.source,timestamp:e.timestamp,count:failed}] : [];
+});
+assert.deepEqual(alerts,[{account:'alex',source:'192.0.2.10',timestamp:'2026-11-10T08:03:00Z',count:3}]);
+const py=script[1].replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&amp;/g,'&');
+assert(py.includes(csv),'Python fixture diverged from HTML fixture');
+const run=spawnSync('python',['-c',py],{encoding:'utf8',timeout:15000});
+assert.equal(run.status,0,'Python run failed: '+(run.stderr||run.error));
+assert.match(run.stdout,/ALERT alex 192\.0\.2\.10 2026-11-10T08:03:00Z failures=3/);
+assert.match(run.stdout,/alerts=1/);
+console.log('PASS authenticated-event synthetic correlation lab, controls, and Python replication');
