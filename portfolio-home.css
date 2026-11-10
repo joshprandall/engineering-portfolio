@@ -392,6 +392,6 @@
 }
 @media(max-width:42rem){
   .home-page .contact.wrap{
-    padding-inline:clamp(1.1rem,5vw,1.5rem)!important;
+    padding-inline:clamp(1.4rem,5vw,1.75rem)!important;
   }
 }
