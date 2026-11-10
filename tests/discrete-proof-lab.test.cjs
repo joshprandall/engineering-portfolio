@@ -4,7 +4,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 
 const source = fs.readFileSync(path.join(__dirname, '..', 'learn-math.html'), 'utf8');
-const match = source.match(/<section id="induction-proof-lab"\b[\s\S]*?<\/section>/);
+const match = source.match(/<section id="induction-proof-lab"\s[\s\S]*?<\/section>/);
 assert(match, 'Induction lab section must be present on the mathematics course page');
 const lab = match[0];
 
