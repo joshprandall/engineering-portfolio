@@ -61,3 +61,48 @@
     load();
   }
 })();
+
+
+// platform-mastery-loader-v1
+(() => {
+  const page = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
+
+  const addScript = (src, key) => {
+    if (document.querySelector('script[data-platform-loader="' + key + '"]')) return;
+    const script = document.createElement('script');
+    script.src = src;
+    script.defer = true;
+    script.dataset.platformLoader = key;
+    document.head.append(script);
+  };
+
+  const addStyle = (href, key) => {
+    if (document.querySelector('link[data-platform-style="' + key + '"]')) return;
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = href;
+    link.dataset.platformStyle = key;
+    document.head.append(link);
+  };
+
+  const load = () => {
+    if (page === 'lesson.html' || page.startsWith('learn')) {
+      addScript('learning-academy.js?v=20261109-v1', 'learning-academy');
+    }
+
+    if (page === 'ai-development.html' || /^ai-[a-z0-9-]+\.html$/.test(page)) {
+      addScript('ai-mastery.js?v=20261109-v1', 'ai-mastery');
+    }
+
+    if (page === 'security-research.html') {
+      addStyle('security-toolkit.css?v=20261109-v1', 'security-toolkit');
+      addScript('security-toolkit.js?v=20261109-v1', 'security-toolkit');
+    }
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', load, { once: true });
+  } else {
+    load();
+  }
+})();
