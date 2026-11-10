@@ -975,3 +975,39 @@ body:not(.home-page) .contact.wrap{
     width:min(100%,24rem);
   }
 }
+
+
+/* 2026-11-09 unified landing-page hero headings */
+.site-hero-title{
+  max-width:18ch!important;
+  margin:0 0 1.3rem!important;
+  font-size:clamp(3.25rem,4.5vw,4.9rem)!important;
+  line-height:1.02!important;
+  letter-spacing:-.05em!important;
+  font-weight:600!important;
+  text-wrap:balance;
+}
+.home-page .site-hero-title{
+  max-width:13.5ch!important;
+}
+.security-research-page .site-hero-title{
+  max-width:18ch!important;
+}
+.game-development-page .site-hero-title{
+  max-width:18ch!important;
+}
+@media(max-width:48rem){
+  .site-hero-title{
+    max-width:16ch!important;
+    font-size:clamp(2.7rem,10vw,4rem)!important;
+    line-height:1.04!important;
+    letter-spacing:-.045em!important;
+  }
+}
+@media(max-width:32rem){
+  .site-hero-title{
+    font-size:clamp(2.45rem,12vw,3.4rem)!important;
+    line-height:1.06!important;
+    letter-spacing:-.04em!important;
+  }
+}
