@@ -614,11 +614,13 @@ body:not(.home-page) .contact.wrap{
 .about-unified-page .about-hero-pro .about-hero-copy{min-width:0}
 .about-unified-page .about-hero-pro .eyebrow{margin-bottom:.75rem}
 .about-unified-page .about-hero-pro h1{
-  max-width:12ch;
-  margin:0 0 1.15rem;
-  font-size:clamp(3rem,6.2vw,5.45rem);
-  line-height:.95;
-  letter-spacing:-.065em;
+  max-width:14ch;
+  margin:0 0 1.35rem;
+  font-size:clamp(3rem,5.25vw,4.85rem);
+  line-height:1.03;
+  letter-spacing:-.045em;
+  font-weight:600;
+  text-wrap:balance;
 }
 .about-unified-page .about-role-line{
   display:flex;
