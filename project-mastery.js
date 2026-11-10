@@ -27,9 +27,19 @@
 
   const collectEvidenceLinks = () => {
     const seen = new Set();
-    return [...document.querySelectorAll('a[href]')]
-      .map(a => ({ href: a.getAttribute('href') || '', text: (a.textContent || '').replace(/\s+/g,' ').trim() }))
-      .filter(({href,text}) => /github|source|download|archive|methods|working lab|interactive|play|documentation|validation|notebook/i.test(href + ' ' + text))
+    const explicit = [];
+    if (document.querySelector('.showcase-lab[data-showcase-lab]')) {
+      explicit.push({ href: 'project-showcase.js', text: 'Inspect advanced-systems lab implementation' });
+    }
+    if (document.querySelector('.showcase-lab[data-software-lab]')) {
+      explicit.push({ href: 'software-showcase.js', text: 'Inspect software-engineering lab implementation' });
+    }
+    return [
+      ...explicit,
+      ...[...document.querySelectorAll('a[href]')]
+        .map(a => ({ href: a.getAttribute('href') || '', text: (a.textContent || '').replace(/\s+/g,' ').trim() }))
+        .filter(({href,text}) => /github|source|download|archive|methods|working lab|interactive|play|documentation|validation|notebook/i.test(href + ' ' + text))
+    ]
       .filter(({href}) => href && !href.startsWith('#') && !seen.has(href) && seen.add(href))
       .slice(0, 8);
   };
