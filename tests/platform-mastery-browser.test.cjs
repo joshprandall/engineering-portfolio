@@ -26,7 +26,7 @@ test('Learn, AI Builder Academy, and all 50 Cyber Range tools function in a brow
   let browser;
   try {
     await waitForServer();
-    browser = await chromium.launch({ headless: true });
+    browser = await chromium.launch({ headless: true, executablePath: process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH || undefined });
     const page = await browser.newPage({ viewport: { width: 1440, height: 1000 } });
 
     await page.goto(BASE + 'learn.html', { waitUntil: 'domcontentloaded' });
