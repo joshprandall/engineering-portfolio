@@ -17,7 +17,7 @@ for (const file of ['index.html','projects.html','learn.html','play-evil-wizard.
 }
 const projects=read('projects.html');
 const cards=[...projects.matchAll(/<article\b[^>]*class=["'][^"']*project-card[^"']*["']/gi)];
-assert.equal(cards.length,16,'Reconciled release must preserve all 16 project cards');
+assert.equal(cards.length,34,'Reconciled release must expose all 34 project cards');
 assert.doesNotMatch(projects,/class=["'][^"']*filter-bar[^"']*["']/i,'Removed project filter bar must not return');
 assert.doesNotMatch(projects,/id=["']filter-count["']/i,'Removed project filter count must not return');
 for (const [id, route] of [['evil-wizard','games/evil-wizard/play.html'],['quantum','qubit-preview-20260921/'],['battle-chess','project-battle-chess.html'],['geometric-ai','project-geometric-ai.html'],['qpe','project-qpe.html'],['emergent','project-emergent.html'],['mind-agents','project-mind.html']]) {
@@ -46,7 +46,7 @@ assert.match(vnext,/enhanceProjectNavigation/,'Project pager cleanup missing');
 assert.match(vnext,/\$\$\('\.vnext-project-nav'\)\.forEach\(nav=>nav\.remove\(\)\)/,'Stale project pagers must be removed by the shared experience layer');
 
 const primaryTiles=[...projects.matchAll(/<a\b[^>]*class=["'][^"']*tile-open[^"']*["'][^>]*>/gi)].map(x=>x[0]);
-assert.equal(primaryTiles.length,16,'Every project card must have one primary tile link');
+assert.equal(primaryTiles.length,34,'Every project card must have one primary tile link');
 for (const tile of primaryTiles) {
  const href=tile.match(/href=["']([^"']+)["']/i)?.[1];
  assert.ok(href && exists(href.split(/[?#]/)[0]), `Project tile must resolve locally: ${href}`);
@@ -181,7 +181,7 @@ const mind=await import(pathToFileURL(path.join(root,'agent-workbench.js')).href
 const mr=mind.run('Repair a test regression',{evidence:['Reproduction steps','CI test output','Rollback review']});
 assert.ok(mr.requiresApproval,'MIND workbench must preserve human approval boundary');
 assert.ok(mr.evidenceCoverage>0,'MIND evidence coverage should respond to evidence');
-console.log('Science-experiment release validation passed: 16 projects, 8,000 manifest records, orbital systems scene, deterministic science math and protected experience exclusions.');
+console.log('Science-experiment release validation passed: 34 projects, 8,000 manifest records, orbital systems scene, deterministic science math and protected experience exclusions.');
 
 // Performance/usability regression guards: keep expensive continuous work out of
 // hidden/off-screen views and keep the 25 MB learning corpus from parser-blocking.
