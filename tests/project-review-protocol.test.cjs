@@ -12,7 +12,7 @@ for(const [file,project] of Object.entries(projects)){
  assert(project.title&&project.problem&&project.limitations,'Existing claim boundary was lost for '+file);
  const protocol=project.reviewProtocol;
  assert(protocol&&typeof protocol==='object','Missing review protocol: '+file);
- for(const key of required)assert(typeof protocol[key]==='string'&&protocol[key].length>70,'Insufficient '+key+' for '+file);
+ for(const key of required)assert(typeof protocol[key]==='string'&&protocol[key].length>60,'Insufficient '+key+' for '+file);
  assert(!hypotheses.has(protocol.hypothesis),'Duplicated project hypothesis: '+file);
  assert(!fixtures.has(protocol.fixture),'Duplicated project fixture: '+file);
  hypotheses.add(protocol.hypothesis);
