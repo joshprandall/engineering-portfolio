@@ -174,7 +174,7 @@
       ? [['let','KEYWORD','line 1'],['count','IDENT','line 1'],['=','ASSIGN','line 1'],['"five"','STRING','line 1'],['+','PLUS','line 2'],['1','NUMBER','line 2']]
       : [['let','KEYWORD','line 1'],['count','IDENT','line 1'],['=','ASSIGN','line 1'],['5','NUMBER','line 1'],['+','PLUS','line 2'],['1','NUMBER','line 2']];
     return {
-      status: 'Mini compiler pipeline · ' + (error ? 'type error introduced' : 'valid program'),
+      status: step === 0 ? 'Source program ready · compile' : error ? 'Mini compiler pipeline · type error detected' : 'Mini compiler pipeline · valid program compiled',
       visual: metrics([
         ['Tokens','6'],
         ['AST nodes','5'],
