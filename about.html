@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="portfolio-next.css?v=20260924-light-type-v9-nohalo"/>
   <link rel="stylesheet" href="site-scenes.css?v=20260929-ambience-phone-v2"/>
   <link rel="stylesheet" href="site-sections.css"/>
-  <link rel="stylesheet" href="site-responsive.css?v=20261002-profile-v1"/>
+  <link rel="stylesheet" href="site-responsive.css?v=20261109-about-pro-v2"/>
 
 
   <script defer src="site-navigation.js?v=20260927-about-unified"></script>
@@ -32,26 +32,61 @@
 </header>
 
 <main id="main">
-  <section class="wrap about-hero" id="about" aria-labelledby="about-title">
+  <section class="wrap about-hero about-hero-pro" id="about" aria-labelledby="about-title">
     <div class="about-hero-copy">
-      <p class="eyebrow">ABOUT ME / EXPERIENCE / RÉSUMÉ / DIRECTION</p>
-      <h1 id="about-title">I build across layers.</h1>
-      <p><strong>Systems &amp; Infrastructure Engineer · Mission-Critical Operations · Robotics &amp; Automation · Cloud, Security &amp; Reliability · AI, HPC &amp; Quantum Engineering</strong></p>
-      <p class="about-lede">I’m Joshua Randall: a systems and infrastructure engineer, field engineer, software builder, technical leader, and engineering student with more than 25 years in technology. My career has progressed from support and systems administration through enterprise infrastructure, cloud, security, automation, mission-critical operations, and technical leadership—and now into robotics and advanced engineering.</p>
-      <p>I have worked inside Amazon environments from multiple perspectives, including previous direct Amazon employment and later technical work through CBRE and TEKsystems Global Services. Today, I support an Amazon Robotics deployment as a contract field engineer, working hands-on with robotic workcells, troubleshooting, testing, maintenance, system validation, safety processes, and cross-functional engineering operations.</p>
-      <p>My broader background spans Windows and Linux systems, networking, virtualization, cloud, identity, endpoint engineering, cybersecurity, data-center and server-room infrastructure, automation, software development, robotics, AI, high-performance computing, and quantum technologies. The common thread is systems thinking: understand the dependencies, isolate failures across layers, restore reliable operation, automate what should be repeatable, document what matters, and design systems that can recover when something goes wrong.</p>
-      <div class="about-facts" aria-label="About Joshua Randall highlights">
-        <span>25+ years in technology</span><span>Mission-critical systems + operations</span><span>Amazon + Amazon Robotics experience</span><span>Infrastructure + cloud + security</span><span>Robotics + automation</span><span>Software + engineering</span><span>AI + HPC + quantum systems</span>
+      <p class="eyebrow">SYSTEMS / NETWORKS / ROBOTICS / SOFTWARE</p>
+      <h1 id="about-title">I build systems<br/>that have to work.</h1>
+
+      <p class="about-role-line">
+        <strong>Senior Network Engineer — Agility Robotics</strong>
+        <span>via Insight Global · Salem, Oregon</span>
+      </p>
+
+      <p class="about-lede">I’m Joshua Randall, a systems and infrastructure engineer, network engineer, software builder, technical leader, and engineering student with more than 25 years in technology. I work where networks, compute, cloud, security, automation, hardware, software, RF, and operations have to behave as one dependable system.</p>
+
+      <p class="about-intro">My career has moved from technical support and systems administration into enterprise migrations, consulting, infrastructure architecture, multi-site field engineering, Amazon operations, robotics, and now senior network engineering for a humanoid-robotics company. I’m also pursuing Electrical &amp; Computer Engineering and Computer Science at Oregon State University while building software, AI systems, engineering labs, games, and automation projects.</p>
+
+      <div class="about-kpis" aria-label="Joshua Randall at a glance">
+        <article><span>EXPERIENCE</span><strong>25+ years</strong><p>Enterprise infrastructure, networking, cloud, field engineering, Amazon operations, consulting, and robotics.</p></article>
+        <article><span>CURRENT</span><strong>Agility Robotics</strong><p>Senior network engineering for wired, wireless, cellular/5G, security, and robotics connectivity.</p></article>
+        <article><span>EDUCATION</span><strong>ECE + CS · Honors</strong><p>Oregon State University with mathematics, physics, and data science study; BAS + AAS completed at Pioneer Pacific College.</p></article>
+        <article><span>CREDENTIALS</span><strong>Deep technical history</strong><p>Microsoft, Cisco, VMware, CompTIA, security, ITIL, OEM, electronics, safety, and software-engineering credentials.</p></article>
       </div>
-      <div class="actions">
-        <a class="button primary" href="#experience">Professional experience ↓</a>
-        <a class="button" href="#direction">Where I’m going ↓</a>
+
+      <div class="about-tech-strip" aria-label="Technical domains">
+        <span>Networks</span><span>Windows + Linux</span><span>Aruba</span><span>Cradlepoint / 5G</span><span>Azure</span><span>Cybersecurity</span><span>Python</span><span>PowerShell</span><span>Automation</span><span>Robotics</span><span>AI / HPC</span><span>Quantum</span>
+      </div>
+
+      <div class="actions about-hero-actions">
+        <a class="button primary" href="#experience">See 25+ years of experience ↓</a>
+        <a class="button" href="#resume">Credentials &amp; résumé ↓</a>
+        <a class="button" href="projects.html">Engineering projects ↗︎</a>
       </div>
     </div>
-    <figure class="about-profile-photo">
-      <img src="assets/joshua-randall-headshot.jpg" alt="Joshua Randall" width="900" height="900" decoding="async"/>
-      <figcaption>Systems. Software. Possibility.</figcaption>
-    </figure>
+
+    <aside class="about-profile-stack" aria-label="Joshua Randall profile">
+      <figure class="about-profile-photo about-profile-card">
+        <img src="assets/joshua-randall-headshot.jpg" alt="Joshua Randall" width="900" height="900" decoding="async"/>
+        <figcaption>
+          <strong>Joshua Randall</strong>
+          <span>Systems. Software. Possibility.</span>
+        </figcaption>
+      </figure>
+
+      <div class="about-current-role">
+        <span class="about-current-label">CURRENT ROLE</span>
+        <strong>Senior Network Engineer</strong>
+        <p>Agility Robotics · Salem, Oregon</p>
+        <small>Robotics connectivity · Aruba wireless · switching · segmentation · cellular/5G · Cradlepoint · Linux diagnostics · firewall/security workflows · RF troubleshooting · observability.</small>
+      </div>
+
+      <div class="about-build-card">
+        <span>BUILDING TOWARD</span>
+        <strong>Systems architecture for advanced computing</strong>
+        <p>Distributed systems, HPC, AI infrastructure, robotics, advanced hardware, and quantum engineering.</p>
+        <a href="#direction">Research &amp; engineering direction →</a>
+      </div>
+    </aside>
   </section>
 
   <nav class="wrap about-local-nav" aria-label="About page sections">
