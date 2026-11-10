@@ -908,3 +908,16 @@ body:not(.home-page) .contact.wrap{
   .education-line{grid-template-columns:minmax(0,1fr)!important}
   .education-line img,.education-wordmark,.mit-wordmark{width:min(9rem,100%)!important}
 }
+
+
+/* Pioneer Pacific inline mark */
+.pioneer-logo-mark{
+  display:block;
+  width:8rem;
+  max-width:100%;
+  border-radius:8px;
+  overflow:hidden;
+  background:#fff;
+}
+.pioneer-logo-mark svg{display:block;width:100%;height:auto}
+@media(max-width:38rem){.pioneer-logo-mark{width:min(9rem,100%)}}
