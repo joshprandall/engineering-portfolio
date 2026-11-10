@@ -1,0 +1,47 @@
+name: Build protected content-only OSU overlay
+
+on:
+  pull_request:
+    paths:
+      - "knowledge.js"
+      - "deep-learning/**"
+      - "learning-academy.js"
+      - "project-mastery.js"
+      - "assets/project-evaluation.json"
+      - "ai-*.html"
+      - "learn-*.html"
+      - "game-development.html"
+      - "tools/build_osu_content_overlay.py"
+      - "tests/protected-baseline.test.cjs"
+      - "manifests/protected-baseline-git-blobs.json"
+      - ".github/workflows/content-only-osu-release.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  content-only:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out protected source
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify source tests and 144 protected hashes
+        run: npm test
+      - name: Package only 36 reviewed runtime content files
+        run: python3 tools/build_osu_content_overlay.py --output dist/portfolio-content-only.zip
+      - name: Verify manifest independently
+        run: python3 tools/build_osu_content_overlay.py --verify dist/portfolio-content-only.zip
+      - name: Upload content-only artifact; no OSU deployment
+        uses: actions/upload-artifact@v4
+        with:
+          name: portfolio-review-content-only
+          path: dist/portfolio-content-only.zip
+          if-no-files-found: error
