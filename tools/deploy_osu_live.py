@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Deploy one exact tested commit with a full backup, byte checks and rollback."""
-import argparse, datetime, hashlib, os, re, shutil, stat, tarfile, tempfile, time, subprocess, sys
+import argparse, datetime, hashlib, json, os, re, shutil, stat, tarfile, tempfile, time, subprocess, sys
 from pathlib import Path
 from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
@@ -161,8 +161,16 @@ def validate_source(source):
     home = (source/'index.html').read_text()
     if 'quantum-cube.js' not in home or 'portfolio-home.css' not in home:
         raise RuntimeError('Homepage and animation/style assets do not match.')
-    if (source/'projects.html').read_text().count('class="project-card"') != 34:
-        raise RuntimeError('The release must expose all 34 projects.')
+    project_count = (source/'projects.html').read_text().count('class="project-card"')
+    evaluation_manifest = source/'assets/project-evaluation.json'
+    if evaluation_manifest.is_file():
+        expected_projects = len(json.loads(evaluation_manifest.read_text(encoding='utf-8')).get('projects', {}))
+        if expected_projects != 34:
+            raise RuntimeError('The evaluation manifest must describe all 34 projects.')
+    else:
+        expected_projects = 16
+    if project_count != expected_projects:
+        raise RuntimeError(f'The release must expose all {expected_projects} projects.')
     for file in release_files(source):
         if file.is_symlink():
             raise RuntimeError('Symbolic links are not release files: '+str(file))
