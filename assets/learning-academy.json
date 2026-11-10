@@ -1,0 +1,221 @@
+{
+  "version": "2026-11-09-academy-v1",
+  "standard": "Open, self-paced, evidence-first engineering education",
+  "programs": [
+    {
+      "id": "cloud",
+      "page": "learn-cloud.html",
+      "title": "Cloud & Systems Engineering",
+      "level": "Foundation → Advanced",
+      "description": "Build from packets, operating systems, and identity into cloud platforms, automation, observability, Kubernetes, and recovery engineering.",
+      "prerequisites": [
+        "Basic computer literacy; no prior cloud certification required",
+        "Comfort using a terminal becomes useful after the foundation modules"
+      ],
+      "outcomes": [
+        "Trace a request across DNS, networks, transport, TLS, applications, and infrastructure",
+        "Administer Linux/Windows and identity concepts using evidence-based troubleshooting",
+        "Design cloud and Kubernetes systems around failure, observability, automation, and recovery",
+        "Explain tradeoffs among availability, security, cost, performance, and operational complexity"
+      ],
+      "categories": [
+        "Networking",
+        "Linux",
+        "Windows & Identity",
+        "Identity",
+        "Cloud",
+        "Automation",
+        "Kubernetes",
+        "Observability",
+        "Recovery",
+        "Lab"
+      ],
+      "capstone": "Design and defend a resilient service architecture, then reproduce at least one failure/recovery scenario with preserved evidence."
+    },
+    {
+      "id": "advanced",
+      "page": "learn-advanced.html",
+      "title": "Advanced Computing",
+      "level": "Intermediate → Research Bridge",
+      "description": "Connect computer architecture, operating systems, memory, parallelism, distributed systems, GPU computing, HPC, and quantum computing.",
+      "prerequisites": [
+        "Programming fundamentals",
+        "Basic algebra; linear algebra becomes increasingly important",
+        "Operating-system and networking fundamentals recommended for distributed/HPC work"
+      ],
+      "outcomes": [
+        "Reason about compute from processor/memory architecture through distributed execution",
+        "Model performance, parallelism, locality, synchronization, and failure",
+        "Explain GPU/HPC design tradeoffs and measurement methodology",
+        "Separate quantum-computing mathematics, simulation, hardware claims, and experimental evidence"
+      ],
+      "categories": [
+        "Architecture",
+        "Operating Systems",
+        "Memory",
+        "Parallel Computing",
+        "Distributed Systems",
+        "GPU",
+        "GPU Computing",
+        "HPC",
+        "Quantum",
+        "Lab"
+      ],
+      "capstone": "Choose an advanced-computing workload, identify its computational bottleneck, build a reproducible model, and defend the architecture and measurement plan."
+    },
+    {
+      "id": "software",
+      "page": "learn-software.html",
+      "title": "Software Engineering",
+      "level": "Foundation → Advanced",
+      "description": "Learn programming, data structures, algorithms, APIs, databases, testing, architecture, DevOps, and production software reasoning.",
+      "prerequisites": [
+        "No framework knowledge required",
+        "Basic programming concepts are recommended before advanced architecture modules"
+      ],
+      "outcomes": [
+        "Translate requirements into testable software behavior",
+        "Choose data structures and algorithms from constraints rather than habit",
+        "Design APIs, data models, tests, and failure handling as explicit contracts",
+        "Ship software through version control, CI/CD, observability, and reversible change"
+      ],
+      "categories": [
+        "Programming",
+        "Data Structures",
+        "Algorithms",
+        "APIs",
+        "Databases",
+        "Testing",
+        "Architecture",
+        "DevOps",
+        "Lab"
+      ],
+      "capstone": "Build a small service with a documented contract, persistent data, automated tests, failure handling, and a reproducible delivery path."
+    },
+    {
+      "id": "cyber",
+      "page": "learn-cyber.html",
+      "title": "Cybersecurity",
+      "level": "Foundation → Advanced",
+      "description": "Learn security foundations, identity, risk, network and application security, endpoint defense, detection, governance, recovery, and secure architecture.",
+      "prerequisites": [
+        "Networking and operating-system fundamentals are strongly recommended",
+        "All practical exercises must use owned, isolated, synthetic, or explicitly authorized systems"
+      ],
+      "outcomes": [
+        "Model assets, trust boundaries, threats, controls, and residual risk",
+        "Evaluate identity, network, endpoint, application, and cloud security controls",
+        "Reproduce vulnerabilities safely and connect findings to remediation and detection",
+        "Communicate security evidence using repeatable methods and explicit authorization boundaries"
+      ],
+      "categories": [
+        "Foundations",
+        "Identity",
+        "Risk",
+        "Network Security",
+        "Application Security",
+        "Endpoint",
+        "Detection",
+        "Architecture",
+        "Governance",
+        "Recovery",
+        "Lab"
+      ],
+      "capstone": "Complete an authorized security assessment of a synthetic environment: threat model, reproduce a bounded weakness, remediate it, and verify the control."
+    },
+    {
+      "id": "leadership",
+      "page": "learn-leadership.html",
+      "title": "Technical Leadership & IT Management",
+      "level": "Foundation → Advanced",
+      "description": "Develop operational leadership across incidents, ITSM, teams, strategy, projects, vendors, governance, risk, finance, capacity, reliability, and recovery.",
+      "prerequisites": [
+        "Some workplace or project experience is helpful but not required"
+      ],
+      "outcomes": [
+        "Translate technical conditions into operational and business decisions",
+        "Run incidents, projects, services, vendors, and teams with explicit ownership and evidence",
+        "Reason about reliability, capacity, cost, risk, and governance together",
+        "Communicate decisions, assumptions, uncertainty, and follow-through clearly"
+      ],
+      "categories": [
+        "Leadership",
+        "Teams",
+        "Operations",
+        "Incidents",
+        "ITSM",
+        "Projects",
+        "Strategy",
+        "Finance",
+        "Vendors",
+        "Reliability",
+        "Capacity",
+        "Governance",
+        "Risk",
+        "Recovery",
+        "Lab"
+      ],
+      "capstone": "Lead a simulated service review from incident evidence through risk, budget, ownership, reliability work, and an executive decision memo."
+    },
+    {
+      "id": "math",
+      "page": "learn-math.html",
+      "title": "Mathematics for Engineering & Computing",
+      "level": "Foundation → Advanced",
+      "description": "Build algebraic fluency into functions, discrete math, sequences, trigonometry, calculus, linear algebra, probability, and numerical methods.",
+      "prerequisites": [
+        "Arithmetic and basic algebra are enough to begin",
+        "Calculus and linear algebra paths provide their own prerequisite bridges"
+      ],
+      "outcomes": [
+        "Represent technical problems with equations, functions, vectors, matrices, graphs, and probability",
+        "Derive results instead of relying only on memorized formulas",
+        "Check calculations numerically and interpret assumptions and error",
+        "Connect mathematics to software, physics, AI, networks, and advanced computing"
+      ],
+      "categories": [
+        "Algebra",
+        "Functions",
+        "Discrete Math",
+        "Sequences",
+        "Trigonometry",
+        "Calculus",
+        "Linear Algebra",
+        "Probability",
+        "Numerical Methods",
+        "Lab"
+      ],
+      "capstone": "Model a real engineering question mathematically, derive an expected result, compute it independently, and explain the limits of the model."
+    },
+    {
+      "id": "physics",
+      "page": "learn-physics.html",
+      "title": "Physics for Engineers",
+      "level": "Foundation → Advanced",
+      "description": "Develop mechanics, momentum, rotation, energy, waves, thermodynamics, electricity, magnetism, modern physics, and quantum foundations through models and experiments.",
+      "prerequisites": [
+        "Algebra required; trigonometry and calculus become useful as the course deepens"
+      ],
+      "outcomes": [
+        "Translate physical situations into models with units, assumptions, and conservation laws",
+        "Solve and verify mechanics, energy, wave, electricity, magnetism, and thermodynamic problems",
+        "Distinguish idealized models from experimental systems and measurement uncertainty",
+        "Connect modern/quantum physics to engineering and computing without overstating what a model proves"
+      ],
+      "categories": [
+        "Mechanics",
+        "Momentum",
+        "Rotation",
+        "Energy",
+        "Waves",
+        "Thermodynamics",
+        "Electricity",
+        "Magnetism",
+        "Modern Physics",
+        "Quantum",
+        "Lab"
+      ],
+      "capstone": "Design a bounded physics investigation with prediction, model, measurement or simulation, uncertainty discussion, and evidence-backed conclusion."
+    }
+  ]
+}
