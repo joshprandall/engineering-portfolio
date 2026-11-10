@@ -1,0 +1,456 @@
+{
+  "version": "2026-11-09-cyber-range-v1",
+  "authorization": "Local, synthetic, or user-supplied analysis only. No remote scanning, exploitation, credential capture, persistence, destructive actions, or public-target testing.",
+  "tools": [
+    {
+      "id": "01-http-headers",
+      "title": "HTTP Security Header Analyzer",
+      "category": "Web & Application",
+      "engine": "headers",
+      "description": "Review pasted HTTP response headers for defensive browser controls.",
+      "sample": "Content-Security-Policy: default-src 'self'\\nX-Content-Type-Options: nosniff\\nReferrer-Policy: strict-origin-when-cross-origin",
+      "framework": "NIST NICE / OWASP-aligned local lab"
+    },
+    {
+      "id": "02-csp-inspector",
+      "title": "Content Security Policy Inspector",
+      "category": "Web & Application",
+      "engine": "csp",
+      "description": "Inspect CSP for risky wildcards, unsafe inline/eval, and missing directives.",
+      "sample": "default-src 'self'; script-src 'self' 'unsafe-inline' *; object-src *",
+      "framework": "NIST NICE / OWASP-aligned local lab"
+    },
+    {
+      "id": "03-cookie-analyzer",
+      "title": "Session Cookie Security Analyzer",
+      "category": "Web & Application",
+      "engine": "cookie",
+      "description": "Review Set-Cookie attributes for Secure, HttpOnly, SameSite, scope, and lifetime.",
+      "sample": "session=abc123; Path=/; SameSite=Lax; HttpOnly",
+      "framework": "NIST NICE / OWASP-aligned local lab"
+    },
+    {
+      "id": "04-cors-analyzer",
+      "title": "CORS Policy Analyzer",
+      "category": "Web & Application",
+      "engine": "cors",
+      "description": "Evaluate supplied CORS response headers for wildcard and credential problems.",
+      "sample": "Access-Control-Allow-Origin: *\\nAccess-Control-Allow-Credentials: true",
+      "framework": "NIST NICE / OWASP-aligned local lab"
+    },
+    {
+      "id": "05-sql-parameterization",
+      "title": "SQL Parameterization Lab",
+      "category": "Web & Application",
+      "engine": "sql",
+      "description": "Identify unsafe string-built SQL and compare it with parameterized structure.",
+      "sample": "SELECT * FROM users WHERE name = '\" + user + \"'",
+      "framework": "NIST NICE / OWASP-aligned local lab"
+    },
+    {
+      "id": "06-xss-context",
+      "title": "XSS Context Escaping Lab",
+      "category": "Web & Application",
+      "engine": "xss",
+      "description": "Analyze output context and encoding without executing script.",
+      "sample": "{\"context\":\"html\",\"value\":\"<script>alert(1)</script>\",\"encoded\":\"&lt;script&gt;alert(1)&lt;/script&gt;\"}",
+      "framework": "NIST NICE / OWASP-aligned local lab"
+    },
+    {
+      "id": "07-ssrf-guard",
+      "title": "SSRF URL Guard",
+      "category": "Web & Application",
+      "engine": "ssrf",
+      "description": "Inspect user-supplied URLs for unsafe schemes, credentials, and local/private destinations.",
+      "sample": "http://127.0.0.1:8080/admin",
+      "framework": "NIST NICE / OWASP-aligned local lab"
+    },
+    {
+      "id": "08-path-boundary",
+      "title": "Virtual Path Traversal Boundary Lab",
+      "category": "Web & Application",
+      "engine": "path",
+      "description": "Resolve a path against a virtual root and reject escapes; no host filesystem is used.",
+      "sample": "../../lab-secret.txt",
+      "framework": "NIST NICE / OWASP-aligned local lab"
+    },
+    {
+      "id": "09-idor-matrix",
+      "title": "IDOR Authorization Matrix",
+      "category": "Web & Application",
+      "engine": "idor",
+      "description": "Check synthetic object-access decisions for object-level authorization failures.",
+      "sample": "{\"requests\":[{\"user\":\"alice\",\"owner\":\"alice\",\"role\":\"user\",\"allowed\":true},{\"user\":\"bob\",\"owner\":\"alice\",\"role\":\"user\",\"allowed\":true}]}",
+      "framework": "NIST NICE / OWASP-aligned local lab"
+    },
+    {
+      "id": "10-csrf-model",
+      "title": "CSRF Defense Model",
+      "category": "Web & Application",
+      "engine": "csrf",
+      "description": "Review synthetic state-changing request controls.",
+      "sample": "{\"stateChanging\":true,\"csrfToken\":false,\"sameSite\":\"None\",\"originCheck\":false}",
+      "framework": "NIST NICE / OWASP-aligned local lab"
+    },
+    {
+      "id": "11-jwt-inspector",
+      "title": "JWT Claim Inspector",
+      "category": "Identity & Cryptography",
+      "engine": "jwt",
+      "description": "Decode a JWT locally and review algorithm/time claims; signature verification is out of scope.",
+      "sample": "eyJhbGciOiJub25lIiwidHlwIjoiSldUIn0.eyJzdWIiOiJkZW1vIiwiZXhwIjoxfQ.",
+      "framework": "NIST NICE / OWASP-aligned local lab"
+    },
+    {
+      "id": "12-password-entropy",
+      "title": "Password Entropy Estimator",
+      "category": "Identity & Cryptography",
+      "engine": "password",
+      "description": "Estimate search-space entropy locally; the value is never transmitted.",
+      "sample": "Correct-Horse-Battery-Staple-2026!",
+      "framework": "NIST NICE / OWASP-aligned local lab"
+    },
+    {
+      "id": "13-mfa-resilience",
+      "title": "MFA Resilience Matrix",
+      "category": "Identity & Cryptography",
+      "engine": "mfa",
+      "description": "Score synthetic factors for phishing resistance and recovery risk.",
+      "sample": "{\"factors\":[\"password\",\"totp\",\"webauthn\"],\"recovery\":\"email\"}",
+      "framework": "NIST NICE / OWASP-aligned local lab"
+    },
+    {
+      "id": "14-oauth-redirect",
+      "title": "OAuth/OIDC Redirect URI Linter",
+      "category": "Identity & Cryptography",
+      "engine": "oauth",
+      "description": "Review redirect URIs for wildcards and insecure HTTP.",
+      "sample": "{\"redirects\":[\"https://app.example/callback\",\"https://*.example/*\",\"http://app.example/cb\"]}",
+      "framework": "NIST NICE / OWASP-aligned local lab"
+    },
+    {
+      "id": "15-secret-scanner",
+      "title": "Local Secret Pattern Scanner",
+      "category": "Identity & Cryptography",
+      "engine": "secret",
+      "description": "Scan pasted text locally for likely private keys/tokens/credential assignments.",
+      "sample": "DB_PASSWORD=SuperSecret123\\napi_key = \"abcd1234abcd1234abcd1234\"",
+      "framework": "NIST NICE / OWASP-aligned local lab"
+    },
+    {
+      "id": "16-hash-identifier",
+      "title": "Hash Format Identifier",
+      "category": "Identity & Cryptography",
+      "engine": "hashid",
+      "description": "Classify common digest lengths for inventory/forensics; no cracking.",
+      "sample": "5d41402abc4b2a76b9719d911017c592",
+      "framework": "NIST NICE / OWASP-aligned local lab"
+    },
+    {
+      "id": "17-tls-policy",
+      "title": "TLS Configuration Policy Analyzer",
+      "category": "Identity & Cryptography",
+      "engine": "tls",
+      "description": "Review supplied protocol/cipher policy for obsolete choices.",
+      "sample": "{\"protocols\":[\"TLS1.0\",\"TLS1.2\",\"TLS1.3\"],\"ciphers\":[\"TLS_AES_256_GCM_SHA384\",\"RC4-SHA\"]}",
+      "framework": "NIST NICE / OWASP-aligned local lab"
+    },
+    {
+      "id": "18-cert-expiry",
+      "title": "Certificate Expiry Planner",
+      "category": "Identity & Cryptography",
+      "engine": "cert",
+      "description": "Calculate days remaining from a supplied expiry date.",
+      "sample": "2026-12-01",
+      "framework": "NIST NICE / OWASP-aligned local lab"
+    },
+    {
+      "id": "19-crypto-policy",
+      "title": "Cryptographic Algorithm Policy Linter",
+      "category": "Identity & Cryptography",
+      "engine": "crypto",
+      "description": "Review an algorithm list for deprecated hashes/ciphers.",
+      "sample": "MD5\\nSHA-256\\nAES-256-GCM\\nDES\\nRC4",
+      "framework": "NIST NICE / OWASP-aligned local lab"
+    },
+    {
+      "id": "20-session-lifetime",
+      "title": "Session Lifetime Risk Calculator",
+      "category": "Identity & Cryptography",
+      "engine": "session",
+      "description": "Evaluate idle, absolute, refresh, and sensitivity settings.",
+      "sample": "{\"sensitivity\":\"high\",\"idleMinutes\":120,\"absoluteHours\":168,\"refreshDays\":90}",
+      "framework": "NIST NICE / OWASP-aligned local lab"
+    },
+    {
+      "id": "21-port-inventory",
+      "title": "Port Exposure Inventory Analyzer",
+      "category": "Network & Cloud",
+      "engine": "ports",
+      "description": "Review supplied service inventory; no network scan occurs.",
+      "sample": "web,443,https,internet,on\\nssh-admin,22,ssh,internet,on\\nlegacy,23,telnet,internet,off",
+      "framework": "NIST NICE / OWASP-aligned local lab"
+    },
+    {
+      "id": "22-firewall-shadow",
+      "title": "Firewall Rule Shadow Analyzer",
+      "category": "Network & Cloud",
+      "engine": "firewall",
+      "description": "Find duplicate/shadowed synthetic ordered firewall rules.",
+      "sample": "1,allow,tcp,10.0.0.0/8,443\\n2,deny,tcp,10.0.0.0/8,443\\n3,allow,tcp,any,443",
+      "framework": "NIST NICE / OWASP-aligned local lab"
+    },
+    {
+      "id": "23-subnet-exposure",
+      "title": "Subnet Exposure Analyzer",
+      "category": "Network & Cloud",
+      "engine": "subnet",
+      "description": "Calculate IPv4 prefix size and review a declared exposure boundary.",
+      "sample": "{\"cidr\":\"10.10.20.0/24\",\"exposure\":\"internet\",\"services\":12}",
+      "framework": "NIST NICE / OWASP-aligned local lab"
+    },
+    {
+      "id": "24-dns-security",
+      "title": "DNS Security Record Review",
+      "category": "Network & Cloud",
+      "engine": "dns",
+      "description": "Review pasted records for SPF, DMARC, and CAA presence.",
+      "sample": "example.com TXT \"v=spf1 -all\"\\n_dmarc.example.com TXT \"v=DMARC1; p=reject\"\\nexample.com CAA 0 issue \"letsencrypt.org\"",
+      "framework": "NIST NICE / OWASP-aligned local lab"
+    },
+    {
+      "id": "25-segmentation-reachability",
+      "title": "Segmentation Reachability Model",
+      "category": "Network & Cloud",
+      "engine": "segmentation",
+      "description": "Evaluate synthetic zone edges against forbidden direct paths.",
+      "sample": "{\"edges\":[[\"guest\",\"internet\"],[\"corp\",\"server\"],[\"server\",\"admin\"],[\"guest\",\"admin\"]],\"forbidden\":[[\"guest\",\"admin\"]]}",
+      "framework": "NIST NICE / OWASP-aligned local lab"
+    },
+    {
+      "id": "26-k8s-linter",
+      "title": "Kubernetes Manifest Security Linter",
+      "category": "Network & Cloud",
+      "engine": "k8s",
+      "description": "Review manifest text for privileged/root/host-network/latest-tag risks.",
+      "sample": "apiVersion: v1\\nkind: Pod\\nspec:\\n  hostNetwork: true\\n  containers:\\n  - image: demo:latest\\n    securityContext:\\n      privileged: true\\n      runAsUser: 0",
+      "framework": "NIST NICE / OWASP-aligned local lab"
+    },
+    {
+      "id": "27-container-hardening",
+      "title": "Container Runtime Hardening Analyzer",
+      "category": "Network & Cloud",
+      "engine": "container",
+      "description": "Analyze supplied container runtime JSON for privilege/namespace/socket risks.",
+      "sample": "{\"privileged\":true,\"user\":\"0\",\"networkMode\":\"host\",\"capAdd\":[\"SYS_ADMIN\"],\"mounts\":[\"/var/run/docker.sock:/var/run/docker.sock\"]}",
+      "framework": "NIST NICE / OWASP-aligned local lab"
+    },
+    {
+      "id": "28-iam-linter",
+      "title": "Cloud IAM Policy Linter",
+      "category": "Network & Cloud",
+      "engine": "iam",
+      "description": "Review synthetic IAM statements for broad wildcard allows.",
+      "sample": "{\"Statement\":[{\"Effect\":\"Allow\",\"Action\":\"*\",\"Resource\":\"*\"}]}",
+      "framework": "NIST NICE / OWASP-aligned local lab"
+    },
+    {
+      "id": "29-security-group-drift",
+      "title": "Security Group Drift Comparator",
+      "category": "Network & Cloud",
+      "engine": "sgdrift",
+      "description": "Compare baseline/current synthetic ingress rules.",
+      "sample": "{\"baseline\":[\"10.0.0.0/8:22\",\"0.0.0.0/0:443\"],\"current\":[\"0.0.0.0/0:22\",\"0.0.0.0/0:443\"]}",
+      "framework": "NIST NICE / OWASP-aligned local lab"
+    },
+    {
+      "id": "30-zero-trust-decision",
+      "title": "Zero Trust Access Decision Model",
+      "category": "Network & Cloud",
+      "engine": "zerotrust",
+      "description": "Evaluate identity, device, zone, and resource context with an explicit local policy.",
+      "sample": "{\"identityVerified\":true,\"deviceManaged\":false,\"mfa\":\"webauthn\",\"resource\":\"admin\",\"zone\":\"guest\"}",
+      "framework": "NIST NICE / OWASP-aligned local lab"
+    },
+    {
+      "id": "31-linux-permissions",
+      "title": "Linux Permission Auditor",
+      "category": "Endpoint & Supply Chain",
+      "engine": "linuxperm",
+      "description": "Review synthetic file modes/ownership for writable and secret-readable risks.",
+      "sample": "[{\"path\":\"/opt/app/run.sh\",\"mode\":\"0777\",\"owner\":\"root\"},{\"path\":\"/etc/app.secret\",\"mode\":\"0644\",\"owner\":\"root\",\"secret\":true}]",
+      "framework": "NIST NICE / OWASP-aligned local lab"
+    },
+    {
+      "id": "32-windows-service-acl",
+      "title": "Windows Service ACL Review",
+      "category": "Endpoint & Supply Chain",
+      "engine": "windowsacl",
+      "description": "Analyze synthetic service ACL entries for broad write/config rights.",
+      "sample": "{\"services\":[{\"name\":\"DemoSvc\",\"writableBy\":[\"Users\"],\"binary\":\"C:\\\\Program Files\\\\Demo\\\\demo.exe\"}]}",
+      "framework": "NIST NICE / OWASP-aligned local lab"
+    },
+    {
+      "id": "33-suid-capabilities",
+      "title": "SUID & Linux Capabilities Review",
+      "category": "Endpoint & Supply Chain",
+      "engine": "suid",
+      "description": "Review synthetic privileged binaries/capabilities.",
+      "sample": "[{\"path\":\"/usr/local/bin/tool\",\"suid\":true,\"owner\":\"root\",\"caps\":[\"CAP_SYS_ADMIN\"]}]",
+      "framework": "NIST NICE / OWASP-aligned local lab"
+    },
+    {
+      "id": "34-sbom-diff",
+      "title": "SBOM Difference Analyzer",
+      "category": "Endpoint & Supply Chain",
+      "engine": "sbom",
+      "description": "Compare two synthetic package inventories.",
+      "sample": "{\"baseline\":{\"openssl\":\"3.0.10\",\"libxml\":\"2.10.3\"},\"current\":{\"openssl\":\"3.0.12\",\"libxml\":\"2.10.3\",\"demo-lib\":\"1.0.0\"}}",
+      "framework": "NIST NICE / OWASP-aligned local lab"
+    },
+    {
+      "id": "35-dependency-triage",
+      "title": "Dependency Risk Triage",
+      "category": "Endpoint & Supply Chain",
+      "engine": "dependency",
+      "description": "Score supplied package metadata for EOL, pinning, and user-provided severity.",
+      "sample": "{\"packages\":[{\"name\":\"legacy-lib\",\"version\":\"*\",\"eol\":true,\"severity\":\"high\"},{\"name\":\"core-lib\",\"version\":\"2.4.1\",\"eol\":false,\"severity\":\"none\"}]}",
+      "framework": "NIST NICE / OWASP-aligned local lab"
+    },
+    {
+      "id": "36-cicd-review",
+      "title": "CI/CD Pipeline Security Review",
+      "category": "Endpoint & Supply Chain",
+      "engine": "cicd",
+      "description": "Review pasted pipeline text for secrets, network-to-shell, and mutable action refs.",
+      "sample": "steps:\\n - uses: thirdparty/action@main\\n - run: curl https://example/install.sh | bash\\n env:\\n   PASSWORD: supersecret",
+      "framework": "NIST NICE / OWASP-aligned local lab"
+    },
+    {
+      "id": "37-integrity-check",
+      "title": "SHA-256 Integrity Calculator",
+      "category": "Endpoint & Supply Chain",
+      "engine": "integrity",
+      "description": "Calculate a SHA-256 digest locally with Web Crypto.",
+      "sample": "important release artifact text",
+      "framework": "NIST NICE / OWASP-aligned local lab"
+    },
+    {
+      "id": "38-config-diff",
+      "title": "Security Baseline Configuration Diff",
+      "category": "Endpoint & Supply Chain",
+      "engine": "configdiff",
+      "description": "Compare baseline/current JSON and show changed keys.",
+      "sample": "{\"baseline\":{\"mfa\":true,\"logging\":true,\"adminPorts\":[22]},\"current\":{\"mfa\":false,\"logging\":true,\"adminPorts\":[22,3389]}}",
+      "framework": "NIST NICE / OWASP-aligned local lab"
+    },
+    {
+      "id": "39-double-extension",
+      "title": "Double-Extension File Triage",
+      "category": "Endpoint & Supply Chain",
+      "engine": "doubleext",
+      "description": "Flag deceptive multiple extensions with executable-looking final extensions.",
+      "sample": "invoice.pdf.exe\\nphoto.jpg\\nreport.docx.js\\nnotes.txt",
+      "framework": "NIST NICE / OWASP-aligned local lab"
+    },
+    {
+      "id": "40-script-risk",
+      "title": "Script Risk Triage",
+      "category": "Endpoint & Supply Chain",
+      "engine": "scripttriage",
+      "description": "Review pasted script text for risky administration patterns; never executes code.",
+      "sample": "powershell -enc AAAA\\ncurl http://example/test | sh\\nRemove-Item -Recurse C:\\\\Temp",
+      "framework": "NIST NICE / OWASP-aligned local lab"
+    },
+    {
+      "id": "41-log-timeline",
+      "title": "Security Log Timeline Correlator",
+      "category": "Detection & Incident Response",
+      "engine": "log",
+      "description": "Sort synthetic log events and summarize severity/entity clustering.",
+      "sample": "2026-11-09T10:00:04Z,auth,user42,failed login,medium\\n2026-11-09T10:00:01Z,vpn,user42,new session,info\\n2026-11-09T10:00:06Z,auth,user42,failed login,medium",
+      "framework": "NIST NICE / OWASP-aligned local lab"
+    },
+    {
+      "id": "42-ioc-normalizer",
+      "title": "IOC Normalizer",
+      "category": "Detection & Incident Response",
+      "engine": "ioc",
+      "description": "Classify pasted IPs, domains, URLs, and common hash lengths.",
+      "sample": "192.0.2.4\\nexample.test\\nhttps://example.test/path\\n5d41402abc4b2a76b9719d911017c592",
+      "framework": "NIST NICE / OWASP-aligned local lab"
+    },
+    {
+      "id": "43-sigma-tester",
+      "title": "Sigma-like Rule Tester",
+      "category": "Detection & Incident Response",
+      "engine": "sigma",
+      "description": "Test a simple local field-contains rule against synthetic JSON events.",
+      "sample": "{\"field\":\"event\",\"contains\":\"failed login\",\"events\":[{\"event\":\"failed login user42\"},{\"event\":\"login success user7\"}]}",
+      "framework": "NIST NICE / OWASP-aligned local lab"
+    },
+    {
+      "id": "44-yara-lite",
+      "title": "YARA-like String Matcher",
+      "category": "Detection & Incident Response",
+      "engine": "yara",
+      "description": "Match literal defensive indicator strings against sample text; nothing is executed.",
+      "sample": "{\"strings\":[\"powershell -enc\",\"mimikatz\",\"BEGIN PRIVATE KEY\"],\"text\":\"training sample: powershell -enc ABCD\"}",
+      "framework": "NIST NICE / OWASP-aligned local lab"
+    },
+    {
+      "id": "45-phishing-headers",
+      "title": "Phishing Email Header Analyzer",
+      "category": "Detection & Incident Response",
+      "engine": "phish",
+      "description": "Review pasted headers for From/Reply-To mismatch and SPF/DKIM/DMARC results.",
+      "sample": "From: billing@example.com\\nReply-To: attacker@evil.test\\nAuthentication-Results: spf=fail dkim=none dmarc=fail",
+      "framework": "NIST NICE / OWASP-aligned local lab"
+    },
+    {
+      "id": "46-url-heuristics",
+      "title": "Suspicious URL Heuristic Analyzer",
+      "category": "Detection & Incident Response",
+      "engine": "url",
+      "description": "Inspect URL syntax locally for userinfo, IP hosts, punycode, unusual scheme, and hostname depth.",
+      "sample": "https://login.example.com@192.0.2.10/account",
+      "framework": "NIST NICE / OWASP-aligned local lab"
+    },
+    {
+      "id": "47-base64-hex",
+      "title": "Base64 / Hex Decoder",
+      "category": "Detection & Incident Response",
+      "engine": "decode",
+      "description": "Decode Base64 or hexadecimal text locally; output is never executed.",
+      "sample": "SGVsbG8sIGRlZmVuc2l2ZSBhbmFseXNpcyE=",
+      "framework": "NIST NICE / OWASP-aligned local lab"
+    },
+    {
+      "id": "48-encoding-chain",
+      "title": "Encoding Chain Inspector",
+      "category": "Detection & Incident Response",
+      "engine": "encoding",
+      "description": "Attempt up to five safe Base64/hex decoding layers.",
+      "sample": "VTBkV2MyUkhVbkJpUjFKR1pERlNVRnBzY0hOTlZ6VjM=",
+      "framework": "NIST NICE / OWASP-aligned local lab"
+    },
+    {
+      "id": "49-local-parser-fuzzer",
+      "title": "Deterministic Local Parser Fuzzer",
+      "category": "Detection & Incident Response",
+      "engine": "fuzzer",
+      "description": "Mutate a local parser with deterministic inputs; no external target exists.",
+      "sample": "{\"seed\":1337,\"iterations\":300}",
+      "framework": "NIST NICE / OWASP-aligned local lab"
+    },
+    {
+      "id": "50-incident-severity",
+      "title": "Incident Severity & Evidence Scorer",
+      "category": "Detection & Incident Response",
+      "engine": "severity",
+      "description": "Calculate transparent incident priority from supplied impact, scope, confidence, and control state.",
+      "sample": "{\"impact\":4,\"scope\":3,\"confidence\":4,\"controlsFailing\":2,\"active\":true}",
+      "framework": "NIST NICE / OWASP-aligned local lab"
+    }
+  ]
+}
