@@ -755,7 +755,7 @@
       "title": "Zero Trust Policy & Blast-Radius Analyzer",
       "posture": "Working browser security-architecture lab",
       "evidence": "Synthetic identity/device/resource graph, deterministic policy evaluation, drift scenario, and blast-radius output",
-      "problem": "Access decisions become dangerous when identity, device posture, network zone, resource sensitivity, and exceptions are evaluated separately.",
+      "problem": "Access decisions become dangerous when identity, device posture, network zone, resource sensitivity, and policy exceptions are evaluated separately. This project models those contexts together so an evaluator can see both the authorization decision and the exposure created by policy drift.",
       "constraints": [
         "Synthetic identities/resources only",
         "Policy evaluation must be deterministic and explainable",
@@ -823,7 +823,7 @@
       "title": "GPU/HPC Fabric-Aware Scheduler",
       "posture": "Working browser accelerator-scheduling lab",
       "evidence": "Synthetic GPU inventory, memory constraints, fabric-locality scoring, hotspot scenario, and placement explanation",
-      "problem": "First-fit scheduling wastes accelerator systems when memory capacity and communication topology matter as much as GPU count.",
+      "problem": "First-fit scheduling wastes accelerator systems when memory capacity, GPU count, communication topology, and fabric contention all influence job performance. This project makes those placement tradeoffs explicit instead of treating every available accelerator as equivalent.",
       "constraints": [
         "Synthetic fabric only",
         "Placement rationale must remain inspectable",
@@ -959,7 +959,7 @@
       "title": "Database Migration Safety Planner",
       "posture": "Working browser database-change lab",
       "evidence": "Destructive migration scenario, expand/contract plan, risk classification, and rollback analysis",
-      "problem": "Schema changes can be syntactically valid and still create locks, version incompatibility, data loss, or impossible rollbacks.",
+      "problem": "Schema changes can be syntactically valid and still create locks, version incompatibility, data loss, or impossible rollbacks. This project evaluates database evolution as a coordinated software-release problem in which old and new application versions may need to coexist safely.",
       "constraints": [
         "Synthetic migration plans",
         "Old and new application versions may coexist during rollout",
