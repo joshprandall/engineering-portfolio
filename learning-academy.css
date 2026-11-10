@@ -1,0 +1,32 @@
+/* Learning Academy — 2026-11-09 */
+.academy-overview,.academy-syllabus,.academy-lesson-contract{border-block:1px solid var(--line);background:transparent}
+.academy-overview,.academy-syllabus{padding-block:clamp(3rem,6vw,6rem)}
+.academy-overview h2,.academy-syllabus h2{max-width:22ch}
+.academy-intro{max-width:76ch;font-size:clamp(1.02rem,1.5vw,1.2rem);line-height:1.75}
+.academy-standard{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.8rem;margin:1.5rem 0 2rem}
+.academy-standard article,.academy-program-card,.academy-module,.academy-assessment-card,.academy-contract-card{padding:clamp(1rem,2vw,1.35rem);border:1px solid var(--line);border-radius:14px;background:var(--glass);-webkit-backdrop-filter:blur(7px);backdrop-filter:blur(7px)}
+.academy-standard span,.academy-contract-label{display:block;color:var(--accent);font-size:.66rem;font-weight:900;letter-spacing:.13em;text-transform:uppercase}
+.academy-standard h3,.academy-program-card h3,.academy-module h3,.academy-assessment-card h3,.academy-contract-card h3{margin:.4rem 0 .55rem;font-size:1.05rem}
+.academy-standard p,.academy-program-card p,.academy-module p,.academy-assessment-card p,.academy-contract-card p{margin:.2rem 0;line-height:1.65}
+.academy-program-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,19rem),1fr));gap:.9rem}
+.academy-program-card{display:flex;flex-direction:column}
+.academy-program-card .academy-program-meta{display:flex;flex-wrap:wrap;gap:.4rem;margin:.3rem 0 .8rem}
+.academy-pill{display:inline-flex;padding:.3rem .52rem;border:1px solid var(--line);border-radius:999px;color:var(--muted);font-size:.68rem;font-weight:800}
+.academy-program-card ul,.academy-module ul,.academy-contract-card ul,.academy-contract-card ol{padding-left:1.2rem;display:grid;gap:.4rem}
+.academy-program-card .button{margin-top:auto;align-self:flex-start}
+.academy-syllabus-grid{display:grid;grid-template-columns:minmax(0,.75fr) minmax(0,1.25fr);gap:clamp(1.5rem,4vw,4rem);align-items:start}
+.academy-program-outcomes{display:grid;gap:.8rem}
+.academy-module-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.75rem}
+.academy-module small{color:var(--muted)}
+.academy-assessment-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.75rem;margin-top:1rem}
+.academy-lesson-contract{margin:1.25rem 0;padding:1rem 0}
+.academy-contract-head{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:.85rem}
+.academy-contract-head h2{font-size:1.35rem!important;margin:.15rem 0 .35rem!important}
+.academy-contract-meta{display:flex;flex-wrap:wrap;gap:.4rem}
+.academy-contract-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.7rem}
+.academy-mastery-rubric{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.55rem;margin-top:.7rem}
+.academy-rubric-item{padding:.75rem;border:1px solid var(--line);border-radius:10px;background:var(--glass)}
+.academy-rubric-item strong{display:block;margin-bottom:.25rem}
+.academy-rubric-item p{margin:0;font-size:.8rem;line-height:1.5}
+@media(max-width:64rem){.academy-standard,.academy-assessment-grid,.academy-mastery-rubric{grid-template-columns:repeat(2,minmax(0,1fr))}.academy-syllabus-grid{grid-template-columns:1fr}}
+@media(max-width:44rem){.academy-standard,.academy-module-grid,.academy-assessment-grid,.academy-contract-grid,.academy-mastery-rubric{grid-template-columns:1fr}}
