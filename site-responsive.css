@@ -946,3 +946,32 @@ body:not(.home-page) .contact.wrap{
     width:min(100%,24rem);
   }
 }
+
+
+/* 2026-11-09 game development contact panel spacing */
+.game-development-page .contact.wrap{
+  padding-inline:clamp(2.25rem,4vw,4rem)!important;
+  gap:clamp(3rem,7vw,8rem)!important;
+}
+.game-development-page .contact>div:first-child{
+  max-width:46rem;
+}
+.game-development-page .contact h2{
+  max-width:13ch;
+}
+.game-development-page .contact>div:first-child>p:last-child{
+  max-width:48rem;
+}
+.game-development-page .contact-actions{
+  min-width:min(19rem,32vw);
+}
+@media(max-width:52rem){
+  .game-development-page .contact.wrap{
+    padding-inline:clamp(1.4rem,5vw,2.25rem)!important;
+    gap:2rem!important;
+  }
+  .game-development-page .contact-actions{
+    min-width:0;
+    width:min(100%,24rem);
+  }
+}
