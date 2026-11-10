@@ -1011,3 +1011,364 @@ body:not(.home-page) .contact.wrap{
     letter-spacing:-.04em!important;
   }
 }
+
+
+/* 2026-11-09 site-wide typography and layout system v1 */
+:root{
+  --site-content-max:88rem;
+  --site-gutter:clamp(1.25rem,3vw,3rem);
+  --site-section-space:clamp(3rem,5.5vw,5.5rem);
+  --site-reading-measure:72ch;
+  --site-hero-size:clamp(3.15rem,4.6vw,4.9rem);
+  --site-section-title-size:clamp(2rem,3.25vw,3.25rem);
+  --site-card-title-size:clamp(1.25rem,1.8vw,1.7rem);
+  --site-body-size:1rem;
+  --site-lead-size:clamp(1.03rem,1.45vw,1.2rem);
+  --site-tile-pad:clamp(1.25rem,2.3vw,2rem);
+  --site-radius:14px;
+}
+
+/* Shared content width and readable measure. */
+body .wrap,
+body.home-page .wrap,
+body .shell,
+body .cap-wrap{
+  width:min(var(--site-content-max),calc(100% - (2 * var(--site-gutter))))!important;
+  max-width:var(--site-content-max)!important;
+  margin-inline:auto!important;
+}
+body main :is(p,li,dd){
+  line-height:1.7;
+}
+body main :is(.lead,.hero-intro,.hero-lead,.security-lede,.section-intro,.cap-intro,.game-project .lead){
+  max-width:var(--site-reading-measure)!important;
+  font-size:var(--site-lead-size)!important;
+  line-height:1.72!important;
+}
+
+/* One page-title system across portfolio, projects, learning, AI and workbenches. */
+:is(
+  .home-page .hero h1,
+  .projects-hero h1,
+  .security-hero h1,
+  .destination-page main h1,
+  .ai-build-detail h1,
+  .game-project h1,
+  .game-workbench>h1,
+  .cap-wrap>h1,
+  [data-library-page] .hero h1,
+  #library-view .hero h1,
+  .about-unified-page .about-hero-pro h1,
+  .site-hero-title
+){
+  font-family:'Manrope',Arial,sans-serif!important;
+  font-size:var(--site-hero-size)!important;
+  line-height:1.03!important;
+  letter-spacing:-.048em!important;
+  font-weight:600!important;
+  max-width:18ch!important;
+  margin:0 0 1.3rem!important;
+  text-wrap:balance;
+}
+.home-page .hero h1{max-width:13.5ch!important}
+.about-unified-page .about-hero-pro h1{max-width:14ch!important}
+.security-research-page .security-hero h1{max-width:18ch!important}
+.game-development-page .projects-hero h1{max-width:18ch!important}
+[data-library-page] .hero h1,#library-view .hero h1{max-width:16ch!important}
+
+/* Section titles share one scale, without inflating card/lab subheads. */
+:is(
+  .section-heading h2,
+  .about-flow-section>h2,
+  .security-method>h2,
+  .security-lab-head h2,
+  .security-close h2,
+  .ai-build-detail>section>h2,
+  .project-detail>h2,
+  .section>h2,
+  .game-tool-panel>h2,
+  .game-tool-code>h2,
+  .lesson-title,
+  .constellation-copy>h2
+){
+  font-family:'Manrope',Arial,sans-serif!important;
+  font-size:var(--site-section-title-size)!important;
+  line-height:1.09!important;
+  letter-spacing:-.04em!important;
+  font-weight:600!important;
+  max-width:24ch;
+  text-wrap:balance;
+}
+
+/* Consistent labels and eyebrow rhythm. */
+:is(
+  .eyebrow,
+  .cap-kicker,
+  .project-number,
+  .about-current-label,
+  .about-build-card>span,
+  .about-credential-grid article>span,
+  .home-credential-grid article>span
+){
+  font-family:'DM Sans',Arial,sans-serif!important;
+  font-size:.7rem!important;
+  line-height:1.45!important;
+  letter-spacing:.14em!important;
+  font-weight:800!important;
+  text-transform:uppercase;
+}
+.eyebrow{margin-bottom:1rem!important}
+
+/* Shared card title hierarchy. */
+.project-card h2{
+  font-family:'Manrope',Arial,sans-serif!important;
+  font-size:clamp(1.45rem,2vw,1.9rem)!important;
+  line-height:1.12!important;
+  letter-spacing:-.035em!important;
+}
+:is(
+  .home-project h3,
+  .destination-card h3,
+  .lesson-card h3,
+  .security-method-grid h3,
+  .about-credential-grid h3,
+  .home-credential-grid h3,
+  .game-tool-panel h3,
+  .game-tool-code h3
+){
+  font-family:'Manrope',Arial,sans-serif!important;
+  font-size:var(--site-card-title-size)!important;
+  line-height:1.18!important;
+  letter-spacing:-.03em!important;
+  font-weight:600!important;
+}
+
+/* Uniform section rhythm for shared portfolio surfaces. */
+:is(
+  .projects-hero,
+  .security-hero,
+  .home-section,
+  .section,
+  .about-flow-section,
+  .security-method,
+  .security-lab,
+  .security-close,
+  .ai-build-detail>section
+){
+  padding-top:var(--site-section-space)!important;
+  padding-bottom:var(--site-section-space)!important;
+}
+:is(.game-workbench,.cap-wrap,.game-project){
+  padding-top:var(--site-section-space)!important;
+  padding-bottom:var(--site-section-space)!important;
+}
+.section-heading{
+  gap:clamp(1.5rem,4vw,3.5rem)!important;
+  margin-bottom:clamp(1.75rem,3vw,2.75rem)!important;
+}
+.section-heading>p{
+  max-width:42ch!important;
+  line-height:1.7!important;
+}
+
+/* Card/panel padding follows one system. */
+:is(
+  .project-card,
+  .home-project,
+  .destination-card,
+  .education-cards article,
+  .resume-education article,
+  .about-kpis article,
+  .about-current-role,
+  .about-build-card,
+  .about-credential-grid article,
+  .home-credential-grid article,
+  .security-method-grid article,
+  .security-boundary,
+  .security-workspace,
+  .lesson-card,
+  .path-card,
+  .atlas-card,
+  .domain-card,
+  .practice-card,
+  .mastery-card,
+  .app-panel,
+  .game-tool-panel,
+  .game-tool-code
+){
+  padding:var(--site-tile-pad)!important;
+  border-radius:var(--site-radius)!important;
+}
+:is(
+  .project-card p,
+  .home-project p,
+  .destination-card p,
+  .education-cards article p,
+  .about-kpis p,
+  .about-credential-grid p,
+  .home-credential-grid p,
+  .security-method-grid p,
+  .lesson-card p
+){
+  line-height:1.65!important;
+}
+
+/* Details/accordions use the same touch target and spacing. */
+:is(
+  .career summary,
+  .about-capabilities summary,
+  .security-lab summary,
+  .credentials-detail summary,
+  .vocab-grid summary
+){
+  min-height:56px!important;
+  line-height:1.4!important;
+}
+
+/* Buttons and action rows share one control rhythm. */
+.button{
+  min-height:46px!important;
+  padding:.72rem 1.05rem!important;
+  border-radius:10px!important;
+  font-size:.86rem!important;
+  line-height:1.2!important;
+}
+:is(.actions,.hero-actions,.project-detail-actions,.security-actions,.game-tool-actions){
+  gap:.75rem!important;
+}
+
+/* Contact panels: generous internal gutter everywhere. */
+.contact.wrap{
+  padding-block:clamp(3rem,5vw,4.5rem)!important;
+  padding-inline:clamp(2.25rem,4vw,4rem)!important;
+  gap:clamp(3rem,7vw,8rem)!important;
+  align-items:center!important;
+}
+.contact>div:first-child{
+  min-width:0;
+  max-width:46rem;
+}
+.contact h2{
+  font-family:'Manrope',Arial,sans-serif!important;
+  font-size:clamp(2.2rem,3.6vw,3.6rem)!important;
+  line-height:1.07!important;
+  letter-spacing:-.045em!important;
+  max-width:15ch!important;
+  margin-bottom:1rem!important;
+}
+.contact>div:first-child>p:last-child{
+  max-width:50rem!important;
+  line-height:1.7!important;
+}
+.contact-actions{
+  min-width:min(19rem,32vw)!important;
+  gap:.8rem!important;
+}
+
+/* Footer text and spacing are shared across portfolio pages. */
+body footer.wrap{
+  padding-block:1.75rem!important;
+  gap:1rem 2rem!important;
+  font-size:.76rem!important;
+  line-height:1.5!important;
+}
+
+/* Learning/library family: keep the interface, normalize visible editorial typography. */
+[data-library-page] .hero,
+#library-view .hero{
+  min-height:0!important;
+  padding-top:var(--site-section-space)!important;
+  padding-bottom:var(--site-section-space)!important;
+}
+[data-library-page] .hero-lead,
+#library-view .hero-lead{
+  max-width:68ch!important;
+}
+[data-library-page] .section-heading h2,
+#library-view .section-heading h2{
+  font-family:'Manrope',Arial,sans-serif!important;
+}
+[data-library-page] .lesson-card,
+#library-view .lesson-card{
+  min-height:0!important;
+}
+
+/* AI detail family. */
+.ai-build-detail{
+  max-width:72rem!important;
+}
+.ai-build-detail>.hero-intro{
+  max-width:68ch!important;
+}
+.ai-build-detail>section :is(p,li){
+  max-width:var(--site-reading-measure);
+  line-height:1.72!important;
+}
+
+/* Destination pages and compact redirect pages. */
+.destination-page main.wrap,
+.destination-page main>.wrap{
+  max-width:var(--site-content-max)!important;
+}
+.destination-page main>.about-flow-section:first-child{
+  padding-top:var(--site-section-space)!important;
+  padding-bottom:var(--site-section-space)!important;
+}
+
+/* Responsive system. */
+@media(max-width:64rem){
+  :root{
+    --site-hero-size:clamp(2.85rem,7vw,4.2rem);
+    --site-section-title-size:clamp(1.9rem,4.6vw,2.8rem);
+  }
+  .contact.wrap{
+    gap:2.5rem!important;
+  }
+}
+@media(max-width:52rem){
+  .contact.wrap{
+    flex-direction:column!important;
+    align-items:flex-start!important;
+    padding-inline:clamp(1.4rem,5vw,2.25rem)!important;
+    gap:2rem!important;
+  }
+  .contact-actions{
+    min-width:0!important;
+    width:min(100%,24rem)!important;
+  }
+  .section-heading{
+    align-items:flex-start!important;
+    flex-direction:column!important;
+    gap:1rem!important;
+  }
+}
+@media(max-width:38rem){
+  :root{
+    --site-gutter:1.15rem;
+    --site-section-space:clamp(2.5rem,10vw,3.75rem);
+    --site-hero-size:clamp(2.45rem,12vw,3.45rem);
+    --site-section-title-size:clamp(1.75rem,8vw,2.35rem);
+    --site-tile-pad:1.25rem;
+  }
+  :is(
+    .home-page .hero h1,
+    .projects-hero h1,
+    .security-hero h1,
+    .destination-page main h1,
+    .ai-build-detail h1,
+    .game-project h1,
+    .game-workbench>h1,
+    .cap-wrap>h1,
+    [data-library-page] .hero h1,
+    #library-view .hero h1,
+    .about-unified-page .about-hero-pro h1,
+    .site-hero-title
+  ){
+    max-width:16ch!important;
+    line-height:1.06!important;
+    letter-spacing:-.04em!important;
+  }
+  .contact h2{
+    font-size:clamp(2rem,10vw,2.7rem)!important;
+  }
+}
