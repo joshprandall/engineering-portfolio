@@ -600,3 +600,311 @@ body.living-scenes .vnext-qubit-frame{background:transparent}
 body:not(.home-page) .contact.wrap{
   padding-inline:clamp(1.25rem,3vw,3rem)!important;
 }
+
+
+/* 2026-11-09 About professional profile v3 */
+.about-unified-page .about-hero-pro{
+  display:grid;
+  grid-template-columns:minmax(0,1.45fr) minmax(18rem,.72fr);
+  gap:clamp(2rem,4vw,4.5rem);
+  align-items:start;
+  padding-top:clamp(2.25rem,5vw,4.5rem);
+  padding-bottom:clamp(2.5rem,5vw,4.5rem);
+}
+.about-unified-page .about-hero-pro .about-hero-copy{min-width:0}
+.about-unified-page .about-hero-pro .eyebrow{margin-bottom:.75rem}
+.about-unified-page .about-hero-pro h1{
+  max-width:12ch;
+  margin:0 0 1.15rem;
+  font-size:clamp(3rem,6.2vw,5.45rem);
+  line-height:.95;
+  letter-spacing:-.065em;
+}
+.about-unified-page .about-role-line{
+  display:flex;
+  flex-wrap:wrap;
+  gap:.35rem .8rem;
+  align-items:baseline;
+  margin:0 0 1.2rem;
+  padding:.85rem 0;
+  border-block:1px solid color-mix(in srgb,var(--line) 72%,transparent);
+}
+.about-unified-page .about-role-line strong{font-size:1.08rem;color:var(--ink,var(--text))}
+.about-unified-page .about-role-line span{font-size:.9rem;color:var(--accent)}
+.about-unified-page .about-hero-pro .about-lede{
+  max-width:68ch;
+  margin-bottom:1rem;
+  color:var(--ink,var(--text));
+  font-size:clamp(1.04rem,1.55vw,1.22rem);
+  line-height:1.68;
+}
+.about-unified-page .about-hero-pro .about-intro{
+  max-width:72ch;
+  margin-bottom:1.5rem;
+  line-height:1.72;
+}
+.about-kpis{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:.85rem;
+  margin:1.5rem 0 1rem;
+}
+.about-kpis article,
+.about-current-role,
+.about-build-card,
+.about-credential-grid article{
+  min-width:0;
+  border:1px solid color-mix(in srgb,var(--line) 82%,transparent);
+  border-radius:var(--tile-radius,14px);
+  background:var(--glass)!important;
+  -webkit-backdrop-filter:blur(8px) saturate(1.06);
+  backdrop-filter:blur(8px) saturate(1.06);
+}
+.about-kpis article{padding:1rem 1.05rem}
+.about-kpis article>span,
+.about-current-label,
+.about-build-card>span,
+.about-credential-grid article>span{
+  display:block;
+  margin-bottom:.38rem;
+  color:var(--accent);
+  font:800 .67rem/1.3 system-ui,sans-serif;
+  letter-spacing:.14em;
+}
+.about-kpis strong{
+  display:block;
+  margin-bottom:.4rem;
+  color:var(--ink,var(--text));
+  font:750 1.05rem/1.25 system-ui,sans-serif;
+}
+.about-kpis p{margin:0;font-size:.86rem;line-height:1.5}
+.about-tech-strip{
+  display:flex;
+  flex-wrap:wrap;
+  gap:.45rem;
+  margin:1rem 0 1.35rem;
+}
+.about-tech-strip span{
+  padding:.38rem .65rem;
+  border:1px solid color-mix(in srgb,var(--line) 78%,transparent);
+  border-radius:999px;
+  background:color-mix(in srgb,var(--glass-strong) 78%,transparent);
+  color:var(--ink,var(--text));
+  font-size:.76rem;
+  line-height:1.2;
+}
+.about-hero-actions{margin:1.15rem 0 0}
+.about-hero-actions .button{min-height:46px}
+.about-profile-stack{
+  display:grid;
+  gap:1rem;
+  position:sticky;
+  top:calc(var(--header-height,5rem) + 1.25rem);
+}
+.about-profile-card{
+  margin:0;
+  overflow:hidden;
+  border:1px solid color-mix(in srgb,var(--line) 82%,transparent);
+  border-radius:var(--tile-radius,14px);
+  background:var(--glass)!important;
+  -webkit-backdrop-filter:blur(8px) saturate(1.06);
+  backdrop-filter:blur(8px) saturate(1.06);
+}
+.about-profile-card img{
+  display:block;
+  width:100%;
+  max-width:none!important;
+  aspect-ratio:1/1;
+  object-fit:cover;
+  object-position:center 34%;
+}
+.about-profile-card figcaption{
+  display:grid;
+  gap:.15rem;
+  padding:.9rem 1rem;
+}
+.about-profile-card figcaption strong{font-size:1rem;color:var(--ink,var(--text))}
+.about-profile-card figcaption span{font-size:.8rem;color:var(--muted)}
+.about-current-role,.about-build-card{padding:1rem 1.05rem}
+.about-current-role>strong,.about-build-card>strong{
+  display:block;
+  margin:.15rem 0 .35rem;
+  color:var(--ink,var(--text));
+  font-size:1.08rem;
+  line-height:1.3;
+}
+.about-current-role p,.about-build-card p{margin:.25rem 0 .5rem;line-height:1.5}
+.about-current-role small{display:block;color:var(--muted);font-size:.78rem;line-height:1.55}
+.about-build-card a{
+  display:inline-block;
+  min-height:44px;
+  padding:.55rem 0 0;
+  color:var(--accent);
+  font-weight:800;
+}
+.about-unified-page .about-local-nav{
+  display:flex;
+  flex-wrap:wrap;
+  gap:.35rem .65rem;
+  align-items:center;
+  padding-block:1rem;
+  border-block:1px solid color-mix(in srgb,var(--line) 70%,transparent);
+}
+.about-unified-page .about-local-nav a{min-height:36px;display:inline-flex;align-items:center;font-weight:700}
+.about-unified-page .about-flow-section{
+  padding-top:clamp(3.25rem,6vw,6rem);
+  padding-bottom:clamp(3.25rem,6vw,6rem);
+}
+.about-unified-page .about-flow-section>h2{
+  max-width:18ch;
+  margin-bottom:1.2rem;
+  font-size:clamp(2.1rem,4vw,3.7rem);
+}
+.about-unified-page .section-intro{max-width:72ch;line-height:1.7}
+.about-unified-page .about-prose{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:1rem 2rem;
+  max-width:none;
+}
+.about-unified-page .about-prose p{line-height:1.72}
+.about-capabilities{
+  margin-top:1.5rem;
+  border-top:1px solid var(--line);
+}
+.about-capabilities details{border-bottom:1px solid var(--line)}
+.about-capabilities summary{
+  display:grid;
+  grid-template-columns:3rem minmax(0,1fr) 2rem;
+  gap:1rem;
+  align-items:center;
+  min-height:64px;
+  padding:.85rem 0;
+}
+.about-capabilities summary>span:first-child{color:var(--accent);font-size:.78rem;font-weight:800}
+.about-capabilities summary strong{font-size:1rem}
+.about-capabilities details>p{max-width:76ch;padding:0 0 1.15rem 4rem;line-height:1.7}
+.career-timeline{
+  display:grid;
+  gap:.7rem;
+  margin-top:1.6rem;
+}
+.career-timeline details{
+  border:1px solid color-mix(in srgb,var(--line) 82%,transparent);
+  border-radius:12px;
+  background:var(--glass)!important;
+  overflow:hidden;
+}
+.career-timeline summary{
+  display:grid;
+  grid-template-columns:9.5rem minmax(0,1fr) 2rem;
+  gap:1rem;
+  align-items:center;
+  min-height:76px;
+  padding:1rem 1.1rem;
+  cursor:pointer;
+}
+.career-timeline summary .career-years{color:var(--accent);font-size:.8rem;font-weight:800}
+.career-timeline summary strong{display:block;font-size:1rem}
+.career-timeline summary small{display:block;margin-top:.2rem;color:var(--muted);font-size:.8rem}
+.career-timeline details>div{
+  padding:0 1.1rem 1.1rem 11.6rem!important;
+  border-top:1px solid color-mix(in srgb,var(--line) 58%,transparent);
+}
+.career-timeline details>div>p{margin-top:1rem}
+.career-timeline details ul{padding-left:1.2rem}
+.career-timeline details li{margin-bottom:.45rem;color:var(--muted);line-height:1.6}
+.about-credential-intro{
+  max-width:78ch;
+  margin:1.7rem 0 1rem;
+  padding:1rem 1.1rem;
+  border-left:3px solid var(--accent);
+  background:var(--glass)!important;
+}
+.about-credential-intro p{margin:0;line-height:1.65}
+.about-credential-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:.85rem;
+}
+.about-credential-grid article{padding:1rem 1.05rem}
+.about-credential-grid h3{
+  margin:.15rem 0 .55rem;
+  font-size:1.05rem;
+  letter-spacing:-.02em;
+}
+.about-credential-grid p{margin:0;font-size:.88rem;line-height:1.62}
+.education-lines{
+  display:grid;
+  gap:.7rem;
+  margin-top:1.6rem!important;
+  border-top:0!important;
+}
+.education-line{
+  display:grid!important;
+  grid-template-columns:9rem minmax(0,1fr)!important;
+  gap:1.5rem!important;
+  align-items:center!important;
+  padding:1.15rem!important;
+  border:1px solid color-mix(in srgb,var(--line) 80%,transparent)!important;
+  border-radius:12px;
+  background:var(--glass)!important;
+}
+.education-line img{
+  display:block;
+  width:8rem!important;
+  max-width:100%;
+  height:auto!important;
+  max-height:4.75rem;
+  object-fit:contain;
+  background:#fff!important;
+  padding:.55rem!important;
+  border-radius:8px!important;
+}
+.education-line .pioneer-logo{width:8rem!important;max-height:5.2rem}
+.education-line h3{margin:0 0 .35rem;font-size:1.08rem}
+.education-line p{margin:.18rem 0!important;line-height:1.55}
+.education-wordmark,
+.mit-wordmark{
+  display:grid!important;
+  place-items:center;
+  width:8rem!important;
+  min-height:4.6rem;
+  padding:.5rem;
+  border:1px solid color-mix(in srgb,var(--line) 74%,transparent);
+  border-radius:8px!important;
+  background:#fff!important;
+  color:#111!important;
+  font:900 1.5rem/1 system-ui,sans-serif!important;
+  letter-spacing:-.04em!important;
+}
+.mit-wordmark{border-left:.45rem solid #a31f34!important}
+.education-wordmark-code{font-size:1.2rem!important}
+@media(max-width:64rem){
+  .about-unified-page .about-hero-pro{grid-template-columns:minmax(0,1fr) minmax(16rem,.58fr);gap:2rem}
+  .about-profile-stack{position:static}
+  .about-kpis,.about-credential-grid{grid-template-columns:minmax(0,1fr)}
+}
+@media(max-width:48rem){
+  .about-unified-page .about-hero-pro{grid-template-columns:minmax(0,1fr)}
+  .about-profile-stack{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  .about-profile-card{grid-column:1/-1;display:grid;grid-template-columns:minmax(9rem,.65fr) minmax(0,1fr)}
+  .about-profile-card img{height:100%;aspect-ratio:auto;min-height:14rem}
+  .about-profile-card figcaption{align-content:center}
+  .about-unified-page .about-prose{grid-template-columns:minmax(0,1fr)}
+  .career-timeline summary{grid-template-columns:1fr 2rem}
+  .career-timeline summary .career-years{grid-column:1/-1}
+  .career-timeline details>div{padding:0 1.1rem 1.1rem!important}
+}
+@media(max-width:38rem){
+  .about-unified-page .about-hero-pro{padding-top:1.5rem}
+  .about-unified-page .about-hero-pro h1{font-size:clamp(2.75rem,14vw,4rem)}
+  .about-kpis{grid-template-columns:minmax(0,1fr)}
+  .about-profile-stack{grid-template-columns:minmax(0,1fr)}
+  .about-profile-card{display:block}
+  .about-profile-card img{height:auto;aspect-ratio:1/1}
+  .about-hero-actions{display:grid;grid-template-columns:minmax(0,1fr)}
+  .about-hero-actions .button{width:100%}
+  .education-line{grid-template-columns:minmax(0,1fr)!important}
+  .education-line img,.education-wordmark,.mit-wordmark{width:min(9rem,100%)!important}
+}
