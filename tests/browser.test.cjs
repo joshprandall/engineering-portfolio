@@ -209,15 +209,38 @@ async function run(){
    if(route==='project-recovery.html'){await page.locator('#rb').fill('1');await page.locator('#rt').fill('1');await page.locator('#rb').dispatchEvent('input');assert.match(await page.locator('#rs').innerText(),/No gaps/);}
    if(route==='project-dependency.html'){await page.locator('#dn button').filter({hasText:'Internet'}).click();assert.match(await page.locator('#ds').innerText(),/6 downstream/);}
    if(route==='project-lifecycle.html'){await page.locator('#lp').check();assert.match(await page.locator('#lx').innerText(),/Blocked/);}
-   if(route==='project-fusion.html'){await page.locator('#fn button').filter({hasText:'Materials'}).click();assert.equal(await page.locator('#ft').innerText(),'Materials');assert(await page.locator('video[controls]').isVisible());}
+   if(route==='project-fusion.html'){assert.equal(await page.locator('video[controls]').count(),0,'Fusion project must not expose a missing media player');assert.match(await page.locator('#fusion').innerText(),/original media recording is not bundled|source repository does not currently bundle/i);}
    if(route==='project-portfolio.html'){await page.locator('#pr').click();assert.match(await page.locator('#ps').innerText(),/6\/6/);}
    if(route==='project-asset-inventory.html'){await page.locator('#ar').click();assert.match(await page.locator('#az').innerText(),/ADDED/);}
    if(route==='project-kubernetes-lab.html'){await page.locator('#ku').fill('0');await page.locator('#kf').check();assert.match(await page.locator('#ks').innerText(),/would pause/);}
+   await page.locator('.project-evaluation-dossier').waitFor({state:'visible'});
+   assert.match(await page.locator('.project-evaluation-dossier').innerText(),/TECHNICAL EVALUATION DOSSIER/i,route+': technical evaluation dossier renders');
+
+   const advancedLab=page.locator('.showcase-lab[data-showcase-lab]');
+   if(await advancedLab.count()){
+    const status=advancedLab.locator('.showcase-lab-status');await status.waitFor({state:'visible'});const before=(await status.innerText()).trim();assert(before,route+': advanced lab initializes');
+    await advancedLab.locator('[data-showcase-action="primary"]').click();const primary=(await status.innerText()).trim();assert(primary&&primary!==before,route+': advanced lab primary action changes state');
+    await advancedLab.locator('[data-showcase-action="secondary"]').click();const secondary=(await status.innerText()).trim();assert(secondary,route+': advanced lab secondary action produces state');
+    assert((await advancedLab.locator('.showcase-lab-output').innerText()).trim(),route+': advanced lab produces explanatory output');
+   }
+
+   const softwareLab=page.locator('.showcase-lab[data-software-lab]');
+   if(await softwareLab.count()){
+    const status=softwareLab.locator('.showcase-lab-status');await status.waitFor({state:'visible'});const before=(await status.innerText()).trim();assert(before,route+': software lab initializes');
+    await softwareLab.locator('[data-showcase-action="primary"]').click();const primary=(await status.innerText()).trim();assert(primary&&primary!==before,route+': software lab primary action changes state');
+    await softwareLab.locator('[data-showcase-action="secondary"]').click();const secondary=(await status.innerText()).trim();assert(secondary,route+': software lab secondary action produces state');
+    assert((await softwareLab.locator('.showcase-lab-output').innerText()).trim(),route+': software lab produces explanatory output');
+   }
    console.log('PASS project '+route);
   }
   await page.goto(base+'/projects.html',{waitUntil:'domcontentloaded'});
-  assert.equal(await page.locator('.project-card').count(),16);
-  for(const button of await page.locator('.filter-bar button').all()){await button.click();const visible=await page.locator('.project-card:visible').count();assert(visible>0,'Category has visible projects');}
+  assert.equal(await page.locator('.project-card').count(),34);
+  await page.locator('.project-eval-overview').waitFor({state:'visible'});
+  assert.match(await page.locator('.project-eval-overview').innerText(),/Every project is presented as an engineering claim that must be inspectable/i);
+  assert.equal(await page.locator('.project-card .project-eval-card-badges').count(),34,'Every project card receives evidence/maturity badges');
+  await page.goto(base+'/play-evil-wizard.html',{waitUntil:'domcontentloaded'});
+  await page.locator('.project-evaluation-dossier').waitFor({state:'visible'});
+  assert.match(await page.locator('.project-evaluation-dossier').innerText(),/Playable browser game and protected runtime export/i);
   for(const route of ['learn.html','learn-browse.html','learn-labs.html','learn-paths.html','learn-mastery.html','learn-practice.html','learn-glossary.html','learn-map.html','learn-verify.html','learn-capstones.html','agent-workbench.html','qubit-preview-20260921/']){
    await page.goto(base+'/'+route,{waitUntil:'domcontentloaded'});assert(await page.locator('main h1:visible,main h2:visible').first().isVisible(),route+': visible page heading');
    assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true,route+': no overflow');
