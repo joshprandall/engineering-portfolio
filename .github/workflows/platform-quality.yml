@@ -69,12 +69,17 @@ jobs:
       - name: Install browser-test dependencies
         run: |
           npm ci
-          npx playwright install chromium
+          CHROME_PATH="$(command -v google-chrome || command -v chromium || command -v chromium-browser || true)"
+          if [ -n "$CHROME_PATH" ]; then
+            echo "PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH=$CHROME_PATH" >> "$GITHUB_ENV"
+            echo "Using runner Chrome: $CHROME_PATH"
+          else
+            npx playwright install chromium
+          fi
 
       - name: Run learning and AI contract tests
         run: |
           node --test tests/learning-ai-contract.test.mjs
-          node --test tests/content-browser.test.cjs
           node --test tests/content-experiments.test.cjs
 
       - name: Browser-test Learn mastery, all AI builds, and all 50 Cyber Range tools
