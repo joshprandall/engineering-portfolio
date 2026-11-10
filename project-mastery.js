@@ -147,6 +147,27 @@
         </article>
       </div>
 
+      ${meta.reviewProtocol ? `
+      <div class="project-eval-grid" data-project-review-protocol>
+        <article class="project-eval-card">
+          <span class="project-eval-label">TESTABLE HYPOTHESIS</span>
+          <h3>What the next experiment should establish.</h3>
+          <p>${esc(meta.reviewProtocol.hypothesis)}</p>
+          <h4>Controlled fixture</h4><p>${esc(meta.reviewProtocol.fixture)}</p>
+        </article>
+        <article class="project-eval-card">
+          <span class="project-eval-label">EXPECTED OBSERVATIONS</span>
+          <h3>What would count as evidence.</h3>
+          <p>${esc(meta.reviewProtocol.oracle)}</p>
+          <h4>Disconfirming observation</h4><p>${esc(meta.reviewProtocol.falsifier)}</p>
+        </article>
+        <article class="project-eval-card">
+          <span class="project-eval-label">REPRODUCIBILITY RECORD</span>
+          <h3>What a reviewer should retain.</h3>
+          <p>${esc(meta.reviewProtocol.evidence)}</p>
+          <p><em>Proposed verification protocol, not a claim that the experiment has already been run.</em></p>
+        </article>
+      </div>` : ''}
       <div class="project-eval-boundary">
         <strong>Claim boundary</strong>
         <span>${esc(meta.limitations)}</span>
