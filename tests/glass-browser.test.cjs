@@ -55,7 +55,7 @@ async function controlPaint(locator, label) {
   // A theme may intentionally render a solid, high-contrast CTA. Test visibility
   // and legibility rather than demanding translucent pixels on every control.
   const parse = c => {
-    const m = c.match(/^rgba?\\(\\s*([\\d.]+)[,\\s]+([\\d.]+)[,\\s]+([\\d.]+)(?:[,\\s/]+([\\d.]+))?\\s*\\)$/);
+    const m = c.match(/^rgba?\(\s*([\d.]+)[,\s]+([\d.]+)[,\s]+([\d.]+)(?:[,\s/]+([\d.]+))?\s*\)$/);
     return m ? { rgb:[Number(m[1]),Number(m[2]),Number(m[3])],alpha:m[4]===undefined?1:Number(m[4]) } : null;
   };
   const bg=parse(value.background),fg=parse(value.color);
