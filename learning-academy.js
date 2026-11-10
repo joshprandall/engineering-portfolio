@@ -7,9 +7,21 @@ const list=items=>'<ul>'+items.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul>';
 const loadStyle=()=>{if(document.querySelector('link[data-learning-academy]'))return;const l=document.createElement('link');l.rel='stylesheet';l.href='learning-academy.css?v=20261109-v1';l.dataset.learningAcademy='1';document.head.append(l)};
 loadStyle();
 
+const waitForKnowledge=()=>new Promise(resolve=>{
+  if(window.JR_KNOWLEDGE){resolve(window.JR_KNOWLEDGE);return;}
+  let attempts=0;
+  const check=()=>{
+    if(window.JR_KNOWLEDGE){resolve(window.JR_KNOWLEDGE);return;}
+    attempts+=1;
+    if(attempts>=120){resolve(null);return;}
+    setTimeout(check,100);
+  };
+  check();
+});
+
 Promise.all([
  fetch('assets/learning-academy.json?v=20261109-v1',{cache:'no-cache'}).then(r=>r.json()),
- Promise.resolve(window.JR_KNOWLEDGE||null)
+ waitForKnowledge()
 ]).then(([academy,D])=>{
  const programs=new Map(academy.programs.map(p=>[p.id,p]));
  const domainNames={cloud:'Cloud & Systems',advanced:'Advanced Computing',software:'Software Engineering',cyber:'Cybersecurity',leadership:'Leadership & IT Management',math:'Mathematics',physics:'Physics'};
