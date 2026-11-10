@@ -1,0 +1,909 @@
+{
+  "version": "2026-11-09-ai-builder-v1",
+  "standard": "Build → evaluate → constrain → observe → iterate",
+  "systems": [
+    {
+      "id": "machine-learning",
+      "page": "ai-machine-learning.html",
+      "title": "Machine Learning",
+      "goal": "Build a supervised classifier from a labeled dataset and prove it generalizes beyond the training data.",
+      "prereq": [
+        "Python fundamentals",
+        "Descriptive statistics",
+        "Vectors/matrices and basic probability"
+      ],
+      "stack": [
+        "Python 3.11+",
+        "pandas / NumPy",
+        "scikit-learn"
+      ],
+      "data": "A versioned table with features, target label, train/validation/test split, and a data dictionary.",
+      "baseline": "Start with a simple linear/logistic or tree baseline before increasing model complexity.",
+      "steps": [
+        "Define the prediction target and decision cost",
+        "Validate data schema and split before feature work",
+        "Build a trivial/linear baseline",
+        "Create a preprocessing + model pipeline",
+        "Use cross-validation on training data",
+        "Tune only against validation evidence",
+        "Evaluate once on held-out test data",
+        "Package preprocessing and model together for inference"
+      ],
+      "metrics": [
+        "Accuracy only when class/cost balance justifies it",
+        "Precision / recall / F1",
+        "ROC-AUC or PR-AUC where appropriate",
+        "Calibration and threshold behavior"
+      ],
+      "failures": [
+        "Target leakage",
+        "Train/test contamination",
+        "Class imbalance",
+        "Spurious features and drift"
+      ],
+      "production": [
+        "Persist preprocessing with the model",
+        "Monitor feature/label drift",
+        "Log model/version/schema identifiers",
+        "Define retraining and rollback criteria"
+      ],
+      "starter": "from sklearn.pipeline import make_pipeline\\nfrom sklearn.preprocessing import StandardScaler\\nfrom sklearn.linear_model import LogisticRegression\\n\\nmodel = make_pipeline(StandardScaler(), LogisticRegression(max_iter=1000))\\nmodel.fit(X_train, y_train)\\nprint(model.score(X_valid, y_valid))"
+    },
+    {
+      "id": "deep-learning",
+      "page": "ai-deep-learning.html",
+      "title": "Deep Learning",
+      "goal": "Train a neural network with a reproducible data pipeline, validation loop, checkpoint, and failure diagnostics.",
+      "prereq": [
+        "Machine-learning workflow",
+        "Linear algebra",
+        "Derivatives / gradient descent",
+        "Python"
+      ],
+      "stack": [
+        "Python",
+        "PyTorch",
+        "NumPy"
+      ],
+      "data": "Versioned tensors or dataset objects with training/validation separation and deterministic preprocessing.",
+      "baseline": "Use the smallest network that can overfit a tiny batch; then scale only after the training loop is known to work.",
+      "steps": [
+        "Define input/output tensor shapes",
+        "Create deterministic dataset and DataLoader",
+        "Implement the smallest model",
+        "Choose loss and optimizer",
+        "Overfit a tiny batch as a wiring test",
+        "Train with validation and checkpoints",
+        "Plot loss/metric curves and inspect errors",
+        "Measure inference latency/memory before deployment"
+      ],
+      "metrics": [
+        "Training/validation loss",
+        "Task-specific validation metric",
+        "Generalization gap",
+        "Latency, memory and throughput"
+      ],
+      "failures": [
+        "Shape mismatch",
+        "Vanishing/exploding gradients",
+        "Overfitting",
+        "Learning-rate instability",
+        "Data normalization mismatch"
+      ],
+      "production": [
+        "Save model + preprocessing metadata",
+        "Use reproducible seeds only as debugging aids",
+        "Monitor distribution shift",
+        "Test loading/inference independently of training"
+      ],
+      "starter": "import torch\\nfrom torch import nn\\n\\nmodel = nn.Sequential(nn.Linear(n_features, 64), nn.ReLU(), nn.Linear(64, n_classes))\\noptimizer = torch.optim.AdamW(model.parameters(), lr=1e-3)\\nloss_fn = nn.CrossEntropyLoss()"
+    },
+    {
+      "id": "llm",
+      "page": "ai-llm.html",
+      "title": "Large Language Models",
+      "goal": "Build and evaluate a small causal language-model pipeline, then scale through fine-tuning or retrieval without hiding the inference mechanics.",
+      "prereq": [
+        "Deep learning",
+        "Probability / softmax",
+        "Tokenization",
+        "Attention and matrix multiplication"
+      ],
+      "stack": [
+        "Python",
+        "PyTorch",
+        "Hugging Face Transformers for practical models"
+      ],
+      "data": "Tokenized, licensed text with train/validation separation, provenance, quality filters, and task-specific evaluation examples.",
+      "baseline": "Use an n-gram or tiny causal transformer to verify tokenization, masking, loss, decoding, and evaluation before using a large pretrained model.",
+      "steps": [
+        "Define task and corpus/license boundary",
+        "Choose tokenizer and inspect token statistics",
+        "Implement/inspect causal masking",
+        "Train or load a small baseline",
+        "Measure perplexity plus task-specific quality",
+        "Evaluate decoding controls",
+        "Add retrieval/fine-tuning only for a defined failure",
+        "Measure latency, KV-cache memory, safety and regression behavior"
+      ],
+      "metrics": [
+        "Validation cross-entropy / perplexity",
+        "Task-specific exactness or human rubric",
+        "Retrieval citation accuracy when used",
+        "Latency, tokens/sec and memory"
+      ],
+      "failures": [
+        "Data leakage",
+        "Causal-mask errors",
+        "Hallucination / unsupported claims",
+        "Prompt or retrieval injection",
+        "Context truncation and stale knowledge"
+      ],
+      "production": [
+        "Version model, tokenizer, prompt and retrieval corpus",
+        "Run eval suites before promotion",
+        "Trace tool/retrieval decisions",
+        "Apply guardrails and human review for consequential actions"
+      ],
+      "starter": "from transformers import AutoTokenizer, AutoModelForCausalLM\\n\\nname = 'distilgpt2'\\ntok = AutoTokenizer.from_pretrained(name)\\nmodel = AutoModelForCausalLM.from_pretrained(name)\\ninputs = tok('Engineering evidence matters because', return_tensors='pt')\\nprint(tok.decode(model.generate(**inputs, max_new_tokens=20)[0]))"
+    },
+    {
+      "id": "agentic",
+      "page": "ai-agentic.html",
+      "title": "Agentic AI",
+      "goal": "Build an agent loop where model decisions, tools, state, approvals, and evidence are separate observable components.",
+      "prereq": [
+        "LLM application basics",
+        "APIs / functions",
+        "State machines",
+        "Security boundaries"
+      ],
+      "stack": [
+        "Python or TypeScript",
+        "An agent SDK or explicit Responses/tool loop",
+        "Structured logging / tracing"
+      ],
+      "data": "Task/evaluation cases, tool schemas, permission policy, and recorded traces rather than a training dataset alone.",
+      "baseline": "One agent, one bounded read-only tool, explicit stop condition, and an evaluation set.",
+      "steps": [
+        "Define the task boundary and success criteria",
+        "Create one agent with narrow instructions",
+        "Expose typed tools with validation",
+        "Separate state from prose",
+        "Add stop/loop limits and error handling",
+        "Add approvals around side effects",
+        "Trace every tool call and result",
+        "Evaluate task success, safety, cost and recovery behavior"
+      ],
+      "metrics": [
+        "Task completion rate",
+        "Tool-call correctness",
+        "Unsafe/blocked action count",
+        "Turns, latency and cost",
+        "Recovery success after tool failure"
+      ],
+      "failures": [
+        "Unbounded loops",
+        "Tool misuse",
+        "Prompt injection through tool data",
+        "Hidden side effects",
+        "Stale or unverifiable memory"
+      ],
+      "production": [
+        "Use least-privilege tools",
+        "Require approval for consequential actions",
+        "Persist resumable state explicitly",
+        "Trace and regression-test agent runs"
+      ],
+      "starter": "from agents import Agent, Runner\\n\\nagent = Agent(name='Analyst', instructions='Use tools only when required; cite evidence.')\\nresult = Runner.run_sync(agent, 'Summarize the bounded test case')\\nprint(result.final_output)"
+    },
+    {
+      "id": "computer-vision",
+      "page": "ai-computer-vision.html",
+      "title": "Computer Vision",
+      "goal": "Build an image classifier or detector with reproducible transforms, error analysis, and a baseline that exposes dataset problems.",
+      "prereq": [
+        "Deep learning",
+        "Image arrays and convolution",
+        "Basic statistics"
+      ],
+      "stack": [
+        "Python",
+        "PyTorch / torchvision",
+        "Pillow / OpenCV when needed"
+      ],
+      "data": "Versioned labeled images with class definitions, split policy, licensing, and augmentation rules.",
+      "baseline": "A small CNN or pretrained feature extractor with a frozen baseline.",
+      "steps": [
+        "Define image task and label policy",
+        "Inspect samples and class balance",
+        "Create deterministic train/validation transforms",
+        "Train a small baseline",
+        "Build confusion/error slices",
+        "Test augmentation and resolution changes",
+        "Evaluate robustness to lighting/crop/noise changes",
+        "Export preprocessing + model together"
+      ],
+      "metrics": [
+        "Accuracy/F1 for classification",
+        "mAP/IoU for detection/segmentation",
+        "Per-class error",
+        "Latency and memory"
+      ],
+      "failures": [
+        "Label leakage",
+        "Background shortcuts",
+        "Train/serve preprocessing mismatch",
+        "Poor out-of-distribution behavior"
+      ],
+      "production": [
+        "Validate image format/size",
+        "Monitor class distribution",
+        "Store model and transform versions",
+        "Test on representative camera/domain conditions"
+      ],
+      "starter": "from torchvision import models\\nfrom torch import nn\\n\\nmodel = models.resnet18(weights='DEFAULT')\\nmodel.fc = nn.Linear(model.fc.in_features, n_classes)"
+    },
+    {
+      "id": "reinforcement-learning",
+      "page": "ai-reinforcement-learning.html",
+      "title": "Reinforcement Learning",
+      "goal": "Build an agent in a bounded environment and verify learning against a simple policy baseline.",
+      "prereq": [
+        "Probability",
+        "Python",
+        "Functions / optimization",
+        "Markov decision process basics"
+      ],
+      "stack": [
+        "Python",
+        "Gymnasium-style environment",
+        "NumPy / PyTorch"
+      ],
+      "data": "Environment transitions and reward signals; evaluation episodes must use fixed seeds/scenarios separate from training.",
+      "baseline": "Random policy, heuristic policy, or tabular Q-learning before deep RL.",
+      "steps": [
+        "Define state, actions, transition and reward",
+        "Write environment invariants and termination rules",
+        "Evaluate a random/heuristic baseline",
+        "Implement tabular or function-approximation learner",
+        "Separate training from evaluation episodes",
+        "Plot return and stability across seeds",
+        "Inspect learned policy failure cases",
+        "Add safety constraints before real-world actuation"
+      ],
+      "metrics": [
+        "Episode return",
+        "Success rate",
+        "Sample efficiency",
+        "Variance across seeds",
+        "Constraint violations"
+      ],
+      "failures": [
+        "Reward hacking",
+        "Non-stationarity",
+        "Seed-sensitive results",
+        "Unsafe exploration"
+      ],
+      "production": [
+        "Prefer simulation before hardware",
+        "Bound actions and terminate unsafe states",
+        "Evaluate across seeds/scenarios",
+        "Never infer safety from reward alone"
+      ],
+      "starter": "import numpy as np\\nQ = np.zeros((n_states, n_actions))\\nQ[s,a] += alpha * (reward + gamma * Q[next_s].max() - Q[s,a])"
+    },
+    {
+      "id": "generative",
+      "page": "ai-generative.html",
+      "title": "Generative AI",
+      "goal": "Build a bounded generative model or decoder and evaluate both fidelity and diversity instead of relying on attractive samples.",
+      "prereq": [
+        "Probability",
+        "Deep learning",
+        "Representation learning"
+      ],
+      "stack": [
+        "Python",
+        "PyTorch",
+        "Domain-specific token/image preprocessing"
+      ],
+      "data": "Licensed, versioned generation corpus plus a held-out evaluation set and safety exclusions.",
+      "baseline": "A simple autoregressive or autoencoder-style model that makes likelihood/reconstruction behavior inspectable.",
+      "steps": [
+        "Define generation target and acceptable output space",
+        "Establish provenance and filtering",
+        "Build a simple probabilistic baseline",
+        "Train a compact generative model",
+        "Measure held-out loss/reconstruction",
+        "Evaluate diversity and memorization risk",
+        "Add task/safety evaluation",
+        "Document sampling controls and failure cases"
+      ],
+      "metrics": [
+        "Held-out likelihood/loss",
+        "Reconstruction or task score",
+        "Diversity / mode coverage",
+        "Memorization and unsafe-output tests"
+      ],
+      "failures": [
+        "Mode collapse",
+        "Memorization",
+        "Training-data leakage",
+        "Sampling artifacts",
+        "Unsafe output"
+      ],
+      "production": [
+        "Version model/data/sampler",
+        "Evaluate every promoted checkpoint",
+        "Rate-limit and moderate high-risk use cases",
+        "Preserve provenance where possible"
+      ],
+      "starter": "import torch\\nfrom torch import nn\\n\\n# Minimal autoencoder-style baseline\\nencoder = nn.Sequential(nn.Linear(n_in, 64), nn.ReLU(), nn.Linear(64, 16))\\ndecoder = nn.Sequential(nn.Linear(16, 64), nn.ReLU(), nn.Linear(64, n_in))"
+    },
+    {
+      "id": "multimodal",
+      "page": "ai-multimodal.html",
+      "title": "Multimodal AI",
+      "goal": "Build separate modality encoders and a measurable fusion strategy, then test what happens when one modality is missing or wrong.",
+      "prereq": [
+        "Machine learning",
+        "At least one text/vision/audio representation",
+        "Vector similarity"
+      ],
+      "stack": [
+        "Python",
+        "PyTorch",
+        "Appropriate text/image/audio encoders"
+      ],
+      "data": "Aligned examples across modalities with explicit missing-modality and disagreement cases.",
+      "baseline": "Late fusion of independent modality scores before training a joint model.",
+      "steps": [
+        "Define what each modality contributes",
+        "Build and evaluate unimodal baselines",
+        "Normalize representation scales",
+        "Implement late fusion",
+        "Create missing/corrupt modality tests",
+        "Compare learned versus fixed fusion",
+        "Analyze disagreement cases",
+        "Add modality-specific monitoring"
+      ],
+      "metrics": [
+        "Joint task metric",
+        "Unimodal metrics",
+        "Performance with missing modality",
+        "Calibration under disagreement"
+      ],
+      "failures": [
+        "One modality dominates",
+        "Alignment errors",
+        "Spurious cross-modal correlations",
+        "Silent missing input"
+      ],
+      "production": [
+        "Validate each input independently",
+        "Fallback when a modality is unavailable",
+        "Log modality quality/confidence",
+        "Evaluate demographic/domain shifts by modality"
+      ],
+      "starter": "# Start with explicit late fusion\\nfused_score = text_weight * text_score + (1-text_weight) * vision_score\\nassert 0 <= fused_score <= 1"
+    },
+    {
+      "id": "symbolic",
+      "page": "ai-symbolic.html",
+      "title": "Symbolic AI",
+      "goal": "Build an explicit fact/rule system whose conclusions can be traced and tested.",
+      "prereq": [
+        "Boolean logic",
+        "Data structures",
+        "Basic algorithms"
+      ],
+      "stack": [
+        "Python standard library is sufficient",
+        "Optional rule/constraint solver later"
+      ],
+      "data": "Facts, rules, and expected inference cases with contradiction/edge cases.",
+      "baseline": "Forward-chaining rules over a small fact set.",
+      "steps": [
+        "Define fact vocabulary",
+        "Represent rules explicitly",
+        "Implement deterministic matching",
+        "Record inference trace",
+        "Add conflict/priority policy",
+        "Write positive and negative cases",
+        "Test incomplete/contradictory facts",
+        "Add persistence or a solver only if needed"
+      ],
+      "metrics": [
+        "Rule coverage",
+        "Inference correctness",
+        "Trace completeness",
+        "Conflict count"
+      ],
+      "failures": [
+        "Rule explosion",
+        "Hidden precedence",
+        "Inconsistent facts",
+        "Closed-world assumptions applied incorrectly"
+      ],
+      "production": [
+        "Version rules separately from code",
+        "Log every inference step",
+        "Validate rule changes with regression cases",
+        "Keep domain ownership explicit"
+      ],
+      "starter": "facts = {'authorized': True, 'encrypted': True}\\nrules = [('allow', lambda f: f.get('authorized') and f.get('encrypted'))]\\nprint([name for name, rule in rules if rule(facts)])"
+    },
+    {
+      "id": "neuro-symbolic",
+      "page": "ai-neuro-symbolic.html",
+      "title": "Neuro-symbolic AI",
+      "goal": "Combine a learned scorer with explicit constraints and measure both task performance and rule violations.",
+      "prereq": [
+        "Machine learning",
+        "Symbolic rules / logic",
+        "Calibration basics"
+      ],
+      "stack": [
+        "Python",
+        "ML framework",
+        "Explicit rules/constraints"
+      ],
+      "data": "Labeled examples plus constraint tests that intentionally include high-confidence rule violations.",
+      "baseline": "Neural score followed by a hard constraint gate.",
+      "steps": [
+        "Build/evaluate neural baseline",
+        "Define constraints independently",
+        "Calibrate score threshold",
+        "Combine neural decision with constraint layer",
+        "Measure constraint-violation rate",
+        "Analyze neural/rule disagreements",
+        "Test adversarial edge cases",
+        "Decide whether rules veto, re-rank, or provide features"
+      ],
+      "metrics": [
+        "Task metric",
+        "Constraint violation rate",
+        "Coverage of rule layer",
+        "Disagreement rate"
+      ],
+      "failures": [
+        "Rules encode wrong assumptions",
+        "Neural confidence is uncalibrated",
+        "Constraint conflicts",
+        "Rules hide model weakness"
+      ],
+      "production": [
+        "Version model and rules independently",
+        "Monitor disagreement trends",
+        "Require review for high-impact overrides",
+        "Test both layers during every release"
+      ],
+      "starter": "neural_ok = score >= threshold\\nconstraint_ok = all(rule(example) for rule in rules)\\nfinal = neural_ok and constraint_ok"
+    },
+    {
+      "id": "multi-agent",
+      "page": "ai-multi-agent.html",
+      "title": "Multi-agent Systems",
+      "goal": "Build multiple bounded specialists with explicit ownership, coordination, shared-state rules, and evaluation of handoffs.",
+      "prereq": [
+        "Agentic AI",
+        "State machines",
+        "Concurrency / distributed-systems concepts"
+      ],
+      "stack": [
+        "Python or TypeScript",
+        "Agent framework or explicit orchestration",
+        "Tracing"
+      ],
+      "data": "Task suite containing cases for each specialist plus ambiguous/handoff cases.",
+      "baseline": "Manager agent calls two specialists as tools; no peer-to-peer autonomy initially.",
+      "steps": [
+        "Define specialist responsibilities",
+        "Choose manager-versus-handoff ownership",
+        "Define shared context schema",
+        "Implement bounded specialist tools/agents",
+        "Add handoff/termination rules",
+        "Prevent circular delegation",
+        "Trace task ownership and evidence",
+        "Evaluate coordination cost versus single-agent baseline"
+      ],
+      "metrics": [
+        "Task success",
+        "Correct specialist selection",
+        "Handoff count",
+        "Loop/failure rate",
+        "Latency/cost"
+      ],
+      "failures": [
+        "Circular handoffs",
+        "Conflicting state",
+        "Duplicated work",
+        "No clear final-answer owner"
+      ],
+      "production": [
+        "Keep one owner for side effects",
+        "Persist shared state explicitly",
+        "Trace every handoff",
+        "Compare multi-agent value to a simpler single-agent design"
+      ],
+      "starter": "# Pseudocode boundary\\nmanager = Agent(name='manager', tools=[researcher.as_tool(), verifier.as_tool()])\\n# Evaluate whether delegation improves task success before adding more agents."
+    },
+    {
+      "id": "memory",
+      "page": "ai-memory.html",
+      "title": "AI Memory & Retrieval",
+      "goal": "Build a retrieval pipeline with chunking, indexing, ranking, citation, freshness, and measurable recall.",
+      "prereq": [
+        "Vector similarity",
+        "Text preprocessing",
+        "Information retrieval basics"
+      ],
+      "stack": [
+        "Python",
+        "TF-IDF or embedding model",
+        "Vector index optional"
+      ],
+      "data": "Versioned source documents, chunk metadata, timestamps, and a query set with expected relevant passages.",
+      "baseline": "TF-IDF/cosine retrieval before embeddings or reranking.",
+      "steps": [
+        "Define source/provenance model",
+        "Chunk documents with stable IDs",
+        "Build lexical baseline",
+        "Create evaluation queries + relevant IDs",
+        "Add embeddings only after baseline",
+        "Measure recall@k and ranking quality",
+        "Add citation/freshness controls",
+        "Test deletion/update behavior"
+      ],
+      "metrics": [
+        "Recall@k",
+        "MRR / ranking quality",
+        "Citation correctness",
+        "Freshness / stale-result rate"
+      ],
+      "failures": [
+        "Bad chunk boundaries",
+        "Stale index",
+        "Semantic similarity without factual support",
+        "Prompt injection in retrieved text"
+      ],
+      "production": [
+        "Preserve source IDs and timestamps",
+        "Re-index updates deterministically",
+        "Treat retrieved text as untrusted data",
+        "Log query → chunk → answer provenance"
+      ],
+      "starter": "from sklearn.feature_extraction.text import TfidfVectorizer\\nfrom sklearn.metrics.pairwise import cosine_similarity\\nX = TfidfVectorizer().fit_transform(documents + [query])\\nprint(cosine_similarity(X[-1], X[:-1]).ravel())"
+    },
+    {
+      "id": "embodied",
+      "page": "ai-embodied.html",
+      "title": "Embodied / Robotic AI",
+      "goal": "Build a simulation-first perception/state/control loop with explicit safety limits before connecting learning to physical actuation.",
+      "prereq": [
+        "Control basics",
+        "State estimation",
+        "Programming",
+        "ML for perception if used"
+      ],
+      "stack": [
+        "Python",
+        "Simulator",
+        "Optional PyTorch / robotics middleware later"
+      ],
+      "data": "Simulated sensor/state trajectories, command limits, and scenario suite including failures.",
+      "baseline": "Proportional or finite-state controller before learned control.",
+      "steps": [
+        "Define state and actuator limits",
+        "Implement simulator/environment",
+        "Build deterministic baseline controller",
+        "Measure tracking and constraints",
+        "Add perception/state estimation",
+        "Introduce learned component in simulation",
+        "Run perturbation/failure scenarios",
+        "Gate hardware actions with safety controller"
+      ],
+      "metrics": [
+        "Tracking error",
+        "Constraint violations",
+        "Recovery time",
+        "Latency"
+      ],
+      "failures": [
+        "Sim-to-real gap",
+        "Unsafe exploration",
+        "Sensor dropout",
+        "Actuator saturation"
+      ],
+      "production": [
+        "Hardware-in-loop only after simulation gates",
+        "Independent emergency stop / safety layer",
+        "Bound commands",
+        "Record synchronized sensor/command traces"
+      ],
+      "starter": "error = target - current\\ncommand = max(-limit, min(limit, kp * error))\\n# Learned policy must remain inside an independent safety envelope."
+    },
+    {
+      "id": "game",
+      "page": "ai-game.html",
+      "title": "Game AI",
+      "goal": "Build a decision system for a game and compare rule-based, search, and learned policies using measurable gameplay outcomes.",
+      "prereq": [
+        "Algorithms",
+        "Game state representation",
+        "Basic probability for stochastic games"
+      ],
+      "stack": [
+        "JavaScript or Python",
+        "Game simulator",
+        "Optional ML framework"
+      ],
+      "data": "Game states/scenarios, legal actions, outcome labels or reward logs.",
+      "baseline": "Finite-state behavior or minimax/search before learned policies.",
+      "steps": [
+        "Define game state and legal actions",
+        "Build deterministic baseline",
+        "Implement search or utility scoring",
+        "Create scenario regression suite",
+        "Measure decisions and runtime",
+        "Add stochastic/learned policy only when justified",
+        "Test adversarial/edge states",
+        "Profile decision latency"
+      ],
+      "metrics": [
+        "Win/success rate",
+        "Decision quality",
+        "Node expansions",
+        "Decision latency"
+      ],
+      "failures": [
+        "Illegal actions",
+        "Search explosion",
+        "Overfitting to one opponent",
+        "Non-deterministic bugs"
+      ],
+      "production": [
+        "Validate every chosen action against game rules",
+        "Keep decision budget bounded",
+        "Regression-test scenarios",
+        "Separate AI logic from rendering"
+      ],
+      "starter": "def minimax(node, maximizing):\\n    if node.terminal: return node.score\\n    scores = [minimax(c, not maximizing) for c in node.children]\\n    return max(scores) if maximizing else min(scores)"
+    },
+    {
+      "id": "geometric",
+      "page": "ai-geometric.html",
+      "title": "Geometric AI",
+      "goal": "Build features/models that respect known geometric transformations and verify invariance/equivariance numerically.",
+      "prereq": [
+        "Linear algebra",
+        "Vectors/matrices",
+        "Basic ML"
+      ],
+      "stack": [
+        "Python / NumPy",
+        "PyTorch for trainable models"
+      ],
+      "data": "Geometric objects plus transformed copies with known transformation labels.",
+      "baseline": "Hand-designed invariant features or augmentation baseline.",
+      "steps": [
+        "Define transformation group",
+        "Write transformation generator",
+        "Define invariant/equivariant property",
+        "Build simple baseline",
+        "Measure property error directly",
+        "Train model if needed",
+        "Compare against non-geometric baseline",
+        "Test unseen transformations"
+      ],
+      "metrics": [
+        "Task metric",
+        "Invariance/equivariance error",
+        "Generalization to transformed inputs",
+        "Parameter/sample efficiency"
+      ],
+      "failures": [
+        "Wrong transformation assumptions",
+        "Coordinate leakage",
+        "Numerical instability",
+        "Benchmark imbalance"
+      ],
+      "production": [
+        "Document group/coordinate assumptions",
+        "Regression-test transformation properties",
+        "Keep provenance for upstream research code",
+        "Separate research claim from demo behavior"
+      ],
+      "starter": "import numpy as np\\nR = np.array([[0.,-1.],[1.,0.]])\\nx = np.array([3.,4.])\\nassert np.isclose(np.linalg.norm(x), np.linalg.norm(R @ x))"
+    },
+    {
+      "id": "graph-neural-networks",
+      "page": "ai-graph-neural-networks.html",
+      "title": "Graph Neural Networks",
+      "goal": "Build a message-passing baseline on a graph and evaluate whether graph structure improves the task over non-graph baselines.",
+      "prereq": [
+        "Machine learning",
+        "Linear algebra",
+        "Graph data structures"
+      ],
+      "stack": [
+        "Python",
+        "PyTorch",
+        "PyTorch Geometric optional"
+      ],
+      "data": "Nodes, edges, node/edge features, labels, and train/validation/test splits that avoid leakage across graph structure.",
+      "baseline": "Mean/sum neighbor aggregation or non-graph feature model.",
+      "steps": [
+        "Define graph/task semantics",
+        "Build non-graph baseline",
+        "Implement message aggregation",
+        "Add node update function",
+        "Train on explicit split",
+        "Measure against baseline",
+        "Inspect oversmoothing / degree effects",
+        "Test edge perturbations"
+      ],
+      "metrics": [
+        "Task metric",
+        "Baseline delta",
+        "Degree/slice performance",
+        "Oversmoothing indicator"
+      ],
+      "failures": [
+        "Train/test leakage through graph edges",
+        "Over-smoothing",
+        "Degree bias",
+        "Unjustified graph construction"
+      ],
+      "production": [
+        "Version graph construction rules",
+        "Validate new edges/features",
+        "Monitor topology drift",
+        "Retain simple baseline for comparison"
+      ],
+      "starter": "neighbor_mean = sum(neighbor_features) / max(1, len(neighbor_features))\\nupdated = self_feature + neighbor_mean"
+    },
+    {
+      "id": "personal-agent",
+      "page": "ai-personal-agent.html",
+      "title": "Personal Development Agent",
+      "goal": "Build a personal assistant that separates read/suggest behavior from consequential actions and keeps memory/provenance inspectable.",
+      "prereq": [
+        "Agentic AI",
+        "Privacy/security basics",
+        "Tool schemas"
+      ],
+      "stack": [
+        "Agent framework or explicit tool loop",
+        "Local/versioned memory store",
+        "Approval UI"
+      ],
+      "data": "User-authorized notes/tasks/preferences with provenance and deletion/update semantics.",
+      "baseline": "Read + suggest only; no autonomous side effects.",
+      "steps": [
+        "Define allowed data and action scopes",
+        "Implement read-only context retrieval",
+        "Add suggestion generation",
+        "Add structured memory with provenance",
+        "Add tool schemas",
+        "Require approval for modify/send actions",
+        "Implement audit trail and deletion",
+        "Evaluate privacy, accuracy and task completion"
+      ],
+      "metrics": [
+        "Task success",
+        "Incorrect-memory rate",
+        "Approval bypasses = 0",
+        "Provenance coverage"
+      ],
+      "failures": [
+        "Sensitive-data overcollection",
+        "Stale memory",
+        "Unauthorized side effects",
+        "Confusing suggestion with action"
+      ],
+      "production": [
+        "Data minimization",
+        "User-visible memory controls",
+        "Approvals for consequential tools",
+        "Audit and revoke access"
+      ],
+      "starter": "if action in {'modify','send'} and not approved:\\n    raise PermissionError('human approval required')\\nreturn suggest(context)"
+    },
+    {
+      "id": "project-mind",
+      "page": "ai-project-mind.html",
+      "title": "Project MIND",
+      "goal": "Build an evidence-first technical agent workflow where planning, artifacts, verification, and proposed actions are independently inspectable.",
+      "prereq": [
+        "Agentic AI",
+        "Software architecture",
+        "Provenance / testing concepts"
+      ],
+      "stack": [
+        "Python or TypeScript",
+        "Typed artifact store",
+        "Verifier functions",
+        "Optional model/tool layer"
+      ],
+      "data": "Task requests, typed artifacts, acceptance criteria, verifier results, and versioned attempts.",
+      "baseline": "Deterministic planner + evidence ledger + verifier before live tools.",
+      "steps": [
+        "Define task and acceptance criteria",
+        "Create typed artifact schema",
+        "Generate plan without executing",
+        "Record produced artifacts",
+        "Run deterministic verifiers",
+        "Reject stale/unverified artifacts",
+        "Add bounded tools behind approvals",
+        "Trace attempts and final evidence"
+      ],
+      "metrics": [
+        "Acceptance criteria passed",
+        "Verified artifact ratio",
+        "Stale-result rejection",
+        "Tool/action errors"
+      ],
+      "failures": [
+        "Evidence-looking prose without artifacts",
+        "Stale results",
+        "Unbounded tools",
+        "Verifier/model coupling"
+      ],
+      "production": [
+        "Version artifact schemas",
+        "Keep verifier independent",
+        "Approve side effects",
+        "Retain evidence and attempt history"
+      ],
+      "starter": "result = {'plan': plan(task), 'artifacts': []}\\nfor artifact in execute_dry_run(result['plan']):\\n    result['artifacts'].append({'data': artifact, 'verified': verify(artifact)})"
+    },
+    {
+      "id": "build-your-own",
+      "page": "ai-build-your-own.html",
+      "title": "Build Your Own AI",
+      "goal": "Choose the smallest AI system that can answer a well-defined task, then prove it beats a baseline before adding complexity.",
+      "prereq": [
+        "Basic programming",
+        "Problem definition",
+        "Data ethics / measurement"
+      ],
+      "stack": [
+        "Choose only what the task requires"
+      ],
+      "data": "A documented input/output contract, examples, held-out evaluation cases, and provenance/licensing.",
+      "baseline": "Rules, search, statistical baseline, or existing model before custom training.",
+      "steps": [
+        "Write task and non-goals",
+        "Define data/input/output contract",
+        "Create evaluation set first",
+        "Build trivial baseline",
+        "Implement smallest useful AI",
+        "Measure against baseline",
+        "Add complexity for a measured failure",
+        "Plan monitoring, rollback and safety"
+      ],
+      "metrics": [
+        "Task-specific success metric",
+        "Baseline comparison",
+        "Error slices",
+        "Latency/cost",
+        "Safety/constraint violations"
+      ],
+      "failures": [
+        "No measurable task",
+        "Data leakage",
+        "Complexity without baseline",
+        "Demo-only evaluation"
+      ],
+      "production": [
+        "Version code/data/model/prompt",
+        "Regression-test held-out cases",
+        "Monitor inputs and errors",
+        "Document rollback and ownership"
+      ],
+      "starter": "# Start with the contract and test cases, not the model.\\ndef baseline(example):\\n    return simple_rule(example)\\n\\nassert evaluate(baseline, held_out_cases) >= minimum_baseline"
+    }
+  ]
+}
