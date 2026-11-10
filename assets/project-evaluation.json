@@ -108,7 +108,7 @@
       "family": "established",
       "title": "Providing Energy from Fusion",
       "posture": "Engineering coursework and technical communication artifact",
-      "evidence": "Presentation media, systems framing, and claim-specific research context",
+      "evidence": "Coursework framing, systems-level analysis, preserved project narrative, and explicit scientific/economic claim boundaries",
       "problem": "Fusion-energy discussions often collapse plasma physics, engineering gain, plant economics, risk, and public policy into one claim. The project separates those layers and communicates the tradeoffs to a non-specialist audience.",
       "constraints": [
         "Team communication artifact rather than an experimental physics result",
@@ -121,14 +121,14 @@
         "Narrative and visual structure designed for public technical communication"
       ],
       "verification": [
-        "Presentation artifact is preserved",
-        "Claims are bounded as research communication, not experimental validation",
-        "Extensions are expected to use claim-specific sources and distinguish scientific from economic evidence"
+        "The project page preserves the authored engineering question, approach, and systems framing",
+        "Claims are bounded as technical communication and research synthesis rather than experimental validation",
+        "The missing original recording is disclosed rather than represented by a broken or unverifiable media link"
       ],
       "reproduce": [
-        "Review the presentation and identify each claim category",
-        "Trace a technical claim to its cited evidence",
-        "Reframe one claim with updated evidence while preserving the distinction between physics, engineering, and economics"
+        "Review the project framing and separate plasma-physics, engineering-gain, plant-economics, and policy claims",
+        "Select one technical claim and independently trace it to current authoritative evidence",
+        "Extend the project by adding a preserved presentation artifact or transcript only when its provenance and bytes are available"
       ],
       "limitations": "This project does not reproduce a fusion experiment, measure plasma performance, or establish commercial feasibility.",
       "signals": [
