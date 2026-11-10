@@ -1,0 +1,41 @@
+/* Technical Evaluation Dossier — 2026-11-09 */
+.project-eval-overview,.project-evaluation-dossier{padding-block:clamp(2.5rem,5vw,5rem);border-bottom:1px solid var(--line)}
+.project-eval-overview{border-top:1px solid var(--line)}
+.project-eval-overview h2,.project-evaluation-dossier h2{max-width:22ch}
+.project-eval-overview>.lead,.project-evaluation-dossier>.lead{max-width:76ch}
+.project-eval-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.75rem;margin:1.4rem 0}
+.project-eval-stat,.project-eval-card,.project-eval-evidence,.project-eval-boundary{border:1px solid var(--line);border-radius:14px;background:var(--glass);-webkit-backdrop-filter:blur(7px) saturate(1.05);backdrop-filter:blur(7px) saturate(1.05)}
+.project-eval-stat{padding:1rem}
+.project-eval-stat span,.project-eval-label{display:block;color:var(--accent);font:800 .67rem/1.35 'DM Sans',Arial,sans-serif;letter-spacing:.13em;text-transform:uppercase}
+.project-eval-stat strong{display:block;margin-top:.25rem;font-size:1.18rem}
+.project-eval-standard{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.75rem}
+.project-eval-standard article{padding:1rem;border-left:3px solid color-mix(in srgb,var(--accent) 72%,transparent);background:color-mix(in srgb,var(--glass) 86%,transparent)}
+.project-eval-standard h3{margin:0 0 .4rem;font-size:1rem}
+.project-eval-standard p{margin:0;font-size:.86rem;line-height:1.6}
+.project-eval-card-badges{display:flex;flex-wrap:wrap;gap:.4rem;margin:.65rem 0 0}
+.project-eval-badge{display:inline-flex;align-items:center;min-height:26px;padding:.25rem .48rem;border:1px solid var(--line);border-radius:999px;background:var(--glass);color:var(--muted);font-size:.64rem;font-weight:800;line-height:1.2;letter-spacing:.05em;text-transform:uppercase}
+.project-eval-badge.evidence{border-color:color-mix(in srgb,var(--blue) 55%,var(--line));color:var(--blue)}
+.project-eval-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(16rem,.55fr);gap:clamp(1.5rem,4vw,4rem);align-items:end;margin-bottom:1.4rem}
+.project-eval-head h2{margin:.25rem 0 .5rem}
+.project-eval-meta{display:grid;gap:.55rem}
+.project-eval-meta div{padding:.7rem .8rem;border:1px solid var(--line);border-radius:10px;background:var(--glass)}
+.project-eval-meta span{display:block;color:var(--muted);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase}
+.project-eval-meta strong{display:block;margin-top:.2rem;font-size:.9rem}
+.project-eval-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.85rem}
+.project-eval-card{padding:clamp(1rem,2.2vw,1.45rem)}
+.project-eval-card h3{margin:0 0 .75rem;font-size:1.12rem;letter-spacing:-.025em}
+.project-eval-card p{margin:.2rem 0 0;line-height:1.65}
+.project-eval-card ul,.project-eval-card ol{display:grid;gap:.5rem;margin:.7rem 0 0;padding-left:1.2rem}
+.project-eval-card li{line-height:1.6;color:var(--muted)}
+.project-eval-boundary{margin-top:.85rem;padding:1rem 1.1rem;border-left:4px solid var(--accent)}
+.project-eval-boundary strong{display:block;margin-bottom:.35rem}
+.project-eval-signals{display:flex;flex-wrap:wrap;gap:.45rem;margin-top:.85rem}
+.project-eval-signals span{padding:.38rem .62rem;border:1px solid var(--line);border-radius:999px;background:var(--glass);font-size:.72rem;font-weight:700}
+.project-eval-evidence{margin-top:.85rem;padding:1rem 1.1rem}
+.project-eval-evidence h3{margin:0 0 .65rem;font-size:1rem}
+.project-eval-evidence-links{display:flex;flex-wrap:wrap;gap:.55rem}
+.project-eval-evidence-links a{display:inline-flex;align-items:center;min-height:38px;padding:.45rem .7rem;border:1px solid var(--line);border-radius:8px;color:var(--accent);font-size:.78rem;font-weight:800}
+.project-eval-no-links{margin:0;color:var(--muted);font-size:.82rem}
+@media(max-width:64rem){.project-eval-stats,.project-eval-standard{grid-template-columns:repeat(2,minmax(0,1fr))}.project-eval-head{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:48rem){.project-eval-grid{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:36rem){.project-eval-stats,.project-eval-standard{grid-template-columns:minmax(0,1fr)}}
