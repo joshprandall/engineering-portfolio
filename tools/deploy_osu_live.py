@@ -18,7 +18,7 @@ DAY_AUDIO_SOURCES = {
     'assets/audio/day/beach-near.ogg': 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Cape%20May%20Shorebirds%20closer.ogg',
     'assets/audio/day/beach-far.ogg': 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Cape%20May%20Shorebirds%20%28distant%29.ogg',
 }
-WEB_DIRS = ('assets', 'deep-learning', 'labs', 'qubit-preview-20260921')
+WEB_DIRS = ('assets', 'deep-learning', 'labs', 'qubit-preview-20260921', 'rust-flow-telemetry-v22')
 PROTECTED_ROOT_FILES = set()
 PROTECTED_PREFIXES = ('games/', 'geometric-lab/')
 THEME_SHELL_FILES = ('geometric-lab/index.html', 'geometric-lab/app.js')
@@ -49,6 +49,7 @@ REQUIRED = THEME_SHELL_FILES + (
     'learn-mastery.html', 'learn-paths.html', 'learn-practice.html', 'learn-verify.html',
     'app.js', 'styles.css', 'site-resilience.js',
     'site-resilience.css', 'portfolio-next.js', 'portfolio-next.css', 'portfolio-home.css',
+    'project-mastery.js', 'project-mastery.css', 'project-showcase.js', 'project-showcase.css', 'software-showcase.js',
     'quantum-cube.js', 'handheld-experience.js', 'handheld-experience.css',
     'science-experiments.js', 'science-experiments.css', 'knowledge.js', 'knowledge.css',
     'learning-depth.js', 'learning-depth.css', 'learning-next.js', 'learning-next.css',
@@ -160,8 +161,8 @@ def validate_source(source):
     home = (source/'index.html').read_text()
     if 'quantum-cube.js' not in home or 'portfolio-home.css' not in home:
         raise RuntimeError('Homepage and animation/style assets do not match.')
-    if (source/'projects.html').read_text().count('class="project-card"') != 16:
-        raise RuntimeError('The release must preserve all 16 projects.')
+    if (source/'projects.html').read_text().count('class="project-card"') != 34:
+        raise RuntimeError('The release must expose all 34 projects.')
     for file in release_files(source):
         if file.is_symlink():
             raise RuntimeError('Symbolic links are not release files: '+str(file))
