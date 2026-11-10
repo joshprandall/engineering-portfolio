@@ -361,7 +361,438 @@
     const analogies={cloud:'Analogy — not literal: picture a city of services with addresses, routes, rules, and responsibilities. Use the picture only to organize the idea.',advanced:'Analogy — not literal: picture a workshop with specialized tools and workers. Different resources do different jobs and coordination matters.',software:'Analogy — not literal: picture a recipe being carried out with ingredients, tools, tests, and feedback.',cyber:'Analogy — not literal: doors, keys, checkpoints, and records can help separate identity, authorization, barriers, and evidence.',leadership:'Analogy — not literal: picture a control room where people need roles, signals, priorities, communication, and feedback.',math:'Analogy — not literal: mathematics can be treated like a language for patterns and relationships; the analogy is not a proof.',physics:'Analogy — not literal: a model is like a carefully labeled map; the map is not the physical system itself.'};
     return {essentialQuestion:`What does ${l.title} mean, why does it matter, how can it be used, and how can the central claim be checked?`,verifiedBoundary:claim,analogy:analogies[l.domain]||'',starter:{plainStart:`Start with one idea: ${l.takeaway||l.summary}`,tryThis:`Use the lesson example as a practice situation: ${l.example}`,helper:'If a word is unfamiliar, pause and define it before adding more detail.'},technical:{scope:'Use the cited evidence to support the verified claim only. Do not infer details that the sources do not establish.',versionCaution:l.versionSensitive?'Check current documentation before operational use.':'Use the cited evidence as the authority for the published claim.',prerequisites:(l.prereq||[]).map(id=>lessonMap.get(id)?.title).filter(Boolean),connections:(l.related||[]).map(id=>lessonMap.get(id)?.title).filter(Boolean)},reasoningSteps:['State the question in your own words.','Identify the verified claim.','Trace the explanation one step at a time.','Apply the idea to the worked example.','Challenge the common misconception.','Open a cited source and verify the claim.'],memoryLadder:[`Explain “${l.title}” in one sentence without looking.`,'List the important vocabulary.','Recreate the example from memory.','Name one misconception to avoid.','Point to the verified claim and its evidence.','Teach the idea once simply and once technically.'],labPlan:['Predict the outcome first.','Write the assumption you are testing.','Run the model or work the scenario.','Compare the result with the verified claim.','Change one condition and explain what changes.','Open the Evidence view and verify the claim.'],vocabulary:[],video:{youtubeId:'',title:'Video companion loading…',channel:'',why:'Supplementary video; evidence remains in the Evidence view.',searchQuery:`${l.title} tutorial`}};
   }
-  function deepGuide(l){return deepLessonCache.get(l.id)||deepFallback(l)}
+  // Seven independently authored question and laboratory sequences; original claim sources,
+  // verification metadata, lessons, IDs and selected video companions remain unchanged.
+  const authoredGuideOverrides=Object.freeze({
+  "cloud-url-journey": {
+    "essentialQuestion": "A hostname resolves correctly, but an HTTPS page remains blank: which independent observations isolate DNS, routing, transport, TLS, HTTP and rendering, and which conclusions remain unproven?",
+    "analogy": "Treat the request as a dependency chain with independently observable boundaries: a successful stage is evidence about that stage, not proof that the next stage succeeded.",
+    "starter": {
+      "plainStart": "Name resolution, connection establishment, cryptographic negotiation, application response and browser rendering are separate checkpoints.",
+      "tryThis": "Given synthetic observations DNS=success, TCP=timeout and HTTP=not attempted, identify the first unverified boundary before naming a suspected cause.",
+      "helper": "Label observations as measured, expected, or hypothesized; do not substitute the word 'network' for a failing layer."
+    },
+    "technical": {
+      "scope": "A DNS answer alone cannot establish endpoint reachability; TCP connect alone cannot establish TLS identity; HTTP 200 alone cannot establish correct script execution. Modern transports may use QUIC/HTTP/3, so distinguish the demonstrated TCP example from universal browser behavior.",
+      "prerequisites": [
+        "DNS names and address records",
+        "IP routing and next hops"
+      ],
+      "connections": [
+        "TLS trust and authentication",
+        "Browser resource loading",
+        "Distributed service diagnostics"
+      ]
+    },
+    "reasoningSteps": [
+      "Translate the URL into scheme, authority, port and resource path; note which fields control each stage.",
+      "Build an observation table for resolution, route selection, connection, TLS negotiation, HTTP status and resource execution.",
+      "Identify the earliest known failure rather than guessing from the final blank-page symptom.",
+      "For each proposed cause, state a discriminating observation and an alternative explanation.",
+      "Distinguish the simplified TCP/HTTPS model from QUIC/HTTP/3 and cached-resource behavior.",
+      "Write an incident conclusion listing what the evidence proves, excludes and leaves unresolved."
+    ],
+    "memoryLadder": [
+      "Explain why successful DNS is insufficient to establish an available website.",
+      "Distinguish a TCP timeout from an HTTP 503 without attributing either to one specific device.",
+      "Give one observation that tests TLS certificate identity separately from TCP connectivity.",
+      "Explain how a page can return HTTP 200 but fail after JavaScript loads.",
+      "Describe a counterexample to the claim that all HTTPS traffic uses TCP."
+    ],
+    "labPlan": [
+      "Predict the result for synthetic case A: DNS NXDOMAIN; transport and HTTP probes not attempted.",
+      "Evaluate case B: DNS answers, connection times out; list at least three possible causes and one discriminating test per cause.",
+      "Evaluate case C: TLS succeeds and HTML is HTTP 200, but a required module returns 404; distinguish document success from application success.",
+      "Change exactly one input in the model; record which earlier and later stages remain observable.",
+      "Compare your diagnosis with the existing RFC-linked sources; state where the simplified sequence omits caches or HTTP/3."
+    ],
+    "vocabulary": [
+      {
+        "term": "Resolution",
+        "definition": "The process of obtaining DNS information needed to locate a service."
+      },
+      {
+        "term": "Transport establishment",
+        "definition": "Evidence that the chosen transport path can establish a communication association."
+      },
+      {
+        "term": "TLS authentication",
+        "definition": "Validation of the peer identity and cryptographic parameters within the TLS handshake."
+      },
+      {
+        "term": "Subresource failure",
+        "definition": "A missing or invalid supporting file that can render an otherwise successful HTML document unusable."
+      }
+    ]
+  },
+  "advanced-quantum-state-vector": {
+    "essentialQuestion": "For |ψ⟩=(√3/2)|0⟩+(e^{iφ}/2)|1⟩, which measurement probabilities change with φ, which do not, and how do you prove the answer?",
+    "analogy": "A state vector is a complex-amplitude specification, not a hidden list of classical outcomes. Measurement in a basis produces probabilities from projections; the basis matters.",
+    "starter": {
+      "plainStart": "Normalize amplitudes first: the squared magnitudes must sum to one. Relative phase is invisible to Z measurement here, but can affect X and Y probabilities.",
+      "tryThis": "At φ=0, calculate P(Z=0)=3/4 and P(X=+)=1/2+√3/4; then set φ=π/2 and recompute.",
+      "helper": "Keep amplitudes, probabilities and empirical frequencies in separate columns."
+    },
+    "technical": {
+      "scope": "This is a pure single-qubit ideal mathematical model; real device noise, mixed states and finite-shot uncertainty are outside these exact probabilities. Global phase has no observable effect, whereas relative phase can affect non-Z measurement.",
+      "prerequisites": [
+        "Complex arithmetic",
+        "Linear algebra inner products"
+      ],
+      "connections": [
+        "Bloch-sphere coordinates",
+        "Quantum measurement",
+        "No-signaling and entanglement limits"
+      ]
+    },
+    "reasoningSteps": [
+      "Verify |√3/2|²+|e^{iφ}/2|²=1 for every real φ.",
+      "Apply Born's rule in the Z basis: probabilities 3/4 and 1/4.",
+      "Express |+⟩=(|0⟩+|1⟩)/√2 and compute P(X=+)=(1+√3 cos φ/2)/2.",
+      "Repeat for the Y basis: P(Y=+)=(1+√3 sin φ/2)/2.",
+      "Compare φ=0, π/2, π and a common global phase applied to both amplitudes.",
+      "Explain why simulated shots fluctuate even when analytic probabilities are exact."
+    ],
+    "memoryLadder": [
+      "Derive normalization without looking up the answer.",
+      "Calculate Z probabilities and explain why φ disappears.",
+      "Derive the X-basis probability from an inner product.",
+      "Give one measurement that distinguishes φ=0 from φ=π/2.",
+      "Explain how a global phase differs from changing the relative phase."
+    ],
+    "labPlan": [
+      "Set φ=0: predict Z=(0.75,0.25) and X-plus≈0.9330127 before running the model.",
+      "Set φ=π/2: predict unchanged Z, X-plus=0.5, and Y-plus≈0.9330127.",
+      "Set φ=π and confirm the X-plus probability becomes approximately 0.0669873.",
+      "Multiply both amplitudes by the same phase factor and show all probabilities are invariant.",
+      "For 100 finite shots, explain why an observed frequency need not equal its exact prediction."
+    ],
+    "vocabulary": [
+      {
+        "term": "Complex amplitude",
+        "definition": "A complex coefficient whose squared magnitude contributes to measurement probability."
+      },
+      {
+        "term": "Born's rule",
+        "definition": "The rule assigning probability as the squared norm of a state's projection onto a measurement outcome."
+      },
+      {
+        "term": "Relative phase",
+        "definition": "Phase difference between basis amplitudes that can affect interference."
+      },
+      {
+        "term": "Global phase",
+        "definition": "A phase factor multiplying the entire state vector, with no change to its measurable predictions."
+      }
+    ]
+  },
+  "software-debugging": {
+    "essentialQuestion": "A bulk-import API returns an error after writing some records. How can you identify the failed contract and prove whether retrying the request is atomic and idempotent?",
+    "analogy": "Debugging is constraint reduction: each trustworthy observation eliminates some hypotheses while leaving others open. A passing parser is not a transaction guarantee.",
+    "starter": {
+      "plainStart": "Separate syntax validation, schema validation, persistence, and retries. A failure at one boundary does not prove a guarantee at another.",
+      "tryThis": "Use a fictional two-record batch: the first record is valid, the second violates a constraint. Predict the database state after rejection and after a retry.",
+      "helper": "For every test, write an expected postcondition before running anything."
+    },
+    "technical": {
+      "scope": "Parsing, validation, transactions and idempotency require different tests. A unit test of a pure function cannot prove database rollback; a successful HTTP response cannot prove durable state without observing the relevant system.",
+      "prerequisites": [
+        "JSON and schemas",
+        "Database transactions"
+      ],
+      "connections": [
+        "Idempotency keys",
+        "Integration tests",
+        "Failure injection"
+      ]
+    },
+    "reasoningSteps": [
+      "Write an exact failing input, expected outcome and observed outcome.",
+      "Trace validation order and determine whether any side effect occurs before the error.",
+      "Create an integration fixture with a forced failure after the first write.",
+      "Inspect persisted state after failure; rollback requires no partial batch.",
+      "Retry the identical request with an identical idempotency key, then retry altered content with the same key.",
+      "Record what the tests establish and what still depends on production configuration."
+    ],
+    "memoryLadder": [
+      "Distinguish a syntactically valid JSON document from a schema-valid request.",
+      "Explain why input validation alone does not prove atomicity.",
+      "Design a failure injection that exposes a partial write.",
+      "State two distinct idempotency-key replay behaviors.",
+      "Explain why a test that never reaches the write path gives false confidence."
+    ],
+    "labPlan": [
+      "Define a two-record valid import and its expected persisted count.",
+      "Modify the second record to be invalid and predict whether the first must be absent after rejection.",
+      "Inject a storage exception after the first write in a transaction-aware fixture and assert rollback.",
+      "Replay the same key and payload; compare response, database count and side effects.",
+      "Replay the same key with altered payload; require an explicit conflict or documented policy instead of duplicating work."
+    ],
+    "vocabulary": [
+      {
+        "term": "Atomicity",
+        "definition": "A transaction property in which its operations commit together or none commit."
+      },
+      {
+        "term": "Idempotency",
+        "definition": "A property under which repeating an operation has the documented net effect of one operation."
+      },
+      {
+        "term": "Failure injection",
+        "definition": "Deliberately introducing a bounded error to test behavior under failure."
+      },
+      {
+        "term": "Postcondition",
+        "definition": "A verifiable state that must hold after an operation completes or fails."
+      }
+    ]
+  },
+  "cyber-session": {
+    "essentialQuestion": "An application authenticates users correctly but leaves sessions exposed: which session lifecycle properties can be independently tested without collecting real credentials?",
+    "analogy": "A session identifier is a bearer capability: possession may enable use. Authentication strength and continued session protection are separate control problems.",
+    "starter": {
+      "plainStart": "Think beyond login: issuance, transport, storage, rotation, expiration and revocation are all part of session security.",
+      "tryThis": "In a synthetic cookie-policy fixture, check whether Secure, HttpOnly and an intentional SameSite policy are present; then explain what each does not protect against.",
+      "helper": "Use fake tokens and local examples only; no real session cookies or unauthorized systems."
+    },
+    "technical": {
+      "scope": "HttpOnly restricts access by ordinary client-side scripts but does not make an XSS-compromised application safe. SameSite mitigates some cross-site request behavior but is not a complete authorization or CSRF design. Session identifier rotation and server-side invalidation depend on the system architecture.",
+      "prerequisites": [
+        "HTTP cookies",
+        "Authentication versus authorization"
+      ],
+      "connections": [
+        "CSRF and XSS boundaries",
+        "Credential rotation",
+        "Session fixation defenses"
+      ]
+    },
+    "reasoningSteps": [
+      "Draw the session lifecycle from authentication to expiration and logout.",
+      "Identify which token attributes are enforced by the browser and which require server-side state.",
+      "Test cookie settings and scope using a synthetic Set-Cookie header.",
+      "Model session-fixation prevention by rotating a known pre-login identifier after authentication.",
+      "State what must occur after logout or credential compromise for revocation to be meaningful.",
+      "Record false confidence risks: a safe cookie attribute alone does not prove secure authorization."
+    ],
+    "memoryLadder": [
+      "Explain why a session token can function as a credential.",
+      "Name the browser behaviors affected by Secure, HttpOnly and SameSite.",
+      "Explain the purpose of session-identifier rotation after login.",
+      "Distinguish token expiry from immediate revocation.",
+      "Give a counterexample where HttpOnly is present but an application remains vulnerable."
+    ],
+    "labPlan": [
+      "Inspect a fabricated cookie missing Secure, HttpOnly and SameSite, and predict the tool's findings.",
+      "Add each attribute one at a time; explain precisely which browser behavior changes.",
+      "Simulate a known session identifier before login and rotate it after authentication.",
+      "Simulate logout and verify that a previously issued token no longer authorizes a fictional request.",
+      "Cross-check the controls against OWASP guidance linked in the original lesson; label untested attack classes."
+    ],
+    "vocabulary": [
+      {
+        "term": "Bearer credential",
+        "definition": "A secret whose possession can be sufficient to authorize an action."
+      },
+      {
+        "term": "Session fixation",
+        "definition": "An attack class that attempts to make a victim use an identifier already known to the attacker."
+      },
+      {
+        "term": "Revocation",
+        "definition": "Invalidating a previously usable authorization token or session."
+      },
+      {
+        "term": "SameSite",
+        "definition": "A cookie attribute that influences when browsers attach the cookie to cross-site requests."
+      }
+    ]
+  },
+  "leadership-incident-command": {
+    "essentialQuestion": "During an outage with uncertain scope and multiple responders, what incident-command structure produces a verifiable timeline, clear ownership and defensible restoration decisions?",
+    "analogy": "Incident command is a coordination protocol rather than a claim that one person knows the technical root cause. Separate decision ownership, investigation and communication.",
+    "starter": {
+      "plainStart": "Assign an incident lead, technical workstreams and a communicator; separate observed impact from unproven causes.",
+      "tryThis": "A fictional service has 30% request failures. Produce a five-minute status update without inventing a root cause or an exact restoration time.",
+      "helper": "Label timestamps, owners, observations and next checks; uncertainty must be communicated, not hidden."
+    },
+    "technical": {
+      "scope": "Incident severity and escalation should reflect customer or operational impact under the organization's policy. Correlation is not root-cause proof, and recovery is not established until explicit service acceptance criteria are met.",
+      "prerequisites": [
+        "Service-level indicators",
+        "Incident communication"
+      ],
+      "connections": [
+        "Postmortem evidence",
+        "Change management",
+        "Reliability budgets"
+      ]
+    },
+    "reasoningSteps": [
+      "Define what customers cannot do, the affected scope and the first timestamp supported by telemetry.",
+      "Establish incident roles and a single current state record.",
+      "Write immediate stabilization options with risk, reversibility and success criteria.",
+      "Track hypotheses separately from observations and specify owners for each verification step.",
+      "Announce a predictable update cadence and change its content as evidence improves.",
+      "Close only after technical and user-facing acceptance criteria pass; preserve the decision timeline for review."
+    ],
+    "memoryLadder": [
+      "Explain why the incident commander need not be the most senior troubleshooter.",
+      "Write one impact statement without naming an unverified root cause.",
+      "Give a decision rule for rollback versus continued mitigation.",
+      "State how to communicate a changing estimate without promising certainty.",
+      "Define the evidence required before declaring recovery."
+    ],
+    "labPlan": [
+      "Given synthetic error-rate and latency charts, identify affected service objectives and the first confirmed symptom.",
+      "Assign incident lead, operations, communications and scribe without overlapping accountability.",
+      "Write a two-paragraph initial update containing impact, actions, unknowns and next update time.",
+      "Introduce a failed rollback and decide how the team escalates while preserving an audit trail.",
+      "Produce a closure note with verified recovery signals and two actionable postmortem questions."
+    ],
+    "vocabulary": [
+      {
+        "term": "Incident commander",
+        "definition": "Person accountable for coordinating the incident response and decision process."
+      },
+      {
+        "term": "Impact",
+        "definition": "Observed loss or degradation of user or business capability."
+      },
+      {
+        "term": "Mitigation",
+        "definition": "An action that reduces immediate impact without necessarily resolving the underlying cause."
+      },
+      {
+        "term": "Acceptance criteria",
+        "definition": "Observable conditions required before declaring the service recovered."
+      }
+    ]
+  },
+  "math-derivatives": {
+    "essentialQuestion": "For f(x)=x² at x=3, how does the secant slope approach the derivative, what does a one-sided counterexample show, and when can a numerical check mislead?",
+    "analogy": "The tangent slope is the limit of nearby secant slopes—not a quotient evaluated by substituting h=0.",
+    "starter": {
+      "plainStart": "Compute (f(3+h)-f(3))/h for nonzero h first. Simplify before taking the limit.",
+      "tryThis": "Derive 6+h and evaluate at h=0.1, 0.01 and −0.01; compare with the exact derivative 6.",
+      "helper": "Distinguish a limit statement from direct evaluation at h=0."
+    },
+    "technical": {
+      "scope": "Differentiability requires a common finite two-sided limit for interior points. Numerical finite differences approximate the derivative but suffer truncation and floating-point cancellation; a few agreeing samples do not constitute a proof.",
+      "prerequisites": [
+        "Functions and algebra",
+        "One-sided limits"
+      ],
+      "connections": [
+        "Taylor approximation",
+        "Optimization",
+        "Numerical differentiation"
+      ]
+    },
+    "reasoningSteps": [
+      "Write the difference quotient for f(x)=x² at x=3 with h≠0.",
+      "Expand (3+h)²−9=6h+h² and simplify the quotient to 6+h.",
+      "Take lim(h→0)(6+h)=6; explain why cancellation occurs before evaluating the limit.",
+      "For g(x)=|x| at x=0, compute the right-hand and left-hand quotient limits and show they disagree.",
+      "Compare forward differences with centered differences for a smooth function and identify error sources.",
+      "State the distinction between analytic proof and numerical corroboration."
+    ],
+    "memoryLadder": [
+      "Derive d(x²)/dx=2x directly from the limit definition.",
+      "Explain the invalid step in substituting h=0 into the unsimplified difference quotient.",
+      "Prove |x| is not differentiable at x=0.",
+      "Describe what the secant slope measures geometrically.",
+      "Explain why extremely small finite-difference steps may be numerically unreliable."
+    ],
+    "labPlan": [
+      "Derive the exact slope 6 at x=3 before touching a calculator.",
+      "Calculate forward slopes for h=1, 0.1, 0.01, −0.1 and record the errors relative to 6.",
+      "Repeat for a centered difference and compare truncation behavior for x².",
+      "Calculate one-sided difference quotients for |x| at 0; test the differentiability claim.",
+      "Explain why finite samples and decimal agreement cannot replace the limiting argument."
+    ],
+    "vocabulary": [
+      {
+        "term": "Difference quotient",
+        "definition": "The average rate of change (f(x+h)−f(x))/h for h≠0."
+      },
+      {
+        "term": "Derivative",
+        "definition": "The limiting instantaneous rate of change when the difference quotient limit exists."
+      },
+      {
+        "term": "One-sided derivative",
+        "definition": "A derivative-like limit taken from one side of a point."
+      },
+      {
+        "term": "Cancellation error",
+        "definition": "Loss of numerical precision when subtracting nearly equal floating-point quantities."
+      }
+    ]
+  },
+  "physics-entropy": {
+    "essentialQuestion": "A mole of ideal gas freely expands into double its initial volume in an insulated container: why can ΔS be positive even though Q=0 along the actual path?",
+    "analogy": "Entropy is a state function, while heat transfer depends on the path. Evaluating a state change using a hypothetical reversible path is not a claim that the actual process was reversible.",
+    "starter": {
+      "plainStart": "For insulated ideal-gas free expansion, there is no heat transfer and no external work in the idealized model, yet the gas occupies more accessible volume.",
+      "tryThis": "Predict ΔS=nR ln(Vf/Vi)=R ln 2≈5.76 J/K for n=1 mol before using any calculator.",
+      "helper": "Keep system boundaries, assumptions, units and sign conventions visible."
+    },
+    "technical": {
+      "scope": "The equation dS=δQ_rev/T applies to an imagined reversible path connecting equilibrium states; substituting the actual irreversible heat Q=0 into δQ_rev/T is invalid. The ideal-gas and equilibrium assumptions matter; real-gas effects and container thermal coupling are outside this simple calculation.",
+      "prerequisites": [
+        "Ideal gas model",
+        "Reversible versus irreversible processes"
+      ],
+      "connections": [
+        "Second law",
+        "Statistical mechanics",
+        "Thermodynamic state functions"
+      ]
+    },
+    "reasoningSteps": [
+      "Define the system as a one-mole ideal gas inside a rigid insulated enclosure.",
+      "For free expansion into vacuum, use Q=0 and W=0 to infer ΔU=0; under the ideal-gas assumption, the final temperature is unchanged.",
+      "Choose a hypothetical reversible isothermal path between the same equilibrium endpoints.",
+      "Integrate δQ_rev/T=nR(dV/V) to obtain ΔS=nR ln(Vf/Vi).",
+      "Evaluate ΔS=R ln2>0 and check units, sign and the second law.",
+      "Explain explicitly why the actual irreversible process had zero heat transfer while the entropy change was positive."
+    ],
+    "memoryLadder": [
+      "State why a state function can be evaluated along a different path.",
+      "Compute ΔS for a doubling of ideal-gas volume.",
+      "Identify the invalid substitution in 'Q=0, therefore ΔS=0'.",
+      "Name the assumptions used in inferring unchanged temperature.",
+      "Explain the meaning of a positive entropy change without calling it merely 'more disorder'."
+    ],
+    "labPlan": [
+      "Write system, surroundings, initial/final volumes, insulation and gas-model assumptions.",
+      "Compute nR ln2 for n=1 mol using R=8.314462618 J/(mol·K); compare with 5.763 J/K.",
+      "Change the volume ratio to 3 and verify the logarithmic scaling.",
+      "Compare an adiabatic reversible compression/expansion to free expansion; identify why the paths differ.",
+      "Use a thermodynamics source to justify the reversible-path integral and describe one real-system limitation."
+    ],
+    "vocabulary": [
+      {
+        "term": "State function",
+        "definition": "A property determined by a system's equilibrium state, not the process history."
+      },
+      {
+        "term": "Free expansion",
+        "definition": "Expansion into an evacuated volume without external pressure work in the idealized model."
+      },
+      {
+        "term": "Reversible path",
+        "definition": "An idealized process that can be reversed through equilibrium states with no net dissipative effects."
+      },
+      {
+        "term": "Entropy change",
+        "definition": "Difference in entropy between two states; for a reversible path, obtained from the integral of δQ_rev/T."
+      }
+    ]
+  }
+});
+  function deepGuide(l){const base=deepLessonCache.get(l.id)||deepFallback(l),add=authoredGuideOverrides[l.id];return add?{...base,...add,starter:{...base.starter,...add.starter},technical:{...base.technical,...add.technical}}:base}
   function ensureDeepLearning(l){
     if(deepLessonCache.has(l.id))return Promise.resolve(deepLessonCache.get(l.id));
     const path=deepChunkPath(l);
