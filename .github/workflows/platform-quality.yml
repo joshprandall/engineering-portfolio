@@ -39,6 +39,10 @@ on:
       - "tools/validate_learning_ai_security.py"
       - ".github/workflows/platform-quality.yml"
 
+concurrency:
+  group: learning-ai-cyber-${{ github.ref }}
+  cancel-in-progress: true
+
 permissions:
   contents: read
 
@@ -65,7 +69,7 @@ jobs:
       - name: Install browser-test dependencies
         run: |
           npm ci
-          npx playwright install --with-deps chromium
+          npx playwright install chromium
 
       - name: Run learning and AI contract tests
         run: |
