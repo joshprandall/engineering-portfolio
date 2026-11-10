@@ -41,3 +41,23 @@
   };
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',install,{once:true});else install();
 })();
+
+
+// project-evaluation-loader-v1
+(() => {
+  const load = () => {
+    const page = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
+    const relevant = page === 'projects.html' || page === 'play-evil-wizard.html' || page.startsWith('project-');
+    if (!relevant || document.querySelector('script[data-project-mastery]')) return;
+    const script = document.createElement('script');
+    script.src = 'project-mastery.js?v=20261109-v1';
+    script.defer = true;
+    script.dataset.projectMastery = 'true';
+    document.head.append(script);
+  };
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', load, { once: true });
+  } else {
+    load();
+  }
+})();
