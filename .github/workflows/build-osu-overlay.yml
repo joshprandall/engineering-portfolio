@@ -54,7 +54,7 @@ jobs:
               and p.name not in protected_root
           )
           include = top + [root/'verification-manifest.json',root/'learning-capstones.json'] + [root/name for name in theme_shell]
-          for folder in ('deep-learning','labs','qubit-preview-20260921','assets'):
+          for folder in ('deep-learning','labs','qubit-preview-20260921','assets','rust-flow-telemetry-v22'):
               include.extend(p for p in (root/folder).rglob('*') if p.is_file())
 
           instructions = (root/'DEPLOYMENT.md').read_text(encoding='utf-8')
@@ -81,6 +81,8 @@ jobs:
                   'science-experiments.js','science-experiments.css',
                   'knowledge.js','learning-depth.js','learning-depth.css','learning-capstones.json',
                   'portfolio-home.css','quantum-cube.js','assets/fonts/fonts.css',
+                  'project-mastery.js','project-mastery.css','project-showcase.js','project-showcase.css','software-showcase.js','assets/project-evaluation.json',
+                  'rust-flow-telemetry-v22/Cargo.toml','rust-flow-telemetry-v22/src/main.rs','rust-flow-telemetry-v22/sample_flows.csv','rust-flow-telemetry-v22/README.md',
                   'assets/joshua-randall-headshot.jpg','assets/systems-lab.jpg','assets/quantum-field-notes.jpg',
                   'agent-workbench.js','labs/qpe.js','labs/emergent.js',
                   'qubit-preview-20260921/index.html',
