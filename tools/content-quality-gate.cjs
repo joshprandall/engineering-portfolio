@@ -44,7 +44,7 @@ if(metrics.lessons!==8000)errors.push('Stable lesson count changed: '+metrics.le
 for(const field of ['duplicateIDs','missingSources','malformedQuestions'])if(metrics[field])errors.push(field+': '+metrics[field]);
 if(metrics.packs!==76)errors.push('Expected 76 teaching packs; found '+metrics.packs);
 // Do not allow measurable editorial debt to get worse while real lessons are being rewritten.
-for(const [key,maximum] of Object.entries({firstOptionCorrect:7763,repeatedQuestionInstances:6022,genericEssentialQuestions:7992,genericReasoningOpenings:7992,emptyVocabulary:176}))if(metrics[key]>maximum)errors.push(key+' increased beyond the 2026-11-10 audited baseline ('+metrics[key]+' > '+maximum+')');
+for(const [key,maximum] of Object.entries({firstOptionCorrect:7763,repeatedQuestionInstances:6022,genericEssentialQuestions:7992,genericReasoningOpenings:7992,emptyVocabulary:0}))if(metrics[key]>maximum)errors.push(key+' increased beyond the 2026-11-10 audited baseline ('+metrics[key]+' > '+maximum+')');
 console.log('Content-quality evidence (not independent academic validation):\n'+JSON.stringify(metrics,null,2));
 if(errors.length){console.error('Content gate failed:\n'+errors.join('\n'));process.exitCode=1;}
 else console.log('PASS: structural content gate; editorial debt remains and is explicitly recorded.');
