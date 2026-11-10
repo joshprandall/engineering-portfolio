@@ -15,6 +15,7 @@ on:
       - "assets/project-evaluation.json"
       - "rust-flow-telemetry-v22/**"
       - "tools/validate_projects.py"
+      - "tests/site.test.mjs"
       - ".github/workflows/project-quality.yml"
   pull_request:
     paths:
@@ -29,6 +30,7 @@ on:
       - "assets/project-evaluation.json"
       - "rust-flow-telemetry-v22/**"
       - "tools/validate_projects.py"
+      - "tests/site.test.mjs"
       - ".github/workflows/project-quality.yml"
 
 permissions:
