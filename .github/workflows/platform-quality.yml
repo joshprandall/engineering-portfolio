@@ -73,6 +73,9 @@ jobs:
           node --test tests/content-browser.test.cjs
           node --test tests/content-experiments.test.cjs
 
+      - name: Browser-test Learn mastery, all AI builds, and all 50 Cyber Range tools
+        run: node --test tests/platform-mastery-browser.test.cjs
+
       - name: HTTP smoke test the three learning platforms
         run: |
           python3 -m http.server 8766 --bind 127.0.0.1 >/tmp/platform-http.log 2>&1 &
