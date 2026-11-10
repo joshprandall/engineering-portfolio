@@ -53,4 +53,57 @@
     40,
     40
   ]
-}</pre><p>This is the recorded result of the included code under the package environment. It is not a live service or device measurement.</p></details><h3>Extend the experiment</h3><p>Change the data-generating coefficient or noise level in a copied function. Freeze the trained model, then measure the resulting error slice without refitting the scaler on the new cohort.</p><details><summary>Check your reasoning: Where should the scaler learn its mean?</summary><ol><li><strong>All 180 rows</strong> — That lets held-out distribution information enter fitting.</li><li><strong>Training rows only</strong> — Correct. The fitted preprocessing is part of the training procedure.</li><li><strong>Test rows only</strong> — That directly conditions preprocessing on evaluation data.</li></ol><p>This is an explained self-check, not a certification of mastery.</p></details><h3>Claim-specific sources</h3><ul><li><a href="https://scikit-learn.org/stable/common_pitfalls.html#data-leakage" target="_blank" rel="noopener noreferrer">scikit-learn — Common pitfalls: data leakage</a></li></ul><p class="muted">Reviewed 2026-10-02: this worked example and its explicit assumptions. Source links and notebook results do not establish production or hardware validation.</p></section><!-- STUDY COMPANIONS END --></main><footer class="wrap"><a href="ai-development.html">AI Development</a><button data-scene-motion>Pause animations</button></footer><dialog id="search-dialog" aria-labelledby="search-title"><h2 id="search-title">Explore the portfolio</h2><button data-close aria-label="Close search">Close</button><label for="search-input">Search sections, projects and lessons</label><input id="search-input" type="search"><div id="search-results"></div></dialog></body></html>
+}</pre><p>This is the recorded result of the included code under the package environment. It is not a live service or device measurement.</p></details><h3>Extend the experiment</h3><p>Change the data-generating coefficient or noise level in a copied function. Freeze the trained model, then measure the resulting error slice without refitting the scaler on the new cohort.</p><details><summary>Check your reasoning: Where should the scaler learn its mean?</summary><ol><li><strong>All 180 rows</strong> — That lets held-out distribution information enter fitting.</li><li><strong>Training rows only</strong> — Correct. The fitted preprocessing is part of the training procedure.</li><li><strong>Test rows only</strong> — That directly conditions preprocessing on evaluation data.</li></ol><p>This is an explained self-check, not a certification of mastery.</p></details><h3>Claim-specific sources</h3><ul><li><a href="https://scikit-learn.org/stable/common_pitfalls.html#data-leakage" target="_blank" rel="noopener noreferrer">scikit-learn — Common pitfalls: data leakage</a></li></ul><p class="muted">Reviewed 2026-10-02: this worked example and its explicit assumptions. Source links and notebook results do not establish production or hardware validation.</p></section><!-- STUDY COMPANIONS END -->
+<!-- BEGIN INDEPENDENT AI METRICS LAB -->
+<section id="evaluation-repro-lab" aria-labelledby="evaluation-repro-lab-title">
+<p class="eyebrow">GUIDED EVALUATION LAB / MACHINE LEARNING</p>
+<h2 id="evaluation-repro-lab-title">Reproduce an imbalanced-classifier evaluation</h2>
+<p>This original, fictional device-alert classifier exercise demonstrates why accuracy alone is inadequate. It is a guided calculation, not a deployed model, measured research experiment, live simulator, or certification. Prerequisites: binary labels, fractions, and held-out evaluation.</p>
+<h3>Define and freeze the test contract</h3>
+<p>Positive means actionable alert. The test unit is one independent, synthetic device-window. A fictional held-out set contains 100 windows, including 12 positives. Assume the threshold was fixed before test labels were examined. Counts alone do not establish real-world independence, model calibration, statistical significance, drift resistance, or deployment readiness.</p>
+<table><caption>Synthetic held-out confusion matrix (100 device-windows)</caption>
+<thead><tr><th scope="col">Actual class</th><th scope="col">Predicted positive</th><th scope="col">Predicted negative</th></tr></thead>
+<tbody>
+<tr><th scope="row">Positive (12)</th><td data-case="tp" data-count="9">9 true positives</td><td data-case="fn" data-count="3">3 false negatives</td></tr>
+<tr><th scope="row">Negative (88)</th><td data-case="fp" data-count="11">11 false positives</td><td data-case="tn" data-count="77">77 true negatives</td></tr>
+</tbody></table>
+<h3>Derive, do not merely quote, the metrics</h3>
+<p>Prevalence: 12/100 = 12%. Precision: 9/(9+11) = <strong data-metric="precision" data-value="0.45">0.45</strong>. Recall: 9/(9+3) = <strong data-metric="recall" data-value="0.75">0.75</strong>. Specificity: 77/(77+11) = <strong data-metric="specificity" data-value="0.875">0.875</strong>. Accuracy: (9+77)/100 = <strong data-metric="accuracy" data-value="0.86">0.86</strong>. Positive-class F1: 2(9)/(2(9)+11+3) = <strong data-metric="f1" data-value="0.5625">0.5625</strong>. Balanced accuracy: (0.75+0.875)/2 = <strong data-metric="balanced-accuracy" data-value="0.8125">0.8125</strong>.</p>
+<p><strong>Compare the baseline:</strong> an always-negative rule reaches 88% accuracy but detects none of the 12 positive windows (recall = 0). For a deliberately fictional decision-cost model, a false alert costs 2 effort units and a missed alert costs 20. The classifier costs 11(2)+3(20) = <strong data-metric="model-cost" data-value="82">82</strong>; the baseline costs 12(20) = <strong data-metric="baseline-cost" data-value="240">240</strong>. The assumed costs are not field measurements.</p>
+<h3>Replicate with Python 3 (standard library only)</h3>
+<p>Copy into a local Python file and execute it. This independently verifies arithmetic, not the provenance or quality of the fictional labels. Expected precision 0.4500, recall 0.7500, F1 0.5625, accuracy 0.8600, and costs 82 versus 240.</p>
+<pre><code data-evaluation-example="python">from fractions import Fraction
+tp, fp, fn, tn = 9, 11, 3, 77
+n = tp + fp + fn + tn
+assert n == 100 and tp + fn == 12 and fp + tn == 88
+metrics = {
+    "precision": Fraction(tp, tp + fp),
+    "recall": Fraction(tp, tp + fn),
+    "specificity": Fraction(tn, tn + fp),
+    "accuracy": Fraction(tp + tn, n),
+    "f1": Fraction(2 * tp, 2 * tp + fp + fn),
+}
+metrics["balanced_accuracy"] = (metrics["recall"] + metrics["specificity"]) / 2
+assert metrics["f1"] == Fraction(9, 16)
+assert metrics["balanced_accuracy"] == Fraction(13, 16)
+for key, value in metrics.items():
+    print(f"{key}: {float(value):.4f}")
+model_cost = 2 * fp + 20 * fn
+baseline_cost = 20 * (tp + fn)
+assert (model_cost, baseline_cost) == (82, 240)
+print(f"synthetic costs: {model_cost} vs {baseline_cost}")</code></pre>
+<h3>Four guided review questions</h3>
+<p><strong>A. Baseline choice:</strong> Which system has higher accuracy? Which has higher recall? Is either sufficient to justify deployment?</p>
+<details><summary>Reveal baseline reasoning</summary><p>The baseline has higher accuracy (88% versus 86%) but zero positive recall. The model has 75% recall and 45% precision; the artificial cost assumptions favor it (82 versus 240 units). Neither aggregate comparison establishes real deployment performance.</p></details>
+<p><strong>B. Counterfactual:</strong> If five additional false positives are observed and no other counts change, what is the new precision?</p>
+<details><summary>Reveal the recalculation</summary><p>True positives remain 9 while false positives rise from 11 to 16. Precision = 9/(9+16) = 9/25 = 0.36; recall remains 9/12 = 0.75 under the stated fixed-count thought experiment.</p></details>
+<p><strong>C. Leakage:</strong> What goes wrong if the analyst optimizes the decision threshold using these 100 test labels and reports the same F1 as independent test performance?</p>
+<details><summary>Reveal the evaluation correction</summary><p>Threshold choice has overfit to the supposed test set. Train and select the threshold using training/validation data, freeze the pipeline, and evaluate once on an untouched test partition. Group by device and respect time boundaries where related windows could leak across partitions.</p></details>
+<p><strong>D. Evidence:</strong> What additional evidence is required before claiming the model reduces operational risk?</p>
+<details><summary>Reveal three evidence families</summary><p>Document representative sampling and independently adjudicated labels; uncertainty intervals and subgroup/temporal performance; plus the real alert burden, miss costs, latency, monitoring and drift response. Record dataset and code versions, seed where used, split identifiers, environment, and retention policies.</p></details>
+<h3>Review and provenance boundaries</h3>
+<p>For a credible real study, publish a privacy-safe versioned data contract, label definition, split specification, evaluation script and reproducible result manifest. Never expose customer or device identifiers in a teaching dataset. The computations here cannot validate a model that does not exist.</p>
+<p>References: <a href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.f1_score.html" target="_blank" rel="noopener noreferrer">scikit-learn F1 metric definition</a>; <a href="https://www.nist.gov/itl/ai-risk-management-framework" target="_blank" rel="noopener noreferrer">NIST AI RMF</a>. These are references, not institutional endorsements. Original lab reviewed November 10, 2026.</p>
+</section>
+<!-- END INDEPENDENT AI METRICS LAB -->
+</main><footer class="wrap"><a href="ai-development.html">AI Development</a><button data-scene-motion>Pause animations</button></footer><dialog id="search-dialog" aria-labelledby="search-title"><h2 id="search-title">Explore the portfolio</h2><button data-close aria-label="Close search">Close</button><label for="search-input">Search sections, projects and lessons</label><input id="search-input" type="search"><div id="search-results"></div></dialog></body></html>
