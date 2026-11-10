@@ -1,0 +1,98 @@
+name: Project Quality Gate
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "projects.html"
+      - "project-*.html"
+      - "play-evil-wizard.html"
+      - "project-mastery.js"
+      - "project-mastery.css"
+      - "project-showcase.js"
+      - "software-showcase.js"
+      - "site-navigation.js"
+      - "assets/project-evaluation.json"
+      - "rust-flow-telemetry-v22/**"
+      - "tools/validate_projects.py"
+      - ".github/workflows/project-quality.yml"
+  pull_request:
+    paths:
+      - "projects.html"
+      - "project-*.html"
+      - "play-evil-wizard.html"
+      - "project-mastery.js"
+      - "project-mastery.css"
+      - "project-showcase.js"
+      - "software-showcase.js"
+      - "site-navigation.js"
+      - "assets/project-evaluation.json"
+      - "rust-flow-telemetry-v22/**"
+      - "tools/validate_projects.py"
+      - ".github/workflows/project-quality.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Validate project structure and local links
+        run: python3 tools/validate_projects.py
+
+      - name: Validate shared JavaScript syntax
+        run: |
+          node --check site-navigation.js
+          node --check project-mastery.js
+          node --check project-showcase.js
+          node --check software-showcase.js
+
+      - name: Validate Rust project
+        run: |
+          cargo --version
+          cargo check --manifest-path rust-flow-telemetry-v22/Cargo.toml
+
+      - name: Smoke-test all project pages over HTTP
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/portfolio-http.log 2>&1 &
+          SERVER_PID=$!
+          trap 'kill $SERVER_PID' EXIT
+          sleep 1
+          python3 - <<'PY'
+          import html, re, urllib.request
+          from pathlib import Path
+
+          source = Path("projects.html").read_text(encoding="utf-8")
+          blocks = re.findall(r'<article\b[^>]*class="[^"]*project-card[^"]*"[^>]*>(.*?)</article>', source, re.I | re.S)
+          pages = []
+          for block in blocks:
+              for href in re.findall(r'href="([^"]+)"', block, re.I):
+                  href = html.unescape(href).split("#", 1)[0].split("?", 1)[0]
+                  if re.fullmatch(r'(?:project-[^/]+\.html|play-evil-wizard\.html)', href, re.I):
+                      pages.append(href)
+                      break
+
+          assert len(pages) == 34, len(pages)
+          for page in pages:
+              with urllib.request.urlopen("http://127.0.0.1:8765/" + page, timeout=5) as response:
+                  assert response.status == 200, (page, response.status)
+
+          for asset in (
+              "project-mastery.js",
+              "project-mastery.css",
+              "project-showcase.js",
+              "software-showcase.js",
+              "assets/project-evaluation.json",
+              "rust-flow-telemetry-v22/src/main.rs",
+          ):
+              with urllib.request.urlopen("http://127.0.0.1:8765/" + asset, timeout=5) as response:
+                  assert response.status == 200, (asset, response.status)
+
+          print("HTTP smoke test passed for 34 project pages and shared project assets")
+          PY
