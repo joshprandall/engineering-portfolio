@@ -385,3 +385,13 @@
   .home-credential-grid{grid-template-columns:minmax(0,1fr)!important}
   .home-education-complete .school-logo.pioneer-home-mark{width:min(10rem,100%);min-width:0}
 }
+
+/* 2026-11-09 homepage contact inset */
+.home-page .contact.wrap{
+  padding-inline:clamp(1.5rem,3vw,3rem)!important;
+}
+@media(max-width:42rem){
+  .home-page .contact.wrap{
+    padding-inline:clamp(1.1rem,5vw,1.5rem)!important;
+  }
+}
