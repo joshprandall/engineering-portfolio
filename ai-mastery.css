@@ -23,3 +23,18 @@
 .ai-build-checklist article{padding:.85rem;border:1px solid var(--line);border-radius:10px;background:var(--glass)}
 @media(max-width:64rem){.ai-build-grid{grid-template-columns:1fr}.ai-build-checklist{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:44rem){.ai-build-steps,.ai-build-metrics,.ai-build-checklist{grid-template-columns:1fr}}
+
+.ai-mastery-overview .academy-pill,
+.ai-build-master .academy-pill{
+  display:inline-flex;
+  align-items:center;
+  min-height:26px;
+  padding:.3rem .52rem;
+  border:1px solid var(--line);
+  border-radius:999px;
+  color:var(--muted);
+  background:var(--glass);
+  font-size:.68rem;
+  font-weight:800;
+  line-height:1.2;
+}
