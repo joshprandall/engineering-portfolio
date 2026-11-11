@@ -15,7 +15,7 @@ test('103 records retained with twelve distinct evidence-first lessons and intac
  const questions=new Set();
  for(const id of ids){
   const lesson=data[id];assert.ok(lesson,id);
-  assert.match(lesson.essentialQuestion,/\\?$/);assert.doesNotMatch(lesson.essentialQuestion,/^What does /);
+  assert.ok(lesson.essentialQuestion.endsWith('?'),id+': question mark');assert.doesNotMatch(lesson.essentialQuestion,/^What does /);
   assert.ok(!questions.has(lesson.essentialQuestion),id);questions.add(lesson.essentialQuestion);
   assert.equal(lesson.reasoningSteps.length,6,id);
   assert.equal(lesson.labPlan.length,6,id);
@@ -23,7 +23,7 @@ test('103 records retained with twelve distinct evidence-first lessons and intac
   assert.equal(new Set(lesson.labPlan).size,6,id);
   assert.ok(lesson.reasoningSteps.every(x=>x.length>=105),id+': reasoning');
   assert.ok(lesson.labPlan.every(x=>x.length>=110),id+': exercise');
-  assert.match(lesson.reasoningSteps[5],/https:\\/\\/openstax\\.org\\/books\\/university-physics-volume-/);
+  assert.ok(lesson.reasoningSteps[5].includes('https://openstax.org/books/university-physics-volume-'),id+': primary source');
   assert.ok(lesson.labPlan.some(x=>/incorrect|contradiction|Adversarial/.test(x)),id+': adversarial test');
   for(const field of ['verifiedBoundary','analogy','starter','technical','memoryLadder','vocabulary','video'])assert.ok(lesson[field],id+': preserved '+field);
   assert.doesNotMatch(lesson.reasoningSteps.join(' ')+' '+lesson.labPlan.join(' '),/we measured on hardware|confirmed in a laboratory|tested on the real device/i);
