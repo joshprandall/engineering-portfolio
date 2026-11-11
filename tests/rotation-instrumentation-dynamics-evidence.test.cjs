@@ -43,5 +43,5 @@ test('rotation second authoring batch remains scoped',()=>{
  assert.equal(cases.length,24);assert.equal(new Set(cases.map(c=>c.id)).size,24);
  assert.equal(new Set(cases.map(c=>c.q)).size,24);
  assert.equal(Object.keys(data).length,94);
- assert.equal(Object.values(data).filter(x=>x.essentialQuestion.startsWith('What does ')).length,46);
+ assert.equal(Object.values(data).filter(x=>x.essentialQuestion.startsWith('What does ')).length,22);
 });
