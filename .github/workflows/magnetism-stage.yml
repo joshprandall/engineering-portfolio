@@ -1,0 +1,33 @@
+name: Magnetism academic content staging (review only)
+on:
+  pull_request:
+    paths:
+      - "deep-learning/physics/magnetism.json"
+      - "tools/build_magnetism_stage.py"
+      - "tests/test_magnetism_stage.py"
+      - ".github/workflows/magnetism-stage.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  magnetism-review-artifact:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout reviewed content
+        uses: actions/checkout@v4
+      - name: Verify protected files remain unchanged
+        run: node tests/protected-baseline.test.cjs
+      - name: Test academic package safety and checksums
+        run: python3 -m unittest discover -s tests -p 'test_magnetism_stage.py' -v
+      - name: Create exact one-file review-only ZIP
+        run: python3 tools/build_magnetism_stage.py --output dist/magnetism-academic-stage.zip
+      - name: Independently reverify ZIP manifest and source hashes
+        run: python3 tools/build_magnetism_stage.py --verify dist/magnetism-academic-stage.zip
+      - name: Preserve independently reviewable staging evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: magnetism-academic-stage-REVIEW-ONLY-NOT-DEPLOYED
+          path: dist/magnetism-academic-stage.zip
+          if-no-files-found: error
+          retention-days: 7
