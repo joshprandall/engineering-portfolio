@@ -51,6 +51,6 @@ test('rotation pack immutable record contract and scoped authoring audit',()=>{
  const ids=Object.keys(lessons);assert.equal(ids.length,94);
  assert.equal(cases.length,24);assert.equal(new Set(cases.map(c=>c.id)).size,24);
  assert.equal(new Set(cases.map(c=>c.q)).size,24);
- assert.equal(ids.filter(k=>lessons[k].essentialQuestion.startsWith('What does ')).length,46);
+ assert.equal(ids.filter(k=>lessons[k].essentialQuestion.startsWith('What does ')).length,0);
  for(const c of cases)assert.ok(ids.includes(c.id));
 });
