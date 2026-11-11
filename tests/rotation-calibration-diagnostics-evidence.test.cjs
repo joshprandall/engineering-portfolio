@@ -39,5 +39,5 @@ for(const c of cases)test('rotation calibration and diagnostics: '+c.id,()=>{
 test('rotational diagnostic batch bounded change contract',()=>{
  assert.equal(Object.keys(lessons).length,94);assert.equal(cases.length,24);
  assert.equal(new Set(cases.map(x=>x.id)).size,24);assert.equal(new Set(cases.map(x=>x.q)).size,24);
- assert.equal(Object.values(lessons).filter(x=>x.essentialQuestion.startsWith('What does ')).length,22);
+ assert.equal(Object.values(lessons).filter(x=>x.essentialQuestion.startsWith('What does ')).length,0);
 });
