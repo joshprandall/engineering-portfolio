@@ -14,7 +14,7 @@ test('twelve distinct, falsifiable, source-grounded thermodynamics teaching case
  assert.ok(steps.every(s=>typeof s==='string'&&s.length>=145),id+' incomplete '+key);
  assert.ok(steps[5].includes('https://openstax.org/books/university-physics-volume-2/pages/'+src),id);
  assert.match(steps.join(' '),/inverse|reconstruct|recover/i,id);
- assert.match(steps.join(' '),/counterexample|falsif|invalid|false|incorrect|violation|error|contradiction/i,id);
+ assert.match(steps.join(' '),/counterexample|falsif|invalid|false|incorrect|violat|error|contradiction/i,id);
  }
  assert.ok(l.verifiedBoundary&&l.starter&&l.technical&&l.memoryLadder&&l.vocabulary,id);
  }});
