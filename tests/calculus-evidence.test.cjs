@@ -3,7 +3,7 @@ const {test}=require('node:test');
 const assert=require('node:assert/strict');
 const fs=require('node:fs'),path=require('node:path');
 const lessons=JSON.parse(fs.readFileSync(path.join(__dirname,'..','deep-learning','math','calculus.json'),'utf8'));
-const ids=['math-derivatives','math-rate-change','math-integral','math-limits','math-chain-rule','math-gradient'];
+const ids=['math-partial-derivatives','math-rate-change','math-integral','math-limits','math-chain-rule','math-gradient'];
 const generic=/state the question in your own words|identify the exact verified claim|what does .+ mean, why does it matter|predict the outcome before manipulating|run the interactive model or work through/i;
 const close=(a,b,epsilon=1e-9)=>assert.ok(Math.abs(a-b)<epsilon,'expected '+b+' but got '+a);
 test('six authored calculus lessons preserve 141-record schema and cite primary instructional sources',()=>{
@@ -22,13 +22,15 @@ test('six authored calculus lessons preserve 141-record schema and cite primary 
   assert.match(l.reasoningSteps.join(' '),/https:\/\/openstax\.org\/books\/calculus-volume-[13]\/pages\//,id+' no source');
  }
 });
-test('difference quotient tends to six from both signs without h=0 evaluation',()=>{
- const q=(h)=>((3+h)**2-9)/h;
- for(const [h,expected] of [[-.1,5.9],[-.01,5.99],[.01,6.01],[.1,6.1]])close(q(h),expected);
- close(q(1e-4),6.0001,1e-8);close(q(-1e-4),5.9999,1e-8);
- assert.ok(Number.isNaN(q(0)));
- const absQ=(h)=>Math.abs(h)/h;
- assert.equal(absQ(.01),1);assert.equal(absQ(-.01),-1);
+test('partial derivatives vary only one coordinate and mixed derivatives agree',()=>{
+ const f=(x,y)=>3*x*x*y+4*y*y,fx=(x,y)=>6*x*y,fy=(x,y)=>3*x*x+8*y;
+ close(f(2,1),16);close(fx(2,1),12);close(fy(2,1),20);
+ for(const h of [.1,.01,.001]){
+  close((f(2+h,1)-f(2-h,1))/(2*h),12,1e-9);
+  close((f(2,1+h)-f(2,1-h))/(2*h),20,1e-9);
+ }
+ const fxy=x=>6*x,fyx=x=>6*x;
+ close(fxy(2),fyx(2));close(fxy(2),12);
 });
 test('average velocity depends on interval and cubic midpoint is a counterexample',()=>{
  const s=t=>10+2*t+t*t, v=t=>2+2*t;
