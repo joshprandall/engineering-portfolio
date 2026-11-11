@@ -12,7 +12,7 @@ test('momentum pack retains 97 identities and exactly 24 new authored quantitati
  assert.equal(Object.keys(lessons).length,97);
  assert.equal(new Set(ids).size,24);
  assert.equal(ids.filter(id=>lessons[id]).length,24);
- assert.equal(Object.values(lessons).filter(l=>l.essentialQuestion.startsWith('What does ')).length,25);
+ assert.equal(Object.values(lessons).filter(l=>l.essentialQuestion.startsWith('What does ')).length,0);
  const questions=new Set();
  for(let i=0;i<ids.length;i++){
   const id=ids[i],l=lessons[id];assert.ok(l.essentialQuestion.includes(anchors[i]),id);
