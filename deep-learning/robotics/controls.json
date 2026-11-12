@@ -155,7 +155,7 @@
       "Rotate: R(+90°)[0.20,0.10]=[-0.10,+0.20] m; translate: world point=(0.900000,2.200000) m.",
       "Independent inverse: subtract t=(1,2), then apply R(-90°) to (-0.10,0.20): recovered base point=(0.20,0.10) m.",
       "Counterexample: translating before rotation yields R( [1.20,2.10] )=(-2.10,1.20) m, not the world point; matrix multiplication order is not interchangeable.",
-      "Variation: with yaw 0°, point becomes (1.20,2.10) m; changing the reference frame changes coordinates, not the physical point.",
+      "Distinguish physical motion from coordinate re-expression: rotating a base-fixed point (0.20,0.10) m from base yaw +90° to yaw 0° about the fixed base origin (1.00,2.00) m physically moves its world position from (0.90,2.20) m to (1.20,2.10) m. By contrast, if the world point remains at (0.90,2.20) m and only the axes used to describe it change to a world-aligned frame with the same origin, its coordinates in that new frame are (-0.10,+0.20) m, not (0.20,0.10) m.",
       "Use timestamp-consistent world<-base transforms; tf2 can fail when requested time falls outside buffered transforms. Source: https://index.ros.org/p/tf2/"
     ],
     "memoryLadder": [
@@ -167,7 +167,8 @@
     "labPlan": [
       "Implement worldPoint=R(yaw)*basePoint+t using t=(1.00,2.00) m, yaw=pi/2 and basePoint=(0.20,0.10) m; assert worldPoint=(0.90,2.20) m.",
       "Apply the inverse p_base=R(-yaw)*(p_world-t) and assert the recovered base coordinates are within 1e-9 m.",
-      "Deliberately apply rotation after translation: confirm the incorrect result (-2.10,1.20) m, then state why frame labels and transform order are essential."
+      "Deliberately apply rotation after translation: confirm the incorrect result (-2.10,1.20) m, then state why frame labels and transform order are essential.",
+      "Compare active and passive frame changes offline: physically change the base yaw from +pi/2 to 0 while retaining a base-fixed point (0.20,0.10) m and t=(1,2) m, asserting the resulting world position (1.20,2.10) m; then instead hold the original world point fixed at (0.90,2.20) m and express it in a world-aligned frame at t=(1,2) m, asserting coordinates (-0.10,0.20) m. Explain why the two experiments are not equivalent."
     ],
     "vocabulary": [
       {
