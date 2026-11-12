@@ -51,6 +51,19 @@ test('Threshold tie at 0.3: inclusive versus exclusive comparison', () => {
   assert.equal(cost(.5,true),5);
   assert.equal(cost(.3,true),2);
   assert.equal(cost(.3,false),6);
+  // Exhaustive fixed-score decision sets: no threshold between scores can yield a new labeling.
+  const cutoffs=[Infinity,.9,.6,.55,.4,.3,.2];
+  const expectedHigh=[12,8,4,5,6,2,3];
+  const expectedLow=[.3,.2,.1,1.1,2.1,2,3];
+  cutoffs.forEach((t,i)=>{
+    near(cost(t,true,1,4),expectedHigh[i],'cost at high FN penalty and t='+t);
+    near(cost(t,true,1,.1),expectedLow[i],'cost at low FN penalty and t='+t);
+  });
+  assert.equal(Math.min(...expectedHigh),cost(.3,true,1,4));
+  near(Math.min(...expectedLow),cost(.6,true,1,.1),'new global minimum at threshold .6');
+  // An interval between adjacent scores has the same decision set as its lower endpoint.
+  near(cost(.65,true),cost(.9,true),'cutoff in (.6,.9] for observed scores');
+  near(cost(.5,true),cost(.55,true),'cutoff in (.4,.55] for observed scores');
   assert.equal(cost(.5,true,1,.1),1.1);
   near(cost(.3,true),answer('threshold-cost-selection'),'inclusive threshold cost');
   mismatch(cost(.3,false),answer('threshold-cost-selection'),'strict boundary changes the answer');
