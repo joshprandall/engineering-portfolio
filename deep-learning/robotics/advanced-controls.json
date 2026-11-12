@@ -1,0 +1,542 @@
+{
+  "robotics-controls-13-gyro-bias-drift": {
+    "essentialQuestion": "How does a tiny stationary gyroscope offset accumulate into a large reported heading change?",
+    "verifiedBoundary": "For fixed additive rate bias b, integrated yaw error after elapsed time T is bT; calibration only removes the estimated bias, not time-varying drift.",
+    "analogy": "Engineering interpretation: a plausible zero-rate sensor output is not proof of actual turning",
+    "starter": {
+      "plainStart": "For fixed additive rate bias b, integrated yaw error after elapsed time T is bT; calibration only removes the estimated bias, not time-varying drift.",
+      "tryThis": "Implement integrateYaw(rateDegPerSec,dt,n) for 600 constant +0.5°/s samples at dt=0.1 s; assert reported change +30°, actual change 0°.",
+      "helper": "Keep degrees and seconds consistent; do not accidentally treat degrees per second as radians per second."
+    },
+    "technical": {
+      "scope": "Synthetic, offline educational case. Single-axis static gyro, exact uniform sampling, constant bias, perfect timebase; stochastic drift and temperature effects omitted. Reference: https://docs.wpilib.org/en/latest/docs/hardware/sensors/gyros-hardware.html",
+      "versionCaution": "The cited reference establishes background concepts, not independent authorization to operate hardware. No real robot actuation, deployment, or safety certification is implied.",
+      "prerequisites": [],
+      "connections": []
+    },
+    "reasoningSteps": [
+      "Specify a stationary synthetic robot, actual yaw rate 0°/s, gyro measurement +0.50°/s, sample interval dt=0.10 s and total interval T=60.0 s (600 samples).",
+      "Forward rectangle integration gives 600*(0.50°/s)*(0.10 s)=+30.0° spurious heading change despite zero true rotation.",
+      "Independent continuous-time check integrates the constant bias: integral_0^60 0.50°/s dt = 30.0°; the discrete and continuous answers coincide for this constant input.",
+      "With stationary calibration samples [+0.40,+0.50,+0.60]°/s, the mean bias estimate is +0.50°/s; subtracting it from a subsequent +0.50°/s reading produces 0.00°/s corrected rate.",
+      "Counterexample: if true rotation is +10°/s while the sensor reads +10.50°/s, naively declaring every measured rate to be bias discards real motion. Zero-rate calibration requires a known stationary interval.",
+      "Recompute at T=120 s to predict 60° error, and at bias -0.25°/s for T=60 s to predict -15° error. Source: https://docs.wpilib.org/en/latest/docs/hardware/sensors/gyros-hardware.html"
+    ],
+    "memoryLadder": [
+      "Recall the assumptions governing yaw-rate integration without notes.",
+      "Reproduce the numerical result and units from the first synthetic case.",
+      "Construct the specified counterexample and explain the failed shortcut.",
+      "Distinguish a mathematical test result from the omitted physical validation."
+    ],
+    "labPlan": [
+      "Implement integrateYaw(rateDegPerSec,dt,n) for 600 constant +0.5°/s samples at dt=0.1 s; assert reported change +30°, actual change 0°.",
+      "Independently compute b*T, then test sign reversal at -0.25°/s for 60 s; assert -15° error.",
+      "Calibrate using exactly three stationary synthetic samples [0.4,0.5,0.6]°/s; assert mean offset 0.5°/s, and reject dynamic motion as a bias-estimation interval."
+    ],
+    "vocabulary": [
+      {
+        "term": "rate bias",
+        "definition": "Additive offset in measured angular velocity even when rotation is zero."
+      },
+      {
+        "term": "integration drift",
+        "definition": "Cumulative angle error caused by integrating biased angular rates."
+      }
+    ]
+  },
+  "robotics-controls-14-wrapped-yaw-innovation": {
+    "essentialQuestion": "Why must heading-fusion residuals wrap at the -180°/+180° boundary?",
+    "verifiedBoundary": "For a periodic heading, innovation is wrap(observed-predicted) in [-180°,180°), not an ordinary arithmetic difference; fusion must respect equivalence modulo 360°.",
+    "analogy": "Engineering interpretation: compass angles 179° and -179° are only 2° apart",
+    "starter": {
+      "plainStart": "For a periodic heading, innovation is wrap(observed-predicted) in [-180°,180°), not an ordinary arithmetic difference; fusion must respect equivalence modulo 360°.",
+      "tryThis": "Implement wrapDegrees(delta)=((delta+180)%360+360)%360-180; assert wrapDegrees(-358)=+2 and wrapDegrees(358)=-2.",
+      "helper": "Normalize only angular differences, then normalize the resulting heading if desired; never average raw signed angles across the branch cut."
+    },
+    "technical": {
+      "scope": "Synthetic, offline educational case. Ideal 2D yaw values in degrees with exact sensor timestamps, scalar correction gain and no circular multimodality. Reference: https://docs.wpilib.org/en/latest/docs/software/advanced-controls/controllers/pidcontroller.html",
+      "versionCaution": "The cited reference establishes background concepts, not independent authorization to operate hardware. No real robot actuation, deployment, or safety certification is implied.",
+      "prerequisites": [],
+      "connections": []
+    },
+    "reasoningSteps": [
+      "Assume prior predicted yaw +179.0°, a synchronized independent synthetic observation -179.0° and correction fraction K=0.10.",
+      "Unwrapped innovation is -179°-179°=-358°; correct shortest-angle innovation is +2° after adding 360°.",
+      "Apply predicted yaw plus gain times wrapped innovation: 179°+0.10*(+2°)=+179.2°; this is equivalent to -180.8° but +179.2° lies in [-180°,180°).",
+      "Independent unit-circle check gives signed relative angle atan2(sin(-358°),cos(-358°))=+2°; the same correction follows from the shortest rotation.",
+      "Counterexample: raw linear interpolation (0.90*179°+0.10*(-179°))=+143.2° creates a false 35.8° correction instead of +0.2°.",
+      "Test symmetry at predicted -179°, observation +179°: innovation is -2°, so corrected yaw -179.2°; continuous-input controller concepts motivate this angular boundary. Source: https://docs.wpilib.org/en/latest/docs/software/advanced-controls/controllers/pidcontroller.html"
+    ],
+    "memoryLadder": [
+      "Recall the assumptions governing wrapped heading correction without notes.",
+      "Reproduce the numerical result and units from the first synthetic case.",
+      "Construct the specified counterexample and explain the failed shortcut.",
+      "Distinguish a mathematical test result from the omitted physical validation."
+    ],
+    "labPlan": [
+      "Implement wrapDegrees(delta)=((delta+180)%360+360)%360-180; assert wrapDegrees(-358)=+2 and wrapDegrees(358)=-2.",
+      "Apply a 0.10 innovation gain to prior 179° and measurement -179°; assert result 179.2° and reject the 143.2° arithmetic average.",
+      "Reverse the pair and assert -179.2°; sweep the branch boundary and confirm every residual lies in [-180°,180°)."
+    ],
+    "vocabulary": [
+      {
+        "term": "angular innovation",
+        "definition": "Shortest signed difference between measured and predicted orientations."
+      },
+      {
+        "term": "branch cut",
+        "definition": "Discontinuity in a chosen numeric representation of a continuous circular angle."
+      }
+    ]
+  },
+  "robotics-controls-15-two-anchor-range-ambiguity": {
+    "essentialQuestion": "Why do two ideal distance measurements sometimes fail to determine a unique planar robot position?",
+    "verifiedBoundary": "Two circle ranges to distinct known anchors generally intersect in zero, one or two planar points; an additional independent geometric constraint resolves a reflection ambiguity.",
+    "analogy": "Engineering interpretation: a distance to each of two posts does not reveal which side of the baseline a robot occupies",
+    "starter": {
+      "plainStart": "Two circle ranges to distinct known anchors generally intersect in zero, one or two planar points; an additional independent geometric constraint resolves a reflection ambiguity.",
+      "tryThis": "Implement two-circle intersection for A=(0,0), B=(4,0), equal squared ranges 13 m²; assert exactly (2,+3) and (2,-3) m.",
+      "helper": "Derive circle-intersection coordinates before selecting a branch; a numerical fit alone does not prove identifiability."
+    },
+    "technical": {
+      "scope": "Synthetic, offline educational case. Exact planar geometry, synchronized noiseless Euclidean ranges, point robot, no NLOS or multipath effects. Reference: https://modernrobotics.northwestern.edu/nu-gm-book-resource/13-4-odometry/",
+      "versionCaution": "The cited reference establishes background concepts, not independent authorization to operate hardware. No real robot actuation, deployment, or safety certification is implied.",
+      "prerequisites": [],
+      "connections": []
+    },
+    "reasoningSteps": [
+      "Set anchors A=(0,0) m and B=(4,0) m, with synthetic readings rA=rB=sqrt(13) m.",
+      "Subtract circle equations x²+y²=13 and (x-4)²+y²=13: 8x-16=0, hence x=2 m.",
+      "Substitute into the first circle: y²=13-4=9 m², giving two valid candidate locations (2,+3) m and (2,-3) m.",
+      "Independent forward check: both points are sqrt(2²+3²)=sqrt(13) m from A and sqrt((-2)²+3²)=sqrt(13) m from B.",
+      "Counterexample: declaring (2,+3) m the unique answer silently assumes a side of the anchor baseline; with only these two measurements, (2,-3) m is equally consistent.",
+      "Add independent anchor C=(0,4) m; the positive candidate is sqrt(5) m from C, while the negative one is sqrt(53) m, so a synthetic third reading sqrt(5) m distinguishes them. Source: https://modernrobotics.northwestern.edu/nu-gm-book-resource/13-4-odometry/"
+    ],
+    "memoryLadder": [
+      "Recall the assumptions governing range-only localization without notes.",
+      "Reproduce the numerical result and units from the first synthetic case.",
+      "Construct the specified counterexample and explain the failed shortcut.",
+      "Distinguish a mathematical test result from the omitted physical validation."
+    ],
+    "labPlan": [
+      "Implement two-circle intersection for A=(0,0), B=(4,0), equal squared ranges 13 m²; assert exactly (2,+3) and (2,-3) m.",
+      "Forward-project both candidates to the original anchors and require absolute range errors below 1e-12 m.",
+      "Add C=(0,4) m with measured range sqrt(5) m and reject the negative candidate, which predicts sqrt(53) m; test no-intersection when rA=rB=1 m."
+    ],
+    "vocabulary": [
+      {
+        "term": "reflection ambiguity",
+        "definition": "Indistinguishability of two locations mirrored across the anchor baseline."
+      },
+      {
+        "term": "observability",
+        "definition": "Whether the available measurements uniquely constrain the desired state."
+      }
+    ]
+  },
+  "robotics-controls-16-first-order-sensor-filter": {
+    "essentialQuestion": "How do sampling choices change a first-order robot sensor filter's response?",
+    "verifiedBoundary": "Exponential discretization uses alpha=1-exp(-dt/tau), while implicit Euler uses alpha=dt/(tau+dt); both are stable for positive dt and tau but give different finite-step outputs.",
+    "analogy": "Engineering interpretation: a smooth-looking signal can still be significantly delayed",
+    "starter": {
+      "plainStart": "Exponential discretization uses alpha=1-exp(-dt/tau), while implicit Euler uses alpha=dt/(tau+dt); both are stable for positive dt and tau but give different finite-step outputs.",
+      "tryThis": "Implement both alpha formulas for tau=0.40 s and dt=0.10 s; assert 0.2211992169 versus 0.2, keeping coefficients separate.",
+      "helper": "Treat the two alphas as separate algorithms, and verify lag rather than assuming filter output is the current physical state."
+    },
+    "technical": {
+      "scope": "Synthetic, offline educational case. Synthetic scalar unit-step measurement, exact uniform sampling, first-order linear model and zero initial output; not a sensor noise characterization. Reference: https://docs.wpilib.org/en/latest/docs/software/advanced-controls/filters/linear-filter.html",
+      "versionCaution": "The cited reference establishes background concepts, not independent authorization to operate hardware. No real robot actuation, deployment, or safety certification is implied.",
+      "prerequisites": [],
+      "connections": []
+    },
+    "reasoningSteps": [
+      "Define a normalized sensor step input u=1 from t=0, prior filter output y0=0, time constant tau=0.40 s and sampling interval dt=0.10 s.",
+      "Exact zero-order-held exponential discretization yields alpha=1-exp(-0.10/0.40)=0.221199217 and first output y1=0.221199217.",
+      "After three steps, repeated recursion y[k+1]=y[k]+alpha*(1-y[k]) gives y3=1-exp(-0.75)=0.527633447.",
+      "Independent continuous-time check: solution y(t)=1-exp(-t/tau), evaluated at t=0.30 s, matches y3 exactly under the assumed held input.",
+      "Counterexample: using implicit-Euler alpha=dt/(tau+dt)=0.20 gives y1=0.20 and y3=1-(0.8)^3=0.488; falsely claiming exact equivalence introduces a 0.039633447 difference after three steps.",
+      "Verify limiting behavior: as dt approaches zero with fixed elapsed time, implicit Euler converges to the exponential solution. Review sampled single-pole IIR filters separately from safety-critical sensing. Source: https://docs.wpilib.org/en/latest/docs/software/advanced-controls/filters/linear-filter.html"
+    ],
+    "memoryLadder": [
+      "Recall the assumptions governing sampled sensor filtering without notes.",
+      "Reproduce the numerical result and units from the first synthetic case.",
+      "Construct the specified counterexample and explain the failed shortcut.",
+      "Distinguish a mathematical test result from the omitted physical validation."
+    ],
+    "labPlan": [
+      "Implement both alpha formulas for tau=0.40 s and dt=0.10 s; assert 0.2211992169 versus 0.2, keeping coefficients separate.",
+      "Iterate three constant-unit-input samples and assert exponential result 0.5276334473 and implicit Euler 0.488, within 1e-9.",
+      "Set dt=0 or negative tau as rejected input; halve dt and double the sample count at fixed t=0.3 s, verifying exact-discretization invariance and implicit-Euler convergence."
+    ],
+    "vocabulary": [
+      {
+        "term": "time constant",
+        "definition": "Characteristic response timescale of a first-order linear filter."
+      },
+      {
+        "term": "zero-order hold",
+        "definition": "Assumption that input remains constant between consecutive samples."
+      }
+    ]
+  },
+  "robotics-controls-17-actuator-command-slew": {
+    "essentialQuestion": "How can a rate limit bound the step-to-step change of a simulated drive velocity command?",
+    "verifiedBoundary": "Rate-limited command recursion clips each requested change to ±a_max*dt; it limits the command signal, not actual acceleration or stopping distance.",
+    "analogy": "Engineering interpretation: smoothing a command is not a measurement that the mechanism followed it",
+    "starter": {
+      "plainStart": "Rate-limited command recursion clips each requested change to ±a_max*dt; it limits the command signal, not actual acceleration or stopping distance.",
+      "tryThis": "Implement step(current,target,dt,maxRate) with bounded delta; assert an increasing sequence [0.2,0.4,0.6,0.8,1.0] m/s from zero at a +1 m/s target.",
+      "helper": "Keep the difference between requested speed and issued command explicit at every sample."
+    },
+    "technical": {
+      "scope": "Synthetic, offline educational case. Dimensionally consistent synthetic velocity-command stream with fixed sample period, symmetric rate limit and no plant dynamics. Reference: https://docs.wpilib.org/en/latest/docs/software/advanced-controls/filters/slew-rate-limiter.html",
+      "versionCaution": "The cited reference establishes background concepts, not independent authorization to operate hardware. No real robot actuation, deployment, or safety certification is implied.",
+      "prerequisites": [],
+      "connections": []
+    },
+    "reasoningSteps": [
+      "Let commanded translational speed start at v0=0 m/s, user-requested target be +1.00 m/s, sample interval dt=0.10 s and slew bound a_max=2.00 m/s².",
+      "Maximum command change per sample is a_max*dt=0.20 m/s; issue v1=+0.20, v2=+0.40, v3=+0.60, v4=+0.80 and v5=+1.00 m/s.",
+      "Independent telescoping check: five increments of 0.20 m/s total 1.00 m/s, and every increment obeys |v[k+1]-v[k]|<=0.20 m/s.",
+      "For a new target -1.00 m/s from current +1.00 m/s, the next issued command is +0.80 m/s, not -1.00 m/s; ten 0.20-m/s decrements reach -1.00 m/s.",
+      "Counterexample: clipping output to the interval [-1,+1] alone allows an instantaneous command jump from +1 to -1 m/s, i.e. -2 m/s in 0.1 s, exceeding the rate bound by a factor of ten.",
+      "Rate-limited software commands do not by themselves establish real actuator dynamics, wheel traction, impact forces, emergency stop performance or collision safety. Source: https://docs.wpilib.org/en/latest/docs/software/advanced-controls/filters/slew-rate-limiter.html"
+    ],
+    "memoryLadder": [
+      "Recall the assumptions governing command slew limiting without notes.",
+      "Reproduce the numerical result and units from the first synthetic case.",
+      "Construct the specified counterexample and explain the failed shortcut.",
+      "Distinguish a mathematical test result from the omitted physical validation."
+    ],
+    "labPlan": [
+      "Implement step(current,target,dt,maxRate) with bounded delta; assert an increasing sequence [0.2,0.4,0.6,0.8,1.0] m/s from zero at a +1 m/s target.",
+      "From +1.0 m/s command request -1.0 m/s; assert first value +0.8 m/s and tenth -1.0 m/s.",
+      "Assert maximum successive difference <=0.2 m/s; compare directly clipped target transition +1 to -1 m/s and reject the false claim that an amplitude limit enforces a rate limit."
+    ],
+    "vocabulary": [
+      {
+        "term": "slew rate",
+        "definition": "Maximum permitted signal change per unit time."
+      },
+      {
+        "term": "command-versus-plant distinction",
+        "definition": "A requested signal trajectory need not equal measured physical response."
+      }
+    ]
+  },
+  "robotics-controls-18-pid-derivative-kick": {
+    "essentialQuestion": "Why can derivative-on-error produce a sudden controller command when only the setpoint changes?",
+    "verifiedBoundary": "Derivative-on-error differentiates both setpoint and measurement; derivative-on-measurement excludes the setpoint step but still responds to measurement noise.",
+    "analogy": "Engineering interpretation: changing the goal instantly does not mean the measured robot position moved instantly",
+    "starter": {
+      "plainStart": "Derivative-on-error differentiates both setpoint and measurement; derivative-on-measurement excludes the setpoint step but still responds to measurement noise.",
+      "tryThis": "Compute derivative-on-error and derivative-on-measurement at a 1 m setpoint jump and fixed 0 m measurement; assert respective terms +5 and 0 command units.",
+      "helper": "Write e=r-y and its difference before calculating the derivative; make the controlled variable's units explicit."
+    },
+    "technical": {
+      "scope": "Synthetic, offline educational case. Synthetic discrete difference, constant gains and synchronized samples; plant dynamics, filtering, saturation and actuator noise omitted. Reference: https://docs.wpilib.org/en/latest/docs/software/advanced-controls/controllers/pidcontroller.html",
+      "versionCaution": "The cited reference establishes background concepts, not independent authorization to operate hardware. No real robot actuation, deployment, or safety certification is implied.",
+      "prerequisites": [],
+      "connections": []
+    },
+    "reasoningSteps": [
+      "Use sampled position control, measured position y0=y1=0 m, desired setpoint r0=0 m and r1=1.00 m, dt=0.020 s, derivative gain Kd=0.10 command*s/m.",
+      "Error changes from e0=0 to e1=+1.00 m; derivative-on-error reports (e1-e0)/dt=+50 m/s and produces a +5.0 normalized-command derivative term.",
+      "Derivative-on-measurement instead produces -Kd*(y1-y0)/dt=0 because the measured robot position did not move.",
+      "Independent difference identity confirms (e1-e0)/dt=(r1-r0)/dt-(y1-y0)/dt=50-0=50 m/s.",
+      "Counterexample: derivative-on-measurement is not noise-free; if the next measurement jumps by +0.010 m in 0.020 s at constant setpoint, derivative term becomes -0.050 normalized command.",
+      "Real controllers may filter derivatives, bound commands, or use setpoint trajectories; this exercise isolates the discrete derivative placement, not a universal PID tuning recommendation. Source: https://docs.wpilib.org/en/latest/docs/software/advanced-controls/controllers/pidcontroller.html"
+    ],
+    "memoryLadder": [
+      "Recall the assumptions governing PID derivative placement without notes.",
+      "Reproduce the numerical result and units from the first synthetic case.",
+      "Construct the specified counterexample and explain the failed shortcut.",
+      "Distinguish a mathematical test result from the omitted physical validation."
+    ],
+    "labPlan": [
+      "Compute derivative-on-error and derivative-on-measurement at a 1 m setpoint jump and fixed 0 m measurement; assert respective terms +5 and 0 command units.",
+      "Verify algebraically that difference-of-error equals difference-of-setpoint minus difference-of-measurement for independent synthetic sample pairs.",
+      "At fixed setpoint, change measurement by +0.01 m in 0.02 s; assert derivative-on-measurement -0.05 command units and explain why a separate filter/noise analysis remains necessary."
+    ],
+    "vocabulary": [
+      {
+        "term": "derivative kick",
+        "definition": "Abrupt derivative contribution caused by a setpoint discontinuity."
+      },
+      {
+        "term": "derivative-on-measurement",
+        "definition": "Controller form differentiating observed position rather than total error."
+      }
+    ]
+  },
+  "robotics-controls-19-one-sample-feedback-delay": {
+    "essentialQuestion": "How can one sample of feedback delay destabilize an otherwise stable ideal P controller?",
+    "verifiedBoundary": "For x[k+1]=x[k]+g(r-x[k-1]), the error characteristic polynomial is lambda²-lambda+g=0; asymptotic stability holds for 0<g<1, narrower than the no-delay 0<g<2 case.",
+    "analogy": "Engineering interpretation: stale measurements can amplify an oscillation even when the gain is acceptable for a zero-delay model",
+    "starter": {
+      "plainStart": "For x[k+1]=x[k]+g(r-x[k-1]), the error characteristic polynomial is lambda²-lambda+g=0; asymptotic stability holds for 0<g<1, narrower than the no-delay 0<g<2 case.",
+      "tryThis": "Simulate ten steps for delayed recurrence using x[-1]=x0=0 and g=0.5; assert x1=0.5, x2=1, x3=1.25 and x4=1.25.",
+      "helper": "Derive the delayed two-state recurrence; a no-delay pole calculation is not valid for this plant."
+    },
+    "technical": {
+      "scope": "Synthetic, offline educational case. Scalar unit-gain discrete integrator, exact one-sample feedback delay, constant reference, no saturation or nonlinear dynamics. Reference: https://docs.wpilib.org/en/latest/docs/software/advanced-controls/controllers/pidcontroller.html",
+      "versionCaution": "The cited reference establishes background concepts, not independent authorization to operate hardware. No real robot actuation, deployment, or safety certification is implied.",
+      "prerequisites": [],
+      "connections": []
+    },
+    "reasoningSteps": [
+      "Define dimensionless reference r=1, x[-1]=x[0]=0, sample time dt=0.10 s, Kp=5 s^-1, and g=dt*Kp=0.50.",
+      "Delayed control law x[k+1]=x[k]+g*(1-x[k-1]) yields x1=0.50, x2=1.00, x3=1.25, x4=1.25.",
+      "Writing e[k]=1-x[k] gives e[k+1]=e[k]-g*e[k-1], hence characteristic roots lambda=(1±sqrt(1-4g))/2; at g=0.5 roots (1±i)/2 have magnitude sqrt(0.5)=0.707106781.",
+      "Independent quadratic invariant: root product equals g; for complex-conjugate roots the squared magnitude is g, confirming decaying oscillations at g=0.5.",
+      "Counterexample: g=1.20 would satisfy the zero-delay requirement 0<g<2, yet delayed roots have modulus sqrt(1.20)=1.095445115>1, so generic disturbances grow rather than decay.",
+      "Border case g=1 has roots on the unit circle and is not asymptotically stable; extra physical sample delays or nonlinearities require a different model and analysis. Source: https://docs.wpilib.org/en/latest/docs/software/advanced-controls/controllers/pidcontroller.html"
+    ],
+    "memoryLadder": [
+      "Recall the assumptions governing delayed sampled feedback without notes.",
+      "Reproduce the numerical result and units from the first synthetic case.",
+      "Construct the specified counterexample and explain the failed shortcut.",
+      "Distinguish a mathematical test result from the omitted physical validation."
+    ],
+    "labPlan": [
+      "Simulate ten steps for delayed recurrence using x[-1]=x0=0 and g=0.5; assert x1=0.5, x2=1, x3=1.25 and x4=1.25.",
+      "Compute complex-root magnitudes independently from product lambda1*lambda2=g; assert sqrt(0.5)<1 and sqrt(1.2)>1.",
+      "Show that no-delay g=1.2 has pole -0.2 (stable), while delayed model has magnitude sqrt(1.2)>1; assert g=1 is marginal, not convergent for arbitrary initial errors."
+    ],
+    "vocabulary": [
+      {
+        "term": "sample delay",
+        "definition": "Use of a past rather than current state estimate in feedback."
+      },
+      {
+        "term": "characteristic pole",
+        "definition": "Root governing how a linear discrete-time error mode changes each step."
+      }
+    ]
+  },
+  "robotics-controls-20-watchdog-stop-latch": {
+    "essentialQuestion": "How can a synthetic heartbeat watchdog enforce a latched stop after a missed deadline?",
+    "verifiedBoundary": "A deterministic state machine enters STOP_LATCHED if elapsed time since last heartbeat reaches the configured threshold at a polling event; a fresh heartbeat alone must not clear the latch.",
+    "analogy": "Engineering interpretation: a recovered message cannot retroactively prove a fault never occurred",
+    "starter": {
+      "plainStart": "A deterministic state machine enters STOP_LATCHED if elapsed time since last heartbeat reaches the configured threshold at a polling event; a fresh heartbeat alone must not clear the latch.",
+      "tryThis": "Write an event reducer over integer-ms timestamps and states READY/STOP_LATCHED; assert READY at t=100 and STOP_LATCHED at t=120 after last heartbeat t=20.",
+      "helper": "Test exact threshold equality, heartbeat recovery, deliberate reset and monotonic timestamps separately."
+    },
+    "technical": {
+      "scope": "Synthetic, offline educational case. Pure offline event automaton and abstract stop flag; not a hardware safety circuit, emergency-stop design or certified protective device. Reference: https://docs.wpilib.org/en/latest/docs/software/hardware-apis/motors/wpi-drive-classes.html",
+      "versionCaution": "The cited reference establishes background concepts, not independent authorization to operate hardware. No real robot actuation, deployment, or safety certification is implied.",
+      "prerequisites": [],
+      "connections": []
+    },
+    "reasoningSteps": [
+      "Model states READY and STOP_LATCHED, heartbeat timestamp 20 ms, expiry threshold 100 ms and periodic polling at t=20,40,60,80,100,120 ms.",
+      "At t=100 ms elapsed time since last heartbeat is 80 ms; the state remains READY. At t=120 ms elapsed is 100 ms; predicate elapsed>=100 ms becomes true and state enters STOP_LATCHED.",
+      "Independent check using integer milliseconds evaluates time difference 120-20=100 ms and verifies the boundary exactly, without floating-point timer jitter.",
+      "A subsequent heartbeat event at t=140 ms updates the recorded timestamp but does not automatically change STOP_LATCHED; only an explicit reset when heartbeat is fresh and faults are cleared permits READY.",
+      "Counterexample: an implementation that sets READY on any heartbeat at t=140 ms silently clears the recorded stale-heartbeat fault; it violates the designed latch invariant.",
+      "Actual motor safety systems also depend on wiring, command outputs, safety ratings, independent watchdog paths and real-time scheduling; this simulation establishes none of them. Source: https://docs.wpilib.org/en/latest/docs/software/hardware-apis/motors/wpi-drive-classes.html"
+    ],
+    "memoryLadder": [
+      "Recall the assumptions governing watchdog state-machine invariants without notes.",
+      "Reproduce the numerical result and units from the first synthetic case.",
+      "Construct the specified counterexample and explain the failed shortcut.",
+      "Distinguish a mathematical test result from the omitted physical validation."
+    ],
+    "labPlan": [
+      "Write an event reducer over integer-ms timestamps and states READY/STOP_LATCHED; assert READY at t=100 and STOP_LATCHED at t=120 after last heartbeat t=20.",
+      "Inject heartbeat t=140 after timeout: assert state stays STOP_LATCHED, abstract stop flag remains true, and a reset event is required.",
+      "Assert non-monotonic event timestamps are rejected, threshold equality expires, and reset without a fresh heartbeat cannot clear the latch."
+    ],
+    "vocabulary": [
+      {
+        "term": "watchdog timeout",
+        "definition": "Maximum permitted elapsed time without a heartbeat under an explicitly sampled monitor."
+      },
+      {
+        "term": "latched fault",
+        "definition": "State retained until an explicit recovery transition, even after the original trigger disappears."
+      }
+    ]
+  },
+  "robotics-controls-21-swept-obstacle-intersection": {
+    "essentialQuestion": "Why can endpoint-only obstacle checks miss a collision between simulated robot poses?",
+    "verifiedBoundary": "For a 1D circular-footprint projection, collision occurs when the path of the center intersects the obstacle interval expanded by the robot radius; checking sampled endpoints alone is not sufficient.",
+    "analogy": "Engineering interpretation: two safe snapshots do not prove the motion between them was safe",
+    "starter": {
+      "plainStart": "For a 1D circular-footprint projection, collision occurs when the path of the center intersects the obstacle interval expanded by the robot radius; checking sampled endpoints alone is not sufficient.",
+      "tryThis": "Implement overlap([a,b],[c,d]) for inclusive intervals; assert overlap of path [0,1] with expanded obstacle [0.43,0.57] is true.",
+      "helper": "Expand the obstacle geometrically and test the entire center path, not only its reported endpoints."
+    },
+    "technical": {
+      "scope": "Synthetic, offline educational case. Synthetic one-dimensional point trajectory with known radius and static interval obstacle; no dynamics or 3D environment. Reference: https://modernrobotics.northwestern.edu/nu-gm-book-resource/10-2-c-space-obstacles/",
+      "versionCaution": "The cited reference establishes background concepts, not independent authorization to operate hardware. No real robot actuation, deployment, or safety certification is implied.",
+      "prerequisites": [],
+      "connections": []
+    },
+    "reasoningSteps": [
+      "Model a circular planar robot of radius r=0.05 m whose center moves monotonically along the x-axis from x=0 m to x=1 m; obstacle projection is [0.48,0.52] m.",
+      "Expand the forbidden interval by robot radius: center positions in [0.48-0.05,0.52+0.05]=[0.43,0.57] m collide under the 1D model.",
+      "Both sampled endpoints x=0 and x=1 m lie outside the inflated interval, so an endpoint-only check incorrectly reports the segment as clear.",
+      "Independent interval-overlap check intersects the center path [0,1] m with [0.43,0.57] m to obtain [0.43,0.57] m of unsafe center positions.",
+      "Counterexample: samples at x={0,0.2,0.4,0.6,0.8,1.0} m all lie outside [0.43,0.57], yet their connected trajectory crosses the obstacle; increasing sample counts alone does not prove continuous clearance.",
+      "An exact interval/swept-geometry test detects this case. Collision-free geometry still cannot establish dynamical stopping ability or physical system safety. Source: https://modernrobotics.northwestern.edu/nu-gm-book-resource/10-2-c-space-obstacles/"
+    ],
+    "memoryLadder": [
+      "Recall the assumptions governing continuous segment collision checks without notes.",
+      "Reproduce the numerical result and units from the first synthetic case.",
+      "Construct the specified counterexample and explain the failed shortcut.",
+      "Distinguish a mathematical test result from the omitted physical validation."
+    ],
+    "labPlan": [
+      "Implement overlap([a,b],[c,d]) for inclusive intervals; assert overlap of path [0,1] with expanded obstacle [0.43,0.57] is true.",
+      "Assert both endpoints and every 0.2 m sample appear clear while the continuous swept check returns collision.",
+      "Move obstacle to [1.20,1.30] m with r=0.05 m and assert no overlap; verify touching the expanded boundary is conservatively treated as contact."
+    ],
+    "vocabulary": [
+      {
+        "term": "configuration-space inflation",
+        "definition": "Expanding an obstacle by the robot footprint to test center clearance."
+      },
+      {
+        "term": "swept collision",
+        "definition": "Intersection anywhere along an object's continuous path, not merely at sampled poses."
+      }
+    ]
+  },
+  "robotics-controls-22-encoder-delta-quantization": {
+    "essentialQuestion": "How does subtracting two quantized encoder positions change the displacement error bound?",
+    "verifiedBoundary": "With independently rounded absolute encoder positions, each endpoint has at most half-count quantization error, so their difference can err by nearly one whole count.",
+    "analogy": "Engineering interpretation: two imperfect position snapshots do not inherit the uncertainty bound of a single snapshot",
+    "starter": {
+      "plainStart": "With independently rounded absolute encoder positions, each endpoint has at most half-count quantization error, so their difference can err by nearly one whole count.",
+      "tryThis": "Calculate 2*pi*0.05/2048 m/count and the observed 100-count displacement; assert 0.015339807879 m.",
+      "helper": "Distinguish an absolute rounded position from a difference of two rounded positions."
+    },
+    "technical": {
+      "scope": "Synthetic, offline educational case. Wheel-shaft cumulative encoder, nearest-integer rounding, effective resolution 2048 counts/revolution, radius 0.05 m, no slip or backlash. Reference: https://modernrobotics.northwestern.edu/nu-gm-book-resource/13-4-odometry/",
+      "versionCaution": "The cited reference establishes background concepts, not independent authorization to operate hardware. No real robot actuation, deployment, or safety certification is implied.",
+      "prerequisites": [],
+      "connections": []
+    },
+    "reasoningSteps": [
+      "Let r=0.050 m and resolution N=2048 counts per wheel revolution; one count corresponds to s=2*pi*r/N=0.000153398079 m.",
+      "Observed absolute positions c0=100 and c1=200 counts yield displacement (200-100)*s=0.015339807879 m.",
+      "At each independent snapshot, nearest-count rounding gives an error no greater than 0.5 count; subtracting them gives a worst-case absolute difference error at most 1 count, or 0.000153398079 m.",
+      "Independent counterexample with true fractional positions 100.49 and 199.51 counts: rounding returns 100 and 200; actual difference is 99.02 counts but the reported difference is 100 counts, an error of +0.98 count.",
+      "Claiming a half-count bound for this difference fails the counterexample; a half-count bound applies to one quantized absolute position relative to a known exact reference, not two independently rounded endpoints.",
+      "Any wheel slip, missed transitions, unknown gear ratio, backlash or calibration error adds uncertainties not covered by this pure quantization calculation. Source: https://modernrobotics.northwestern.edu/nu-gm-book-resource/13-4-odometry/"
+    ],
+    "memoryLadder": [
+      "Recall the assumptions governing two-reading encoder uncertainty without notes.",
+      "Reproduce the numerical result and units from the first synthetic case.",
+      "Construct the specified counterexample and explain the failed shortcut.",
+      "Distinguish a mathematical test result from the omitted physical validation."
+    ],
+    "labPlan": [
+      "Calculate 2*pi*0.05/2048 m/count and the observed 100-count displacement; assert 0.015339807879 m.",
+      "Use true fractional endpoints (100.49,199.51); round independently, assert observed delta 100 counts versus true 99.02 counts and error +0.98 count.",
+      "Run a deterministic grid of endpoint fractions in [-0.49,+0.49] count, verify difference error <=1 count, and show errors can exceed half a count."
+    ],
+    "vocabulary": [
+      {
+        "term": "quantization error",
+        "definition": "Discrepancy between an underlying continuous reading and its discrete representation."
+      },
+      {
+        "term": "difference uncertainty",
+        "definition": "Error in a computed change resulting from errors in both sampled endpoints."
+      }
+    ]
+  },
+  "robotics-controls-23-wheel-radius-asymmetry": {
+    "essentialQuestion": "How can a small left/right wheel-radius mismatch produce yaw during a nominally straight drive?",
+    "verifiedBoundary": "In ideal differential-drive odometry, heading change is (right-travel-left-travel)/track; commanded equal wheel revolutions do not guarantee equal ground distances when effective radii differ.",
+    "analogy": "Engineering interpretation: a straight motor command can produce a curved path even with perfect encoder counts",
+    "starter": {
+      "plainStart": "In ideal differential-drive odometry, heading change is (right-travel-left-travel)/track; commanded equal wheel revolutions do not guarantee equal ground distances when effective radii differ.",
+      "tryThis": "Compute dtheta for effective wheel distances dL=1.00, dR=1.02 m and b=0.50 m; assert +0.04 rad.",
+      "helper": "Use actual effective wheel travel for kinematics; encoder count equality is only a proxy when wheel radii are equal."
+    },
+    "technical": {
+      "scope": "Synthetic, offline educational case. Planar two-wheel no-slip model, wheel distances supplied synthetically, constant-curvature segment; no real wheel measurements or friction effects. Reference: https://modernrobotics.northwestern.edu/nu-gm-book-resource/13-4-odometry/",
+      "versionCaution": "The cited reference establishes background concepts, not independent authorization to operate hardware. No real robot actuation, deployment, or safety certification is implied.",
+      "prerequisites": [],
+      "connections": []
+    },
+    "reasoningSteps": [
+      "Set nominal expected wheel travel dL=dR=1.00 m and track b=0.50 m. Suppose synthetic unequal effective radius makes actual right travel 1.02 m while left remains 1.00 m.",
+      "Wheel-distance difference is 0.02 m, so yaw increment dtheta=(1.02-1.00)/0.50=+0.04 rad, approximately +2.291831°.",
+      "Center arc distance is ds=(1.00+1.02)/2=1.01 m. Its constant-curvature radius is R=ds/dtheta=25.25 m.",
+      "Independent integration gives dx=ds*sin(dtheta)/dtheta and dy=ds*(1-cos(dtheta))/dtheta; for +0.04 rad, dx≈1.009730688 m and dy≈0.020197307 m.",
+      "Counterexample: treating equal commanded motor revolutions as proof of dL=dR falsely predicts zero yaw and zero lateral drift, overlooking effective radius mismatch.",
+      "Reversing which side has 2% extra travel changes dtheta to -0.04 rad and reverses lateral drift sign. Wheel-ground slip would invalidate the neat radius-only attribution. Source: https://modernrobotics.northwestern.edu/nu-gm-book-resource/13-4-odometry/"
+    ],
+    "memoryLadder": [
+      "Recall the assumptions governing wheel-radius mismatch diagnosis without notes.",
+      "Reproduce the numerical result and units from the first synthetic case.",
+      "Construct the specified counterexample and explain the failed shortcut.",
+      "Distinguish a mathematical test result from the omitted physical validation."
+    ],
+    "labPlan": [
+      "Compute dtheta for effective wheel distances dL=1.00, dR=1.02 m and b=0.50 m; assert +0.04 rad.",
+      "Independently integrate the exact arc via half-angle sinc and radius-based formulas; compare translation components within 1e-10 m.",
+      "Swap dL and dR and assert -0.04 rad and negative lateral drift; reject the inference that identical commanded rotations imply zero yaw with unequal radii."
+    ],
+    "vocabulary": [
+      {
+        "term": "effective wheel radius",
+        "definition": "Rolling radius relating wheel angle to distance under chosen contact assumptions."
+      },
+      {
+        "term": "systematic odometry bias",
+        "definition": "Consistent directional estimation error arising from model mismatch."
+      }
+    ]
+  },
+  "robotics-controls-24-pose-covariance-rotation": {
+    "essentialQuestion": "How must planar position uncertainty transform when a robot's coordinate frame rotates?",
+    "verifiedBoundary": "For a constant 2D rotation matrix R, covariance changes as P_new=R P_old R^T; the trace and eigenvalues are preserved, but axis-aligned variances need not be.",
+    "analogy": "Engineering interpretation: the same uncertainty ellipse looks different from rotated axes",
+    "starter": {
+      "plainStart": "For a constant 2D rotation matrix R, covariance changes as P_new=R P_old R^T; the trace and eigenvalues are preserved, but axis-aligned variances need not be.",
+      "tryThis": "Implement 2x2 covariance rotation with yaw=pi/2 and P=diag(0.04,0.01) m²; assert world diagonal [0.01,0.04] m² and off-diagonal approximately zero.",
+      "helper": "A covariance is not a point coordinate; translate the mean, but rotate covariance through matrix multiplication."
+    },
+    "technical": {
+      "scope": "Synthetic, offline educational case. Static linear covariance transform of a synthetic planar random position, zero translation uncertainty and no cross-time correlations. Reference: https://docs.wpilib.org/en/latest/docs/software/advanced-controls/state-space/state-space-observers.html",
+      "versionCaution": "The cited reference establishes background concepts, not independent authorization to operate hardware. No real robot actuation, deployment, or safety certification is implied.",
+      "prerequisites": [],
+      "connections": []
+    },
+    "reasoningSteps": [
+      "Let a robot-local planar position error have covariance P_local=diag(0.04,0.01) m², with x and y standard deviations 0.20 m and 0.10 m.",
+      "For a world-from-local rotation yaw +90°, R=[[0,-1],[1,0]]. Transform covariance: P_world=R P_local R^T=diag(0.01,0.04) m².",
+      "Independent invariants give trace(P_local)=trace(P_world)=0.05 m² and determinant(P_local)=det(P_world)=0.0004 m^4; both confirm a rigid rotation preserved total scatter.",
+      "Adding a deterministic translation t=(2,3) m shifts the mean but leaves covariance unchanged, since cov(X+t)=cov(X).",
+      "Counterexample: copying P_local unchanged to world axes falsely reports world-x variance 0.04 m² rather than 0.01 m² after 90° rotation; the apparent uncertainty direction is wrong even though the trace matches.",
+      "At 180° both axis variances return to (0.04,0.01) m². The result does not apply directly to nonlinear transforms with correlated orientation uncertainty. Source: https://docs.wpilib.org/en/latest/docs/software/advanced-controls/state-space/state-space-observers.html"
+    ],
+    "memoryLadder": [
+      "Recall the assumptions governing frame-aware position uncertainty without notes.",
+      "Reproduce the numerical result and units from the first synthetic case.",
+      "Construct the specified counterexample and explain the failed shortcut.",
+      "Distinguish a mathematical test result from the omitted physical validation."
+    ],
+    "labPlan": [
+      "Implement 2x2 covariance rotation with yaw=pi/2 and P=diag(0.04,0.01) m²; assert world diagonal [0.01,0.04] m² and off-diagonal approximately zero.",
+      "Independently verify trace 0.05 m², determinant 0.0004 m^4 and positive eigenvalues 0.01 and 0.04 m².",
+      "Add arbitrary deterministic translation and assert covariance unchanged; rotate by pi and assert original diagonal, while rejecting unchanged 90° world-axis variances."
+    ],
+    "vocabulary": [
+      {
+        "term": "covariance congruence",
+        "definition": "Transformation P'=RPR^T induced by a linear coordinate map."
+      },
+      {
+        "term": "uncertainty ellipse",
+        "definition": "Geometric depiction of covariance principal axes and their magnitudes."
+      }
+    ]
+  }
+}
