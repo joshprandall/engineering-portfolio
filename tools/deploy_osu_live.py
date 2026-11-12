@@ -259,6 +259,7 @@ def prune_old_site_backups(site, keep):
 def deploy(source, site, verify_public=None, release_label=None, prune_backups=False):
     source, site = source.resolve(), site.resolve()
     validate_source(source)
+    validate_runtime_dependencies(source, site)
     missing = [name for name in PROTECTED_REQUIRED if not (site/name).is_file()]
     if missing:
         raise RuntimeError('Existing protected experiences missing; nothing changed: '+', '.join(missing))
@@ -317,6 +318,21 @@ def deploy(source, site, verify_public=None, release_label=None, prune_backups=F
     if prune_backups:
         prune_old_site_backups(site, backup)
     return backup
+
+def validate_runtime_dependencies(source, site):
+    """Refuse a release whose own route metadata names a runtime file that neither the release
+    nor the existing site provides. Protected game and lab trees stay on the host and are
+    checked separately."""
+    routes_file = source/'manifests/site-routes.json'
+    if not routes_file.is_file():
+        raise RuntimeError('Release has no manifests/site-routes.json; runtime dependencies cannot be verified.')
+    shipped = {p.relative_to(source).as_posix() for p in release_files(source)}
+    missing = sorted({name
+        for route in json.loads(routes_file.read_text(encoding='utf-8'))['routes']
+        for name in [route['path'], *route['runtimeDependencies']]
+        if name not in shipped and not protected(name) and not (site/name).is_file()})
+    if missing:
+        raise RuntimeError('Release is missing runtime dependencies: '+', '.join(missing[:30]))
 
 def http_smoke(commit, site):
     """Verify that the public site is serving the exact deployed bytes."""

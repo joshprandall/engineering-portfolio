@@ -3306,6 +3306,406 @@
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "project-concurrent-job-scheduler.html",
+      "size": 6533,
+      "sha256": "6a327f6ee504266f1ec80c64b730dd3cfb5b6020192cd68727344605cf8286a6",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "project-progressive-delivery-control-plane.html",
+      "size": 6479,
+      "sha256": "56a2f32d0de158b654b05fced38003a4925aef69641d9524d201b49bf67a7719",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "project-cache-consistency-lab.html",
+      "size": 6489,
+      "sha256": "67b862acb178b7e6d79ac8fb7aa1ad8f68b5ddcca25c2c4ea06e0741f7846e1f",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "project-mini-compiler-static-analyzer.html",
+      "size": 6479,
+      "sha256": "a74d7d3736910553f0ac30b489361d79afddb4d893a6c99f824119e27f4ca4c5",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "project-api-contract-compatibility.html",
+      "size": 6506,
+      "sha256": "8b0bc1df09260d1b2bde902c63eacfa481a634f453fd812af8c7402a8605b999",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "project-edge-5g-failover.html",
+      "size": 6221,
+      "sha256": "7863244dca0f8b43a8f87c777f5a93b66644a6c92d2c819dec39f52f040afc11",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "project-database-migration-safety.html",
+      "size": 6523,
+      "sha256": "ff47153926fb66a8fc4a7d36049d88839d8dc319d6437eaaab85015f5bca532f",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "project-network-digital-twin.html",
+      "size": 6219,
+      "sha256": "8e4ff6ef5f417abcf1695c842b667364086d614c77aa58662ba2152576bf1dfc",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "project-hybrid-quantum-orchestrator.html",
+      "size": 6303,
+      "sha256": "705481c34c3e4be93d4948770f00b8e562b014e216b6c99cc1fd40f707b51425",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "project-event-sourced-workflow-engine.html",
+      "size": 6535,
+      "sha256": "45c47a25b6f5eb3638f55f7abba927626a6e39240b5216da5db4b5c155a83077",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "project-distributed-chaos-recovery.html",
+      "size": 6223,
+      "sha256": "82b961f8fb46b901ba368221a209159a419e25d7a92700333d5bb9d4f2496204",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "project-routing-convergence-lab.html",
+      "size": 6204,
+      "sha256": "866c6cf2dc63d17578c481616fb8798bae302ecefe475dc0be799376561fcea5",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "project-rust-flow-telemetry.html",
+      "size": 6443,
+      "sha256": "aab3594db066df1a8146ce32366e549f4cdbf59205a25a54e87af6bbcdd984aa",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "project-hpc-fabric-scheduler.html",
+      "size": 6195,
+      "sha256": "0f0b58e9def0b18c2a2d7c34d5e4dcd2afb00ec70d79eb7e42cc2cbdec59e362",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "project-zero-trust-blast-radius.html",
+      "size": 6268,
+      "sha256": "7842be0b217ca44d57efb49e6ae4ed699093fee65878d69eaf13abadb0f6a83d",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "project-wireless-roaming-correlator.html",
+      "size": 6216,
+      "sha256": "551cab9f74b170c553026b420c52533d616ffc07c95f1f80148a399f64aeb57e",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "project-incident-evidence-graph.html",
+      "size": 6277,
+      "sha256": "b9adfba8d05ba2da8dde25b4d70b1ecebd2fde43de2bd234d879b9c19731a945",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "project-reliable-message-processing.html",
+      "size": 6566,
+      "sha256": "5db2f0b7d5ef5dc7967baedf056bba3e739fd7e4f7d4c983e1b5078cfa9b7d68",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "project-showcase.js",
+      "size": 13799,
+      "sha256": "8509649b8b29f9ed5f0cd5d72f68a090a3d06508bf10d1d1bbe9928cf00c897b",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "project-mastery.js",
+      "size": 8789,
+      "sha256": "f70a8acd5e4187c8b927f65077a30f97aa76e0746e096a8236775b0e45ac3f60",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "project-mastery.css",
+      "size": 4114,
+      "sha256": "1c159729e7656edb7908aa37eb5c1500eb0acf41353820ea91287f4c222bcd35",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "project-showcase.css",
+      "size": 3571,
+      "sha256": "74d78decd8e66d53c40d49b4d398a72a496e3085c1f7cd61d41897e263e4ba06",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "software-showcase.js",
+      "size": 12384,
+      "sha256": "c0bcf0ffa6fa14c8f9d219fff7108a5e17954d939aefbf7d57ad3ba1354f6465",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "assets/site-education.json",
+      "size": 841,
+      "sha256": "047994b48d49dac428e8abb449bac1c7e3103002da479ed01aae7c5282ba96b4",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "assets/project-evaluation.json",
+      "size": 58059,
+      "sha256": "1217d7615351151f45b123868d2f2e6caa641dc640f00bf9c1ae6eb016f5cbee",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "rust-flow-telemetry-v22/sample_flows.csv",
+      "size": 235,
+      "sha256": "25216fa82ad297b5f6c076964bfed68b06ef3e37ccf5098f87a1275e3293125d",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "rust-flow-telemetry-v22/Cargo.toml",
+      "size": 201,
+      "sha256": "b24de2be4665ea4097bd9105132945b954e19ca7954e6444e04ca431c46d7c8f",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "rust-flow-telemetry-v22/README.md",
+      "size": 643,
+      "sha256": "0289f2b497a77de78babf32cc9aefb060c99ca21fa51ca03b20dba999dffdf67",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "rust-flow-telemetry-v22/src/main.rs",
+      "size": 1755,
+      "sha256": "d99806807202ffeb72d7de51cf3f15d5d2aae66c835e0925aac4955480a0322e",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "ai-mastery.css",
+      "size": 2667,
+      "sha256": "fb3b219cc9fd6d6f2aedc5d01fd38c3ebe9eb85f29756ef40e406b9186a0fa0c",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "ai-mastery.js",
+      "size": 5802,
+      "sha256": "64020aab72e245f54b64bd616269e4799bbbd95bfd3baf67d99f170e316fc14b",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "assets/ai-build-mastery.json",
+      "size": 35426,
+      "sha256": "653021c09b19fa763045566d673c3dcf4d7137dc8de9a3b5e4bfa733b3e17f61",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "assets/audio/dark-theme-user-v32.mp3",
+      "size": 470985,
+      "sha256": "da15f46e84a2a59b09b66bfc210046d7544da31ee614b2e35c9db4fceb193ae1",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "assets/audio/dark-theme-user-v32.wav",
+      "size": 3897388,
+      "sha256": "3da693485d095d03d4f91516849303cd67b0b4fe2c6bf26525b995821214e294",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "assets/learning-academy.json",
+      "size": 9363,
+      "sha256": "92a41381570ae41201554765f0a0553bf73ce13e18864a0c93d1443e62633008",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "assets/security-toolkit.json",
+      "size": 21338,
+      "sha256": "943bef6c184bf01efa582f3987c0c9070bdc9d2ef6578cecab209a605a37fe65",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "learning-academy.css",
+      "size": 3438,
+      "sha256": "49eda74f1a325864bdf68ecf564d46ec0ea86cd4fa1c43ba9957e96566aa476e",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "learning-academy.js",
+      "size": 10992,
+      "sha256": "d5382d3decf6632a399d7cf551f7caa25179a6e3c6375b690cef7aa1940c1f83",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "security-toolkit.css",
+      "size": 2839,
+      "sha256": "a5484f05840b73f49c3e1ca004766fe53d596496d69b4ffc40f816aedbcde039",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "security-toolkit.js",
+      "size": 23985,
+      "sha256": "07d0ba7fb7429d0bb9f724cc67683ac135dcf21c224a9fa98e039b8588f9e54c",
+      "source": {
+        "kind": "candidate-worktree"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
     }
   ],
   "fileCount": 297,

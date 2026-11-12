@@ -1,5 +1,5 @@
 """Generate conservative page dependency units and remote provenance; never deploy."""
-import hashlib, json, posixpath, re
+import hashlib, json, posixpath, re, subprocess
 from pathlib import Path
 from urllib.parse import unquote, urlsplit
 from html.parser import HTMLParser
@@ -16,10 +16,54 @@ class References(HTMLParser):
             if value and key in ('src','href','poster','data-src'):
                 self.refs.append((value,'navigation' if tag=='a' else 'runtime'))
 
+FILE_STRING=re.compile(r'''["']([^"'\r\n]+\.(?:js|css|json|html|svg|png|jpg|jpeg|webp|mp3|wav|ogg|mp4|wasm|pck|md|txt|pdf|docx|zip)(?:\?[^"'\r\n]*)?)["']''')
+CSS_URL=re.compile(r'''url\(\s*["']?([^\)"']+)''')
+def references(path,text):
+    """Yield (reference, kind, strict) for every local load a file can make.
+
+    HTML attributes are strict (a missing target is an error). Quoted file names in code,
+    CSS url() values and JSON strings are runtime candidates that resolve only when the
+    target exists. Shared by route generation and the package builder's completeness check.
+    """
+    if path.endswith('.html'):
+        parser=References();parser.feed(text)
+        for value,kind in parser.refs:yield value,kind,True
+    for match in FILE_STRING.finditer(text):
+        if text[match.end():match.end()+32].lstrip().startswith(':'):continue # Filename dictionary keys are not loads.
+        yield match.group(1),'runtime',False
+    for value in CSS_URL.findall(text):yield value,'runtime',False
+def local_target(source,value):
+    """Resolve a reference to a repository path, or None for remote, computed or empty values."""
+    value=value.strip();u=urlsplit(value)
+    if u.scheme or value.startswith('//') or not u.path or '${' in value:return None
+    if value.startswith('/'):return unquote(u.path).lstrip('/')
+    return posixpath.normpath(posixpath.join(posixpath.dirname(source),unquote(u.path)))
+
+# Repository areas that never ship with the website. Everything else that Git tracks is a
+# runtime candidate, so a page's reference to a newly added file resolves instead of being
+# dropped because an allowlist was not updated.
+NON_RUNTIME_DIRS={'.github','docs','preservation','tests','tools','project-sources','manifests','release-upload','site-repair','examples','staging','.asset-cache','node_modules','visual-qa'}
+NON_RUNTIME_ROOT_FILES={'package.json','package-lock.json'}
+def runtime_eligible(path):
+    top,_,rest=path.partition('/')
+    if rest:return top not in NON_RUNTIME_DIRS
+    return not path.startswith('.') and path not in NON_RUNTIME_ROOT_FILES
+def runtime_candidates(manifest_paths,asset_paths):
+    """Tracked runtime-eligible files plus manifest entries and verified large assets."""
+    try:
+        tracked=subprocess.run(['git','ls-files','-z'],cwd=ROOT,capture_output=True,check=True).stdout.decode('utf-8').split('\0')
+    except (OSError,subprocess.CalledProcessError):
+        tracked=[]
+    keep=set(manifest_paths)|set(asset_paths)
+    keep.update(path for path in tracked if path and runtime_eligible(path))
+    return keep
+
 def main():
     runtime=json.loads((M/'runtime-files.json').read_text())['files']
     files={r['path']:r for r in runtime}
-    edges={p:set() for p in files};links={p:set() for p in files}
+    assets=[a['canonicalPath'] for a in json.loads((M/'large-assets.json').read_text())['assets']]
+    universe=runtime_candidates(files,assets)
+    edges={p:set() for p in universe};links={p:set() for p in universe}
     missing=[];external={};texts={}
     def remote(url,source,origin):
         if '${' in url:return
@@ -33,35 +77,28 @@ def main():
         if u.scheme or not u.path or '${' in value:return
         target=posixpath.normpath(posixpath.join(posixpath.dirname(source),unquote(u.path)))
         if value.startswith('/'):target=unquote(u.path).lstrip('/')
-        if target not in files and target.rstrip('/')+'/index.html' in files:target=target.rstrip('/')+'/index.html'
-        if target in files:
+        if target not in universe and target.rstrip('/')+'/index.html' in universe:target=target.rstrip('/')+'/index.html'
+        if target in universe:
             (links if kind=='navigation' else edges)[source].add(target)
             if kind=='navigation' and not target.endswith('.html'):edges[source].add(target)
         elif strict and not value.startswith('#'):missing.append({'source':source,'reference':value,'resolved':target})
-    for p in files:
-        if Path(p).suffix not in ('.html','.css','.js','.json'):continue
+    for p in sorted(universe):
+        if Path(p).suffix not in ('.html','.css','.js','.json') or not (ROOT/p).is_file():continue
         text=(ROOT/p).read_text(encoding='utf-8',errors='replace');texts[p]=text
-        if p.endswith('.html'):
-            parser=References();parser.feed(text)
-            for value,kind in parser.refs:resolve(p,value,kind,True)
         for value in re.findall(r'https?://[^\s"\'<>`\\)]+',text):remote(value,p,'current-runtime')
-        for match in re.finditer(r'''["']([^"'\r\n]+\.(?:js|css|json|html|svg|png|jpg|jpeg|webp|mp3|wav|ogg|mp4|wasm|pck|md|txt|pdf|docx|zip)(?:\?[^"'\r\n]*)?)["']''',text):
-            value=match.group(1)
-            if text[match.end():match.end()+32].lstrip().startswith(':'):continue # Filename dictionary keys are not loads.
-            resolve(p,value,'runtime')
-        for value in re.findall(r'url\(\s*["\']?([^\)"\']+)',text):resolve(p,value,'runtime')
+        for value,kind,strict in references(p,text):resolve(p,value,kind,strict)
     linked_docs={target for values in list(edges.values())+list(links.values()) for target in values if target.endswith(('.md','.txt'))}
     routes=[]
-    for p in sorted(x for x in files if x.endswith('.html')):
+    for p in sorted(x for x in universe if x.endswith('.html') and (x in files or '/' not in x)):
         closure={p};todo=[p]
         while todo:
             for dep in edges[todo.pop()]:
                 if dep not in closure:closure.add(dep);todo.append(dep)
         boundary='portfolio'
         for prefix in ('games/evil-wizard/','games/3d-battle-chess/','geometric-lab/','qubit-preview-20260921/'):
-            if p.startswith(prefix):boundary=prefix.rstrip('/');closure.update(x for x in files if x.startswith(prefix) and (not x.endswith(('.md','.txt')) or x in linked_docs))
+            if p.startswith(prefix):boundary=prefix.rstrip('/');closure.update(x for x in universe if x.startswith(prefix) and (not x.endswith(('.md','.txt')) or x in linked_docs))
         if p.startswith('learn') or p=='lesson.html':
-            boundary='learning';closure.update(x for x in files if x.startswith(('deep-learning/','data/')))
+            boundary='learning';closure.update(x for x in universe if x.startswith(('deep-learning/','data/')))
         navigation=set(links[p])
         for dep in closure:navigation.update(links.get(dep,()))
         title=re.search(r'<title>(.*?)</title>',texts[p],re.S)
@@ -85,7 +122,7 @@ def main():
         if group=='osu' and '/~randjosh/' in urlsplit(url).path:
             counterpart=unquote(urlsplit(url).path.split('/~randjosh/',1)[1])
             if counterpart in files:row['localCounterpart']=files[counterpart]
-    save('site-routes.json',{'navigation':json.loads((ROOT/'assets/site-navigation.json').read_text(encoding='utf-8'))['items'],'schemaVersion':1,'status':'candidate-not-deployed','deploymentMode':'verified-preview-package-production-uses-protected-overlay','runtimeManifest':'manifests/runtime-files.json','method':'HTML attributes plus static code/CSS references and conservative whole game/lab/learning units. Computed paths require package browser acceptance; this is not proof of dynamic closure.','unresolvedReferences':missing,'routes':routes})
+    save('site-routes.json',{'navigation':json.loads((ROOT/'assets/site-navigation.json').read_text(encoding='utf-8'))['items'],'schemaVersion':1,'status':'candidate-not-deployed','deploymentMode':'verified-preview-package-production-uses-protected-overlay','runtimeManifest':'manifests/runtime-files.json','method':'HTML attributes plus static code/CSS/JSON references, resolved against every Git-tracked runtime-eligible file, and conservative whole game/lab/learning units. Paths computed at run time require package browser acceptance; this is not proof of dynamic closure.','unresolvedReferences':missing,'routes':routes})
     save('external-dependencies.json',{'schemaVersion':1,'inventoryOnly':True,'networkFetched':False,'dependencies':[external[u] for u in sorted(external)]})
     units=[]
     preserved=json.loads((M/'live-preservation.json').read_text())

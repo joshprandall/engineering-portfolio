@@ -20,12 +20,17 @@ class DeploymentTest(unittest.TestCase):
             self.write(self.source / name, 'new ' + name)
         self.write(self.source / 'index.html', '<link href="portfolio-home.css"><script src="quantum-cube.js"></script>')
         self.write(self.source / 'projects.html', '<article class="project-card"></article>' * 16)
+        self.routes([{'path': 'index.html', 'runtimeDependencies': ['portfolio-home.css', 'quantum-cube.js', 'games/evil-wizard/index.html']}])
         self.write(self.source / 'games/evil-wizard/index.html', 'must never overwrite the game')
         self.write(self.source / 'geometric-lab/math.js', 'must never overwrite lab calculations')
         self.write(self.site / 'geometric-lab/math.js', 'host lab calculations')
         for name in (*deploy.PROTECTED_REQUIRED, 'assets/fusion-presentation.mp4', 'index.html', 'app.js', 'private-host-page.html'):
             self.write(self.site / name, 'original ' + name)
         self.before = self.snapshot()
+
+    def routes(self, routes):
+        import json
+        self.write(self.source / 'manifests/site-routes.json', json.dumps({'routes': routes}))
 
     @staticmethod
     def write(path, content):
@@ -79,6 +84,25 @@ class DeploymentTest(unittest.TestCase):
                 raise OSError('Simulated write failure')
             real_copy(source, target)
         with patch.object(deploy, 'copy_file', interrupted), self.assertRaises(OSError):
+            deploy.deploy(self.source, self.site)
+        self.assertEqual(self.snapshot(), self.before)
+
+    def test_release_missing_a_runtime_dependency_changes_nothing(self):
+        self.routes([{'path': 'index.html', 'runtimeDependencies': ['portfolio-home.css', 'learning-academy.js', 'assets/ai-build-mastery.json']}])
+        with self.assertRaisesRegex(RuntimeError, 'missing runtime dependencies: assets/ai-build-mastery.json, learning-academy.js'):
+            deploy.deploy(self.source, self.site)
+        self.assertEqual(self.snapshot(), self.before)
+
+    def test_runtime_dependency_already_on_the_host_or_protected_is_accepted(self):
+        self.write(self.site / 'learning-academy.js', 'host copy')
+        self.before = self.snapshot()
+        self.routes([{'path': 'index.html', 'runtimeDependencies': ['learning-academy.js', 'games/3d-battle-chess/index.html', 'assets/fusion-presentation.mp4']}])
+        deploy.deploy(self.source, self.site)
+        self.assertEqual((self.site / 'learning-academy.js').read_text(), 'host copy')
+
+    def test_release_without_route_metadata_changes_nothing(self):
+        (self.source / 'manifests/site-routes.json').unlink()
+        with self.assertRaisesRegex(RuntimeError, 'no manifests/site-routes.json'):
             deploy.deploy(self.source, self.site)
         self.assertEqual(self.snapshot(), self.before)
 

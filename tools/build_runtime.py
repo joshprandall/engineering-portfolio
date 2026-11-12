@@ -4,7 +4,7 @@ No worktree fallback, production access, deployment, or shell deletion is used.
 """
 import argparse, hashlib, io, json, shutil, subprocess, tarfile, posixpath
 from urllib.parse import urlsplit,unquote
-from website2_routes import References
+from website2_routes import References, references, local_target, runtime_eligible
 from pathlib import Path, PurePosixPath
 from restore_website2_assets import read_bytes
 ROOT=Path(__file__).resolve().parents[1]
@@ -59,6 +59,20 @@ def build(commit,refresh=False):
             if target not in paths:
                 paths.add(target)
                 if target.endswith('.html'):queue.append(target)
+    # Fail closed on stale route metadata: every committed runtime file that a packaged page,
+    # script, stylesheet or data file loads must itself be packaged. Lesson chunks are prose
+    # that cites files rather than loading them, and links to other pages are routes.
+    universe={p for p in blobs if runtime_eligible(p)}|set(asset_by_path)
+    absent=[]
+    for path in sorted(paths):
+        if path not in blobs or path.startswith('deep-learning/') or not path.endswith(('.html','.css','.js','.json')):continue
+        for value,kind,strict in references(path,blobs[path].decode('utf-8',errors='replace')):
+            target=local_target(path,value)
+            if target is None:continue
+            if target not in universe and target.rstrip('/')+'/index.html' in universe:target=target.rstrip('/')+'/index.html'
+            if kind=='navigation' and target.endswith('.html'):continue
+            if target in universe and target not in paths:absent.append(path+' -> '+target)
+    if absent:raise ValueError('Runtime dependencies missing from the package; regenerate manifests/site-routes.json: '+'; '.join(absent[:25]))
     files=[];payload={}
     for path in sorted(paths):
         pp=safe_path(path)

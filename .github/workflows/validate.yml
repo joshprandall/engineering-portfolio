@@ -24,6 +24,13 @@ jobs:
       - name: Validate static site
         run: npm test
 
+      - name: Committed runtime metadata is current
+        run: |
+          git diff --exit-code -- manifests/ || {
+            echo "::error::npm test regenerated manifests/. Commit the output of tools/prepare_runtime_metadata.py and refresh hashes with tools/build_runtime.py --refresh-manifest."
+            exit 1
+          }
+
   interface:
     runs-on: ubuntu-24.04
     timeout-minutes: 15
