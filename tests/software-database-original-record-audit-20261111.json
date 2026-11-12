@@ -1,0 +1,828 @@
+{
+  "format": "original-record-cryptographic-audit-v1",
+  "baselineCommit": "6ec65ebe16563d526e78f41d9c8f52cde5cabb21",
+  "baselineGitBlob": "635a32e96c5c0c5191d5150f3294c44e2a6a6162",
+  "baselineFileSHA256": "f6f2518c5e467f47a49f9f26dafd05a5e93660f3cf36fbfb288ea5217a8d41a5",
+  "recordOrder": [
+    "software-database-indexes",
+    "software-acid",
+    "software-sql-joins",
+    "software-normalization",
+    "software-isolation",
+    "software-btree-index",
+    "software-transactions",
+    "software-schema-migrations",
+    "software-v06-postgresql-mvcc",
+    "software-v06-postgresql-indexes",
+    "software-v06-postgresql-explain",
+    "software-v06-sql-query-tables-and-joins",
+    "software-v06-transaction-isolation",
+    "software-v08-deep-dive-sql-inner-join",
+    "software-v08-evidence-lab-sql-inner-join",
+    "software-v08-deep-dive-sql-left-outer-join",
+    "software-v08-evidence-lab-sql-left-outer-join",
+    "software-v08-deep-dive-sql-cross-join",
+    "software-v08-evidence-lab-sql-cross-join",
+    "software-v08-deep-dive-sql-aggregate-functions",
+    "software-v08-evidence-lab-sql-aggregate-functions",
+    "software-v08-deep-dive-sql-group-by",
+    "software-v08-evidence-lab-sql-group-by",
+    "software-v08-deep-dive-sql-having",
+    "software-v08-evidence-lab-sql-having",
+    "software-v08-deep-dive-sql-window-functions",
+    "software-v08-evidence-lab-sql-window-functions",
+    "software-v08-deep-dive-database-transaction",
+    "software-v08-evidence-lab-database-transaction",
+    "software-v08-deep-dive-postgresql-mvcc",
+    "software-v08-evidence-lab-postgresql-mvcc",
+    "software-v08-deep-dive-postgresql-index",
+    "software-v08-evidence-lab-postgresql-index",
+    "software-v08-deep-dive-postgresql-explain",
+    "software-v08-evidence-lab-postgresql-explain",
+    "software-v08-deep-dive-postgresql-explain-analyze",
+    "software-v08-evidence-lab-postgresql-explain-analyze",
+    "software-v08-deep-dive-sql-foreign-key",
+    "software-v08-evidence-lab-sql-foreign-key",
+    "software-v08-deep-dive-sql-unique-constraint",
+    "software-v08-evidence-lab-sql-unique-constraint",
+    "software-v08-deep-dive-sql-primary-key",
+    "software-v08-evidence-lab-sql-primary-key",
+    "software-v08-deep-dive-sql-check-constraint",
+    "software-v08-evidence-lab-sql-check-constraint",
+    "software-v08-deep-dive-sql-with-query",
+    "software-v08-evidence-lab-sql-with-query",
+    "software-v08-deep-dive-recursive-with-query",
+    "software-v08-evidence-lab-recursive-with-query",
+    "software-v08-deep-dive-postgresql-jsonb",
+    "software-v08-evidence-lab-postgresql-jsonb",
+    "software-v08-deep-dive-postgresql-arrays",
+    "software-v08-evidence-lab-postgresql-arrays",
+    "software-v08-deep-dive-transaction-isolation-levels",
+    "software-v08-evidence-lab-transaction-isolation-levels",
+    "software-v09-failure-analysis-lab-acid-transactions",
+    "software-v09-troubleshooting-lab-b-tree-indexes",
+    "software-v09-design-review-database-indexes-faster-reads-with-a-price",
+    "software-v09-scenario-analysis-database-normalization-reduce-update-anomalies",
+    "software-v09-failure-analysis-lab-database-schema-migrations",
+    "software-v09-troubleshooting-lab-database-transaction",
+    "software-v09-design-review-database-transaction",
+    "software-v09-scenario-analysis-database-transactions",
+    "software-v09-failure-analysis-lab-postgresql-arrays",
+    "software-v09-troubleshooting-lab-postgresql-arrays",
+    "software-v09-design-review-postgresql-explain",
+    "software-v09-scenario-analysis-postgresql-explain",
+    "software-v09-failure-analysis-lab-postgresql-explain",
+    "software-v09-troubleshooting-lab-postgresql-explain-analyze",
+    "software-v09-design-review-postgresql-explain-analyze",
+    "software-v09-scenario-analysis-postgresql-index",
+    "software-v09-failure-analysis-lab-postgresql-index",
+    "software-v09-troubleshooting-lab-postgresql-indexes",
+    "software-v09-design-review-postgresql-jsonb",
+    "software-v09-scenario-analysis-postgresql-jsonb",
+    "software-v09-failure-analysis-lab-postgresql-mvcc",
+    "software-v09-troubleshooting-lab-postgresql-mvcc",
+    "software-v09-design-review-postgresql-mvcc",
+    "software-v09-scenario-analysis-recursive-with-query",
+    "software-v09-failure-analysis-lab-recursive-with-query",
+    "software-v09-troubleshooting-lab-sql-aggregate-functions",
+    "software-v09-design-review-sql-aggregate-functions",
+    "software-v09-scenario-analysis-sql-check-constraint",
+    "software-v09-failure-analysis-lab-sql-check-constraint",
+    "software-v09-troubleshooting-lab-sql-cross-join",
+    "software-v09-design-review-sql-cross-join",
+    "software-v09-scenario-analysis-sql-foreign-key",
+    "software-v09-failure-analysis-lab-sql-foreign-key",
+    "software-v09-troubleshooting-lab-sql-group-by",
+    "software-v09-design-review-sql-group-by",
+    "software-v09-scenario-analysis-sql-having",
+    "software-v09-failure-analysis-lab-sql-having",
+    "software-v09-troubleshooting-lab-sql-inner-join",
+    "software-v09-design-review-sql-inner-join",
+    "software-v09-scenario-analysis-sql-joins-combining-related-rows",
+    "software-v09-failure-analysis-lab-sql-left-outer-join",
+    "software-v09-troubleshooting-lab-sql-left-outer-join",
+    "software-v09-design-review-sql-primary-key",
+    "software-v09-scenario-analysis-sql-primary-key",
+    "software-v09-failure-analysis-lab-sql-query-tables-and-joins",
+    "software-v09-troubleshooting-lab-sql-unique-constraint",
+    "software-v10-explain-back-challenge-acid-transactions",
+    "software-v10-field-note-b-tree-indexes",
+    "software-v10-exam-style-practice-database-indexes-faster-reads-with-a-price",
+    "software-v10-scenario-brief-database-normalization-reduce-update-anomalies",
+    "software-v10-transfer-challenge-database-schema-migrations",
+    "software-v10-retrieval-ladder-database-transaction",
+    "software-v10-design-critique-database-transaction",
+    "software-v10-decision-brief-database-transactions",
+    "software-v10-explain-back-challenge-postgresql-arrays",
+    "software-v10-field-note-postgresql-arrays",
+    "software-v10-exam-style-practice-postgresql-explain",
+    "software-v10-scenario-brief-postgresql-explain",
+    "software-v10-transfer-challenge-postgresql-explain",
+    "software-v10-retrieval-ladder-postgresql-explain-analyze",
+    "software-v10-design-critique-postgresql-explain-analyze",
+    "software-v10-decision-brief-postgresql-index",
+    "software-v10-explain-back-challenge-postgresql-index",
+    "software-v10-field-note-postgresql-indexes",
+    "software-v10-exam-style-practice-postgresql-jsonb",
+    "software-v10-scenario-brief-postgresql-jsonb",
+    "software-v10-transfer-challenge-postgresql-mvcc",
+    "software-v10-retrieval-ladder-postgresql-mvcc",
+    "software-v10-design-critique-postgresql-mvcc",
+    "software-v10-decision-brief-recursive-with-query",
+    "software-v10-boundary-condition-lab-recursive-with-query",
+    "software-v10-decision-matrix-lab-sql-aggregate-functions",
+    "software-v10-configuration-lab-sql-aggregate-functions",
+    "software-v10-fault-isolation-lab-sql-check-constraint",
+    "software-v10-measurement-lab-sql-check-constraint",
+    "software-v10-recovery-lab-sql-cross-join",
+    "software-v10-checklist-lab-sql-cross-join",
+    "software-v10-hypothesis-lab-sql-foreign-key",
+    "software-v10-trace-lab-sql-foreign-key",
+    "software-v10-counterexample-lab-sql-group-by",
+    "software-v10-verification-lab-sql-group-by",
+    "software-v10-transfer-lab-sql-having",
+    "software-v10-concept-mapping-lab-sql-having",
+    "software-v10-confidence-calibration-sql-inner-join",
+    "software-v10-mistake-hunt-sql-inner-join",
+    "software-v10-reasoning-check-sql-joins-combining-related-rows",
+    "software-v10-worked-walkthrough-sql-left-outer-join",
+    "software-v10-evidence-reading-sql-left-outer-join",
+    "software-v10-concept-connection-sql-primary-key",
+    "software-v10-compare-contrast-sql-primary-key",
+    "software-v10-flash-review-sql-query-tables-and-joins",
+    "software-v10-confidence-calibration-sql-unique-constraint",
+    "software-v10-mistake-hunt-sql-unique-constraint",
+    "software-v10-reasoning-check-sql-with-query",
+    "software-v10-worked-walkthrough-sql-with-query",
+    "software-v10-evidence-reading-sql-window-functions",
+    "software-v10-concept-connection-sql-window-functions",
+    "software-v10-compare-contrast-transaction-isolation",
+    "software-v10-flash-review-transaction-isolation-levels",
+    "software-v10-confidence-calibration-transaction-isolation-levels",
+    "software-v10-mistake-hunt-transaction-isolation-what-concurrent-transactions-c",
+    "software-v10-reasoning-check-acid-transactions",
+    "software-v10-worked-walkthrough-b-tree-indexes",
+    "software-v10-evidence-reading-database-indexes-faster-reads-with-a-price",
+    "software-v10-concept-connection-database-normalization-reduce-update-anomalies",
+    "software-v10-compare-contrast-database-schema-migrations",
+    "software-v10-flash-review-database-transaction"
+  ],
+  "changedIds": [
+    "software-v08-deep-dive-sql-inner-join",
+    "software-v08-evidence-lab-sql-inner-join",
+    "software-v08-deep-dive-sql-left-outer-join",
+    "software-v08-evidence-lab-sql-left-outer-join",
+    "software-v08-deep-dive-sql-cross-join",
+    "software-v08-evidence-lab-sql-cross-join",
+    "software-v08-deep-dive-sql-aggregate-functions",
+    "software-v08-evidence-lab-sql-aggregate-functions",
+    "software-v08-deep-dive-sql-group-by",
+    "software-v08-evidence-lab-sql-group-by",
+    "software-v08-deep-dive-sql-having",
+    "software-v08-evidence-lab-sql-having",
+    "software-v08-deep-dive-sql-window-functions",
+    "software-v08-evidence-lab-sql-window-functions",
+    "software-v08-deep-dive-sql-foreign-key",
+    "software-v08-evidence-lab-sql-foreign-key",
+    "software-v08-deep-dive-sql-unique-constraint",
+    "software-v08-evidence-lab-sql-unique-constraint",
+    "software-v08-deep-dive-sql-primary-key",
+    "software-v08-evidence-lab-sql-primary-key",
+    "software-v08-deep-dive-sql-check-constraint",
+    "software-v08-evidence-lab-sql-check-constraint",
+    "software-v08-deep-dive-sql-with-query",
+    "software-v08-evidence-lab-sql-with-query"
+  ],
+  "records": {
+    "software-database-indexes": {
+      "fullSHA256": "894cd7e9e2b29816a048eb9a01021cdc49097a502f841aea3480ead0d2727d75"
+    },
+    "software-acid": {
+      "fullSHA256": "6cc83646d897f555c5c8165091088d3e634ce8b7234bdb4e036927a927d189c8"
+    },
+    "software-sql-joins": {
+      "fullSHA256": "3414380c4561579606569820a4730c158c7f902c849b27e76946561da00e9c49"
+    },
+    "software-normalization": {
+      "fullSHA256": "9aee6ee7542c7cc2e309af8a926528cb66bf6211530cc48d84ae929c9dc286dc"
+    },
+    "software-isolation": {
+      "fullSHA256": "664b04a5cac206f1eb2bbcf00ad135ef737c7ce98a34499f3b5d56ff0b9858b7"
+    },
+    "software-btree-index": {
+      "fullSHA256": "7df11fd4aae96a75eebc76e287457a38a819774330f048b734fee6d49be94337"
+    },
+    "software-transactions": {
+      "fullSHA256": "0423ef9c799b7f27b3f212a0c79a1aa258236dc477dd972fe8ebefe0d2982cda"
+    },
+    "software-schema-migrations": {
+      "fullSHA256": "5cdf21ad412646d8f04787973223713160cef87a27f569f5245c3f8e3ff8829d"
+    },
+    "software-v06-postgresql-mvcc": {
+      "fullSHA256": "36786f4efa9f78e12d5be5e8f7fb894f5f959d9efc34c98882f1ba5d20165474"
+    },
+    "software-v06-postgresql-indexes": {
+      "fullSHA256": "f44edf346c9e0356bf65a22be52bace9d1816543a22bc8623ab8cc3888f796e2"
+    },
+    "software-v06-postgresql-explain": {
+      "fullSHA256": "3581c20019fd4a26fcf281d250acffee6d716511988926d0abf4130443f27def"
+    },
+    "software-v06-sql-query-tables-and-joins": {
+      "fullSHA256": "fe89f83562fb1702bba14f6bd4a119e14b6e5686aefa1f87a6b5b48004488e7b"
+    },
+    "software-v06-transaction-isolation": {
+      "fullSHA256": "dd96f9046164270a5505790098177b811c50412a91d41e85d90ee824cadd97eb"
+    },
+    "software-v08-deep-dive-sql-inner-join": {
+      "fullSHA256": "7f2a23f7bb6c58372ccfeec41f42665e04ded5f2046429d06c82bbe684e33c40",
+      "nonTeachingSHA256": "000e274ecf6255c1e9310b1f2148f3e2df5d369492b64948257e9c29f98680b2",
+      "teachingFieldSHA256": {
+        "essentialQuestion": "cd940ff276216a6347181531e6bfcd6d1d753b9bea4dbbd5dd3355303a9d4160",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8"
+      }
+    },
+    "software-v08-evidence-lab-sql-inner-join": {
+      "fullSHA256": "48acc52bee5890f98873692e88432a42ca8d7d043fe3c1c292019710b97d52ad",
+      "nonTeachingSHA256": "5a55fcf83a1b27390c59a575ba40e5717deb029ba80522317460b37d0e6562da",
+      "teachingFieldSHA256": {
+        "essentialQuestion": "6df301e7bfeedaf1bbc1868dd1c318594c97baf6437a05a8cecc84304d3c5217",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8"
+      }
+    },
+    "software-v08-deep-dive-sql-left-outer-join": {
+      "fullSHA256": "82fd419867e39692d03dde34e317014e25f2628ad90a85da1fd984c608a4718a",
+      "nonTeachingSHA256": "89409362124ba1b6c250c68c800517104466a3991aa6dd634856e1fb36a733ed",
+      "teachingFieldSHA256": {
+        "essentialQuestion": "9699713f2a77c576d7e57d20f56153304ed4f4359ca5042f32a3eb333bc6dcf6",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8"
+      }
+    },
+    "software-v08-evidence-lab-sql-left-outer-join": {
+      "fullSHA256": "12c767fe65b63bc6a016a8d15ffbcce3debda25d49200a149b95ba1cca9c8166",
+      "nonTeachingSHA256": "bd060740ac2a9c24e0ad98d94b016df1a824d23c61a5d50b2e40788c326652d4",
+      "teachingFieldSHA256": {
+        "essentialQuestion": "b80b9826097dacc34894bc6589a1e386c62612d2bf3878c35d89b50d657a39b5",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8"
+      }
+    },
+    "software-v08-deep-dive-sql-cross-join": {
+      "fullSHA256": "6caa271ca12b6c144b3edcfbfbf688814585aa78b8cd0e6ce544733ef611e26c",
+      "nonTeachingSHA256": "9daf10402619274223756c5781934e97daac8b00910f016005a08dc98e5f9d16",
+      "teachingFieldSHA256": {
+        "essentialQuestion": "f092114fc564db1435253a62a3f9bb8d2cbc1575b903f05c65302d7df7f584b8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8"
+      }
+    },
+    "software-v08-evidence-lab-sql-cross-join": {
+      "fullSHA256": "20e047c25b6126722802a9e3bcefc05c740bd75b26f0fe50d0732005fba10e36",
+      "nonTeachingSHA256": "7d1dc067a8a244211b3c172a169c29eb79e7aedd8be0505956354e7778c443e3",
+      "teachingFieldSHA256": {
+        "essentialQuestion": "2c21c38c6fb1e1f45f69b95b42b001e4e0533aed8e72511bbc8402b328c4b381",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8"
+      }
+    },
+    "software-v08-deep-dive-sql-aggregate-functions": {
+      "fullSHA256": "7526ffb0dca23d24b8872ad7be594aec9e0fa7fd13863830458f0b921c32bd78",
+      "nonTeachingSHA256": "e518b9eda84cfc68faa32829871092f61473140e8d680d5e260452cf966a0253",
+      "teachingFieldSHA256": {
+        "essentialQuestion": "28605a093ed50ad2a44b9bffbf0b8ec449acb63a1559e8f62f81477a7477d63b",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8"
+      }
+    },
+    "software-v08-evidence-lab-sql-aggregate-functions": {
+      "fullSHA256": "d891282821eacc5093e82884264eb397f6470cd69627c8b34815ccd80bc8b5c9",
+      "nonTeachingSHA256": "d94de9bbb03a19f5c4084b9909f702b5c9a9916caf931e8ebadb6d6b89916d18",
+      "teachingFieldSHA256": {
+        "essentialQuestion": "076065e4359c84dcc45a960a031a9571a3efb3dbd6e71f08188349105ec57856",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8"
+      }
+    },
+    "software-v08-deep-dive-sql-group-by": {
+      "fullSHA256": "7d803c6e427753697ea137deae3ad2b89aaffdc9abc3adec9b06b65f603bbbfb",
+      "nonTeachingSHA256": "3f4019870006b7d0f3cbd24e1c2bc53bafe4d4c0079f2acf903e639ccb42474c",
+      "teachingFieldSHA256": {
+        "essentialQuestion": "f951d3a756a8093564be21b5e1cb701ac035b946f44deb81bbe20898a2631959",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8"
+      }
+    },
+    "software-v08-evidence-lab-sql-group-by": {
+      "fullSHA256": "94c6dbcc195a6836b2281680788b37f7904b04fa98498c08c777355195668c81",
+      "nonTeachingSHA256": "f271c0a125313bf6e1b6ecbdee453f0b03d34631ba057be8bc090936f5081e9a",
+      "teachingFieldSHA256": {
+        "essentialQuestion": "3279a3acc0742d701ac6c1cff93a6038003601dc7b966acaa51124d7caa14efc",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8"
+      }
+    },
+    "software-v08-deep-dive-sql-having": {
+      "fullSHA256": "c85d08ce028841f82eb456899f56a14f0b74237b2ba51c6b2730e9bb47287542",
+      "nonTeachingSHA256": "754fcbad678a80b32f3af690d4c10598e70c0cc7993fd5c2729bf158fa57dd98",
+      "teachingFieldSHA256": {
+        "essentialQuestion": "347daf6bc872446357b5e72dcd9a117f2c795a49e162c6d9ff2eb6a4151ceb65",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8"
+      }
+    },
+    "software-v08-evidence-lab-sql-having": {
+      "fullSHA256": "32b81064a77d7ce650a9fe40a097cf9f33f929583300885683386031d0d874da",
+      "nonTeachingSHA256": "c73551fbc033f638a8b5db25081b625d87962c90abe7efa0c145c6d16bb84aa1",
+      "teachingFieldSHA256": {
+        "essentialQuestion": "884c76fb3b5a022ed5b1b08d9f4daf5ce1dfea51bf9c2d9b400169f91e425fa0",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8"
+      }
+    },
+    "software-v08-deep-dive-sql-window-functions": {
+      "fullSHA256": "018bedad1ba83ee4d66452f4d7802e7679f9440e7d7efd65b84cac1a2de17b69",
+      "nonTeachingSHA256": "64ac2b45ea4226994d25c3d6aae5888ef2c3a6c992c61a681bf90687e00f35bf",
+      "teachingFieldSHA256": {
+        "essentialQuestion": "14720a37164c6ad8a682596d5902386c739e861fe583014450cfcb387ee7fc95",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8"
+      }
+    },
+    "software-v08-evidence-lab-sql-window-functions": {
+      "fullSHA256": "3f7b919fd27c44d9e344e7d5998498baa2f31f8f6d98d26b2c3619e55de64ed1",
+      "nonTeachingSHA256": "63bc7f57191b13c9cf99659cdd0ca23ae9668f65dd1b613a799ac3f6d232bff3",
+      "teachingFieldSHA256": {
+        "essentialQuestion": "b835cda194dfc24ef149a5d3e95d6cd47485588b78229aa87dcb5d0f350f259d",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8"
+      }
+    },
+    "software-v08-deep-dive-database-transaction": {
+      "fullSHA256": "3d7216570f57b9230b4e3b694ca20af61979e6ac22dce57d73d43ac897e5ecb3"
+    },
+    "software-v08-evidence-lab-database-transaction": {
+      "fullSHA256": "306b7c2a4ea907070ccc1115a0f3e5bedd4ca27a8c04dbb39cc116d59b53dbdb"
+    },
+    "software-v08-deep-dive-postgresql-mvcc": {
+      "fullSHA256": "d923d60e9009c3682cd483844f1d3dce4a3bcbe9bc5b138ede52310df8f15dc0"
+    },
+    "software-v08-evidence-lab-postgresql-mvcc": {
+      "fullSHA256": "e9716243b887567d1841e30a9eec47bd9f79773f7c8cbfa1f042ac73f1c491ba"
+    },
+    "software-v08-deep-dive-postgresql-index": {
+      "fullSHA256": "bd6cfff675c522590cc11f254b1bc3be9eb095abb1f1b4d4e1e1d600c07545ef"
+    },
+    "software-v08-evidence-lab-postgresql-index": {
+      "fullSHA256": "e215e0f889352e5136a209f6f2e3b59846e788c349ce7e3042caf93a9172d91b"
+    },
+    "software-v08-deep-dive-postgresql-explain": {
+      "fullSHA256": "fc3c54852b0cf195e192d5b333ebbe6d59652e4515e106c564ded0ef049bf6a7"
+    },
+    "software-v08-evidence-lab-postgresql-explain": {
+      "fullSHA256": "d1c431f74bc64e24811bc459148a4d200145b8c2fb5afdf537bde836e62783a4"
+    },
+    "software-v08-deep-dive-postgresql-explain-analyze": {
+      "fullSHA256": "89eabfde278d6531346f67218854107c6327d5b4e48e0700c8b554abdeb21e5b"
+    },
+    "software-v08-evidence-lab-postgresql-explain-analyze": {
+      "fullSHA256": "2d0bd6a38c2b6935869fe9b1967418d87f29d007a2d9f30d23ccce916181150a"
+    },
+    "software-v08-deep-dive-sql-foreign-key": {
+      "fullSHA256": "20b090c1e6aa2bd45b88a88305843e5573526b9465ee313e8e3945f509305c92",
+      "nonTeachingSHA256": "862d4f8e215a214235fca217e6707ab98af23b90bbeec17e3518b662504ea75b",
+      "teachingFieldSHA256": {
+        "essentialQuestion": "54c54db5e5227ed9e1385cbcc0b60adfcf2ee3002c9e30b4c40d5188d93c81d6",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8"
+      }
+    },
+    "software-v08-evidence-lab-sql-foreign-key": {
+      "fullSHA256": "37a8259d2a06392839c546f2124d04fc6ab5f7685087c89dfe0407de7c68edab",
+      "nonTeachingSHA256": "89944375e4b2d18ee330a622516f9a0cae444293140e83eb23c2beb439f48deb",
+      "teachingFieldSHA256": {
+        "essentialQuestion": "892f47f8fffab3209ab9019baf1e79b67a25bc244902f1d2bbfa0f0f4750ae1c",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8"
+      }
+    },
+    "software-v08-deep-dive-sql-unique-constraint": {
+      "fullSHA256": "67e30919da2eb3acdf6eb43b786817c62b70f0fdcef3dd3c7a5bd548115be02c",
+      "nonTeachingSHA256": "56f48520a021aea6a3e00444eeee1c3798b390ec52c3910fcfec3189ff73a46d",
+      "teachingFieldSHA256": {
+        "essentialQuestion": "7c62536f10ff727507b56edb2ad85ae42727e3cdf9070f3466ea05595e1b3498",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8"
+      }
+    },
+    "software-v08-evidence-lab-sql-unique-constraint": {
+      "fullSHA256": "bc24e5f620d2023dac4c3d9e1dda2b8ac97162307cb7a0e4a61d4ed83c53b505",
+      "nonTeachingSHA256": "46ca1ffc21e0fa0f53f267d7b886a164d43b48d0675ba922a0933b844cad57cb",
+      "teachingFieldSHA256": {
+        "essentialQuestion": "9ac2319ff042aa33dc632c0533eb181f0134121556c08aa65afb486e0463b683",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8"
+      }
+    },
+    "software-v08-deep-dive-sql-primary-key": {
+      "fullSHA256": "06b5e994bd699c405dbb2b6abbef4d23d47aabca80e9af4c6688c96f34efe1e5",
+      "nonTeachingSHA256": "e33274f86e2688f57f7178a8b0051045b0aed18f8e6265e1c112b37ced19fb28",
+      "teachingFieldSHA256": {
+        "essentialQuestion": "ca8a1b6f1e41ded10c6f5cc5f5c0bb527acc60d04f114758bb15e8cfeb5b790d",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8"
+      }
+    },
+    "software-v08-evidence-lab-sql-primary-key": {
+      "fullSHA256": "a8559b7e5dd00c960cd2ddad48f331f81a452b9cffee43821ae32c8052da2e9d",
+      "nonTeachingSHA256": "1b8e46bc7f9cddf8a06bbcfb06b21c63196a43faab34a849a516d6bc1258e6fa",
+      "teachingFieldSHA256": {
+        "essentialQuestion": "8300425a5d810db2e1b432ffa980bda6ec9fcd65e38d569016bb7d9fedb83542",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8"
+      }
+    },
+    "software-v08-deep-dive-sql-check-constraint": {
+      "fullSHA256": "77d25360a25e70d0fbaff558c97bbc88a7670bffc3dee290fb1852f2911423c3",
+      "nonTeachingSHA256": "1346c1a50c1f86c36606b5d5aeb42e13c819f8b087e78f4ef393b46b329279c8",
+      "teachingFieldSHA256": {
+        "essentialQuestion": "b3aaf6e83780b12e4f1a154905429b359cf0897f359957c9de1f1dd78f137720",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8"
+      }
+    },
+    "software-v08-evidence-lab-sql-check-constraint": {
+      "fullSHA256": "a8cba057326447eb914a8ca88bc46a49d7218dd082cba51c353986e2a59a45a5",
+      "nonTeachingSHA256": "fab569173c2ab7a911f39bb77f98b702adfa85cf81b143cac111b4f6885b02b7",
+      "teachingFieldSHA256": {
+        "essentialQuestion": "ad4a723e71c8acf599a3c323b1092153f7e0857aac433dcd993e477392e3e0c2",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8"
+      }
+    },
+    "software-v08-deep-dive-sql-with-query": {
+      "fullSHA256": "53e3023ac4138d632e655beb3b212dc00dccc3d0a9bc5bf49acca9d53f36c786",
+      "nonTeachingSHA256": "c12ed137259687ba90feae7ca8927b8bb6bb35a1a2ef136b63cf3b8cee2c80a6",
+      "teachingFieldSHA256": {
+        "essentialQuestion": "65bb85828e2b99c031680b54d7d3cf4be410b7002f6cf3a69b1451849c6e14c8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8"
+      }
+    },
+    "software-v08-evidence-lab-sql-with-query": {
+      "fullSHA256": "1e36d2441422507e1c44b8b179ca0d12670cd1c947d70be30748c7630f570169",
+      "nonTeachingSHA256": "c9d0e287c8057a5d3db076bd750fed55d01c1805bfae9ded95e55a7e4de41d09",
+      "teachingFieldSHA256": {
+        "essentialQuestion": "cae1c29bdbb1bfa26d95b29a50481e9619ec3290e2b69bb996754bd7ab1aaafc",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8"
+      }
+    },
+    "software-v08-deep-dive-recursive-with-query": {
+      "fullSHA256": "4a6e4d43d19de6d89ce59d45db278ec45a9d0a6bec1a0792f94b09bc48781de6"
+    },
+    "software-v08-evidence-lab-recursive-with-query": {
+      "fullSHA256": "b8aaa2d15f282f4c67db80428052e639e73ad15e2f410c516efde9d42f647889"
+    },
+    "software-v08-deep-dive-postgresql-jsonb": {
+      "fullSHA256": "f0508a14c3b8608ff46c2d007e4dac99368581629ffe756d9b82512f0e37dbef"
+    },
+    "software-v08-evidence-lab-postgresql-jsonb": {
+      "fullSHA256": "c98f85f86b7b9692cf72513edf70ad02b579ce59b543683901257c2816065c68"
+    },
+    "software-v08-deep-dive-postgresql-arrays": {
+      "fullSHA256": "643005f6b74fd40b9da5045db4f83fdfa526ec3e1d1a8cb51897a265abf4abe3"
+    },
+    "software-v08-evidence-lab-postgresql-arrays": {
+      "fullSHA256": "179e91cc686e27844d9f9d4c0bbecd6b20cbc81efbf79c930875a2195f8d7f24"
+    },
+    "software-v08-deep-dive-transaction-isolation-levels": {
+      "fullSHA256": "8d5be54cc18fec048c4d3bae82c7c2fe35adf4d082448dfa852b8c874a4518c4"
+    },
+    "software-v08-evidence-lab-transaction-isolation-levels": {
+      "fullSHA256": "3221080fc13759b4c1fc2d324e02b72acf5322ef3e63ef99cd933bbd187735b6"
+    },
+    "software-v09-failure-analysis-lab-acid-transactions": {
+      "fullSHA256": "f88e01f715ef3e08f9dda229bd813f490404495ed3b59a29b8bd4095754c3bb2"
+    },
+    "software-v09-troubleshooting-lab-b-tree-indexes": {
+      "fullSHA256": "498c48460379467a5cc8fb4a289d8025df5e8d8af7b2b593314545ce369a97e8"
+    },
+    "software-v09-design-review-database-indexes-faster-reads-with-a-price": {
+      "fullSHA256": "2cb1dee67e8ed2e086ff91763b525912df11326db4c65037211f6152fef123b1"
+    },
+    "software-v09-scenario-analysis-database-normalization-reduce-update-anomalies": {
+      "fullSHA256": "7b01daefed2bb1209ccd725c9e4dfddaba203bb84422a2a272acdf66514823fa"
+    },
+    "software-v09-failure-analysis-lab-database-schema-migrations": {
+      "fullSHA256": "32e64f96252e7049b48d3c05098208beaa7bd66e8630d2d0d63009558a1b53e9"
+    },
+    "software-v09-troubleshooting-lab-database-transaction": {
+      "fullSHA256": "46bdba7ccada0bf069e6d89a92ad3c92db84cdf6d73bfb4f21b6d84c99a0baf9"
+    },
+    "software-v09-design-review-database-transaction": {
+      "fullSHA256": "61731fc23835f4251db5c1175d5c6cca50ad2a79507b6be532898de10554b047"
+    },
+    "software-v09-scenario-analysis-database-transactions": {
+      "fullSHA256": "7ef2eaeb2731d3b0b4c63982f279c8c6b8b07dc62d88971e14b114ede384f60c"
+    },
+    "software-v09-failure-analysis-lab-postgresql-arrays": {
+      "fullSHA256": "efc13a57500f2c11cd1375323936b0c29af179d4905f2aa8815d201954711fa3"
+    },
+    "software-v09-troubleshooting-lab-postgresql-arrays": {
+      "fullSHA256": "f85e09c7ec0c7d80d31241282673727574c2992da92f2e8e99a596fd468082d9"
+    },
+    "software-v09-design-review-postgresql-explain": {
+      "fullSHA256": "6593aed451e0e59ab2afdc6f18b9ee7c9d2298cfaa012b8ed070c3eb470237fc"
+    },
+    "software-v09-scenario-analysis-postgresql-explain": {
+      "fullSHA256": "7b26aa86f2aaa5f48721a8d4b1c9200fdd24ceb13511938d6b1376e6d2b83370"
+    },
+    "software-v09-failure-analysis-lab-postgresql-explain": {
+      "fullSHA256": "22aefde3f3ece9353105906aee8a6814084ab6b81d201e9faa3b73102846f90e"
+    },
+    "software-v09-troubleshooting-lab-postgresql-explain-analyze": {
+      "fullSHA256": "f7875f54e27ed226fa25826a9b0b2d3564628e91fc942524211ecd8514db9c14"
+    },
+    "software-v09-design-review-postgresql-explain-analyze": {
+      "fullSHA256": "b51113f2d91c0e4195a2e96b30538edd6318e40ad5187f8037d3a69e44a0f6b4"
+    },
+    "software-v09-scenario-analysis-postgresql-index": {
+      "fullSHA256": "fb0bf086235163a35b7fc43d836950484b4cc2f046b3441bb16c1a8ebee5d2f6"
+    },
+    "software-v09-failure-analysis-lab-postgresql-index": {
+      "fullSHA256": "613ed6d77956ac49aa6b6ef686e4688f8dbf377b721de25bf4f8ecf151cb449f"
+    },
+    "software-v09-troubleshooting-lab-postgresql-indexes": {
+      "fullSHA256": "7ef66304729514ade19bb6bd7407ffcd480a8a663741f437d9077e4b8f6ed9a8"
+    },
+    "software-v09-design-review-postgresql-jsonb": {
+      "fullSHA256": "714c7d72465097888e0f5547b07d9966abb01823ca0ca61715b77b43eb8df36d"
+    },
+    "software-v09-scenario-analysis-postgresql-jsonb": {
+      "fullSHA256": "33f30ca46e470326fcfcd123dba767019bb690707c1347b5906824e0f13c684f"
+    },
+    "software-v09-failure-analysis-lab-postgresql-mvcc": {
+      "fullSHA256": "a29307a093aba5b765beca37654fd968bd28d4d318f9e7668d9b893858fe3480"
+    },
+    "software-v09-troubleshooting-lab-postgresql-mvcc": {
+      "fullSHA256": "16385f0403f8acd1f36ef2966edd1d54525c19ac3e121c1dfbb4c4b0c30f0bc2"
+    },
+    "software-v09-design-review-postgresql-mvcc": {
+      "fullSHA256": "6fd336bf54f14c59b863fbe2d98f58b9594c6959987fa31f62565dff644dae8e"
+    },
+    "software-v09-scenario-analysis-recursive-with-query": {
+      "fullSHA256": "3bc6d77ec4b1f4afb732a0809cfc578e047346640125893b19083e412f47060b"
+    },
+    "software-v09-failure-analysis-lab-recursive-with-query": {
+      "fullSHA256": "590b097dcb8f3abc5333cf96da3c810b5cce77ad9eb3b95950d9f77a16a97470"
+    },
+    "software-v09-troubleshooting-lab-sql-aggregate-functions": {
+      "fullSHA256": "da7c66cae0cfb339319e99640b615688224bb255d0ce0501122b40ce6598dced"
+    },
+    "software-v09-design-review-sql-aggregate-functions": {
+      "fullSHA256": "5d7cf0724fc9cc94ea6f5f3541dbd07e388d8dd10a304e7e530816df93ff01d2"
+    },
+    "software-v09-scenario-analysis-sql-check-constraint": {
+      "fullSHA256": "c0d1b46846ac71461820131c88c652855b34598750bf0220cf0b644c05e4e39f"
+    },
+    "software-v09-failure-analysis-lab-sql-check-constraint": {
+      "fullSHA256": "8b1879fd165732b88409675e0a203d0eb54fb892d6027acefecb5ffb7d6ca725"
+    },
+    "software-v09-troubleshooting-lab-sql-cross-join": {
+      "fullSHA256": "02f7825395c400c9a4ec555019ca70fa8dba0df4b3083b2ca7921c2524ba9abe"
+    },
+    "software-v09-design-review-sql-cross-join": {
+      "fullSHA256": "c2af6cb3e559be6f81e0fda015b8794d4c38436c324f17d0b1c4bd7cd4acbf8e"
+    },
+    "software-v09-scenario-analysis-sql-foreign-key": {
+      "fullSHA256": "39e89ad1f1033be184130d29e2a1591c55184fb0d6e11a2eacf302577d968a4f"
+    },
+    "software-v09-failure-analysis-lab-sql-foreign-key": {
+      "fullSHA256": "dc5babe2d94d79350bc8069c94cdc979bbfe4eef4b9045cec56a83213223f47e"
+    },
+    "software-v09-troubleshooting-lab-sql-group-by": {
+      "fullSHA256": "a5ad4677c8f5db902cfad06a01df92c0a30de499a389113fb360bcf19e4c3225"
+    },
+    "software-v09-design-review-sql-group-by": {
+      "fullSHA256": "6cba461d506dd00e6fed09e9ed86ca620a40eb0864183bbe7b4d17c8f83e3acf"
+    },
+    "software-v09-scenario-analysis-sql-having": {
+      "fullSHA256": "22bc8683fc0c3376bc09079493a3cbee92841aeb8926ab499d4f682ce25bf28f"
+    },
+    "software-v09-failure-analysis-lab-sql-having": {
+      "fullSHA256": "6a1b3c3e9080fcb269bf6fbd4192327690e93cbaaf7dd737a8ba785675771c0f"
+    },
+    "software-v09-troubleshooting-lab-sql-inner-join": {
+      "fullSHA256": "465cd84f02ab952199551cac2ad1717afaabdf38046b7d5c0e27e953a4a12996"
+    },
+    "software-v09-design-review-sql-inner-join": {
+      "fullSHA256": "316da40fcef382a1a2c425f499cf1e0bd46df18824756b6f233eaccc5d6ec74e"
+    },
+    "software-v09-scenario-analysis-sql-joins-combining-related-rows": {
+      "fullSHA256": "5a1e865dc8e01416a77552a0ff908207e3fe6a9d0c9cbf3110ec588d2fed27f0"
+    },
+    "software-v09-failure-analysis-lab-sql-left-outer-join": {
+      "fullSHA256": "ec2a2a8a7a2d9a1f7c06bdfe420e0dd43b8eedeed103a653c8923fee714efd1c"
+    },
+    "software-v09-troubleshooting-lab-sql-left-outer-join": {
+      "fullSHA256": "50d4e42ad1627249b72c4c70f881c614240559ab1dab1b4df2a5befee38c2c7a"
+    },
+    "software-v09-design-review-sql-primary-key": {
+      "fullSHA256": "0861d05ec18636bde4bfc7664de2611375d7565560266a9390481f6341ea0d62"
+    },
+    "software-v09-scenario-analysis-sql-primary-key": {
+      "fullSHA256": "03fc85244f1ee19aef5047aec2de738f20eb585a882c15cb3af52c9a57e37c61"
+    },
+    "software-v09-failure-analysis-lab-sql-query-tables-and-joins": {
+      "fullSHA256": "84d297d9c6b7891d964ba2702f1fa453ea18d3b7619976b498e3a52834b67ec7"
+    },
+    "software-v09-troubleshooting-lab-sql-unique-constraint": {
+      "fullSHA256": "29c3552e13af1cbfadc3530eeb3a12039a654e100d1cc790412753af72dfb0cd"
+    },
+    "software-v10-explain-back-challenge-acid-transactions": {
+      "fullSHA256": "8095f806e8aed9351f03d31f6e94f62d7981dbe3bf1c34f29758f42a07a2c622"
+    },
+    "software-v10-field-note-b-tree-indexes": {
+      "fullSHA256": "450d98e2e9affff405af3a89dbf1c59edcdf709382a120e7941b5d8bb4c6f52f"
+    },
+    "software-v10-exam-style-practice-database-indexes-faster-reads-with-a-price": {
+      "fullSHA256": "5dd63ed2a81217711ac620ca474adc39ad5d16d1dd558bfed05cb1609d5e89c0"
+    },
+    "software-v10-scenario-brief-database-normalization-reduce-update-anomalies": {
+      "fullSHA256": "64007a5e3788d0e6f8ef22b5e5da45be74f90dc98e2a04987c4a391c5987f556"
+    },
+    "software-v10-transfer-challenge-database-schema-migrations": {
+      "fullSHA256": "7c96373d36445a669053f189a28861b098d69ecd1d6bd04403d083336ce613a2"
+    },
+    "software-v10-retrieval-ladder-database-transaction": {
+      "fullSHA256": "061bc12b8727ee13414dbb0e3ce5ca23512e323e93ce807ff7885b47b384448a"
+    },
+    "software-v10-design-critique-database-transaction": {
+      "fullSHA256": "af29fbae6d3065752a34554461f431ec78d05b7ba9b9aadd73a04d1ea6cc0c7c"
+    },
+    "software-v10-decision-brief-database-transactions": {
+      "fullSHA256": "d76d7e78fcd377524ab33f90ef157a71722c66edc38261fb8c669922c5e68505"
+    },
+    "software-v10-explain-back-challenge-postgresql-arrays": {
+      "fullSHA256": "f47c4f9e65561ed5e7b496472bd919cb8afe22fc597de991257963afa0a3d48e"
+    },
+    "software-v10-field-note-postgresql-arrays": {
+      "fullSHA256": "2821d312afcba663cedd93b9fffc4d256ae6160251257688d2d6388a3e015067"
+    },
+    "software-v10-exam-style-practice-postgresql-explain": {
+      "fullSHA256": "f599306ff764df200de57626acbc1ee1bdfc07229b432aa6f1e4d48e700eec13"
+    },
+    "software-v10-scenario-brief-postgresql-explain": {
+      "fullSHA256": "5a4b75de768d850c94b378b4670925dcc443ad0b53bdc51621892c97e51f6cca"
+    },
+    "software-v10-transfer-challenge-postgresql-explain": {
+      "fullSHA256": "8e928cc4232b7175701ff9f26c002e01ddd7acb76e93982650658761a9b4c15b"
+    },
+    "software-v10-retrieval-ladder-postgresql-explain-analyze": {
+      "fullSHA256": "b5e501d64685c4b59895b8b709c4086d5f557b12f01c58009d6f3538f774467c"
+    },
+    "software-v10-design-critique-postgresql-explain-analyze": {
+      "fullSHA256": "60ef69e3861d9497a028faafc2be2f061ecf8c97b2a48b09d92052b95e20d14a"
+    },
+    "software-v10-decision-brief-postgresql-index": {
+      "fullSHA256": "fe7ec96cf98ae0e066ceb16b077af235befd46a139bee2d5be5a6177f966333a"
+    },
+    "software-v10-explain-back-challenge-postgresql-index": {
+      "fullSHA256": "332678771943596347fd2d6f6e1ceddc19a6bbccd06bd39ccfd44b6814b9c88e"
+    },
+    "software-v10-field-note-postgresql-indexes": {
+      "fullSHA256": "14ffed55fde94be108fc9b9b20f42bc0225c99521681cd6d9e60885febd0a355"
+    },
+    "software-v10-exam-style-practice-postgresql-jsonb": {
+      "fullSHA256": "2fa73ba7ed65caf95624fb44b451248bdc10261b2df9ab2ba4ebd137e6dd0551"
+    },
+    "software-v10-scenario-brief-postgresql-jsonb": {
+      "fullSHA256": "096f223e2765dd7c18950cf26a150eeb6c8210effcd9012f87f69d13c6e3322f"
+    },
+    "software-v10-transfer-challenge-postgresql-mvcc": {
+      "fullSHA256": "c852029d6b4711468716f37b04fb64ed2a9a2a7a82a9de8ba8b8189ec8409a39"
+    },
+    "software-v10-retrieval-ladder-postgresql-mvcc": {
+      "fullSHA256": "ee201c0315d22cdf700c4a199cfb986416d10611a42cbd757f5afb47fa285a87"
+    },
+    "software-v10-design-critique-postgresql-mvcc": {
+      "fullSHA256": "c484d10ebb9f938232b9ab846a931b84ac84c0fb3be1838890e1a894fca5d153"
+    },
+    "software-v10-decision-brief-recursive-with-query": {
+      "fullSHA256": "cbb55b02b87a581458d54c088384f165f0c6c9081f3650754a2e97e5ea8a7620"
+    },
+    "software-v10-boundary-condition-lab-recursive-with-query": {
+      "fullSHA256": "4c2285cc8e4b9465955419db98c8a0a2f6f9b16b9c28ec8378b3d7a076cd105e"
+    },
+    "software-v10-decision-matrix-lab-sql-aggregate-functions": {
+      "fullSHA256": "e8ceafa31f141d77bad41e5e51291a421448111384e9f9c9d7fde0f432e14444"
+    },
+    "software-v10-configuration-lab-sql-aggregate-functions": {
+      "fullSHA256": "a331fcdfcd79024342fc8a2188d29ebf29a29b23964f1f68de030d7fb1660ec4"
+    },
+    "software-v10-fault-isolation-lab-sql-check-constraint": {
+      "fullSHA256": "7fd6890743b1a0ae404320672449a84ea18b1e82866dc02ba50dcdfffbde304b"
+    },
+    "software-v10-measurement-lab-sql-check-constraint": {
+      "fullSHA256": "b1a2b033de14cd011fff1b136f0d82cff0e2e2c472752c82aeff31c8ec7f18e9"
+    },
+    "software-v10-recovery-lab-sql-cross-join": {
+      "fullSHA256": "b6ec46253ad1c164d2a63105b5a31f4733a6a9f6bec19fcb1f799c8518d54dbd"
+    },
+    "software-v10-checklist-lab-sql-cross-join": {
+      "fullSHA256": "49aaf5ad47d811b4fe4ea9942bbb55282ca6e3e1c0b1076aa88c288777812098"
+    },
+    "software-v10-hypothesis-lab-sql-foreign-key": {
+      "fullSHA256": "8a4ae21042603a37bec2943a9ea65ca7040d2ace40e9dc561abd8e49334e141d"
+    },
+    "software-v10-trace-lab-sql-foreign-key": {
+      "fullSHA256": "e98927e70e152bd447c723b132f29bea94fe1ab3a58b4f9c60705a68bf9310f4"
+    },
+    "software-v10-counterexample-lab-sql-group-by": {
+      "fullSHA256": "d1d2d46ec2d889deec40bcbeebe7c2783234b3006397cc6f8b4279fe76cc9a87"
+    },
+    "software-v10-verification-lab-sql-group-by": {
+      "fullSHA256": "3a45f616beedf9b865f08154d9388aa050d367f0a3dc2718588c1bd477d71221"
+    },
+    "software-v10-transfer-lab-sql-having": {
+      "fullSHA256": "6e9af1eacfdefe352e93c680751cba4ed9976590704efb8c5951b95dd18fbb1a"
+    },
+    "software-v10-concept-mapping-lab-sql-having": {
+      "fullSHA256": "35bfd1bda63133fe36c12111cd2fc0dc08459ddb4ea446a898e5145f74cc069c"
+    },
+    "software-v10-confidence-calibration-sql-inner-join": {
+      "fullSHA256": "00395c9998cf74850792486a6098ea6da715c2345ed6240b0d22e5158360bcce"
+    },
+    "software-v10-mistake-hunt-sql-inner-join": {
+      "fullSHA256": "5dea401fba15d2af8e4cdb00792f7b54832e0393868493f5a995a4b50659eb73"
+    },
+    "software-v10-reasoning-check-sql-joins-combining-related-rows": {
+      "fullSHA256": "bebe7df7b9fcb1f8195a521c09dd2d8fab7b65c2b60cbf582581a954061956e2"
+    },
+    "software-v10-worked-walkthrough-sql-left-outer-join": {
+      "fullSHA256": "c1b6d6fb5347d9b668c60fd2e8cdd5e23e1194647299172810f5c012bf010816"
+    },
+    "software-v10-evidence-reading-sql-left-outer-join": {
+      "fullSHA256": "ff5d1651bbabf7b9f23703229565f7dedabcdc913a911e19861cc9ea7f39917b"
+    },
+    "software-v10-concept-connection-sql-primary-key": {
+      "fullSHA256": "fa17f5b35ea96f7f6b144510a207b4228dac927d7252b8ae57f903003d9b9fb3"
+    },
+    "software-v10-compare-contrast-sql-primary-key": {
+      "fullSHA256": "40330eeee82762003c7d11622d3a63b1eaee75cf4347eff3916c34c62f938d11"
+    },
+    "software-v10-flash-review-sql-query-tables-and-joins": {
+      "fullSHA256": "fc6b13f0865d1569cbd7c5319628b2f20491e94805d642ce635e6c7bdcf1b485"
+    },
+    "software-v10-confidence-calibration-sql-unique-constraint": {
+      "fullSHA256": "cb3c3f4321d25ae44fcf6931b1d9e64a769a792b361efeba80a78c14f57c7f64"
+    },
+    "software-v10-mistake-hunt-sql-unique-constraint": {
+      "fullSHA256": "4fb3372776974635c0b29a386b2d2f4f566c73f9b2618d308d70478d88081f84"
+    },
+    "software-v10-reasoning-check-sql-with-query": {
+      "fullSHA256": "ff90f35f918ad456fa7fd1f43d62e0b5c5a41f7d01c6c499a0af9735f9381504"
+    },
+    "software-v10-worked-walkthrough-sql-with-query": {
+      "fullSHA256": "2e5f6c94c063c05913c97976c520e1dbd39fddbbfd9f5409fc9478d83710257d"
+    },
+    "software-v10-evidence-reading-sql-window-functions": {
+      "fullSHA256": "46230daf7f02379e0ed6c69e5575e4327217826e951c62deb7f4310a65b219e0"
+    },
+    "software-v10-concept-connection-sql-window-functions": {
+      "fullSHA256": "f76fee413eb0e1baddfb705838a45de4aa4d251350ca9e3a0017220b11272b3d"
+    },
+    "software-v10-compare-contrast-transaction-isolation": {
+      "fullSHA256": "2d39bcd1cd02f4f3010184a1538c510a03709b933d7e8a1941467a2a15f59345"
+    },
+    "software-v10-flash-review-transaction-isolation-levels": {
+      "fullSHA256": "ee9457323b2f9d6a7682ad7f282f2dd5ff9e3d9c0fc22477ae4ee6e7fcbafc15"
+    },
+    "software-v10-confidence-calibration-transaction-isolation-levels": {
+      "fullSHA256": "c841d039d29ed0f85d99eb3569d1fe41f78af90ba343386028404ec9c60849ee"
+    },
+    "software-v10-mistake-hunt-transaction-isolation-what-concurrent-transactions-c": {
+      "fullSHA256": "2faaf3dd7d054a23f5ae1e16e4d0d8c12f915a2c72eaefdc024901a573f68439"
+    },
+    "software-v10-reasoning-check-acid-transactions": {
+      "fullSHA256": "72c63813b9be10a9b9faf3242c660125bf5d22f07ada0110f84d7ecdaa6c95ee"
+    },
+    "software-v10-worked-walkthrough-b-tree-indexes": {
+      "fullSHA256": "29310a35746fabae76de2a026a3db4e35b3b51ac5d379e9d2b20981d3b7b4ecf"
+    },
+    "software-v10-evidence-reading-database-indexes-faster-reads-with-a-price": {
+      "fullSHA256": "bb2fb7503b6f7cacc9efd471d33b5aa5102099ea9377325fe1a567c6b52e68f7"
+    },
+    "software-v10-concept-connection-database-normalization-reduce-update-anomalies": {
+      "fullSHA256": "eb58c37f5f3dba97eb265223e9eb669bb920423632204c7d973a15efcfd639ef"
+    },
+    "software-v10-compare-contrast-database-schema-migrations": {
+      "fullSHA256": "c572ca00bf672df131ad828f83dd1ed829f7233b790a392b3087f1709a6f73e2"
+    },
+    "software-v10-flash-review-database-transaction": {
+      "fullSHA256": "badf3d3161492209bf9bec850b0adb4291350daa06d6680ca7383c079905ca26"
+    }
+  }
+}

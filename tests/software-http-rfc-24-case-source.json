@@ -1,0 +1,685 @@
+{
+  "standard": "RFC 9110/9111",
+  "date": "2026-11-11",
+  "engine": "offline illustrative deterministic protocol models, not real network behavior",
+  "cases": [
+    {
+      "id": "software-api-lifecycle",
+      "q": "A client times out after its HTTP handler has committed an order. Which layer distinguishes a transport timeout from a rejected order?",
+      "setup": "Synthetic pipeline: DNS=6 ms, TCP=11 ms, TLS=14 ms, application=27 ms, response transfer=3 ms; no assumed concurrency.",
+      "derive": "The sequential trace totals 61 ms, while a response timeout alone cannot establish whether commit occurred; reconcile the order identifier in the application ledger.",
+      "check": "6+11+14+27+3=61 ms; removing the 14-ms TLS stage yields 47 ms only in the hypothetical trace, not measured performance.",
+      "counter": "Treating a lost HTTP response as a rolled-back database transaction is false; the transport and persistence boundaries are independent.",
+      "vary": "Add 4 ms to DNS (10 ms) and predict 65 ms total with the same application result.",
+      "limit": "RFC 9110 specifies protocol semantics, not the ordering or latency of a particular application stack.",
+      "kind": "sum",
+      "input": {
+        "values": [
+          6,
+          11,
+          14,
+          27,
+          3
+        ]
+      },
+      "expected": 61,
+      "variant": {
+        "values": [
+          10,
+          11,
+          14,
+          27,
+          3
+        ]
+      },
+      "alternate": 65,
+      "source": "https://www.rfc-editor.org/rfc/rfc9110.html#section-3"
+    },
+    {
+      "id": "software-idempotency",
+      "q": "If an application offers Idempotency-Key for creating invoices, what may a caller infer after replaying the same key, and what remains unproven?",
+      "setup": "Illustrative server contract deduplicates accepted POSTs by the key; requests carry keys [K7,K7]. This is a local contract, not automatic HTTP POST behavior.",
+      "derive": "There is one distinct accepted key, so one invoice is created under the stated application contract.",
+      "check": "Count the distinct nonempty keys, |{K7}|=1; replacing replay with a new key K8 yields two invoices.",
+      "counter": "HTTP POST is not inherently idempotent, and the presence of a header by itself does not prove the server implements replay storage or payload-match checking.",
+      "vary": "Send [K7,K8] and predict two distinct accepted invoices; verify a reused key with different payload would require a documented conflict rule.",
+      "limit": "RFC 9110 defines method idempotency; the deduplication model is an illustrative application-specific extension.",
+      "kind": "unique_keys",
+      "input": {
+        "keys": [
+          "K7",
+          "K7"
+        ]
+      },
+      "expected": 1,
+      "variant": {
+        "keys": [
+          "K7",
+          "K8"
+        ]
+      },
+      "alternate": 2,
+      "source": "https://www.rfc-editor.org/rfc/rfc9110.html#section-9.2.2"
+    },
+    {
+      "id": "lab-http-devtools",
+      "q": "Why does a 205-ms browser waterfall not establish that a backend spent 205 ms executing code?",
+      "setup": "Synthetic non-overlapping phases: DNS 12, connection 28, TLS 43, wait-for-first-byte 105 and receive 17 ms.",
+      "derive": "12+28+43+105+17=205 ms end-to-end; only a subset of 105-ms waiting time may represent server compute.",
+      "check": "Break out phases and recompute 205; if first-byte wait rises to 145 ms, end-to-end sum becomes 245 ms.",
+      "counter": "Calling 205 ms 'database query time' is unsupported because network, queuing and application stages are not isolated.",
+      "vary": "Raise only first-byte wait by 40 ms and ask which instrument (server trace/span) is needed to localize the added delay.",
+      "limit": "HTTP semantics alone do not define DevTools phase labels or actual overlap; these are invented strictly additive observations.",
+      "kind": "sum",
+      "input": {
+        "values": [
+          12,
+          28,
+          43,
+          105,
+          17
+        ]
+      },
+      "expected": 205,
+      "variant": {
+        "values": [
+          12,
+          28,
+          43,
+          145,
+          17
+        ]
+      },
+      "alternate": 245,
+      "source": "https://www.rfc-editor.org/rfc/rfc9110.html#section-15"
+    },
+    {
+      "id": "software-http-status",
+      "q": "How do status-code families classify 201, 304, 429, and 503 without equating them to application success?",
+      "setup": "Four invented responses [201,304,429,503] are observed; classification uses hundreds digit.",
+      "derive": "201→2xx; 304→3xx; 429→4xx; 503→5xx. A 304 is conditional response metadata, not an ordinary 200 body.",
+      "check": "Integer division by 100 yields [2,3,4,5]; [101,206,308,418] yields [1,2,3,4].",
+      "counter": "'All 3xx replies redirect to a Location URL' fails for 304 Not Modified.",
+      "vary": "Replace input with 101,206,308,418 and explain why classifications do not determine whether an application's operation completed.",
+      "limit": "RFC 9110 defines status semantics; a class digit alone cannot certify business-layer correctness.",
+      "kind": "families",
+      "input": {
+        "codes": [
+          201,
+          304,
+          429,
+          503
+        ]
+      },
+      "expected": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "variant": {
+        "codes": [
+          101,
+          206,
+          308,
+          418
+        ]
+      },
+      "alternate": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "source": "https://www.rfc-editor.org/rfc/rfc9110.html#section-15"
+    },
+    {
+      "id": "software-rest-idempotent",
+      "q": "When identical PUT requests arrive twice, why is a stable resource representation compatible with two audit events?",
+      "setup": "An illustrative resource begins with {a:1,b:2}; PUT requests both specify complete desired replacement {a:3}.",
+      "derive": "After both replacements, representation is {a:3}; omitted b is not retained by this full-replacement application model.",
+      "check": "Apply the same replacement twice; state remains {a:3}. With complete replacement {a:3,b:2}, b is present by explicit request.",
+      "counter": "Idempotency does not require identical response status codes, zero request logging, or exactly-once delivery.",
+      "vary": "Change replacement body to include b and contrast final state rather than audit count.",
+      "limit": "Actual PUT implementation and metadata rules depend on origin semantics; this fixture models only complete replacement state.",
+      "kind": "replace",
+      "input": {
+        "old": {
+          "a": 1,
+          "b": 2
+        },
+        "body": {
+          "a": 3
+        }
+      },
+      "expected": {
+        "a": 3
+      },
+      "variant": {
+        "old": {
+          "a": 1,
+          "b": 2
+        },
+        "body": {
+          "a": 3,
+          "b": 2
+        }
+      },
+      "alternate": {
+        "a": 3,
+        "b": 2
+      },
+      "source": "https://www.rfc-editor.org/rfc/rfc9110.html#section-9.3.4"
+    },
+    {
+      "id": "software-http-semantics",
+      "q": "Can GET and HEAD be classified as safe while POST and PUT cannot, even when all four are authenticated?",
+      "setup": "Classify intended user-requested action of methods [GET,HEAD,POST,PUT], not incidental server logging.",
+      "derive": "RFC 9110 marks GET and HEAD safe, whereas POST and PUT permit requested state change; booleans [true,true,false,false].",
+      "check": "Compare OPTIONS and TRACE, which are also specified as safe methods, noting servers may disable TRACE.",
+      "counter": "Safe means the client did not request a state-changing effect, not that zero bytes or logs could change at the server.",
+      "vary": "Classify [OPTIONS,TRACE,DELETE] to obtain [true,true,false] and distinguish safety from permissibility.",
+      "limit": "Method classifications specify intended semantics; an implementation violating them remains possible and unsafe.",
+      "kind": "safety",
+      "input": {
+        "methods": [
+          "GET",
+          "HEAD",
+          "POST",
+          "PUT"
+        ]
+      },
+      "expected": [
+        true,
+        true,
+        false,
+        false
+      ],
+      "variant": {
+        "methods": [
+          "OPTIONS",
+          "TRACE",
+          "DELETE"
+        ]
+      },
+      "alternate": [
+        true,
+        true,
+        false
+      ],
+      "source": "https://www.rfc-editor.org/rfc/rfc9110.html#section-9.2.1"
+    },
+    {
+      "id": "software-v06-http-get-semantics",
+      "q": "When an ETag matches If-None-Match on a conditional GET, why does the origin choose 304 rather than return the body?",
+      "setup": "Synthetic selected representation has ETag \"rev7\", request If-None-Match \"rev7\"; assume method GET and otherwise eligible 200.",
+      "derive": "With the selected representation unchanged and validator matching, GET precondition yields 304 Not Modified.",
+      "check": "Switch supplied validator to \"rev6\" and expect the ordinary 200 selected representation response.",
+      "counter": "304 is not a guarantee that local client content exists; a client missing cached representation cannot construct the body from 304 alone.",
+      "vary": "Replace only request validator; explain how a stale cache reuses an existing stored representation upon successful validation.",
+      "limit": "Precondition evaluation may interact with additional request fields and selected-resource state beyond this single-ETag model.",
+      "kind": "conditional",
+      "input": {
+        "etag": "rev7",
+        "ifNoneMatch": "rev7"
+      },
+      "expected": 304,
+      "variant": {
+        "etag": "rev7",
+        "ifNoneMatch": "rev6"
+      },
+      "alternate": 200,
+      "source": "https://www.rfc-editor.org/rfc/rfc9110.html#section-13.1.2"
+    },
+    {
+      "id": "software-v06-http-put-semantics",
+      "q": "Why does PUT of a single-field document not mean 'patch that field' under full replacement semantics?",
+      "setup": "The illustrative target has fields [x=1,y=2]; complete PUT representation contains [x=4] only.",
+      "derive": "Replacement produces [x=4], with y absent; HTTP PATCH, not PUT, is the conventional method for a partial update contract.",
+      "check": "Reapply [x=4] and obtain the same one-field representation; include y=5 explicitly and final representation has two fields.",
+      "counter": "Assuming a PUT body merges silently with unmentioned fields masks destructive client/server contract mismatches.",
+      "vary": "Send complete replacement [x=4,y=5] and identify exactly which fields survive.",
+      "limit": "How an origin maps representation to storage is implementation-specific; this exercise explicitly assumes full replacement.",
+      "kind": "replace",
+      "input": {
+        "old": {
+          "x": 1,
+          "y": 2
+        },
+        "body": {
+          "x": 4
+        }
+      },
+      "expected": {
+        "x": 4
+      },
+      "variant": {
+        "old": {
+          "x": 1,
+          "y": 2
+        },
+        "body": {
+          "x": 4,
+          "y": 5
+        }
+      },
+      "alternate": {
+        "x": 4,
+        "y": 5
+      },
+      "source": "https://www.rfc-editor.org/rfc/rfc9110.html#section-9.3.4"
+    },
+    {
+      "id": "software-v06-http-delete-semantics",
+      "q": "Can a DELETE be idempotent if first call returns 204 and retry returns 404?",
+      "setup": "Illustrative API chooses 204 on deleting an existing resource and 404 when the same resource is already absent; initial resource exists.",
+      "derive": "Sequence [204,404] leaves resource absent after either request, so user-requested final effect is stable.",
+      "check": "Starting from already absent yields [404,404] under this particular response policy.",
+      "counter": "Requiring equal response codes across retries confuses method idempotency with identical message bytes.",
+      "vary": "Start absent, then issue identical requests; compare both replies and terminal resource state.",
+      "limit": "RFC 9110 permits different responses on repeated DELETE; exact status policy is a documented choice of this mock origin.",
+      "kind": "delete_statuses",
+      "input": {
+        "exists": true
+      },
+      "expected": [
+        204,
+        404
+      ],
+      "variant": {
+        "exists": false
+      },
+      "alternate": [
+        404,
+        404
+      ],
+      "source": "https://www.rfc-editor.org/rfc/rfc9110.html#section-9.3.5"
+    },
+    {
+      "id": "software-v06-http-status-code-classes",
+      "q": "What diagnostic information is lost when a monitor reduces 103,206,302,404,503 to only 'pass/fail'?",
+      "setup": "Synthetic monitor observes [103,206,302,404,503], including informational, partial, redirect, client and server status classes.",
+      "derive": "Families are [1,2,3,4,5]; 206 is successful partial representation, while 503 signals temporary unavailability in common cases.",
+      "check": "Change input to [200,201,204,304,429], then recompute [2,2,2,3,4].",
+      "counter": "Treating 206 as a whole-object download or treating 304 as a redirect to a different URL are incorrect.",
+      "vary": "Ask which response needs an accompanying Content-Range header and which a cached representation for useful processing.",
+      "limit": "A status class is a protocol observation; it cannot establish SLA or application correctness without a contract.",
+      "kind": "families",
+      "input": {
+        "codes": [
+          103,
+          206,
+          302,
+          404,
+          503
+        ]
+      },
+      "expected": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "variant": {
+        "codes": [
+          200,
+          201,
+          204,
+          304,
+          429
+        ]
+      },
+      "alternate": [
+        2,
+        2,
+        2,
+        3,
+        4
+      ],
+      "source": "https://www.rfc-editor.org/rfc/rfc9110.html#section-15"
+    },
+    {
+      "id": "software-v06-http-cache-freshness",
+      "q": "For a cacheable response with max-age=120 seconds, is Age=80 fresh and Age=120 fresh?",
+      "setup": "Assume RFC 9111 age calculation already resulted in 80 s and explicit freshness lifetime is 120 s, with no overriding directives.",
+      "derive": "80 < 120 means fresh; at boundary 120 < 120 is false, so stale.",
+      "check": "Compute remaining freshness 120−80=40 s; at Age=120, remaining lifetime is zero.",
+      "counter": "A stored entry having a 200 status code does not by itself make it fresh or authorize reuse without validation.",
+      "vary": "Increase Age to exactly 120 s and require revalidation or allowed stale-serving exception.",
+      "limit": "Corrected initial age, date skew, validators and request directives can change a real cache decision; this is an isolated comparison.",
+      "kind": "fresh",
+      "input": {
+        "age": 80,
+        "maxAge": 120
+      },
+      "expected": true,
+      "variant": {
+        "age": 120,
+        "maxAge": 120
+      },
+      "alternate": false,
+      "source": "https://www.rfc-editor.org/rfc/rfc9111.html#section-4.2"
+    },
+    {
+      "id": "software-v06-http-head-semantics",
+      "q": "What does a HEAD response tell you about a 1,024-byte representation while carrying zero response-content bytes?",
+      "setup": "Illustrative handler knows a selected GET representation encoded as 1,024 octets and issues equivalent HEAD without content.",
+      "derive": "Modeled HEAD body is 0 bytes; Content-Length, if sent correctly, describes the corresponding content size 1,024, not zero.",
+      "check": "Change request to GET under same representation and modeled content body is 1,024 bytes.",
+      "counter": "Declaring Content-Length: 0 just because HEAD carries no response content confuses metadata for selected representation with transfer payload.",
+      "vary": "Compare HEAD and GET body length while holding selected representation constant.",
+      "limit": "A server may omit some header fields for HEAD; byte-exact equality of all GET/HEAD headers is not guaranteed.",
+      "kind": "head_size",
+      "input": {
+        "method": "HEAD",
+        "bytes": 1024
+      },
+      "expected": {
+        "bodyBytes": 0,
+        "representationBytes": 1024
+      },
+      "variant": {
+        "method": "GET",
+        "bytes": 1024
+      },
+      "alternate": {
+        "bodyBytes": 1024,
+        "representationBytes": 1024
+      },
+      "source": "https://www.rfc-editor.org/rfc/rfc9110.html#section-9.3.2"
+    },
+    {
+      "id": "software-v08-deep-dive-http-safe-methods",
+      "q": "Does a GET that increments internal request logs cease being safe when no requested account balance changes?",
+      "setup": "Model GET with 3 incidental audit records and zero user-requested resource writes.",
+      "derive": "Safety concerns the requested effect: zero requested writes means the modeled GET is safe even if three logs exist.",
+      "check": "Keep audit count fixed at three but introduce one requested balance mutation; the resulting endpoint violates safe GET intent.",
+      "counter": "Safety does not mean absolutely no side effects; incidental accounting/advertising/log activity may occur.",
+      "vary": "Redesign an endpoint that debits on GET to use an unsafe method and appropriate authorization.",
+      "limit": "The test evaluates stated requested effects, not a production origin's actual behavior.",
+      "kind": "safe_effect",
+      "input": {
+        "method": "GET",
+        "audits": 3,
+        "requestedWrites": 0
+      },
+      "expected": true,
+      "variant": {
+        "method": "GET",
+        "audits": 3,
+        "requestedWrites": 1
+      },
+      "alternate": false,
+      "source": "https://www.rfc-editor.org/rfc/rfc9110.html#section-9.2.1"
+    },
+    {
+      "id": "software-v08-evidence-lab-http-safe-methods",
+      "q": "Why is a crawler's GET /cancel?job=42 dangerous if the endpoint cancels the job?",
+      "setup": "Assume automated prefetch performs GET; in unsafe implementation handler cancels queued job.",
+      "derive": "A safe method must not request cancellation. In the corrected fixture mutation=false, so crawler GET has no requested state change.",
+      "check": "Change mutation flag true and the model rejects safe-method contract, regardless of HTTP 200 reply.",
+      "counter": "Hiding an unsafe verb in the query string does not change the semantics of GET to an unsafe operation.",
+      "vary": "Move cancellation to an authenticated POST and compare the prefetch consequences.",
+      "limit": "This is a synthetic contract check; no real endpoints were contacted.",
+      "kind": "safe_effect",
+      "input": {
+        "method": "GET",
+        "audits": 0,
+        "requestedWrites": 0
+      },
+      "expected": true,
+      "variant": {
+        "method": "GET",
+        "audits": 0,
+        "requestedWrites": 1
+      },
+      "alternate": false,
+      "source": "https://www.rfc-editor.org/rfc/rfc9110.html#section-9.2.1"
+    },
+    {
+      "id": "software-v08-deep-dive-http-idempotent-methods",
+      "q": "A PUT response is lost after persisting {mode:'standby'}. Why can an identical retry be safe with respect to intended final state?",
+      "setup": "Simulated state machine sets complete resource to mode='standby' twice in series.",
+      "derive": "Both writes produce one final representation {mode:'standby'}; no requirement that log rows or total requests equal one.",
+      "check": "Replace second payload with mode='active' and final state becomes {mode:'active'}, proving only identical repeats are covered.",
+      "counter": "Concluding 'the first request definitely failed' from a missing response can lead to invalid exactly-once claims.",
+      "vary": "Replay the identical request three times; separately inspect an audit counter without treating it as intended resource state.",
+      "limit": "Idempotent semantics do not establish end-to-end exactly-once execution of external business side effects.",
+      "kind": "last_write",
+      "input": {
+        "values": [
+          "standby",
+          "standby"
+        ]
+      },
+      "expected": "standby",
+      "variant": {
+        "values": [
+          "standby",
+          "active"
+        ]
+      },
+      "alternate": "active",
+      "source": "https://www.rfc-editor.org/rfc/rfc9110.html#section-9.2.2"
+    },
+    {
+      "id": "software-v08-evidence-lab-http-idempotent-methods",
+      "q": "How many distinct terminal resource states result from one versus three identical DELETE attempts?",
+      "setup": "Mock state initially exists; calls delete the same URI once or three times, ignoring varying response metadata.",
+      "derive": "After any positive number of deletes, exists=false. This final-state identity, not response equality, is the idempotent property.",
+      "check": "One call and three calls both yield false; zero calls would leave the initial true state unchanged.",
+      "counter": "An audit log recording three attempts is not evidence that the resource has been deleted three separate times.",
+      "vary": "Contrast one attempt with zero; this identifies the required precondition that at least one request reached the handler.",
+      "limit": "The model excludes concurrent recreation; DELETE idempotency does not freeze a resource against other actors.",
+      "kind": "delete_state",
+      "input": {
+        "initial": true,
+        "calls": 3
+      },
+      "expected": false,
+      "variant": {
+        "initial": true,
+        "calls": 0
+      },
+      "alternate": true,
+      "source": "https://www.rfc-editor.org/rfc/rfc9110.html#section-9.3.5"
+    },
+    {
+      "id": "software-v08-deep-dive-http-get",
+      "q": "What is the result of conditional GET with a nonmatching validator, and what cannot be inferred from it?",
+      "setup": "Server selects ETag \"v2\"; client sends If-None-Match \"v1\". Assume no other preconditions and representation otherwise eligible.",
+      "derive": "ETag mismatch causes normal 200 representation response in this synthetic case, not 304.",
+      "check": "Replace the client validator with \"v2\" and conditional GET returns 304, allowing a stored representation to be reused.",
+      "counter": "A mismatch does not prove resource is entirely new; a minor version update is sufficient.",
+      "vary": "Change only the validator and re-evaluate; do not assume a 304 response includes representation bytes.",
+      "limit": "Weak comparison rules and additional validators are omitted; do not generalize this exact-match model to all ETag syntax.",
+      "kind": "conditional",
+      "input": {
+        "etag": "v2",
+        "ifNoneMatch": "v1"
+      },
+      "expected": 200,
+      "variant": {
+        "etag": "v2",
+        "ifNoneMatch": "v2"
+      },
+      "alternate": 304,
+      "source": "https://www.rfc-editor.org/rfc/rfc9110.html#section-13.1.2"
+    },
+    {
+      "id": "software-v08-evidence-lab-http-get",
+      "q": "For a 1,000-byte resource, how many representation bytes does Range: bytes=100-199 select?",
+      "setup": "Assume stable 1,000-octet selected representation and one satisfiable inclusive byte range 100 through 199.",
+      "derive": "Inclusive length =199−100+1=100 bytes; status is 206 with Content-Range: bytes 100-199/1000 in a compliant single-range response.",
+      "check": "Changing end to 249 yields 249−100+1=150 bytes and a correspondingly different Content-Range.",
+      "counter": "Off-by-one 199−100=99 discards an endpoint; a 206 response is not equivalent to a complete 200 object.",
+      "vary": "Alter end offset and verify selected slice length plus Content-Range; separately test unsatisfiable start≥1000 (416).",
+      "limit": "This numeric model does not cover multipart ranges, If-Range, or servers that ignore Range and return 200.",
+      "kind": "range_length",
+      "input": {
+        "total": 1000,
+        "start": 100,
+        "end": 199
+      },
+      "expected": 100,
+      "variant": {
+        "total": 1000,
+        "start": 100,
+        "end": 249
+      },
+      "alternate": 150,
+      "source": "https://www.rfc-editor.org/rfc/rfc9110.html#section-14.2"
+    },
+    {
+      "id": "software-v08-deep-dive-http-head",
+      "q": "When a selected representation has 256 decoded bytes but 64 encoded bytes, which length belongs in HEAD Content-Length?",
+      "setup": "Assume GET would transmit a 64-octet content-coded representation selected by negotiation, while its decoded size is 256.",
+      "derive": "A correct modeled HEAD that includes Content-Length advertises 64 content octets of the corresponding coded GET response, and transfers none.",
+      "check": "Compare modeled GET for same content coding: 64 transferred octets; 256 is the decoded application payload size.",
+      "counter": "Publishing the uncompressed size 256 as Content-Length when the selected content-coding emits 64 octets misrepresents the selected transfer content.",
+      "vary": "Change request to GET without altering Accept-Encoding; validate body sizes for matching selection.",
+      "limit": "Actual framing, transformations and header elision differ; this exercise explicitly fixes the selected representation and coding.",
+      "kind": "head_size",
+      "input": {
+        "method": "HEAD",
+        "bytes": 64
+      },
+      "expected": {
+        "bodyBytes": 0,
+        "representationBytes": 64
+      },
+      "variant": {
+        "method": "GET",
+        "bytes": 64
+      },
+      "alternate": {
+        "bodyBytes": 64,
+        "representationBytes": 64
+      },
+      "source": "https://www.rfc-editor.org/rfc/rfc9110.html#section-8.6"
+    },
+    {
+      "id": "software-v08-evidence-lab-http-head",
+      "q": "Can HEAD with If-None-Match produce 304 while never supplying the requested representation body?",
+      "setup": "Selected ETag is \"e4\", request conditional HEAD validator \"e4\". Assume selection otherwise 200.",
+      "derive": "Matching validator yields 304 in this illustrative server; response-content size is zero whether 304 or a normal 200 HEAD.",
+      "check": "Change validator to \"e3\": status 200 for HEAD, still zero content bytes; status and content length are separate dimensions.",
+      "counter": "Assuming 304 includes a body, or that an ordinary 200 HEAD contains GET content, violates their semantics.",
+      "vary": "Change only validator and preserve zero transfer-content rule under HEAD.",
+      "limit": "Actual conditional request evaluation may have different precedence under additional headers; only isolated ETag equality is modeled.",
+      "kind": "conditional_head",
+      "input": {
+        "etag": "e4",
+        "ifNoneMatch": "e4"
+      },
+      "expected": {
+        "status": 304,
+        "bodyBytes": 0
+      },
+      "variant": {
+        "etag": "e4",
+        "ifNoneMatch": "e3"
+      },
+      "alternate": {
+        "status": 200,
+        "bodyBytes": 0
+      },
+      "source": "https://www.rfc-editor.org/rfc/rfc9110.html#section-9.3.2"
+    },
+    {
+      "id": "software-v08-deep-dive-http-post",
+      "q": "Two identical POST /orders requests occur after a lost response. Without a documented idempotency contract, how many creations may happen?",
+      "setup": "Application creation model accepts two POSTs without keys, assigning distinct order IDs; model intentionally does not assume deduplication.",
+      "derive": "Two accepted POST requests can create two orders; the server cannot infer replay from coincidentally equal payloads by HTTP semantics alone.",
+      "check": "Introduce an application-defined identical key K9 on both and a verified key store; this illustrative system then produces one order.",
+      "counter": "Assuming POST is idempotent because request bodies are equal may double-bill after transport retries.",
+      "vary": "Send two copies under same application key, then vary the body under that key and require contract-specific conflict handling.",
+      "limit": "HTTP defines POST as generally non-idempotent; behavior of any Idempotency-Key protocol must be explicitly implemented and tested.",
+      "kind": "post_creations",
+      "input": {
+        "keys": [
+          null,
+          null
+        ]
+      },
+      "expected": 2,
+      "variant": {
+        "keys": [
+          "K9",
+          "K9"
+        ]
+      },
+      "alternate": 1,
+      "source": "https://www.rfc-editor.org/rfc/rfc9110.html#section-9.3.3"
+    },
+    {
+      "id": "software-v08-evidence-lab-http-post",
+      "q": "Why is 422 a valid application response to syntactically valid JSON with an invalid negative quantity?",
+      "setup": "Fictional order endpoint has schema amount>0 and responds 201 if amount accepted, 422 otherwise; JSON syntax is valid in both branches.",
+      "derive": "Amount −2 fails domain rule and yields 422 Unprocessable Content under this chosen contract, whereas +2 creates a resource and yields 201.",
+      "check": "Perturb only sign, from −2 to 2; explain this tests domain validation, not HTTP transport or JSON parser reliability.",
+      "counter": "Treating every HTTP 4xx response as a network failure confuses application validation with connection health.",
+      "vary": "Add separate deliberately malformed JSON test, which requires 400 under this fictional contract rather than 422.",
+      "limit": "RFC 9110 defines 422 semantics; exact validation status mapping is origin-specific and not mandated for all negative values.",
+      "kind": "validate_amount",
+      "input": {
+        "amount": -2
+      },
+      "expected": 422,
+      "variant": {
+        "amount": 2
+      },
+      "alternate": 201,
+      "source": "https://www.rfc-editor.org/rfc/rfc9110.html#section-15.5.21"
+    },
+    {
+      "id": "software-v09-practical-lab-an-http-api-request-from-client-to-handler",
+      "q": "If a request fails authentication and also has an invalid payload, which stage's status should be diagnosed first?",
+      "setup": "Fictional gateway checks authentication before request-body validation: authenticated=false, payloadValid=false.",
+      "derive": "The gateway returns 401 before it validates the body. With authentication corrected but body unchanged, handler returns synthetic 422.",
+      "check": "Change only authenticated to true and observe 422; proof of authentication failure did not imply payload validity.",
+      "counter": "Concluding 'the payload must be valid' because the first response was 401 ignores validation short-circuiting.",
+      "vary": "Test authenticated=true, payloadValid=true and record 200 by this endpoint's example routing.",
+      "limit": "Ordering and mapping are example application policy, not globally enforced by HTTP RFC 9110.",
+      "kind": "gateway",
+      "input": {
+        "authenticated": false,
+        "payloadValid": false
+      },
+      "expected": 401,
+      "variant": {
+        "authenticated": true,
+        "payloadValid": false
+      },
+      "alternate": 422,
+      "source": "https://www.rfc-editor.org/rfc/rfc9110.html#section-15.5.2"
+    },
+    {
+      "id": "software-v09-misconception-clinic-http-cache-freshness",
+      "q": "With max-age=300, s-maxage=60 and Age=120, why is a shared cache stale while a private cache is fresh?",
+      "setup": "Cacheable synthetic response age is 120 seconds, max-age=300, s-maxage=60; no restrictive overriding directives.",
+      "derive": "Shared cache uses s-maxage=60: 120<60 false (stale). Private cache uses max-age=300: 120<300 true (fresh).",
+      "check": "Compute remaining shared lifetime −60 s and private +180 s, then compare same response under both cache roles.",
+      "counter": "Applying max-age=300 to shared cache while ignoring s-maxage violates explicit directive precedence.",
+      "vary": "Switch only cache role shared→private and predict freshness flips while Age and response headers remain fixed.",
+      "limit": "Corrected Age, authentication restrictions, Vary, request directives, and stale-serving exceptions are excluded from the isolated example.",
+      "kind": "cache_roles",
+      "input": {
+        "shared": true,
+        "age": 120,
+        "maxAge": 300,
+        "sMaxAge": 60
+      },
+      "expected": false,
+      "variant": {
+        "shared": false,
+        "age": 120,
+        "maxAge": 300,
+        "sMaxAge": 60
+      },
+      "alternate": true,
+      "source": "https://www.rfc-editor.org/rfc/rfc9111.html#section-4.2.1"
+    }
+  ]
+}

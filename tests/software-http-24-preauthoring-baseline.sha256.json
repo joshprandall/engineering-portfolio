@@ -1,0 +1,2892 @@
+{
+  "description": "Portable fail-closed verified original Git blob comparison, no fetched Git history needed",
+  "sourceCommit": "43b2e273098f61e8f6834760a12e4e754cd35ff4",
+  "originalBlob": "9d6256f8c5886bbda2939a2f1a410ee9ccaddd76",
+  "path": "deep-learning/software/apis.json",
+  "ids": [
+    "software-api-lifecycle",
+    "software-idempotency",
+    "lab-http-devtools",
+    "software-http-status",
+    "software-rest-idempotent",
+    "software-http-semantics",
+    "software-v06-http-get-semantics",
+    "software-v06-http-put-semantics",
+    "software-v06-http-delete-semantics",
+    "software-v06-http-status-code-classes",
+    "software-v06-http-cache-freshness",
+    "software-v06-http-head-semantics",
+    "software-v08-deep-dive-http-safe-methods",
+    "software-v08-evidence-lab-http-safe-methods",
+    "software-v08-deep-dive-http-idempotent-methods",
+    "software-v08-evidence-lab-http-idempotent-methods",
+    "software-v08-deep-dive-http-get",
+    "software-v08-evidence-lab-http-get",
+    "software-v08-deep-dive-http-head",
+    "software-v08-evidence-lab-http-head",
+    "software-v08-deep-dive-http-post",
+    "software-v08-evidence-lab-http-post",
+    "software-v09-practical-lab-an-http-api-request-from-client-to-handler",
+    "software-v09-misconception-clinic-http-cache-freshness",
+    "software-v09-worked-example-http-delete-semantics",
+    "software-v09-teach-back-lab-http-get",
+    "software-v09-practical-lab-http-get",
+    "software-v09-misconception-clinic-http-get-semantics",
+    "software-v09-worked-example-http-head",
+    "software-v09-teach-back-lab-http-head",
+    "software-v09-practical-lab-http-head-semantics",
+    "software-v09-misconception-clinic-http-idempotent-methods",
+    "software-v09-worked-example-http-idempotent-methods",
+    "software-v09-teach-back-lab-http-method-semantics-and-idempotency",
+    "software-v09-practical-lab-http-methods-have-defined-semantics",
+    "software-v09-misconception-clinic-http-post",
+    "software-v09-worked-example-http-post",
+    "software-v09-teach-back-lab-http-put-semantics",
+    "software-v09-practical-lab-http-safe-methods",
+    "software-v09-misconception-clinic-http-safe-methods",
+    "software-v09-worked-example-http-status-codes-as-protocol-signals",
+    "software-v09-teach-back-lab-http-status-code-classes",
+    "software-v09-practical-lab-idempotency",
+    "software-v09-misconception-clinic-inspect-a-browser-request",
+    "software-v09-worked-example-an-http-api-request-from-client-to-handler",
+    "software-v09-teach-back-lab-http-cache-freshness",
+    "software-v09-practical-lab-http-delete-semantics",
+    "software-v09-misconception-clinic-http-get",
+    "software-v09-worked-example-http-get",
+    "software-v09-teach-back-lab-http-get-semantics",
+    "software-v09-practical-lab-http-head",
+    "software-v09-misconception-clinic-http-head",
+    "software-v09-worked-example-http-head-semantics",
+    "software-v09-teach-back-lab-http-idempotent-methods",
+    "software-v09-practical-lab-http-idempotent-methods",
+    "software-v09-misconception-clinic-http-method-semantics-and-idempotency",
+    "software-v09-worked-example-http-methods-have-defined-semantics",
+    "software-v09-teach-back-lab-http-post",
+    "software-v09-practical-lab-http-post",
+    "software-v09-misconception-clinic-http-put-semantics",
+    "software-v09-worked-example-http-safe-methods",
+    "software-v09-teach-back-lab-http-safe-methods",
+    "software-v09-practical-lab-http-status-codes-as-protocol-signals",
+    "software-v09-misconception-clinic-http-status-code-classes",
+    "software-v09-worked-example-idempotency",
+    "software-v09-teach-back-lab-inspect-a-browser-request",
+    "software-v09-practical-lab-an-http-api-request-from-client-to-handler-2",
+    "software-v09-misconception-clin-http-cache-freshness-2",
+    "software-v09-worked-example-http-delete-semantics-2",
+    "software-v10-configuration-lab-an-http-api-request-from-client-to-handler",
+    "software-v10-fault-isolation-lab-http-cache-freshness",
+    "software-v10-measurement-lab-http-delete-semantics",
+    "software-v10-recovery-lab-http-get",
+    "software-v10-checklist-lab-http-get",
+    "software-v10-hypothesis-lab-http-get-semantics",
+    "software-v10-trace-lab-http-head",
+    "software-v10-counterexample-lab-http-head",
+    "software-v10-verification-lab-http-head-semantics",
+    "software-v10-transfer-lab-http-idempotent-methods",
+    "software-v10-concept-mapping-lab-http-idempotent-methods",
+    "software-v10-diagnostic-lab-http-method-semantics-and-idempotency",
+    "software-v10-prediction-lab-http-methods-have-defined-semantics",
+    "software-v10-concept-connection-http-post",
+    "software-v10-compare-contrast-http-post",
+    "software-v10-flash-review-http-put-semantics",
+    "software-v10-confidence-calibration-http-safe-methods",
+    "software-v10-mistake-hunt-http-safe-methods",
+    "software-v10-reasoning-check-http-status-codes-as-protocol-signals",
+    "software-v10-worked-walkthrough-http-status-code-classes",
+    "software-v10-evidence-reading-idempotency",
+    "software-v10-concept-connection-inspect-a-browser-request",
+    "software-v10-compare-contrast-an-http-api-request-from-client-to-handler",
+    "software-v10-flash-review-http-cache-freshness",
+    "software-v10-confidence-calibration-http-delete-semantics",
+    "software-v10-mistake-hunt-http-get",
+    "software-v10-reasoning-check-http-get",
+    "software-v10-worked-walkthrough-http-get-semantics",
+    "software-v10-evidence-reading-http-head",
+    "software-v10-concept-connection-http-head",
+    "software-v10-compare-contrast-http-head-semantics",
+    "software-v10-flash-review-http-idempotent-methods",
+    "software-v10-confidence-calibration-http-idempotent-methods",
+    "software-v10-mistake-hunt-http-method-semantics-and-idempotency",
+    "software-v10-reasoning-check-http-methods-have-defined-semantics",
+    "software-v10-worked-walkthrough-http-post",
+    "software-v10-evidence-reading-http-post",
+    "software-v10-configuration-lab-http-put-semantics",
+    "software-v10-fault-isolation-lab-http-safe-methods",
+    "software-v10-measurement-lab-http-safe-methods",
+    "software-v10-recovery-lab-http-status-codes-as-protocol-signals",
+    "software-v10-checklist-lab-http-status-code-classes",
+    "software-v10-hypothesis-lab-idempotency",
+    "software-v10-trace-lab-inspect-a-browser-request",
+    "software-v10-counterexample-lab-an-http-api-request-from-client-to-handler",
+    "software-v10-verification-lab-http-cache-freshness",
+    "software-v10-transfer-lab-http-delete-semantics",
+    "software-v10-concept-mapping-lab-http-get",
+    "software-v10-diagnostic-lab-http-get",
+    "software-v10-scenario-brief-http-get-semantics",
+    "software-v10-transfer-challenge-http-head",
+    "software-v10-retrieval-ladder-http-head",
+    "software-v10-design-critique-http-head-semantics",
+    "software-v10-decision-brief-http-idempotent-methods",
+    "software-v10-explain-back-challenge-http-idempotent-methods",
+    "software-v10-field-note-http-method-semantics-and-idempotency",
+    "software-v10-exam-style-practice-http-methods-have-defined-semantics",
+    "software-v10-scenario-brief-http-post",
+    "software-v10-transfer-challenge-http-post",
+    "software-v10-retrieval-ladder-http-put-semantics",
+    "software-v10-design-critique-http-safe-methods",
+    "software-v10-decision-brief-http-safe-methods"
+  ],
+  "records": {
+    "software-api-lifecycle": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "490d4b9cfbb911977bc3245c04b24ce019824ac4b9f87aa9f9dd894fa2e5cdaf",
+      "nonTeachingSHA256": "e7e3f5e247d78b7cf8631653034f9607d7aea5d46b8898f98dba781b9f4e84ae",
+      "teachingSHA256": {
+        "essentialQuestion": "e27c0b83297e77349eaa25ae6b565094fd56db72bd85dca61feb80fc9b9accd2",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-idempotency": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "d8f53c1a1311c49f2debd10e7a56bb4f7a3772c632dcac1aca3ff5f3da1e526e",
+      "nonTeachingSHA256": "6541cdb5f33d8188f2e8de3b1188e9cc9e6d398414561645cd83afebec145d8e",
+      "teachingSHA256": {
+        "essentialQuestion": "dd0f63e5b2e528a51a663696bb4fe64ef48447d315b0abaf0b009a5e433a042f",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "lab-http-devtools": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "72387638f60083d6b9a3e1cd62f4017381863197d0e88aa6cbdaa95fde96e973",
+      "nonTeachingSHA256": "377f7d773ffcba9b5814a4c77be94786f094b979a5823df7e622657018716f84",
+      "teachingSHA256": {
+        "essentialQuestion": "5dd8df7cab0a542dc03e3b8bc8f7fc983da2c59f5ac2969522558305d8283480",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-http-status": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "fca7f71956cbcdd5886ea6d358b2f998b7ba5798249042e9a4038ebb38d3b86a",
+      "nonTeachingSHA256": "4b5a5d3a839d0aa7f74aa3a0d50ebaedf56a4fb08d11373550d40e3fee8639ed",
+      "teachingSHA256": {
+        "essentialQuestion": "08ddd982dc382d95ae0fa1030334517248cff9937298af5e6fcf6b9e5ee61084",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-rest-idempotent": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "9682b87ab22c0b326d9f5ca4ced923453a2f270909012df999e7568d89043fe2",
+      "nonTeachingSHA256": "947353af76bf7836460cbdd74d540becf57ff58b454e0b7c870865ea1a71a906",
+      "teachingSHA256": {
+        "essentialQuestion": "9566e88eab4e02c5e9d056d9d1c53ab539347ee5cc79cb5e1749d840e692522a",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-http-semantics": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "3d4589964bacb751b2229ee2e1ec7aef209d7aef74e78727bf29cb88b974b0f5",
+      "nonTeachingSHA256": "dd2a036fbacb56da25d9acff9afdda4c6d9a8eb01188b24bfbfbd16282cb4cd6",
+      "teachingSHA256": {
+        "essentialQuestion": "8bb6d4bef852d898eee326a22b48efd006b862d4875ddcf1af3132d11402571b",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v06-http-get-semantics": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "0eabdc756191b51aa844786fa2ebdd7bc0a99708c0a6557f1a403548d8b9b1df",
+      "nonTeachingSHA256": "33fafb2f46547d0135f25570640a249b37b8e098fe255498a7a087c231dec04b",
+      "teachingSHA256": {
+        "essentialQuestion": "c9c7e9a81e957c8aa0b8d9ef6cb0fe773dff6dc91da2711c975ea5e699cdaeb3",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v06-http-put-semantics": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "88e119fb51c6b20fe9ec0da0c9827e4d3703082632f8c26f6a80d2045589c4b0",
+      "nonTeachingSHA256": "3d6003720ad0d3efd92859fd42e099b46d8bf2d8f2b83fc9cffb2a80ee51640b",
+      "teachingSHA256": {
+        "essentialQuestion": "c71a4335440bb53ded2c60026dba5c57133a472d549677242d171784b12af79b",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v06-http-delete-semantics": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "e49768f08c0dd4f047382eb4d60621219d0a0f48b4e4b314a2254479ee91018c",
+      "nonTeachingSHA256": "ce28df6a8a602444504a638f87686bb5c8e03a81e83575b050f92b3b67f5986b",
+      "teachingSHA256": {
+        "essentialQuestion": "5c285e1722e0725d64adc8e225559d80883513fc7036896cc1d6ea1ec09d9999",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v06-http-status-code-classes": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "d50e61da3077e5aa5920f951228a30d3347eea2d2199308263326c6ebf6015ed",
+      "nonTeachingSHA256": "3a59dc209378f248b19131dd544000e1213c8ba03de3de500fe770cf99c2b03e",
+      "teachingSHA256": {
+        "essentialQuestion": "7298afb194b2cd6571aa8e475aeb466702ba9213195cca8703bb07fd4b0892d9",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v06-http-cache-freshness": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "400c6bc552b4439e5740e8ffde0daceca363aab7621e7a60c454be87e666fb17",
+      "nonTeachingSHA256": "7698712da3673d6ff80a685edffc3b027bb64ece27eaf3dbf7d300cb9c9cba43",
+      "teachingSHA256": {
+        "essentialQuestion": "498c15c38bc68984f93357fc0aeffdfc9025b545ad8222de59fbaa38b924f252",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v06-http-head-semantics": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "734f3e39f9d5ca1efcd315662981f275c4c5eada972039b2b822c892f5df8c80",
+      "nonTeachingSHA256": "2ae49382d14d6943641e95727056bbb026d7af3f29e2456ae00d7c5030dceea9",
+      "teachingSHA256": {
+        "essentialQuestion": "ac0ab131d16e0450496a524f23de54e1589b203addb648083f9f3d263ecb2067",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v08-deep-dive-http-safe-methods": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "2e426be008e19aacdad6d82a042928f358e2203a4bb5d80847cd5c884b0713d5",
+      "nonTeachingSHA256": "1d8ea2dd63af4e5a3134d029ff6fcac3556f5077b2bd1489f96948f17aea7d51",
+      "teachingSHA256": {
+        "essentialQuestion": "8bf155343bfa7025127b09523dd247f9916d51bf659f9d8bd29efd2fcfc02dd2",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v08-evidence-lab-http-safe-methods": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "a0291491f38077f2baf79900c37dad135ceb7308a1133fbb85e15ca2f818e14d",
+      "nonTeachingSHA256": "77a7bd3331043be255bc0554cbe729c10aafa8082ff27b29090a0fa31be776da",
+      "teachingSHA256": {
+        "essentialQuestion": "81210103aae2ca1825b6c639edf1a6921f43e8224f2862e8611a74aee9ac9fe2",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v08-deep-dive-http-idempotent-methods": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "f42774bfce488ae3955b80e9feeba9ac2617a3ecd7693d50ece5f26f03a6d023",
+      "nonTeachingSHA256": "b0e514eeb9055418692a725cd21bdf3f13527558dea34d8217696bcf8ea0a4c4",
+      "teachingSHA256": {
+        "essentialQuestion": "a7cc310dcea9e721fffbc8cb7f24660faa0f9af007e77198066d3f8f04ba9244",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v08-evidence-lab-http-idempotent-methods": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "daee4e2b5a17821124175c1e6c1e6100996dac8f31b7512ab32f1e1da11fbee8",
+      "nonTeachingSHA256": "c5fc650514a5046250faccf3fbd42bac1ab98e3f0623dad5261d838c13739b1a",
+      "teachingSHA256": {
+        "essentialQuestion": "61b46aad0740ccb04183ff5eeeac6ec6468dfff69b8c5c61701b32ff32138b0b",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v08-deep-dive-http-get": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "1df2a7af173658f9b7b7ef78e9363e925e45f40c06fbe263446b94e864ed47bf",
+      "nonTeachingSHA256": "38575e5db3f4c0530ba2e38d9426523e0c29501a11b35d2b633741b750e71690",
+      "teachingSHA256": {
+        "essentialQuestion": "1e701c30deff729460bc60b724f52c51f940c801404d7d7177b60e0fbdaed5cf",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v08-evidence-lab-http-get": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "1ebe7eddcbae3357d8e44204cf6d10b7e41a3e9a5dea1a7fd784ee8fc74d8589",
+      "nonTeachingSHA256": "cc46dae1a80121c96a9dc17bc12b933a5ee6a7385892b9f1036d111833b4b3bc",
+      "teachingSHA256": {
+        "essentialQuestion": "32d6545f5af1a5eacf08ede2e23c4651ffa2558f3bdf3bf26abf52260948758f",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v08-deep-dive-http-head": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "bcb849fcc01d52728a8b17f73050950d178b43eb1ea7885ae37ec96658881e43",
+      "nonTeachingSHA256": "8e76e9a107ab3c6d011160bf7cf690cbab75d197fac8434b4defaab715151038",
+      "teachingSHA256": {
+        "essentialQuestion": "62cd51800088af8d72aa6df7e61380ecd0a2dc086c05b5a4578397e12fb29cd2",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v08-evidence-lab-http-head": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "fdf753485a615fc815773c172cd4e5192330e1a0c89e80680e673a1ce7a93e08",
+      "nonTeachingSHA256": "7311ecf1968bbcf83dfcc0084bdcff74bed27f72ab6af18a0840ff6daebe5f28",
+      "teachingSHA256": {
+        "essentialQuestion": "e81335f56d27f391dfa2a1502c92cecff42dfa6ad7b5b2bcad981d65f15246dd",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v08-deep-dive-http-post": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "c37f87a22cc0be31b6a3bd633caef1c929d4012a1fb02d02c555774dac0af0d8",
+      "nonTeachingSHA256": "38b222fdc4b4f2861388acd43997f489fbd6988369f39ea6606cb04691e1dd65",
+      "teachingSHA256": {
+        "essentialQuestion": "0f6484c9a302697a0b8038d78a658256ff9c3aff03c0f0b32e4aa3ffc755f735",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v08-evidence-lab-http-post": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "62dc00b04b13ec61e6e5faf556d6bb437ba30f9bea4b2565c707b3759a90a1d7",
+      "nonTeachingSHA256": "c3a34991aea8895a7e9b44650fb424f45b1c8a62d64973af9075f1cba0367efa",
+      "teachingSHA256": {
+        "essentialQuestion": "bee51e7fe6f874141da94f774ef6e18e882e8e5b583f94a4af34c9f877c28f85",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v09-practical-lab-an-http-api-request-from-client-to-handler": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "eb21b9007cf51bbd6f6ae447f9d869a6ff5922543121e684820f0a11e176c521",
+      "nonTeachingSHA256": "230ef1936396cfd998dde181465bc290e1a28e5bb01b12403f52bd818ba1618c",
+      "teachingSHA256": {
+        "essentialQuestion": "248e6bf4a80739539f1b3a033cc06ed06c26b5669d734e7f247a8b98f0353b70",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v09-misconception-clinic-http-cache-freshness": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "8fab118f6e8a94cd73a622a2c51d013e1e10bca990769cbe247a36898dd480eb",
+      "nonTeachingSHA256": "e91f96ac6e66677b747979b4e7b158a977b42fa0c422e3ec9d688659f056d5d1",
+      "teachingSHA256": {
+        "essentialQuestion": "94a923ebc8dd1433fc671be40a3ed9b70c4027c098e451ed2147a3959494d82a",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v09-worked-example-http-delete-semantics": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "28d6ba6df988d8c2a55d8ea8bdc0963975531ac3d4bd2eb0a6c35a7c7c74071f",
+      "nonTeachingSHA256": "b6ac0fdc421ba7f9e03aefa1537d0db5b095b6046e207d45f4b1024c742df4cc",
+      "teachingSHA256": {
+        "essentialQuestion": "27e980dc8baf8f542454968133c44bf2998908787305b39658b8b22cd9b23c47",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v09-teach-back-lab-http-get": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "774056beeaee2bf92133cb7b84155b9f20a83bf9c80974d10b835884e4d6c106",
+      "nonTeachingSHA256": "173f28346be0b5a85abc0e5ba48c39b186a8516d8f737657a1d4adf521667576",
+      "teachingSHA256": {
+        "essentialQuestion": "1a6ba6c444ca4a675074a2dc2e34ede481144f3547d779c61e2cfe3f3fab9e6f",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v09-practical-lab-http-get": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "d3409dc6803118166e505af13206d733dfe39c3b32ec83d4529cd2c83a70820a",
+      "nonTeachingSHA256": "d92914ec9133198c278d41fd3878d78a36d55940103cc542e5111742c2f0a328",
+      "teachingSHA256": {
+        "essentialQuestion": "02dec3abd5640488f35d606ff101c32537d7b085f940239291e076f5082afad5",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v09-misconception-clinic-http-get-semantics": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "8421c5fe0db2c519cb83a894f6a670ceb2fa17374f1f3622a23de04d75df6008",
+      "nonTeachingSHA256": "9a6511565ce553d254ddd0310bc5eb6396a27dc12e0a152ee2d9467f468edd68",
+      "teachingSHA256": {
+        "essentialQuestion": "1f6477edfef2a2a13139550df5c2b65282b4bf89e3ff1eef1e84414e32b5dac7",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v09-worked-example-http-head": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "987a4dda47140737b1c3a9eefd20b23bbf6035fc75a5783d90481cf9868e527f",
+      "nonTeachingSHA256": "3b58a92da47fd7906889dc87832680a57f4d91c04c6aaf85e52fbde37506712a",
+      "teachingSHA256": {
+        "essentialQuestion": "cf290c569c15110e94cb2424a719cd6be71caae8a96f2531a254a59ad94f0d97",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v09-teach-back-lab-http-head": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "1d1657904cdf7b5c0aa5108a92db059ee0cb01721fd283f31b02df541f94515c",
+      "nonTeachingSHA256": "98d045bad28e0afb7ff788d585399748f6ad41a48fbea62a7a3ea00c63164976",
+      "teachingSHA256": {
+        "essentialQuestion": "17f656ab4f14831c0e4d264a1ab60593de818bdc02e698d28db246d507bcb3c0",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v09-practical-lab-http-head-semantics": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "fc39a3eac09a2aeaf3b7a28b79a908d7ae0484a015b80acaac437c1803b0fd56",
+      "nonTeachingSHA256": "9b0ed6b63928f90132eb939ba7dd9e35bae11d57f65f3956a78c0ec40fd88a56",
+      "teachingSHA256": {
+        "essentialQuestion": "752216f1597f1ce2de0d1e3cd9694647e53b9fe09d66b007919b54ee44782afb",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v09-misconception-clinic-http-idempotent-methods": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "d02a3cd70e46f882b4c531f66bce5eb7f642b94af7f1ae2ab8a3859de09105b7",
+      "nonTeachingSHA256": "eb29f807ac9a678d02dec981d1e0901abda178dd60ccfca1a6a4a07da1b3e25d",
+      "teachingSHA256": {
+        "essentialQuestion": "512bc7a57c94809687a6da11784a818ddb1a64ac80cbe71016721e0ae18ced6e",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v09-worked-example-http-idempotent-methods": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "65366a09349fcc72a72c6a1eb17326b3bc76d8f2a1dbc9a8fa2e6108f07b9507",
+      "nonTeachingSHA256": "2a4473f78f84e09a8423f2ef8b70cdac09253336ea16a072adab3d891f7be1fe",
+      "teachingSHA256": {
+        "essentialQuestion": "1155ce5f874434df6968e29781577054c17602359a527b489656b1956443f9c9",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v09-teach-back-lab-http-method-semantics-and-idempotency": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "398c4a72773023ff7a8e3770f4a88a834323ad93e512e72a720b15d111c18d44",
+      "nonTeachingSHA256": "d94fa24d7349800145d92c167bca6664e69a6e946a46fc75c92c2747b75f1ded",
+      "teachingSHA256": {
+        "essentialQuestion": "e1267d5dc97c2ecc9668c7ccfc2ad7cc431390d40083dba5981528dae3d85c05",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v09-practical-lab-http-methods-have-defined-semantics": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "705f94776a922bc42619d1658263cd6e5d743cf3c360588c87108409dcc96a81",
+      "nonTeachingSHA256": "098febbacbcc82cdb8e25b747311660a4b5073ecac14b841f74b51c8698bf8a9",
+      "teachingSHA256": {
+        "essentialQuestion": "64d067142854ae765a56dfb45d97ab208b05d8df47e4ec5f2fc03a7aba998181",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v09-misconception-clinic-http-post": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "65ed143e8a635a12087559a8321ac8a679cd4f390e0010bddf41b5ad8a276532",
+      "nonTeachingSHA256": "8ffb144038133d397291d3c102176e593776cb361b54032b9e42933534461fae",
+      "teachingSHA256": {
+        "essentialQuestion": "882be8ae17b308fe3ab3eefab58f12839455100500e937e4ff3ccafede0add83",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v09-worked-example-http-post": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "6979410fa9dfeb240cd5d5fb1cf74a58671583cd86992770999897363706c40d",
+      "nonTeachingSHA256": "296e07e384790728b5f918e89b5343a06b0deb42cced79ca7d4480234933973e",
+      "teachingSHA256": {
+        "essentialQuestion": "f1efa7b976b36295552ebc26466b4afdad6be619b412672f375ffaa97cd159cb",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v09-teach-back-lab-http-put-semantics": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "7931acd825bf81b00b1ac22bcc3633bf4d7fd51498364b1f23e07c884f124d5b",
+      "nonTeachingSHA256": "da14cae3df88ebcdece75d81c56b9e7595a4403f902f800622dea67179db8039",
+      "teachingSHA256": {
+        "essentialQuestion": "afc89e6cb1f7d289808156f763e4ccea8e5b4c9908bb22fbaa51bc3b5ff51d96",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v09-practical-lab-http-safe-methods": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "267262b68d1e70bdf53fed10db678652409ef6090a649afb6f652e1d9ebc4f0c",
+      "nonTeachingSHA256": "ad0949b839ab3f6beea4c1412e9e4aa9cc1c8d10e5c3f0ef8ab9b8598219aa43",
+      "teachingSHA256": {
+        "essentialQuestion": "c075ec78b82d8a74c656a8ee7e59a2c783639a7a661bc6c2feec01f52a77dd02",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v09-misconception-clinic-http-safe-methods": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "29a12a1f1c12352846e8a7a79eda4edfcd23c37eeee55a1691a77c93e9a5ed05",
+      "nonTeachingSHA256": "6db7a5bd52e70d3001a209c80fb6ccb36293b002676c06f91c3923194be41fb3",
+      "teachingSHA256": {
+        "essentialQuestion": "4de7edbc7310a553c73c64177cd71bb5ed68276b8e24eaed3155f5a9245f6a6a",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v09-worked-example-http-status-codes-as-protocol-signals": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "af73099ad8405ab2063a83a4cf6c338e15faf049b322a0e54e92041f98d66fee",
+      "nonTeachingSHA256": "025c6975ffad2d1483c2eedb515e406685bdfe42e59be89687515042854e330f",
+      "teachingSHA256": {
+        "essentialQuestion": "f9bc4504939c718233f7ffa5bc54434f416614f7b5d2bf19026580251ecc177e",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v09-teach-back-lab-http-status-code-classes": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "91ce39a20363efab4a18d39368977821e72861cba8e8c747c9096a9be7396e65",
+      "nonTeachingSHA256": "5437098881392abcc585f84fe7e58e176effc32ecf37aeeff780c1b97618e688",
+      "teachingSHA256": {
+        "essentialQuestion": "2abfa403585a3c8894e57ec6216a83180b1726de7561b816ba1ba85b085af91a",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v09-practical-lab-idempotency": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "ec455f78d25d6477e589d6ad191af6ec3f031539b60960312e5892367b0e7c9a",
+      "nonTeachingSHA256": "6bffc6b52d824b2281871b60b01e557716248925154933b0a6b1ef3413d035a5",
+      "teachingSHA256": {
+        "essentialQuestion": "cb9d096a57095aeb9b7625f26f4809d8944329c973a4dbfd40ae9adf8e3bfd54",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v09-misconception-clinic-inspect-a-browser-request": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "1b94047e9e3ada99e93353901d4dea31561a02b8a3673a62204a543d7d22928f",
+      "nonTeachingSHA256": "5f5f1963cc899a510c623548b28259c6f6e7d17775785e166fddac6a3a13a7e5",
+      "teachingSHA256": {
+        "essentialQuestion": "7a67b2dcec9c3cd7129f031a4de0f42a6ba51f8c85e38e12ef7de846613e3ac8",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v09-worked-example-an-http-api-request-from-client-to-handler": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "bd57f548cc4cefacb37550986843711a6bfff3847dc4ec53c7c644fe42dc0ff6",
+      "nonTeachingSHA256": "d3779dff76234a9bae182acf356b701b7c0d71c8486d79262695306bd93902ef",
+      "teachingSHA256": {
+        "essentialQuestion": "07ce0eeea9f0a94178dde8c500c6192f146e31635726fe6a5acc7e78e6151cd7",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v09-teach-back-lab-http-cache-freshness": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "1fe62c90e3a232abd22a5c619533179afd7b2f85d1f9504406b0513c64f30698",
+      "nonTeachingSHA256": "d9d98bdbd09c2fbaad1e5349bc8695db72b1209305d9a68e7b98227a043c112f",
+      "teachingSHA256": {
+        "essentialQuestion": "8c14c829edd0448eeb9a8706b7294310c8dee31891f5e49c2df090ad19bcf746",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v09-practical-lab-http-delete-semantics": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "8179d2f2280fdba012128b0d7f62b2490cba1e724e972e1810336d84e44d8d54",
+      "nonTeachingSHA256": "4b2e03ffedc95a652960078e5d659f6244f920a9751216d805ef0a8755c09436",
+      "teachingSHA256": {
+        "essentialQuestion": "f6f24816ed59534c052a40b9d6d92b9b6ee95709322ef6b774748f0c2fa55c26",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v09-misconception-clinic-http-get": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "5f925ef9abb62d1cafe562f1c054829951f57c048ff62f85fe250e95694b0a59",
+      "nonTeachingSHA256": "86602d22c7785a38ea32345d2daf64763042fad3134f03abac8c0620fac1c4c1",
+      "teachingSHA256": {
+        "essentialQuestion": "1f4f4e0e69f55b925bbe7eea710851ffafa40ce286d9b32a632c4e77aa64f33a",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v09-worked-example-http-get": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "d7dd15d0be3e4f06e307a3a7e39f1d80534ed58aed58bb3569e2b26edca1a139",
+      "nonTeachingSHA256": "0b079841010859f0bb494993dbe7cc233c5b917e676f7e2d4755dfb56706389e",
+      "teachingSHA256": {
+        "essentialQuestion": "df3594875a6ebc428acc867f43658ad80152fa145508ed8f03775899e1bd946b",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v09-teach-back-lab-http-get-semantics": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "6192074755b681a183391daf4cb72ee89d61f292a8dcb2edefc4e0fce068457b",
+      "nonTeachingSHA256": "2c6a4c1819ede54dabdc470f1f578307e82397c56df29051e848950e0fa1f336",
+      "teachingSHA256": {
+        "essentialQuestion": "24072d5db4f1284247eb2ba347c86e81a136f183be73036a57dda90e3729370e",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v09-practical-lab-http-head": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "b8dcf8c9faa3d0b258d2023faef9aa9cd4873a14d3436971af5bc6766c517b55",
+      "nonTeachingSHA256": "38303c42d67c446992be1ba7de0d302b952f18605a28c6cae9f4787372dc776b",
+      "teachingSHA256": {
+        "essentialQuestion": "6304420efc8544ec52c401df8c0e71d6709312c4daa0c44949cfc0ed5abfc593",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v09-misconception-clinic-http-head": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "4306d0e45d908f26ad179e30779ed525f8b98815651080dc6e8f2b2a8b8a5747",
+      "nonTeachingSHA256": "fc878c6fda55da87075633c3eee162073522e30a19e12e06f1b15cb7dd347d13",
+      "teachingSHA256": {
+        "essentialQuestion": "f6606c9b0850853f505e434971ce13237fc8afb73965f18aea6353510e6b3ca4",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v09-worked-example-http-head-semantics": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "6dc7b86cf762e875a4ba54ebc353cdbb1120e3ee78f07adb64e3f95d04985396",
+      "nonTeachingSHA256": "4642e6789586e6674ff1989682675cffdbcc6f0817edb859fc50c1d1cf1d4d83",
+      "teachingSHA256": {
+        "essentialQuestion": "17d1e8fefcd39506db6b6b5b98d232f4528764b96b82e1950fd30f67bd497c0c",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v09-teach-back-lab-http-idempotent-methods": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "8920192963d47bde0549c88d44c93a6a23f86a5f490a3f789f375dc92c9da43c",
+      "nonTeachingSHA256": "4b44331961dec191edbb2485f3a459193b2361bf714d8a3d2b9a486670a18e24",
+      "teachingSHA256": {
+        "essentialQuestion": "c42a908d273ec5b065c7e45663b776751fb948ace606713292043700e6180a0d",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v09-practical-lab-http-idempotent-methods": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "3f5bc5ed1e6bf604c14a7cd665f8043c3631927e36dfe72f2b59369f4b2f3bf6",
+      "nonTeachingSHA256": "e8d8ba6751e2600b842ea375b89939e39535ba8a7c6c4f5011613f312e4de596",
+      "teachingSHA256": {
+        "essentialQuestion": "545c169374b26a4cdd8c98abba28470ad8e72b4493e55c66e7ea1b74765270ba",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v09-misconception-clinic-http-method-semantics-and-idempotency": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "0dde8651197c8b2b65db329862eb631c6b94f25c4ec92eee3eb5f8e70e104045",
+      "nonTeachingSHA256": "aaed4f72d72c5e8ae4cd8c4c7f9bdacda208994df381c85313375fc1ca83ec55",
+      "teachingSHA256": {
+        "essentialQuestion": "807260a1ae2e65622ecf26f8ac8daa79d99d1727723fae7dc0eb5b4d700d11e1",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v09-worked-example-http-methods-have-defined-semantics": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "18ab28b93bafb21634d11f3cae5edf39998613e40e0c7164b0ce2b141b5bb0d2",
+      "nonTeachingSHA256": "ee54d77effd7243fdbc654a00bda5fcefca15e5ff562af73dd718f8ba63a1fca",
+      "teachingSHA256": {
+        "essentialQuestion": "5c7e9e990eae7ebab44998af65c8f58eeade28777b270d5dbc3e4bc42a7d6bf0",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v09-teach-back-lab-http-post": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "d5e8633150040284dbac628a0a8a9ba22f375f32027109b2076a580ff91ea2a7",
+      "nonTeachingSHA256": "f77b8e080e119c3c14d76f5ac5d2f70d212469edaa34453eec7c6576470e86d6",
+      "teachingSHA256": {
+        "essentialQuestion": "c5fe95198561b762581ed54a0bc9fddf74c3aadaff11887e0bd51c9cbdff2220",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v09-practical-lab-http-post": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "4d8e8190659d649ed62508f1c3b5e7089d8fcf5ce9d85d7f47567e813fdfab48",
+      "nonTeachingSHA256": "7ab0163ebd62ab773e74e1b4216229becfb96d3fcc7e0ddb7df569adf1c2eb60",
+      "teachingSHA256": {
+        "essentialQuestion": "b58375b7562cdf1a05ab6b75ce984317286d68969171acb610321c429d6e0062",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v09-misconception-clinic-http-put-semantics": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "9803698144a6b78f85c7c77b2c6059371a9cec13521edfd62307f9030bad55b5",
+      "nonTeachingSHA256": "f962d029f6cf4045596e2b5505e80f9af29f3b59892326f287a0a586e3c7b376",
+      "teachingSHA256": {
+        "essentialQuestion": "8ad81aeb91d9fa260c3a57c363896bbd080d023f62a2158d3595082f34403df4",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v09-worked-example-http-safe-methods": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "c989d787e7570604230e2039122537425569aa2245027b53d9aa2b9760a3538a",
+      "nonTeachingSHA256": "f5a7d977d7815cfacc9528ffe4933efab2828904261fb657696ec8169a72ead0",
+      "teachingSHA256": {
+        "essentialQuestion": "a7cc37df3e37c90d7809efff595d753807fabdd5ee206f12af4c311e4db40ab7",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v09-teach-back-lab-http-safe-methods": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "2367776dc6b7c65fd7f5a68938ba409a378f0bf47586be11a606fa78ce0dc0c5",
+      "nonTeachingSHA256": "02a8bdafb53712e5199fe7f75fdff8986bdb927f65cd9474319cdad59c4bddaf",
+      "teachingSHA256": {
+        "essentialQuestion": "e14fed295738d6ce68a1f5b132d8d1539b00fa05904ebbbeb1c3569d8a9d92a5",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v09-practical-lab-http-status-codes-as-protocol-signals": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "d8f14b58a3e0d6cc5de8b090053eff73e117199f59e375939857c4fd6e4ddc11",
+      "nonTeachingSHA256": "2cfb744d0b86ef58766f505c775729e294ae5c4dc4ab506fe3f7e96adf9d0d79",
+      "teachingSHA256": {
+        "essentialQuestion": "5113a8e2393bbb25ce4572b969703cd3ece219212e7bc16bb78b859f74591d58",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v09-misconception-clinic-http-status-code-classes": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "5bf210e789e20b314e1fdc2e9a300f1d3585295a65274fa38ea022da3dd9c69e",
+      "nonTeachingSHA256": "0915055bf05b4b3afbd0830c41f94c68b16a72c3eb7a5b571b5fa325dd48f8bc",
+      "teachingSHA256": {
+        "essentialQuestion": "715b65a5fce42b9aea5cdd7935ccea01a9723d73f25ec9ff8776877443d157eb",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v09-worked-example-idempotency": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "dd84269c5467f4957c644454955feb8ba0a2595587ce991088f621344ac49289",
+      "nonTeachingSHA256": "ae7ed0660336833135973efe5afd2265b01f603d82d3b1653fb967ef9c36153c",
+      "teachingSHA256": {
+        "essentialQuestion": "c83c25a521c5f015b47b73e5ac6d6a49ac127469abc8f4f8ac06d69d09eb30c4",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v09-teach-back-lab-inspect-a-browser-request": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "edcb6718fd6e3d5245614f56f0bda6fc590786f44772802ca72ee4090e492695",
+      "nonTeachingSHA256": "16bf5b6f75245d490a4950c29bb1db568d5e8d07d1d8d8de6b96865ebf122e27",
+      "teachingSHA256": {
+        "essentialQuestion": "d8cdded6a27814818416555e2b977268b7f76a3a2cfda026e0b13e5457c24508",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v09-practical-lab-an-http-api-request-from-client-to-handler-2": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "7ef76c8694245ce5ae5f48dfb16d5d7e97afd825ad5d492dbf74077176a248c2",
+      "nonTeachingSHA256": "758ac88dd3315b173c569e2537476b035d7d1104689c71d104151294632c4c8d",
+      "teachingSHA256": {
+        "essentialQuestion": "f000217d1417c243644c1f8671e0278c47acbc10fce3701c806ef5ad21cf6fe2",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v09-misconception-clin-http-cache-freshness-2": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "1c56553aa982c6bbd524bd907eec6320e5ce9ac6a9c6e6e8bcd1091caa8a14a3",
+      "nonTeachingSHA256": "306c10cab8c95397ece659b466422c7836fc2945849f00bf2cf292c3273e6394",
+      "teachingSHA256": {
+        "essentialQuestion": "7328446879baee5ecd48dccdccad62d146f681fbf0ce0bea650244a5df8ad301",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v09-worked-example-http-delete-semantics-2": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "1664a347c0bdf2eb8d43f9ce6c4d86a19cc1e2797479550bc86b981d62bc1c47",
+      "nonTeachingSHA256": "9aac014032368aacef61217029b85eca5d1bb061bee6993e2ed8c4f83bfb8250",
+      "teachingSHA256": {
+        "essentialQuestion": "f65b62ffd2d8a9a5bc4919f66e139f47010df137a6555e16eb7c86e196f0961a",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v10-configuration-lab-an-http-api-request-from-client-to-handler": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "9d4beb1858be22ff9c09ef63ac7afa3e3978bbb08fcb5d4473d4355c9be9316b",
+      "nonTeachingSHA256": "e3a9942f656dd275ef0f1d74ad72b0eadf11a413318dd196ae2b07326c3b9822",
+      "teachingSHA256": {
+        "essentialQuestion": "f6f00a68acf49a33f17a89cf3a806e22b195931577ff405c95b46bfa4e4ea81b",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v10-fault-isolation-lab-http-cache-freshness": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "65fe03edb8a906d46ec7df14bfff3a93c4457348ea5dad5fe051ee5894cb71f6",
+      "nonTeachingSHA256": "8b4804c522f87a853cdccb316d1685e90d9a5fc7f24c68cfad953eec3a7be2ea",
+      "teachingSHA256": {
+        "essentialQuestion": "9f5f3f24546a64028fd3f31db76ea69fa8984a38e3654228362342a907c6bff1",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v10-measurement-lab-http-delete-semantics": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "311d0b8cfedc96c18c85dda871109360776041a1b9323ffb638f5c116efb5d2f",
+      "nonTeachingSHA256": "be9f8cf7f997ade5e6143705ff049fbbe8235d497478f4506d2bacc2a6d2124d",
+      "teachingSHA256": {
+        "essentialQuestion": "048cb51f33743ff9f73e426a4ab88db3e25f44a55264f9a5df0ceab9c2581ab3",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v10-recovery-lab-http-get": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "6997003c8d5087ad4fdc09cacf58f889ef77034f4f7784066e7e60cacfd04211",
+      "nonTeachingSHA256": "d455fa14ccd20f8ffd160a6e947efc45c1ab633859ae6d5cb0d6741fe8dc3b3f",
+      "teachingSHA256": {
+        "essentialQuestion": "c2eaf2170f34a35f3b1a645507ddd1eb41841be13cdaba47b58922ba6a876545",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v10-checklist-lab-http-get": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "bb48504b6f7f9c8ba79e1d47ce17ade7a3a584245e990ecb797de1b40ca98287",
+      "nonTeachingSHA256": "f638874c92eed77995a6ea33549c143fa148ef83844717a7c4f65209b204c7aa",
+      "teachingSHA256": {
+        "essentialQuestion": "9927c9c6624a2eba01ae2a7bfce6182c78e4ba170e99bb12a45d403a27b9857b",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v10-hypothesis-lab-http-get-semantics": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "c2eb809a3e6f533abab63008d22d0c37af60d3406d1ca6697a99fb56967daf91",
+      "nonTeachingSHA256": "41c3bcf8b913151a1a4fe86b9383b6909b502cfae5cc37822421489fc73f2dd2",
+      "teachingSHA256": {
+        "essentialQuestion": "081628b81e38b0e2fae2a5781000240717e795d05805637933eeef6865513ba9",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v10-trace-lab-http-head": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "4582098ee0ff0b1a88d5432f10ec68d668644188c21cc0a529fbd2a3ed28d2c1",
+      "nonTeachingSHA256": "b7d24f59d026372e46dab4b153fdcd12c34290b355a44fbbe3d454f8da12764b",
+      "teachingSHA256": {
+        "essentialQuestion": "0b563b508275833cf933b777c233aa79781489ebeedc11193236c813c61d8957",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v10-counterexample-lab-http-head": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "98b3b6d738ebc94076b09b872d94a2af4237463cbe4e37f3f2d2e77d54e3c156",
+      "nonTeachingSHA256": "4e4009589f63d60cc92a80c7e61145cbbc463aa47de75cbf18359082a9855a8a",
+      "teachingSHA256": {
+        "essentialQuestion": "6ef5be2e718d59b6e18ffb1d5d851623cd4d46294a22e251d856eea77e639670",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v10-verification-lab-http-head-semantics": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "c370c0f24ccaf331be12e9d9229a3974ee7c7c625d3ad1029c1b84465a5baeba",
+      "nonTeachingSHA256": "a0989590627033e1fefe2126a72f34923deb3c2b377fff8ed94a682b1ebb9bff",
+      "teachingSHA256": {
+        "essentialQuestion": "589c80c6c171244629dc7120b804110e3c2f35573a64afe5bd9bd84d4bfae4a1",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v10-transfer-lab-http-idempotent-methods": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "7694bb98ebd83cb24bb89b65b678a42bf6470cf8835aa1a9c1190b3641cefe51",
+      "nonTeachingSHA256": "2fedd3d385a42b230873d8615493beddd81779723dd8797e943c17cf27cc7f97",
+      "teachingSHA256": {
+        "essentialQuestion": "603188d8ce88fd73baf48ae824eb33800621aa979032f18a78f99afce13e96f8",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v10-concept-mapping-lab-http-idempotent-methods": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "9e1d9591150f48f301a5d6db2dde98f238c8e8fd659d78b3cdde9f2c08eb2a70",
+      "nonTeachingSHA256": "d3fa36247357049ab33fafd15ba49aff6d0d4dbe8a88c7602c87f76b5bf30975",
+      "teachingSHA256": {
+        "essentialQuestion": "8ec7b07e879086e9337c49540b01b162b58a392b7b271bb75554d7bcbb81da3e",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v10-diagnostic-lab-http-method-semantics-and-idempotency": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "073b81909deb8794a67a396fef4cd7e68acb679784214bd1b8c222036a4bddf5",
+      "nonTeachingSHA256": "6b82a080c5fd3d3c8dbf484f9dd03a9227a27a7a103232b6f8da9272fba0ac79",
+      "teachingSHA256": {
+        "essentialQuestion": "70866277b9ebb77096d82fa30b7ce9f85fc33b2a0659882e8eaa8a8ace8d44b5",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v10-prediction-lab-http-methods-have-defined-semantics": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "5afbd17f8a1fbbdc05068ec36266c438e892204d6839bbc1d103ab1d5a71bb14",
+      "nonTeachingSHA256": "5f99bc76265074d3de68ad03cd66ac37fbf5ec02926cccf42f35e0e64b72061f",
+      "teachingSHA256": {
+        "essentialQuestion": "58a7a2c46f7dbb490ce7216092d68a418f0a80299db7481970126b398bb13f7e",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v10-concept-connection-http-post": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "b588b7d979aad2c283ca96030653291d5475477eaa999e35778cf21e3c641cd4",
+      "nonTeachingSHA256": "c666b3915a1218e3e6ab7ab86daf43842f83e1e854b45ffb519f98e37fa1cd24",
+      "teachingSHA256": {
+        "essentialQuestion": "ae342a72e3a0dab18714f753706fddd1d44d722812edecdf9554563a3c52bb88",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v10-compare-contrast-http-post": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "0575440d8e46b0f669bc38d2ddb0688683dcb5d6cdf5e9e00ff9bc2f2d261ec0",
+      "nonTeachingSHA256": "36c099faca16d31397397928255d90ec972e7aee93e2f2625b41d2aebf346c95",
+      "teachingSHA256": {
+        "essentialQuestion": "7af611beb8f172963f40ac6915c835406129efb7004ac3156b9fd24a14862f3a",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v10-flash-review-http-put-semantics": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "817c833a10203732104c7db14eb2a90a9f77a29ab22c32fd43cbbda7911db974",
+      "nonTeachingSHA256": "794a4886de1401733eb427a90285ac29f74fdab08ab88b1b583e9feec99a1680",
+      "teachingSHA256": {
+        "essentialQuestion": "cdf4bcda1cda019d93d4923410019ad1a91236e8db1f145927bc215cba33b638",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v10-confidence-calibration-http-safe-methods": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "b2483bc724aa10796ff5cec8eb44ed28178affd25f74218578cb10e05a39abe1",
+      "nonTeachingSHA256": "4d56928cf2bb21bcf5a2dbedb006e35a950ce074e5181a4c3318db84d3593034",
+      "teachingSHA256": {
+        "essentialQuestion": "9598a6dcb7a20f3bfe3809d13fbbb6047fd383e555671e6ecf0fb305d69aff5e",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v10-mistake-hunt-http-safe-methods": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "13d453c53311ffa0902804c5f187340b40fa47eea37255fc5ace0255a111a329",
+      "nonTeachingSHA256": "8d613f33aabb528db785b259a545888c2c94e2a5ef61fb446ec16f9bb45f21bd",
+      "teachingSHA256": {
+        "essentialQuestion": "b31714668d1c53c0b44e1ef78544bf7371e6685483e286a7771f5a5b23b8a7b1",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v10-reasoning-check-http-status-codes-as-protocol-signals": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "285af2910a1fd8d8e6ff13e80bd2b49f526eb2ccd5ba237474279c1ecace7882",
+      "nonTeachingSHA256": "1e44a7f50d89efa62624e04675d6e2479cfb89536134527be1a10bdd73d18490",
+      "teachingSHA256": {
+        "essentialQuestion": "e27691741436c662a36b4c498aab9ff70cbcc37d5c11bff3bea5e01b0b34f298",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v10-worked-walkthrough-http-status-code-classes": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "a6ba5bde551d5cd55cd0d7980f6dc91e3ad96198194bdfb79acfca2b28e09231",
+      "nonTeachingSHA256": "ed6dd8ac076b5e8b4211c8a1b3ba78eda2aad00c470890c1ea9fa9d9a0329e98",
+      "teachingSHA256": {
+        "essentialQuestion": "2e363174c9ae960d2152e76581f192f17a4b4aa6dcc74a18bff21b4961f84dba",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v10-evidence-reading-idempotency": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "a4efde34c471a1582c6900fe34011775ec290dc2013ba9635d9568bef05d0cd4",
+      "nonTeachingSHA256": "2085ef34fd4bec4dc4b7f3961194a81f57c6c8ce29703e0de39b8bcc21a2e8fd",
+      "teachingSHA256": {
+        "essentialQuestion": "088d2f1746cc6775e3f8a8f15bcb7e3ab1b2b973f46d47863c765669c36f2db0",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v10-concept-connection-inspect-a-browser-request": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "804bc144e6ed5815db38ab78a5ee5578ffe37da816b80dc1ca43074e97f23535",
+      "nonTeachingSHA256": "91310dc4bf905f60cf07b26bc3beeda6862f151fac1c0c2b9bfbe567334576e0",
+      "teachingSHA256": {
+        "essentialQuestion": "d718364e6df542dc3b3a307618379bb39b5001c866b1f8408952115d90a0126e",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v10-compare-contrast-an-http-api-request-from-client-to-handler": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "e4bbec6c0793d8a4a8132ee045fd5ae585d725bf9f6f5a31e3eda120e947fb85",
+      "nonTeachingSHA256": "f28e3c20f9c98abbb24d893acee292d8785b43692e936cffdd5859444b3d610e",
+      "teachingSHA256": {
+        "essentialQuestion": "a4cf8bca0878b6456e0520e3ff8038357e74bc0f8b2cf4cb758fda3375406ce1",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v10-flash-review-http-cache-freshness": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "100a24655fc76c29628ade6090b90cb0057582edfa836c28e3e0c7bf93991764",
+      "nonTeachingSHA256": "9d785e17a9f54d37295e19fa493a69abac00c7feef9e461d6f78631fa054d910",
+      "teachingSHA256": {
+        "essentialQuestion": "b4245ec99618b8ba45b3745d7f00d2c55620a7c1f6aeb37e20bdfac117e62052",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v10-confidence-calibration-http-delete-semantics": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "d9603500938818a6c7f4d6a6ca800002b13285d292bdb7582aed34ccf2f9b717",
+      "nonTeachingSHA256": "54e754361f0baf9311fcf8279e0d1b6ac800faf97a7ecfcda9fd50fcfec39903",
+      "teachingSHA256": {
+        "essentialQuestion": "e6a51643c07956610298ba39f6743ef5057369d2494fd0a57604bf9e516d4b16",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v10-mistake-hunt-http-get": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "33cf6f81928dd539214ff42731a0aec905933a2d060a5db9e1bdd40ae7b2bf52",
+      "nonTeachingSHA256": "91822f9cee9a52a33069c9c6e0975b9680994d7b242211cc689990338352df9b",
+      "teachingSHA256": {
+        "essentialQuestion": "5adcb99f598542d6c16e2d31889afa963986222d253d670165e4df7b33e37ebf",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v10-reasoning-check-http-get": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "f386c41d2061aea44f6c94d3d0dedd6cc011c73761c0eabbf6ca54e7efdeea11",
+      "nonTeachingSHA256": "952a99860772214f0ae04bf0e5faa830d12bf3c681561b92b702e9cdd34fd792",
+      "teachingSHA256": {
+        "essentialQuestion": "82bb9e3549011d2d47c47b021ee08dcfcc0dd99e075c867133b31961989a148d",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v10-worked-walkthrough-http-get-semantics": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "529411a47b71c030a61755a4fc2a78ef0cd016fbff53ba532ed6707a1b284207",
+      "nonTeachingSHA256": "9148da48a9074d0e2de091faf99f80136b4ce8c589768d2d7b28cf61c14ccb61",
+      "teachingSHA256": {
+        "essentialQuestion": "a04a2376da11132e7f051496244e6cce961e2af5e071b5572a962d4aa12feb3e",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v10-evidence-reading-http-head": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "79261f0383362d3fb105ba30755c5638400ca9b0f079f37257e42dc704c40384",
+      "nonTeachingSHA256": "c990a2086688a1d2319dbf243b8df9ac15971ef85634de50b578a9c55c84ef0b",
+      "teachingSHA256": {
+        "essentialQuestion": "ebcee3b9e17e5312c3c83385e7ec950edec601f8e3e4c46e10de8ab0c9f27e82",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v10-concept-connection-http-head": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "90c77bed7b062dbafd5bb2eb4ec0b77423b39d8dd0d064e304616a735b38bbe5",
+      "nonTeachingSHA256": "5beb30a1c39d3d24f9cbdfe75d135d346fe6aa941a96a625fd75cbf578c10f51",
+      "teachingSHA256": {
+        "essentialQuestion": "74fac3a123ae008834cdaf8c115d5b5cb70d33af71aac78fc6ec9513f9e2c0b0",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v10-compare-contrast-http-head-semantics": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "8ba5c6cd947bdd93b10db615a49ed98ed4e1e2ffed697c109c92939880da264d",
+      "nonTeachingSHA256": "a3ba80a9176d2d0e418a14a3a0770c19370be6b95352ff114392cc49dc373176",
+      "teachingSHA256": {
+        "essentialQuestion": "ebea0cb9acebf12dbb48ddaf0133b44ab3c10e148f9656de2ebc2f62079feeb8",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v10-flash-review-http-idempotent-methods": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "4443f0510690ee225df746db3246d22528e6ae83fcb5d6888e64b85dc46d26b7",
+      "nonTeachingSHA256": "0d53e1e53b431c0426b18dbdde9122417556ffdeef2a3207b568caeedaa21408",
+      "teachingSHA256": {
+        "essentialQuestion": "ed91ec642775a01011345f31dd67f9bce147816e3e3d02a7eaff074205874430",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v10-confidence-calibration-http-idempotent-methods": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "be41472305643d8dce9cfe9390ace96f3222fb034a567a2ff3fbbca8b606fa2a",
+      "nonTeachingSHA256": "588da7bd28f08473c95f22694ea0cb0b964b271e05a989d5843e3f32a43ce515",
+      "teachingSHA256": {
+        "essentialQuestion": "da526580eb4b08c3f04d72d0814ad5c4384ab312e7a7236aa1d098c8dbf2dc4f",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v10-mistake-hunt-http-method-semantics-and-idempotency": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "b7375000f725f7fa3b96a3ef96d00c09741d32e0f9427174ea104578363bffc2",
+      "nonTeachingSHA256": "2447da5e0e773bb9662cf6dbca416fc6ebd505c0e639a127538677fb25a20317",
+      "teachingSHA256": {
+        "essentialQuestion": "67adbb6dc480434ae0d80b37cbfa66982275832393c01d710c601b828ed159af",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v10-reasoning-check-http-methods-have-defined-semantics": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "5b6b8299516f7b17f2d49f5d31354da504d127b07ef91fa3448b8993335fbad4",
+      "nonTeachingSHA256": "08051652ed3c5ab828c12af8e4e2dbc207f4428290dde576b40904a08abc5e7f",
+      "teachingSHA256": {
+        "essentialQuestion": "fb47a0e41ac1a0f65c86cb243c786aed7f85a7cbc3e90627ee59123f3ab358b8",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v10-worked-walkthrough-http-post": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "514ebf285f573340d98260d79a1f57b2508551343faa6ecc7b4e45a9a3057848",
+      "nonTeachingSHA256": "72652bb304d65a81fab182cdb4e71d2ba883513cf2bd89a351d4af8ac937598e",
+      "teachingSHA256": {
+        "essentialQuestion": "69f0bbeb0f3cc7c8289125e5487228ac80b379b91cae9d9145f9a01b22e29f63",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v10-evidence-reading-http-post": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "916dd0fcb041bfa17a21c0bda5ff5ddef6428e4758bd584b19beb3a657ad785f",
+      "nonTeachingSHA256": "aeabc5113716db3486ca717862374b6e90834a59e15d4e95048aaf269dd511c0",
+      "teachingSHA256": {
+        "essentialQuestion": "a350abd7c25e91788190376c4052897fa4fb35f1a46c002b9e7796599bd04203",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v10-configuration-lab-http-put-semantics": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "67e5d47e2a251c93b5f03d45363107ef7288b21620650f0f04e22cc238c6fc2e",
+      "nonTeachingSHA256": "4c069214a78b012a19511a3dcb20bc7e682e8d0fbba6c216b2c9355980380b34",
+      "teachingSHA256": {
+        "essentialQuestion": "6074bdf34902a1a2dc0a273eba218581cdf4f49126ed02645ca4559ed56d1e69",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v10-fault-isolation-lab-http-safe-methods": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "8e1c4605fc434d540245afe959bdca3f19248811f06df02258b50d9aedab53f1",
+      "nonTeachingSHA256": "c3ece90ecaa7796fb75c11a09bdbb37a69c0cf6963ce0d90b383333e2cb7b446",
+      "teachingSHA256": {
+        "essentialQuestion": "782656a3cf7295b57ba70ea657ea4566225227271395f801f251620e7b6fcef2",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v10-measurement-lab-http-safe-methods": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "0512e3848085269d1f6a32b889f2d4aa40e97130a0af4b83f1efbbec2b17b9a2",
+      "nonTeachingSHA256": "dd040b77c69d824a285ef1f67201426954c5169b77529a10c0d434c103ce0217",
+      "teachingSHA256": {
+        "essentialQuestion": "2f1473c35f39b1caf45555934b6579621f7586a8de4073295f1e79a8c9e23ffc",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v10-recovery-lab-http-status-codes-as-protocol-signals": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "aacbac7f692d99c2a2817dd521332a213227896d6dc6efd1488051da92b3f9f4",
+      "nonTeachingSHA256": "4b50abfa2d75387642647f7b9be03e49ffc8c3a62e9db8cea058b9ebc4434d00",
+      "teachingSHA256": {
+        "essentialQuestion": "c303e64fe08a412a781f3bce4b36da3583788738af2bb258577c60ad246e0f5c",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v10-checklist-lab-http-status-code-classes": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "8ab4652e8956ee079671711e89d42d784b8cde1200c506651b854d88f6e67559",
+      "nonTeachingSHA256": "9fc3887cb54c5c366cf14558000e5b35d0af6459492061635cd71b913a794bf0",
+      "teachingSHA256": {
+        "essentialQuestion": "a44a4ddc6bf99f02c6ec9790fa961b925ae1a6afce20f45493862d36840cba6e",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v10-hypothesis-lab-idempotency": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "b4872a55a965a51486270251dc7908392dc50184c90ce3c65895d5f085d80071",
+      "nonTeachingSHA256": "17934af90b04a2776b9b99f569f8eaf850fa606920ed71dbb160cc88bcaf6e65",
+      "teachingSHA256": {
+        "essentialQuestion": "d39e6ffe785eb05134a50f0cb58f8963a58e627d203442f6b215d6cc11aeb14b",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v10-trace-lab-inspect-a-browser-request": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "2dcabc312b802fcc84d6f9e195b05652b23da326f26a7f1ff29fff2dfca6b329",
+      "nonTeachingSHA256": "b26224303f5b9d0818f79eced9a9ae443f019980b564973596857b54d0c40283",
+      "teachingSHA256": {
+        "essentialQuestion": "c73f90779405e0af141bafb0e406588b775998a1aa70914593af4e8d35d85f5b",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v10-counterexample-lab-an-http-api-request-from-client-to-handler": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "4ddaf6001c91b549e581bdb82158d9b7df8ad683a7d56d81a91c12dbd7175da7",
+      "nonTeachingSHA256": "fc42aa060d7e512419fa91c43091fdd836c44d340d8c1e39b9447190c823ef99",
+      "teachingSHA256": {
+        "essentialQuestion": "7c9ab62bcaec865062beb067f8a104cc5dc9d04df5c4c402bc9f7a7d8e4f4832",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v10-verification-lab-http-cache-freshness": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "1050289d0453eeb855ded34be669a62be8cce44e599416a0f0a9bf1547a6fd82",
+      "nonTeachingSHA256": "6d563969bc8967d1e0f5902033250ad5163c3ec125393c7da562522c2b49b355",
+      "teachingSHA256": {
+        "essentialQuestion": "4dbd3cd7740b63e9ed2539c3997f4149af4830f456fc2df736160973da99679d",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v10-transfer-lab-http-delete-semantics": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "af9e2d39f2d48f3a975111888840ab7913b1be4d659d881fb37f689328031812",
+      "nonTeachingSHA256": "bda6758b960800e48d4050dcec26901d59814672a1a26e2a7a133883378bd5c7",
+      "teachingSHA256": {
+        "essentialQuestion": "d70bd56c6be9fb6761ccfc0b108dc3ac78c5ca54bc60e45a3e9a3dbfe7b38d64",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v10-concept-mapping-lab-http-get": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "5ed3170fde383165bbed40f4e929ccdf3a4c224e9517af159f97f4e3328dca5a",
+      "nonTeachingSHA256": "4f1a7fb29424b5900f31241ac1750c620b893d5ade4a034920e362d7acb1ec5c",
+      "teachingSHA256": {
+        "essentialQuestion": "39510a5045dea27effa06ffa3604c62f8d09bff10bb45faab66e457b935d3f6f",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v10-diagnostic-lab-http-get": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "88210a57407327b9c426050a9cc3c6af5c6873bb1d12e73d7bef5eddb5061640",
+      "nonTeachingSHA256": "a25ece09118b05f748935b2a635f037c1f6a870b64290b3de4418dfd6640aaf4",
+      "teachingSHA256": {
+        "essentialQuestion": "fce1db16ff0d52938bf992689c544e310b6abb193b5bafe9371dd1da1d383cd4",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v10-scenario-brief-http-get-semantics": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "4da8dac37565682b4319f9e3ff7c7e077033675ffa1944d429ca00c49a6cee45",
+      "nonTeachingSHA256": "343dea2ac780cafba822a6a3fa5d76e42136cdbdd0deaabbb3438fb0e4bf3a61",
+      "teachingSHA256": {
+        "essentialQuestion": "6b849658451d024f044d2742a316ffe7c22b6d032750724d71dfa9177156725c",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v10-transfer-challenge-http-head": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "ac57d52f8beb73a3221cdb6e6478e8d8d83204b0bc9c013379129dabbb46c9a1",
+      "nonTeachingSHA256": "9dc947001f83562d5a3841b47824e82620f5e562b9fd3bf107b62d0c650c2e0c",
+      "teachingSHA256": {
+        "essentialQuestion": "2d22ce78294cbf44f6d31621914da1556168f28aa706a308dd63afdd030eb4c1",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v10-retrieval-ladder-http-head": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "188f415ad89f0e472c3374064cc538cbe9c4a69a6a574d59b25199a971d57f7e",
+      "nonTeachingSHA256": "7141e2aa190d23155992132805c216e5aa161b2381711ebe8c883339e5ca08cd",
+      "teachingSHA256": {
+        "essentialQuestion": "c66259ae9049e4ab0b053177baf972bed641d93a87aba64dfadc152cdbca0cb3",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v10-design-critique-http-head-semantics": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "08be353577196bef8e078af6e635340dbf07fd5d68d6c42a19b1cf4211b310b3",
+      "nonTeachingSHA256": "95bb6dd32d0f77ce91ffac9ada08af986a96be60c02d0a8d2229d6f37594bdfa",
+      "teachingSHA256": {
+        "essentialQuestion": "7e1ab649c34d159e8ce0a03a006833da0f2f3cbe18f3ea192695d22d9b9c3fc4",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v10-decision-brief-http-idempotent-methods": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "991f39a3b793df69aea8efa62a6eba721bb063a2e693aca33416d015ccadc239",
+      "nonTeachingSHA256": "693cff72792414aec9d90a6b067ba62c1ea46fd272b2e49dd0e90be83faeb145",
+      "teachingSHA256": {
+        "essentialQuestion": "441fb20a7d4c78438beb9700b1e6ad83780dcba3632d0f6262e1f46c2d259b97",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v10-explain-back-challenge-http-idempotent-methods": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "0b3e7d2bfc6be851233b54b8319d3aa5101b940c58522c774d5a547f2c62a957",
+      "nonTeachingSHA256": "5f9d46677ccef418b62c40bb7606fd6fff50adfa8ff0a0bced6caabfc3b7e882",
+      "teachingSHA256": {
+        "essentialQuestion": "0700ed48171f1dc9ca300bca9b3578bbc6fecaeed7e8db56468752b61fa9af34",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v10-field-note-http-method-semantics-and-idempotency": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "83e041908476281ca4bc426fa884e5a269e8292c42888ead7dd5622f53c1cb86",
+      "nonTeachingSHA256": "d7ead437415ec16e8a1c682aaa2e17c590f8c244bd8eef9901b2454416e12441",
+      "teachingSHA256": {
+        "essentialQuestion": "ecd18477f316391c13cbaaf9e7ee7eae84bc03ab495164d6d54c62bd45b4add0",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v10-exam-style-practice-http-methods-have-defined-semantics": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "a1535bcfc31b3abfb041ef15d233ea3ffa87bf3864c536f97a2423c301654339",
+      "nonTeachingSHA256": "43eb663b478934630ed5aea461bc83b72a8b60a12752aa8f3bde8ca3e1ed29dd",
+      "teachingSHA256": {
+        "essentialQuestion": "e35a6dd1de612e73d8d78f5b6481f6c3f07dafdc8b1ec8b7c3174432e11cafed",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v10-scenario-brief-http-post": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "2b26cc20ea58647916432d15e70725a7f4dae44f78bd2ab7ee9d54b39842ef4d",
+      "nonTeachingSHA256": "ff5467706a355052c84b509568a121442fa085b8699ef55330a606d00130366d",
+      "teachingSHA256": {
+        "essentialQuestion": "9eb99522a812565f6d46a858ba6fc8a0b055b06f8a2f5eb038aed8a33b7eae3f",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v10-transfer-challenge-http-post": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "87a4f1858b7e5a5e47e1c003bd3920987d5dfb6ee0847eceda131d6bb58e5aac",
+      "nonTeachingSHA256": "adc28546c4287b1bf83560b99561e07743b6b3680d13a6baeff89933616843a5",
+      "teachingSHA256": {
+        "essentialQuestion": "0d9dad647885be3ebd6e992dbe0aa1a0bb9db9420cd7afff3922f8f268552904",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v10-retrieval-ladder-http-put-semantics": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "18d4eee6646e1bf37334f605d76c48cf1367349288ffbe6fb5396d6055b3ebbc",
+      "nonTeachingSHA256": "1a6a270ce011dfe0b1e81b3efee3d18135cf21cf916b7a2a662ed74ff2a6fcaf",
+      "teachingSHA256": {
+        "essentialQuestion": "0519708ee26d7a4c7814dd73a3a003f43d5d6c098c0c3dd14f1ad17ca14b8ad4",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v10-design-critique-http-safe-methods": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "7664bea99db343f6072d21c0ff41656fdc1abaee369d465816824d7548621a27",
+      "nonTeachingSHA256": "67eb290b4c998c43083a7eff7c7ef1221511bef6f4795231179738d222128f31",
+      "teachingSHA256": {
+        "essentialQuestion": "992257e20cde1ac644932253bef0ff3097472b214fcdcdc564ddaf045489932d",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "software-v10-decision-brief-http-safe-methods": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "8cf7c983943527c045646ffa8119c181c835a830825609f098ae3d29fa17935c",
+      "nonTeachingSHA256": "eaa992c0735a8579da41416257d89414e3d539d3652dab896b7c3c926f998076",
+      "teachingSHA256": {
+        "essentialQuestion": "c18e1b0ca42d008eb4ea92f487a6d55395d1e10840892dae2c053e4d1adce4da",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    }
+  }
+}

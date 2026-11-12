@@ -25,7 +25,20 @@ jobs:
       - run: python tools/check_content_notebooks.py engineering-foundations engineering-studies
       - run: node --test tests/content-experiments.test.cjs tests/study-companions.test.cjs
       - run: python tools/restore_website2_assets.py --ambience
-      - run: npx playwright install --with-deps chromium
+      # Hosted runners normally provide Google Chrome. Use it before downloading
+      # Chromium; avoid unnecessary apt dependencies and transient Ubuntu mirror DNS.
+      # If Chrome is absent, install only the Playwright-managed browser (not apt).
+      - name: Select available browser for content QA
+        shell: bash
+        run: |
+          CHROME=$(command -v google-chrome || command -v chromium || command -v chromium-browser || true)
+          if [ -n "$CHROME" ]; then
+            echo "PORTFOLIO_BROWSER_EXECUTABLE=$CHROME" >> "$GITHUB_ENV"
+            echo "Using installed runner Chrome: $CHROME"
+          else
+            echo "No preinstalled Chrome; downloading Playwright Chromium"
+            npx playwright install chromium
+          fi
       - run: node tests/content-browser.test.cjs
         env:
           PORTFOLIO_RUNTIME_ROOT: .
