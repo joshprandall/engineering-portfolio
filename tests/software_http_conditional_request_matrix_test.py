@@ -93,5 +93,83 @@ class ConditionalRequestMatrix(unittest.TestCase):
         self.assertEqual({"x": 1, "y": 2}, json.loads(body))
 
 
+    # This fictional origin's failure policy returns 412 when a conditional
+    # unsafe method is rejected. RFC 9110 requires no mutation on a failed
+    # If-Match, and requires 412 for a failed If-None-Match on PUT.
+    def test_if_match_stale_tag_rejects_put_and_preserves_state(self):
+        status, _, _ = self.send(
+            "PUT", body={"x": 4}, headers={"If-Match": '"stale"'}
+        )
+        self.assertEqual(412, status)
+        status, body, _ = self.send("GET")
+        self.assertEqual(200, status)
+        self.assertEqual({"x": 1, "y": 2}, json.loads(body))
+
+    def test_if_match_weak_tag_does_not_satisfy_strong_precondition(self):
+        status, _, _ = self.send(
+            "PUT", body={"x": 4}, headers={"If-Match": 'W/"v1"'}
+        )
+        self.assertEqual(412, status)
+        status, body, _ = self.send("GET")
+        self.assertEqual(200, status)
+        self.assertEqual({"x": 1, "y": 2}, json.loads(body))
+
+    def test_if_match_list_accepts_any_matching_strong_tag(self):
+        status, _, _ = self.send(
+            "PUT", body={"x": 4}, headers={"If-Match": '"stale", "v1"'}
+        )
+        self.assertEqual(204, status)
+        status, body, _ = self.send("GET")
+        self.assertEqual(200, status)
+        self.assertEqual({"x": 4}, json.loads(body))
+
+    def test_if_match_wildcard_accepts_existing_representation(self):
+        status, _, _ = self.send(
+            "PUT", body={"x": 4}, headers={"If-Match": "*"}
+        )
+        self.assertEqual(204, status)
+        status, body, _ = self.send("GET")
+        self.assertEqual(200, status)
+        self.assertEqual({"x": 4}, json.loads(body))
+
+    def test_if_none_match_weak_match_rejects_put(self):
+        status, _, _ = self.send(
+            "PUT", body={"x": 4}, headers={"If-None-Match": 'W/"v1"'}
+        )
+        self.assertEqual(412, status)
+        status, body, _ = self.send("GET")
+        self.assertEqual(200, status)
+        self.assertEqual({"x": 1, "y": 2}, json.loads(body))
+
+    def test_if_none_match_list_with_current_tag_rejects_put(self):
+        status, _, _ = self.send(
+            "PUT", body={"x": 4},
+            headers={"If-None-Match": '"other", W/"v1", "stale"'}
+        )
+        self.assertEqual(412, status)
+        status, body, _ = self.send("GET")
+        self.assertEqual(200, status)
+        self.assertEqual({"x": 1, "y": 2}, json.loads(body))
+
+    def test_failed_if_match_precedes_other_conditions(self):
+        status, _, _ = self.send(
+            "PUT", body={"x": 4},
+            headers={"If-Match": '"stale"', "If-None-Match": '"not-current"'}
+        )
+        self.assertEqual(412, status)
+        status, body, _ = self.send("GET")
+        self.assertEqual(200, status)
+        self.assertEqual({"x": 1, "y": 2}, json.loads(body))
+
+    def test_valid_if_match_does_not_override_failed_if_none_match(self):
+        status, _, _ = self.send(
+            "PUT", body={"x": 4},
+            headers={"If-Match": '"v1"', "If-None-Match": "*"}
+        )
+        self.assertEqual(412, status)
+        status, body, _ = self.send("GET")
+        self.assertEqual(200, status)
+        self.assertEqual({"x": 1, "y": 2}, json.loads(body))
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)
