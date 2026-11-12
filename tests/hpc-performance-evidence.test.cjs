@@ -95,3 +95,28 @@ test('unmatched tag-5 receive is not satisfied by a tag-4 send',()=>{
  assert.equal(matches(send,{comm:'WORLD',src:0,dst:1,tag:5}),false);
  assert.equal(matches(send,{...send}),true);
 });
+
+
+test('MPI_Comm_split assigns local ranks by key, not group membership alone',()=>{
+ const lesson=lessons['advanced-v05-mpi-communicators'];
+ const evidence=[...lesson.reasoningSteps,...lesson.labPlan].join(' ');
+ for(const anchor of ['key=global_rank','key(1)=5','key(3)=1','breaking ties by old rank','mpi31-report/node156.htm']){
+  assert.ok(evidence.includes(anchor),'Missing communicator-key evidence: '+anchor);
+ }
+ const assign=rows=>{
+  const groups=new Map();
+  for(const r of rows){if(!groups.has(r.color))groups.set(r.color,[]);groups.get(r.color).push(r);}
+  return [...groups].flatMap(([color,members])=>members
+   .sort((a,b)=>a.key-b.key||a.global-b.global)
+   .map((entry,local)=>({color,global:entry.global,local})))
+   .sort((a,b)=>a.global-b.global);
+ };
+ const initial=[0,1,2,3].map(global=>({global,color:global%2,key:global}));
+ assert.deepEqual(assign(initial).map(x=>x.local),[0,0,1,1]);
+ const reversed=initial.map(x=>({...x,key:x.global===1?5:x.global===3?1:x.key}));
+ assert.deepEqual(assign(reversed).map(x=>x.local),[0,1,1,0]);
+ const recolored=initial.map(x=>({...x,color:x.global===2?1:x.color}));
+ assert.deepEqual(assign(recolored).map(x=>x.local),[0,0,1,2]);
+ const tied=initial.map(x=>({...x,key:0}));
+ assert.deepEqual(assign(tied).map(x=>x.local),[0,0,1,1]);
+});
