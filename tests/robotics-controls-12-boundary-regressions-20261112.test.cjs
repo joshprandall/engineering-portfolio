@@ -270,3 +270,32 @@ test('rest-to-rest velocity profiles meet distance and speed constraints in both
   near(boundary.cruise,0);near(boundary.total,2);
   assert.throws(()=>profile(1,0,1),/valid rest-to-rest/);
 });
+
+test('near-singular Jacobian inverse velocity demands increase as the elbow straightens', () => {
+  const lesson = lessons[ids[2]];
+  assert.match(lesson.reasoningSteps[4], /theta2=0\\.01 rad/);
+  assert.match(lesson.labPlan.join(' '), /\\+24\\.99999167/);
+  const jointSpeeds = [];
+  for (const [elbow, expect1, expect2] of [
+    [0.01, 2.49991667, -5.83330556],
+    [0.001, 24.99999167, -58.33333056]
+  ]) {
+    const J = jac(0.4, 0.3, 0, elbow);
+    const determinant = J[0][0]*J[1][1]-J[0][1]*J[1][0];
+    assert.ok(Math.abs(determinant) > 1e-6);
+    // Solve the 2x2 inverse analytically, then independently reconstruct J*qdot.
+    const qdot1 = 0.01*J[1][1]/determinant;
+    const qdot2 = -0.01*J[1][0]/determinant;
+    near(qdot1, expect1, 1e-7);
+    near(qdot2, expect2, 1e-7);
+    near(J[0][0]*qdot1+J[0][1]*qdot2, 0.01, 1e-12);
+    near(J[1][0]*qdot1+J[1][1]*qdot2, 0, 1e-12);
+    jointSpeeds.push([qdot1,qdot2]);
+  }
+  assert.ok(Math.abs(jointSpeeds[1][0]) > 9*Math.abs(jointSpeeds[0][0]));
+  assert.ok(Math.abs(jointSpeeds[1][1]) > 9*Math.abs(jointSpeeds[0][1]));
+  const singular = jac(0.4,0.3,0,0);
+  near(singular[0][0],0);
+  near(singular[0][1],0);
+  near(singular[0][0]*singular[1][1]-singular[0][1]*singular[1][0],0);
+});
