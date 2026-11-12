@@ -98,3 +98,38 @@ for (const c of cases) {
 }
 assert.equal(cases.length,12);
 console.log("PASS: 12 distinct NIST-grounded detection/IR cases, 12 independent arithmetic/state assertions, all 102 IDs/order, six teaching stages per case.");
+
+// These checks connect independently calculated fixtures to the numeric answers actually displayed.
+// A fixed oracle alone cannot detect a prose-only regression.
+const printedClaims = [
+  {id:"cyber-siem",field:"reasoningSteps",step:1,pattern:/48 - 3 = (\d+) seconds/,value:45},
+  {id:"cyber-lab-log-triage",field:"reasoningSteps",step:2,pattern:/08:10 = (\d+) minutes/,value:3},
+  {id:"cyber-incident-response",field:"reasoningSteps",step:1,pattern:/12 \+ 8 \+ 5 \+ 25 = (\d+) minutes/,value:50},
+  {id:"cyber-v06-incident-response-preparation",field:"reasoningSteps",step:3,pattern:/16 - 7 = (\d+) minutes saved/,value:9},
+  {id:"cyber-v06-incident-triage",field:"reasoningSteps",step:3,pattern:/S_A - S_B = (\d+)/,value:2},
+  {id:"cyber-v08-deep-dive-csf-detect-function",field:"reasoningSteps",step:1,pattern:/18 \/ 24 = ([\d.]+) = 75%/,value:0.75},
+  {id:"cyber-v08-evidence-lab-csf-detect-function",field:"reasoningSteps",step:1,pattern:/09:09 - 09:00 = (\d+) minutes/,value:9},
+  {id:"cyber-v08-deep-dive-csf-respond-function",field:"reasoningSteps",step:2,pattern:/14:18 - 13:22 = (\d+) minutes/,value:56},
+  {id:"cyber-v08-evidence-lab-csf-respond-function",field:"labPlan",step:2,pattern:/active path count (\d+)/,value:1},
+  {id:"cyber-v08-deep-dive-incident-response-integration",field:"reasoningSteps",step:3,pattern:/71 - 52 = (\d+) minutes saved/,value:19},
+  {id:"cyber-v08-evidence-lab-incident-response-integration",field:"reasoningSteps",step:2,pattern:/10:37 - 10:30 = (\d+) minutes/,value:7},
+  {id:"cyber-v09-evidence-verification-la-csf-detect-function",field:"reasoningSteps",step:1,pattern:/6 - 2 = (\d+)/,value:4}
+];
+function printedValue(text,spec) {
+  const match=text.match(spec.pattern);
+  assert.ok(match,"Missing stated calculation: "+spec.id);
+  const parsed=Number(match[1]);
+  assert.ok(Number.isFinite(parsed),"Invalid numeric answer: "+spec.id);
+  return parsed;
+}
+assert.equal(printedClaims.length,cases.length,"one semantic claim per authored case");
+for(const spec of printedClaims) {
+  const original=lessons[spec.id][spec.field][spec.step];
+  assert.equal(printedValue(original,spec),spec.value,"Incorrect displayed value: "+spec.id);
+  const corrupted=original.replace(spec.pattern,(whole,number)=>
+    whole.replace(number,String(spec.value+1)));
+  assert.notEqual(corrupted,original,"Mutation fixture failed: "+spec.id);
+  assert.throws(()=>assert.equal(printedValue(corrupted,spec),spec.value),
+    {name:"AssertionError"},"Prose corruption escaped verification: "+spec.id);
+}
+console.log("PASS: 12 lesson-prose numeric oracles and 12 deliberate corruption detections.");
