@@ -269,3 +269,65 @@ for(const sample of semanticAudits)test(sample.id+" independently recomputed cla
   assert.notEqual(corruptLab,lab);
   assert.equal(corruptLab.includes(sample.lab[0]),false,"A corrupted lab target must fail its evidence gate");
 });
+
+
+// Exercise the assertions against altered copies of actual lesson records.
+// Mutating reconstructed strings alone does not establish that a bad lesson fails.
+function teachingRecordHasEvidence(record, audit) {
+  if (!record || !Array.isArray(record.reasoningSteps) || !Array.isArray(record.labPlan)) return false;
+  if (record.reasoningSteps.length !== 6 || record.labPlan.length !== 6) return false;
+  const proof = record.reasoningSteps.join(" "), lab = record.labPlan.join(" ");
+  return proof.includes("https://openstax.org/") &&
+    audit.proof.every(fragment => proof.includes(fragment)) &&
+    audit.lab.every(fragment => lab.includes(fragment));
+}
+test("all twelve lessons reject 24 independently mutated proof and lab records", () => {
+  let rejected = 0;
+  for (const audit of semanticAudits) {
+    const record = pack[audit.id];
+    assert.ok(teachingRecordHasEvidence(record, audit), "Baseline evidence missing: " + audit.id);
+    const badProof = {
+      ...record,
+      reasoningSteps: record.reasoningSteps.map(step => step.replace(audit.proof[0], "INCORRECT_RESULT"))
+    };
+    const badLab = {
+      ...record,
+      labPlan: record.labPlan.map(step => step.replace(audit.lab[0], "INCORRECT_ASSERTION"))
+    };
+    assert.notDeepEqual(badProof.reasoningSteps, record.reasoningSteps);
+    assert.notDeepEqual(badLab.labPlan, record.labPlan);
+    assert.equal(teachingRecordHasEvidence(badProof, audit), false, audit.id + " accepted altered proof");
+    assert.equal(teachingRecordHasEvidence(badLab, audit), false, audit.id + " accepted altered lab");
+    rejected += 2;
+  }
+  assert.equal(rejected, 24);
+});
+
+// Exercise the general finite-series identities beyond the twelve worked examples.
+// Integer-valued inputs make direct recurrence and closed-form comparisons exact.
+test("255 independent finite-sum edge cases include negative, zero and unit ratios", () => {
+  let checked = 0;
+  for (const first of [-5, 0, 4]) {
+    for (const difference of [-3, 0, 7]) {
+      for (let n = 1; n <= 15; n++) {
+        let sum = 0, term = first;
+        for (let i = 0; i < n; i++) { sum += term; term += difference; }
+        const closed = n * (2 * first + (n - 1) * difference) / 2;
+        assert.equal(sum, closed, "Arithmetic series: " + [first, difference, n]);
+        checked++;
+      }
+    }
+  }
+  for (const first of [-3, 0, 5]) {
+    for (const ratio of [-2, -1, 0, 1, 2]) {
+      for (let n = 1; n <= 8; n++) {
+        let sum = 0, term = first;
+        for (let i = 0; i < n; i++) { sum += term; term *= ratio; }
+        const closed = ratio === 1 ? n * first : first * (1 - ratio ** n) / (1 - ratio);
+        assert.equal(sum, closed, "Geometric series: " + [first, ratio, n]);
+        checked++;
+      }
+    }
+  }
+  assert.equal(checked, 255);
+});
