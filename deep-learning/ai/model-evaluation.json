@@ -2,9 +2,9 @@
   "ai-ml-evidence-confusion-matrix": {
     "essentialQuestion": "What do binary confusion-matrix cells count, and when is precision undefined?",
     "verifiedBoundary": "At a fixed threshold, TP, FP, FN, and TN partition every labeled binary observation; precision=TP/(TP+FP) and recall=TP/(TP+FN) when denominators are positive.",
-    "analogy": "A numerical model is a claim about decisions under assumptions. Count, calculate, and change one assumption before relying on its score.",
+    "analogy": "Sort ten specimens into four mutually exclusive trays: correct positives, false alarms, missed positives and correct negatives. Ratios only make sense after the trays have exact labels.",
     "starter": {
-      "plainStart": "At a fixed threshold, TP, FP, FN, and TN partition every labeled binary observation; precision=TP/(TP+FP) and recall=TP/(TP+FN) when denominators are positive.",
+      "plainStart": "Treat positive=1 as the event to find. A false positive is a 0 called 1, not just any error.",
       "tryThis": "Classify each row before calculating a ratio; change all decisions to zero and inspect the denominator.",
       "helper": "Write the exact label, denominator, or objective before computing; a plausible score without defined semantics is not evidence."
     },
@@ -12,7 +12,8 @@
       "scope": "Only binary labels 0/1, equal-weight observations, declared positive class 1, one decision threshold; ratios are dimensionless.",
       "versionCaution": "The mathematics in this fixture is version-independent; check the cited library documentation for evolving API behavior.",
       "prerequisites": [
-        "Binary probability and basic arithmetic"
+        "Binary outcomes",
+        "Conditional ratios"
       ],
       "connections": []
     },
@@ -22,8 +23,8 @@
       "Predicting no positives makes TP+FP=0: precision is undefined mathematically, not proof of zero false-positive risk; software APIs may assign a configured zero."
     ],
     "memoryLadder": [
+      "From the four counts, reconstruct both precision and recall; explain why the two different denominators matter.",
       "Derive the stated answer by hand without consulting the fixture.",
-      "State the assumption that makes the following falsifier relevant: Predicting no positives makes TP+FP=0: precision is undefined mathematically, not proof of zero false-positive risk; software APIs may assign a configured zero.",
       "Explain what the synthetic result cannot establish about data from a real deployment."
     ],
     "labPlan": [
@@ -32,14 +33,14 @@
       "Change one input or modeling assumption, then decide whether the original conclusion remains valid."
     ],
     "vocabulary": [
-      {
-        "term": "Synthetic fixture",
-        "definition": "Artificial, declared data chosen for a deterministic instructional check; it is not evidence from production systems."
-      },
-      {
-        "term": "Falsification",
-        "definition": "A concrete input or assumption change that would refute an overgeneralized statement."
-      }
+      [
+        "False positive",
+        "A truly negative item predicted positive."
+      ],
+      [
+        "Precision denominator",
+        "The count of all predicted-positive items, TP+FP."
+      ]
     ],
     "video": {
       "title": "No external video required",
@@ -72,9 +73,9 @@
   "ai-ml-evidence-majority-class-baseline": {
     "essentialQuestion": "Why is 95% accuracy insufficient evidence for detecting a rare positive class?",
     "verifiedBoundary": "A classifier that always predicts the majority class can have high accuracy while zero positive recall; balanced accuracy averages sensitivity and specificity.",
-    "analogy": "A numerical model is a claim about decisions under assumptions. Count, calculate, and change one assumption before relying on its score.",
+    "analogy": "A detector announcing 'quiet' on every minute can sound 95% successful in a mostly quiet environment while never detecting one alarm.",
     "starter": {
-      "plainStart": "A classifier that always predicts the majority class can have high accuracy while zero positive recall; balanced accuracy averages sensitivity and specificity.",
+      "plainStart": "Accuracy counts correct decisions overall; minority sensitivity asks how many actual positives were found.",
       "tryThis": "Compute all four cells for an always-negative model, then compare accuracy and balanced accuracy before selecting a metric.",
       "helper": "Write the exact label, denominator, or objective before computing; a plausible score without defined semantics is not evidence."
     },
@@ -82,7 +83,8 @@
       "scope": "100 fixed synthetic observations, binary labels, no probability ranking, equal weights, and a nonzero population of each class.",
       "versionCaution": "The mathematics in this fixture is version-independent; check the cited library documentation for evolving API behavior.",
       "prerequisites": [
-        "Binary probability and basic arithmetic"
+        "Confusion matrices",
+        "Class imbalance"
       ],
       "connections": []
     },
@@ -92,8 +94,8 @@
       "Claiming 0.95 accuracy means 95% detection is false: none of the five actual positives was flagged."
     ],
     "memoryLadder": [
+      "What does a claimed 95% accuracy conceal for the five positives?",
       "Derive the stated answer by hand without consulting the fixture.",
-      "State the assumption that makes the following falsifier relevant: Claiming 0.95 accuracy means 95% detection is false: none of the five actual positives was flagged.",
       "Explain what the synthetic result cannot establish about data from a real deployment."
     ],
     "labPlan": [
@@ -102,14 +104,14 @@
       "Change one input or modeling assumption, then decide whether the original conclusion remains valid."
     ],
     "vocabulary": [
-      {
-        "term": "Synthetic fixture",
-        "definition": "Artificial, declared data chosen for a deterministic instructional check; it is not evidence from production systems."
-      },
-      {
-        "term": "Falsification",
-        "definition": "A concrete input or assumption change that would refute an overgeneralized statement."
-      }
+      [
+        "Sensitivity",
+        "TP/(TP+FN), also called positive recall."
+      ],
+      [
+        "Balanced accuracy",
+        "Average recall across classes in the binary case."
+      ]
     ],
     "video": {
       "title": "No external video required",
@@ -142,9 +144,9 @@
   "ai-ml-evidence-threshold-cost-selection": {
     "essentialQuestion": "How can an operating threshold minimize a declared asymmetric error cost?",
     "verifiedBoundary": "Given fixed scores, labels and nonnegative false-positive and false-negative costs, empirical decision cost at threshold t is C_FP*FP(t)+C_FN*FN(t); threshold choice depends on costs, not accuracy alone.",
-    "analogy": "A numerical model is a claim about decisions under assumptions. Count, calculate, and change one assumption before relying on its score.",
+    "analogy": "A false alarm costs one inspection, but a missed failure costs four inspections. Moving the alarm threshold changes which kind of cost you pay.",
     "starter": {
-      "plainStart": "Given fixed scores, labels and nonnegative false-positive and false-negative costs, empirical decision cost at threshold t is C_FP*FP(t)+C_FN*FN(t); threshold choice depends on costs, not accuracy alone.",
+      "plainStart": "A model outputs a score; business loss is defined by explicit actions and asymmetric error penalties, not the score itself.",
       "tryThis": "Enumerate both thresholds using a pure array loop; mutate C_FN from 4 to 0.1 and demonstrate why the preferred action may reverse.",
       "helper": "Write the exact label, denominator, or objective before computing; a plausible score without defined semantics is not evidence."
     },
@@ -152,7 +154,8 @@
       "scope": "Illustrative validation-set cost only, equal units per error, fixed scores with no ties at the chosen thresholds; threshold selection on test labels would contaminate evaluation.",
       "versionCaution": "The mathematics in this fixture is version-independent; check the cited library documentation for evolving API behavior.",
       "prerequisites": [
-        "Binary probability and basic arithmetic"
+        "Binary classification",
+        "Decision thresholds"
       ],
       "connections": []
     },
@@ -162,8 +165,8 @@
       "A blanket claim that increasing threshold always reduces total cost fails: raising .3 to .5 reduces FP by 1 but raises FN by 1 and cost by 3."
     ],
     "memoryLadder": [
+      "Recompute the preferred cutoff after changing the false-negative penalty to one tenth.",
       "Derive the stated answer by hand without consulting the fixture.",
-      "State the assumption that makes the following falsifier relevant: A blanket claim that increasing threshold always reduces total cost fails: raising .3 to .5 reduces FP by 1 but raises FN by 1 and cost by 3.",
       "Explain what the synthetic result cannot establish about data from a real deployment."
     ],
     "labPlan": [
@@ -172,14 +175,14 @@
       "Change one input or modeling assumption, then decide whether the original conclusion remains valid."
     ],
     "vocabulary": [
-      {
-        "term": "Synthetic fixture",
-        "definition": "Artificial, declared data chosen for a deterministic instructional check; it is not evidence from production systems."
-      },
-      {
-        "term": "Falsification",
-        "definition": "A concrete input or assumption change that would refute an overgeneralized statement."
-      }
+      [
+        "False-negative cost",
+        "The explicitly valued cost of not alerting on a true positive."
+      ],
+      [
+        "Decision threshold",
+        "The minimum predicted score that triggers a positive action."
+      ]
     ],
     "video": {
       "title": "No external video required",
@@ -212,9 +215,9 @@
   "ai-ml-evidence-average-precision-ranking": {
     "essentialQuestion": "Why does non-interpolated average precision depend on the rank of positive examples?",
     "verifiedBoundary": "For distinct descending scores, binary average precision equals the mean precision-at-rank taken at each positive item, i.e. sum over recall increases P_k*DeltaRecall_k.",
-    "analogy": "A numerical model is a claim about decisions under assumptions. Count, calculate, and change one assumption before relying on its score.",
+    "analogy": "A reviewer sees ranked search results one at a time. Precision is rewarded at the ranks where a relevant result actually appears.",
     "starter": {
-      "plainStart": "For distinct descending scores, binary average precision equals the mean precision-at-rank taken at each positive item, i.e. sum over recall increases P_k*DeltaRecall_k.",
+      "plainStart": "Average precision aggregates precision at successive recovered positives, not just whether all positives can eventually be found.",
       "tryThis": "Enumerate sorted labels, track positives encountered, average only the precision values at positive ranks; swap ranks 2 and 3 and recompute.",
       "helper": "Write the exact label, denominator, or objective before computing; a plausible score without defined semantics is not evidence."
     },
@@ -222,7 +225,8 @@
       "scope": "Two positives, descending distinct scores, no sample weights or ties; AP is dimensionless and prevalence-sensitive.",
       "versionCaution": "The mathematics in this fixture is version-independent; check the cited library documentation for evolving API behavior.",
       "prerequisites": [
-        "Binary probability and basic arithmetic"
+        "Ranking scores",
+        "Precision and recall"
       ],
       "connections": []
     },
@@ -232,8 +236,8 @@
       "Treating AP as trapezoidal area under a linearly interpolated PR curve is not generally equivalent; the stepwise precision weighting here is explicit."
     ],
     "memoryLadder": [
+      "Show why the second positive appearing at rank 3 contributes 2/3 rather than 1/2.",
       "Derive the stated answer by hand without consulting the fixture.",
-      "State the assumption that makes the following falsifier relevant: Treating AP as trapezoidal area under a linearly interpolated PR curve is not generally equivalent; the stepwise precision weighting here is explicit.",
       "Explain what the synthetic result cannot establish about data from a real deployment."
     ],
     "labPlan": [
@@ -242,14 +246,14 @@
       "Change one input or modeling assumption, then decide whether the original conclusion remains valid."
     ],
     "vocabulary": [
-      {
-        "term": "Synthetic fixture",
-        "definition": "Artificial, declared data chosen for a deterministic instructional check; it is not evidence from production systems."
-      },
-      {
-        "term": "Falsification",
-        "definition": "A concrete input or assumption change that would refute an overgeneralized statement."
-      }
+      [
+        "Precision at k",
+        "Relevant items in the top k divided by k."
+      ],
+      [
+        "Recall increment",
+        "The additional fraction of all positives recovered at a new rank."
+      ]
     ],
     "video": {
       "title": "No external video required",
@@ -282,9 +286,9 @@
   "ai-ml-evidence-brier-probability-score": {
     "essentialQuestion": "How does a proper quadratic score penalize confident incorrect probabilities?",
     "verifiedBoundary": "Binary Brier score is the arithmetic mean of (p_i-y_i)^2 for probability p in [0,1] and outcome y in {0,1}; lower is better, zero means exact predictions on the observations.",
-    "analogy": "A numerical model is a claim about decisions under assumptions. Count, calculate, and change one assumption before relying on its score.",
+    "analogy": "Two weather forecasts can both say 'rain' under a 50% rule, yet one can deserve a larger penalty for being much more confident when wrong.",
     "starter": {
-      "plainStart": "Binary Brier score is the arithmetic mean of (p_i-y_i)^2 for probability p in [0,1] and outcome y in {0,1}; lower is better, zero means exact predictions on the observations.",
+      "plainStart": "A probability should be judged as a number, not merely turned into a class label before evaluation.",
       "tryThis": "Calculate each squared error without thresholding; replace the incorrect .7 with .99 and verify the score worsens.",
       "helper": "Write the exact label, denominator, or objective before computing; a plausible score without defined semantics is not evidence."
     },
@@ -292,7 +296,8 @@
       "scope": "Four illustrative independent-looking outcomes (not a statistical inference), equal weighting, correctly interpreted positive-class probabilities, dimensionless squared score.",
       "versionCaution": "The mathematics in this fixture is version-independent; check the cited library documentation for evolving API behavior.",
       "prerequisites": [
-        "Binary probability and basic arithmetic"
+        "Probabilistic predictions",
+        "Squared error"
       ],
       "connections": []
     },
@@ -302,8 +307,8 @@
       "Accuracy at threshold .5 sees only one false positive, but cannot distinguish a wrong .7 from a wrong .99: those probabilities have different Brier penalties."
     ],
     "memoryLadder": [
+      "Calculate the penalty change when the false positive rises from probability 0.7 to 0.99.",
       "Derive the stated answer by hand without consulting the fixture.",
-      "State the assumption that makes the following falsifier relevant: Accuracy at threshold .5 sees only one false positive, but cannot distinguish a wrong .7 from a wrong .99: those probabilities have different Brier penalties.",
       "Explain what the synthetic result cannot establish about data from a real deployment."
     ],
     "labPlan": [
@@ -312,14 +317,14 @@
       "Change one input or modeling assumption, then decide whether the original conclusion remains valid."
     ],
     "vocabulary": [
-      {
-        "term": "Synthetic fixture",
-        "definition": "Artificial, declared data chosen for a deterministic instructional check; it is not evidence from production systems."
-      },
-      {
-        "term": "Falsification",
-        "definition": "A concrete input or assumption change that would refute an overgeneralized statement."
-      }
+      [
+        "Brier score",
+        "Mean squared distance between event probability and observed binary outcome."
+      ],
+      [
+        "Proper scoring rule",
+        "A score whose expected value favors reporting the forecaster's true predictive probabilities under its assumptions."
+      ]
     ],
     "video": {
       "title": "No external video required",
@@ -352,9 +357,9 @@
   "ai-ml-evidence-calibration-bin-ece": {
     "essentialQuestion": "How does bin-level expected calibration error differ from accuracy?",
     "verifiedBoundary": "For predetermined confidence bins, ECE=sum_b (n_b/N)*abs(mean predicted positive probability in b - observed positive fraction in b); this is a descriptive bin estimator, not proof of groupwise calibration.",
-    "analogy": "A numerical model is a claim about decisions under assumptions. Count, calculate, and change one assumption before relying on its score.",
+    "analogy": "For a tray of cards forecast at 60–90% chance, compare the average stated chance with the fraction actually observed, not a count of classification mistakes.",
     "starter": {
-      "plainStart": "For predetermined confidence bins, ECE=sum_b (n_b/N)*abs(mean predicted positive probability in b - observed positive fraction in b); this is a descriptive bin estimator, not proof of groupwise calibration.",
+      "plainStart": "A reliability diagram compares predicted probability with empirical event frequencies over chosen bins; it is not synonymous with classifier accuracy.",
       "tryThis": "Compute reliability bins with fixed edges and nonempty bins; modify the edge at .5 only after documenting the estimator definition.",
       "helper": "Write the exact label, denominator, or objective before computing; a plausible score without defined semantics is not evidence."
     },
@@ -362,7 +367,8 @@
       "scope": "Binary probabilities, fixed 2-bin partition left-closed right-open except final edge, equal weights, rates not classification correctness; ECE dimensionless.",
       "versionCaution": "The mathematics in this fixture is version-independent; check the cited library documentation for evolving API behavior.",
       "prerequisites": [
-        "Binary probability and basic arithmetic"
+        "Conditional frequency",
+        "Predicted probabilities"
       ],
       "connections": []
     },
@@ -372,8 +378,8 @@
       "The sentence 'ECE=0 implies the model is calibrated at every probability' fails because opposite within-bin errors can cancel; finite-sample and binning effects remain."
     ],
     "memoryLadder": [
+      "Describe a pair of opposite prediction errors that vanish when averaged into one bin.",
       "Derive the stated answer by hand without consulting the fixture.",
-      "State the assumption that makes the following falsifier relevant: The sentence 'ECE=0 implies the model is calibrated at every probability' fails because opposite within-bin errors can cancel; finite-sample and binning effects remain.",
       "Explain what the synthetic result cannot establish about data from a real deployment."
     ],
     "labPlan": [
@@ -382,14 +388,14 @@
       "Change one input or modeling assumption, then decide whether the original conclusion remains valid."
     ],
     "vocabulary": [
-      {
-        "term": "Synthetic fixture",
-        "definition": "Artificial, declared data chosen for a deterministic instructional check; it is not evidence from production systems."
-      },
-      {
-        "term": "Falsification",
-        "definition": "A concrete input or assumption change that would refute an overgeneralized statement."
-      }
+      [
+        "Calibration bin",
+        "Predetermined range of probability predictions aggregated for an empirical frequency comparison."
+      ],
+      [
+        "ECE",
+        "Weighted average of absolute bin-level gaps between predicted and observed positive proportions."
+      ]
     ],
     "video": {
       "title": "No external video required",
@@ -422,9 +428,9 @@
   "ai-ml-evidence-preprocessing-leakage": {
     "essentialQuestion": "How can test-set features leak into a fitted preprocessing statistic?",
     "verifiedBoundary": "A learned transform must fit only on training observations; including held-out test values changes the fitted statistic and can contaminate model-selection evidence.",
-    "analogy": "A numerical model is a claim about decisions under assumptions. Count, calculate, and change one assumption before relying on its score.",
+    "analogy": "Using the final exam scores to decide how to scale study-time scores is already peeking at the held-out exam, even without looking at the right answers.",
     "starter": {
-      "plainStart": "A learned transform must fit only on training observations; including held-out test values changes the fitted statistic and can contaminate model-selection evidence.",
+      "plainStart": "Fitted transforms learn numbers from data; held-out feature values must not enter that learning step in an unbiased holdout evaluation.",
       "tryThis": "Compute the mean from training only and freeze it, then apply to held-out data; repeat using a pooled mean solely to falsify the unsafe method.",
       "helper": "Write the exact label, denominator, or objective before computing; a plausible score without defined semantics is not evidence."
     },
@@ -432,7 +438,8 @@
       "scope": "One-dimensional synthetic data in arbitrary feature units; simple mean centering, not standard deviation scaling; a pedagogical leakage witness not a measured model-accuracy estimate.",
       "versionCaution": "The mathematics in this fixture is version-independent; check the cited library documentation for evolving API behavior.",
       "prerequisites": [
-        "Binary probability and basic arithmetic"
+        "Train/test split",
+        "Feature normalization"
       ],
       "connections": []
     },
@@ -442,8 +449,8 @@
       "Claiming the test labels are never read so leakage is impossible fails: using test features in fitted statistics is still test-set leakage in this workflow."
     ],
     "memoryLadder": [
+      "Identify the exact training statistic that changes from 1 to 4 after the test value leaks.",
       "Derive the stated answer by hand without consulting the fixture.",
-      "State the assumption that makes the following falsifier relevant: Claiming the test labels are never read so leakage is impossible fails: using test features in fitted statistics is still test-set leakage in this workflow.",
       "Explain what the synthetic result cannot establish about data from a real deployment."
     ],
     "labPlan": [
@@ -452,14 +459,14 @@
       "Change one input or modeling assumption, then decide whether the original conclusion remains valid."
     ],
     "vocabulary": [
-      {
-        "term": "Synthetic fixture",
-        "definition": "Artificial, declared data chosen for a deterministic instructional check; it is not evidence from production systems."
-      },
-      {
-        "term": "Falsification",
-        "definition": "A concrete input or assumption change that would refute an overgeneralized statement."
-      }
+      [
+        "Fit",
+        "Estimate transformation parameters from an allowed training subset."
+      ],
+      [
+        "Transform",
+        "Apply previously estimated parameters to an observation without re-estimation."
+      ]
     ],
     "video": {
       "title": "No external video required",
@@ -492,9 +499,9 @@
   "ai-ml-evidence-stable-binary-logit-loss": {
     "essentialQuestion": "Why is direct exp(-z) computation unsafe for extreme logits?",
     "verifiedBoundary": "For binary target y in {0,1}, BCE-with-logits equals softplus(z)-y*z, with stable implementation max(z,0)-y*z+log(1+exp(-abs(z))); a sigmoid then log can overflow or underflow.",
-    "analogy": "A numerical model is a claim about decisions under assumptions. Count, calculate, and change one assumption before relying on its score.",
+    "analogy": "Tracking a bank balance by subtracting two astronomical amounts can lose precision; stable log-sum-exp rearrangement avoids creating enormous intermediate values.",
     "starter": {
-      "plainStart": "For binary target y in {0,1}, BCE-with-logits equals softplus(z)-y*z, with stable implementation max(z,0)-y*z+log(1+exp(-abs(z))); a sigmoid then log can overflow or underflow.",
+      "plainStart": "BCE-with-logits computes a binary loss directly from raw scores using algebra that avoids the numerical extremes of sigmoid-then-log.",
       "tryThis": "Implement stable softplus and compare three sample losses to expected; evaluate z=-1000 with both y=0 and y=1 and check finiteness.",
       "helper": "Write the exact label, denominator, or objective before computing; a plausible score without defined semantics is not evidence."
     },
@@ -502,7 +509,8 @@
       "scope": "Unweighted binary targets, natural logarithms, sample mean reduction, logits dimensionless; this is a scalar pedagogical reproduction of a standard loss, not a PyTorch benchmark.",
       "versionCaution": "The mathematics in this fixture is version-independent; check the cited library documentation for evolving API behavior.",
       "prerequisites": [
-        "Binary probability and basic arithmetic"
+        "Logistic sigmoid",
+        "Natural logarithm"
       ],
       "connections": []
     },
@@ -512,8 +520,8 @@
       "Naive sigmoid(z)=1/(1+exp(-z)) at z=-1000 can overflow the exponential, whereas stable softplus-style loss stays finite (loss=0 for y=0, approximately 1000 for y=1)."
     ],
     "memoryLadder": [
+      "Explain the outcomes of z=-1000 for y=0 versus y=1 without exponentiating +1000.",
       "Derive the stated answer by hand without consulting the fixture.",
-      "State the assumption that makes the following falsifier relevant: Naive sigmoid(z)=1/(1+exp(-z)) at z=-1000 can overflow the exponential, whereas stable softplus-style loss stays finite (loss=0 for y=0, approximately 1000 for y=1).",
       "Explain what the synthetic result cannot establish about data from a real deployment."
     ],
     "labPlan": [
@@ -522,14 +530,14 @@
       "Change one input or modeling assumption, then decide whether the original conclusion remains valid."
     ],
     "vocabulary": [
-      {
-        "term": "Synthetic fixture",
-        "definition": "Artificial, declared data chosen for a deterministic instructional check; it is not evidence from production systems."
-      },
-      {
-        "term": "Falsification",
-        "definition": "A concrete input or assumption change that would refute an overgeneralized statement."
-      }
+      [
+        "Logit",
+        "Unbounded real score transformed by sigmoid to a probability."
+      ],
+      [
+        "Softplus",
+        "log(1+exp(z)), evaluated with a stable rearrangement at large magnitude."
+      ]
     ],
     "video": {
       "title": "No external video required",
@@ -562,9 +570,9 @@
   "ai-ml-evidence-logistic-gradient-update": {
     "essentialQuestion": "How does one supervised logistic-loss gradient step change a model prediction?",
     "verifiedBoundary": "For one feature x and scalar weight w with no intercept, p=sigmoid(w*x), d BCE/dw=(p-y)*x. Gradient descent takes w_new=w-alpha*dL/dw.",
-    "analogy": "A numerical model is a claim about decisions under assumptions. Count, calculate, and change one assumption before relying on its score.",
+    "analogy": "A one-dimensional hiker tests the local downhill direction instead of choosing a step from the current altitude alone.",
     "starter": {
-      "plainStart": "For one feature x and scalar weight w with no intercept, p=sigmoid(w*x), d BCE/dw=(p-y)*x. Gradient descent takes w_new=w-alpha*dL/dw.",
+      "plainStart": "The residual in probability space, p-y, multiplies the feature x to give the parameter's BCE gradient.",
       "tryThis": "Compute the analytic gradient and independently approximate it using central differences with step 1e-6; compare loss before and after update.",
       "helper": "Write the exact label, denominator, or objective before computing; a plausible score without defined semantics is not evidence."
     },
@@ -572,7 +580,8 @@
       "scope": "One synthetic observation, full-batch single-step update, no regularization/intercept, natural-log loss and dimensionless feature; no general convergence guarantee.",
       "versionCaution": "The mathematics in this fixture is version-independent; check the cited library documentation for evolving API behavior.",
       "prerequisites": [
-        "Binary probability and basic arithmetic"
+        "Logistic prediction",
+        "Gradient descent"
       ],
       "connections": []
     },
@@ -582,8 +591,8 @@
       "Using +alpha*gradient instead yields w=-.1 and increases loss on this example; descent direction must be checked rather than assumed."
     ],
     "memoryLadder": [
+      "Derive the negative sign of the gradient and why a positive weight step increases p for x=2.",
       "Derive the stated answer by hand without consulting the fixture.",
-      "State the assumption that makes the following falsifier relevant: Using +alpha*gradient instead yields w=-.1 and increases loss on this example; descent direction must be checked rather than assumed.",
       "Explain what the synthetic result cannot establish about data from a real deployment."
     ],
     "labPlan": [
@@ -592,14 +601,14 @@
       "Change one input or modeling assumption, then decide whether the original conclusion remains valid."
     ],
     "vocabulary": [
-      {
-        "term": "Synthetic fixture",
-        "definition": "Artificial, declared data chosen for a deterministic instructional check; it is not evidence from production systems."
-      },
-      {
-        "term": "Falsification",
-        "definition": "A concrete input or assumption change that would refute an overgeneralized statement."
-      }
+      [
+        "Gradient",
+        "Derivative of the differentiable objective with respect to a parameter."
+      ],
+      [
+        "Learning rate",
+        "Positive multiplier controlling the step size along the negative gradient."
+      ]
     ],
     "video": {
       "title": "No external video required",
@@ -632,9 +641,9 @@
   "ai-ml-evidence-ridge-regularized-parameter": {
     "essentialQuestion": "How does an L2 penalty move an optimum in a one-parameter regression objective?",
     "verifiedBoundary": "For a toy objective J(w)=(w-3)^2+lambda*w^2 with lambda>=0, J'(w)=2(w-3)+2lambda*w; its unique minimizer is w*=3/(1+lambda) when lambda is finite.",
-    "analogy": "A numerical model is a claim about decisions under assumptions. Count, calculate, and change one assumption before relying on its score.",
+    "analogy": "A spring pulls the best-fit weight toward zero; the optimum balances matching the target against the spring's penalty.",
     "starter": {
-      "plainStart": "For a toy objective J(w)=(w-3)^2+lambda*w^2 with lambda>=0, J'(w)=2(w-3)+2lambda*w; its unique minimizer is w*=3/(1+lambda) when lambda is finite.",
+      "plainStart": "An L2 penalty adds a smooth quadratic cost that usually shrinks a coefficient but does not set it exactly to zero.",
       "tryThis": "Implement J(w), compare the computed minimizer to two alternative weights and verify derivative near zero using central differences.",
       "helper": "Write the exact label, denominator, or objective before computing; a plausible score without defined semantics is not evidence."
     },
@@ -642,7 +651,8 @@
       "scope": "Scalar toy regression, explicitly stated penalty convention (no 1/2 factor), lambda=1 dimensionless; not the exact scaling convention of any particular library.",
       "versionCaution": "The mathematics in this fixture is version-independent; check the cited library documentation for evolving API behavior.",
       "prerequisites": [
-        "Binary probability and basic arithmetic"
+        "Regression objective",
+        "Derivative of quadratic"
       ],
       "connections": []
     },
@@ -652,8 +662,8 @@
       "'L2 always produces a sparse zero weight' is false here: lambda=1 gives 1.5 rather than zero; sparsity is not the mechanism of L2 shrinkage."
     ],
     "memoryLadder": [
+      "Find J(0), J(1.5) and J(3); verify the middle choice is lower under lambda=1.",
       "Derive the stated answer by hand without consulting the fixture.",
-      "State the assumption that makes the following falsifier relevant: 'L2 always produces a sparse zero weight' is false here: lambda=1 gives 1.5 rather than zero; sparsity is not the mechanism of L2 shrinkage.",
       "Explain what the synthetic result cannot establish about data from a real deployment."
     ],
     "labPlan": [
@@ -662,14 +672,14 @@
       "Change one input or modeling assumption, then decide whether the original conclusion remains valid."
     ],
     "vocabulary": [
-      {
-        "term": "Synthetic fixture",
-        "definition": "Artificial, declared data chosen for a deterministic instructional check; it is not evidence from production systems."
-      },
-      {
-        "term": "Falsification",
-        "definition": "A concrete input or assumption change that would refute an overgeneralized statement."
-      }
+      [
+        "L2 penalty",
+        "Nonnegative multiple of the sum of squared parameter values."
+      ],
+      [
+        "Regularization strength",
+        "Coefficient controlling the tradeoff between data fit and parameter magnitude."
+      ]
     ],
     "video": {
       "title": "No external video required",
@@ -702,9 +712,9 @@
   "ai-ml-evidence-kmeans-one-lloyd-update": {
     "essentialQuestion": "Why can an assignment-plus-centroid-update reduce k-means inertia?",
     "verifiedBoundary": "For Euclidean 1D k-means with fixed assignments, each cluster's arithmetic mean minimizes its within-cluster squared error; Lloyd's assignment and update steps do not increase inertia under well-defined nonempty clusters.",
-    "analogy": "A numerical model is a claim about decisions under assumptions. Count, calculate, and change one assumption before relying on its score.",
+    "analogy": "Two gathering locations move to the average home of their assigned attendees, reducing their total squared travel distance for those assignments.",
     "starter": {
-      "plainStart": "For Euclidean 1D k-means with fixed assignments, each cluster's arithmetic mean minimizes its within-cluster squared error; Lloyd's assignment and update steps do not increase inertia under well-defined nonempty clusters.",
+      "plainStart": "Lloyd's centroid update chooses the mean of each fixed assigned group because that minimizes the group's squared Euclidean error.",
       "tryThis": "Assign each 1D point to the nearest center, calculate both centroid means and old/new inertia; intentionally use one center and observe the different objective.",
       "helper": "Write the exact label, denominator, or objective before computing; a plausible score without defined semantics is not evidence."
     },
@@ -712,7 +722,8 @@
       "scope": "Euclidean one-dimensional data in arbitrary units; squared distance units; two nonempty clusters; no ties in this fixture, no stochastic restarts.",
       "versionCaution": "The mathematics in this fixture is version-independent; check the cited library documentation for evolving API behavior.",
       "prerequisites": [
-        "Binary probability and basic arithmetic"
+        "Euclidean distance",
+        "Arithmetic mean"
       ],
       "connections": []
     },
@@ -722,8 +733,8 @@
       "Claiming one Lloyd iteration guarantees the global optimum on arbitrary data is false: k-means is initialization-sensitive and can converge to a local optimum."
     ],
     "memoryLadder": [
+      "Verify the updated centers do not coincide with data points and that this is allowed.",
       "Derive the stated answer by hand without consulting the fixture.",
-      "State the assumption that makes the following falsifier relevant: Claiming one Lloyd iteration guarantees the global optimum on arbitrary data is false: k-means is initialization-sensitive and can converge to a local optimum.",
       "Explain what the synthetic result cannot establish about data from a real deployment."
     ],
     "labPlan": [
@@ -732,14 +743,14 @@
       "Change one input or modeling assumption, then decide whether the original conclusion remains valid."
     ],
     "vocabulary": [
-      {
-        "term": "Synthetic fixture",
-        "definition": "Artificial, declared data chosen for a deterministic instructional check; it is not evidence from production systems."
-      },
-      {
-        "term": "Falsification",
-        "definition": "A concrete input or assumption change that would refute an overgeneralized statement."
-      }
+      [
+        "Centroid",
+        "Mean position of the points assigned to one cluster."
+      ],
+      [
+        "Inertia",
+        "Sum of squared distances between data points and their assigned centers."
+      ]
     ],
     "video": {
       "title": "No external video required",
@@ -772,9 +783,9 @@
   "ai-ml-evidence-prevalence-and-precision-shift": {
     "essentialQuestion": "Why can predictive precision change when class prevalence changes but sensitivity and specificity do not?",
     "verifiedBoundary": "Bayes' rule gives PPV=(TPR*pi)/(TPR*pi+FPR*(1-pi)); changing positive prevalence pi alone changes precision even with fixed conditional true-positive and false-positive rates.",
-    "analogy": "A numerical model is a claim about decisions under assumptions. Count, calculate, and change one assumption before relying on its score.",
+    "analogy": "A screening test with unchanged sensitivity and false-alarm rate can generate a different share of trustworthy alerts when the event becomes rare.",
     "starter": {
-      "plainStart": "Bayes' rule gives PPV=(TPR*pi)/(TPR*pi+FPR*(1-pi)); changing positive prevalence pi alone changes precision even with fixed conditional true-positive and false-positive rates.",
+      "plainStart": "Positive predictive value depends on the prior event rate as well as a classifier's true-positive and false-positive rates.",
       "tryThis": "Compute Bayes PPV for two prevalence values, then check the edge case pi=0 with FPR>0 (PPV zero, assuming positive predictions are possible).",
       "helper": "Write the exact label, denominator, or objective before computing; a plausible score without defined semantics is not evidence."
     },
@@ -782,7 +793,8 @@
       "scope": "Population-level probabilities, binary conditionals held fixed for the thought experiment, no distribution shift in class-conditional score distributions; model probabilities need not be calibrated.",
       "versionCaution": "The mathematics in this fixture is version-independent; check the cited library documentation for evolving API behavior.",
       "prerequisites": [
-        "Binary probability and basic arithmetic"
+        "Conditional probability",
+        "Binary confusion matrix"
       ],
       "connections": []
     },
@@ -792,8 +804,8 @@
       "'Precision is an intrinsic constant of the classifier across deployment populations' is false under a prevalence shift with otherwise fixed rates."
     ],
     "memoryLadder": [
+      "Why do the same conditional error rates not imply the same predictive value in both populations.",
       "Derive the stated answer by hand without consulting the fixture.",
-      "State the assumption that makes the following falsifier relevant: 'Precision is an intrinsic constant of the classifier across deployment populations' is false under a prevalence shift with otherwise fixed rates.",
       "Explain what the synthetic result cannot establish about data from a real deployment."
     ],
     "labPlan": [
@@ -802,14 +814,14 @@
       "Change one input or modeling assumption, then decide whether the original conclusion remains valid."
     ],
     "vocabulary": [
-      {
-        "term": "Synthetic fixture",
-        "definition": "Artificial, declared data chosen for a deterministic instructional check; it is not evidence from production systems."
-      },
-      {
-        "term": "Falsification",
-        "definition": "A concrete input or assumption change that would refute an overgeneralized statement."
-      }
+      [
+        "Prevalence",
+        "Fraction of the target population with the positive condition."
+      ],
+      [
+        "Positive predictive value",
+        "Conditional probability of a real positive given a positive prediction."
+      ]
     ],
     "video": {
       "title": "No external video required",
