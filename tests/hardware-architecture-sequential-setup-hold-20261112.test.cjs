@@ -56,9 +56,9 @@ test('actual authored lesson documents stable D intervals, falsification, and sp
   assert.equal(lesson.labPlan.length, 6);
   const reasoning = lesson.reasoningSteps.join(' ');
   const lab = lesson.labPlan.join(' ');
-  for (const term of ['2ns', '1ns', '20ns', '18ns', '21ns', 'Q(25) changes to1']) assert.ok(reasoning.includes(term), term);
-  for (const term of ['[8,11]', '[18,21]', '[28,31]', 'exactly20ns']) assert.ok(lab.includes(term), term);
-  assert.ok(reasoning.includes('Switching D exactly at20ns'));
+  for (const term of ['2ns', '1ns', '20ns', '18ns', '21ns', 'Q(25) changes to 1']) assert.ok(reasoning.includes(term), term);
+  for (const term of ['[8,11]', '[18,21]', '[28,31]', 'exactly 20ns']) assert.ok(lab.includes(term), term);
+  assert.ok(reasoning.includes('Switching D exactly at 20ns'));
   assert.ok(reasoning.includes('https://ocw.mit.edu/courses/6-004-computation-structures-spring-2017/pages/c5/c5s1/'));
   assert.ok(lab.includes('https://ocw.mit.edu/courses/6-004-computation-structures-spring-2017/pages/c5/c5s1/'));
 });

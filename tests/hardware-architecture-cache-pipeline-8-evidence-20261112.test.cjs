@@ -80,7 +80,7 @@ test('little endian: bytes reconstruct 32-bit word and local perturbation',()=>{
   assert.deepEqual(Array.from(new Uint8Array(mem)),[0x79,0x56,0x34,0x12]);
 });
 test('RV32I natural alignment distinguishes LW and LH without assuming a trap',()=>{
-  checkLesson(ids[5],['0x1002','mod4=2','mod2=0','EEI']);
+  checkLesson(ids[5],['0x1002','mod 4=2','mod 2=0','EEI']);
   const addresses=(start,width)=>Array.from({length:width},(_,i)=>start+i);
   assert.equal(0x1002%4,2);
   assert.equal(0x1002%2,0);
@@ -98,7 +98,7 @@ test('load-use timeline requires exactly one bubble under specified forwarding l
   assert.deepEqual([4,5],[earliestDependentEX-1,earliestDependentEX]);
 });
 test('branch resolution at EX3 versus ID2 flushes 2 versus 1 wrong-path slots',()=>{
-  checkLesson(ids[7],['EX3','IF2','IF3','cycle4','ID2']);
+  checkLesson(ids[7],['EX3','IF2','IF3','cycle 4','ID2']);
   const count=(resolutionCycle)=>Array.from({length:resolutionCycle-1},(_,i)=>i+2).length;
   assert.equal(count(3),2);
   assert.equal(count(2),1);
