@@ -146,11 +146,14 @@ with the live-parity work.
 
 - `npm test`: passes (959 Node tests in the curriculum suites plus the existing suites; 62 Python
   tests). `npm test` regenerates three manifests; those changes were not committed.
-- GitHub Actions on this branch: `validate`, `interface` and `ambience (chromium, desktop)`,
-  `ambience (webkit, phone)` and the content-companions workflow pass. `ambience (webkit,
-  desktop)` fails because WebKit reports "ResizeObserver loop completed with undelivered
-  notifications" as a page error; `main` fails the same way. The observers that set layout
-  variables live in shared shell scripts, which this branch does not change.
+- GitHub Actions on this branch (push and pull-request runs of the same commit): `validate`,
+  `validate-platforms`, `interface`, `companions`, `ambience (chromium, desktop)` and
+  `ambience (webkit, phone)` pass. `ambience (webkit, desktop)` passed in one run and failed in
+  the other: WebKit intermittently reports "ResizeObserver loop completed with undelivered
+  notifications" as a page error, as it does on `main`; the observers that set layout variables
+  live in shared shell scripts, which this branch does not change. `overlay` now gets past the
+  homepage test and fails in the glass suite on the same dark-theme control that fails on
+  unmodified `main` (below).
 - Local browser suites (Chromium, served from the checkout or from a package built from this
   branch):
 
