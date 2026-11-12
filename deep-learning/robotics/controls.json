@@ -245,8 +245,8 @@
       "Compute center arc length ds=(0.20+0.30)/2=0.25 m and heading change dtheta=(0.30-0.20)/0.50=+0.20 rad.",
       "Turn radius R=ds/dtheta=1.25 m; exact arc integration gives dx=0.248336663 m, dy=0.024916778 m, heading=+0.20 rad.",
       "Independent geometry check: chord distance sqrt(dx²+dy²)=2*R*sin(dtheta/2)=0.249583542 m, slightly shorter than arc length 0.25 m.",
-      "Counterexample: naive straight projection dx=ds=0.25,dy=0 misplaces the robot in a turn; midpoint projection is approximate rather than exact.",
-      "At dtheta=0 use the continuous straight-motion limit dx=ds,dy=0; exact wheel-based SE(2) pose propagation and unavoidable slip/drift limitations are treated in Modern Robotics 13.4: https://modernrobotics.northwestern.edu/nu-gm-book-resource/13-4-odometry/"
+      "Counterexample: naive straight projection dx=ds=0.25,dy=0 misplaces the robot in a turn; midpoint projection is also only approximate. A numerical counterexample occurs at ds=0.25 m, dtheta=1e-9 rad: in IEEE-754 binary64 arithmetic, 1-cos(dtheta) rounds to zero and the direct radius-based formula falsely returns dy=0, although the true lateral increment is approximately +1.25e-10 m.",
+      "For robust exact integration use half-angle coordinates dx=ds*sinc(dtheta/2)*cos(dtheta/2), dy=ds*sinc(dtheta/2)*sin(dtheta/2), where sinc(z)=sin(z)/z and sinc(0)=1. Derive this by integrating the fixed-curvature chassis twist; it avoids subtraction cancellation and has the continuous limit dx=ds, dy=0 at dtheta=0. Negative yaw reverses the sign of dy; pure in-place rotation ds=0 changes yaw without translation. The no-slip, constant-curvature model is an odometry estimate, not ground truth; Modern Robotics 13.4: https://modernrobotics.northwestern.edu/nu-gm-book-resource/13-4-odometry/"
     ],
     "memoryLadder": [
       "State the mathematical mapping used in exact constant-curvature wheel odometry without notes.",
@@ -257,7 +257,7 @@
     "labPlan": [
       "Integrate dL=0.20 m, dR=0.30 m, b=0.50 m with exact constant-curvature formulas; assert (dx,dy,dtheta)=(0.24833666349,0.02491677770,0.20) in m,m,rad.",
       "Independently calculate 2R*sin(dtheta/2)=0.2495835416 m and compare with hypot(dx,dy), using R=1.25 m.",
-      "Set dL=dR=0.25 m and use the explicit straight-line limit dx=0.25 m, dy=0, dtheta=0; never divide by zero or confuse wheel-derived odometry with true pose under slip."
+      "Set dL=dR=0.25 m and use the explicit straight-line limit dx=0.25 m, dy=0, dtheta=0; never divide by zero or confuse wheel-derived odometry with true pose under slip. For ds=0.25 m and dtheta=+1e-9 rad, assert the half-angle formula gives dy approximately +1.25e-10 m, while (1-cos(dtheta))*ds/dtheta evaluates to zero in binary64; at -1e-9 rad assert negative dy. Test pure spin ds=0 as well as the straight limit."
     ],
     "vocabulary": [
       {
