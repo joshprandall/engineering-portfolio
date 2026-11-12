@@ -333,8 +333,8 @@
       "Model states READY and STOP_LATCHED, heartbeat timestamp 20 ms, expiry threshold 100 ms and periodic polling at t=20,40,60,80,100,120 ms.",
       "At t=100 ms elapsed time since last heartbeat is 80 ms; the state remains READY. At t=120 ms elapsed is 100 ms; predicate elapsed>=100 ms becomes true and state enters STOP_LATCHED.",
       "Independent check using integer milliseconds evaluates time difference 120-20=100 ms and verifies the boundary exactly, without floating-point timer jitter.",
-      "A subsequent heartbeat event at t=140 ms updates the recorded timestamp but does not automatically change STOP_LATCHED; only an explicit reset when heartbeat is fresh and faults are cleared permits READY.",
-      "Counterexample: an implementation that sets READY on any heartbeat at t=140 ms silently clears the recorded stale-heartbeat fault; it violates the designed latch invariant.",
+      "At t=140 ms a post-timeout heartbeat updates lastHeartbeat but must leave STOP_LATCHED and the abstract stop flag active. Model two separate recovery predicates: a heartbeat received after the latch event and an independently declared faultsCleared flag. At t=141 ms, reset still fails without clearance; after a hypothetical faults-cleared event at t=142 ms, explicit reset at t=143 ms may return READY because the 140-ms heartbeat remains fresh (3<100 ms). In this model faultsCleared is a supplied assumption, never proof of a physical safety condition.",
+      "Counterexample: implementing heartbeat as automatic reset loses a latched fault; implementing reset whenever lastHeartbeat is recent ignores uncleared faults. An invalid event that advances lastEvent before event-type validation can also reject a later valid event at t=140 ms, so validation must precede all state mutation.",
       "Actual motor safety systems also depend on wiring, command outputs, safety ratings, independent watchdog paths and real-time scheduling; this simulation establishes none of them. Source: https://docs.wpilib.org/en/latest/docs/software/hardware-apis/motors/wpi-drive-classes.html"
     ],
     "memoryLadder": [
@@ -345,8 +345,8 @@
     ],
     "labPlan": [
       "Write an event reducer over integer-ms timestamps and states READY/STOP_LATCHED; assert READY at t=100 and STOP_LATCHED at t=120 after last heartbeat t=20.",
-      "Inject heartbeat t=140 after timeout: assert state stays STOP_LATCHED, abstract stop flag remains true, and a reset event is required.",
-      "Assert non-monotonic event timestamps are rejected, threshold equality expires, and reset without a fresh heartbeat cannot clear the latch."
+      "At t=120 ms latch STOP. Inject post-latch heartbeat at t=140 and attempt reset at t=141 without clearance: assert STOP_LATCHED. Declare faults cleared at t=142, then explicitly reset at t=143; assert READY and a false abstract stop flag. Treat this as an offline state-machine model, never a physical stop verification.",
+      "Reject unknown event types, non-integer/negative timestamps and non-monotonic timestamps before changing any state or time marker; prove the snapshot is unchanged after each rejection. Also assert that clearance without a post-latch heartbeat, and reset after heartbeat freshness expires, both retain STOP_LATCHED."
     ],
     "vocabulary": [
       {
