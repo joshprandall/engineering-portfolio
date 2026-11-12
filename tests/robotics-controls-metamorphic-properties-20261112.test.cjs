@@ -73,7 +73,7 @@ test('16: exponential filter has a timestep-semigroup property absent from impli
   assert.ok(Math.abs(one-euler(.01,30))<Math.abs(one-euler(.05,6)));
 });
 
-test('19: a delayed feedback pole can diverge inside the no-delay gain interval', () => {
+test('19: delayed feedback stability uses the correct real and complex characteristic roots', () => {
   assert.match(get(19).verifiedBoundary, /0<g<1/);
   const delayed = (g,steps)=>{
     let previous=0,current=0;
@@ -83,14 +83,35 @@ test('19: a delayed feedback pole can diverge inside the no-delay gain interval'
     }
     return current;
   };
+  // e[k+1] = e[k] - g*e[k-1] has characteristic polynomial z^2-z+g.
+  // For 0<g<1/4 its poles are REAL: sqrt(g) is not their spectral radius.
+  const poleRadius = g => {
+    const discriminant = 1-4*g;
+    if(discriminant >= 0) {
+      const root1=(1+Math.sqrt(discriminant))/2;
+      const root2=(1-Math.sqrt(discriminant))/2;
+      return Math.max(Math.abs(root1),Math.abs(root2));
+    }
+    return Math.sqrt(g);
+  };
   near(delayed(.5,1),.5);near(delayed(.5,2),1);
-  const poleMagnitude=g=>Math.sqrt(g);
-  for(const g of [.1,.5,.9]) assert.ok(poleMagnitude(g)<1);
-  for(const g of [1.01,1.2,1.8]) {
-    assert.ok(g<2 && poleMagnitude(g)>1, 'delayed and no-delay regions differ');
-    assert.ok(Math.abs(delayed(g,80)-1)>1, 'delayed errors should grow for generic initial state');
+  near(poleRadius(.1),(1+Math.sqrt(.6))/2);
+  assert.ok(Math.abs(poleRadius(.1)-Math.sqrt(.1))>.5,
+    'small positive gains have real poles, not a sqrt(g) pole radius');
+  near(poleRadius(.25),.5);
+  near(poleRadius(.5),Math.sqrt(.5));
+  for(const g of [.01,.1,.24,.25,.5,.9]) {
+    assert.ok(poleRadius(g)<1, 'strictly inside 0<g<1 must decay');
+    assert.ok(Math.abs(delayed(g,200)-1)<.25,
+      'finite-time response should approach reference for tested gains');
   }
-  near(poleMagnitude(1),1);
+  near(poleRadius(0),1); near(poleRadius(1),1);
+  for(const g of [1.01,1.2,1.8]) {
+    assert.ok(g<2 && poleRadius(g)>1,
+      'one-sample delay destabilizes gains allowed without delay');
+    assert.ok(Math.abs(delayed(g,80)-1)>1,
+      'delayed error must grow for this initial condition');
+  }
 });
 
 test('20: a watchdog timeout is latched until a fresh-heartbeat reset', () => {
