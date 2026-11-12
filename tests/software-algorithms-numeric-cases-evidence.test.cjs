@@ -6,6 +6,8 @@ const content=require('../deep-learning/software/algorithms.json');
 const ids=Object.keys(content).slice(0,24);
 const picked=ids.map(id=>content[id]);
 const source='https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/resources/lecture-notes/';
+const correctedGraphId='software-v09-troubleshooting-lab-graphs-modeling-relationships-instead-of-rows';
+const correctedGraphSource='https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/resources/mit6_006s20_lec10/';
 test('24 specific authored lesson records, intact IDs and 6-step structures',()=>{
  assert.equal(Object.keys(content).length,111);
  assert.equal(picked.length,24);
@@ -17,8 +19,8 @@ test('24 specific authored lesson records, intact IDs and 6-step structures',()=
   assert.equal(r.reasoningSteps.length,6,ids[i]);
   assert.equal(r.labPlan.length,6,ids[i]);
   for(const step of [...r.reasoningSteps,...r.labPlan])assert.ok(step.length>55,ids[i]);
-  assert.ok(r.reasoningSteps[5].includes(source),ids[i]);
-  assert.ok(r.labPlan[5].includes(source),ids[i]);
+  assert.ok(r.reasoningSteps[5].includes(ids[i]===correctedGraphId?correctedGraphSource:source),ids[i]);
+  assert.ok(r.labPlan[5].includes(ids[i]===correctedGraphId?correctedGraphSource:source),ids[i]);
  }
 });
 const t=(i,title,fn)=>test(title,()=>{fn();assert.ok(picked[i].essentialQuestion.includes('?'),ids[i])});
