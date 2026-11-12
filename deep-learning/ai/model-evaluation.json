@@ -151,7 +151,7 @@
       "helper": "Write the exact label, denominator, or objective before computing; a plausible score without defined semantics is not evidence."
     },
     "technical": {
-      "scope": "Illustrative validation-set cost only, equal units per error, fixed scores with no ties at the chosen thresholds; threshold selection on test labels would contaminate evaluation.",
+      "scope": "Illustrative validation-set cost only, equal cost units per error, and fixed, distinct scores; one score equals the tested threshold 0.3, so the declared positive decision uses p >= t. Choose the threshold on validation data, never on final test labels.",
       "versionCaution": "The mathematics in this fixture is version-independent; check the cited library documentation for evolving API behavior.",
       "prerequisites": [
         "Binary classification",
@@ -161,7 +161,7 @@
     },
     "reasoningSteps": [
       "For y=[1,1,0,0,1,0], p=[.9,.6,.55,.4,.3,.2], define decision p>=t, C_FP=1, C_FN=4. At t=.5, FP=1,FN=1,cost=5; at t=.3, FP=2,FN=0,cost=2.",
-      "Identify the exact denominator, score ordering or optimization convention before drawing a conclusion.",
+      "The equality boundary is observable: y[4]=1 and p[4]=0.3. At t=0.3, p>=t includes this true positive (FP=2, FN=0, cost=2), whereas p>t omits it (FP=2, FN=1, cost=6). State tie semantics explicitly.",
       "A blanket claim that increasing threshold always reduces total cost fails: raising .3 to .5 reduces FP by 1 but raises FN by 1 and cost by 3."
     ],
     "memoryLadder": [
@@ -171,7 +171,7 @@
     ],
     "labPlan": [
       "Enumerate both thresholds using a pure array loop; mutate C_FN from 4 to 0.1 and demonstrate why the preferred action may reverse.",
-      "Execute the offline Node.js assertion script in offlineLab.code; record expected and observed values.",
+      "In offlineLab.code, assert both inclusive and strict decisions for the observation equal to t=0.3; verify costs 2 versus 6, then rerun after setting C_FN=0.1.",
       "Change one input or modeling assumption, then decide whether the original conclusion remains valid."
     ],
     "vocabulary": [
@@ -194,17 +194,17 @@
       "derivation": "For y=[1,1,0,0,1,0], p=[.9,.6,.55,.4,.3,.2], define decision p>=t, C_FP=1, C_FN=4. At t=.5, FP=1,FN=1,cost=5; at t=.3, FP=2,FN=0,cost=2.",
       "answer": 2,
       "units": "total cost units across six observations",
-      "assumptions": "Illustrative validation-set cost only, equal units per error, fixed scores with no ties at the chosen thresholds; threshold selection on test labels would contaminate evaluation."
+      "assumptions": "Six labeled validation observations, fixed distinct scores, one score exactly equal to t=0.3, inclusive p >= t decision rule, cost per false positive 1 and per false negative 4 in shared units; no threshold selected using a held-out final test set."
     },
-    "counterexample": "A blanket claim that increasing threshold always reduces total cost fails: raising .3 to .5 reduces FP by 1 but raises FN by 1 and cost by 3.",
+    "counterexample": "Raising t from 0.3 to 0.5 reduces false positives by one but adds a false negative, increasing cost from 2 to 5 at C_FN=4. At t=0.3, replacing p>=t with p>t instead excludes the boundary positive and changes cost from 2 to 6; strict comparison is not equivalent to the specified rule.",
     "offlineLab": {
       "runtime": "Node.js 18+ (no dependencies, no network)",
-      "code": "const a=require('node:assert/strict');const y=[1,1,0,0,1,0],p=[.9,.6,.55,.4,.3,.2];function cost(t,fpCost,fnCost){return y.reduce((s,v,i)=>s+(p[i]>=t?(v?0:fpCost):(v?fnCost:0)),0)}a.equal(cost(.5,1,4),5);a.equal(cost(.3,1,4),2);a.equal(cost(.5,1,.1),1.1);a.equal(cost(.3,1,.1),2);"
+      "code": "const a=require('node:assert/strict');const y=[1,1,0,0,1,0],p=[.9,.6,.55,.4,.3,.2];function cost(t,fpCost,fnCost,inclusive=true){return y.reduce((s,v,i)=>s+((inclusive?p[i]>=t:p[i]>t)?(v?0:fpCost):(v?fnCost:0)),0)}a.equal(cost(.5,1,4),5);a.equal(cost(.3,1,4),2);a.equal(cost(.3,1,4,false),6);a.equal(cost(.5,1,.1),1.1);a.equal(cost(.3,1,.1),2);a.equal(cost(.3,1,.1,false),2.1);"
     },
     "evidence": [
       {
-        "url": "https://scikit-learn.org/stable/modules/model_evaluation.html",
-        "role": "Authoritative reference for the concept; numerical toy fixture and its solution are original."
+        "url": "https://scikit-learn.org/stable/modules/generated/sklearn.metrics.precision_recall_curve.html",
+        "role": "scikit-learn documents >= threshold semantics for binary precision-recall; the six-observation cost fixture and counterexample were independently derived."
       },
       {
         "url": "https://openlearninglibrary.mit.edu/courses/course-v1%3AMITx%2B6.036%2B1T2019/about",
