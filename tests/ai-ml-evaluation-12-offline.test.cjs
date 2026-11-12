@@ -90,3 +90,53 @@ test('Counterexample boundary checks',()=>{
  assert.ok(independentOracles[10]()<2,'inertia drops in Lloyd fixture');
  const ppv=pi=>(.8*pi)/(.8*pi+.1*(1-pi));assert.ok(ppv(.5)>ppv(.1));
 });
+
+
+test('Twelve lessons retain model-specific derivations, not generic placeholders',()=>{
+ const cues={
+ 'confusion-matrix':'Precision conditions',
+ 'majority-class-baseline':'Accuracy=0.95',
+ 'threshold-cost-selection':'Sort the six distinct scores',
+ 'average-precision-ranking':'DeltaRecall',
+ 'brier-probability-score':'Bernoulli',
+ 'calibration-bin-ece':'low-bin',
+ 'preprocessing-leakage':'pooled mean',
+ 'stable-binary-logit-loss':'softplus',
+ 'logistic-gradient-update':'derivative',
+ 'ridge-regularized-parameter':"J''",
+ 'kmeans-one-lloyd-update':'within-cluster',
+ 'prevalence-and-precision-shift':"Bayes' rule"
+ };
+ assert.equal(Object.keys(cues).length,12);
+ for(const [suffix,cue] of Object.entries(cues)){
+   const row=lessons['ai-ml-evidence-'+suffix];
+   assert.ok(row&&row.reasoningSteps[1].includes(cue),suffix+': missing derivation');
+   assert.ok(row.reasoningSteps[1].length>100,suffix+': underspecified argument');
+   assert.doesNotMatch(row.reasoningSteps[1],/Identify the exact denominator, score ordering or optimization convention/,suffix);
+ }
+});
+
+test('Bernoulli Brier expectation is minimized at the true probability',()=>{
+ const risk=(p,q)=>q*(1-p)**2+(1-q)*p**2;
+ for(const q of [0,.1,.25,.5,.75,.9,1])for(const p of [0,.1,.25,.5,.75,.9,1]){
+   assert.ok(risk(p,q)>=risk(q,q)-1e-14);
+   assert.ok(Math.abs(risk(p,q)-((p-q)**2+q*(1-q)))<1e-14);
+ }
+});
+
+test('Ridge scalar optimum is globally minimal for varied penalties',()=>{
+ for(const lambda of [0,.001,.1,1,4,10,100]){
+   const w=3/(1+lambda),J=x=>(x-3)**2+lambda*x*x;
+   for(const offset of [-3,-1,-.1,-.001,0,.001,.1,1,3])
+     assert.ok(J(w+offset)>=J(w)-1e-12);
+   assert.ok(2*(1+lambda)>0);
+ }
+});
+
+test('Lloyd centroids minimize fixed-cluster squared loss',()=>{
+ const clusters=[[0,1],[8,9]],sse=(a,c)=>a.reduce((sum,x)=>sum+(x-c)**2,0);
+ const means=clusters.map(a=>a.reduce((x,y)=>x+y,0)/a.length);
+ assert.deepEqual(means,[.5,8.5]);
+ for(const d of [-2,-1,-.25,0,.25,1,2])
+   assert.ok(sse(clusters[0],means[0]+d)+sse(clusters[1],means[1]-d)>=1-1e-12);
+});
