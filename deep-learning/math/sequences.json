@@ -143,7 +143,7 @@
       "Recompute a₃ and a₉ to check both zero residuals.",
       "Enumerate twelve terms and verify endpoint 47.",
       "Change later observation only to 41, confirm new term 56.",
-      "Test invalid d=24 and show the predicted a₉ is 203.",
+      "Test invalid d=24; with a₃=11, six further increments predict a₉=11+6×24=155 rather than the observed 35.",
       "Offline assert unique solution and exact reconstructed anchors."
     ],
     "vocabulary": [
