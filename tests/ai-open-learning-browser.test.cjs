@@ -42,6 +42,23 @@ const server=http.createServer((req,res)=>{
    const overlap=await page.evaluate(()=>({scroll:document.documentElement.scrollWidth,viewport:innerWidth}));
    assert(overlap.scroll<=overlap.viewport+1,kind+': no horizontal overflow '+JSON.stringify(overlap));
    await page.locator('#ai-research-roadmap').screenshot({path:path.join(out,kind+'-ai-research-path.png'),animations:'disabled',timeout:30000});
+   const firstStage=page.locator('#ai-stage-python-reproducibility');
+   await firstStage.locator('input[name="estimate"]').fill('0');
+   await firstStage.locator('button[type="submit"]').click();
+   assert.match(await firstStage.locator('output').innerText(),/Not yet/,kind+': wrong answer must not be accepted');
+   await firstStage.locator('input[name="estimate"]').fill('');
+   await firstStage.locator('button[type="submit"]').click();
+   assert.match(await firstStage.locator('output').innerText(),/finite numerical result/,kind+': empty answer must not be accepted');
+   const researchStages=JSON.parse(fs.readFileSync(path.join(root,'assets/learning-academy.json'),'utf8')).aiResearchPath.stages;
+   for(const s of researchStages){
+     const module=page.locator('#ai-stage-'+s.id);
+     if(await module.getAttribute('open')===null)await module.locator('summary').first().click();
+     await module.locator('input[name="estimate"]').fill(String(s.checkpoint.answer));
+     await module.locator('button[type="submit"]').click();
+     assert.match(await module.locator('output').innerText(),/Correct numerical checkpoint/,kind+': original numeric check for '+s.id);
+   }
+   const expandedOverflow=await page.evaluate(()=>({scroll:document.documentElement.scrollWidth,viewport:innerWidth}));
+   assert(expandedOverflow.scroll<=expandedOverflow.viewport+1,kind+': expanded checkpoints must not overflow '+JSON.stringify(expandedOverflow));
    await page.goto(base+'/learn.html',{waitUntil:'domcontentloaded',timeout:25000});
    await page.locator('[data-ai-path-teaser] a[href="learn-paths.html#ai-research-roadmap"]').waitFor({timeout:25000});
    assert.equal(await page.locator('.academy-overview .academy-program-card').count(),7,kind+': original seven program cards remain separate from the research pathway teaser');

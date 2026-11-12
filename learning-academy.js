@@ -108,6 +108,22 @@ Promise.all([
      try{url=new URL(x.url);if(url.protocol!=='https:')return '';}catch(_e){return '';}
      return '<li><a href="'+esc(url.href)+'" target="_blank" rel="noopener noreferrer">'+esc(x.title)+'</a> <small>('+esc(x.provider)+' / '+esc(x.type)+', external)</small></li>';
    };
+   const checkpointHTML=s=>{
+     const c=s.checkpoint;
+     if(!c||!Array.isArray(c.derivation))return '';
+     const id=esc(s.id);
+     return '<section class="academy-contract-card" aria-labelledby="ai-checkpoint-title-'+id+'">'
+       +'<h4 id="ai-checkpoint-title-'+id+'">Original numerical self-check</h4>'
+       +'<form data-ai-checkpoint="'+id+'" novalidate>'
+       +'<label for="ai-checkpoint-input-'+id+'">'+esc(c.prompt)+'</label>'
+       +'<p><input id="ai-checkpoint-input-'+id+'" name="estimate" type="number" step="any" inputmode="decimal" autocomplete="off" aria-describedby="ai-checkpoint-output-'+id+'"> <small>'+esc(c.unit)+' / decimal format</small></p>'
+       +'<button class="button" type="submit">Check calculation</button>'
+       +'<p><output id="ai-checkpoint-output-'+id+'" role="status" aria-live="polite">This formative check does not certify completion of the stage.</output></p>'
+       +'</form>'
+       +'<details><summary>Worked derivation and challenge extension</summary><ol>'+c.derivation.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ol>'
+       +'<p><strong>Common trap:</strong> '+esc(c.misconception)+'</p>'
+       +'<p><strong>Extension:</strong> '+esc(c.extension)+'</p></details></section>';
+   };
    const moduleHTML=(s,i)=>{
      const n=String(i+1).padStart(2,'0');
      return '<details class="academy-module" id="ai-stage-'+esc(s.id)+'" '+(i===0?'open':'')+'><summary><strong>'+n+' / '+esc(s.title.replace(/^[0-9]{2} \/ /,''))+'</strong> <small>'+esc(s.level)+' / '+esc(s.hours)+' suggested hours</small></summary>'
@@ -115,6 +131,7 @@ Promise.all([
        +'<h4>Prerequisites</h4>'+list(s.prerequisites)
        +'<h4>Original experiment</h4><p>'+esc(s.practice)+'</p>'
        +'<h4>Required evidence</h4><p>'+esc(s.deliverable)+'</p>'
+       +checkpointHTML(s)
        +'<h4 id="ai-checks-'+esc(s.id)+'">Assessment gates</h4>'+list(s.acceptance)
        +'<h4>Primary learning references</h4><ul>'+s.resources.map(citeResource).join('')+'</ul>'
        +'<p><a href="'+esc(s.onsite)+'">Study related lessons in this library</a></p>'
@@ -132,6 +149,27 @@ Promise.all([
    if(intro)intro.after(sec);else main.prepend(sec);
    const status=sec.querySelector('#ai-research-progress');
    const renderProgress=()=>{status.textContent=complete.size+' of '+track.stages.length+' stages self-attested with evidence on this browser. Not a grade or certificate.';};
+   sec.addEventListener('submit',event=>{
+     const form=event.target;
+     if(!(form instanceof HTMLFormElement)||!form.matches('[data-ai-checkpoint]'))return;
+     event.preventDefault();
+     const stage=track.stages.find(s=>s.id===form.dataset.aiCheckpoint);
+     const input=form.querySelector('input[name="estimate"]');
+     const output=form.querySelector('output');
+     if(!stage?.checkpoint||!input||!output)return;
+     const raw=input.value.trim();
+     const candidate=Number(raw);
+     if(!raw||!Number.isFinite(candidate)){
+       output.textContent='Enter a finite numerical result in decimal form. Fractions can be converted to decimals.';
+       return;
+     }
+     const c=stage.checkpoint;
+     if(Math.abs(candidate-c.answer)<=c.tolerance){
+       output.textContent='Correct numerical checkpoint. '+c.derivation[c.derivation.length-1]+' This is not a verified grade or stage completion.';
+     }else{
+       output.textContent='Not yet. '+c.hint+' Reconsider the assumptions and use the worked derivation if needed.';
+     }
+   });
    sec.addEventListener('change',event=>{
      const box=event.target;
      if(!(box instanceof HTMLInputElement)||!box.matches('[data-ai-evidence]'))return;

@@ -44,6 +44,35 @@ test('18 direct attributed publisher/provider links, no shorteners or tracking',
  }
  for(const id of used)assert(track.resources.some(r=>r.id===id),'missing source '+id);
 });
+test('ten rigorous formative checkpoints have independent numerical oracles and scientific limitations',()=>{
+ const oracles={
+  'python-reproducibility':37/100,
+  'linear-algebra':1*1.001-1*1,
+  'algorithms-validation':Math.min(2+3,1+10),
+  'symbolic-ai':(0.10*0.90)/(0.10*0.90+0.90*0.20),
+  'learning-theory':95-75,
+  'backpropagation':2*(1-3),
+  'transformers':Math.exp(Math.log(2))/(Math.exp(0)+Math.exp(Math.log(2))),
+  'rag-evaluation':3/5,
+  'reinforcement-learning':(9*2-10)/10,
+  'multiagent-capstone':0.8*0.75
+ };
+ assert.equal(Object.keys(oracles).length,10);
+ for(const s of track.stages){
+  const c=s.checkpoint;
+  assert(c&&typeof c==='object','checkpoint missing in '+s.id);
+  assert(c.prompt.length>=70&&c.hint.length>=30,'substantive original prompt and hint in '+s.id);
+  assert(c.unit&&c.unit.length>=5,'unit missing in '+s.id);
+  assert(Number.isFinite(c.answer)&&Number.isFinite(c.tolerance),'finite answer/tolerance '+s.id);
+  assert(c.tolerance>0&&c.tolerance<=0.001,'reasonable absolute tolerance in '+s.id);
+  assert.equal(c.derivation.length,3,'three-step worked derivation in '+s.id);
+  assert(c.derivation.every(step=>step.length>=20),'no placeholder solution steps in '+s.id);
+  assert(c.misconception.length>=65&&c.extension.length>=65,'error/extension analysis in '+s.id);
+  const expected=oracles[s.id];
+  assert(Number.isFinite(expected),'independent oracle missing in '+s.id);
+  assert(Math.abs(c.answer-expected)<=c.tolerance/10,'independently derived answer mismatch: '+s.id);
+ }
+});
 test('browser rendering keeps protected presentation and saved progress scoped to self-report',()=>{
  const js=fs.readFileSync(path.join(root,'learning-academy.js'),'utf8');
  assert(js.includes("page!=='learn-paths.html'"));

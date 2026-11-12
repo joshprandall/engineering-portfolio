@@ -361,6 +361,20 @@
         "No programming background is assumed"
       ],
       "question": "How can another learner prove that your code produces the stated result?",
+      "checkpoint": {
+        "prompt": "A seeded Bernoulli experiment records 37 successes in 100 independent trials. What is the maximum-likelihood estimate of the success probability?",
+        "answer": 0.37,
+        "tolerance": 0.000001,
+        "unit": "probability (0 to 1)",
+        "hint": "Divide observed successes by the number of valid trials.",
+        "derivation": [
+          "For a Bernoulli model, the observed log-likelihood is 37 log(p) + 63 log(1-p).",
+          "Setting the derivative to zero gives 37/p = 63/(1-p), so 100p = 37.",
+          "The sample estimate is p-hat = 37/100 = 0.37; it does not establish the true probability with certainty."
+        ],
+        "misconception": "A fixed seed makes an experiment reproducible, not unbiased or representative.",
+        "extension": "Repeat at larger sample sizes over multiple independent seeds and report dispersion, not just one estimate."
+      },
       "practice": "Implement a seeded Python experiment that estimates a Bernoulli probability from 100, 1,000 and 10,000 trials; write unit tests for invalid inputs and replay the same result with an identical seed.",
       "deliverable": "Source, instructions, deterministic tests, and a concise uncertainty interpretation.",
       "acceptance": [
@@ -384,6 +398,20 @@
         "Python functions, vectors, algebra"
       ],
       "question": "When does a numerical solution look plausible but become unreliable?",
+      "checkpoint": {
+        "prompt": "For a two-by-two matrix A = [[1, 1], [1, 1.001]] with nearly aligned columns, compute det(A) as a decimal to six places.",
+        "answer": 0.001,
+        "tolerance": 0.000001,
+        "unit": "determinant",
+        "hint": "For a 2x2 matrix [[a,b],[c,d]], det(A) = ad - bc.",
+        "derivation": [
+          "Apply det(A) = (1)(1.001) - (1)(1).",
+          "The determinant is 0.001, so this specific matrix is invertible but has nearly aligned columns.",
+          "To quantify numerical sensitivity, also compute a condition number; a small determinant by itself is scale-dependent."
+        ],
+        "misconception": "A tiny determinant alone does not prove bad conditioning for every scaled matrix.",
+        "extension": "Compare QR-based least squares with normal equations after perturbing the second column."
+      },
       "practice": "Derive a two-feature least-squares problem by hand; solve using QR and normal equations in Python; perturb a nearly collinear column to expose conditioning.",
       "deliverable": "Hand derivation, matrix script, residual norms, condition estimates and an explicit counterexample.",
       "acceptance": [
@@ -407,6 +435,20 @@
         "Python, discrete math, basic probability"
       ],
       "question": "How do you justify an algorithm before trusting its output?",
+      "checkpoint": {
+        "prompt": "A directed graph has edges S->A cost 2, A->G cost 3, S->B cost 1, and B->G cost 10. What is the least path cost from S to G?",
+        "answer": 5,
+        "tolerance": 0.000001,
+        "unit": "cost units",
+        "hint": "Enumerate valid S-to-G paths and add edge costs.",
+        "derivation": [
+          "S->A->G costs 2+3=5.",
+          "S->B->G costs 1+10=11.",
+          "With only these four directed edges, the optimal path cost is min(5,11)=5."
+        ],
+        "misconception": "A locally cheap first edge does not guarantee a globally shortest path.",
+        "extension": "Add a cycle and demonstrate why nonnegative edge costs matter for Dijkstra's algorithm."
+      },
       "practice": "Implement Dijkstra's algorithm and A* on a small weighted graph; derive a lower bound heuristic, then create an inadmissible heuristic that breaks optimality.",
       "deliverable": "Reference graph, oracle results, runtime scaling measurements, and documented failure case.",
       "acceptance": [
@@ -430,6 +472,20 @@
         "Algorithms, probability"
       ],
       "question": "When does a symbolic model make a decision that a learned model cannot explain?",
+      "checkpoint": {
+        "prompt": "A condition has prior probability 0.10. A test has sensitivity 0.90 and false-positive rate 0.20. What is P(condition | positive)?",
+        "answer": 0.3333333333333333,
+        "tolerance": 0.0005,
+        "unit": "posterior probability",
+        "hint": "Use Bayes: true-positive mass divided by all positive-test mass.",
+        "derivation": [
+          "P(condition and positive) = 0.10 x 0.90 = 0.09.",
+          "P(positive) = 0.09 + 0.90 x 0.20 = 0.27.",
+          "P(condition | positive) = 0.09/0.27 = 1/3, not 90%."
+        ],
+        "misconception": "Test sensitivity is not the positive predictive value; prevalence affects the posterior.",
+        "extension": "Recalculate at a 1% base rate and explain why the result changes."
+      },
       "practice": "Build a small Bayesian diagnostic network and search-based decision policy; show the posterior calculation, compare decisions under two priors, and identify hidden assumptions.",
       "deliverable": "Explicit state graph, probability table, runnable inference and assumption audit.",
       "acceptance": [
@@ -453,6 +509,20 @@
         "Probability, linear algebra, algorithms"
       ],
       "question": "Which evidence supports a claim that a model generalizes beyond its training set?",
+      "checkpoint": {
+        "prompt": "A classifier gets 95 of 100 training cases right and 75 of 100 untouched test cases right. What is the train-minus-test accuracy gap in percentage points?",
+        "answer": 20,
+        "tolerance": 0.000001,
+        "unit": "percentage points",
+        "hint": "Convert both counts to percentages, then subtract test from train.",
+        "derivation": [
+          "Training accuracy = 95/100 = 95%.",
+          "Held-out accuracy = 75/100 = 75%.",
+          "The observed difference is 95 - 75 = 20 percentage points; this alone cannot identify the cause."
+        ],
+        "misconception": "A train/test gap can indicate overfitting or distribution shift, but is not proof of either.",
+        "extension": "Repeat fixed-split evaluation over independent seeds and include uncertainty intervals."
+      },
       "practice": "Compare a linear baseline against a more flexible classifier on synthetic data; evaluate held-out accuracy over 20 seeds, leak a feature deliberately and quantify the inflated score.",
       "deliverable": "Data-generating process, frozen splits, uncertainty intervals, model card and leakage counterexample.",
       "acceptance": [
@@ -476,6 +546,20 @@
         "Calculus, linear algebra, statistical learning"
       ],
       "question": "Can you verify a neural network's training signal without trusting a library?",
+      "checkpoint": {
+        "prompt": "In a scalar gradient-descent training problem, the loss is L(w) = (w - 3)^2. Calculate the exact derivative dL/dw evaluated at w = 1.",
+        "answer": -4,
+        "tolerance": 0.000001,
+        "unit": "gradient",
+        "hint": "Differentiate the squared term using the chain rule, then substitute w = 1.",
+        "derivation": [
+          "The derivative is dL/dw = 2(w - 3).",
+          "At w = 1, the derivative is 2(1 - 3) = -4.",
+          "A sufficiently small positive gradient-descent step moves w upward toward 3 because w_new = w - eta(-4)."
+        ],
+        "misconception": "A negative derivative describes the local slope and preferred descent direction; it does not mean that the nonnegative squared loss is negative.",
+        "extension": "Check this gradient against centered finite differences for multiple step sizes."
+      },
       "practice": "Implement a two-layer network and analytic backpropagation on a tiny dataset; compare each gradient against a centered finite-difference estimate and measure sensitivity to learning rate.",
       "deliverable": "Fully specified loss, gradient table, controlled training curves and a failure analysis.",
       "acceptance": [
@@ -500,6 +584,20 @@
         "Backpropagation, matrix multiplication, probability"
       ],
       "question": "What can a causal transformer attend to, and how can you demonstrate a leak?",
+      "checkpoint": {
+        "prompt": "For an attention row with valid logits [0, ln(2)], what softmax weight is assigned to the second token?",
+        "answer": 0.6666666666666666,
+        "tolerance": 0.0005,
+        "unit": "attention weight",
+        "hint": "Exponentiate the logits, then normalize by their sum.",
+        "derivation": [
+          "Exponentiated logits are exp(0) = 1 and exp(ln(2)) = 2.",
+          "Normalization gives the second token weight 2/(1+2) = 2/3.",
+          "This weight applies only among the allowed tokens; causal masking must exclude future positions."
+        ],
+        "misconception": "Attention weights are normalized model coefficients, not necessarily explanations of causation.",
+        "extension": "Mask the future token and prove an earlier output stays unchanged when a later input is altered."
+      },
       "practice": "Implement scaled dot-product attention on a three-token toy example; show row-softmax normalization, causal masking, attention weights, and a controlled mask-off counterexample.",
       "deliverable": "Computed tensors, shape tests, mask invariance proof, and a documented leaking failure.",
       "acceptance": [
@@ -524,6 +622,20 @@
         "Transformers, text processing, information retrieval basics"
       ],
       "question": "When should an assistant answer, cite evidence or abstain?",
+      "checkpoint": {
+        "prompt": "A retrieval system returns five documents, three of which are relevant to the query. What is precision@5?",
+        "answer": 0.6,
+        "tolerance": 0.000001,
+        "unit": "precision (0 to 1)",
+        "hint": "Precision is the number of relevant retrieved results divided by the total retrieved.",
+        "derivation": [
+          "There are three relevant results in five retrieved documents.",
+          "Precision@5 = 3/5 = 0.6.",
+          "Recall cannot be inferred unless the total relevant corpus documents are known."
+        ],
+        "misconception": "Retrieval precision is not citation faithfulness; a generator may still misquote a retrieved document.",
+        "extension": "Create unanswerable queries and measure abstention separately from retrieval success."
+      },
       "practice": "Construct a 30-document synthetic source corpus with a labeled query set; measure recall-at-k, precision of citations, unsupported answers and abstention under missing evidence.",
       "deliverable": "Synthetic corpus, fixed query labels, retrieval baseline, error taxonomy, and before/after evaluation.",
       "acceptance": [
@@ -547,6 +659,20 @@
         "Probability, optimization, Markov chains"
       ],
       "question": "Why can two policies with equal mean reward carry very different risks?",
+      "checkpoint": {
+        "prompt": "A policy returns +2 in nine episodes and -10 in one episode. What is its empirical mean return over ten episodes?",
+        "answer": 0.8,
+        "tolerance": 0.000001,
+        "unit": "reward units",
+        "hint": "Sum all returns including losses, and divide by the number of episodes.",
+        "derivation": [
+          "Total return = 9 x 2 + 1 x (-10) = 8.",
+          "Empirical mean = 8/10 = 0.8.",
+          "The worst observed return is -10, so a positive mean hides meaningful downside risk."
+        ],
+        "misconception": "A higher sample mean does not establish that a policy meets a tail-risk constraint.",
+        "extension": "Compute the empirical return distribution and report lower quantiles across more trials."
+      },
       "practice": "Implement tabular Q-learning and an exact dynamic-programming reference in a small MDP; estimate a policy return distribution over 100 independent seeds and compare lower-tail outcomes.",
       "deliverable": "MDP specification, Bellman checks, learning curves and return quantiles with uncertainty.",
       "acceptance": [
@@ -570,6 +696,20 @@
         "All prior stages or documented equivalent evidence"
       ],
       "question": "Can an AI system remain reliable when agents, tools and environments change?",
+      "checkpoint": {
+        "prompt": "Agent A succeeds with probability 0.80 and agent B with 0.75. Under an explicit independence assumption, what is P(both succeed)?",
+        "answer": 0.6,
+        "tolerance": 0.000001,
+        "unit": "joint probability",
+        "hint": "If and only if the two events are independent, multiply their marginal probabilities.",
+        "derivation": [
+          "Under independence P(A and B)=P(A)P(B).",
+          "Multiply 0.80 x 0.75 = 0.60.",
+          "If agents share a hidden environment or interact, independence may fail and this product need not hold."
+        ],
+        "misconception": "Multi-agent success rates cannot generally be multiplied without demonstrating independence.",
+        "extension": "Introduce a shared failure cause, measure dependence and compare joint success against 0.60."
+      },
       "practice": "Build an isolated two-agent decision benchmark with nonstationary partner behavior; compare fixed-policy and adaptive baselines, run ablation tests and introduce a tool failure with a safe fallback.",
       "deliverable": "Public reproducibility package: assumptions, synthetic data, code, tests, result tables, failure cases, limitations, and primary-source citations.",
       "acceptance": [
