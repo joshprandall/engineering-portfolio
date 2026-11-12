@@ -143,11 +143,11 @@
   },
   "ai-ml-evidence-threshold-cost-selection": {
     "essentialQuestion": "How can an operating threshold minimize a declared asymmetric error cost?",
-    "verifiedBoundary": "Given fixed scores, labels and nonnegative false-positive and false-negative costs, empirical decision cost at threshold t is C_FP*FP(t)+C_FN*FN(t); threshold choice depends on costs, not accuracy alone.",
+    "verifiedBoundary": "Given fixed scores, labels and nonnegative false-positive and false-negative costs, empirical decision cost at threshold t is C_FP*FP(t)+C_FN*FN(t); threshold choice depends on costs, not accuracy alone. For fixed distinct observed scores, an optimal empirical cutoff can be found by enumerating the decision changes at sorted score boundaries, including the all-negative case; this is not proof of deployment generalization.",
     "analogy": "A false alarm costs one inspection, but a missed failure costs four inspections. Moving the alarm threshold changes which kind of cost you pay.",
     "starter": {
       "plainStart": "A model outputs a score; business loss is defined by explicit actions and asymmetric error penalties, not the score itself.",
-      "tryThis": "Enumerate both thresholds using a pure array loop; mutate C_FN from 4 to 0.1 and demonstrate why the preferred action may reverse.",
+      "tryThis": "Enumerate each distinct-score cutoff and the all-negative case, then change C_FN from 4 to 0.1; compare the global minimizer, not just two cutoffs.",
       "helper": "Write the exact label, denominator, or objective before computing; a plausible score without defined semantics is not evidence."
     },
     "technical": {
@@ -161,17 +161,19 @@
     },
     "reasoningSteps": [
       "For y=[1,1,0,0,1,0], p=[.9,.6,.55,.4,.3,.2], define decision p>=t, C_FP=1, C_FN=4. At t=.5, FP=1,FN=1,cost=5; at t=.3, FP=2,FN=0,cost=2.",
+      "Sort the six distinct scores descending and enumerate inclusive cutoffs t=[Infinity,0.9,0.6,0.55,0.4,0.3,0.2]. With C_FP=1 and C_FN=4, their empirical costs are [12,8,4,5,6,2,3], proving 0.3 is optimal among all possible decision sets at these fixed scores. Any threshold between adjacent observed scores yields an already enumerated decision set.",
       "The equality boundary is observable: y[4]=1 and p[4]=0.3. At t=0.3, p>=t includes this true positive (FP=2, FN=0, cost=2), whereas p>t omits it (FP=2, FN=1, cost=6). State tie semantics explicitly.",
-      "A blanket claim that increasing threshold always reduces total cost fails: raising .3 to .5 reduces FP by 1 but raises FN by 1 and cost by 3."
+      "A blanket claim that increasing threshold always reduces total cost fails: raising .3 to .5 reduces FP by 1 but raises FN by 1 and cost by 3.",
+      "When C_FN falls to 0.1, the same cutoffs cost [0.3,0.2,0.1,1.1,2.1,2,3]; t=0.6 now minimizes empirical cost at 0.1. Selecting or reporting this winner on final test labels would be invalid model selection."
     ],
     "memoryLadder": [
-      "Recompute the preferred cutoff after changing the false-negative penalty to one tenth.",
+      "After setting C_FN=0.1, enumerate all seven decision sets and identify why t=0.6, not t=0.3, minimizes empirical cost.",
       "Derive the stated answer by hand without consulting the fixture.",
       "Explain what the synthetic result cannot establish about data from a real deployment."
     ],
     "labPlan": [
-      "Enumerate both thresholds using a pure array loop; mutate C_FN from 4 to 0.1 and demonstrate why the preferred action may reverse.",
-      "In offlineLab.code, assert both inclusive and strict decisions for the observation equal to t=0.3; verify costs 2 versus 6, then rerun after setting C_FN=0.1.",
+      "Enumerate all six distinct-score thresholds and the all-negative case, verify both cost vectors, and change C_FN from 4 to 0.1.",
+      "Run offlineLab.code to check the global empirical minima at t=0.3 and t=0.6, and compare inclusive versus strict decisions at the observed score 0.3.",
       "Change one input or modeling assumption, then decide whether the original conclusion remains valid."
     ],
     "vocabulary": [
@@ -191,7 +193,7 @@
       "searchQuery": ""
     },
     "workedExample": {
-      "derivation": "For y=[1,1,0,0,1,0], p=[.9,.6,.55,.4,.3,.2], define decision p>=t, C_FP=1, C_FN=4. At t=.5, FP=1,FN=1,cost=5; at t=.3, FP=2,FN=0,cost=2.",
+      "derivation": "For y=[1,1,0,0,1,0], p=[.9,.6,.55,.4,.3,.2], define decision p>=t, C_FP=1, C_FN=4. At t=.5, FP=1,FN=1,cost=5; at t=.3, FP=2,FN=0,cost=2. Enumerating inclusive cutoffs [Infinity,.9,.6,.55,.4,.3,.2] yields costs [12,8,4,5,6,2,3], establishing empirical minimum 2 at t=.3. With C_FN=.1, the costs become [.3,.2,.1,1.1,2.1,2,3] and the empirical minimum shifts to .1 at t=.6.",
       "answer": 2,
       "units": "total cost units across six observations",
       "assumptions": "Six labeled validation observations, fixed distinct scores, one score exactly equal to t=0.3, inclusive p >= t decision rule, cost per false positive 1 and per false negative 4 in shared units; no threshold selected using a held-out final test set."
@@ -199,7 +201,7 @@
     "counterexample": "Raising t from 0.3 to 0.5 reduces false positives by one but adds a false negative, increasing cost from 2 to 5 at C_FN=4. At t=0.3, replacing p>=t with p>t instead excludes the boundary positive and changes cost from 2 to 6; strict comparison is not equivalent to the specified rule.",
     "offlineLab": {
       "runtime": "Node.js 18+ (no dependencies, no network)",
-      "code": "const a=require('node:assert/strict');const y=[1,1,0,0,1,0],p=[.9,.6,.55,.4,.3,.2];function cost(t,fpCost,fnCost,inclusive=true){return y.reduce((s,v,i)=>s+((inclusive?p[i]>=t:p[i]>t)?(v?0:fpCost):(v?fnCost:0)),0)}a.equal(cost(.5,1,4),5);a.equal(cost(.3,1,4),2);a.equal(cost(.3,1,4,false),6);a.equal(cost(.5,1,.1),1.1);a.equal(cost(.3,1,.1),2);a.equal(cost(.3,1,.1,false),2.1);"
+      "code": "const a=require('node:assert/strict');const y=[1,1,0,0,1,0],p=[.9,.6,.55,.4,.3,.2];function cost(t,fpCost,fnCost,inclusive=true){return y.reduce((s,v,i)=>s+((inclusive?p[i]>=t:p[i]>t)?(v?0:fpCost):(v?fnCost:0)),0)}a.equal(cost(.5,1,4),5);a.equal(cost(.3,1,4),2);a.equal(cost(.3,1,4,false),6);a.equal(cost(.5,1,.1),1.1);a.equal(cost(.3,1,.1),2);a.equal(cost(.3,1,.1,false),2.1);const cuts=[Infinity,.9,.6,.55,.4,.3,.2],base=[12,8,4,5,6,2,3],small=[.3,.2,.1,1.1,2.1,2,3];for(let i=0;i<cuts.length;i++){a.ok(Math.abs(cost(cuts[i],1,4)-base[i])<1e-12);a.ok(Math.abs(cost(cuts[i],1,.1)-small[i])<1e-12)}a.equal(Math.min(...base),cost(.3,1,4));a.ok(Math.abs(Math.min(...small)-cost(.6,1,.1))<1e-12);"
     },
     "evidence": [
       {
