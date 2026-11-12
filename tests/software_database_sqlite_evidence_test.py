@@ -52,6 +52,24 @@ def new_test(case):
 for n,c in enumerate(CASES,1):
     setattr(CaseEvidence,f"test_{n:02d}_{c['id'].split('software-v08-')[-1].replace('-','_')}",new_test(c))
 
+
+class NullableJoinAntiMatchRegression(unittest.TestCase):
+    def test_nullable_child_identifier_is_not_antijoin_witness(self):
+        """A matched right row may have NULL id; only the equality join key proves no match."""
+        with contextlib.closing(sqlite3.connect(":memory:")) as db:
+            db.execute("CREATE TABLE c(id INTEGER PRIMARY KEY)")
+            db.execute("CREATE TABLE o(id INTEGER, customer_id INTEGER, amount INTEGER)")
+            db.executemany("INSERT INTO c VALUES(?)", [(1,), (2,), (3,)])
+            db.executemany("INSERT INTO o VALUES(?,?,?)",
+                           [(101,1,5), (103,3,15), (None,1,8)])
+            unsound = statements(db,"SELECT c.id FROM c LEFT JOIN o ON c.id=o.customer_id WHERE o.id IS NULL ORDER BY c.id")
+            sound = statements(db,"SELECT c.id FROM c LEFT JOIN o ON c.id=o.customer_id WHERE o.customer_id IS NULL ORDER BY c.id")
+            self.assertEqual(unsound,[[1],[2]],"nullable matched child id must trigger false positive")
+            self.assertEqual(sound,[[2]],"only truly unmatched parent 2 belongs")
+            self.assertNotEqual(unsound,sound)
+            self.assertIn("o.customer_id IS NULL",CASES[2]["alternate"])
+            self.assertIn("nullable child identifiers",DATA["software-v08-deep-dive-sql-left-outer-join"]["labPlan"][4])
+
 class IntegrityAudit(unittest.TestCase):
     def test_only_three_allowed_fields_modified(self):
         baseline=json.loads(subprocess.check_output(["git","show",f"{BASE}:deep-learning/software/databases.json"],cwd=ROOT,encoding="utf-8"))
