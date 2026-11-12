@@ -33,14 +33,14 @@
       "Change one input or modeling assumption, then decide whether the original conclusion remains valid."
     ],
     "vocabulary": [
-      [
-        "False positive",
-        "A truly negative item predicted positive."
-      ],
-      [
-        "Precision denominator",
-        "The count of all predicted-positive items, TP+FP."
-      ]
+      {
+        "term": "False positive",
+        "definition": "A truly negative item predicted positive."
+      },
+      {
+        "term": "Precision denominator",
+        "definition": "The count of all predicted-positive items, TP+FP."
+      }
     ],
     "video": {
       "title": "No external video required",
@@ -104,14 +104,14 @@
       "Change one input or modeling assumption, then decide whether the original conclusion remains valid."
     ],
     "vocabulary": [
-      [
-        "Sensitivity",
-        "TP/(TP+FN), also called positive recall."
-      ],
-      [
-        "Balanced accuracy",
-        "Average recall across classes in the binary case."
-      ]
+      {
+        "term": "Sensitivity",
+        "definition": "TP/(TP+FN), also called positive recall."
+      },
+      {
+        "term": "Balanced accuracy",
+        "definition": "Average recall across classes in the binary case."
+      }
     ],
     "video": {
       "title": "No external video required",
@@ -175,14 +175,14 @@
       "Change one input or modeling assumption, then decide whether the original conclusion remains valid."
     ],
     "vocabulary": [
-      [
-        "False-negative cost",
-        "The explicitly valued cost of not alerting on a true positive."
-      ],
-      [
-        "Decision threshold",
-        "The minimum predicted score that triggers a positive action."
-      ]
+      {
+        "term": "False-negative cost",
+        "definition": "The explicitly valued cost of not alerting on a true positive."
+      },
+      {
+        "term": "Decision threshold",
+        "definition": "The minimum predicted score that triggers a positive action."
+      }
     ],
     "video": {
       "title": "No external video required",
@@ -246,14 +246,14 @@
       "Change one input or modeling assumption, then decide whether the original conclusion remains valid."
     ],
     "vocabulary": [
-      [
-        "Precision at k",
-        "Relevant items in the top k divided by k."
-      ],
-      [
-        "Recall increment",
-        "The additional fraction of all positives recovered at a new rank."
-      ]
+      {
+        "term": "Precision at k",
+        "definition": "Relevant items in the top k divided by k."
+      },
+      {
+        "term": "Recall increment",
+        "definition": "The additional fraction of all positives recovered at a new rank."
+      }
     ],
     "video": {
       "title": "No external video required",
@@ -317,14 +317,14 @@
       "Change one input or modeling assumption, then decide whether the original conclusion remains valid."
     ],
     "vocabulary": [
-      [
-        "Brier score",
-        "Mean squared distance between event probability and observed binary outcome."
-      ],
-      [
-        "Proper scoring rule",
-        "A score whose expected value favors reporting the forecaster's true predictive probabilities under its assumptions."
-      ]
+      {
+        "term": "Brier score",
+        "definition": "Mean squared distance between event probability and observed binary outcome."
+      },
+      {
+        "term": "Proper scoring rule",
+        "definition": "A score whose expected value favors reporting the forecaster's true predictive probabilities under its assumptions."
+      }
     ],
     "video": {
       "title": "No external video required",
@@ -388,14 +388,14 @@
       "Change one input or modeling assumption, then decide whether the original conclusion remains valid."
     ],
     "vocabulary": [
-      [
-        "Calibration bin",
-        "Predetermined range of probability predictions aggregated for an empirical frequency comparison."
-      ],
-      [
-        "ECE",
-        "Weighted average of absolute bin-level gaps between predicted and observed positive proportions."
-      ]
+      {
+        "term": "Calibration bin",
+        "definition": "Predetermined range of probability predictions aggregated for an empirical frequency comparison."
+      },
+      {
+        "term": "ECE",
+        "definition": "Weighted average of absolute bin-level gaps between predicted and observed positive proportions."
+      }
     ],
     "video": {
       "title": "No external video required",
@@ -459,14 +459,14 @@
       "Change one input or modeling assumption, then decide whether the original conclusion remains valid."
     ],
     "vocabulary": [
-      [
-        "Fit",
-        "Estimate transformation parameters from an allowed training subset."
-      ],
-      [
-        "Transform",
-        "Apply previously estimated parameters to an observation without re-estimation."
-      ]
+      {
+        "term": "Fit",
+        "definition": "Estimate transformation parameters from an allowed training subset."
+      },
+      {
+        "term": "Transform",
+        "definition": "Apply previously estimated parameters to an observation without re-estimation."
+      }
     ],
     "video": {
       "title": "No external video required",
@@ -530,14 +530,14 @@
       "Change one input or modeling assumption, then decide whether the original conclusion remains valid."
     ],
     "vocabulary": [
-      [
-        "Logit",
-        "Unbounded real score transformed by sigmoid to a probability."
-      ],
-      [
-        "Softplus",
-        "log(1+exp(z)), evaluated with a stable rearrangement at large magnitude."
-      ]
+      {
+        "term": "Logit",
+        "definition": "Unbounded real score transformed by sigmoid to a probability."
+      },
+      {
+        "term": "Softplus",
+        "definition": "log(1+exp(z)), evaluated with a stable rearrangement at large magnitude."
+      }
     ],
     "video": {
       "title": "No external video required",
@@ -601,14 +601,14 @@
       "Change one input or modeling assumption, then decide whether the original conclusion remains valid."
     ],
     "vocabulary": [
-      [
-        "Gradient",
-        "Derivative of the differentiable objective with respect to a parameter."
-      ],
-      [
-        "Learning rate",
-        "Positive multiplier controlling the step size along the negative gradient."
-      ]
+      {
+        "term": "Gradient",
+        "definition": "Derivative of the differentiable objective with respect to a parameter."
+      },
+      {
+        "term": "Learning rate",
+        "definition": "Positive multiplier controlling the step size along the negative gradient."
+      }
     ],
     "video": {
       "title": "No external video required",
@@ -672,14 +672,14 @@
       "Change one input or modeling assumption, then decide whether the original conclusion remains valid."
     ],
     "vocabulary": [
-      [
-        "L2 penalty",
-        "Nonnegative multiple of the sum of squared parameter values."
-      ],
-      [
-        "Regularization strength",
-        "Coefficient controlling the tradeoff between data fit and parameter magnitude."
-      ]
+      {
+        "term": "L2 penalty",
+        "definition": "Nonnegative multiple of the sum of squared parameter values."
+      },
+      {
+        "term": "Regularization strength",
+        "definition": "Coefficient controlling the tradeoff between data fit and parameter magnitude."
+      }
     ],
     "video": {
       "title": "No external video required",
@@ -743,14 +743,14 @@
       "Change one input or modeling assumption, then decide whether the original conclusion remains valid."
     ],
     "vocabulary": [
-      [
-        "Centroid",
-        "Mean position of the points assigned to one cluster."
-      ],
-      [
-        "Inertia",
-        "Sum of squared distances between data points and their assigned centers."
-      ]
+      {
+        "term": "Centroid",
+        "definition": "Mean position of the points assigned to one cluster."
+      },
+      {
+        "term": "Inertia",
+        "definition": "Sum of squared distances between data points and their assigned centers."
+      }
     ],
     "video": {
       "title": "No external video required",
@@ -814,14 +814,14 @@
       "Change one input or modeling assumption, then decide whether the original conclusion remains valid."
     ],
     "vocabulary": [
-      [
-        "Prevalence",
-        "Fraction of the target population with the positive condition."
-      ],
-      [
-        "Positive predictive value",
-        "Conditional probability of a real positive given a positive prediction."
-      ]
+      {
+        "term": "Prevalence",
+        "definition": "Fraction of the target population with the positive condition."
+      },
+      {
+        "term": "Positive predictive value",
+        "definition": "Conditional probability of a real positive given a positive prediction."
+      }
     ],
     "video": {
       "title": "No external video required",
