@@ -15,36 +15,76 @@ const server = http.createServer((req, res) => {
     fs.createReadStream(file).on('error', () => res.end()).pipe(res);
   } catch { res.writeHead(404).end(); }
 });
-const report = { browser:'Chromium', physicalDevices:false, pages:[], controls:[], failures:[] };
+const report = { browser:'Chromium', physicalDevices:false, pages:[], controls:[], glassPanels:[], failures:[] };
 async function inspect(page, label) {
   const paint = await page.evaluate(() => {
     const alpha = color => {
-      if (color === 'transparent') return 0;
+      if (color === 'transparent' || color === 'none') return 0;
       const slash = color.match(/\/\s*([\d.]+)(%)?\s*\)/);
       if (slash) return Number(slash[1]) / (slash[2] ? 100 : 1);
       const rgba = color.match(/^rgba?\(([^)]+)\)$/);
       if (rgba) { const values = rgba[1].split(',').map(Number); return values.length === 4 ? values[3] : 1; }
-      return color === 'none' ? 0 : 1;
+      return 1;
     };
-    const results = [];
-    for (const e of document.querySelectorAll('body *')) {
-      if (e.closest('#site-scene,svg,canvas,video,audio,img,option')) continue;
-      const s = getComputedStyle(e), r = e.getBoundingClientRect();
-      if (!e.getClientRects().length || s.visibility === 'hidden' || Number(s.opacity) === 0 || !r.width || !r.height) continue;
-      // Axes, probability bars, progress marks and colored data dots are graphic ink.
-      if (e.matches('.status-dot,.state-arrow,.center,.axis,.control-divider,.signal,.track>div,.prob-track>div,.lab-visual i,.battle-board,.legend-scale .gradient,.science-meter>span') || r.height <= 6 || r.width <= 4) continue;
+    const solid = s => {
       const colors = s.backgroundImage.match(/rgba?\([^)]*\)|color\([^)]*\)/g) || [];
       const opaqueGradient = s.backgroundImage.includes('gradient(') && colors.length > 0 && colors.every(c => alpha(c) === 1);
-      if (alpha(s.backgroundColor) === 1 || opaqueGradient) results.push({
-        tag:e.tagName, id:e.id, classes:typeof e.className === 'string' ? e.className : '',
-        background:s.backgroundColor, image:s.backgroundImage, label:e.textContent.trim().replace(/\s+/g,' ').slice(0,80)
-      });
+      return alpha(s.backgroundColor) === 1 || opaqueGradient;
+    };
+    const parse = c => {
+      const m = c.match(/^rgba?\(\s*([\d.]+)[,\s]+([\d.]+)[,\s]+([\d.]+)(?:[,\s/]+([\d.]+))?\s*\)$/);
+      return m ? { rgb:[Number(m[1]),Number(m[2]),Number(m[3])], alpha:m[4]===undefined?1:Number(m[4]) } : null;
+    };
+    const luminance = rgb => rgb.reduce((sum, v, i) => {
+      const c=v/255, x=c<=0.04045?c/12.92:((c+0.055)/1.055)**2.4;
+      return sum+x*[.2126,.7152,.0722][i];
+    },0);
+    const contrast = (foreground, background) => {
+      const fg=parse(foreground), bg=parse(background);
+      if(!fg || !bg || fg.alpha!==1 || bg.alpha!==1) return null;
+      const a=luminance(fg.rgb), b=luminance(bg.rgb);
+      return (Math.max(a,b)+0.05)/(Math.min(a,b)+0.05);
+    };
+    // Owner-approved glass surfaces must remain non-opaque.  Solid text controls,
+    // form fields, navigation, image marks and experimental lab surfaces are
+    // distinct from those glass panels: reject any unclassified solid surface.
+    const intentionallySolid = e => {
+      if(e.id==='primary-nav') return true;
+      if(e.matches('a.skip,a.button.primary,a.vnext-capstone-link')) return true;
+      if(e.matches('button,input,select,textarea,header')) return true;
+      if(e.matches('span.launch-button,span.battle-launch-cta')) return true;
+      if(e.matches('.pioneer-logo-mark,.education-wordmark,.controls,.stage,.quantum-stage,.guide-card,.callout,.state-visual,.track,.section.experiment,#toast.show,.note-card')) return true;
+      // The protected qubit preview uses unnamed solid experiment readout cells.
+      if(location.pathname.includes('qubit-preview-') && e.tagName==='DIV' && !e.className) return true;
+      return false;
+    };
+    const opaque=[], glass=[];
+    for (const e of document.querySelectorAll('body *')) {
+      if (e.closest('#site-scene,svg,canvas,video,audio,img,option')) continue;
+      const s=getComputedStyle(e), r=e.getBoundingClientRect();
+      if (!e.getClientRects().length || s.visibility==='hidden' || Number(s.opacity)===0 || !r.width || !r.height) continue;
+      if (e.matches('.status-dot,.state-arrow,.center,.axis,.control-divider,.signal,.track>div,.prob-track>div,.lab-visual i,.battle-board,.legend-scale .gradient,.science-meter>span') || r.height<=6 || r.width<=4) continue;
+      const signature={tag:e.tagName,id:e.id,classes:typeof e.className==='string'?e.className:'',background:s.backgroundColor,
+        image:s.backgroundImage,label:e.textContent.trim().replace(/\s+/g,' ').slice(0,80)};
+      if(e.matches('.home-project,.project-card,.domain-card,.lesson-card,.path-card')){
+        glass.push({...signature,opaque:solid(s)});
+      }
+      if (!solid(s)) continue;
+      const grade=e.matches('.button.primary,button.primary,.vnext-capstone-link,input,select,textarea') ||
+        (e.matches('.skip')&&e.matches(':focus'));
+      opaque.push({...signature,intentionallySolid:intentionallySolid(e),
+        color:s.color,controlContrast:grade?contrast(s.color,s.backgroundColor):null});
     }
-    return results;
+    return {opaque,glass};
   });
-  const unexpected = paint.filter(e => e.id !== 'primary-nav');
-  report.pages.push({ ...label, opaque:paint });
-  if (unexpected.length) report.failures.push({ ...label, unexpected });
+  report.pages.push({ ...label, opaque:paint.opaque });
+  report.glassPanels.push(...paint.glass.map(x=>({ ...label, ...x })));
+  const unexpected=paint.opaque.filter(e=>!e.intentionallySolid);
+  if(unexpected.length)report.failures.push({ ...label, kind:'unexpected-opaque-surface', count:unexpected.length, examples:unexpected.slice(0,12) });
+  const glassFailures=paint.glass.filter(e=>e.opaque);
+  if(glassFailures.length)report.failures.push({ ...label, kind:'glass-surface-became-opaque', count:glassFailures.length, examples:glassFailures.slice(0,12) });
+  const contrastFailures=paint.opaque.filter(e=>e.controlContrast!==null && e.controlContrast<4.5);
+  if(contrastFailures.length)report.failures.push({ ...label, kind:'real-opaque-control-contrast-below-4.5', count:contrastFailures.length, examples:contrastFailures.slice(0,12) });
 }
 async function controlPaint(locator, label) {
   const value = await locator.evaluate(e => {
