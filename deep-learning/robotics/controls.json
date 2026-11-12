@@ -2,7 +2,7 @@
   "robotics-controls-01-forward-kinematics-2r": {
     "essentialQuestion": "Where does a two-joint planar arm tip land for known link lengths and joint angles?",
     "verifiedBoundary": "For two ideal rigid revolute links, x=L1 cos(theta1)+L2 cos(theta1+theta2) and y=L1 sin(theta1)+L2 sin(theta1+theta2); theta2 is relative to link 1.",
-    "analogy": "Engineering intuition: model the planar 2r forward kinematics as a *specific mathematical contract*, not a generic robot behavior; verify each assumption before transferring the method to a physical system.",
+    "analogy": "Each arm segment contributes a vector, but the second segment inherits the first joint's rotation. A relative elbow angle is not an absolute map heading.",
     "starter": {
       "plainStart": "For two ideal rigid revolute links, x=L1 cos(theta1)+L2 cos(theta1+theta2) and y=L1 sin(theta1)+L2 sin(theta1+theta2); theta2 is relative to link 1.",
       "tryThis": "Implement fk(L1,L2,t1,t2) with Math.cos/Math.sin; compare (0.4,0.3) within 1e-9 m.",
@@ -47,7 +47,7 @@
   "robotics-controls-02-inverse-kinematics-branches": {
     "essentialQuestion": "Can a reachable tip target have more than one valid elbow configuration?",
     "verifiedBoundary": "For planar 2R: cos(theta2)=(x²+y²-L1²-L2²)/(2L1L2); each admissible sign of sin(theta2) defines a branch, except coincident branches at boundaries.",
-    "analogy": "Engineering intuition: model the 2r inverse solutions and reachability as a *specific mathematical contract*, not a generic robot behavior; verify each assumption before transferring the method to a physical system.",
+    "analogy": "One tip location can have elbow-up and elbow-down solutions. Finding a reachable point does not tell a planner which joint configuration is collision-free or within limits.",
     "starter": {
       "plainStart": "For planar 2R: cos(theta2)=(x²+y²-L1²-L2²)/(2L1L2); each admissible sign of sin(theta2) defines a branch, except coincident branches at boundaries.",
       "tryThis": "Solve both elbow branches using atan2 and acos for the original target.",
@@ -92,7 +92,7 @@
   "robotics-controls-03-jacobian-singularity": {
     "essentialQuestion": "How does a joint-velocity request map to end-effector velocity, and when does this mapping lose rank?",
     "verifiedBoundary": "The planar 2R Jacobian is the derivative of position with respect to joint angles; det J=L1L2 sin(theta2) for the standard coordinate convention.",
-    "analogy": "Engineering intuition: model the 2r velocity jacobian and singularity as a *specific mathematical contract*, not a generic robot behavior; verify each assumption before transferring the method to a physical system.",
+    "analogy": "Near a straight elbow, the arm becomes poor at producing certain Cartesian velocity directions. Asking the inverse Jacobian for that motion can demand arbitrarily large ideal joint rates.",
     "starter": {
       "plainStart": "The planar 2R Jacobian is the derivative of position with respect to joint angles; det J=L1L2 sin(theta2) for the standard coordinate convention.",
       "tryThis": "Compute Jacobian entries analytically for the specified posture.",
@@ -138,7 +138,7 @@
   "robotics-controls-04-frame-transform-inverse": {
     "essentialQuestion": "How can a robot-local sensor reading be placed in a world frame without confusing the transform direction?",
     "verifiedBoundary": "For a planar rigid transform, p_world=R(theta_world_base) p_base+t_world_base and p_base=R^T(p_world-t).",
-    "analogy": "Engineering intuition: model the coordinate-frame composition and inversion as a *specific mathematical contract*, not a generic robot behavior; verify each assumption before transferring the method to a physical system.",
+    "analogy": "The same sensor point has different coordinate labels in the robot and world frames. Rotate the robot-relative offset first, then add the base's world translation; undo those steps in reverse order.",
     "starter": {
       "plainStart": "For a planar rigid transform, p_world=R(theta_world_base) p_base+t_world_base and p_base=R^T(p_world-t).",
       "tryThis": "Write a 2D function transform(point,translation,yaw) with meters/radians.",
@@ -184,7 +184,7 @@
   "robotics-controls-05-differential-wheel-speeds": {
     "essentialQuestion": "What left/right wheel speeds yield a desired center velocity and yaw rate?",
     "verifiedBoundary": "For wheel-track width b, v_left=v-omega*b/2 and v_right=v+omega*b/2; inverse v=(left+right)/2, omega=(right-left)/b.",
-    "analogy": "Engineering intuition: model the differential-drive chassis and wheel speeds as a *specific mathematical contract*, not a generic robot behavior; verify each assumption before transferring the method to a physical system.",
+    "analogy": "Two wheels act as a steering pair: equal rolling distances imply straight ideal motion, while their difference induces turning. Track width determines how much yaw the difference produces.",
     "starter": {
       "plainStart": "For wheel-track width b, v_left=v-omega*b/2 and v_right=v+omega*b/2; inverse v=(left+right)/2, omega=(right-left)/b.",
       "tryThis": "Compute wheel speeds for b=.5 m, v=.6 m/s, omega=.4 rad/s.",
@@ -229,7 +229,7 @@
   "robotics-controls-06-differential-drive-arc": {
     "essentialQuestion": "How do unequal wheel increments advance a differential drive in a curved segment?",
     "verifiedBoundary": "For constant incremental curvature and dtheta≠0, ds=(dR+dL)/2, dtheta=(dR-dL)/b, R=ds/dtheta, dx=R sin(dtheta), dy=R(1-cos(dtheta)) in the initial body frame.",
-    "analogy": "Engineering intuition: model the exact constant-curvature wheel odometry as a *specific mathematical contract*, not a generic robot behavior; verify each assumption before transferring the method to a physical system.",
+    "analogy": "A turning chassis sweeps an arc rather than a straight chord. Integrating its changing heading recovers the sideways displacement that start-heading-only dead reckoning misses.",
     "starter": {
       "plainStart": "For constant incremental curvature and dtheta≠0, ds=(dR+dL)/2, dtheta=(dR-dL)/b, R=ds/dtheta, dx=R sin(dtheta), dy=R(1-cos(dtheta)) in the initial body frame.",
       "tryThis": "Integrate the wheel increments with the exact sine/cosine arc formulas.",
@@ -274,7 +274,7 @@
   "robotics-controls-07-wheel-encoder-quantization": {
     "essentialQuestion": "How does digital encoder resolution limit inferred wheel travel?",
     "verifiedBoundary": "If N signed counts represent one wheel revolution at the wheel shaft, travel=counts*(2*pi*r/N); quantization step=2*pi*r/N.",
-    "analogy": "Engineering intuition: model the encoder counts, resolution, and distance as a *specific mathematical contract*, not a generic robot behavior; verify each assumption before transferring the method to a physical system.",
+    "analogy": "A count is a discrete fraction of an assumed wheel circumference, not a direct ground-distance observation. Quantization exists even in perfect electronics; slip adds a separate modeling error.",
     "starter": {
       "plainStart": "If N signed counts represent one wheel revolution at the wheel shaft, travel=counts*(2*pi*r/N); quantization step=2*pi*r/N.",
       "tryThis": "Implement countToMeters(counts,r,N) and verify half and full revolutions.",
@@ -319,7 +319,7 @@
   "robotics-controls-08-two-point-calibration": {
     "essentialQuestion": "How can known references identify sensor gain and offset without confusing units?",
     "verifiedBoundary": "For an affine sensor y=g*x+b, use g=(y2-y1)/(x2-x1) and b=y1-g*x1, then x=(y-b)/g when g is nonzero.",
-    "analogy": "Engineering intuition: model the two-point affine range-sensor calibration as a *specific mathematical contract*, not a generic robot behavior; verify each assumption before transferring the method to a physical system.",
+    "analogy": "Calibrating a measuring tape with the wrong zero and the wrong scale requires two corrections. Subtracting the offset alone leaves a distance-dependent gain error.",
     "starter": {
       "plainStart": "For an affine sensor y=g*x+b, use g=(y2-y1)/(x2-x1) and b=y1-g*x1, then x=(y-b)/g when g is nonzero.",
       "tryThis": "Solve gain/offset with two points and reconstruct both measurements.",
@@ -364,7 +364,7 @@
   "robotics-controls-09-discrete-p-stability": {
     "essentialQuestion": "Why can increasing a proportional gain destabilize an otherwise simple sampled plant?",
     "verifiedBoundary": "For x[k+1]=x[k]+dt*u[k], u=Kp*(r-x), the error recurrence is e[k+1]=(1-dt*Kp)e[k] and converges iff |1-dt*Kp|<1.",
-    "analogy": "Engineering intuition: model the sampled proportional control of an integrator as a *specific mathematical contract*, not a generic robot behavior; verify each assumption before transferring the method to a physical system.",
+    "analogy": "A controller samples an error, acts, and waits until the next sample. The discrete error multiplier shows whether successive corrections shrink, alternate indefinitely, or grow.",
     "starter": {
       "plainStart": "For x[k+1]=x[k]+dt*u[k], u=Kp*(r-x), the error recurrence is e[k+1]=(1-dt*Kp)e[k] and converges iff |1-dt*Kp|<1.",
       "tryThis": "Simulate 3 steps at Kp=4 and compare with 0.6^k analytical expression.",
@@ -409,7 +409,7 @@
   "robotics-controls-10-integrator-antiwindup": {
     "essentialQuestion": "What happens to a PI controller's integral term when the actuator saturates for repeated positive error?",
     "verifiedBoundary": "One anti-windup scheme freezes integrator updates when the candidate command is saturated and error would drive it further into saturation.",
-    "analogy": "Engineering intuition: model the conditional integration under output saturation as a *specific mathematical contract*, not a generic robot behavior; verify each assumption before transferring the method to a physical system.",
+    "analogy": "The integral term retains a memory of past error even while the actuator is clipped. Preventing that memory from growing into saturation can avoid an initially wrong-direction response after the error reverses.",
     "starter": {
       "plainStart": "One anti-windup scheme freezes integrator updates when the candidate command is saturated and error would drive it further into saturation.",
       "tryThis": "Simulate ten fixed-error steps with and without conditional integration.",
@@ -454,7 +454,7 @@
   "robotics-controls-11-scalar-kalman-update": {
     "essentialQuestion": "How does sensor uncertainty determine the weight of a new positional observation?",
     "verifiedBoundary": "For independent Gaussian scalar prior P and measurement variance R, K=P/(P+R), x_post=x_prior+K(z-x_prior), P_post=(1-K)P.",
-    "analogy": "Engineering intuition: model the scalar measurement fusion and variance as a *specific mathematical contract*, not a generic robot behavior; verify each assumption before transferring the method to a physical system.",
+    "analogy": "Two estimates are not equally informative when their variances differ. Under independent, unbiased errors, the lower-variance estimate receives greater weight, and the fused uncertainty shrinks.",
     "starter": {
       "plainStart": "For independent Gaussian scalar prior P and measurement variance R, K=P/(P+R), x_post=x_prior+K(z-x_prior), P_post=(1-K)P.",
       "tryThis": "Compute gain, mean and posterior variance with independent precision-weighted equation.",
@@ -499,7 +499,7 @@
   "robotics-controls-12-trapezoid-profile": {
     "essentialQuestion": "When does a symmetric speed-limited trajectory reach its specified maximum velocity?",
     "verifiedBoundary": "With rest-to-rest constant acceleration magnitude a and speed limit v_max, each acceleration ramp covers d_ramp=v_max²/(2a). If distance D<v_max²/a, use a triangular profile with peak sqrt(Da).",
-    "analogy": "Engineering intuition: model the rest-to-rest trapezoidal versus triangular trajectories as a *specific mathematical contract*, not a generic robot behavior; verify each assumption before transferring the method to a physical system.",
+    "analogy": "On a long enough ideal move the velocity profile has a flat-speed plateau. On a short move, acceleration must switch directly to braking before the requested maximum speed is reached.",
     "starter": {
       "plainStart": "With rest-to-rest constant acceleration magnitude a and speed limit v_max, each acceleration ramp covers d_ramp=v_max²/(2a). If distance D<v_max²/a, use a triangular profile with peak sqrt(Da).",
       "tryThis": "Compute the 2.00 m trapezoidal duration and area with units.",
