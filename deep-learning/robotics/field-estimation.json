@@ -2,7 +2,7 @@
   "robotics-controls-25-se2-composition-order": {
     "essentialQuestion": "Why can two coordinate transforms have the same combined yaw but different world positions?",
     "verifiedBoundary": "SE(2) transform composition requires rotating the downstream translation: (Ra,ta)∘(Rb,tb)=(RaRb,Ra tb+ta); swapping terms generally changes position.",
-    "analogy": "Engineering interpretation: why can two coordinate transforms have the same combined yaw but different world positions",
+    "analogy": "Engineering interpretation: transform translations must be expressed in the frame that owns them.",
     "starter": {
       "plainStart": "SE(2) transform composition requires rotating the downstream translation: (Ra,ta)∘(Rb,tb)=(RaRb,Ra tb+ta); swapping terms generally changes position.",
       "tryThis": "Implement compose(A,B) using rotation and translation; assert A∘B=(0.9,2.2,pi/3) within 1e-9.",
@@ -47,7 +47,7 @@
   "robotics-controls-26-timestamp-pose-skew": {
     "essentialQuestion": "How large is the artificial position discrepancy when sensor poses have different acquisition times?",
     "verifiedBoundary": "At constant signed speed v, samples separated by Δt differ by vΔt; alignment by linear interpolation is exact only for constant-velocity motion over that interval.",
-    "analogy": "Engineering interpretation: how large is the artificial position discrepancy when sensor poses have different acquisition times",
+    "analogy": "Engineering interpretation: two accurate moving-robot observations can disagree because their timestamps differ.",
     "starter": {
       "plainStart": "At constant signed speed v, samples separated by Δt differ by vΔt; alignment by linear interpolation is exact only for constant-velocity motion over that interval.",
       "tryThis": "Implement p(t)=0.5*(t-4) and check t=4,4.05,4.10 produce 0,0.025,0.05 m.",
@@ -92,7 +92,7 @@
   "robotics-controls-27-encoder-modulo-rollover": {
     "essentialQuestion": "Why does a wrapped encoder reading not necessarily mean the wheel turned backward?",
     "verifiedBoundary": "For modulus M, shortest signed count change is wrap(c1-c0) to [-M/2,M/2); it is unique only when actual sample-to-sample travel is strictly less than M/2 counts.",
-    "analogy": "Engineering interpretation: why does a wrapped encoder reading not necessarily mean the wheel turned backward",
+    "analogy": "Engineering interpretation: counter rollover can mimic a sudden reverse wheel jump.",
     "starter": {
       "plainStart": "For modulus M, shortest signed count change is wrap(c1-c0) to [-M/2,M/2); it is unique only when actual sample-to-sample travel is strictly less than M/2 counts.",
       "tryThis": "Implement modularSignedDelta(4090,6,4096) and assert +12 and +0.000920388473 m.",
@@ -137,7 +137,7 @@
   "robotics-controls-28-effective-track-calibration": {
     "essentialQuestion": "How does an independent yaw reference constrain differential-drive track width?",
     "verifiedBoundary": "Under ideal no-slip differential-drive motion, b=(dR-dL)/Δθ for nonzero yaw change; small denominators make single-sample estimates sensitive to error.",
-    "analogy": "Engineering interpretation: how does an independent yaw reference constrain differential-drive track width",
+    "analogy": "Engineering interpretation: wheel separation is a model parameter inferred from measured turning.",
     "starter": {
       "plainStart": "Under ideal no-slip differential-drive motion, b=(dR-dL)/Δθ for nonzero yaw change; small denominators make single-sample estimates sensitive to error.",
       "tryThis": "Compute estimateTrack(0.45,0.55,0.25) and assert 0.40 m.",
@@ -182,7 +182,7 @@
   "robotics-controls-29-angular-innovation-gating": {
     "essentialQuestion": "How do prediction and measurement variances change a synthetic heading gate?",
     "verifiedBoundary": "For independent heading errors, S=P+R and normalized angular innovation is |wrap(z-x)|/sqrt(S); a chosen 2-sigma gate is evidence of inconsistency, not a diagnosis.",
-    "analogy": "Engineering interpretation: how do prediction and measurement variances change a synthetic heading gate",
+    "analogy": "Engineering interpretation: sensor disagreement must be interpreted against explicitly modeled uncertainty.",
     "starter": {
       "plainStart": "For independent heading errors, S=P+R and normalized angular innovation is |wrap(z-x)|/sqrt(S); a chosen 2-sigma gate is evidence of inconsistency, not a diagnosis.",
       "tryThis": "Implement wrapDeg and score; assert observation 24° scores 1.109400392 and is accepted at 2σ.",
@@ -227,7 +227,7 @@
   "robotics-controls-30-delay-aware-stopping-bound": {
     "essentialQuestion": "Why can a control delay invalidate a braking-distance-only robot plan?",
     "verifiedBoundary": "Under ideal constant speed during delay τ followed by constant deceleration a>0, total modeled stop travel is vτ+v²/(2a); it is not a safety-certified physical stop distance.",
-    "analogy": "Engineering interpretation: why can a control delay invalidate a braking-distance-only robot plan",
+    "analogy": "Engineering interpretation: delayed braking consumes travel before deceleration has even begun.",
     "starter": {
       "plainStart": "Under ideal constant speed during delay τ followed by constant deceleration a>0, total modeled stop travel is vτ+v²/(2a); it is not a safety-certified physical stop distance.",
       "tryThis": "Compute stopTravel(1,0.1,2) and assert delay=0.10 m, braking=0.25 m, total=0.35 m.",
@@ -272,7 +272,7 @@
   "robotics-controls-31-encoder-clock-jitter": {
     "essentialQuestion": "How does measurement timestamp jitter corrupt a finite-difference wheel speed?",
     "verifiedBoundary": "Average wheel speed Δs/Δt must use the actual positive acquisition interval; nominal controller periods can bias the estimate without any count error.",
-    "analogy": "Engineering interpretation: how does measurement timestamp jitter corrupt a finite-difference wheel speed",
+    "analogy": "Engineering interpretation: a correct encoder difference with the wrong time divisor gives the wrong speed.",
     "starter": {
       "plainStart": "Average wheel speed Δs/Δt must use the actual positive acquisition interval; nominal controller periods can bias the estimate without any count error.",
       "tryThis": "Implement velocity(delta,t0,t1); assert 0.25 m/s for (0.02,1.000,1.080).",
@@ -317,7 +317,7 @@
   "robotics-controls-32-pi-backcalculation": {
     "essentialQuestion": "How does saturation feedback change a discrete PI integrator without freezing it entirely?",
     "verifiedBoundary": "Specified back-calculation update I_next=I+Ki e dt+Kaw(u_sat-u_raw)dt corrects the integrator toward the clipped command; its sign matters.",
-    "analogy": "Engineering interpretation: how does saturation feedback change a discrete pi integrator without freezing it entirely",
+    "analogy": "Engineering interpretation: a saturated command must feed back into the mathematical integral state.",
     "starter": {
       "plainStart": "Specified back-calculation update I_next=I+Ki e dt+Kaw(u_sat-u_raw)dt corrects the integrator toward the clipped command; its sign matters.",
       "tryThis": "Implement backCalculation with pre-update u_raw and assert raw=2.5,saturated=1,I_next=0.3.",
@@ -362,7 +362,7 @@
   "robotics-controls-33-independent-yaw-consistency": {
     "essentialQuestion": "When do a wheel-yaw estimate and gyro-yaw estimate violate a synthetic consistency gate?",
     "verifiedBoundary": "For independent yaw-change errors, normalize wheel-minus-gyro yaw by sqrt(σwheel²+σgyro²); an inconsistency threshold does not identify whether gyro bias, slip or calibration caused it.",
-    "analogy": "Engineering interpretation: when do a wheel-yaw estimate and gyro-yaw estimate violate a synthetic consistency gate",
+    "analogy": "Engineering interpretation: disagreement can be detected without knowing which sensor is responsible.",
     "starter": {
       "plainStart": "For independent yaw-change errors, normalize wheel-minus-gyro yaw by sqrt(σwheel²+σgyro²); an inconsistency threshold does not identify whether gyro bias, slip or calibration caused it.",
       "tryThis": "Assert wheel yaw=(.3-.2)/.5=+.20 rad and its difference from gyro +.10 is +.10 rad.",
@@ -407,7 +407,7 @@
   "robotics-controls-34-three-point-linear-calibration": {
     "essentialQuestion": "How can a three-point calibration reveal that a perfectly fitting affine sensor model is false?",
     "verifiedBoundary": "For equal-weight least squares y=gx+b, all-point residuals expose disagreement with an exact affine law; the residual root-mean-square is not automatically a statistically calibrated uncertainty.",
-    "analogy": "Engineering interpretation: how can a three-point calibration reveal that a perfectly fitting affine sensor model is false",
+    "analogy": "Engineering interpretation: residuals reveal limits of a simple calibration law.",
     "starter": {
       "plainStart": "For equal-weight least squares y=gx+b, all-point residuals expose disagreement with an exact affine law; the residual root-mean-square is not automatically a statistically calibrated uncertainty.",
       "tryThis": "Fit three points and assert g=1,b=1/15 m.",
@@ -424,7 +424,7 @@
       "Means are xbar=1.0 and ybar=1.066666667 m; slope g=Σ(x-xbar)(y-ybar)/Σ(x-xbar)²=2/2=1.0.",
       "Intercept b=ybar-g*xbar=0.066666667 m; predicted responses are 0.066666667,1.066666667,2.066666667 m.",
       "Residuals are +0.033333333,-0.066666667,+0.033333333 m; sum zero, squared sum SSE=0.006666667 m² and RMS=sqrt(SSE/3)=0.047140452 m.",
-      "Counterexample: line through the two endpoints y=x+0.1 predicts middle 1.1 m but actual reading is 1.0 m, so no exact affine line fits all three.",
+      "Counterexample: the line through endpoints y=x+0.1 predicts middle 1.1 m but observed middle is 1.0 m, residual -0.10 m; therefore no exact affine law fits all three pairs.",
       "Residual RMS is an in-sample fit summary; measurement uncertainty, extrapolation error and physical calibration validity require additional evidence. Source: https://itl.nist.gov/div898/handbook/mpc/section3/mpc3.htm"
     ],
     "memoryLadder": [
@@ -452,7 +452,7 @@
   "robotics-controls-35-shortest-heading-interpolation": {
     "essentialQuestion": "How should a robot interpolate yaw across the -180°/+180° representation boundary?",
     "verifiedBoundary": "Shortest-arc yaw interpolation is wrap(θ0+f wrap(θ1-θ0)); exactly 180° separation leaves a tie between two equally short directions.",
-    "analogy": "Engineering interpretation: how should a robot interpolate yaw across the -180°/+180° representation boundary",
+    "analogy": "Engineering interpretation: crossing the numerical heading discontinuity need not reverse physical rotation.",
     "starter": {
       "plainStart": "Shortest-arc yaw interpolation is wrap(θ0+f wrap(θ1-θ0)); exactly 180° separation leaves a tie between two equally short directions.",
       "tryThis": "Implement circularLerp(170,-170,0.25) and assert +175°.",
@@ -497,7 +497,7 @@
   "robotics-controls-36-robust-pose-clearance": {
     "essentialQuestion": "Can an estimated robot center alone establish obstacle clearance under bounded localization error?",
     "verifiedBoundary": "For deterministic center uncertainty |x-xhat|≤ε and radius r, robust 1D clearance before obstacle boundary xo requires xhat+ε+r<xo; Gaussian sigma alone is not a deterministic limit.",
-    "analogy": "Engineering interpretation: can an estimated robot center alone establish obstacle clearance under bounded localization error",
+    "analogy": "Engineering interpretation: position uncertainty can erase apparently safe estimated clearance.",
     "starter": {
       "plainStart": "For deterministic center uncertainty |x-xhat|≤ε and radius r, robust 1D clearance before obstacle boundary xo requires xhat+ε+r<xo; Gaussian sigma alone is not a deterministic limit.",
       "tryThis": "Implement clearance(xhat,epsilon,r,xo); assert -0.05 m at xhat=.70 and +0.05 m at xhat=.60.",
