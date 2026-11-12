@@ -8,12 +8,9 @@ def candidate(rel):
     return {'path':rel,'size':f.stat().st_size,'sha256':hashlib.sha256(f.read_bytes()).hexdigest(),'source':{'kind':'candidate-worktree'},'owningComponent':'portfolio','deploymentClassification':'KEEP_PRODUCTION'}
 def main():
     p=ROOT/'manifests/runtime-files.json';m=json.loads(p.read_text());files={r['path']:r for r in m['files']}
-    # New standard-page components and generated metadata are explicit runtime candidates.
-    for glob in ('*.html','site-*.js','site-*.css','project-*.js','project-*.css','software-showcase.js','learning-progress.js','knowledge-upgrades.js','learning-experiments.js','learning-experiments.css','assets/downloads/*.zip','learning-visuals.js','learning-visuals.css','ai-build-lab.js','ai-build-lab.css','security-research.js','security-research.css','solar-navigation.js','assets/site-*.json','assets/project-evaluation.json','assets/audio/CREDITS.md','geometric-lab/*.md','assets/Recovery_Readiness_Auditor.zip','rust-flow-telemetry-v22/**/*'):
-        for f in ROOT.glob(glob):
-            if not f.is_file():continue
-            rel=f.relative_to(ROOT).as_posix()
-            if rel not in files:files[rel]=candidate(rel)
+    # Runtime candidates come from what pages actually load (the route closure below) and from the
+    # verified large assets. A fixed list of filename patterns used to add files here; it missed
+    # files added later and re-added unreferenced ones on every run.
     large={}
     for asset in json.loads((ROOT/'manifests/large-assets.json').read_text())['assets']:
         rel=asset['canonicalPath'];large[rel]=asset
