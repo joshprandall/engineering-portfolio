@@ -63,7 +63,7 @@ test('18: derivative-on-error setpoint kick differs from derivative-on-measureme
  near(kd*((r1-y1)-(r0-y0))/dt,5);
  near(-kd*(y1-y0)/dt,0);
  near(-kd*.01/dt,-.05);
- prove(18,/sudden controller command/);lab(18,/respective terms \+5 and 0/);
+ prove(18,/measured robot position did not move/);lab(18,/respective terms \+5 and 0/);
 });
 test('19: one-step delayed integrator has a stricter stable gain region',()=>{
  let previous=0,current=0;const got=[];
@@ -88,7 +88,7 @@ test('21: swept collision catches obstacle between clear sampled endpoints',()=>
  assert.ok(intersects(0,1,...expanded));
  for(const x of [0,.2,.4,.6,.8,1])assert.ok(!intersects(x,x,...expanded));
  assert.ok(!intersects(0,1,1.15,1.35));
- prove(21,/two safe snapshots/);lab(21,/touching the expanded boundary/);
+ prove(21,/Both sampled endpoints/);lab(21,/touching the expanded boundary/);
 });
 test('22: rounded encoder difference admits nearly a full count error',()=>{
  const pitch=2*Math.PI*.05/2048;
