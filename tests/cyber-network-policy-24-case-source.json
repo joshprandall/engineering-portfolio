@@ -1,0 +1,146 @@
+[
+  {
+    "id": "cyber-tls",
+    "q": "A certificate is otherwise trusted but its SAN is web.example; should a client requesting api.example accept it?",
+    "expected": "web.example differs from api.example in the leftmost label; hostname verification fails, so the connection must be rejected.",
+    "source": "https://www.rfc-editor.org/rfc/rfc9525.html"
+  },
+  {
+    "id": "cyber-firewall",
+    "q": "What happens when a first-match deny rule precedes a narrow allow for the very same packet tuple?",
+    "expected": "198.51.100.42 belongs to the denied /24, so rule 1 denies it before the exception can be evaluated.",
+    "source": "https://csrc.nist.gov/pubs/sp/800/41/r1/final"
+  },
+  {
+    "id": "cyber-segmentation",
+    "q": "Does removing one permitted cross-zone connection always isolate the third trust zone?",
+    "expected": "Before blocking api→data, breadth-first reachability from user is {user,api,data,dns}, four nodes.",
+    "source": "https://csrc.nist.gov/pubs/sp/800/207/final"
+  },
+  {
+    "id": "cyber-v06-tls-1-3-protected-application-data",
+    "q": "Can a 16,385-byte application message fit into a single TLS 1.3 plaintext fragment?",
+    "expected": "For 16,385 bytes, ceil(16,385/16,384)=2 fragments, not one; 16,384 bytes fit exactly one under the bound.",
+    "source": "https://www.rfc-editor.org/rfc/rfc8446.html"
+  },
+  {
+    "id": "cyber-v09-recall-drill-network-segmentation-reduce-the-blast-radius",
+    "q": "Which operations should three roles receive when an explicit four-service allow matrix is evaluated?",
+    "expected": "Across 3×4=12 role–service cells, exactly 4 are allowed and 8 denied; reader→admin is denied.",
+    "source": "https://csrc.nist.gov/pubs/sp/800/207/final"
+  },
+  {
+    "id": "cyber-v09-scenario-analysis-tls-1-3-protected-application-data",
+    "q": "How does a TLS 1.3 record sequence number affect the per-record nonce within one key epoch?",
+    "expected": "With an all-zero twelve-byte IV, sequence 0 gives nonce hex 000000000000000000000000; sequence 1 ends in 01.",
+    "source": "https://www.rfc-editor.org/rfc/rfc8446.html"
+  },
+  {
+    "id": "cyber-v09-worked-example-what-tls-actually-protects",
+    "q": "Why is a trusted root alone insufficient to authenticate a certificate for the requested service?",
+    "expected": "The simulated root check returns true but service-b.example is absent from the SAN list, so authenticated=false.",
+    "source": "https://www.rfc-editor.org/rfc/rfc9525.html"
+  },
+  {
+    "id": "cyber-v09-decision-lab-what-a-firewall-does",
+    "q": "Can a stateful allow-outbound policy admit replies without admitting unsolicited inbound connections?",
+    "expected": "Outbound SYN creates one table entry; reverse server:443→client:51000 is accepted, but server:443→client:51001 is dropped.",
+    "source": "https://csrc.nist.gov/pubs/sp/800/41/r1/final"
+  },
+  {
+    "id": "cyber-v09-failure-analysis-lab-network-segmentation-reduce-the-blast-radius",
+    "q": "Which requests remain possible under a DNS-only cross-zone exception rather than a blanket allow?",
+    "expected": "Of the three invented requests, exactly one matches the narrow policy; two fail the default-deny check.",
+    "source": "https://csrc.nist.gov/pubs/sp/800/207/final"
+  },
+  {
+    "id": "cyber-v09-teach-back-lab-tls-1-3-protected-application-data",
+    "q": "What replay risk remains if a payment-like side effect is accepted from TLS 1.3 early data?",
+    "expected": "The same synthetic request accepted twice increments the counter from 0 to 2, despite only one intended logical operation.",
+    "source": "https://www.rfc-editor.org/rfc/rfc8446.html"
+  },
+  {
+    "id": "cyber-v09-evidence-verification-la-what-tls-actually-protects",
+    "q": "Can a matching certificate commonName compensate for a mismatched subjectAltName?",
+    "expected": "The SAN comparison is false, so this request must fail identity validation even though the CN text happens to match.",
+    "source": "https://www.rfc-editor.org/rfc/rfc9525.html"
+  },
+  {
+    "id": "cyber-v09-troubleshooting-lab-what-a-firewall-does",
+    "q": "Which of three boundary addresses belong to a documentary /24 CIDR allowlist?",
+    "expected": "The first two candidates match the /24 bitmask; the third differs in the third octet and fails.",
+    "source": "https://csrc.nist.gov/pubs/sp/800/41/r1/final"
+  },
+  {
+    "id": "cyber-v09-practical-lab-network-segmentation-reduce-the-blast-radius",
+    "q": "How much does one denied interzone hop reduce the modeled reachable resource set?",
+    "expected": "Before blocking gateway→database, the client reaches five nodes; after blocking it, reachable count is four.",
+    "source": "https://csrc.nist.gov/pubs/sp/800/207/final"
+  },
+  {
+    "id": "cyber-v09-quick-reference-tls-1-3-protected-application-data",
+    "q": "Does the RFC 5869 SHA-256 HKDF vector independently reproduce both extraction and expansion?",
+    "expected": "The RFC test PRK begins 077709362c2e32df and the 42-byte OKM begins 3cb25f25faacd57a9043.",
+    "source": "https://www.rfc-editor.org/rfc/rfc5869.html"
+  },
+  {
+    "id": "cyber-v09-design-review-what-tls-actually-protects",
+    "q": "Which application protocol can be selected when client and server ALPN lists differ?",
+    "expected": "The set intersection is {http/1.1}, so that is the sole possible selection under these offered lists.",
+    "source": "https://www.rfc-editor.org/rfc/rfc7301.html"
+  },
+  {
+    "id": "cyber-v09-misconception-clinic-what-a-firewall-does",
+    "q": "Will default-deny egress permit an unlisted documentation host at the same destination port?",
+    "expected": "Exactly two of the three requests match; the third host must be denied despite using TCP port 443.",
+    "source": "https://csrc.nist.gov/pubs/sp/800/41/r1/final"
+  },
+  {
+    "id": "cyber-v09-recall-drill-network-segmentation-reduce-the-blast-radius-2",
+    "q": "Does routing between two VLAN-labeled zones automatically mean the trust boundary is enforced?",
+    "expected": "With both edges present, management is reachable from employees in two hops; removing lab→management breaks that modeled path.",
+    "source": "https://csrc.nist.gov/pubs/sp/800/207/final"
+  },
+  {
+    "id": "cyber-v09-scenario-analysis-tls-1-3-protected-application-data-2",
+    "q": "Does a correctly validated TLS server identity authorize every HTTP operation at that server?",
+    "expected": "The simulated TLS identity gate passes, but viewer→delete-record is absent from the role matrix, so operation is denied.",
+    "source": "https://csrc.nist.gov/pubs/sp/800/207/final"
+  },
+  {
+    "id": "cyber-v09-worked-example-what-tls-actually-protects-2",
+    "q": "What changes when a TLS service certificate is checked against an expired synthetic validity window?",
+    "expected": "Although requested SAN app.example matches the presented identifier, Nov 11 occurs after June 30 so the mock is invalid.",
+    "source": "https://www.rfc-editor.org/rfc/rfc9525.html"
+  },
+  {
+    "id": "cyber-v09-decision-lab-what-a-firewall-does-2",
+    "q": "Why is a reverse reply permitted only while a modeled outbound state entry exists?",
+    "expected": "Before expiry, the resolver reply to client port 53000 matches; after expiry the same packet fails the state check.",
+    "source": "https://csrc.nist.gov/pubs/sp/800/41/r1/final"
+  },
+  {
+    "id": "cyber-v09-failure-analysis-l-network-segmentation-reduce-the-blast-radius-2",
+    "q": "Can a one-direction allow edge be assumed to permit the reverse flow in a trust graph?",
+    "expected": "devices reaches archive in two hops; archive cannot reach devices by any directed path in this graph.",
+    "source": "https://csrc.nist.gov/pubs/sp/800/207/final"
+  },
+  {
+    "id": "cyber-v09-teach-back-lab-tls-1-3-protected-application-data-2",
+    "q": "Should a TLS 1.3 key update continue the prior record counter and reuse the same record nonce?",
+    "expected": "Sequence 0 in epoch A ends in nonce 00, whereas sequence 0 in epoch B ends in nonce 01 under our illustrative IVs.",
+    "source": "https://www.rfc-editor.org/rfc/rfc8446.html"
+  },
+  {
+    "id": "cyber-v09-evidence-verificat-what-tls-actually-protects-2",
+    "q": "Does a wildcard DNS SAN for *.example match both a.example and b.a.example?",
+    "expected": "a.example matches the wildcard whereas b.a.example has two subdomain labels and fails.",
+    "source": "https://www.rfc-editor.org/rfc/rfc9525.html"
+  },
+  {
+    "id": "cyber-v09-troubleshooting-la-what-a-firewall-does-2",
+    "q": "Does an IPv4-only blocklist cover an IPv6 packet just because the application service is the same?",
+    "expected": "The IPv4 packet matches the /24 deny, while the IPv6 documentation address misses the IPv4-only entry and is allowed in this model.",
+    "source": "https://csrc.nist.gov/pubs/sp/800/41/r1/final"
+  }
+]
