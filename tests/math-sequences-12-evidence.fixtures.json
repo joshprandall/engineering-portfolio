@@ -1,0 +1,153 @@
+{
+  "baselineCommit": "22975fcd4528b4e8a4686df6cca9e270c35d234f",
+  "baselineBlob": "9f9afdca7984380f018d14d9623f4352baf0173b",
+  "provenance": [
+    "https://openstax.org/books/precalculus-2e/pages/11-1-sequences-and-their-notations",
+    "https://openstax.org/books/precalculus-2e/pages/11-4-series-and-their-notations",
+    "https://openstax.org/books/intermediate-algebra-2e/pages/12-key-concepts"
+  ],
+  "cases": [
+    {
+      "id": "math-v06-arithmetic-sequences",
+      "type": "an",
+      "input": {
+        "a": 7,
+        "d": 3,
+        "n": 11
+      },
+      "expected": 37,
+      "question": "For a₁=7 and d=3, why is a₁₁=37 instead of 40?"
+    },
+    {
+      "id": "math-v06-geometric-sequences",
+      "type": "gn",
+      "input": {
+        "a": 5,
+        "r": 2,
+        "n": 7
+      },
+      "expected": 320,
+      "question": "Why is the seventh term of 5,10,20,... 320 rather than 640?"
+    },
+    {
+      "id": "math-v08-deep-dive-arithmetic-sequence",
+      "type": "ap",
+      "input": {
+        "p": 3,
+        "ap": 11,
+        "q": 9,
+        "aq": 35,
+        "n": 12
+      },
+      "expected": 47,
+      "question": "If a₃=11 and a₉=35, how is the uniquely determined a₁₂=47 recovered?"
+    },
+    {
+      "id": "math-v08-evidence-lab-arithmetic-sequence",
+      "type": "as",
+      "input": {
+        "a": 4,
+        "d": 5,
+        "n": 12
+      },
+      "expected": 378,
+      "question": "How does pairing prove the 12-term arithmetic sum 4+9+...+59 is 378?"
+    },
+    {
+      "id": "math-v08-deep-dive-geometric-sequence",
+      "type": "gs",
+      "input": {
+        "a": 6,
+        "r": 0.5,
+        "n": 6
+      },
+      "expected": 11.8125,
+      "question": "Why is the six-term halving series 11.8125, not its infinite limit of 12?"
+    },
+    {
+      "id": "math-v08-evidence-lab-geometric-sequence",
+      "type": "galt",
+      "input": {
+        "a": 64,
+        "r": -0.5,
+        "n": 7
+      },
+      "expected": 43,
+      "question": "How can seven alternating signed geometric terms produce sum 43?"
+    },
+    {
+      "id": "math-v09-recall-drill-arithmetic-sequence",
+      "type": "ad",
+      "input": {
+        "a": 45,
+        "d": -7,
+        "n": 8
+      },
+      "expected": -4,
+      "question": "Why does the decreasing arithmetic sequence first become negative at term eight?"
+    },
+    {
+      "id": "math-v09-worked-example-arithmetic-sequence",
+      "type": "adpair",
+      "input": {
+        "p": 4,
+        "ap": 10,
+        "q": 10,
+        "aq": -8,
+        "n": 14
+      },
+      "expected": -20,
+      "question": "Why do a₄=10 and a₁₀=−8 imply a₁₄=−20?"
+    },
+    {
+      "id": "math-v09-failure-analysis-lab-arithmetic-sequences",
+      "type": "counter",
+      "input": {
+        "terms": [
+          3,
+          8,
+          14,
+          19
+        ]
+      },
+      "expected": 0,
+      "question": "Why is 3,8,14,19 a counterexample to the assumption that increasing patterns are arithmetic?"
+    },
+    {
+      "id": "math-v09-evidence-verification-la-geometric-sequence",
+      "type": "ginv",
+      "input": {
+        "p": 2,
+        "ap": 12,
+        "q": 5,
+        "aq": 96,
+        "n": 6
+      },
+      "expected": 192,
+      "question": "Given geometric observations a₂=12 and a₅=96, how can a₆=192 be verified?"
+    },
+    {
+      "id": "math-v09-practical-lab-geometric-sequence",
+      "type": "thresh",
+      "input": {
+        "a": 3,
+        "r": 1.5,
+        "threshold": 100
+      },
+      "expected": 10,
+      "question": "Which first positive integer n has 3·1.5^(n−1)≥100?"
+    },
+    {
+      "id": "math-v09-design-review-geometric-sequences",
+      "type": "gone",
+      "input": {
+        "a": 9,
+        "r": 1,
+        "n": 8
+      },
+      "expected": 72,
+      "question": "Why does r=1 yield a finite eight-term sum of 72, despite 0/0 in the quotient formula?"
+    }
+  ],
+  "disclaimer": "Synthetic exact mathematical examples. No measured or attributed performance."
+}
