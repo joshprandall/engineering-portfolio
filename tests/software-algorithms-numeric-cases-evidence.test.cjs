@@ -5,7 +5,8 @@ const assert=require('node:assert/strict');
 const content=require('../deep-learning/software/algorithms.json');
 const ids=Object.keys(content).slice(0,24);
 const picked=ids.map(id=>content[id]);
-const source='https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/resources/lecture-notes/';
+const lectures=[1,15,9,1,10,1,1,10,15,1,13,16,16,12,6,2,10,15,2,17,15,3,9,16];
+const course='https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/resources/';
 test('24 specific authored lesson records, intact IDs and 6-step structures',()=>{
  assert.equal(Object.keys(content).length,111);
  assert.equal(picked.length,24);
@@ -17,8 +18,10 @@ test('24 specific authored lesson records, intact IDs and 6-step structures',()=
   assert.equal(r.reasoningSteps.length,6,ids[i]);
   assert.equal(r.labPlan.length,6,ids[i]);
   for(const step of [...r.reasoningSteps,...r.labPlan])assert.ok(step.length>55,ids[i]);
+  const source=course+'mit6_006s20_lec'+lectures[i]+'/';
   assert.ok(r.reasoningSteps[5].includes(source),ids[i]);
   assert.ok(r.labPlan[5].includes(source),ids[i]);
+  assert.ok(!r.reasoningSteps[5].includes(course+'lecture-notes/'),ids[i]);
  }
 });
 const t=(i,title,fn)=>test(title,()=>{fn();assert.ok(picked[i].essentialQuestion.includes('?'),ids[i])});
@@ -148,6 +151,7 @@ t(20,'Recursion: nested numerical max with negative-only adversary',()=>{
  let x={a:[2,5],b:{c:[7,-1]}},neg={a:[-2,-5],b:{c:[-7,-1]}};
  const maxNum=v=>typeof v==='number'?v:Math.max(...(Array.isArray(v)?v:Object.values(v)).map(maxNum));
  assert.equal(maxNum(x),7);assert.equal(maxNum(neg),-1);
+ assert.ok(picked[20].labPlan[0].includes('{a:[-2,-5],b:{c:[-7,-1]}}'),'explicit negative-only fixture');
 });
 t(21,'Big-O: insertion sort reversed versus sorted comparisons',()=>{
  function insertion(a){let shifts=0,comps=0;for(let i=1;i<a.length;i++){let key=a[i],j=i-1;while(j>=0){comps++;if(a[j]<=key)break;a[j+1]=a[j];shifts++;j--}a[j+1]=key}return {a,shifts,comps}}
