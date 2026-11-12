@@ -69,9 +69,14 @@ test('Learn, AI Builder Academy, and all 50 Cyber Range tools function in a brow
 
     for (const tool of cyberManifest.tools) {
       const opener = page.locator('[data-security-tool="' + tool.id + '"]');
-      await opener.click({ force: true });
+      // A forced click can land on an overlapping element during reflow.
+      // Exercise real pointer actionability and wait for the specific tool
+      // contract before running its synthetic input fixture.
+      await opener.scrollIntoViewIfNeeded();
+      await opener.click();
+      await page.waitForFunction(expected => document.querySelector('#security-workbench-title')?.textContent === expected, tool.title, { timeout: 5_000 });
       assert.equal(await page.locator('#security-workbench-title').innerText(), tool.title, tool.id + ': wrong workbench tool');
-      await page.locator('#security-tool-run').click({ force: true });
+      await page.locator('#security-tool-run').click();
 
       await page.waitForFunction(() => {
         const out = document.querySelector('#security-tool-output');

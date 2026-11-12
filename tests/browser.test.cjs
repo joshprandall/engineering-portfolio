@@ -111,7 +111,7 @@ async function run(){
    if(name==='phone'||name==='small-phone'){
     await page.locator('#direction').scrollIntoViewIfNeeded();
     assert(await page.locator('#education-title').isVisible(),name+': Education heading renders when scrolled into view');
-    assert.equal(await page.locator('.education-cards article').count(),3,name+': all three Education cards are present');
+    assert.equal(await page.locator('.education-cards article').count(),5,name+': all five existing Education cards are present and preserved');
     const educationBox=await page.locator('#direction').boundingBox();assert(educationBox&&educationBox.height>300,name+': Education section has rendered content height');
     if(output&&name==='phone')await page.locator('#direction').screenshot({animations:'disabled',path:path.join(output,'education-phone.png')});
    }
