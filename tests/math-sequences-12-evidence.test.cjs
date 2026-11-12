@@ -324,7 +324,7 @@ test("255 independent finite-sum edge cases include negative, zero and unit rati
         let sum = 0, term = first;
         for (let i = 0; i < n; i++) { sum += term; term *= ratio; }
         const closed = ratio === 1 ? n * first : first * (1 - ratio ** n) / (1 - ratio);
-        assert.equal(sum, closed, "Geometric series: " + [first, ratio, n]);
+        assert.ok(sum === closed, "Geometric series: " + [first, ratio, n]);
         checked++;
       }
     }
