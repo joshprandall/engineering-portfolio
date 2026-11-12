@@ -1,0 +1,226 @@
+'use strict';
+const {test}=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
+const lessons=JSON.parse(fs.readFileSync(path.join(__dirname,'..','deep-learning','physics','momentum.json'),'utf8'));
+const cases=[
+  {
+    "id": "physics-v09-evidence-verificat-impulse-momentum-theorem-2",
+    "q": "How does subtracting a +2 N sensor baseline change a three-sample collision impulse and the final velocity of a 0.50 kg glider?",
+    "source": "9-2-impulse-and-collisions",
+    "workAnchor": "Subtract the baseline before trapezoidal integration:",
+    "labAnchor": "Recompute with a zero-load calibration changed from"
+  },
+  {
+    "id": "physics-v10-trace-lab-impulse-momentum-theorem",
+    "q": "Why can a +20 N push for 0.05 s followed by a -10 N pull for 0.10 s leave a moving glider's momentum unchanged?",
+    "source": "9-2-impulse-and-collisions",
+    "workAnchor": "Add signed areas under F(t): (+20)(0.05) + (-10)(0.10",
+    "labAnchor": "Shorten the second interval to 0.05 s, recompute ne"
+  },
+  {
+    "id": "physics-v10-reasoning-check-impulse-momentum-theorem",
+    "q": "What net impulse and average force reverse a 0.40 kg trolley from -3 m/s to +2 m/s in 0.040 s?",
+    "source": "9-2-impulse-and-collisions",
+    "workAnchor": "Apply J = m(v_final-v_initial) = 0.40[2-(-3)] = +2.00",
+    "labAnchor": "Double contact time to 0.080 s while imposing the s"
+  },
+  {
+    "id": "physics-v10-explain-back-challenge-impulse-momentum-theorem",
+    "q": "How much braking impulse acts on a 1.2 kg glider slowing from +5 to +1 m/s, and how large is its mean contact force over 0.12 s?",
+    "source": "9-2-impulse-and-collisions",
+    "workAnchor": "Compute Δp = 1.2(1-5) = -4.8 N·s and F_average = -4.8",
+    "labAnchor": "Vary contact duration to 0.24 s with the same endpo"
+  },
+  {
+    "id": "physics-v10-decision-matrix-lab-linear-momentum",
+    "q": "For a 2 kg robot base moving at (3,4) m/s, how do vector momentum, its magnitude and kinetic energy differ?",
+    "source": "9-1-linear-momentum",
+    "workAnchor": "Compute p = m v = (6,8) kg·m/s, |p| = sqrt(6²+8²) = 1",
+    "labAnchor": "Rotate the velocity to (-4,3) m/s, verify momentum "
+  },
+  {
+    "id": "physics-v10-worked-walkthrough-linear-momentum",
+    "q": "Why does doubling a 1.5 kg cart's mass at a fixed -2.4 m/s double signed momentum but not reverse its direction?",
+    "source": "9-1-linear-momentum",
+    "workAnchor": "At 1.5 kg, p = 1.5(-2.4) = -3.6 kg·m/s; at 3.0 kg wit",
+    "labAnchor": "Change velocity to +2.4 m/s at constant 1.5 kg and "
+  },
+  {
+    "id": "physics-v10-field-note-linear-momentum",
+    "q": "How can a field observer convert a 0.75 kg rover's 7.2 km/h speed into SI momentum without a factor-of-3.6 error?",
+    "source": "9-1-linear-momentum",
+    "workAnchor": "Convert 7.2 km/h by 1000 m/km and 3600 s/h to +2.0 m/",
+    "labAnchor": "Change direction to west at unchanged speed, predic"
+  },
+  {
+    "id": "physics-v10-confidence-calibration-momentum-conservation",
+    "q": "When two carts of masses 2 kg and 1 kg travel at +3 and -3 m/s and stick, what is the shared velocity and lost kinetic energy?",
+    "source": "9-3-conservation-of-linear-momentum",
+    "workAnchor": "Total momentum before is 2(3)+1(-3)=+3 kg·m/s; shared",
+    "labAnchor": "Repeat the algebra with the second cart initially s"
+  },
+  {
+    "id": "physics-v10-checklist-lab-momentum-conservation",
+    "q": "What checklist catches a sign error when 0.5 kg and 1.5 kg carts at +4 and -1 m/s latch together?",
+    "source": "9-3-conservation-of-linear-momentum",
+    "workAnchor": "The total signed momentum is 0.5(4)+1.5(-1)=+0.5 kg·m",
+    "labAnchor": "Reverse the second cart to +1 m/s and predict v_com"
+  },
+  {
+    "id": "physics-v10-exam-style-practice-impulse-momentum-theorem",
+    "q": "What average force acts on a 0.20 kg ball that reverses from -12 m/s to +8 m/s within 0.010 s?",
+    "source": "9-2-impulse-and-collisions",
+    "workAnchor": "Compute J = 0.20[8-(-12)] = +4.0 N·s and F_average = ",
+    "labAnchor": "Hold Δp fixed but lengthen contact to 0.020 s; pred"
+  },
+  {
+    "id": "physics-v10-mistake-hunt-impulse-momentum-theorem",
+    "q": "Why does integrating the ramp F(t)=30t N for 0≤t≤0.20 s yield half the impulse of multiplying its final force by duration?",
+    "source": "9-2-impulse-and-collisions",
+    "workAnchor": "Integrate J=∫₀^0.20 30t dt=15(0.20)²=+0.60 N·s. The f",
+    "labAnchor": "Double the interval to 0.40 s while keeping the ram"
+  },
+  {
+    "id": "physics-v10-runbook-lab-impulse-momentum-theorem",
+    "q": "What runbook predicts the final speed of a 0.50 kg puck when an 80 N net pulse lasts 0.025 s from rest?",
+    "source": "9-2-impulse-and-collisions",
+    "workAnchor": "J=(80 N)(0.025 s)=+2.00 N·s, so p_final=+2.00 kg·m/s ",
+    "labAnchor": "Replace the pulse by 40 N for 0.050 s and verify th"
+  },
+  {
+    "id": "physics-v10-transfer-lab-linear-momentum",
+    "q": "What is the translational momentum vector and kinetic energy of a 1.25 kg drone traveling (-6,+8) m/s?",
+    "source": "9-1-linear-momentum",
+    "workAnchor": "The vector momentum is (-7.5,+10.0) kg·m/s; the magni",
+    "labAnchor": "Change only the north component to +6 m/s; verify |"
+  },
+  {
+    "id": "physics-v10-reasoning-check-linear-momentum",
+    "q": "How can momentum (2.4,-3.2) kg·m/s determine velocity and direction for a 0.80 kg test mass?",
+    "source": "9-1-linear-momentum",
+    "workAnchor": "Recover v=(2.4/0.8,-3.2/0.8)=(+3,-4) m/s with speed 5",
+    "labAnchor": "Reflect the velocity in the x axis and predict mome"
+  },
+  {
+    "id": "physics-v10-explain-back-challenge-linear-momentum",
+    "q": "Can a 0.20 kg object turn from 15 m/s north to 15 m/s east without changing momentum despite fixed speed?",
+    "source": "9-1-linear-momentum",
+    "workAnchor": "Before turning, p_i=(0,+3) kg·m/s; afterwards, p_f=(+",
+    "labAnchor": "Turn through 180 degrees instead and calculate |Δp|"
+  },
+  {
+    "id": "physics-v10-measurement-lab-momentum-conservation",
+    "q": "How should a conservation measurement distinguish a 2 kg·m/s system invariant from sensor error?",
+    "source": "9-3-conservation-of-linear-momentum",
+    "workAnchor": "Initial momentum is 1(4)+1(-2)=+2 kg·m/s; two postcol",
+    "labAnchor": "Perturb only the second reading to +0.85 m/s and ob"
+  },
+  {
+    "id": "physics-v10-worked-walkthrough-momentum-conservation",
+    "q": "How do equal 1 kg carts at +4 and -2 m/s illustrate that an elastic collision preserves energy while sticking does not?",
+    "source": "9-3-conservation-of-linear-momentum",
+    "workAnchor": "Initial p=1(4)+1(-2)=+2 kg·m/s and K=8+2=10 J. In an ",
+    "labAnchor": "Vary the left cart to +2 m/s and right to -2 m/s, p"
+  },
+  {
+    "id": "physics-v10-field-note-impulse-momentum-theorem",
+    "q": "How does a 70 kg passenger surrogate stopping from +15 m/s reveal why contact duration matters for mean restraint force?",
+    "source": "9-2-impulse-and-collisions",
+    "workAnchor": "The surrogate's Δp=70(0-15)=-1050 N·s; over 0.15 s th",
+    "labAnchor": "Change duration from 0.15 to 0.30 s and compute -35"
+  },
+  {
+    "id": "physics-v10-confidence-calibration-impulse-momentum-theorem",
+    "q": "What signed net impulse results from +20 N for 0.10 s followed by -5 N for 0.20 s?",
+    "source": "9-2-impulse-and-collisions",
+    "workAnchor": "Compute first impulse +20(0.10)=+2.0 N·s and second -",
+    "labAnchor": "Extend the -5 N interval to 0.40 s and verify total"
+  },
+  {
+    "id": "physics-v10-counterexample-lab-impulse-momentum-theorem",
+    "q": "How can two opposite force pulses produce zero total impulse without ever having a zero force during the pulses?",
+    "source": "9-2-impulse-and-collisions",
+    "workAnchor": "Calculate J_1=+2 N·s and J_2=-2 N·s so J_total=0; if ",
+    "labAnchor": "Remove the second pulse and calculate p_final=+6 kg"
+  },
+  {
+    "id": "physics-v10-exam-style-practice-linear-momentum",
+    "q": "At fixed mass 0.15 kg, why does doubling a ball's speed from +20 to +40 m/s double momentum but quadruple kinetic energy?",
+    "source": "9-1-linear-momentum",
+    "workAnchor": "At +20 m/s momentum is +3 kg·m/s and kinetic energy i",
+    "labAnchor": "Repeat the pair at -20 and -40 m/s: signed momenta "
+  },
+  {
+    "id": "physics-v10-mistake-hunt-linear-momentum",
+    "q": "What is the conserved system momentum when a +3 m/s, 1 kg cart collides with a -2 m/s, 2 kg cart?",
+    "source": "9-1-linear-momentum",
+    "workAnchor": "Total momentum is (1)(+3)+(2)(-2)=-1 kg·m/s; if the c",
+    "labAnchor": "Swap cart masses but keep velocities: total momentu"
+  },
+  {
+    "id": "physics-v10-decision-brief-linear-momentum",
+    "q": "At a fixed momentum of +8 kg·m/s, why do 4 kg and 2 kg bodies have different velocities and kinetic energies?",
+    "source": "9-1-linear-momentum",
+    "workAnchor": "For 4 kg, v=8/4=+2 m/s and K=p²/(2m)=64/8=8 J; for 2 ",
+    "labAnchor": "Increase mass to 8 kg holding momentum fixed and pr"
+  },
+  {
+    "id": "physics-v10-prediction-lab-momentum-conservation",
+    "q": "What 2D post-latch velocity follows from a 2 kg cart at (2,0) m/s and a 1 kg cart at (0,3) m/s in an isolated plane?",
+    "source": "9-3-conservation-of-linear-momentum",
+    "workAnchor": "Initial total p=(2×2+1×0,2×0+1×3)=(4,3) kg·m/s; if th",
+    "labAnchor": "Reverse the second cart's y velocity to -3 m/s: fin"
+  }
+];
+const sourceRoot='https://openstax.org/books/university-physics-volume-1/pages/';
+const falsAnchors=[
+  "Treat a drifting calibration zero, clipped collision peak, or sam",
+  "A student who adds |+1|+|-1| obtains 2 N·s and falsely predicts a",
+  "Simply subtracting speed magnitudes yields 0.40(2-3) = -0.40 N·s ",
+  "The negative impulse is not a negative energy; treating impulse a",
+  "Adding momentum components to obtain 14 kg·m/s is not a magnitude",
+  "A negative momentum does not imply a negative mass or negative ki",
+  "Substituting 7.2 directly as m/s predicts +5.4 kg·m/s, which fail",
+  "The claim that both momentum and kinetic energy stay 13.5 J is fa",
+  "A common velocity of +1.75 m/s obtained by ignoring the negative ",
+  "Using |v_final|-|v_initial| gives -0.8 N·s and contradicts signed",
+  "Multiplying the final force 6 N by 0.20 s gives 1.20 N·s and trea",
+  "A guessed triangular pulse of the same height and duration would ",
+  "Claiming K=12.5 J by reusing the momentum magnitude is dimensiona",
+  "A naive scalar sum (2.4-3.2)/0.8=-1 m/s is not the vector velocit",
+  "The statement 'same speed means zero impulse' is falsified by the",
+  "An apparent sum error from rounding +1.05 to +1 and +0.95 to +1 d",
+  "Demanding kinetic-energy conservation from the latched carts pred",
+  "The example cannot justify a safety threshold, injury outcome, or",
+  "A time-weighted average of +7.5 N without signed durations would ",
+  "Inferring F(t)=0 at every time from J_total=0 violates the measur",
+  "Claiming both quantities scale by four is falsified by p=mv; the ",
+  "Summing 3+2=5 m/s and calling it final momentum drops masses, uni",
+  "Equating momenta with equal energy is falsified by 8 versus 16 J;",
+  "Treating vector momentum as the scalar sum 4+3=7 or assuming an e"
+];
+test('24 source-specific momentum case records and the 97-record invariant',()=>{assert.equal(Object.keys(lessons).length,97);assert.equal(cases.length,24);assert.equal(new Set(cases.map(c=>c.id)).size,24);assert.equal(new Set(cases.map(c=>c.q)).size,24);assert.equal(Object.values(lessons).filter(x=>x.essentialQuestion.startsWith('What does ')).length,0);for(const c of cases){const x=lessons[c.id];assert.ok(x,c.id);assert.equal(x.essentialQuestion,c.q);assert.equal(x.reasoningSteps.length,6);assert.equal(x.labPlan.length,6);assert.ok(x.reasoningSteps.every(s=>s.length>=90),c.id);assert.ok(x.labPlan.every(s=>s.length>=90),c.id);assert.ok(x.reasoningSteps[1].startsWith(c.workAnchor),c.id);assert.ok(x.labPlan[3].includes(c.labAnchor),c.id);assert.ok(x.reasoningSteps[5].includes(sourceRoot+c.source));assert.ok(x.labPlan[5].includes(sourceRoot+c.source));assert.ok(x.reasoningSteps[3].startsWith(falsAnchors[cases.indexOf(c)]),c.id);assert.ok(x.verifiedBoundary&&x.technical&&x.memoryLadder&&x.vocabulary&&x.video,c.id);}});
+function close(a,b){assert.ok(Math.abs(a-b)<1e-8,'expected '+b+', got '+a)}
+test("Independent numerical case 1 physics-v09-evidence-verificat-impulse-momentum-theorem-2",()=>{close(((.1*(0+10)/2+.1*(10+0)/2)),(1));});
+test("Independent numerical case 2 physics-v10-trace-lab-impulse-momentum-theorem",()=>{close((20*.05-10*.1),(0));});
+test("Independent numerical case 3 physics-v10-reasoning-check-impulse-momentum-theorem",()=>{close(((.4*(2-(-3)))/.04),(50));});
+test("Independent numerical case 4 physics-v10-explain-back-challenge-impulse-momentum-theorem",()=>{close((1.2*(1-5)/.12),(-40));});
+test("Independent numerical case 5 physics-v10-decision-matrix-lab-linear-momentum",()=>{close((Math.hypot(2*3,2*4)),(10));});
+test("Independent numerical case 6 physics-v10-worked-walkthrough-linear-momentum",()=>{close((1.5*-2.4),(-3.6));});
+test("Independent numerical case 7 physics-v10-field-note-linear-momentum",()=>{close((.75*(7.2*1000/3600)),(1.5));});
+test("Independent numerical case 8 physics-v10-confidence-calibration-momentum-conservation",()=>{close(((.5*2*9+.5*1*9)-(.5*3*1**2)),(12));});
+test("Independent numerical case 9 physics-v10-checklist-lab-momentum-conservation",()=>{close(((.5*4+1.5*(-1))/(.5+1.5)),(.25));});
+test("Independent numerical case 10 physics-v10-exam-style-practice-impulse-momentum-theorem",()=>{close((.2*(8-(-12))/.01),(400));});
+test("Independent numerical case 11 physics-v10-mistake-hunt-impulse-momentum-theorem",()=>{close((15*.2**2),(.6));});
+test("Independent numerical case 12 physics-v10-runbook-lab-impulse-momentum-theorem",()=>{close((80*.025/.5),(4));});
+test("Independent numerical case 13 physics-v10-transfer-lab-linear-momentum",()=>{close((.5*1.25*(36+64)),(62.5));});
+test("Independent numerical case 14 physics-v10-reasoning-check-linear-momentum",()=>{close((Math.hypot(2.4/.8,-3.2/.8)),(5));});
+test("Independent numerical case 15 physics-v10-explain-back-challenge-linear-momentum",()=>{close((Math.hypot(.2*15,-.2*15)),(Math.sqrt(18)));});
+test("Independent numerical case 16 physics-v10-measurement-lab-momentum-conservation",()=>{close((1*1.05+1*.95-(1*4+1*(-2))),(0));});
+test("Independent numerical case 17 physics-v10-worked-walkthrough-momentum-conservation",()=>{close(((0.5*1*4**2+0.5*1*2**2)-.5*(1+1)*1**2),(9));});
+test("Independent numerical case 18 physics-v10-field-note-impulse-momentum-theorem",()=>{close((70*(0-15)/.15),(-7000));});
+test("Independent numerical case 19 physics-v10-confidence-calibration-impulse-momentum-theorem",()=>{close((20*.1-5*.2),(1));});
+test("Independent numerical case 20 physics-v10-counterexample-lab-impulse-momentum-theorem",()=>{close((10*.2-20*.1),(0));});
+test("Independent numerical case 21 physics-v10-exam-style-practice-linear-momentum",()=>{close(((.5*.15*40**2)/(.5*.15*20**2)),(4));});
+test("Independent numerical case 22 physics-v10-mistake-hunt-linear-momentum",()=>{close((1*3+2*(-2)),(-1));});
+test("Independent numerical case 23 physics-v10-decision-brief-linear-momentum",()=>{close(((8**2/(2*2))/(8**2/(2*4))),(2));});
+test("Independent numerical case 24 physics-v10-prediction-lab-momentum-conservation",()=>{close((Math.hypot(4/3,1)),(5/3));});

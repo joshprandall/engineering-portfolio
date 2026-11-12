@@ -1,0 +1,802 @@
+[
+  {
+    "index": 0,
+    "id": "physics-newton",
+    "model": "newton",
+    "params": [
+      10,
+      20
+    ],
+    "expected": 2,
+    "unit": "m/s²",
+    "changed": 1.0,
+    "source": "https://openstax.org/books/university-physics-volume-1/pages/5-3-newtons-second-law",
+    "essentialQuestion": "A 10 kg cart receives 20 N net horizontal force: what acceleration, and why does net rather than applied force enter Newton's second law?",
+    "law": "a=F_net/m",
+    "plusOnePercent": 1.9801980198019802
+  },
+  {
+    "index": 1,
+    "id": "physics-momentum",
+    "model": "impulse",
+    "params": [
+      0.25,
+      8,
+      -4
+    ],
+    "expected": -3,
+    "unit": "N·s",
+    "changed": -6.0,
+    "source": "https://openstax.org/books/university-physics-volume-1/pages/9-2-impulse-and-collisions",
+    "essentialQuestion": "A 0.25 kg ball reverses from +8 to −4 m/s: what signed impulse must the racket provide?",
+    "law": "J=m(v_f-v_i)",
+    "plusOnePercent": -3.0300000000000002
+  },
+  {
+    "index": 2,
+    "id": "physics-kinematics",
+    "model": "avgv",
+    "params": [
+      4,
+      34,
+      6
+    ],
+    "expected": 5,
+    "unit": "m/s",
+    "changed": 4.333333333333333,
+    "source": "https://openstax.org/books/university-physics-volume-1/pages/3-1-position-displacement-and-average-velocity",
+    "essentialQuestion": "A robot shifts from x=4 m to x=34 m in 6 s: what average velocity is consistent with its position record?",
+    "law": "v_avg=(x_f-x_i)/Δt",
+    "plusOnePercent": 4.993333333333333
+  },
+  {
+    "index": 3,
+    "id": "physics-dimensions",
+    "model": "dimension",
+    "params": [
+      9,
+      3
+    ],
+    "expected": 27,
+    "unit": "J",
+    "changed": 54,
+    "source": "https://openstax.org/books/university-physics-volume-1/pages/1-4-dimensional-analysis",
+    "essentialQuestion": "A constant 9 N push acts along a 3 m displacement: why is the product 27 J rather than 27 W?",
+    "law": "W=F_parallel Δx",
+    "plusOnePercent": 27.27
+  },
+  {
+    "index": 4,
+    "id": "physics-circular-motion",
+    "model": "circular",
+    "params": [
+      6,
+      3
+    ],
+    "expected": 12,
+    "unit": "m/s²",
+    "changed": 48.0,
+    "source": "https://openstax.org/books/university-physics-volume-1/pages/6-3-centripetal-force",
+    "essentialQuestion": "A turntable marker moves at constant 6 m/s on a 3 m radius: why is acceleration nonzero?",
+    "law": "a_r=v²/r",
+    "plusOnePercent": 12.241200000000001
+  },
+  {
+    "index": 5,
+    "id": "physics-torque",
+    "model": "torque",
+    "params": [
+      0.4,
+      30,
+      1
+    ],
+    "expected": 12,
+    "unit": "N·m",
+    "changed": 24.0,
+    "source": "https://openstax.org/books/university-physics-volume-1/pages/10-6-torque",
+    "essentialQuestion": "A 30 N tangential pull on a 0.40 m lever gives what moment about the hinge?",
+    "law": "τ=rF sinθ",
+    "plusOnePercent": 12.120000000000001
+  },
+  {
+    "index": 6,
+    "id": "physics-lab-projectile",
+    "model": "projectile",
+    "params": [
+      8,
+      5,
+      10
+    ],
+    "expected": 8,
+    "unit": "m",
+    "changed": 16.0,
+    "source": "https://openstax.org/books/university-physics-volume-1/pages/4-3-projectile-motion",
+    "essentialQuestion": "A ball leaves a table horizontally at 8 m/s from 5 m height: how far does it travel before impact?",
+    "law": "t_f=sqrt(2h/g); Δx=v_x t_f",
+    "plusOnePercent": 8.08
+  },
+  {
+    "index": 7,
+    "id": "physics-freebody",
+    "model": "fbd",
+    "params": [
+      28,
+      8,
+      5
+    ],
+    "expected": 4,
+    "unit": "m/s²",
+    "changed": 9.6,
+    "source": "https://openstax.org/books/university-physics-volume-1/pages/5-1-forces",
+    "essentialQuestion": "For a 5 kg cart pulled right by 28 N against 8 N resistive force, what signed acceleration follows?",
+    "law": "a=(F_right-F_left)/m",
+    "plusOnePercent": 4.056
+  },
+  {
+    "index": 8,
+    "id": "physics-gravity",
+    "model": "gravity",
+    "params": [
+      80,
+      2,
+      4
+    ],
+    "expected": 20,
+    "unit": "N",
+    "changed": 40.0,
+    "source": "https://openstax.org/books/university-physics-volume-1/pages/13-1-newtons-law-of-universal-gravitation",
+    "essentialQuestion": "A fixed gravitational pair exerts 80 N at 2 m separation: what force at 4 m?",
+    "law": "F_2=F_1(r_1/r_2)²",
+    "plusOnePercent": 20.2
+  },
+  {
+    "index": 9,
+    "id": "physics-angular-momentum",
+    "model": "angmom",
+    "params": [
+      2,
+      3
+    ],
+    "expected": 6,
+    "unit": "kg·m²/s",
+    "changed": 12,
+    "source": "https://openstax.org/books/university-physics-volume-1/pages/11-2-angular-momentum",
+    "essentialQuestion": "A rotor has moment of inertia 2 kg·m² at 3 rad/s: what angular momentum about its axle?",
+    "law": "L_z=I_z ω_z",
+    "plusOnePercent": 6.0600000000000005
+  },
+  {
+    "index": 10,
+    "id": "physics-v06-displacement-velocity-and-acceleration",
+    "model": "motion",
+    "params": [
+      5,
+      2,
+      4
+    ],
+    "expected": 36,
+    "unit": "m",
+    "changed": 56.0,
+    "source": "https://openstax.org/books/university-physics-volume-1/pages/3-4-motion-with-constant-acceleration",
+    "essentialQuestion": "Starting at 5 m/s with steady +2 m/s² acceleration, how far does a trolley move in 4 s?",
+    "law": "Δx=v_0t+(1/2)at²",
+    "plusOnePercent": 36.2
+  },
+  {
+    "index": 11,
+    "id": "physics-v06-constant-acceleration-kinematics",
+    "model": "motion",
+    "params": [
+      4,
+      -2,
+      3
+    ],
+    "expected": 3,
+    "unit": "m",
+    "changed": 15.0,
+    "source": "https://openstax.org/books/university-physics-volume-1/pages/3-4-motion-with-constant-acceleration",
+    "essentialQuestion": "A cart starts at +4 m/s and decelerates at 2 m/s² for 3 s: what signed displacement results?",
+    "law": "Δx=v_0t+(1/2)at²",
+    "plusOnePercent": 3.120000000000001
+  },
+  {
+    "index": 12,
+    "id": "physics-v06-newton-s-first-law",
+    "model": "first",
+    "params": [
+      9,
+      9
+    ],
+    "expected": 0,
+    "unit": "N",
+    "changed": -9,
+    "source": "https://openstax.org/books/university-physics-volume-1/pages/5-2-newtons-first-law",
+    "essentialQuestion": "Two opposing horizontal forces each have 9 N magnitude: what net force is predicted by Newton's first law?",
+    "law": "ΣF_x=F_right-F_left",
+    "plusOnePercent": -0.08999999999999986
+  },
+  {
+    "index": 13,
+    "id": "physics-v06-newton-s-third-law",
+    "model": "third",
+    "params": [
+      12,
+      3,
+      6
+    ],
+    "expected": 4,
+    "unit": "m/s²",
+    "changed": 8.0,
+    "source": "https://openstax.org/books/university-physics-volume-1/pages/5-5-newtons-third-law",
+    "essentialQuestion": "A 12 N interaction acts on 3 kg and 6 kg bodies: why are the contact-force magnitudes equal but accelerations different?",
+    "law": "a_1=F_contact/m_1; a_2=F_contact/m_2",
+    "plusOnePercent": 4.04
+  },
+  {
+    "index": 14,
+    "id": "physics-v06-friction-forces",
+    "model": "friction",
+    "params": [
+      0.3,
+      10,
+      10
+    ],
+    "expected": 30,
+    "unit": "N",
+    "changed": 60.0,
+    "source": "https://openstax.org/books/university-physics-volume-1/pages/6-2-friction",
+    "essentialQuestion": "A 10 kg block slides with kinetic coefficient 0.30 on a horizontal surface: what drag magnitude is modeled?",
+    "law": "f_k=μ_k N=μ_k m g",
+    "plusOnePercent": 30.299999999999997
+  },
+  {
+    "index": 15,
+    "id": "physics-v08-deep-dive-displacement",
+    "model": "displacement",
+    "params": [
+      -3,
+      7
+    ],
+    "expected": 10,
+    "unit": "m",
+    "changed": 13,
+    "source": "https://openstax.org/books/university-physics-volume-1/pages/3-1-position-displacement-and-average-velocity",
+    "essentialQuestion": "A cart ends at +7 m after beginning at −3 m: what signed displacement does its coordinate change imply?",
+    "law": "Δx=x_f-x_i",
+    "plusOnePercent": 10.030000000000001
+  },
+  {
+    "index": 16,
+    "id": "physics-v08-evidence-lab-displacement",
+    "model": "displacement",
+    "params": [
+      12,
+      -8
+    ],
+    "expected": -20,
+    "unit": "m",
+    "changed": -32,
+    "source": "https://openstax.org/books/university-physics-volume-1/pages/3-1-position-displacement-and-average-velocity",
+    "essentialQuestion": "A shuttle passes from +12 m to −8 m: why is its displacement −20 m rather than +20 m?",
+    "law": "Δx=x_f-x_i",
+    "plusOnePercent": -20.12
+  },
+  {
+    "index": 17,
+    "id": "physics-v08-deep-dive-average-velocity",
+    "model": "avgv",
+    "params": [
+      2,
+      26,
+      8
+    ],
+    "expected": 3,
+    "unit": "m/s",
+    "changed": 2.75,
+    "source": "https://openstax.org/books/university-physics-volume-1/pages/3-1-position-displacement-and-average-velocity",
+    "essentialQuestion": "An encoder reports positions 2 m and 26 m eight seconds apart: what average signed velocity follows?",
+    "law": "v_avg=(x_f-x_i)/Δt",
+    "plusOnePercent": 2.9975
+  },
+  {
+    "index": 18,
+    "id": "physics-v08-evidence-lab-average-velocity",
+    "model": "avgv",
+    "params": [
+      11,
+      -1,
+      4
+    ],
+    "expected": -3,
+    "unit": "m/s",
+    "changed": -5.75,
+    "source": "https://openstax.org/books/university-physics-volume-1/pages/3-1-position-displacement-and-average-velocity",
+    "essentialQuestion": "A reversing vehicle moves from x=11 m to x=−1 m over 4 s: what is its average velocity?",
+    "law": "v_avg=(x_f-x_i)/Δt",
+    "plusOnePercent": -3.0275
+  },
+  {
+    "index": 19,
+    "id": "physics-v08-deep-dive-instantaneous-velocity",
+    "model": "instant",
+    "params": [
+      2,
+      3,
+      2
+    ],
+    "expected": 14,
+    "unit": "m/s",
+    "changed": 16,
+    "source": "https://openstax.org/books/university-physics-volume-1/pages/3-2-instantaneous-velocity-and-speed",
+    "essentialQuestion": "For x(t)=x₀+2t+3t² (SI units), what is instantaneous velocity at t=2 s?",
+    "law": "v(t)=d[x_0+c_1 t+c_2 t²]/dt=c_1+2c_2 t",
+    "plusOnePercent": 14.02
+  },
+  {
+    "index": 20,
+    "id": "physics-v08-evidence-lab-instantaneous-velocity",
+    "model": "instant",
+    "params": [
+      -4,
+      1.5,
+      3
+    ],
+    "expected": 5,
+    "unit": "m/s",
+    "changed": 1.0,
+    "source": "https://openstax.org/books/university-physics-volume-1/pages/3-2-instantaneous-velocity-and-speed",
+    "essentialQuestion": "For x(t)=x₀−4t+1.5t², does the instantaneous velocity at t=3 s point right or left?",
+    "law": "v(t)=d[x_0+c_1 t+c_2 t²]/dt=c_1+2c_2 t",
+    "plusOnePercent": 4.96
+  },
+  {
+    "index": 21,
+    "id": "physics-v08-deep-dive-acceleration",
+    "model": "accel",
+    "params": [
+      3,
+      15,
+      4
+    ],
+    "expected": 3,
+    "unit": "m/s²",
+    "changed": 2.25,
+    "source": "https://openstax.org/books/university-physics-volume-1/pages/3-3-average-and-instantaneous-acceleration",
+    "essentialQuestion": "A velocity log rises from 3 to 15 m/s in 4 s: what average acceleration is measurable?",
+    "law": "a_avg=(v_f-v_i)/Δt",
+    "plusOnePercent": 2.9924999999999997
+  },
+  {
+    "index": 22,
+    "id": "physics-v08-evidence-lab-acceleration",
+    "model": "accel",
+    "params": [
+      -6,
+      2,
+      4
+    ],
+    "expected": 2,
+    "unit": "m/s²",
+    "changed": 3.5,
+    "source": "https://openstax.org/books/university-physics-volume-1/pages/3-3-average-and-instantaneous-acceleration",
+    "essentialQuestion": "A body moves at −6 m/s then +2 m/s four seconds later: why is its average acceleration positive?",
+    "law": "a_avg=(v_f-v_i)/Δt",
+    "plusOnePercent": 2.015
+  },
+  {
+    "index": 23,
+    "id": "physics-v08-deep-dive-newton-first-law",
+    "model": "first",
+    "params": [
+      12,
+      12
+    ],
+    "expected": 0,
+    "unit": "N",
+    "changed": -12,
+    "source": "https://openstax.org/books/university-physics-volume-1/pages/5-2-newtons-first-law",
+    "essentialQuestion": "A gliding puck receives +12 N and −12 N horizontal forces: can it still move at 5 m/s?",
+    "law": "ΣF_x=F_right-F_left",
+    "plusOnePercent": -0.120000000000001
+  },
+  {
+    "index": 24,
+    "id": "physics-v08-evidence-lab-newton-first-law",
+    "model": "first",
+    "params": [
+      12,
+      15
+    ],
+    "expected": 3,
+    "unit": "N",
+    "changed": -9,
+    "source": "https://openstax.org/books/university-physics-volume-1/pages/5-2-newtons-first-law",
+    "essentialQuestion": "A force balance has 12 N left and 15 N right: does the first-law equilibrium criterion hold?",
+    "law": "ΣF_x=F_right-F_left",
+    "plusOnePercent": 2.879999999999999
+  },
+  {
+    "index": 25,
+    "id": "physics-v08-deep-dive-newton-second-law",
+    "model": "newton",
+    "params": [
+      4,
+      18
+    ],
+    "expected": 4.5,
+    "unit": "m/s²",
+    "changed": 2.25,
+    "source": "https://openstax.org/books/university-physics-volume-1/pages/5-3-newtons-second-law",
+    "essentialQuestion": "A 4 kg sled experiences 18 N net force: what acceleration is predicted under fixed-mass dynamics?",
+    "law": "a=F_net/m",
+    "plusOnePercent": 4.455445544554456
+  },
+  {
+    "index": 26,
+    "id": "physics-v08-evidence-lab-newton-second-law",
+    "model": "newton",
+    "params": [
+      6,
+      -12
+    ],
+    "expected": -2,
+    "unit": "m/s²",
+    "changed": -1.0,
+    "source": "https://openstax.org/books/university-physics-volume-1/pages/5-3-newtons-second-law",
+    "essentialQuestion": "A 6 kg platform has −12 N net force: how should the sign of acceleration be reported?",
+    "law": "a=F_net/m",
+    "plusOnePercent": -1.98019801980198
+  },
+  {
+    "index": 27,
+    "id": "physics-v08-deep-dive-newton-third-law",
+    "model": "third",
+    "params": [
+      20,
+      5,
+      10
+    ],
+    "expected": 4,
+    "unit": "m/s²",
+    "changed": 8.0,
+    "source": "https://openstax.org/books/university-physics-volume-1/pages/5-5-newtons-third-law",
+    "essentialQuestion": "A 5 kg runner pushes a 10 kg cart with 20 N: how do their action-reaction forces differ from accelerations?",
+    "law": "a_1=F_contact/m_1; a_2=F_contact/m_2",
+    "plusOnePercent": 4.04
+  },
+  {
+    "index": 28,
+    "id": "physics-v08-evidence-lab-newton-third-law",
+    "model": "third",
+    "params": [
+      30,
+      6,
+      3
+    ],
+    "expected": 5,
+    "unit": "m/s²",
+    "changed": 10.0,
+    "source": "https://openstax.org/books/university-physics-volume-1/pages/5-5-newtons-third-law",
+    "essentialQuestion": "A 6 kg body and a 3 kg body exchange ±30 N contact forces: which receives larger acceleration magnitude?",
+    "law": "a_1=F_contact/m_1; a_2=F_contact/m_2",
+    "plusOnePercent": 5.05
+  },
+  {
+    "index": 29,
+    "id": "physics-v08-deep-dive-free-body-diagram",
+    "model": "fbd",
+    "params": [
+      42,
+      18,
+      6
+    ],
+    "expected": 4,
+    "unit": "m/s²",
+    "changed": 11.0,
+    "source": "https://openstax.org/books/university-physics-volume-1/pages/5-1-forces",
+    "essentialQuestion": "A 6 kg sample is pulled by 42 N right and 18 N left: what is the free-body residual acceleration?",
+    "law": "a=(F_right-F_left)/m",
+    "plusOnePercent": 4.07
+  },
+  {
+    "index": 30,
+    "id": "physics-v08-evidence-lab-free-body-diagram",
+    "model": "fbd",
+    "params": [
+      12,
+      24,
+      4
+    ],
+    "expected": -3,
+    "unit": "m/s²",
+    "changed": 0.0,
+    "source": "https://openstax.org/books/university-physics-volume-1/pages/5-1-forces",
+    "essentialQuestion": "A 4 kg platform has 12 N drive right and 24 N braking left: what direction does acceleration take?",
+    "law": "a=(F_right-F_left)/m",
+    "plusOnePercent": -2.9699999999999998
+  },
+  {
+    "index": 31,
+    "id": "physics-v09-failure-analysis-lab-acceleration",
+    "model": "accel",
+    "params": [
+      18,
+      6,
+      3
+    ],
+    "expected": -4,
+    "unit": "m/s²",
+    "changed": -10.0,
+    "source": "https://openstax.org/books/university-physics-volume-1/pages/3-3-average-and-instantaneous-acceleration",
+    "essentialQuestion": "An acceleration estimate has 18 m/s and 6 m/s speed samples 3 s apart: what signed average is justified?",
+    "law": "a_avg=(v_f-v_i)/Δt",
+    "plusOnePercent": -4.06
+  },
+  {
+    "index": 32,
+    "id": "physics-v09-teach-back-lab-acceleration",
+    "model": "accel",
+    "params": [
+      0,
+      20,
+      5
+    ],
+    "expected": 4,
+    "unit": "m/s²",
+    "changed": 4.0,
+    "source": "https://openstax.org/books/university-physics-volume-1/pages/3-3-average-and-instantaneous-acceleration",
+    "essentialQuestion": "A start-from-rest experiment reaches 20 m/s in 5 s: which acceleration model is supported by endpoints?",
+    "law": "a_avg=(v_f-v_i)/Δt",
+    "plusOnePercent": 4.0
+  },
+  {
+    "index": 33,
+    "id": "physics-v09-evidence-verification-la-angular-momentum",
+    "model": "angmom",
+    "params": [
+      0.8,
+      5
+    ],
+    "expected": 4,
+    "unit": "kg·m²/s",
+    "changed": 8.0,
+    "source": "https://openstax.org/books/university-physics-volume-1/pages/11-2-angular-momentum",
+    "essentialQuestion": "A wheel has I=0.8 kg·m² and angular speed 5 rad/s: what axial angular momentum should an encoder-based model report?",
+    "law": "L_z=I_z ω_z",
+    "plusOnePercent": 4.04
+  },
+  {
+    "index": 34,
+    "id": "physics-v09-troubleshooting-lab-average-velocity",
+    "model": "avgv",
+    "params": [
+      8,
+      8,
+      4
+    ],
+    "expected": 0,
+    "unit": "m/s",
+    "changed": -2.0,
+    "source": "https://openstax.org/books/university-physics-volume-1/pages/3-1-position-displacement-and-average-velocity",
+    "essentialQuestion": "A vehicle returns to x=8 m after four seconds: what does zero average velocity actually establish?",
+    "law": "v_avg=(x_f-x_i)/Δt",
+    "plusOnePercent": -0.020000000000000018
+  },
+  {
+    "index": 35,
+    "id": "physics-v09-practical-lab-average-velocity",
+    "model": "avgv",
+    "params": [
+      -9,
+      15,
+      6
+    ],
+    "expected": 4,
+    "unit": "m/s",
+    "changed": 5.5,
+    "source": "https://openstax.org/books/university-physics-volume-1/pages/3-1-position-displacement-and-average-velocity",
+    "essentialQuestion": "An optical position marker progresses from −9 m to +15 m in 6 s: what signed average follows?",
+    "law": "v_avg=(x_f-x_i)/Δt",
+    "plusOnePercent": 4.015
+  },
+  {
+    "index": 36,
+    "id": "physics-v09-quick-reference-circular-motion-acceleration-without-changing-speed",
+    "model": "circular",
+    "params": [
+      10,
+      5
+    ],
+    "expected": 20,
+    "unit": "m/s²",
+    "changed": 80.0,
+    "source": "https://openstax.org/books/university-physics-volume-1/pages/6-3-centripetal-force",
+    "essentialQuestion": "A vehicle turns at 10 m/s around a 5 m-radius curve: what inward acceleration is required even at steady speed?",
+    "law": "a_r=v²/r",
+    "plusOnePercent": 20.401999999999997
+  },
+  {
+    "index": 37,
+    "id": "physics-v09-design-review-constant-acceleration-kinematics",
+    "model": "motion",
+    "params": [
+      2,
+      3,
+      4
+    ],
+    "expected": 32,
+    "unit": "m",
+    "changed": 40.0,
+    "source": "https://openstax.org/books/university-physics-volume-1/pages/3-4-motion-with-constant-acceleration",
+    "essentialQuestion": "A trolley begins at 2 m/s and accelerates at 3 m/s² for 4 s: what displacement follows?",
+    "law": "Δx=v_0t+(1/2)at²",
+    "plusOnePercent": 32.08
+  },
+  {
+    "index": 38,
+    "id": "physics-v09-misconception-clinic-dimensional-analysis-let-the-units-check-the-physics",
+    "model": "dimension",
+    "params": [
+      14,
+      0.5
+    ],
+    "expected": 7,
+    "unit": "J",
+    "changed": 14.0,
+    "source": "https://openstax.org/books/university-physics-volume-1/pages/1-4-dimensional-analysis",
+    "essentialQuestion": "A 14 N axial pull through 0.5 m does what amount of work, and which unit products are legal?",
+    "law": "W=F_parallel Δx",
+    "plusOnePercent": 7.07
+  },
+  {
+    "index": 39,
+    "id": "physics-v09-recall-drill-displacement",
+    "model": "displacement",
+    "params": [
+      9,
+      2
+    ],
+    "expected": -7,
+    "unit": "m",
+    "changed": -16,
+    "source": "https://openstax.org/books/university-physics-volume-1/pages/3-1-position-displacement-and-average-velocity",
+    "essentialQuestion": "A sensor begins at +9 m and ends at +2 m: how does a negative displacement arise without crossing zero?",
+    "law": "Δx=x_f-x_i",
+    "plusOnePercent": -7.09
+  },
+  {
+    "index": 40,
+    "id": "physics-v09-scenario-analysis-displacement",
+    "model": "displacement",
+    "params": [
+      -6,
+      6
+    ],
+    "expected": 12,
+    "unit": "m",
+    "changed": 18,
+    "source": "https://openstax.org/books/university-physics-volume-1/pages/3-1-position-displacement-and-average-velocity",
+    "essentialQuestion": "A cart crosses the origin from −6 m to +6 m: what is its total signed change in position?",
+    "law": "Δx=x_f-x_i",
+    "plusOnePercent": 12.06
+  },
+  {
+    "index": 41,
+    "id": "physics-v09-worked-example-displacement-velocity-and-acceleration",
+    "model": "motion",
+    "params": [
+      3,
+      2,
+      5
+    ],
+    "expected": 40,
+    "unit": "m",
+    "changed": 55.0,
+    "source": "https://openstax.org/books/university-physics-volume-1/pages/3-4-motion-with-constant-acceleration",
+    "essentialQuestion": "An accelerating cart begins at 3 m/s, maintains +2 m/s² for 5 s: how much ground is covered?",
+    "law": "Δx=v_0t+(1/2)at²",
+    "plusOnePercent": 40.150000000000006
+  },
+  {
+    "index": 42,
+    "id": "physics-v09-decision-lab-free-body-diagram",
+    "model": "fbd",
+    "params": [
+      25,
+      25,
+      10
+    ],
+    "expected": 0,
+    "unit": "m/s²",
+    "changed": 2.5,
+    "source": "https://openstax.org/books/university-physics-volume-1/pages/5-1-forces",
+    "essentialQuestion": "A 10 kg crate has 25 N pulls in opposite directions: what horizontal acceleration results?",
+    "law": "a=(F_right-F_left)/m",
+    "plusOnePercent": 0.025
+  },
+  {
+    "index": 43,
+    "id": "physics-v09-failure-analysis-lab-free-body-diagram",
+    "model": "fbd",
+    "params": [
+      9,
+      21,
+      6
+    ],
+    "expected": -2,
+    "unit": "m/s²",
+    "changed": -0.5,
+    "source": "https://openstax.org/books/university-physics-volume-1/pages/5-1-forces",
+    "essentialQuestion": "A 6 kg platform sees 9 N right and 21 N left: why must the force-balance diagram include signs?",
+    "law": "a=(F_right-F_left)/m",
+    "plusOnePercent": -1.985
+  },
+  {
+    "index": 44,
+    "id": "physics-v09-teach-back-lab-free-body-diagrams",
+    "model": "fbd",
+    "params": [
+      33,
+      18,
+      3
+    ],
+    "expected": 5,
+    "unit": "m/s²",
+    "changed": 16.0,
+    "source": "https://openstax.org/books/university-physics-volume-1/pages/5-1-forces",
+    "essentialQuestion": "A 3 kg cart carries a 33 N motor force opposed by 18 N drag: what motion trend does its free-body diagram predict?",
+    "law": "a=(F_right-F_left)/m",
+    "plusOnePercent": 5.109999999999999
+  },
+  {
+    "index": 45,
+    "id": "physics-v09-evidence-verification-la-friction-forces",
+    "model": "friction",
+    "params": [
+      0.2,
+      15,
+      10
+    ],
+    "expected": 30,
+    "unit": "N",
+    "changed": 60.0,
+    "source": "https://openstax.org/books/university-physics-volume-1/pages/6-2-friction",
+    "essentialQuestion": "An already-sliding 15 kg crate has μₖ=0.20 on a level surface: what kinetic-friction magnitude follows?",
+    "law": "f_k=μ_k N=μ_k m g",
+    "plusOnePercent": 30.300000000000004
+  },
+  {
+    "index": 46,
+    "id": "physics-v09-troubleshooting-lab-instantaneous-velocity",
+    "model": "instant",
+    "params": [
+      1,
+      2,
+      4
+    ],
+    "expected": 17,
+    "unit": "m/s",
+    "changed": 18,
+    "source": "https://openstax.org/books/university-physics-volume-1/pages/3-2-instantaneous-velocity-and-speed",
+    "essentialQuestion": "For x(t)=x₀+t+2t², what instantaneous slope should a t=4 s velocity measurement approach?",
+    "law": "v(t)=d[x_0+c_1 t+c_2 t²]/dt=c_1+2c_2 t",
+    "plusOnePercent": 17.01
+  },
+  {
+    "index": 47,
+    "id": "physics-v09-practical-lab-instantaneous-velocity",
+    "model": "instant",
+    "params": [
+      5,
+      -1,
+      2
+    ],
+    "expected": 1,
+    "unit": "m/s",
+    "changed": 6,
+    "source": "https://openstax.org/books/university-physics-volume-1/pages/3-2-instantaneous-velocity-and-speed",
+    "essentialQuestion": "For x(t)=x₀+5t−t², how can velocity remain positive at t=2 s while acceleration is negative?",
+    "law": "v(t)=d[x_0+c_1 t+c_2 t²]/dt=c_1+2c_2 t",
+    "plusOnePercent": 1.0499999999999998
+  }
+]

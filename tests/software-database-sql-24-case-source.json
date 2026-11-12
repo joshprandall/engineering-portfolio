@@ -1,0 +1,828 @@
+[
+  {
+    "id": "software-v08-deep-dive-sql-inner-join",
+    "question": "For two customers and three orders, how many order rows survive an INNER JOIN and which customer names repeat?",
+    "mechanism": "Each order matches exactly one existing customer_id; the join is many-to-one, not a customer deduplication operation.",
+    "arithmetic": "Ada contributes two orders (9 and 12) and Bo one (7): three joined rows, with Ada repeated.",
+    "check": "Count orders by parent key independently: 2+1=3, then confirm each emitted value is sourced from the corresponding order.",
+    "wrong": "A join does not emit one row per customer; SELECT DISTINCT would erase legitimate order multiplicity.",
+    "variation": "Delete order 11 and recompute: output count becomes two rather than three.",
+    "setup": [
+      "CREATE TABLE customers(id INTEGER PRIMARY KEY,name TEXT)",
+      "CREATE TABLE orders(id INTEGER,customer_id INTEGER,amount INTEGER)",
+      "INSERT INTO customers VALUES (1,'Ada'),(2,'Bo')",
+      "INSERT INTO orders VALUES (10,1,9),(11,1,12),(12,2,7)"
+    ],
+    "sql": "SELECT c.name,o.amount FROM customers c INNER JOIN orders o ON c.id=o.customer_id ORDER BY o.id",
+    "expected": [
+      [
+        "Ada",
+        9
+      ],
+      [
+        "Ada",
+        12
+      ],
+      [
+        "Bo",
+        7
+      ]
+    ],
+    "alternate": "DELETE FROM orders WHERE id=11; SELECT COUNT(*) FROM customers c JOIN orders o ON c.id=o.customer_id",
+    "altExpected": [
+      [
+        2
+      ]
+    ],
+    "source": "https://www.postgresql.org/docs/18/queries-table-expressions.html",
+    "engineScope": "SQLite in-memory execution for shared SQL semantics; PostgreSQL 18 documentation is conceptual provenance, not evidence of an executed PostgreSQL server.",
+    "index": 1
+  },
+  {
+    "id": "software-v08-evidence-lab-sql-inner-join",
+    "question": "If two left rows and two right rows all share key 7, why does an equality join return four pairs rather than two?",
+    "mechanism": "Duplicate join keys create pairwise matches within the key group; neither side is guaranteed unique.",
+    "arithmetic": "Two left matches times two right matches gives 2×2=4 ordered (left_id,right_id) combinations.",
+    "check": "Enumerate (1,8),(1,9),(2,8),(2,9) by hand before executing the SQL.",
+    "wrong": "Assuming 1:1 joins without declaring key uniqueness loses multiplicity and can inflate aggregates.",
+    "variation": "Restrict left_id=1, retaining only two matching combinations.",
+    "setup": [
+      "CREATE TABLE l(id INTEGER,k INTEGER)",
+      "CREATE TABLE r(id INTEGER,k INTEGER)",
+      "INSERT INTO l VALUES (1,7),(2,7)",
+      "INSERT INTO r VALUES (8,7),(9,7)"
+    ],
+    "sql": "SELECT l.id,r.id FROM l JOIN r ON l.k=r.k ORDER BY l.id,r.id",
+    "expected": [
+      [
+        1,
+        8
+      ],
+      [
+        1,
+        9
+      ],
+      [
+        2,
+        8
+      ],
+      [
+        2,
+        9
+      ]
+    ],
+    "alternate": "SELECT COUNT(*) FROM l JOIN r ON l.k=r.k WHERE l.id=1",
+    "altExpected": [
+      [
+        2
+      ]
+    ],
+    "source": "https://www.postgresql.org/docs/18/queries-table-expressions.html",
+    "engineScope": "SQLite in-memory execution for shared SQL semantics; PostgreSQL 18 documentation is conceptual provenance, not evidence of an executed PostgreSQL server.",
+    "index": 2
+  },
+  {
+    "id": "software-v08-deep-dive-sql-left-outer-join",
+    "question": "Which customer survives a LEFT JOIN when three parents include one without any order?",
+    "mechanism": "LEFT JOIN preserves each parent, NULL-extending child columns for unmatched rows. For an equality join ON c.id=o.customer_id, a matched row necessarily has non-NULL o.customer_id, whereas o.id may legitimately be NULL.",
+    "arithmetic": "Parent 2 has no order, producing the row (2,NULL) alongside (1,5) and (3,15).",
+    "check": "Verify three parent IDs and missing child for parent 2. Then add a real matching child with NULL o.id; the o.id IS NULL predicate creates a false positive for parent 1, while o.customer_id IS NULL does not.",
+    "wrong": "Incorrect anti-join shortcut: WHERE o.id IS NULL. A matched order may have NULL id, so it can be misclassified as unmatched; the right-side join key (o.customer_id) is a sound witness under this equality join.",
+    "variation": "Filter unmatched children using WHERE o.customer_id IS NULL, yielding only customer 2 even when a matched child has NULL o.id.",
+    "setup": [
+      "CREATE TABLE c(id INTEGER PRIMARY KEY)",
+      "CREATE TABLE o(id INTEGER,customer_id INTEGER,amount INTEGER)",
+      "INSERT INTO c VALUES (1),(2),(3)",
+      "INSERT INTO o VALUES (101,1,5),(103,3,15)"
+    ],
+    "sql": "SELECT c.id,o.amount FROM c LEFT JOIN o ON c.id=o.customer_id ORDER BY c.id",
+    "expected": [
+      [
+        1,
+        5
+      ],
+      [
+        2,
+        null
+      ],
+      [
+        3,
+        15
+      ]
+    ],
+    "alternate": "SELECT c.id FROM c LEFT JOIN o ON c.id=o.customer_id WHERE o.customer_id IS NULL",
+    "altExpected": [
+      [
+        2
+      ]
+    ],
+    "source": "https://www.postgresql.org/docs/18/queries-table-expressions.html",
+    "engineScope": "SQLite in-memory execution for shared SQL semantics; PostgreSQL 18 documentation is conceptual provenance, not evidence of an executed PostgreSQL server.",
+    "index": 3
+  },
+  {
+    "id": "software-v08-evidence-lab-sql-left-outer-join",
+    "question": "Why do predicate placements ON o.amount>=10 and WHERE o.amount>=10 produce different left-join cardinalities?",
+    "mechanism": "ON conditions determine whether right rows match; WHERE executes afterward and excludes NULL-extended rows when the predicate is unknown.",
+    "arithmetic": "For amounts 5 and 15 with an unmatched parent, ON yields three parents (two NULL-extended) but WHERE keeps only (3,15).",
+    "check": "Evaluate three-valued logic for NULL>=10: UNKNOWN is not retained by WHERE.",
+    "wrong": "Moving a right-side filter from ON into WHERE is not semantics-preserving for an outer join.",
+    "variation": "Change query to WHERE o.amount>=10; confirm the result contracts to one row.",
+    "setup": [
+      "CREATE TABLE c(id INTEGER)",
+      "CREATE TABLE o(customer_id INTEGER,amount INTEGER)",
+      "INSERT INTO c VALUES(1),(2),(3)",
+      "INSERT INTO o VALUES(1,5),(3,15)"
+    ],
+    "sql": "SELECT c.id,o.amount FROM c LEFT JOIN o ON c.id=o.customer_id AND o.amount>=10 ORDER BY c.id",
+    "expected": [
+      [
+        1,
+        null
+      ],
+      [
+        2,
+        null
+      ],
+      [
+        3,
+        15
+      ]
+    ],
+    "alternate": "SELECT c.id,o.amount FROM c LEFT JOIN o ON c.id=o.customer_id WHERE o.amount>=10 ORDER BY c.id",
+    "altExpected": [
+      [
+        3,
+        15
+      ]
+    ],
+    "source": "https://www.postgresql.org/docs/18/queries-table-expressions.html",
+    "engineScope": "SQLite in-memory execution for shared SQL semantics; PostgreSQL 18 documentation is conceptual provenance, not evidence of an executed PostgreSQL server.",
+    "index": 4
+  },
+  {
+    "id": "software-v08-deep-dive-sql-cross-join",
+    "question": "How many combinations arise when two colors are paired with three shapes using CROSS JOIN?",
+    "mechanism": "A Cartesian product forms one row for each independent left-right choice, without a join condition.",
+    "arithmetic": "Colors {red,blue} and shapes {circle,square,star} create 2×3=6 pairings.",
+    "check": "Enumerate all three shapes for each color; the count must equal the product of source cardinalities.",
+    "wrong": "CROSS JOIN is not automatically erroneous; it is suitable when a complete combination grid is intended.",
+    "variation": "Filter color to red after the cross join; only three pairings remain.",
+    "setup": [
+      "CREATE TABLE colors(name TEXT)",
+      "CREATE TABLE shapes(name TEXT)",
+      "INSERT INTO colors VALUES('blue'),('red')",
+      "INSERT INTO shapes VALUES('circle'),('square'),('star')"
+    ],
+    "sql": "SELECT c.name,s.name FROM colors c CROSS JOIN shapes s ORDER BY c.name,s.name",
+    "expected": [
+      [
+        "blue",
+        "circle"
+      ],
+      [
+        "blue",
+        "square"
+      ],
+      [
+        "blue",
+        "star"
+      ],
+      [
+        "red",
+        "circle"
+      ],
+      [
+        "red",
+        "square"
+      ],
+      [
+        "red",
+        "star"
+      ]
+    ],
+    "alternate": "SELECT COUNT(*) FROM colors CROSS JOIN shapes WHERE colors.name='red'",
+    "altExpected": [
+      [
+        3
+      ]
+    ],
+    "source": "https://www.postgresql.org/docs/18/queries-table-expressions.html",
+    "engineScope": "SQLite in-memory execution for shared SQL semantics; PostgreSQL 18 documentation is conceptual provenance, not evidence of an executed PostgreSQL server.",
+    "index": 5
+  },
+  {
+    "id": "software-v08-evidence-lab-sql-cross-join",
+    "question": "What happens to a Cartesian product if one input relation contains no rows?",
+    "mechanism": "The Cartesian product cardinality is |A|×|B|; an empty input annihilates all combinations.",
+    "arithmetic": "A has zero rows and B has three: 0×3=0 joined rows, even though B is populated.",
+    "check": "Verify COUNT(*) on each input independently before taking the product.",
+    "wrong": "The existence of rows on one side cannot produce any cross-product pairs by itself.",
+    "variation": "Insert one row into A and recompute the cross count: it becomes three.",
+    "setup": [
+      "CREATE TABLE a(x INTEGER)",
+      "CREATE TABLE b(y INTEGER)",
+      "INSERT INTO b VALUES(10),(20),(30)"
+    ],
+    "sql": "SELECT COUNT(*) FROM a CROSS JOIN b",
+    "expected": [
+      [
+        0
+      ]
+    ],
+    "alternate": "INSERT INTO a VALUES(1); SELECT COUNT(*) FROM a CROSS JOIN b",
+    "altExpected": [
+      [
+        3
+      ]
+    ],
+    "source": "https://www.postgresql.org/docs/18/queries-table-expressions.html",
+    "engineScope": "SQLite in-memory execution for shared SQL semantics; PostgreSQL 18 documentation is conceptual provenance, not evidence of an executed PostgreSQL server.",
+    "index": 6
+  },
+  {
+    "id": "software-v08-deep-dive-sql-aggregate-functions",
+    "question": "When SUM sees values 5,NULL,7, why is the total 12 rather than NULL?",
+    "mechanism": "SUM ignores SQL NULL inputs and aggregates non-NULL values; the all-NULL case is a separate edge condition.",
+    "arithmetic": "The nonmissing contributions are 5+7=12, with NULL not treated as a numerical zero datum.",
+    "check": "Check COUNT(v)=2 and COUNT(*)=3 to expose exactly which input was excluded.",
+    "wrong": "Replacing an unknown measurement with zero changes data meaning even if this dataset's sum coincides.",
+    "variation": "Filter to rows WHERE v IS NULL: SUM then yields NULL, not 0.",
+    "setup": [
+      "CREATE TABLE measures(v INTEGER)",
+      "INSERT INTO measures VALUES(5),(NULL),(7)"
+    ],
+    "sql": "SELECT SUM(v) FROM measures",
+    "expected": [
+      [
+        12
+      ]
+    ],
+    "alternate": "SELECT SUM(v) FROM measures WHERE v IS NULL",
+    "altExpected": [
+      [
+        null
+      ]
+    ],
+    "source": "https://www.postgresql.org/docs/18/sql-select.html",
+    "engineScope": "SQLite in-memory execution for shared SQL semantics; PostgreSQL 18 documentation is conceptual provenance, not evidence of an executed PostgreSQL server.",
+    "index": 7
+  },
+  {
+    "id": "software-v08-evidence-lab-sql-aggregate-functions",
+    "question": "For four rows with two NULL amounts, what discrepancy should COUNT(*) and COUNT(amount) reveal?",
+    "mechanism": "COUNT(*) counts qualifying rows, while COUNT(column) counts non-NULL expressions.",
+    "arithmetic": "There are four records but only two observed amounts (4 and 9), so the pair is (4,2).",
+    "check": "Independently label each row's NULL status and sum the two indicator sequences.",
+    "wrong": "COUNT(amount)=COUNT(*) is not guaranteed merely because the table has no duplicate rows.",
+    "variation": "Apply WHERE amount IS NOT NULL: both counts become two.",
+    "setup": [
+      "CREATE TABLE sales(amount INTEGER)",
+      "INSERT INTO sales VALUES(4),(NULL),(9),(NULL)"
+    ],
+    "sql": "SELECT COUNT(*),COUNT(amount) FROM sales",
+    "expected": [
+      [
+        4,
+        2
+      ]
+    ],
+    "alternate": "SELECT COUNT(*),COUNT(amount) FROM sales WHERE amount IS NOT NULL",
+    "altExpected": [
+      [
+        2,
+        2
+      ]
+    ],
+    "source": "https://www.postgresql.org/docs/18/sql-select.html",
+    "engineScope": "SQLite in-memory execution for shared SQL semantics; PostgreSQL 18 documentation is conceptual provenance, not evidence of an executed PostgreSQL server.",
+    "index": 8
+  },
+  {
+    "id": "software-v08-deep-dive-sql-group-by",
+    "question": "How does GROUP BY compute totals for regions A,B,C from amounts 3,5,4,6,2?",
+    "mechanism": "Grouping partitions rows by the region key, then SUM operates independently within each partition.",
+    "arithmetic": "A=3+5=8, B=4+6=10, C=2; the three outputs cover all five input rows.",
+    "check": "Check the conservation identity 8+10+2=3+5+4+6+2=20.",
+    "wrong": "GROUP BY does not preserve one row per original transaction; it collapses each nonempty group.",
+    "variation": "Add another C sale of 3: C total becomes 5 and row count remains three.",
+    "setup": [
+      "CREATE TABLE sales(region TEXT,amount INTEGER)",
+      "INSERT INTO sales VALUES('A',3),('A',5),('B',4),('B',6),('C',2)"
+    ],
+    "sql": "SELECT region,SUM(amount) FROM sales GROUP BY region ORDER BY region",
+    "expected": [
+      [
+        "A",
+        8
+      ],
+      [
+        "B",
+        10
+      ],
+      [
+        "C",
+        2
+      ]
+    ],
+    "alternate": "INSERT INTO sales VALUES('C',3); SELECT region,SUM(amount) FROM sales GROUP BY region ORDER BY region",
+    "altExpected": [
+      [
+        "A",
+        8
+      ],
+      [
+        "B",
+        10
+      ],
+      [
+        "C",
+        5
+      ]
+    ],
+    "source": "https://www.postgresql.org/docs/18/sql-select.html",
+    "engineScope": "SQLite in-memory execution for shared SQL semantics; PostgreSQL 18 documentation is conceptual provenance, not evidence of an executed PostgreSQL server.",
+    "index": 9
+  },
+  {
+    "id": "software-v08-evidence-lab-sql-group-by",
+    "question": "Why do per-region totals change when WHERE amount>=5 is applied before GROUP BY?",
+    "mechanism": "The WHERE predicate discards individual transactions before region partitions are formed.",
+    "arithmetic": "A keeps only 9 and B only 7, so group totals are A=9,B=7 instead of A=12,B=11.",
+    "check": "Count qualifying rows explicitly (two) and reconcile their combined amount 16.",
+    "wrong": "Grouping before filtering would answer a different question about all sales, not qualifying sales.",
+    "variation": "Relax amount>=4: A still 9, B becomes 4+7=11.",
+    "setup": [
+      "CREATE TABLE sales(region TEXT,amount INTEGER)",
+      "INSERT INTO sales VALUES('A',3),('A',9),('B',4),('B',7)"
+    ],
+    "sql": "SELECT region,SUM(amount) FROM sales WHERE amount>=5 GROUP BY region ORDER BY region",
+    "expected": [
+      [
+        "A",
+        9
+      ],
+      [
+        "B",
+        7
+      ]
+    ],
+    "alternate": "SELECT region,SUM(amount) FROM sales WHERE amount>=4 GROUP BY region ORDER BY region",
+    "altExpected": [
+      [
+        "A",
+        9
+      ],
+      [
+        "B",
+        11
+      ]
+    ],
+    "source": "https://www.postgresql.org/docs/18/sql-select.html",
+    "engineScope": "SQLite in-memory execution for shared SQL semantics; PostgreSQL 18 documentation is conceptual provenance, not evidence of an executed PostgreSQL server.",
+    "index": 10
+  },
+  {
+    "id": "software-v08-deep-dive-sql-having",
+    "question": "Which categories survive HAVING COUNT(*)>=2 when X and Z have two records but Y has one?",
+    "mechanism": "HAVING is a predicate over grouped results; COUNT(*) is computed for each category before the filter.",
+    "arithmetic": "Group sizes X=2,Y=1,Z=2; X and Z meet the threshold and Y does not.",
+    "check": "Compare the separate SELECT category,COUNT(*) GROUP BY category tally to the HAVING result.",
+    "wrong": "WHERE COUNT(*)>=2 is invalid as a row predicate at the same SELECT level.",
+    "variation": "Increase the threshold to three: no category remains.",
+    "setup": [
+      "CREATE TABLE tags(category TEXT,id INTEGER)",
+      "INSERT INTO tags VALUES('X',1),('X',2),('Y',3),('Z',4),('Z',5)"
+    ],
+    "sql": "SELECT category,COUNT(*) FROM tags GROUP BY category HAVING COUNT(*)>=2 ORDER BY category",
+    "expected": [
+      [
+        "X",
+        2
+      ],
+      [
+        "Z",
+        2
+      ]
+    ],
+    "alternate": "SELECT category,COUNT(*) FROM tags GROUP BY category HAVING COUNT(*)>=3 ORDER BY category",
+    "altExpected": [],
+    "source": "https://www.postgresql.org/docs/18/sql-select.html",
+    "engineScope": "SQLite in-memory execution for shared SQL semantics; PostgreSQL 18 documentation is conceptual provenance, not evidence of an executed PostgreSQL server.",
+    "index": 11
+  },
+  {
+    "id": "software-v08-evidence-lab-sql-having",
+    "question": "Which regions survive HAVING SUM(amount)>=10 when A and B each total 9 but C totals 12?",
+    "mechanism": "A HAVING aggregate threshold tests each completed group, not each individual sale value.",
+    "arithmetic": "A=4+5=9, B=6+3=9, C=12; only group C reaches 10.",
+    "check": "Independently calculate every group sum before evaluating >=10.",
+    "wrong": "WHERE amount>=10 would select only C in this fixture by coincidence, not by equivalent semantics.",
+    "variation": "Reduce HAVING threshold to 9: A,B and C all qualify.",
+    "setup": [
+      "CREATE TABLE sales(region TEXT,amount INTEGER)",
+      "INSERT INTO sales VALUES('A',4),('A',5),('B',6),('B',3),('C',12)"
+    ],
+    "sql": "SELECT region,SUM(amount) FROM sales GROUP BY region HAVING SUM(amount)>=10 ORDER BY region",
+    "expected": [
+      [
+        "C",
+        12
+      ]
+    ],
+    "alternate": "SELECT region,SUM(amount) FROM sales GROUP BY region HAVING SUM(amount)>=9 ORDER BY region",
+    "altExpected": [
+      [
+        "A",
+        9
+      ],
+      [
+        "B",
+        9
+      ],
+      [
+        "C",
+        12
+      ]
+    ],
+    "source": "https://www.postgresql.org/docs/18/sql-select.html",
+    "engineScope": "SQLite in-memory execution for shared SQL semantics; PostgreSQL 18 documentation is conceptual provenance, not evidence of an executed PostgreSQL server.",
+    "index": 12
+  },
+  {
+    "id": "software-v08-deep-dive-sql-window-functions",
+    "question": "With two events on day 1, what running totals result from ROWS ORDER BY day,id over amounts 5,7,2?",
+    "mechanism": "ROWS uses physical row positions in the explicit total ordering; id disambiguates the two day-1 events.",
+    "arithmetic": "Cumulative totals are 5, then 5+7=12, then 12+2=14.",
+    "check": "Verify final running total equals standalone SUM(amount)=14.",
+    "wrong": "Omitting a tie-breaker can make row-order-specific running totals nondeterministic.",
+    "variation": "Reverse order by day DESC,id DESC: totals follow 2,9,14 under that order.",
+    "setup": [
+      "CREATE TABLE events(id INTEGER,day INTEGER,amount INTEGER)",
+      "INSERT INTO events VALUES(1,1,5),(2,1,7),(3,2,2)"
+    ],
+    "sql": "SELECT id,SUM(amount) OVER(ORDER BY day,id ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) FROM events ORDER BY day,id",
+    "expected": [
+      [
+        1,
+        5
+      ],
+      [
+        2,
+        12
+      ],
+      [
+        3,
+        14
+      ]
+    ],
+    "alternate": "SELECT id,SUM(amount) OVER(ORDER BY day DESC,id DESC ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) FROM events ORDER BY day DESC,id DESC",
+    "altExpected": [
+      [
+        3,
+        2
+      ],
+      [
+        2,
+        9
+      ],
+      [
+        1,
+        14
+      ]
+    ],
+    "source": "https://www.postgresql.org/docs/18/tutorial-window.html",
+    "engineScope": "SQLite in-memory execution for shared SQL semantics; PostgreSQL 18 documentation is conceptual provenance, not evidence of an executed PostgreSQL server.",
+    "index": 13
+  },
+  {
+    "id": "software-v08-evidence-lab-sql-window-functions",
+    "question": "Why does SUM(amount) OVER(PARTITION BY team) retain three employee rows instead of collapsing them?",
+    "mechanism": "A window aggregate computes one value per partition but appends it to every row of that partition.",
+    "arithmetic": "Team A amounts 2+8=10 appear twice; team B's 3 appears once: (A,2,10),(A,8,10),(B,3,3).",
+    "check": "Check that the row count stays three and partition sums agree with a separate GROUP BY.",
+    "wrong": "Replacing the window aggregate with GROUP BY removes the individual-employee amounts.",
+    "variation": "Filter to team A: both retained rows still display the total 10.",
+    "setup": [
+      "CREATE TABLE scores(team TEXT,amount INTEGER)",
+      "INSERT INTO scores VALUES('A',2),('A',8),('B',3)"
+    ],
+    "sql": "SELECT team,amount,SUM(amount) OVER(PARTITION BY team) FROM scores ORDER BY team,amount",
+    "expected": [
+      [
+        "A",
+        2,
+        10
+      ],
+      [
+        "A",
+        8,
+        10
+      ],
+      [
+        "B",
+        3,
+        3
+      ]
+    ],
+    "alternate": "SELECT team,amount,SUM(amount) OVER(PARTITION BY team) FROM scores WHERE team='A' ORDER BY amount",
+    "altExpected": [
+      [
+        "A",
+        2,
+        10
+      ],
+      [
+        "A",
+        8,
+        10
+      ]
+    ],
+    "source": "https://www.postgresql.org/docs/18/tutorial-window.html",
+    "engineScope": "SQLite in-memory execution for shared SQL semantics; PostgreSQL 18 documentation is conceptual provenance, not evidence of an executed PostgreSQL server.",
+    "index": 14
+  },
+  {
+    "id": "software-v08-deep-dive-sql-foreign-key",
+    "question": "Why must inserting a child reference to absent parent 2 fail when only parent 1 exists?",
+    "mechanism": "An enabled immediate foreign key requires each non-NULL child reference to match a parent key.",
+    "arithmetic": "Parent set is {1}; child reference 2 is outside it and raises an integrity violation.",
+    "check": "Check parent IDs independently, then attempt the violating insert inside a disposable in-memory database.",
+    "wrong": "Declaring a FOREIGN KEY without enforcing it in SQLite would not validate referential integrity.",
+    "variation": "Insert a child referencing parent 1 instead: one child is then accepted.",
+    "setup": [
+      "CREATE TABLE parent(id INTEGER PRIMARY KEY)",
+      "CREATE TABLE child(id INTEGER PRIMARY KEY,parent_id INTEGER REFERENCES parent(id))",
+      "INSERT INTO parent VALUES(1)"
+    ],
+    "sql": "INSERT INTO child VALUES(10,2)",
+    "expected": {
+      "error": "IntegrityError"
+    },
+    "alternate": "INSERT INTO child VALUES(10,1); SELECT COUNT(*) FROM child",
+    "altExpected": [
+      [
+        1
+      ]
+    ],
+    "source": "https://www.postgresql.org/docs/18/ddl-constraints.html",
+    "engineScope": "SQLite in-memory execution for shared SQL semantics; PostgreSQL 18 documentation is conceptual provenance, not evidence of an executed PostgreSQL server.",
+    "index": 15
+  },
+  {
+    "id": "software-v08-evidence-lab-sql-foreign-key",
+    "question": "What remains after deleting parent 1 if its two child rows use ON DELETE CASCADE, while parent 2 retains one child?",
+    "mechanism": "ON DELETE CASCADE removes rows referencing the deleted parent, not unrelated children.",
+    "arithmetic": "Three children initially reference parents as {1:2,2:1}; after deleting parent 1 only child 12 of parent 2 remains.",
+    "check": "Verify both parent-specific child counts before deletion and total count afterward.",
+    "wrong": "Disabling foreign-key enforcement would make this result contingent on separate application logic.",
+    "variation": "After the cascade, SELECT COUNT(*) from all children returns exactly one.",
+    "setup": [
+      "CREATE TABLE parent(id INTEGER PRIMARY KEY)",
+      "CREATE TABLE child(id INTEGER PRIMARY KEY,parent_id INTEGER REFERENCES parent(id) ON DELETE CASCADE)",
+      "INSERT INTO parent VALUES(1),(2)",
+      "INSERT INTO child VALUES(10,1),(11,1),(12,2)"
+    ],
+    "sql": "DELETE FROM parent WHERE id=1; SELECT COUNT(*) FROM child WHERE parent_id=1",
+    "expected": [
+      [
+        0
+      ]
+    ],
+    "alternate": "SELECT COUNT(*) FROM child",
+    "altExpected": [
+      [
+        1
+      ]
+    ],
+    "source": "https://www.postgresql.org/docs/18/ddl-constraints.html",
+    "engineScope": "SQLite in-memory execution for shared SQL semantics; PostgreSQL 18 documentation is conceptual provenance, not evidence of an executed PostgreSQL server.",
+    "index": 16
+  },
+  {
+    "id": "software-v08-deep-dive-sql-unique-constraint",
+    "question": "Why does a second non-NULL email value duplicate violate UNIQUE even when its row ID differs?",
+    "mechanism": "UNIQUE constrains email values independently of the primary row identity.",
+    "arithmetic": "The email a@example.test exists in row 1; row 2 with the same email must be rejected.",
+    "check": "Check that the surviving table cardinality remains one after the rejected statement.",
+    "wrong": "Uniqueness on id does not imply uniqueness on email unless an email constraint exists.",
+    "variation": "Try a distinct email b@example.test: both rows can coexist.",
+    "setup": [
+      "CREATE TABLE users(id INTEGER PRIMARY KEY,email TEXT UNIQUE)",
+      "INSERT INTO users VALUES(1,'a@example.test')"
+    ],
+    "sql": "INSERT INTO users VALUES(2,'a@example.test')",
+    "expected": {
+      "error": "IntegrityError"
+    },
+    "alternate": "INSERT INTO users VALUES(2,'b@example.test'); SELECT COUNT(*) FROM users",
+    "altExpected": [
+      [
+        2
+      ]
+    ],
+    "source": "https://www.postgresql.org/docs/18/ddl-constraints.html",
+    "engineScope": "SQLite in-memory execution for shared SQL semantics; PostgreSQL 18 documentation is conceptual provenance, not evidence of an executed PostgreSQL server.",
+    "index": 17
+  },
+  {
+    "id": "software-v08-evidence-lab-sql-unique-constraint",
+    "question": "How many NULL emails can coexist under a default UNIQUE constraint, and why is that not equivalent to two equal strings?",
+    "mechanism": "Default PostgreSQL UNIQUE treats NULL values as distinct; SQLite's default UNIQUE likewise permits multiple NULLs.",
+    "arithmetic": "Two rows with email=NULL insert successfully, so COUNT(*) is two while COUNT(email) is zero.",
+    "check": "Compute both COUNT(*) and COUNT(email) independently to distinguish missingness from duplicates.",
+    "wrong": "NULLS NOT DISTINCT in PostgreSQL changes the rule; do not generalize to that constraint variant.",
+    "variation": "Filter WHERE email IS NULL: it returns both rows, demonstrating non-NULL equivalence is not being tested.",
+    "setup": [
+      "CREATE TABLE users(id INTEGER PRIMARY KEY,email TEXT UNIQUE)",
+      "INSERT INTO users VALUES(1,NULL),(2,NULL)"
+    ],
+    "sql": "SELECT COUNT(*),COUNT(email) FROM users",
+    "expected": [
+      [
+        2,
+        0
+      ]
+    ],
+    "alternate": "SELECT COUNT(*) FROM users WHERE email IS NULL",
+    "altExpected": [
+      [
+        2
+      ]
+    ],
+    "source": "https://www.postgresql.org/docs/18/ddl-constraints.html",
+    "engineScope": "SQLite in-memory execution for shared SQL semantics; PostgreSQL 18 documentation is conceptual provenance, not evidence of an executed PostgreSQL server.",
+    "index": 18
+  },
+  {
+    "id": "software-v08-deep-dive-sql-primary-key",
+    "question": "Why does a composite PRIMARY KEY(a,b) reject a duplicate pair even when one component appears with another partner?",
+    "mechanism": "Composite key uniqueness is defined on the tuple (a,b), not separately on a and b.",
+    "arithmetic": "Existing (1,2) blocks another (1,2); a distinct (1,3) remains valid.",
+    "check": "Enumerate key tuples to show no duplicates before testing the violating insertion.",
+    "wrong": "Treating a composite primary key as an independent UNIQUE(a) constraint would incorrectly reject (1,3).",
+    "variation": "Insert (1,3) and verify two distinct key tuples coexist.",
+    "setup": [
+      "CREATE TABLE pairs(a INTEGER,b INTEGER,PRIMARY KEY(a,b))",
+      "INSERT INTO pairs VALUES(1,2)"
+    ],
+    "sql": "INSERT INTO pairs VALUES(1,2)",
+    "expected": {
+      "error": "IntegrityError"
+    },
+    "alternate": "INSERT INTO pairs VALUES(1,3); SELECT a,b FROM pairs ORDER BY a,b",
+    "altExpected": [
+      [
+        1,
+        2
+      ],
+      [
+        1,
+        3
+      ]
+    ],
+    "source": "https://www.postgresql.org/docs/18/ddl-constraints.html",
+    "engineScope": "SQLite in-memory execution for shared SQL semantics; PostgreSQL 18 documentation is conceptual provenance, not evidence of an executed PostgreSQL server.",
+    "index": 19
+  },
+  {
+    "id": "software-v08-evidence-lab-sql-primary-key",
+    "question": "Why does inserting (NULL,2) into an explicitly non-NULL composite key fail?",
+    "mechanism": "PostgreSQL primary key columns are NOT NULL; for this SQLite parity test a WITHOUT ROWID table enforces composite-PK non-nullness.",
+    "arithmetic": "NULL in either component is forbidden here, so inserting (NULL,2) triggers an integrity error.",
+    "check": "Check SQL schema includes WITHOUT ROWID; ordinary SQLite rowid composite primary keys have a historical null exception.",
+    "wrong": "Inferring every SQLite composite PRIMARY KEY is NOT NULL without inspecting the table kind is false.",
+    "variation": "Insert (1,2) instead and confirm a single valid tuple.",
+    "setup": [
+      "CREATE TABLE pairs(a INTEGER,b INTEGER,PRIMARY KEY(a,b)) WITHOUT ROWID"
+    ],
+    "sql": "INSERT INTO pairs VALUES(NULL,2)",
+    "expected": {
+      "error": "IntegrityError"
+    },
+    "alternate": "INSERT INTO pairs VALUES(1,2); SELECT COUNT(*) FROM pairs",
+    "altExpected": [
+      [
+        1
+      ]
+    ],
+    "source": "https://www.postgresql.org/docs/18/ddl-constraints.html",
+    "engineScope": "SQLite in-memory execution for shared SQL semantics; PostgreSQL 18 documentation is conceptual provenance, not evidence of an executed PostgreSQL server.",
+    "index": 20
+  },
+  {
+    "id": "software-v08-deep-dive-sql-check-constraint",
+    "question": "Why does CHECK(quantity>=0 AND quantity<=100) reject -1 while allowing values at its boundaries?",
+    "mechanism": "CHECK requires its expression not to evaluate FALSE for inserted rows; -1 breaches the lower bound.",
+    "arithmetic": "-1>=0 is FALSE, so the conjunction is FALSE and the INSERT fails.",
+    "check": "Evaluate boundary values 0 and 100 separately to rule out an off-by-one interpretation.",
+    "wrong": "A CHECK does not silently clamp invalid values into the accepted domain.",
+    "variation": "Insert boundary values 0 and 100; both should succeed and yield two records.",
+    "setup": [
+      "CREATE TABLE stock(qty INTEGER CHECK(qty>=0 AND qty<=100))"
+    ],
+    "sql": "INSERT INTO stock VALUES(-1)",
+    "expected": {
+      "error": "IntegrityError"
+    },
+    "alternate": "INSERT INTO stock VALUES(0),(100); SELECT MIN(qty),MAX(qty) FROM stock",
+    "altExpected": [
+      [
+        0,
+        100
+      ]
+    ],
+    "source": "https://www.postgresql.org/docs/18/ddl-constraints.html",
+    "engineScope": "SQLite in-memory execution for shared SQL semantics; PostgreSQL 18 documentation is conceptual provenance, not evidence of an executed PostgreSQL server.",
+    "index": 21
+  },
+  {
+    "id": "software-v08-evidence-lab-sql-check-constraint",
+    "question": "Why is a NULL score permitted by CHECK(score>=0) unless NOT NULL is separately declared?",
+    "mechanism": "Under SQL three-valued logic NULL>=0 is UNKNOWN; a CHECK rejects FALSE, not UNKNOWN.",
+    "arithmetic": "The NULL row is accepted, producing one row but zero non-NULL scores.",
+    "check": "Compare COUNT(*)=1 against COUNT(score)=0 after the insertion.",
+    "wrong": "CHECK(score>=0) is not a substitute for a NOT NULL constraint.",
+    "variation": "Insert score -3 next; it fails, showing that NULL and negative values are not treated alike.",
+    "setup": [
+      "CREATE TABLE marks(score INTEGER CHECK(score>=0))",
+      "INSERT INTO marks VALUES(NULL)"
+    ],
+    "sql": "SELECT COUNT(*),COUNT(score) FROM marks",
+    "expected": [
+      [
+        1,
+        0
+      ]
+    ],
+    "alternate": "INSERT INTO marks VALUES(-3)",
+    "altExpected": {
+      "error": "IntegrityError"
+    },
+    "source": "https://www.postgresql.org/docs/18/ddl-constraints.html",
+    "engineScope": "SQLite in-memory execution for shared SQL semantics; PostgreSQL 18 documentation is conceptual provenance, not evidence of an executed PostgreSQL server.",
+    "index": 22
+  },
+  {
+    "id": "software-v08-deep-dive-sql-with-query",
+    "question": "How can WITH positive AS (...) isolate values above zero before summing -2,3,4?",
+    "mechanism": "A nonrecursive CTE names a query result consumed by a later SELECT, enabling a readable intermediate relation.",
+    "arithmetic": "Filtering v>0 retains 3 and 4, so SUM=7; the -2 row contributes nothing.",
+    "check": "Compute 3+4=7 directly and verify the CTE output rows separately.",
+    "wrong": "A WITH clause by itself does not require materialization or guarantee a performance improvement.",
+    "variation": "Tighten the CTE predicate to v>3: SUM becomes 4.",
+    "setup": [
+      "CREATE TABLE nums(v INTEGER)",
+      "INSERT INTO nums VALUES(-2),(3),(4)"
+    ],
+    "sql": "WITH positive AS (SELECT v FROM nums WHERE v>0) SELECT SUM(v) FROM positive",
+    "expected": [
+      [
+        7
+      ]
+    ],
+    "alternate": "WITH positive AS (SELECT v FROM nums WHERE v>3) SELECT SUM(v) FROM positive",
+    "altExpected": [
+      [
+        4
+      ]
+    ],
+    "source": "https://www.postgresql.org/docs/18/queries-with.html",
+    "engineScope": "SQLite in-memory execution for shared SQL semantics; PostgreSQL 18 documentation is conceptual provenance, not evidence of an executed PostgreSQL server.",
+    "index": 23
+  },
+  {
+    "id": "software-v08-evidence-lab-sql-with-query",
+    "question": "Which regions qualify when a CTE groups sales and the outer query requires total>=10?",
+    "mechanism": "The CTE calculates region totals before the outer query filters those derived group values.",
+    "arithmetic": "Region A totals 4+3=7; B totals 6+5=11, so only B reaches ten.",
+    "check": "Recompute both grouped sums without a CTE to verify the values independently.",
+    "wrong": "Using WHERE amount>=10 before aggregation is a different predicate and incorrectly excludes both groups.",
+    "variation": "Reduce outer threshold to seven: both A and B qualify.",
+    "setup": [
+      "CREATE TABLE sales(region TEXT,amount INTEGER)",
+      "INSERT INTO sales VALUES('A',4),('A',3),('B',6),('B',5)"
+    ],
+    "sql": "WITH totals AS (SELECT region,SUM(amount) AS total FROM sales GROUP BY region) SELECT region,total FROM totals WHERE total>=10 ORDER BY region",
+    "expected": [
+      [
+        "B",
+        11
+      ]
+    ],
+    "alternate": "WITH totals AS (SELECT region,SUM(amount) AS total FROM sales GROUP BY region) SELECT region,total FROM totals WHERE total>=7 ORDER BY region",
+    "altExpected": [
+      [
+        "A",
+        7
+      ],
+      [
+        "B",
+        11
+      ]
+    ],
+    "source": "https://www.postgresql.org/docs/18/queries-with.html",
+    "engineScope": "SQLite in-memory execution for shared SQL semantics; PostgreSQL 18 documentation is conceptual provenance, not evidence of an executed PostgreSQL server.",
+    "index": 24
+  }
+]
