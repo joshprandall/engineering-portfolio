@@ -20,7 +20,7 @@
       "Sum vectors: x=0.400000 m, y=0.300000 m; Euclidean reach sqrt(x^2+y^2)=0.500000 m, within [|L1-L2|,L1+L2]=[0.10,0.70] m.",
       "Independent inverse check: subtract the first-link endpoint (0.40,0.00) m from the tip to recover the second vector (0,0.30) m and its 90 degree heading.",
       "Falsifiable claim: treating theta2 as an absolute world angle works for theta1=0 but fails at theta1=pi/2, theta2=pi/2, where the correct tip is (-0.30,+0.40) m, not (+0.00,+0.70) m.",
-      "Controlled lab: change theta1 to pi/2 and recompute with relative theta1+theta2; explicit planar 2R derivation and Jacobian from Introduction to Open-Source Robotics: https://www.osrobotics.org/osr/kinematics/forward_kinematics.html"
+      "Controlled lab: change theta1 to pi/2 and recompute with relative theta1+theta2; for a general open-chain forward-kinematics worked example, see Modern Robotics Chapter 4: https://modernrobotics.northwestern.edu/nu-gm-book-resource/forward-kinematics-example/"
     ],
     "memoryLadder": [
       "State the mathematical mapping used in planar 2r forward kinematics without notes.",
