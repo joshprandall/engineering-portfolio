@@ -1,0 +1,544 @@
+{
+  "robotics-controls-01-forward-kinematics-2r": {
+    "essentialQuestion": "Where does a two-joint planar arm tip land for known link lengths and joint angles?",
+    "verifiedBoundary": "For two ideal rigid revolute links, x=L1 cos(theta1)+L2 cos(theta1+theta2) and y=L1 sin(theta1)+L2 sin(theta1+theta2); theta2 is relative to link 1.",
+    "analogy": "Each arm segment contributes a vector, but the second segment inherits the first joint's rotation. A relative elbow angle is not an absolute map heading.",
+    "starter": {
+      "plainStart": "For two ideal rigid revolute links, x=L1 cos(theta1)+L2 cos(theta1+theta2) and y=L1 sin(theta1)+L2 sin(theta1+theta2); theta2 is relative to link 1.",
+      "tryThis": "Implement fk(L1,L2,t1,t2) with Math.cos/Math.sin; compare (0.4,0.3) within 1e-9 m.",
+      "helper": "Work strictly in the synthetic coordinate system and units defined below. Check the worked numerical model before attempting variations."
+    },
+    "technical": {
+      "scope": "Synthetic, offline educational case. Rigid planar links, zero joint offsets, exact angles; not a physical collision or calibration model. Reference: https://modernrobotics.northwestern.edu/nu-gm-book-resource/inverse-kinematics-of-open-chains/",
+      "versionCaution": "Check the cited canonical reference for platform/API changes; this lesson is not validated for live robot actuation.",
+      "prerequisites": [],
+      "connections": []
+    },
+    "reasoningSteps": [
+      "Model: L1=0.40 m, L2=0.30 m; base at (0,0); theta1=0 rad and relative theta2=+pi/2 rad, positive counterclockwise.",
+      "Resolve link vectors: first link (0.40,0.00) m; second link (0.00,0.30) m because its absolute heading is theta1+theta2.",
+      "Sum vectors: x=0.400000 m, y=0.300000 m; Euclidean reach sqrt(x^2+y^2)=0.500000 m, within [|L1-L2|,L1+L2]=[0.10,0.70] m.",
+      "Independent inverse check: subtract the first-link endpoint (0.40,0.00) m from the tip to recover the second vector (0,0.30) m and its 90 degree heading.",
+      "Falsifiable claim: treating theta2 as an absolute world angle works for theta1=0 but fails at theta1=pi/2, theta2=pi/2, where the correct tip is (-0.30,+0.40) m, not (+0.00,+0.70) m.",
+      "Controlled lab: change theta1 to pi/2 and recompute with relative theta1+theta2; for a general open-chain forward-kinematics worked example, see Modern Robotics Chapter 4: https://modernrobotics.northwestern.edu/nu-gm-book-resource/forward-kinematics-example/"
+    ],
+    "memoryLadder": [
+      "State the mathematical mapping used in planar 2r forward kinematics without notes.",
+      "Reproduce the numerical result and all units from the assumptions.",
+      "Demonstrate the given counterexample rather than guessing its behavior.",
+      "Explain exactly which real-world uncertainties the synthetic assumptions omit."
+    ],
+    "labPlan": [
+      "Implement fk(L1,L2,t1,t2) for two revolute links; assert (x,y)=(0.40,0.30) m at (theta1,theta2)=(0,pi/2) rad within 1e-9 m.",
+      "With both angles pi/2 rad, assert (-0.30,+0.40) m; deliberately omit theta1 from the second-link heading and show that the wrong formula instead gives (0,+0.70) m.",
+      "Sweep theta1 over {0,pi/2,pi} with theta2=pi/2: assert a 0.50 m tip radius in every case; explain why a reach-only test cannot establish collisions or joint limits."
+    ],
+    "vocabulary": [
+      {
+        "term": "relative joint angle",
+        "definition": "Angle of second link measured relative to the first link."
+      },
+      {
+        "term": "forward kinematics",
+        "definition": "Map joint configuration to end-effector pose."
+      }
+    ]
+  },
+  "robotics-controls-02-inverse-kinematics-branches": {
+    "essentialQuestion": "Can a reachable tip target have more than one valid elbow configuration?",
+    "verifiedBoundary": "For planar 2R: cos(theta2)=(x²+y²-L1²-L2²)/(2L1L2); each admissible sign of sin(theta2) defines a branch, except coincident branches at boundaries.",
+    "analogy": "One tip location can have elbow-up and elbow-down solutions. Finding a reachable point does not tell a planner which joint configuration is collision-free or within limits.",
+    "starter": {
+      "plainStart": "For planar 2R: cos(theta2)=(x²+y²-L1²-L2²)/(2L1L2); each admissible sign of sin(theta2) defines a branch, except coincident branches at boundaries.",
+      "tryThis": "Solve both elbow branches using atan2 and acos for the original target.",
+      "helper": "Work strictly in the synthetic coordinate system and units defined below. Check the worked numerical model before attempting variations."
+    },
+    "technical": {
+      "scope": "Synthetic, offline educational case. Planar position-only inverse kinematics; collisions, joints limits and 3D orientation excluded. Reference: https://modernrobotics.northwestern.edu/nu-gm-book-resource/inverse-kinematics-of-open-chains/",
+      "versionCaution": "Check the cited canonical reference for platform/API changes; this lesson is not validated for live robot actuation.",
+      "prerequisites": [],
+      "connections": []
+    },
+    "reasoningSteps": [
+      "Given L1=0.40 m, L2=0.30 m and target (x,y)=(0.40,0.30) m, radius=0.50 m is within the annular reach [0.10,0.70] m.",
+      "Law of cosines gives cos(theta2)=(0.16+0.09-0.16-0.09)/0.24=0; theta2=+90° or -90°.",
+      "Compute theta1=atan2(y,x)-atan2(L2 sin(theta2),L1+L2 cos(theta2)). For theta2=+90°, theta1=0°; for -90°, theta1=73.739795°.",
+      "Independent check: evaluate both angle pairs with forward kinematics; each gives (0.40,0.30) m to numerical precision.",
+      "Counterexample: target (0.80,0) m gives radius 0.80 m greater than total link length 0.70 m, so there is no real solution; clamping cosine blindly would hide infeasibility.",
+      "Perturb target toward (0.70,0) m: the branches merge at the fully extended workspace boundary. Source: https://modernrobotics.northwestern.edu/nu-gm-book-resource/inverse-kinematics-of-open-chains/"
+    ],
+    "memoryLadder": [
+      "State the mathematical mapping used in 2r inverse solutions and reachability without notes.",
+      "Reproduce the numerical result and all units from the assumptions.",
+      "Demonstrate the given counterexample rather than guessing its behavior.",
+      "Explain exactly which real-world uncertainties the synthetic assumptions omit."
+    ],
+    "labPlan": [
+      "Compute both elbow configurations for target (0.40,0.30) m, including theta2=+/-pi/2 and theta1=0 or approximately 1.287002218 rad.",
+      "Round-trip both joint solutions through forward kinematics; assert each tip coordinate matches within 1e-9 m.",
+      "Reject target (0.80,0) m *before* acos because its reach exceeds 0.70 m; at boundary (0.70,0) m, assert both elbow branches coincide at theta2=0."
+    ],
+    "vocabulary": [
+      {
+        "term": "elbow branch",
+        "definition": "Distinct joint configurations that reach the same endpoint."
+      },
+      {
+        "term": "workspace boundary",
+        "definition": "Limit of geometrically reachable end-effector locations."
+      }
+    ]
+  },
+  "robotics-controls-03-jacobian-singularity": {
+    "essentialQuestion": "How does a joint-velocity request map to end-effector velocity, and when does this mapping lose rank?",
+    "verifiedBoundary": "The planar 2R Jacobian is the derivative of position with respect to joint angles; det J=L1L2 sin(theta2) for the standard coordinate convention.",
+    "analogy": "Near a straight elbow, the arm becomes poor at producing certain Cartesian velocity directions. Asking the inverse Jacobian for that motion can demand arbitrarily large ideal joint rates.",
+    "starter": {
+      "plainStart": "The planar 2R Jacobian is the derivative of position with respect to joint angles; det J=L1L2 sin(theta2) for the standard coordinate convention.",
+      "tryThis": "Compute Jacobian entries analytically for the specified posture.",
+      "helper": "Work strictly in the synthetic coordinate system and units defined below. Check the worked numerical model before attempting variations."
+    },
+    "technical": {
+      "scope": "Synthetic, offline educational case. Instantaneous small-signal kinematics; finite joint limits, actuator torque and dynamics omitted. Reference: https://modernrobotics.northwestern.edu/nu-gm-book-resource/5-3-singularities/",
+      "versionCaution": "Check the cited canonical reference for platform/API changes; this lesson is not validated for live robot actuation.",
+      "prerequisites": [],
+      "connections": []
+    },
+    "reasoningSteps": [
+      "For L1=0.40 m, L2=0.30 m, theta1=0 and theta2=+pi/2 rad, J=[[-0.30,-0.30],[+0.40,0.00]] in m/rad.",
+      "Multiply by joint-rate vector (0.20,0.10) rad/s: tip velocity v=(-0.090,+0.080) m/s.",
+      "Independent cross-check: finite-difference the forward kinematics with h=1e-6 s and joint angles advanced by rate*h; recovered velocity matches within about 1e-6 m/s.",
+      "det J=(-0.30)(0)-(-0.30)(0.40)=+0.120 m²/rad²; rank is two at this posture.",
+      "At theta1=0 and theta2=0 rad, det J=0 and instantaneous horizontal tip velocity is impossible. Near this posture, theta2=0.01 rad and desired tip velocity (+0.010,0.000) m/s require joint rates (qdot1,qdot2)=(+2.49991667,-5.83330556) rad/s; at theta2=0.001 rad, the rates grow to (+24.99999167,-58.33333056) rad/s. These are mathematical inverse-velocity demands, not safe actuator commands; no inverse can recover the missing direction at exact singularity.",
+      "Falsifiable statement: a 2R arm always has two independent Cartesian velocity directions is false at theta2=0. Source: https://modernrobotics.northwestern.edu/nu-gm-book-resource/5-3-singularities/"
+    ],
+    "memoryLadder": [
+      "State the mathematical mapping used in 2r velocity jacobian and singularity without notes.",
+      "Reproduce the numerical result and all units from the assumptions.",
+      "Demonstrate the given counterexample rather than guessing its behavior.",
+      "Explain exactly which real-world uncertainties the synthetic assumptions omit."
+    ],
+    "labPlan": [
+      "Compute the full 2x2 Jacobian for lengths 0.40 and 0.30 m at (0,pi/2) rad; assert J*qdot=(-0.090,+0.080) m/s for joint rates (0.20,0.10) rad/s.",
+      "Finite-difference the exact FK with time step 1e-6 s and require a componentwise agreement with J*qdot within 1e-6 m/s.",
+      "Set theta2=0: assert determinant magnitude <1e-10, show J has rank one for positive link lengths and reject any claim of independent instantaneous x/y control.",
+      "At theta1=0, solve J*qdot=(+0.010,0.000) m/s for theta2=0.01 and 0.001 rad. Verify qdot=(+2.49991667,-5.83330556) and (+24.99999167,-58.33333056) rad/s within 1e-7, reconstruct J*qdot within 1e-12 m/s, and reject a finite inverse at theta2=0. Real actuators have joint-velocity limits."
+    ],
+    "vocabulary": [
+      {
+        "term": "Jacobian",
+        "definition": "Local linear mapping from joint velocities to task-space velocity."
+      },
+      {
+        "term": "singularity",
+        "definition": "Configuration at which the kinematic Jacobian loses rank."
+      }
+    ]
+  },
+  "robotics-controls-04-frame-transform-inverse": {
+    "essentialQuestion": "How can a robot-local sensor reading be placed in a world frame without confusing the transform direction?",
+    "verifiedBoundary": "For a planar rigid transform, p_world=R(theta_world_base) p_base+t_world_base and p_base=R^T(p_world-t).",
+    "analogy": "The same sensor point has different coordinate labels in the robot and world frames. Rotate the robot-relative offset first, then add the base's world translation; undo those steps in reverse order.",
+    "starter": {
+      "plainStart": "For a planar rigid transform, p_world=R(theta_world_base) p_base+t_world_base and p_base=R^T(p_world-t).",
+      "tryThis": "Write a 2D function transform(point,translation,yaw) with meters/radians.",
+      "helper": "Work strictly in the synthetic coordinate system and units defined below. Check the worked numerical model before attempting variations."
+    },
+    "technical": {
+      "scope": "Synthetic, offline educational case. Static 2D transform demonstration; no asynchronous timestamp interpolation or ROS deployment. Reference: https://index.ros.org/p/tf2/",
+      "versionCaution": "Check the cited canonical reference for platform/API changes; this lesson is not validated for live robot actuation.",
+      "prerequisites": [],
+      "connections": []
+    },
+    "reasoningSteps": [
+      "Define robot base origin at (1.00,2.00) m in world coordinates and world-from-base yaw +90°; a synthetic sensor position is (0.20,0.10) m in base coordinates.",
+      "Rotate: R(+90°)[0.20,0.10]=[-0.10,+0.20] m; translate: world point=(0.900000,2.200000) m.",
+      "Independent inverse: subtract t=(1,2), then apply R(-90°) to (-0.10,0.20): recovered base point=(0.20,0.10) m.",
+      "Counterexample: translating before rotation yields R( [1.20,2.10] )=(-2.10,1.20) m, not the world point; matrix multiplication order is not interchangeable.",
+      "Distinguish physical motion from coordinate re-expression: rotating a base-fixed point (0.20,0.10) m from base yaw +90° to yaw 0° about the fixed base origin (1.00,2.00) m physically moves its world position from (0.90,2.20) m to (1.20,2.10) m. By contrast, if the world point remains at (0.90,2.20) m and only the axes used to describe it change to a world-aligned frame with the same origin, its coordinates in that new frame are (-0.10,+0.20) m, not (0.20,0.10) m.",
+      "Use timestamp-consistent world<-base transforms; tf2 can fail when requested time falls outside buffered transforms. Source: https://index.ros.org/p/tf2/"
+    ],
+    "memoryLadder": [
+      "State the mathematical mapping used in coordinate-frame composition and inversion without notes.",
+      "Reproduce the numerical result and all units from the assumptions.",
+      "Demonstrate the given counterexample rather than guessing its behavior.",
+      "Explain exactly which real-world uncertainties the synthetic assumptions omit."
+    ],
+    "labPlan": [
+      "Implement worldPoint=R(yaw)*basePoint+t using t=(1.00,2.00) m, yaw=pi/2 and basePoint=(0.20,0.10) m; assert worldPoint=(0.90,2.20) m.",
+      "Apply the inverse p_base=R(-yaw)*(p_world-t) and assert the recovered base coordinates are within 1e-9 m.",
+      "Deliberately apply rotation after translation: confirm the incorrect result (-2.10,1.20) m, then state why frame labels and transform order are essential.",
+      "Compare active and passive frame changes offline: physically change the base yaw from +pi/2 to 0 while retaining a base-fixed point (0.20,0.10) m and t=(1,2) m, asserting the resulting world position (1.20,2.10) m; then instead hold the original world point fixed at (0.90,2.20) m and express it in a world-aligned frame at t=(1,2) m, asserting coordinates (-0.10,0.20) m. Explain why the two experiments are not equivalent."
+    ],
+    "vocabulary": [
+      {
+        "term": "frame transform",
+        "definition": "Rigid mapping of coordinates between reference frames."
+      },
+      {
+        "term": "inverse transform",
+        "definition": "Opposite-direction mapping from target-frame coordinates to source-frame coordinates."
+      }
+    ]
+  },
+  "robotics-controls-05-differential-wheel-speeds": {
+    "essentialQuestion": "What left/right wheel speeds yield a desired center velocity and yaw rate?",
+    "verifiedBoundary": "For wheel-track width b, v_left=v-omega*b/2 and v_right=v+omega*b/2; inverse v=(left+right)/2, omega=(right-left)/b.",
+    "analogy": "Two wheels act as a steering pair: equal rolling distances imply straight ideal motion, while their difference induces turning. Track width determines how much yaw the difference produces.",
+    "starter": {
+      "plainStart": "For wheel-track width b, v_left=v-omega*b/2 and v_right=v+omega*b/2; inverse v=(left+right)/2, omega=(right-left)/b.",
+      "tryThis": "Compute wheel speeds for b=.5 m, v=.6 m/s, omega=.4 rad/s.",
+      "helper": "Work strictly in the synthetic coordinate system and units defined below. Check the worked numerical model before attempting variations."
+    },
+    "technical": {
+      "scope": "Synthetic, offline educational case. Planar rigid wheel ground contact without slip or wheel compliance. Reference: https://docs.wpilib.org/en/stable/docs/software/kinematics-and-odometry/differential-drive-kinematics.html",
+      "versionCaution": "Check the cited canonical reference for platform/API changes; this lesson is not validated for live robot actuation.",
+      "prerequisites": [],
+      "connections": []
+    },
+    "reasoningSteps": [
+      "Specify an ideal no-slip differential-drive robot: track width b=0.50 m, center forward speed v=0.60 m/s, positive yaw rate omega=0.40 rad/s.",
+      "Wheel velocities: left=0.60-0.40*0.25=0.50 m/s, right=0.60+0.40*0.25=0.70 m/s.",
+      "Independent reconstruction: center speed (0.50+0.70)/2=0.60 m/s; yaw rate (0.70-0.50)/0.50=0.40 rad/s.",
+      "Counterexample: doubling track width to 1.00 m while retaining the same wheel speeds halves omega to 0.20 rad/s; robot geometry cannot be ignored.",
+      "With both wheels 0.60 m/s, omega=0 rad/s and ideal instantaneous turning radius is unbounded (straight motion).",
+      "The model constrains lateral body-frame speed to zero; wheel slip/unequal radii violate it. Source: https://docs.wpilib.org/en/stable/docs/software/kinematics-and-odometry/differential-drive-kinematics.html"
+    ],
+    "memoryLadder": [
+      "State the mathematical mapping used in differential-drive chassis and wheel speeds without notes.",
+      "Reproduce the numerical result and all units from the assumptions.",
+      "Demonstrate the given counterexample rather than guessing its behavior.",
+      "Explain exactly which real-world uncertainties the synthetic assumptions omit."
+    ],
+    "labPlan": [
+      "With track b=0.50 m, center speed v=0.60 m/s and yaw omega=0.40 rad/s, assert wheel speeds left=0.50 and right=0.70 m/s.",
+      "Reconstruct v=(left+right)/2 and omega=(right-left)/b; require errors below 1e-12 in SI units.",
+      "Keep the same 0.50/0.70 m/s readings but change b to 1.00 m: assert omega=0.20 rad/s; use equal wheel speeds to assert zero yaw, not a finite turn radius."
+    ],
+    "vocabulary": [
+      {
+        "term": "track width",
+        "definition": "Distance between idealized left and right wheel contact-line centers."
+      },
+      {
+        "term": "nonholonomic constraint",
+        "definition": "Sideways velocity is constrained for the ideal no-slip differential drive."
+      }
+    ]
+  },
+  "robotics-controls-06-differential-drive-arc": {
+    "essentialQuestion": "How do unequal wheel increments advance a differential drive in a curved segment?",
+    "verifiedBoundary": "For constant incremental curvature and dtheta≠0, ds=(dR+dL)/2, dtheta=(dR-dL)/b, R=ds/dtheta, dx=R sin(dtheta), dy=R(1-cos(dtheta)) in the initial body frame.",
+    "analogy": "A turning chassis sweeps an arc rather than a straight chord. Integrating its changing heading recovers the sideways displacement that start-heading-only dead reckoning misses.",
+    "starter": {
+      "plainStart": "For constant incremental curvature and dtheta≠0, ds=(dR+dL)/2, dtheta=(dR-dL)/b, R=ds/dtheta, dx=R sin(dtheta), dy=R(1-cos(dtheta)) in the initial body frame.",
+      "tryThis": "Integrate the wheel increments with the exact sine/cosine arc formulas.",
+      "helper": "Work strictly in the synthetic coordinate system and units defined below. Check the worked numerical model before attempting variations."
+    },
+    "technical": {
+      "scope": "Synthetic, offline educational case. Pose may drift unbounded over multiple steps with slip/bias; exact for chosen ideal constant-curvature segment. Reference: https://docs.wpilib.org/en/stable/docs/software/kinematics-and-odometry/differential-drive-kinematics.html",
+      "versionCaution": "Check the cited canonical reference for platform/API changes; this lesson is not validated for live robot actuation.",
+      "prerequisites": [],
+      "connections": []
+    },
+    "reasoningSteps": [
+      "Assume no slip, wheel increments dL=0.20 m and dR=0.30 m, track width b=0.50 m and initial pose (x,y,yaw)=(0,0,0).",
+      "Compute center arc length ds=(0.20+0.30)/2=0.25 m and heading change dtheta=(0.30-0.20)/0.50=+0.20 rad.",
+      "Turn radius R=ds/dtheta=1.25 m; exact arc integration gives dx=0.248336663 m, dy=0.024916778 m, heading=+0.20 rad.",
+      "Independent geometry check: chord distance sqrt(dx²+dy²)=2*R*sin(dtheta/2)=0.249583542 m, slightly shorter than arc length 0.25 m.",
+      "Counterexample: naive straight projection dx=ds=0.25,dy=0 misplaces the robot in a turn; midpoint projection is also only approximate. A numerical counterexample occurs at ds=0.25 m, dtheta=1e-9 rad: in IEEE-754 binary64 arithmetic, 1-cos(dtheta) rounds to zero and the direct radius-based formula falsely returns dy=0, although the true lateral increment is approximately +1.25e-10 m.",
+      "For robust exact integration use half-angle coordinates dx=ds*sinc(dtheta/2)*cos(dtheta/2), dy=ds*sinc(dtheta/2)*sin(dtheta/2), where sinc(z)=sin(z)/z and sinc(0)=1. Derive this by integrating the fixed-curvature chassis twist; it avoids subtraction cancellation and has the continuous limit dx=ds, dy=0 at dtheta=0. Negative yaw reverses the sign of dy; pure in-place rotation ds=0 changes yaw without translation. The no-slip, constant-curvature model is an odometry estimate, not ground truth; Modern Robotics 13.4: https://modernrobotics.northwestern.edu/nu-gm-book-resource/13-4-odometry/"
+    ],
+    "memoryLadder": [
+      "State the mathematical mapping used in exact constant-curvature wheel odometry without notes.",
+      "Reproduce the numerical result and all units from the assumptions.",
+      "Demonstrate the given counterexample rather than guessing its behavior.",
+      "Explain exactly which real-world uncertainties the synthetic assumptions omit."
+    ],
+    "labPlan": [
+      "Integrate dL=0.20 m, dR=0.30 m, b=0.50 m with exact constant-curvature formulas; assert (dx,dy,dtheta)=(0.24833666349,0.02491677770,0.20) in m,m,rad.",
+      "Independently calculate 2R*sin(dtheta/2)=0.2495835416 m and compare with hypot(dx,dy), using R=1.25 m.",
+      "Set dL=dR=0.25 m and use the explicit straight-line limit dx=0.25 m, dy=0, dtheta=0; never divide by zero or confuse wheel-derived odometry with true pose under slip. For ds=0.25 m and dtheta=+1e-9 rad, assert the half-angle formula gives dy approximately +1.25e-10 m, while (1-cos(dtheta))*ds/dtheta evaluates to zero in binary64; at -1e-9 rad assert negative dy. Test pure spin ds=0 as well as the straight limit."
+    ],
+    "vocabulary": [
+      {
+        "term": "dead reckoning",
+        "definition": "Pose propagated from motion increments rather than an external absolute reference."
+      },
+      {
+        "term": "arc integration",
+        "definition": "Exact pose advance under a constant-curvature turn assumption."
+      }
+    ]
+  },
+  "robotics-controls-07-wheel-encoder-quantization": {
+    "essentialQuestion": "How does digital encoder resolution limit inferred wheel travel?",
+    "verifiedBoundary": "If N signed counts represent one wheel revolution at the wheel shaft, travel=counts*(2*pi*r/N); quantization step=2*pi*r/N.",
+    "analogy": "A count is a discrete fraction of an assumed wheel circumference, not a direct ground-distance observation. Quantization exists even in perfect electronics; slip adds a separate modeling error.",
+    "starter": {
+      "plainStart": "If N signed counts represent one wheel revolution at the wheel shaft, travel=counts*(2*pi*r/N); quantization step=2*pi*r/N.",
+      "tryThis": "Implement countToMeters(counts,r,N) and verify half and full revolutions.",
+      "helper": "Work strictly in the synthetic coordinate system and units defined below. Check the worked numerical model before attempting variations."
+    },
+    "technical": {
+      "scope": "Synthetic, offline educational case. Assumes wheel-shaft count definition, fixed effective rolling radius and zero slip. Reference: https://docs.wpilib.org/en/stable/docs/software/kinematics-and-odometry/differential-drive-kinematics.html",
+      "versionCaution": "Check the cited canonical reference for platform/API changes; this lesson is not validated for live robot actuation.",
+      "prerequisites": [],
+      "connections": []
+    },
+    "reasoningSteps": [
+      "Let wheel radius r=0.050 m and wheel-shaft encoder resolution N=2048 counted transitions per revolution (after any quadrature and gear-ratio interpretation).",
+      "One count represents 2*pi*0.05/2048=0.0001533980788 m; 1024 positive counts represent 0.157079633 m along the rolling direction.",
+      "Independent angular check: 1024/2048 revolution is 0.5 rev or pi radians; arc distance r*pi=0.157079633 m.",
+      "With 2048 counts the inferred travel is 0.314159265 m; using 1024 ticks per rev by mistake doubles the answer.",
+      "For rounding to nearest count, a single reading has ideal displacement quantization uncertainty no larger than half a count, about 0.0000766990 m, excluding systematic wheel errors.",
+      "Counterexample: encoder counts alone do not establish wheel-ground travel if the wheel slips or the count resolution is measured at a motor before gearing. Source background: https://docs.wpilib.org/en/stable/docs/software/kinematics-and-odometry/differential-drive-kinematics.html"
+    ],
+    "memoryLadder": [
+      "State the mathematical mapping used in encoder counts, resolution, and distance without notes.",
+      "Reproduce the numerical result and all units from the assumptions.",
+      "Demonstrate the given counterexample rather than guessing its behavior.",
+      "Explain exactly which real-world uncertainties the synthetic assumptions omit."
+    ],
+    "labPlan": [
+      "Implement countToMeters(c,r,N)=c*2*pi*r/N and assert 1024 counts of a 2048-count wheel revolution at r=0.050 m equal pi*0.050 m.",
+      "Derive a single count of 0.000153398079 m and ideal nearest-count half-step bound of 0.000076699039 m, excluding slip and encoder bias.",
+      "At 2048 counts assert 0.314159265 m; deliberately misinterpret the effective resolution as 1024 counts/revolution and verify that the inferred travel erroneously doubles."
+    ],
+    "vocabulary": [
+      {
+        "term": "counts per revolution",
+        "definition": "Effective number of recorded transitions corresponding to one wheel revolution."
+      },
+      {
+        "term": "quantization",
+        "definition": "Discrete numerical resolution of an otherwise continuous measurement."
+      }
+    ]
+  },
+  "robotics-controls-08-two-point-calibration": {
+    "essentialQuestion": "How can known references identify sensor gain and offset without confusing units?",
+    "verifiedBoundary": "For an affine sensor y=g*x+b, use g=(y2-y1)/(x2-x1) and b=y1-g*x1, then x=(y-b)/g when g is nonzero.",
+    "analogy": "Calibrating a measuring tape with the wrong zero and the wrong scale requires two corrections. Subtracting the offset alone leaves a distance-dependent gain error.",
+    "starter": {
+      "plainStart": "For an affine sensor y=g*x+b, use g=(y2-y1)/(x2-x1) and b=y1-g*x1, then x=(y-b)/g when g is nonzero.",
+      "tryThis": "Solve gain/offset with two points and reconstruct both measurements.",
+      "helper": "Work strictly in the synthetic coordinate system and units defined below. Check the worked numerical model before attempting variations."
+    },
+    "technical": {
+      "scope": "Synthetic, offline educational case. Synthetic noiseless affine sensor; independent calibration validation requires more references. Reference: https://docs.wpilib.org/en/latest/docs/software/advanced-controls/state-space/state-space-observers.html",
+      "versionCaution": "Check the cited canonical reference for platform/API changes; this lesson is not validated for live robot actuation.",
+      "prerequisites": [],
+      "connections": []
+    },
+    "reasoningSteps": [
+      "Use original synthetic reference x1=1.00 m and x2=3.00 m; sensor returns y1=1.07 m and y2=3.17 m.",
+      "Estimate gain g=(3.17-1.07)/(3.00-1.00)=1.05 and additive offset b=1.07-1.05*1.00=0.02 m.",
+      "For new sensor reading y=2.12 m, corrected distance x=(2.12-0.02)/1.05=2.000000 m.",
+      "Independent check: reconstruct readings from references: 1.05*1+0.02=1.07 m and 1.05*3+0.02=3.17 m.",
+      "Counterexample: subtracting offset only yields 2.10 m, a 0.10 m error, because the 5% gain error remains.",
+      "Validity boundary: exactly two noiseless references cannot establish linearity, extrapolation accuracy, drift or a credible uncertainty budget; NIST Engineering Statistics Handbook calibration guidance: https://itl.nist.gov/div898/handbook/mpc/section3/mpc3.htm"
+    ],
+    "memoryLadder": [
+      "State the mathematical mapping used in two-point affine range-sensor calibration without notes.",
+      "Reproduce the numerical result and all units from the assumptions.",
+      "Demonstrate the given counterexample rather than guessing its behavior.",
+      "Explain exactly which real-world uncertainties the synthetic assumptions omit."
+    ],
+    "labPlan": [
+      "Fit gain and offset from (x1,y1)=(1.00,1.07) m and (x2,y2)=(3.00,3.17) m; assert gain=1.05 and offset=0.02 m.",
+      "Correct y=2.12 m to x=2.00 m, reconstruct both calibration references, and demonstrate that offset-only correction falsely reports 2.10 m.",
+      "Show conditioning: with references x1=1 m and x2=1.000001 m, a +0.001 m error in the second synthetic reading changes the estimated gain from 1.05 to 1001.05; refuse a zero reference separation."
+    ],
+    "vocabulary": [
+      {
+        "term": "gain error",
+        "definition": "Multiplicative deviation of the sensor scale from the true scale."
+      },
+      {
+        "term": "offset error",
+        "definition": "Additive bias in the reported value."
+      }
+    ]
+  },
+  "robotics-controls-09-discrete-p-stability": {
+    "essentialQuestion": "Why can increasing a proportional gain destabilize an otherwise simple sampled plant?",
+    "verifiedBoundary": "For x[k+1]=x[k]+dt*u[k], u=Kp*(r-x), the error recurrence is e[k+1]=(1-dt*Kp)e[k] and converges iff |1-dt*Kp|<1.",
+    "analogy": "A controller samples an error, acts, and waits until the next sample. The discrete error multiplier shows whether successive corrections shrink, alternate indefinitely, or grow.",
+    "starter": {
+      "plainStart": "For x[k+1]=x[k]+dt*u[k], u=Kp*(r-x), the error recurrence is e[k+1]=(1-dt*Kp)e[k] and converges iff |1-dt*Kp|<1.",
+      "tryThis": "Simulate 3 steps at Kp=4 and compare with 0.6^k analytical expression.",
+      "helper": "Work strictly in the synthetic coordinate system and units defined below. Check the worked numerical model before attempting variations."
+    },
+    "technical": {
+      "scope": "Synthetic, offline educational case. Scalar ideal sampled integrator, constant setpoint, no latency/noise/saturation, not real-hardware controller tuning. Reference: https://docs.wpilib.org/en/stable/docs/software/advanced-controls/controllers/pidcontroller.html",
+      "versionCaution": "Check the cited canonical reference for platform/API changes; this lesson is not validated for live robot actuation.",
+      "prerequisites": [],
+      "connections": []
+    },
+    "reasoningSteps": [
+      "Define dimensionless state x, setpoint r=1, sample time dt=0.10 s, simulated integrator plant x[k+1]=x[k]+0.1*u[k] and gain Kp=4 s^-1, no saturation.",
+      "At x0=0: u0=4, x1=0.4; next u1=2.4, x2=0.64; then u2=1.44, x3=0.784.",
+      "Independent closed-form: e[k]=(1-0.1*4)^k e0=0.6^k, so e3=0.216 and x3=1-0.216=0.784.",
+      "Stability requires -1<1-dt*Kp<1 or 0<dt*Kp<2 for this discrete ideal plant.",
+      "Counterexample: Kp=25 s^-1 gives pole 1-2.5=-1.5 and grows/alternates: x1=2.5, x2=-1.25, rather than converging.",
+      "Do not transfer the 0<dt*Kp<2 rule unmodified to a real robot with inertia, latency or non-integrator dynamics. Context: https://docs.wpilib.org/en/stable/docs/software/advanced-controls/controllers/pidcontroller.html"
+    ],
+    "memoryLadder": [
+      "State the mathematical mapping used in sampled proportional control of an integrator without notes.",
+      "Reproduce the numerical result and all units from the assumptions.",
+      "Demonstrate the given counterexample rather than guessing its behavior.",
+      "Explain exactly which real-world uncertainties the synthetic assumptions omit."
+    ],
+    "labPlan": [
+      "Simulate x[k+1]=x[k]+0.10*Kp*(1-x[k]) from x0=0, Kp=4 s^-1; assert x1=0.4, x2=0.64 and x3=0.784.",
+      "Independently compute e3=(1-0.10*4)^3=0.216, and verify the exact criterion 0<dt*Kp<2 for this specific ideal plant.",
+      "For Kp=25 s^-1 assert x1=2.5 and x2=-1.25 (divergence); for Kp=20 assert x1=2,x2=0 (undamped two-cycle), not convergence."
+    ],
+    "vocabulary": [
+      {
+        "term": "discrete pole",
+        "definition": "Multiplier governing each step of a linear error recurrence."
+      },
+      {
+        "term": "sample interval",
+        "definition": "Elapsed time between feedback computations."
+      }
+    ]
+  },
+  "robotics-controls-10-integrator-antiwindup": {
+    "essentialQuestion": "What happens to a PI controller's integral term when the actuator saturates for repeated positive error?",
+    "verifiedBoundary": "One anti-windup scheme freezes integrator updates when the candidate command is saturated and error would drive it further into saturation.",
+    "analogy": "The integral term retains a memory of past error even while the actuator is clipped. Preventing that memory from growing into saturation can avoid an initially wrong-direction response after the error reverses.",
+    "starter": {
+      "plainStart": "One anti-windup scheme freezes integrator updates when the candidate command is saturated and error would drive it further into saturation.",
+      "tryThis": "Simulate ten fixed-error steps with and without conditional integration.",
+      "helper": "Work strictly in the synthetic coordinate system and units defined below. Check the worked numerical model before attempting variations."
+    },
+    "technical": {
+      "scope": "Synthetic, offline educational case. Synthetic fixed-error study, not closed-loop transient tuning; policy must be checked for sign, limits and reset behavior. Reference: https://docs.wpilib.org/en/stable/docs/software/advanced-controls/controllers/pidcontroller.html",
+      "versionCaution": "Check the cited canonical reference for platform/API changes; this lesson is not validated for live robot actuation.",
+      "prerequisites": [],
+      "connections": []
+    },
+    "reasoningSteps": [
+      "Use a discrete synthetic PI controller with proportional gain Kp=2, integral gain Ki=1 s^-1, fixed positive error e=2, dt=0.1 s, and actuator output restricted to [-1,+1].",
+      "Initial integral I0=0; proportional contribution Kp*e=4 already exceeds +1, so the applied command clips to +1.",
+      "Naive integration updates I[k+1]=I[k]+e*dt; after 10 identical errors I10=2, and computed raw command is 4+1*2=6, while actuator still applies only +1.",
+      "Conditional anti-windup freezes I=0 for each step when the raw output is above +1 and the positive error would increase saturation; raw output stays 4, applied +1.",
+      "Independent check: summation of ten error rectangles gives 10*(2)*(0.1)=2; bounded integral remains 0 under the stated policy.",
+      "Counterexample with stored I=2: at subsequent error e=-0.25, raw output is 2*(-0.25)+1*2=+1.50 and clips +1, whereas conditional I=0 gives raw -0.50; output saturation alone does not erase the accumulated integral state. Context: https://docs.wpilib.org/en/latest/docs/software/advanced-controls/controllers/pidcontroller.html"
+    ],
+    "memoryLadder": [
+      "State the mathematical mapping used in conditional integration under output saturation without notes.",
+      "Reproduce the numerical result and all units from the assumptions.",
+      "Demonstrate the given counterexample rather than guessing its behavior.",
+      "Explain exactly which real-world uncertainties the synthetic assumptions omit."
+    ],
+    "labPlan": [
+      "Simulate ten fixed-error samples with Kp=2, Ki=1 s^-1, e=2, dt=0.10 s and output limit +/-1, using both naive and saturation-aware conditional integrators.",
+      "Assert naive integral I10=2 and raw command 6, while conditional integration retains I10=0 and raw command 4; both applied commands clip to +1.",
+      "Now set a one-step test error e=-0.25 without first updating I: assert naive raw command +1.50 (still clips positive) versus guarded raw command -0.50 (negative), exposing wrong-direction windup recovery."
+    ],
+    "vocabulary": [
+      {
+        "term": "integral windup",
+        "definition": "Accumulation of integral state while actuator output cannot deliver requested control."
+      },
+      {
+        "term": "conditional integration",
+        "definition": "Integrator update guard based on saturation and error direction."
+      }
+    ]
+  },
+  "robotics-controls-11-scalar-kalman-update": {
+    "essentialQuestion": "How does sensor uncertainty determine the weight of a new positional observation?",
+    "verifiedBoundary": "For independent Gaussian scalar prior P and measurement variance R, K=P/(P+R), x_post=x_prior+K(z-x_prior), P_post=(1-K)P.",
+    "analogy": "Two estimates are not equally informative when their variances differ. Under independent, unbiased errors, the lower-variance estimate receives greater weight, and the fused uncertainty shrinks.",
+    "starter": {
+      "plainStart": "For independent Gaussian scalar prior P and measurement variance R, K=P/(P+R), x_post=x_prior+K(z-x_prior), P_post=(1-K)P.",
+      "tryThis": "Compute gain, mean and posterior variance with independent precision-weighted equation.",
+      "helper": "Work strictly in the synthetic coordinate system and units defined below. Check the worked numerical model before attempting variations."
+    },
+    "technical": {
+      "scope": "Synthetic, offline educational case. Single scalar linear Gaussian independent measurement update; no prediction step, correlated noise or outlier rejection. Reference: https://docs.wpilib.org/en/latest/docs/software/advanced-controls/state-space/state-space-observers.html",
+      "versionCaution": "Check the cited canonical reference for platform/API changes; this lesson is not validated for live robot actuation.",
+      "prerequisites": [],
+      "connections": []
+    },
+    "reasoningSteps": [
+      "Assume a prior location estimate x_prior=2.00 m with variance P=0.25 m² and independent unbiased sensor z=2.60 m with variance R=0.09 m².",
+      "Kalman gain K=0.25/(0.25+0.09)=0.735294118 (dimensionless).",
+      "Updated mean x_post=2.00+0.735294118*(0.60)=2.441176471 m; covariance P_post=(1-K)*0.25=0.066176471 m².",
+      "Independent precision-weighted mean: (x_prior/P+z/R)/(1/P+1/R)=(2/.25+2.6/.09)/(4+11.111111)=2.441176471 m.",
+      "Counterexample: assigning both readings equal weight yields 2.30 m and disregards known unequal variances.",
+      "Variation: increase sensor variance to R=0.36 m²; gain decreases to 0.409836066 and updated mean becomes 2.245901639 m, so measurement is trusted less. Source: https://docs.wpilib.org/en/latest/docs/software/advanced-controls/state-space/state-space-observers.html"
+    ],
+    "memoryLadder": [
+      "State the mathematical mapping used in scalar measurement fusion and variance without notes.",
+      "Reproduce the numerical result and all units from the assumptions.",
+      "Demonstrate the given counterexample rather than guessing its behavior.",
+      "Explain exactly which real-world uncertainties the synthetic assumptions omit."
+    ],
+    "labPlan": [
+      "For prior x=2.00 m, P=0.25 m^2 and independent z=2.60 m, R=0.09 m^2, assert K=0.735294118, posterior x=2.441176471 m and P_post=0.066176471 m^2.",
+      "Independently compute posterior mean by normalized precision weighting and require agreement with the Kalman expression within 1e-10 m.",
+      "Raise R to 0.36 m^2 and assert K=0.409836066 and updated x=2.245901639 m; reject the equal-weight mean of 2.30 m as an uncertainty-ignorant counterexample."
+    ],
+    "vocabulary": [
+      {
+        "term": "prior variance",
+        "definition": "Uncertainty of the estimate before incorporating a measurement."
+      },
+      {
+        "term": "Kalman gain",
+        "definition": "Relative trust assigned to the new observation in the linear Gaussian update."
+      }
+    ]
+  },
+  "robotics-controls-12-trapezoid-profile": {
+    "essentialQuestion": "When does a symmetric speed-limited trajectory reach its specified maximum velocity?",
+    "verifiedBoundary": "With rest-to-rest constant acceleration magnitude a and speed limit v_max, each acceleration ramp covers d_ramp=v_max²/(2a). If distance D<v_max²/a, use a triangular profile with peak sqrt(Da).",
+    "analogy": "On a long enough ideal move the velocity profile has a flat-speed plateau. On a short move, acceleration must switch directly to braking before the requested maximum speed is reached.",
+    "starter": {
+      "plainStart": "With rest-to-rest constant acceleration magnitude a and speed limit v_max, each acceleration ramp covers d_ramp=v_max²/(2a). If distance D<v_max²/a, use a triangular profile with peak sqrt(Da).",
+      "tryThis": "Compute the 2.00 m trapezoidal duration and area with units.",
+      "helper": "Work strictly in the synthetic coordinate system and units defined below. Check the worked numerical model before attempting variations."
+    },
+    "technical": {
+      "scope": "Synthetic, offline educational case. Ideal 1D symmetric motion, no jerk limits, obstacles, tracking error, or hardware safety claims. Reference: https://docs.wpilib.org/en/latest/docs/software/advanced-controls/controllers/trapezoidal-profiles.html",
+      "versionCaution": "Check the cited canonical reference for platform/API changes; this lesson is not validated for live robot actuation.",
+      "prerequisites": [],
+      "connections": []
+    },
+    "reasoningSteps": [
+      "Assume an ideal one-dimensional robot translation D=2.00 m, rest-to-rest, maximum acceleration a=1.00 m/s² and speed limit v_max=1.00 m/s.",
+      "Acceleration duration t_acc=v_max/a=1.00 s; acceleration distance=0.5*a*t_acc²=0.50 m; deceleration repeats 0.50 m.",
+      "Remaining constant-speed distance is 2.00-1.00=1.00 m, so cruise lasts 1.00 s and total time is 3.00 s.",
+      "Independent area-under-speed check: triangular ramp areas 0.5+0.5 m and cruise rectangle 1.0 m sum to 2.00 m.",
+      "Counterexample: for distance D=0.40 m, there is insufficient room to reach 1.00 m/s; peak is sqrt(0.40*1)=0.632455532 m/s and total time is 2sqrt(0.40/1)=1.264911064 s.",
+      "Changing a or v_max can change the regime; neither trajectory establishes safety in a physical environment. Source: https://docs.wpilib.org/en/latest/docs/software/advanced-controls/controllers/trapezoidal-profiles.html"
+    ],
+    "memoryLadder": [
+      "State the mathematical mapping used in rest-to-rest trapezoidal versus triangular trajectories without notes.",
+      "Reproduce the numerical result and all units from the assumptions.",
+      "Demonstrate the given counterexample rather than guessing its behavior.",
+      "Explain exactly which real-world uncertainties the synthetic assumptions omit."
+    ],
+    "labPlan": [
+      "For distance D=2.00 m, acceleration a=1.00 m/s^2 and vmax=1.00 m/s, calculate t_acc=1.00 s, cruise=1.00 s, total=3.00 s and area under velocity=2.00 m.",
+      "For D=0.40 m independently assert triangular peak speed sqrt(0.40)=0.632455532 m/s and total time 2*sqrt(0.40)=1.264911064 s.",
+      "Test the regime boundary D=vmax^2/a=1.00 m: acceleration and deceleration consume all distance, cruise time is zero and total time is 2.00 s; never claim these ideal profiles prove obstacle safety."
+    ],
+    "vocabulary": [
+      {
+        "term": "trapezoidal velocity profile",
+        "definition": "Acceleration, constant-speed and deceleration segments in an ideal motion plan."
+      },
+      {
+        "term": "triangular velocity profile",
+        "definition": "Short move whose velocity ramps meet before speed limit can be reached."
+      }
+    ]
+  }
+}
