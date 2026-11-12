@@ -1,0 +1,366 @@
+{
+ "method": "Stratified random sample: three substantively changed lessons per changed chunk (Python random.seed(20261112), random.sample over lessons whose question, reasoning or lab text changed). For each, every stated derivation, count, unit and boundary claim was recomputed by hand and the cited source was checked for topical fit.",
+ "result": "No factual or arithmetic errors found in the 90 sampled lessons. Presentation defects found in the sample were traced across all lessons and corrected: missing spaces before numbers (architecture, algorithms), duplicated sentences (waves), placeholder questions (quantum).",
+ "lessons": [
+  {
+   "chunk": "advanced/architecture.json",
+   "id": "advanced-v05-instruction-encoding"
+  },
+  {
+   "chunk": "advanced/architecture.json",
+   "id": "advanced-v07-pipeline-data-hazard"
+  },
+  {
+   "chunk": "advanced/architecture.json",
+   "id": "advanced-v05-exceptions-and-interrupts"
+  },
+  {
+   "chunk": "advanced/distributed-systems.json",
+   "id": "advanced-v05-raft-commit-rule"
+  },
+  {
+   "chunk": "advanced/distributed-systems.json",
+   "id": "advanced-replication"
+  },
+  {
+   "chunk": "advanced/distributed-systems.json",
+   "id": "advanced-consistency-models"
+  },
+  {
+   "chunk": "advanced/gpu-computing.json",
+   "id": "advanced-gpu-divergence-lab"
+  },
+  {
+   "chunk": "advanced/gpu-computing.json",
+   "id": "advanced-gpu-coalescing"
+  },
+  {
+   "chunk": "advanced/gpu-computing.json",
+   "id": "advanced-gpu-warp"
+  },
+  {
+   "chunk": "advanced/hpc.json",
+   "id": "advanced-mpi-rma"
+  },
+  {
+   "chunk": "advanced/hpc.json",
+   "id": "advanced-v05-mpi-communicators"
+  },
+  {
+   "chunk": "advanced/hpc.json",
+   "id": "advanced-strong-weak-scaling"
+  },
+  {
+   "chunk": "advanced/operating-systems.json",
+   "id": "advanced-v05-system-calls"
+  },
+  {
+   "chunk": "advanced/operating-systems.json",
+   "id": "advanced-v05-copy-on-write"
+  },
+  {
+   "chunk": "advanced/operating-systems.json",
+   "id": "advanced-v05-virtual-address-spaces"
+  },
+  {
+   "chunk": "advanced/quantum.json",
+   "id": "advanced-v05-global-phase"
+  },
+  {
+   "chunk": "advanced/quantum.json",
+   "id": "advanced-quantum-state-vector"
+  },
+  {
+   "chunk": "advanced/quantum.json",
+   "id": "advanced-quantum-circuit-depth"
+  },
+  {
+   "chunk": "cloud/identity.json",
+   "id": "cloud-v09-practical-lab-ldap-operations"
+  },
+  {
+   "chunk": "cloud/identity.json",
+   "id": "cloud-v06-kerberos-key-distribution-center"
+  },
+  {
+   "chunk": "cloud/identity.json",
+   "id": "cloud-v06-ldap-operations"
+  },
+  {
+   "chunk": "cloud/kubernetes.json",
+   "id": "cloud-v06-kubernetes-service-abstraction"
+  },
+  {
+   "chunk": "cloud/kubernetes.json",
+   "id": "cloud-v09-teach-back-lab-kubernetes-dns-discovery"
+  },
+  {
+   "chunk": "cloud/kubernetes.json",
+   "id": "cloud-v06-kubernetes-namespace-scope"
+  },
+  {
+   "chunk": "cloud/networking.json",
+   "id": "cloud-dns-resolution"
+  },
+  {
+   "chunk": "cloud/networking.json",
+   "id": "cloud-routing-table"
+  },
+  {
+   "chunk": "cloud/networking.json",
+   "id": "cloud-dhcp"
+  },
+  {
+   "chunk": "cloud/observability.json",
+   "id": "cloud-v07-prometheus-time-series"
+  },
+  {
+   "chunk": "cloud/observability.json",
+   "id": "cloud-v07-observability-traces"
+  },
+  {
+   "chunk": "cloud/observability.json",
+   "id": "cloud-v07-observability-metrics"
+  },
+  {
+   "chunk": "cyber/application-security.json",
+   "id": "cyber-access-control"
+  },
+  {
+   "chunk": "cyber/application-security.json",
+   "id": "cyber-session"
+  },
+  {
+   "chunk": "cyber/application-security.json",
+   "id": "cyber-v06-contextual-output-encoding"
+  },
+  {
+   "chunk": "cyber/detection.json",
+   "id": "cyber-v08-evidence-lab-csf-detect-function"
+  },
+  {
+   "chunk": "cyber/detection.json",
+   "id": "cyber-v08-evidence-lab-incident-response-integration"
+  },
+  {
+   "chunk": "cyber/detection.json",
+   "id": "cyber-v06-incident-triage"
+  },
+  {
+   "chunk": "cyber/network-security.json",
+   "id": "cyber-v09-scenario-analysis-tls-1-3-protected-application-data"
+  },
+  {
+   "chunk": "cyber/network-security.json",
+   "id": "cyber-v09-quick-reference-tls-1-3-protected-application-data"
+  },
+  {
+   "chunk": "cyber/network-security.json",
+   "id": "cyber-segmentation"
+  },
+  {
+   "chunk": "math/calculus.json",
+   "id": "math-integral"
+  },
+  {
+   "chunk": "math/calculus.json",
+   "id": "math-gradient"
+  },
+  {
+   "chunk": "math/calculus.json",
+   "id": "math-rate-change"
+  },
+  {
+   "chunk": "math/linear-algebra.json",
+   "id": "math-dot-product"
+  },
+  {
+   "chunk": "math/linear-algebra.json",
+   "id": "math-determinant"
+  },
+  {
+   "chunk": "math/linear-algebra.json",
+   "id": "math-linear-systems"
+  },
+  {
+   "chunk": "math/numerical-methods.json",
+   "id": "math-v09-worked-example-floating-point-error-computers-approximate-real-numbers"
+  },
+  {
+   "chunk": "math/numerical-methods.json",
+   "id": "math-lab-gradient-descent"
+  },
+  {
+   "chunk": "math/numerical-methods.json",
+   "id": "math-v09-practical-lab-walk-down-a-function-with-gradient-descent"
+  },
+  {
+   "chunk": "math/probability.json",
+   "id": "math-distributions"
+  },
+  {
+   "chunk": "math/probability.json",
+   "id": "math-v08-deep-dive-independent-events"
+  },
+  {
+   "chunk": "math/probability.json",
+   "id": "math-probability"
+  },
+  {
+   "chunk": "math/sequences.json",
+   "id": "math-v06-geometric-sequences"
+  },
+  {
+   "chunk": "math/sequences.json",
+   "id": "math-v09-failure-analysis-lab-arithmetic-sequences"
+  },
+  {
+   "chunk": "math/sequences.json",
+   "id": "math-v09-practical-lab-geometric-sequence"
+  },
+  {
+   "chunk": "physics/electricity.json",
+   "id": "physics-v09-decision-lab-electric-field"
+  },
+  {
+   "chunk": "physics/electricity.json",
+   "id": "physics-v10-exam-style-practice-kirchhoff-junction-rule"
+  },
+  {
+   "chunk": "physics/electricity.json",
+   "id": "physics-v09-quick-reference-kirchhoff-junction-rule-2"
+  },
+  {
+   "chunk": "physics/energy.json",
+   "id": "physics-v08-evidence-lab-work"
+  },
+  {
+   "chunk": "physics/energy.json",
+   "id": "physics-v08-evidence-lab-work-energy-theorem"
+  },
+  {
+   "chunk": "physics/energy.json",
+   "id": "physics-energy"
+  },
+  {
+   "chunk": "physics/magnetism.json",
+   "id": "physics-v08-deep-dive-faraday-law"
+  },
+  {
+   "chunk": "physics/magnetism.json",
+   "id": "physics-v06-magnetic-force-on-a-charge"
+  },
+  {
+   "chunk": "physics/magnetism.json",
+   "id": "physics-v08-deep-dive-magnetic-force-on-moving-charge"
+  },
+  {
+   "chunk": "physics/mechanics.json",
+   "id": "physics-v10-explain-back-challenge-free-body-diagram"
+  },
+  {
+   "chunk": "physics/mechanics.json",
+   "id": "physics-v06-newton-s-third-law"
+  },
+  {
+   "chunk": "physics/mechanics.json",
+   "id": "physics-v09-practical-lab-displacement"
+  },
+  {
+   "chunk": "physics/momentum.json",
+   "id": "physics-v09-worked-example-impulse-momentum-theorem"
+  },
+  {
+   "chunk": "physics/momentum.json",
+   "id": "physics-v10-worked-walkthrough-linear-momentum"
+  },
+  {
+   "chunk": "physics/momentum.json",
+   "id": "physics-v09-design-review-impulse-momentum-theorem"
+  },
+  {
+   "chunk": "physics/rotation.json",
+   "id": "physics-v10-fault-isolation-lab-torque"
+  },
+  {
+   "chunk": "physics/rotation.json",
+   "id": "physics-v09-quick-reference-angular-velocity"
+  },
+  {
+   "chunk": "physics/rotation.json",
+   "id": "physics-v09-misconception-clinic-angular-velocity"
+  },
+  {
+   "chunk": "physics/thermodynamics.json",
+   "id": "physics-v09-practical-lab-heat"
+  },
+  {
+   "chunk": "physics/thermodynamics.json",
+   "id": "physics-v09-scenario-analysis-first-law-of-thermodynamics"
+  },
+  {
+   "chunk": "physics/thermodynamics.json",
+   "id": "physics-v09-misconception-clinic-temperature"
+  },
+  {
+   "chunk": "physics/waves.json",
+   "id": "lab-wave-sound"
+  },
+  {
+   "chunk": "physics/waves.json",
+   "id": "physics-resonance"
+  },
+  {
+   "chunk": "physics/waves.json",
+   "id": "physics-v08-deep-dive-wave-speed-frequency-wavelength"
+  },
+  {
+   "chunk": "software/algorithms.json",
+   "id": "software-v09-scenario-analysis-recursion-2"
+  },
+  {
+   "chunk": "software/algorithms.json",
+   "id": "software-v09-scenario-analysis-big-o-describing-how-work-grows-2"
+  },
+  {
+   "chunk": "software/algorithms.json",
+   "id": "software-v09-design-review-graphs-modeling-relationships-instead-of-rows"
+  },
+  {
+   "chunk": "software/apis.json",
+   "id": "software-api-lifecycle"
+  },
+  {
+   "chunk": "software/apis.json",
+   "id": "software-v06-http-put-semantics"
+  },
+  {
+   "chunk": "software/apis.json",
+   "id": "software-v06-http-cache-freshness"
+  },
+  {
+   "chunk": "software/databases.json",
+   "id": "software-v08-evidence-lab-sql-group-by"
+  },
+  {
+   "chunk": "software/databases.json",
+   "id": "software-v08-deep-dive-sql-foreign-key"
+  },
+  {
+   "chunk": "software/databases.json",
+   "id": "software-v08-evidence-lab-sql-having"
+  },
+  {
+   "chunk": "software/testing.json",
+   "id": "software-v09-recall-drill-debug-by-reducing-the-search-space-3"
+  },
+  {
+   "chunk": "software/testing.json",
+   "id": "software-v09-decision-lab-testing-at-multiple-layers-7"
+  },
+  {
+   "chunk": "software/testing.json",
+   "id": "software-v09-decision-lab-testing-at-multiple-layers"
+  }
+ ]
+}

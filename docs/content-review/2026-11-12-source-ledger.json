@@ -1,0 +1,2275 @@
+{
+ "scope": "URLs in fields changed on content/curriculum-integration-20261112 relative to main 968b512",
+ "statuses": {
+  "read": "page content (or the publisher table of contents for that exact URL) was read during the review",
+  "search-confirmed": "the exact URL was returned by a web search during the review; content not read",
+  "not individually checked": "not fetched; outbound access to most documentation hosts is blocked from the review environment",
+  "illustrative": "example hostnames inside synthetic scenarios"
+ },
+ "entries": [
+  {
+   "url": "http://127.0.0.1",
+   "status": "illustrative",
+   "note": "reserved example host used inside a scenario; not a source",
+   "citedBy": [
+    "cyber-ssrf"
+   ]
+  },
+  {
+   "url": "https://api.example",
+   "status": "illustrative",
+   "note": "reserved example host used inside a scenario; not a source",
+   "citedBy": [
+    "cyber-tls"
+   ]
+  },
+  {
+   "url": "https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "cyber-access-control",
+    "cyber-v06-authorization-deny-by-default",
+    "cyber-v06-object-level-authorization"
+   ]
+  },
+  {
+   "url": "https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "cyber-v06-contextual-output-encoding",
+    "cyber-xss"
+   ]
+  },
+  {
+   "url": "https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "cyber-input-validation"
+   ]
+  },
+  {
+   "url": "https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "cyber-sql-injection",
+    "cyber-v06-parameterized-sql-queries"
+   ]
+  },
+  {
+   "url": "https://cheatsheetseries.owasp.org/cheatsheets/Server_Side_Request_Forgery_Prevention_Cheat_Sheet.html",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "cyber-ssrf",
+    "cyber-v06-ssrf-allowlisting"
+   ]
+  },
+  {
+   "url": "https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "cyber-session",
+    "cyber-v06-session-identifiers"
+   ]
+  },
+  {
+   "url": "https://cs231n.github.io/optimization-1/",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "math-lab-gradient-descent",
+    "math-v09-failure-analysis-lab-walk-down-a-function-with-gradient-descent",
+    "math-v09-practical-lab-walk-down-a-function-with-gradient-descent"
+   ]
+  },
+  {
+   "url": "https://csrc.nist.gov/pubs/sp/800/207/final",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "cyber-segmentation",
+    "cyber-v09-failure-analysis-l-network-segmentation-reduce-the-blast-radius-2",
+    "cyber-v09-failure-analysis-lab-network-segmentation-reduce-the-blast-radius",
+    "cyber-v09-practical-lab-network-segmentation-reduce-the-blast-radius",
+    "cyber-v09-recall-drill-network-segmentation-reduce-the-blast-radius",
+    "cyber-v09-recall-drill-network-segmentation-reduce-the-blast-radius-2",
+    "cyber-v09-scenario-analysis-tls-1-3-protected-application-data-2"
+   ]
+  },
+  {
+   "url": "https://csrc.nist.gov/pubs/sp/800/41/r1/final",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "cyber-firewall",
+    "cyber-v09-decision-lab-what-a-firewall-does",
+    "cyber-v09-decision-lab-what-a-firewall-does-2",
+    "cyber-v09-misconception-clinic-what-a-firewall-does",
+    "cyber-v09-troubleshooting-la-what-a-firewall-does-2",
+    "cyber-v09-troubleshooting-lab-what-a-firewall-does"
+   ]
+  },
+  {
+   "url": "https://cvw.cac.cornell.edu/scalability/scalability-speedup",
+   "status": "search-confirmed",
+   "note": "returned as .../scalability-speedup/index",
+   "citedBy": [
+    "advanced-strong-weak-scaling"
+   ]
+  },
+  {
+   "url": "https://datatracker.ietf.org/doc/html/rfc4120",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "cloud-v06-kerberos-key-distribution-center",
+    "cloud-v09-design-review-kerberos-key-distribution-center",
+    "cloud-v09-worked-example-kerberos-key-distribution-center"
+   ]
+  },
+  {
+   "url": "https://docs.kernel.org/mm/page_tables.html",
+   "status": "search-confirmed",
+   "note": "Linux kernel documentation, Page Tables",
+   "citedBy": [
+    "advanced-v07-demand-paging"
+   ]
+  },
+  {
+   "url": "https://docs.kernel.org/scheduler/index.html",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "advanced-scheduler",
+    "advanced-v05-preemptive-scheduling"
+   ]
+  },
+  {
+   "url": "https://docs.kernel.org/scheduler/sched-design-CFS.html",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "advanced-v07-virtual-runtime"
+   ]
+  },
+  {
+   "url": "https://docs.kernel.org/scheduler/sched-eevdf.html",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "advanced-v07-linux-eevdf-scheduler"
+   ]
+  },
+  {
+   "url": "https://docs.nersc.gov/development/checkpoint-restart/",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "advanced-checkpointing"
+   ]
+  },
+  {
+   "url": "https://docs.nersc.gov/tools/performance/roofline/",
+   "status": "search-confirmed",
+   "note": "NERSC documentation",
+   "citedBy": [
+    "advanced-roofline"
+   ]
+  },
+  {
+   "url": "https://docs.nvidia.com/cuda/cuda-c-best-practices-guide/",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "advanced-cpu-gpu-transfer",
+    "advanced-cpu-vs-gpu",
+    "advanced-gpu-coalescing"
+   ]
+  },
+  {
+   "url": "https://docs.nvidia.com/cuda/cuda-c-programming-guide/",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "advanced-cuda",
+    "advanced-cuda-grid-block-thread",
+    "advanced-cuda-memory-spaces",
+    "advanced-gpu-divergence-lab",
+    "advanced-gpu-kernel",
+    "advanced-gpu-occupancy",
+    "advanced-gpu-warp",
+    "advanced-v05-cuda-streams",
+    "advanced-v05-cuda-unified-memory"
+   ]
+  },
+  {
+   "url": "https://docs.python.org/3/library/statistics.html",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "software-v09-decision-lab-testing-at-multiple-layers-12",
+    "software-v10-mistake-hunt-debug-by-reducing-the-search-space",
+    "software-v10-reasoning-check-testing-at-multiple-layers",
+    "software-v10-worked-walkthrough-debug-by-reducing-the-search-space"
+   ]
+  },
+  {
+   "url": "https://docs.python.org/3/library/struct.html",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "software-v09-decision-lab-testing-at-multiple-layers-11",
+    "software-v09-evidence-verificat-debug-by-reducing-the-search-space-11",
+    "software-v09-quick-reference-testing-at-multiple-layers-11",
+    "software-v09-recall-drill-debug-by-reducing-the-search-space-12"
+   ]
+  },
+  {
+   "url": "https://docs.python.org/3/library/trace.html",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "software-v09-decision-lab-testing-at-multiple-layers-3",
+    "software-v09-evidence-verificat-debug-by-reducing-the-search-space-3",
+    "software-v09-quick-reference-testing-at-multiple-layers-3",
+    "software-v09-recall-drill-debug-by-reducing-the-search-space-4"
+   ]
+  },
+  {
+   "url": "https://docs.python.org/3/library/unittest.html",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "software-v09-decision-lab-testing-at-multiple-layers-4",
+    "software-v09-decision-lab-testing-at-multiple-layers-7",
+    "software-v09-decision-lab-testing-at-multiple-layers-9",
+    "software-v09-evidence-verificat-debug-by-reducing-the-search-space-4",
+    "software-v09-evidence-verificat-debug-by-reducing-the-search-space-7",
+    "software-v09-evidence-verificat-debug-by-reducing-the-search-space-9",
+    "software-v09-quick-reference-testing-at-multiple-layers-4",
+    "software-v09-quick-reference-testing-at-multiple-layers-7",
+    "software-v09-quick-reference-testing-at-multiple-layers-9",
+    "software-v09-recall-drill-debug-by-reducing-the-search-space-10",
+    "software-v09-recall-drill-debug-by-reducing-the-search-space-5",
+    "software-v09-recall-drill-debug-by-reducing-the-search-space-8"
+   ]
+  },
+  {
+   "url": "https://docs.python.org/3/library/unittest.mock.html",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "software-v09-decision-lab-testing-at-multiple-layers-10",
+    "software-v09-evidence-verificat-debug-by-reducing-the-search-space-10",
+    "software-v09-quick-reference-testing-at-multiple-layers-10",
+    "software-v09-recall-drill-debug-by-reducing-the-search-space-11"
+   ]
+  },
+  {
+   "url": "https://docs.python.org/3/tutorial/floatingpoint.html",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "math-numerical-error",
+    "math-v09-evidence-verification-la-floating-point-error-computers-approximate-real-numbers",
+    "math-v09-worked-example-floating-point-error-computers-approximate-real-numbers"
+   ]
+  },
+  {
+   "url": "https://docs.riscv.org/reference/isa/priv/machine.html",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "advanced-v05-exceptions-and-interrupts",
+    "advanced-v05-privilege-levels"
+   ]
+  },
+  {
+   "url": "https://docs.riscv.org/reference/isa/unpriv/rv32.html",
+   "status": "search-confirmed",
+   "note": "RV32I Base Integer Instruction Set",
+   "citedBy": [
+    "advanced-cpu-cycle",
+    "advanced-isa-microarchitecture",
+    "advanced-registers",
+    "advanced-riscv-isa",
+    "advanced-v05-instruction-encoding",
+    "advanced-v05-risc-v-base-isa",
+    "advanced-v07-aligned-memory-access",
+    "advanced-v07-little-endian-byte-order"
+   ]
+  },
+  {
+   "url": "https://docs.riscv.org/reference/isa/unpriv/v-st-ext",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "advanced-v05-risc-v-vector-extension"
+   ]
+  },
+  {
+   "url": "https://doi.org/10.1145/359545.359563",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "advanced-v05-happens-before",
+    "advanced-v05-logical-clocks"
+   ]
+  },
+  {
+   "url": "https://doi.org/10.6028/NIST.CSWP.29",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "cyber-v08-deep-dive-csf-detect-function",
+    "cyber-v08-deep-dive-csf-respond-function"
+   ]
+  },
+  {
+   "url": "https://doi.org/10.6028/NIST.SP.800-34r1",
+   "status": "read",
+   "note": "cited by the NIST CSRC glossary entries for RTO and RPO, whose definitions were read",
+   "citedBy": [
+    "leadership-v06-contingency-plan-testing",
+    "leadership-v06-recovery-point-objective",
+    "leadership-v06-recovery-time-objective"
+   ]
+  },
+  {
+   "url": "https://doi.org/10.6028/NIST.SP.800-61r3",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "cyber-incident-response",
+    "cyber-lab-log-triage",
+    "cyber-v06-incident-response-preparation",
+    "cyber-v06-incident-triage",
+    "cyber-v08-deep-dive-incident-response-integration",
+    "cyber-v08-evidence-lab-csf-respond-function",
+    "cyber-v08-evidence-lab-incident-response-integration"
+   ]
+  },
+  {
+   "url": "https://doi.org/10.6028/NIST.SP.800-92",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "cyber-siem",
+    "cyber-v08-evidence-lab-csf-detect-function",
+    "cyber-v09-evidence-verification-la-csf-detect-function"
+   ]
+  },
+  {
+   "url": "https://git-scm.com/docs/git-bisect",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "software-v09-decision-lab-testing-at-multiple-layers-2",
+    "software-v09-evidence-verificat-debug-by-reducing-the-search-space-2",
+    "software-v09-quick-reference-testing-at-multiple-layers-2",
+    "software-v09-recall-drill-debug-by-reducing-the-search-space-3"
+   ]
+  },
+  {
+   "url": "https://github.com/joshprandall/engineering-portfolio",
+   "status": "read",
+   "note": "public repository; visibility confirmed through the GitHub API",
+   "citedBy": [
+    "lab-http-devtools",
+    "software-api-lifecycle",
+    "software-debugging",
+    "software-http-semantics",
+    "software-http-status",
+    "software-idempotency",
+    "software-rest-idempotent",
+    "software-v06-http-cache-freshness",
+    "software-v06-http-delete-semantics",
+    "software-v06-http-get-semantics",
+    "software-v06-http-head-semantics",
+    "software-v06-http-put-semantics",
+    "software-v06-http-status-code-classes",
+    "software-v08-deep-dive-http-get",
+    "software-v08-deep-dive-http-head",
+    "software-v08-deep-dive-http-idempotent-methods",
+    "software-v08-deep-dive-http-post",
+    "software-v08-deep-dive-http-safe-methods",
+    "software-v08-evidence-lab-http-get",
+    "software-v08-evidence-lab-http-head",
+    "software-v08-evidence-lab-http-idempotent-methods",
+    "software-v08-evidence-lab-http-post",
+    "software-v08-evidence-lab-http-safe-methods",
+    "software-v09-decision-lab-testing-at-multiple-layers-10",
+    "software-v09-decision-lab-testing-at-multiple-layers-11",
+    "software-v09-decision-lab-testing-at-multiple-layers-12",
+    "software-v09-decision-lab-testing-at-multiple-layers-2",
+    "software-v09-decision-lab-testing-at-multiple-layers-3",
+    "software-v09-decision-lab-testing-at-multiple-layers-4",
+    "software-v09-decision-lab-testing-at-multiple-layers-5",
+    "software-v09-decision-lab-testing-at-multiple-layers-6",
+    "software-v09-decision-lab-testing-at-multiple-layers-7",
+    "software-v09-decision-lab-testing-at-multiple-layers-8",
+    "software-v09-decision-lab-testing-at-multiple-layers-9",
+    "software-v09-evidence-verificat-debug-by-reducing-the-search-space-10",
+    "software-v09-evidence-verificat-debug-by-reducing-the-search-space-11",
+    "software-v09-evidence-verificat-debug-by-reducing-the-search-space-2",
+    "software-v09-evidence-verificat-debug-by-reducing-the-search-space-3",
+    "software-v09-evidence-verificat-debug-by-reducing-the-search-space-4",
+    "software-v09-evidence-verificat-debug-by-reducing-the-search-space-5",
+    "software-v09-evidence-verificat-debug-by-reducing-the-search-space-6",
+    "software-v09-evidence-verificat-debug-by-reducing-the-search-space-7",
+    "software-v09-evidence-verificat-debug-by-reducing-the-search-space-8",
+    "software-v09-evidence-verificat-debug-by-reducing-the-search-space-9",
+    "software-v09-misconception-clinic-http-cache-freshness",
+    "software-v09-practical-lab-an-http-api-request-from-client-to-handler",
+    "software-v09-quick-reference-testing-at-multiple-layers",
+    "software-v09-quick-reference-testing-at-multiple-layers-10",
+    "software-v09-quick-reference-testing-at-multiple-layers-11",
+    "software-v09-quick-reference-testing-at-multiple-layers-2",
+    "software-v09-quick-reference-testing-at-multiple-layers-3",
+    "software-v09-quick-reference-testing-at-multiple-layers-4",
+    "software-v09-quick-reference-testing-at-multiple-layers-5",
+    "software-v09-quick-reference-testing-at-multiple-layers-6",
+    "software-v09-quick-reference-testing-at-multiple-layers-7",
+    "software-v09-quick-reference-testing-at-multiple-layers-8",
+    "software-v09-quick-reference-testing-at-multiple-layers-9",
+    "software-v09-recall-drill-debug-by-reducing-the-search-space",
+    "software-v09-recall-drill-debug-by-reducing-the-search-space-10",
+    "software-v09-recall-drill-debug-by-reducing-the-search-space-11",
+    "software-v09-recall-drill-debug-by-reducing-the-search-space-12",
+    "software-v09-recall-drill-debug-by-reducing-the-search-space-2",
+    "software-v09-recall-drill-debug-by-reducing-the-search-space-3",
+    "software-v09-recall-drill-debug-by-reducing-the-search-space-4",
+    "software-v09-recall-drill-debug-by-reducing-the-search-space-5",
+    "software-v09-recall-drill-debug-by-reducing-the-search-space-6",
+    "software-v09-recall-drill-debug-by-reducing-the-search-space-7",
+    "software-v09-recall-drill-debug-by-reducing-the-search-space-8",
+    "software-v09-recall-drill-debug-by-reducing-the-search-space-9",
+    "software-v10-mistake-hunt-debug-by-reducing-the-search-space",
+    "software-v10-reasoning-check-testing-at-multiple-layers",
+    "software-v10-worked-walkthrough-debug-by-reducing-the-search-space"
+   ]
+  },
+  {
+   "url": "https://images.example",
+   "status": "illustrative",
+   "note": "reserved example host used inside a scenario; not a source",
+   "citedBy": [
+    "cyber-ssrf"
+   ]
+  },
+  {
+   "url": "https://jepsen.io/consistency/models/linearizable",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "advanced-consistency-models"
+   ]
+  },
+  {
+   "url": "https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "cloud-v06-kubernetes-namespace-scope",
+    "cloud-v09-troubleshooting-lab-kubernetes-namespace-scope"
+   ]
+  },
+  {
+   "url": "https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "cloud-v06-required-vs-preferred-node-affinity",
+    "cloud-v09-scenario-analysis-required-vs-preferred-node-affinity"
+   ]
+  },
+  {
+   "url": "https://kubernetes.io/docs/concepts/security/service-accounts/",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "cloud-v06-kubernetes-serviceaccount-namespace-scope",
+    "cloud-v09-misconception-clinic-kubernetes-serviceaccount-namespace-scope"
+   ]
+  },
+  {
+   "url": "https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "cloud-v06-kubernetes-dns-discovery",
+    "cloud-v09-teach-back-lab-kubernetes-dns-discovery"
+   ]
+  },
+  {
+   "url": "https://kubernetes.io/docs/concepts/services-networking/service/",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "cloud-v06-kubernetes-service-abstraction",
+    "cloud-v09-quick-reference-kubernetes-service-abstraction"
+   ]
+  },
+  {
+   "url": "https://learn.microsoft.com/en-us/azure/quantum/concepts-entanglement",
+   "status": "search-confirmed",
+   "note": "localized variants returned",
+   "citedBy": [
+    "advanced-bell-state",
+    "advanced-v07-quantum-tensor-product"
+   ]
+  },
+  {
+   "url": "https://learn.microsoft.com/en-us/azure/quantum/concepts-the-qubit",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "advanced-quantum-measurement",
+    "advanced-quantum-state-vector",
+    "advanced-v05-bloch-sphere",
+    "advanced-v05-global-phase"
+   ]
+  },
+  {
+   "url": "https://linux-kernel-labs.github.io/refs/heads/master/lectures/processes.html",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "advanced-context-switch",
+    "advanced-v05-context-switch-cost"
+   ]
+  },
+  {
+   "url": "https://man7.org/linux/man-pages/man2/fork.2.html",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "advanced-v05-copy-on-write"
+   ]
+  },
+  {
+   "url": "https://man7.org/linux/man-pages/man2/mmap.2.html",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "advanced-v05-virtual-address-spaces"
+   ]
+  },
+  {
+   "url": "https://man7.org/linux/man-pages/man2/syscall.2.html",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "advanced-v05-system-calls"
+   ]
+  },
+  {
+   "url": "https://man7.org/linux/man-pages/man3/pthread_mutex_lock.3p.html",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "advanced-v05-thread-synchronization"
+   ]
+  },
+  {
+   "url": "https://man7.org/linux/man-pages/man7/pthreads.7.html",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "advanced-process-thread"
+   ]
+  },
+  {
+   "url": "https://martinfowler.com/articles/practical-test-pyramid.html",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "software-v09-decision-lab-testing-at-multiple-layers",
+    "software-v10-boundary-condition-lab-testing-at-multiple-layers",
+    "software-v10-counterexample-lab-debug-by-reducing-the-search-space",
+    "software-v10-fault-isolation-lab-testing-at-multiple-layers",
+    "software-v10-measurement-lab-testing-at-multiple-layers"
+   ]
+  },
+  {
+   "url": "https://nodejs.org/api/assert.html",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "software-debugging",
+    "software-v09-quick-reference-testing-at-multiple-layers",
+    "software-v09-recall-drill-debug-by-reducing-the-search-space",
+    "software-v09-recall-drill-debug-by-reducing-the-search-space-2"
+   ]
+  },
+  {
+   "url": "https://nodejs.org/api/test.html",
+   "status": "read",
+   "note": "Node.js test runner page read (mirror); MockTimers heading anchor is #class-mocktimers",
+   "citedBy": [
+    "software-v09-decision-lab-testing-at-multiple-layers",
+    "software-v09-decision-lab-testing-at-multiple-layers-5",
+    "software-v09-evidence-verificat-debug-by-reducing-the-search-space-5",
+    "software-v09-evidence-verification-la-debug-by-reducing-the-search-space",
+    "software-v09-quick-reference-testing-at-multiple-layers-5",
+    "software-v09-recall-drill-debug-by-reducing-the-search-space-6",
+    "software-v10-boundary-condition-lab-testing-at-multiple-layers",
+    "software-v10-counterexample-lab-debug-by-reducing-the-search-space",
+    "software-v10-fault-isolation-lab-testing-at-multiple-layers",
+    "software-v10-measurement-lab-testing-at-multiple-layers"
+   ]
+  },
+  {
+   "url": "https://nodejs.org/api/test.html#class-mocktimers",
+   "status": "read",
+   "note": "anchor confirmed on the Node.js test runner page",
+   "citedBy": [
+    "software-v09-decision-lab-testing-at-multiple-layers-6",
+    "software-v09-evidence-verificat-debug-by-reducing-the-search-space-6",
+    "software-v09-quick-reference-testing-at-multiple-layers-6",
+    "software-v09-recall-drill-debug-by-reducing-the-search-space-7"
+   ]
+  },
+  {
+   "url": "https://ocw.mit.edu/courses/18-06-linear-algebra-spring-2010/",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "math-determinant",
+    "math-dot-product",
+    "math-linear-systems",
+    "math-matrices",
+    "math-orthogonality",
+    "math-vectors"
+   ]
+  },
+  {
+   "url": "https://ocw.mit.edu/courses/6-004-computation-structures-spring-2017/",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "advanced-binary",
+    "advanced-boolean-logic",
+    "advanced-pipeline",
+    "advanced-v05-combinational-logic"
+   ]
+  },
+  {
+   "url": "https://ocw.mit.edu/courses/6-004-computation-structures-spring-2017/pages/c14/c14s2/",
+   "status": "search-confirmed",
+   "note": "6.004 L14 caches",
+   "citedBy": [
+    "advanced-v07-cache-associativity",
+    "advanced-v07-cache-capacity-miss",
+    "advanced-v07-cache-conflict-miss",
+    "advanced-v07-cache-line"
+   ]
+  },
+  {
+   "url": "https://ocw.mit.edu/courses/6-004-computation-structures-spring-2017/pages/c15/c15s1/",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "advanced-v07-pipeline-control-hazard",
+    "advanced-v07-pipeline-data-hazard"
+   ]
+  },
+  {
+   "url": "https://ocw.mit.edu/courses/6-004-computation-structures-spring-2017/pages/c21/c21s1/",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "advanced-branch-prediction",
+    "advanced-cache-coherence",
+    "advanced-out-of-order",
+    "advanced-superscalar",
+    "advanced-v05-branch-target-prediction",
+    "advanced-v05-micro-ops",
+    "advanced-v05-performance-monitoring-counters",
+    "advanced-v05-register-renaming",
+    "advanced-v05-retirement-and-precise-state",
+    "advanced-v05-simd-instruction-sets"
+   ]
+  },
+  {
+   "url": "https://ocw.mit.edu/courses/6-004-computation-structures-spring-2017/pages/c5/c5s1/",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "advanced-v05-sequential-logic"
+   ]
+  },
+  {
+   "url": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/resources/mit6_006s20_lec1/",
+   "status": "search-confirmed",
+   "note": "6.006 lecture 1 notes",
+   "citedBy": [
+    "software-big-o",
+    "software-v09-failure-analysis-lab-big-o-describing-how-work-grows",
+    "software-v09-scenario-analysis-big-o-describing-how-work-grows",
+    "software-v09-scenario-analysis-recursion",
+    "software-v09-troubleshooting-lab-big-o-describing-how-work-grows"
+   ]
+  },
+  {
+   "url": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/resources/mit6_006s20_lec10/",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "software-v09-design-review-graphs-modeling-relationships-instead-of-rows",
+    "software-v09-design-review-graphs-modeling-relationships-instead-of-rows-2",
+    "software-v09-troubleshooting-lab-graphs-modeling-relationships-instead-of-rows"
+   ]
+  },
+  {
+   "url": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/resources/mit6_006s20_lec12/",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "software-v09-scenario-analysis-graphs-modeling-relationships-instead-of-rows"
+   ]
+  },
+  {
+   "url": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/resources/mit6_006s20_lec13/",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "software-v09-failure-analysis-lab-graphs-modeling-relationships-instead-of-rows"
+   ]
+  },
+  {
+   "url": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/resources/mit6_006s20_lec15/",
+   "status": "search-confirmed",
+   "note": "6.006 lecture 15 notes",
+   "citedBy": [
+    "software-recursion",
+    "software-v09-design-review-recursion",
+    "software-v09-design-review-recursion-2",
+    "software-v09-scenario-analysis-recursion-2"
+   ]
+  },
+  {
+   "url": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/resources/mit6_006s20_lec16/",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "software-v09-design-review-big-o-describing-how-work-grows",
+    "software-v09-troubleshooting-la-recursion-2",
+    "software-v09-troubleshooting-lab-recursion"
+   ]
+  },
+  {
+   "url": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/resources/mit6_006s20_lec17/",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "software-v09-troubleshooting-la-graphs-modeling-relationships-instead-of-rows-2"
+   ]
+  },
+  {
+   "url": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/resources/mit6_006s20_lec2/",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "software-v09-failure-analysis-l-big-o-describing-how-work-grows-2",
+    "software-v09-troubleshooting-la-big-o-describing-how-work-grows-2"
+   ]
+  },
+  {
+   "url": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/resources/mit6_006s20_lec3/",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "software-v09-scenario-analysis-big-o-describing-how-work-grows-2"
+   ]
+  },
+  {
+   "url": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/resources/mit6_006s20_lec6/",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "software-v09-failure-analysis-lab-recursion"
+   ]
+  },
+  {
+   "url": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/resources/mit6_006s20_lec9/",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "software-graph",
+    "software-v09-failure-analysis-l-graphs-modeling-relationships-instead-of-rows-2"
+   ]
+  },
+  {
+   "url": "https://openstax.org/books/calculus-volume-1/pages/2-2-the-limit-of-a-function",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "math-limits"
+   ]
+  },
+  {
+   "url": "https://openstax.org/books/calculus-volume-1/pages/3-1-defining-the-derivative",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "math-rate-change"
+   ]
+  },
+  {
+   "url": "https://openstax.org/books/calculus-volume-1/pages/3-6-the-chain-rule",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "math-chain-rule"
+   ]
+  },
+  {
+   "url": "https://openstax.org/books/calculus-volume-1/pages/5-2-the-definite-integral",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "math-integral"
+   ]
+  },
+  {
+   "url": "https://openstax.org/books/calculus-volume-3/pages/4-3-partial-derivatives",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "math-partial-derivatives"
+   ]
+  },
+  {
+   "url": "https://openstax.org/books/calculus-volume-3/pages/4-6-directional-derivatives-and-the-gradient",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "math-gradient"
+   ]
+  },
+  {
+   "url": "https://openstax.org/books/intermediate-algebra-2e/pages/12-2-arithmetic-sequences",
+   "status": "search-confirmed",
+   "note": "OpenStax",
+   "citedBy": [
+    "math-v06-arithmetic-sequences",
+    "math-v08-deep-dive-arithmetic-sequence",
+    "math-v08-evidence-lab-arithmetic-sequence",
+    "math-v09-failure-analysis-lab-arithmetic-sequences",
+    "math-v09-recall-drill-arithmetic-sequence",
+    "math-v09-worked-example-arithmetic-sequence"
+   ]
+  },
+  {
+   "url": "https://openstax.org/books/intermediate-algebra-2e/pages/12-3-geometric-sequences-and-series",
+   "status": "search-confirmed",
+   "note": "OpenStax",
+   "citedBy": [
+    "math-v06-geometric-sequences",
+    "math-v08-deep-dive-geometric-sequence",
+    "math-v08-evidence-lab-geometric-sequence",
+    "math-v09-design-review-geometric-sequences",
+    "math-v09-evidence-verification-la-geometric-sequence",
+    "math-v09-practical-lab-geometric-sequence"
+   ]
+  },
+  {
+   "url": "https://openstax.org/books/introductory-statistics-2e/pages/3-2-independent-and-mutually-exclusive-events",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "math-probability",
+    "math-v08-deep-dive-independent-events"
+   ]
+  },
+  {
+   "url": "https://openstax.org/books/introductory-statistics-2e/pages/4-1-probability-distribution-function-pdf-for-a-discrete-random-variable",
+   "status": "search-confirmed",
+   "note": "OpenStax",
+   "citedBy": [
+    "math-distributions",
+    "math-random-variable"
+   ]
+  },
+  {
+   "url": "https://openstax.org/books/introductory-statistics-2e/pages/4-2-mean-or-expected-value-and-standard-deviation",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "math-v06-expected-value",
+    "math-v06-variance"
+   ]
+  },
+  {
+   "url": "https://openstax.org/books/university-physics-volume-1/pages/1-4-dimensional-analysis",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "physics-dimensions",
+    "physics-v09-misconception-clinic-dimensional-analysis-let-the-units-check-the-physics"
+   ]
+  },
+  {
+   "url": "https://openstax.org/books/university-physics-volume-1/pages/10-2-rotation-with-constant-angular-acceleration",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "physics-v08-deep-dive-angular-velocity",
+    "physics-v08-evidence-lab-angular-velocity",
+    "physics-v09-decision-lab-angular-velocity",
+    "physics-v09-design-review-angular-velocity",
+    "physics-v09-evidence-verification-la-angular-velocity",
+    "physics-v09-failure-analysis-lab-angular-velocity",
+    "physics-v09-misconception-clinic-angular-velocity",
+    "physics-v09-quick-reference-angular-velocity",
+    "physics-v09-recall-drill-angular-velocity",
+    "physics-v09-scenario-analysis-angular-velocity",
+    "physics-v09-teach-back-lab-angular-velocity",
+    "physics-v09-troubleshooting-lab-angular-velocity",
+    "physics-v09-worked-example-angular-velocity",
+    "physics-v09-worked-example-angular-velocity-2",
+    "physics-v10-boundary-condition-lab-angular-velocity",
+    "physics-v10-checklist-lab-angular-velocity",
+    "physics-v10-confidence-calibration-angular-velocity",
+    "physics-v10-decision-brief-angular-velocity",
+    "physics-v10-decision-brief-angular-velocity-2",
+    "physics-v10-explain-back-challenge-angular-velocity",
+    "physics-v10-flash-review-angular-velocity",
+    "physics-v10-flash-review-angular-velocity-2",
+    "physics-v10-measurement-lab-angular-velocity",
+    "physics-v10-mistake-hunt-angular-velocity",
+    "physics-v10-prediction-lab-angular-velocity",
+    "physics-v10-reasoning-check-angular-velocity",
+    "physics-v10-trace-lab-angular-velocity",
+    "physics-v10-verification-lab-angular-velocity"
+   ]
+  },
+  {
+   "url": "https://openstax.org/books/university-physics-volume-1/pages/10-6-torque",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "physics-torque",
+    "physics-v06-torque",
+    "physics-v08-deep-dive-torque",
+    "physics-v08-evidence-lab-torque",
+    "physics-v09-decision-lab-torque",
+    "physics-v09-decision-lab-torque-2",
+    "physics-v09-design-review-torque",
+    "physics-v09-design-review-torque-the-rotational-effect-of-force",
+    "physics-v09-evidence-verificat-torque-2",
+    "physics-v09-evidence-verification-la-torque",
+    "physics-v09-failure-analysis-lab-torque",
+    "physics-v09-misconception-clinic-torque",
+    "physics-v09-practical-lab-torque",
+    "physics-v09-practical-lab-torque-2",
+    "physics-v09-quick-reference-torque",
+    "physics-v09-recall-drill-torque",
+    "physics-v09-scenario-analysis-torque",
+    "physics-v09-scenario-analysis-torque-2",
+    "physics-v09-teach-back-lab-torque",
+    "physics-v09-troubleshooting-lab-torque",
+    "physics-v09-worked-example-torque",
+    "physics-v10-boundary-condition-lab-torque",
+    "physics-v10-concept-mapping-lab-torque",
+    "physics-v10-confidence-calibra-torque-2",
+    "physics-v10-confidence-calibration-torque",
+    "physics-v10-decision-brief-torque",
+    "physics-v10-decision-brief-torque-2",
+    "physics-v10-decision-matrix-lab-torque",
+    "physics-v10-explain-back-chall-torque-2",
+    "physics-v10-explain-back-challenge-torque",
+    "physics-v10-fault-isolation-lab-torque",
+    "physics-v10-field-note-torque",
+    "physics-v10-field-note-torque-2",
+    "physics-v10-flash-review-torque",
+    "physics-v10-flash-review-torque-2",
+    "physics-v10-mistake-hunt-torque",
+    "physics-v10-mistake-hunt-torque-2",
+    "physics-v10-prediction-lab-torque",
+    "physics-v10-reasoning-check-torque",
+    "physics-v10-recovery-lab-torque"
+   ]
+  },
+  {
+   "url": "https://openstax.org/books/university-physics-volume-1/pages/11-2-angular-momentum",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "physics-angular-momentum",
+    "physics-v08-deep-dive-angular-momentum",
+    "physics-v08-evidence-lab-angular-momentum",
+    "physics-v09-decision-lab-angular-momentum",
+    "physics-v09-design-review-angular-momentum",
+    "physics-v09-evidence-verification-la-angular-momentum",
+    "physics-v09-failure-analysis-lab-angular-momentum",
+    "physics-v09-misconception-clinic-angular-momentum",
+    "physics-v09-practical-lab-angular-momentum",
+    "physics-v09-quick-reference-angular-momentum",
+    "physics-v09-recall-drill-angular-momentum",
+    "physics-v09-recall-drill-angular-momentum-2",
+    "physics-v09-scenario-analysis-angular-momentum",
+    "physics-v09-scenario-analysis-angular-momentum-2",
+    "physics-v09-teach-back-lab-angular-momentum",
+    "physics-v09-troubleshooting-lab-angular-momentum",
+    "physics-v09-worked-example-angular-momentum",
+    "physics-v10-confidence-calibration-angular-momentum",
+    "physics-v10-counterexample-lab-angular-momentum",
+    "physics-v10-decision-brief-angular-momentum",
+    "physics-v10-design-critique-angular-momentum",
+    "physics-v10-diagnostic-lab-angular-momentum",
+    "physics-v10-explain-back-challenge-angular-momentum",
+    "physics-v10-fault-isolation-lab-angular-momentum",
+    "physics-v10-field-note-angular-momentum",
+    "physics-v10-field-note-angular-momentum-2",
+    "physics-v10-mistake-hunt-angular-momentum",
+    "physics-v10-mistake-hunt-angular-momentum-2",
+    "physics-v10-reasoning-check-angular-momentum",
+    "physics-v10-reasoning-check-angular-momentum-2",
+    "physics-v10-transfer-lab-angular-momentum",
+    "physics-v10-worked-walkthrough-angular-momentum"
+   ]
+  },
+  {
+   "url": "https://openstax.org/books/university-physics-volume-1/pages/13-1-newtons-law-of-universal-gravitation",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "physics-gravity",
+    "physics-v09-teach-back-lab-newtonian-gravity"
+   ]
+  },
+  {
+   "url": "https://openstax.org/books/university-physics-volume-1/pages/15-1-simple-harmonic-motion",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "physics-shm",
+    "physics-v08-deep-dive-simple-harmonic-motion",
+    "physics-v08-evidence-lab-simple-harmonic-motion"
+   ]
+  },
+  {
+   "url": "https://openstax.org/books/university-physics-volume-1/pages/16-1-traveling-waves",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "physics-v06-traveling-wave-speed",
+    "physics-waves"
+   ]
+  },
+  {
+   "url": "https://openstax.org/books/university-physics-volume-1/pages/16-2-mathematics-of-waves",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "physics-v08-deep-dive-wave-speed-frequency-wavelength"
+   ]
+  },
+  {
+   "url": "https://openstax.org/books/university-physics-volume-1/pages/16-5-interference-of-waves",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "physics-v06-wave-superposition"
+   ]
+  },
+  {
+   "url": "https://openstax.org/books/university-physics-volume-1/pages/16-6-standing-waves-and-resonance",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "physics-resonance"
+   ]
+  },
+  {
+   "url": "https://openstax.org/books/university-physics-volume-1/pages/17-2-speed-of-sound",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "lab-wave-sound"
+   ]
+  },
+  {
+   "url": "https://openstax.org/books/university-physics-volume-1/pages/17-7-the-doppler-effect",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "physics-doppler",
+    "physics-v08-evidence-lab-doppler-effect"
+   ]
+  },
+  {
+   "url": "https://openstax.org/books/university-physics-volume-1/pages/2-2-coordinate-systems-and-components-of-a-vector",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "physics-v10-hypothesis-lab-displacement"
+   ]
+  },
+  {
+   "url": "https://openstax.org/books/university-physics-volume-1/pages/3-1-position-displacement-and-average-velocity",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "physics-kinematics",
+    "physics-v08-deep-dive-average-velocity",
+    "physics-v08-deep-dive-displacement",
+    "physics-v08-evidence-lab-average-velocity",
+    "physics-v08-evidence-lab-displacement",
+    "physics-v09-decision-lab-average-velocity",
+    "physics-v09-practical-lab-average-velocity",
+    "physics-v09-practical-lab-displacement",
+    "physics-v09-quick-reference-kinematics-describing-motion-before-explaining-it",
+    "physics-v09-recall-drill-displacement",
+    "physics-v09-recall-drill-newton-first-law",
+    "physics-v09-scenario-analysis-displacement",
+    "physics-v09-troubleshooting-lab-average-velocity",
+    "physics-v09-troubleshooting-lab-displacement",
+    "physics-v09-worked-example-average-velocity",
+    "physics-v10-configuration-lab-average-velocity",
+    "physics-v10-field-note-average-velocity",
+    "physics-v10-scenario-brief-displacement",
+    "physics-v10-verification-lab-newton-first-law"
+   ]
+  },
+  {
+   "url": "https://openstax.org/books/university-physics-volume-1/pages/3-2-instantaneous-velocity-and-speed",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "physics-v08-deep-dive-instantaneous-velocity",
+    "physics-v08-evidence-lab-instantaneous-velocity",
+    "physics-v09-practical-lab-instantaneous-velocity",
+    "physics-v09-troubleshooting-lab-instantaneous-velocity",
+    "physics-v10-decision-matrix-lab-instantaneous-velocity",
+    "physics-v10-reasoning-check-displacement-velocity-and-acceleration",
+    "physics-v10-recovery-lab-instantaneous-velocity"
+   ]
+  },
+  {
+   "url": "https://openstax.org/books/university-physics-volume-1/pages/3-3-average-and-instantaneous-acceleration",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "physics-v08-deep-dive-acceleration",
+    "physics-v08-evidence-lab-acceleration",
+    "physics-v09-failure-analysis-lab-acceleration",
+    "physics-v09-misconception-clinic-acceleration",
+    "physics-v09-recall-drill-acceleration",
+    "physics-v09-teach-back-lab-acceleration",
+    "physics-v10-counterexample-lab-acceleration",
+    "physics-v10-explain-back-challenge-acceleration"
+   ]
+  },
+  {
+   "url": "https://openstax.org/books/university-physics-volume-1/pages/3-4-motion-with-constant-acceleration",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "physics-v06-constant-acceleration-kinematics",
+    "physics-v06-displacement-velocity-and-acceleration",
+    "physics-v09-design-review-constant-acceleration-kinematics",
+    "physics-v09-teach-back-lab-constant-acceleration-kinematics",
+    "physics-v09-worked-example-displacement-velocity-and-acceleration",
+    "physics-v10-exam-style-practice-constant-acceleration-kinematics",
+    "physics-v10-exam-style-practice-kinematics-describing-motion-before-explaining-it"
+   ]
+  },
+  {
+   "url": "https://openstax.org/books/university-physics-volume-1/pages/4-3-projectile-motion",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "physics-lab-projectile",
+    "physics-v09-quick-reference-predict-a-projectile-before-running-the-simulation"
+   ]
+  },
+  {
+   "url": "https://openstax.org/books/university-physics-volume-1/pages/5-1-forces",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "physics-freebody",
+    "physics-v08-deep-dive-free-body-diagram",
+    "physics-v08-evidence-lab-free-body-diagram",
+    "physics-v09-decision-lab-free-body-diagram",
+    "physics-v09-failure-analysis-lab-free-body-diagram",
+    "physics-v09-teach-back-lab-free-body-diagrams"
+   ]
+  },
+  {
+   "url": "https://openstax.org/books/university-physics-volume-1/pages/5-2-newtons-first-law",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "physics-v06-newton-s-first-law",
+    "physics-v08-deep-dive-newton-first-law",
+    "physics-v08-evidence-lab-newton-first-law",
+    "physics-v09-evidence-verification-la-newton-s-first-law",
+    "physics-v09-misconception-clinic-newton-first-law",
+    "physics-v10-scenario-brief-newton-first-law"
+   ]
+  },
+  {
+   "url": "https://openstax.org/books/university-physics-volume-1/pages/5-3-newtons-second-law",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "physics-newton",
+    "physics-v08-deep-dive-newton-second-law",
+    "physics-v08-evidence-lab-newton-second-law",
+    "physics-v09-scenario-analysis-newton-second-law",
+    "physics-v09-troubleshooting-lab-newton-s-laws-as-a-model-of-motion",
+    "physics-v09-worked-example-newton-second-law",
+    "physics-v10-explain-back-challenge-free-body-diagram",
+    "physics-v10-explain-back-challenge-newton-second-law",
+    "physics-v10-reasoning-check-newton-second-law"
+   ]
+  },
+  {
+   "url": "https://openstax.org/books/university-physics-volume-1/pages/5-4-mass-and-weight",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "physics-v10-worked-walkthrough-free-body-diagrams"
+   ]
+  },
+  {
+   "url": "https://openstax.org/books/university-physics-volume-1/pages/5-5-newtons-third-law",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "physics-v06-newton-s-third-law",
+    "physics-v08-deep-dive-newton-third-law",
+    "physics-v08-evidence-lab-newton-third-law",
+    "physics-v09-decision-lab-newton-third-law",
+    "physics-v09-failure-analysis-lab-newton-third-law"
+   ]
+  },
+  {
+   "url": "https://openstax.org/books/university-physics-volume-1/pages/6-2-friction",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "physics-v06-friction-forces",
+    "physics-v09-evidence-verification-la-friction-forces",
+    "physics-v10-concept-mapping-lab-free-body-diagram",
+    "physics-v10-field-note-friction-forces"
+   ]
+  },
+  {
+   "url": "https://openstax.org/books/university-physics-volume-1/pages/6-3-centripetal-force",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "physics-circular-motion",
+    "physics-v09-failure-analysis-lab-circular-motion-acceleration-without-changing-speed",
+    "physics-v09-quick-reference-circular-motion-acceleration-without-changing-speed",
+    "physics-v10-prediction-lab-circular-motion-acceleration-without-changing-speed"
+   ]
+  },
+  {
+   "url": "https://openstax.org/books/university-physics-volume-1/pages/7-1-work",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "physics-v06-work-by-a-force",
+    "physics-v08-deep-dive-work",
+    "physics-v08-evidence-lab-work",
+    "physics-v09-evidence-verification-la-dimensional-analysis-let-the-units-check-the-physics"
+   ]
+  },
+  {
+   "url": "https://openstax.org/books/university-physics-volume-1/pages/7-2-kinetic-energy",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "physics-v06-kinetic-energy",
+    "physics-v08-evidence-lab-kinetic-energy",
+    "physics-v10-mistake-hunt-dimensional-analysis-let-the-units-check-the-physics"
+   ]
+  },
+  {
+   "url": "https://openstax.org/books/university-physics-volume-1/pages/7-3-work-energy-theorem",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "physics-v08-deep-dive-kinetic-energy",
+    "physics-v08-deep-dive-work-energy-theorem",
+    "physics-v08-evidence-lab-work-energy-theorem"
+   ]
+  },
+  {
+   "url": "https://openstax.org/books/university-physics-volume-1/pages/7-4-power",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "physics-power"
+   ]
+  },
+  {
+   "url": "https://openstax.org/books/university-physics-volume-1/pages/8-1-potential-energy-of-a-system",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "physics-v06-potential-energy"
+   ]
+  },
+  {
+   "url": "https://openstax.org/books/university-physics-volume-1/pages/8-3-conservation-of-energy",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "physics-energy",
+    "physics-v06-conservation-of-mechanical-energy"
+   ]
+  },
+  {
+   "url": "https://openstax.org/books/university-physics-volume-1/pages/9-1-linear-momentum",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "physics-v06-linear-momentum",
+    "physics-v08-deep-dive-linear-momentum",
+    "physics-v08-evidence-lab-linear-momentum",
+    "physics-v09-decision-lab-linear-momentum",
+    "physics-v09-decision-lab-linear-momentum-2",
+    "physics-v09-design-review-linear-momentum",
+    "physics-v09-design-review-momentum",
+    "physics-v09-evidence-verificat-linear-momentum-2",
+    "physics-v09-evidence-verification-la-linear-momentum",
+    "physics-v09-misconception-clinic-linear-momentum",
+    "physics-v09-quick-reference-linear-momentum",
+    "physics-v09-scenario-analysis-linear-momentum",
+    "physics-v09-scenario-analysis-linear-momentum-2",
+    "physics-v09-teach-back-lab-linear-momentum",
+    "physics-v09-teach-back-lab-linear-momentum-2",
+    "physics-v09-troubleshooting-la-linear-momentum-2",
+    "physics-v09-troubleshooting-lab-linear-momentum",
+    "physics-v09-worked-example-linear-momentum",
+    "physics-v09-worked-example-linear-momentum-2",
+    "physics-v10-checklist-lab-linear-momentum",
+    "physics-v10-concept-mapping-lab-linear-momentum",
+    "physics-v10-confidence-calibration-linear-momentum",
+    "physics-v10-decision-brief-linear-momentum",
+    "physics-v10-decision-brief-linear-momentum-2",
+    "physics-v10-decision-matrix-lab-linear-momentum",
+    "physics-v10-exam-style-practice-linear-momentum",
+    "physics-v10-explain-back-chall-linear-momentum-2",
+    "physics-v10-explain-back-challenge-linear-momentum",
+    "physics-v10-field-note-linear-momentum",
+    "physics-v10-field-note-linear-momentum-2",
+    "physics-v10-measurement-lab-linear-momentum",
+    "physics-v10-mistake-hunt-linear-momentum",
+    "physics-v10-reasoning-check-linear-momentum",
+    "physics-v10-reasoning-check-linear-momentum-2",
+    "physics-v10-transfer-lab-linear-momentum",
+    "physics-v10-verification-lab-linear-momentum",
+    "physics-v10-worked-walkthrough-linear-momentum"
+   ]
+  },
+  {
+   "url": "https://openstax.org/books/university-physics-volume-1/pages/9-2-impulse-and-collisions",
+   "status": "read",
+   "note": "page fetched (title confirmed)",
+   "citedBy": [
+    "physics-momentum",
+    "physics-v06-impulse-momentum-theorem",
+    "physics-v08-deep-dive-impulse-momentum-theorem",
+    "physics-v08-evidence-lab-impulse-momentum-theorem",
+    "physics-v09-decision-lab-impulse-momentum-theorem",
+    "physics-v09-decision-lab-impulse-momentum-theorem-2",
+    "physics-v09-design-review-impulse-momentum-theorem",
+    "physics-v09-design-review-impulse-momentum-theorem-2",
+    "physics-v09-evidence-verificat-impulse-momentum-theorem-2",
+    "physics-v09-evidence-verification-la-impulse-momentum-theorem",
+    "physics-v09-failure-analysis-l-impulse-momentum-theorem-2",
+    "physics-v09-failure-analysis-lab-impulse-momentum-theorem",
+    "physics-v09-misconception-clin-impulse-momentum-theorem-2",
+    "physics-v09-misconception-clinic-impulse-momentum-theorem",
+    "physics-v09-practical-lab-impulse-momentum-theorem",
+    "physics-v09-practical-lab-newton-s-third-law",
+    "physics-v09-recall-drill-impulse-momentum-theorem",
+    "physics-v09-recall-drill-impulse-momentum-theorem-2",
+    "physics-v09-troubleshooting-lab-impulse-momentum-theorem",
+    "physics-v09-worked-example-impulse-momentum-theorem",
+    "physics-v09-worked-example-impulse-momentum-theorem-2",
+    "physics-v10-confidence-calibration-impulse-momentum-theorem",
+    "physics-v10-counterexample-lab-impulse-momentum-theorem",
+    "physics-v10-decision-brief-impulse-momentum-theorem",
+    "physics-v10-decision-matrix-lab-impulse-momentum-theorem",
+    "physics-v10-exam-style-practic-impulse-momentum-theorem-2",
+    "physics-v10-exam-style-practice-impulse-momentum-theorem",
+    "physics-v10-explain-back-chall-impulse-momentum-theorem-2",
+    "physics-v10-explain-back-challenge-impulse-momentum-theorem",
+    "physics-v10-fault-isolation-lab-impulse-momentum-theorem",
+    "physics-v10-field-note-impulse-momentum-theorem",
+    "physics-v10-hypothesis-lab-impulse-momentum-theorem",
+    "physics-v10-mistake-hunt-impulse-momentum-theorem",
+    "physics-v10-mistake-hunt-impulse-momentum-theorem-2",
+    "physics-v10-reasoning-check-impulse-momentum-theorem",
+    "physics-v10-reasoning-check-impulse-momentum-theorem-2",
+    "physics-v10-runbook-lab-impulse-momentum-theorem",
+    "physics-v10-runbook-lab-impulse-momentum-theorem-2",
+    "physics-v10-runbook-lab-newton-third-law",
+    "physics-v10-trace-lab-impulse-momentum-theorem"
+   ]
+  },
+  {
+   "url": "https://openstax.org/books/university-physics-volume-1/pages/9-3-conservation-of-linear-momentum",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "physics-v08-deep-dive-momentum-conservation",
+    "physics-v08-evidence-lab-momentum-conservation",
+    "physics-v09-failure-analysis-l-momentum-conservation-2",
+    "physics-v09-failure-analysis-lab-momentum-conservation",
+    "physics-v09-practical-lab-momentum-conservation",
+    "physics-v09-practical-lab-momentum-conservation-2",
+    "physics-v09-quick-reference-momentum-conservation",
+    "physics-v09-quick-reference-momentum-conservation-2",
+    "physics-v09-recall-drill-momentum-conservation",
+    "physics-v09-scenario-analysis-momentum-conservation",
+    "physics-v09-teach-back-lab-momentum-conservation",
+    "physics-v09-teach-back-lab-momentum-conservation-2",
+    "physics-v10-checklist-lab-momentum-conservation",
+    "physics-v10-confidence-calibra-momentum-conservation-2",
+    "physics-v10-confidence-calibration-momentum-conservation",
+    "physics-v10-diagnostic-lab-momentum-conservation",
+    "physics-v10-exam-style-practice-momentum-conservation",
+    "physics-v10-explain-back-challenge-momentum-conservation",
+    "physics-v10-field-note-momentum-conservation",
+    "physics-v10-measurement-lab-momentum-conservation",
+    "physics-v10-mistake-hunt-momentum",
+    "physics-v10-mistake-hunt-momentum-conservation",
+    "physics-v10-prediction-lab-momentum-conservation",
+    "physics-v10-reasoning-check-momentum-conservation",
+    "physics-v10-worked-walkthrough-momentum-conservation"
+   ]
+  },
+  {
+   "url": "https://openstax.org/books/university-physics-volume-2/pages/1-2-thermometers-and-temperature-scales",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "physics-v08-deep-dive-temperature",
+    "physics-v09-design-review-temperature",
+    "physics-v09-failure-analysis-lab-temperature",
+    "physics-v09-misconception-clinic-temperature",
+    "physics-v09-worked-example-temperature"
+   ]
+  },
+  {
+   "url": "https://openstax.org/books/university-physics-volume-2/pages/1-4-heat-transfer-specific-heat-and-calorimetry",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "physics-heat-temp",
+    "physics-v08-deep-dive-heat",
+    "physics-v08-evidence-lab-temperature",
+    "physics-v09-decision-lab-heat",
+    "physics-v09-decision-lab-temperature-is-not-heat",
+    "physics-v09-evidence-verification-la-temperature-is-not-heat",
+    "physics-v09-misconception-clinic-heat",
+    "physics-v09-quick-reference-heat",
+    "physics-v09-recall-drill-temperature-is-not-heat",
+    "physics-v09-teach-back-lab-temperature",
+    "physics-v09-worked-example-heat"
+   ]
+  },
+  {
+   "url": "https://openstax.org/books/university-physics-volume-2/pages/1-5-phase-changes",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "physics-v09-recall-drill-heat"
+   ]
+  },
+  {
+   "url": "https://openstax.org/books/university-physics-volume-2/pages/1-6-mechanisms-of-heat-transfer",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "physics-v08-evidence-lab-heat",
+    "physics-v09-practical-lab-heat"
+   ]
+  },
+  {
+   "url": "https://openstax.org/books/university-physics-volume-2/pages/10-3-kirchhoffs-rules",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "physics-kirchhoff",
+    "physics-v06-kirchhoff-junction-rule",
+    "physics-v08-deep-dive-kirchhoff-junction-rule",
+    "physics-v08-deep-dive-kirchhoff-loop-rule",
+    "physics-v08-evidence-lab-kirchhoff-junction-rule",
+    "physics-v08-evidence-lab-kirchhoff-loop-rule",
+    "physics-v09-design-review-kirchhoff-junction-rule",
+    "physics-v09-design-review-kirchhoff-junction-rule-2",
+    "physics-v09-misconception-clinic-kirchhoff-junction-rule",
+    "physics-v09-misconception-clinic-kirchhoff-loop-rule",
+    "physics-v09-practical-lab-kirchhoff-junction-rule",
+    "physics-v09-quick-reference-kirchhoff-junction-rule",
+    "physics-v09-quick-reference-kirchhoff-junction-rule-2",
+    "physics-v09-recall-drill-kirchhoff-loop-rule",
+    "physics-v09-recall-drill-kirchhoff-loop-rule-2",
+    "physics-v09-scenario-analysis-kirchhoff-loop-rule",
+    "physics-v09-worked-example-kirchhoff-s-circuit-laws",
+    "physics-v10-concept-connection-kirchhoff-junction-rule",
+    "physics-v10-counterexample-lab-kirchhoff-loop-rule",
+    "physics-v10-exam-style-practice-kirchhoff-junction-rule",
+    "physics-v10-fault-isolation-lab-kirchhoff-s-circuit-laws",
+    "physics-v10-measurement-lab-kirchhoff-junction-rule",
+    "physics-v10-prediction-lab-kirchhoff-junction-rule",
+    "physics-v10-reasoning-check-kirchhoff-loop-rule",
+    "physics-v10-scenario-brief-kirchhoff-loop-rule"
+   ]
+  },
+  {
+   "url": "https://openstax.org/books/university-physics-volume-2/pages/10-5-rc-circuits",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "physics-v09-quick-reference-capacitance",
+    "physics-v10-transfer-lab-capacitance-storing-energy-in-an-electric-field"
+   ]
+  },
+  {
+   "url": "https://openstax.org/books/university-physics-volume-2/pages/11-2-magnetic-fields-and-lines",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "physics-magnetic-force",
+    "physics-v06-magnetic-force-on-a-charge",
+    "physics-v08-evidence-lab-magnetic-force-on-moving-charge"
+   ]
+  },
+  {
+   "url": "https://openstax.org/books/university-physics-volume-2/pages/11-3-motion-of-a-charged-particle-in-a-magnetic-field",
+   "status": "search-confirmed",
+   "note": "OpenStax",
+   "citedBy": [
+    "physics-v08-deep-dive-magnetic-force-on-moving-charge"
+   ]
+  },
+  {
+   "url": "https://openstax.org/books/university-physics-volume-2/pages/13-1-faradays-law",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "physics-faraday",
+    "physics-v06-faraday-s-law",
+    "physics-v08-deep-dive-faraday-law",
+    "physics-v08-evidence-lab-faraday-law",
+    "physics-v09-evidence-verification-la-faraday-law",
+    "physics-v09-practical-lab-faraday-s-law-changing-magnetic-flux-creates-emf",
+    "physics-v09-teach-back-lab-faraday-law",
+    "physics-v09-troubleshooting-lab-faraday-s-law"
+   ]
+  },
+  {
+   "url": "https://openstax.org/books/university-physics-volume-2/pages/13-2-lenzs-law",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "physics-v08-evidence-lab-faraday-law",
+    "physics-v09-practical-lab-faraday-s-law-changing-magnetic-flux-creates-emf",
+    "physics-v09-teach-back-lab-faraday-law"
+   ]
+  },
+  {
+   "url": "https://openstax.org/books/university-physics-volume-2/pages/16-2-plane-electromagnetic-waves",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "physics-em-waves"
+   ]
+  },
+  {
+   "url": "https://openstax.org/books/university-physics-volume-2/pages/2-1-molecular-model-of-an-ideal-gas",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "physics-ideal-gas",
+    "physics-v09-failure-analysis-lab-the-ideal-gas-law",
+    "physics-v09-scenario-analysis-temperature",
+    "physics-v09-scenario-analysis-the-ideal-gas-law",
+    "physics-v09-troubleshooting-lab-the-ideal-gas-law"
+   ]
+  },
+  {
+   "url": "https://openstax.org/books/university-physics-volume-2/pages/3-3-first-law-of-thermodynamics",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "physics-v08-deep-dive-first-law-of-thermodynamics",
+    "physics-v08-evidence-lab-first-law-of-thermodynamics",
+    "physics-v09-evidence-verification-la-first-law-of-thermodynamics",
+    "physics-v09-quick-reference-first-law-of-thermodynamics",
+    "physics-v09-recall-drill-first-law-of-thermodynamics",
+    "physics-v09-scenario-analysis-first-law-of-thermodynamics",
+    "physics-v09-troubleshooting-lab-first-law-of-thermodynamics"
+   ]
+  },
+  {
+   "url": "https://openstax.org/books/university-physics-volume-2/pages/4-2-heat-engines",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "physics-v09-design-review-first-law-of-thermodynamics"
+   ]
+  },
+  {
+   "url": "https://openstax.org/books/university-physics-volume-2/pages/4-6-entropy",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "physics-entropy",
+    "physics-v09-misconception-clinic-entropy",
+    "physics-v09-practical-lab-entropy",
+    "physics-v09-teach-back-lab-entropy"
+   ]
+  },
+  {
+   "url": "https://openstax.org/books/university-physics-volume-2/pages/5-3-coulombs-law",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "physics-v08-deep-dive-coulomb-force",
+    "physics-v08-evidence-lab-coulomb-force",
+    "physics-v09-misconception-clinic-coulomb-force",
+    "physics-v09-recall-drill-coulomb-force",
+    "physics-v09-recall-drill-coulomb-force-2",
+    "physics-v09-scenario-analysis-coulomb-force",
+    "physics-v10-concept-connection-coulomb-force",
+    "physics-v10-scenario-brief-coulomb-force"
+   ]
+  },
+  {
+   "url": "https://openstax.org/books/university-physics-volume-2/pages/5-4-electric-field",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "physics-electric-field",
+    "physics-v08-deep-dive-electric-field",
+    "physics-v08-evidence-lab-electric-field",
+    "physics-v09-decision-lab-electric-field",
+    "physics-v09-decision-lab-electric-field-2",
+    "physics-v09-failure-analysis-lab-electric-field",
+    "physics-v09-failure-analysis-lab-electric-fields-force-per-unit-charge",
+    "physics-v09-teach-back-lab-electric-fields-force-per-unit-charge",
+    "physics-v09-worked-example-electric-field",
+    "physics-v10-boundary-condition-lab-electric-field",
+    "physics-v10-transfer-challenge-electric-field",
+    "physics-v10-worked-walkthrough-electric-fields-force-per-unit-charge"
+   ]
+  },
+  {
+   "url": "https://openstax.org/books/university-physics-volume-2/pages/7-2-electric-potential-and-potential-difference",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "physics-v06-electric-potential-difference",
+    "physics-v08-deep-dive-electric-potential-difference",
+    "physics-v08-evidence-lab-electric-potential-difference",
+    "physics-v09-evidence-verificat-electric-potential-difference-2",
+    "physics-v09-evidence-verification-la-electric-potential-difference",
+    "physics-v09-teach-back-lab-electric-potential-difference",
+    "physics-v09-troubleshooting-la-electric-potential-difference-2",
+    "physics-v09-troubleshooting-lab-electric-potential-difference",
+    "physics-v10-counterexample-lab-electric-potential-difference",
+    "physics-v10-evidence-reading-electric-potential-difference",
+    "physics-v10-recovery-lab-electric-potential-difference"
+   ]
+  },
+  {
+   "url": "https://openstax.org/books/university-physics-volume-2/pages/8-1-capacitors-and-capacitance",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "physics-v06-capacitance",
+    "physics-v08-deep-dive-capacitance",
+    "physics-v09-practical-lab-electric-potential-difference",
+    "physics-v09-troubleshooting-lab-capacitance",
+    "physics-v10-evidence-reading-capacitance"
+   ]
+  },
+  {
+   "url": "https://openstax.org/books/university-physics-volume-2/pages/8-2-capacitors-in-series-and-in-parallel",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "physics-v09-practical-lab-capacitance-2",
+    "physics-v09-quick-reference-capacitance-2",
+    "physics-v10-evidence-reading-capacitance-2"
+   ]
+  },
+  {
+   "url": "https://openstax.org/books/university-physics-volume-2/pages/8-3-energy-stored-in-a-capacitor",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "physics-capacitance",
+    "physics-v08-evidence-lab-capacitance",
+    "physics-v09-design-review-capacitance",
+    "physics-v09-design-review-capacitance-storing-energy-in-an-electric-field",
+    "physics-v09-misconception-clinic-capacitance-storing-energy-in-an-electric-field",
+    "physics-v09-practical-lab-capacitance",
+    "physics-v10-configuration-lab-capacitance",
+    "physics-v10-exam-style-practice-capacitance"
+   ]
+  },
+  {
+   "url": "https://openstax.org/books/university-physics-volume-2/pages/9-1-electrical-current",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "physics-v06-electric-current",
+    "physics-v09-scenario-analysis-electric-current",
+    "physics-v09-worked-example-electric-current",
+    "physics-v10-reasoning-check-electric-current"
+   ]
+  },
+  {
+   "url": "https://openstax.org/books/university-physics-volume-2/pages/9-4-ohms-law",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "physics-electricity",
+    "physics-v06-resistance-and-ohm-s-law",
+    "physics-v08-deep-dive-ohm-law",
+    "physics-v08-evidence-lab-ohm-law",
+    "physics-v09-decision-lab-ohm-law",
+    "physics-v09-evidence-verification-la-voltage-current-resistance",
+    "physics-v09-failure-analysis-lab-ohm-law",
+    "physics-v09-teach-back-lab-resistance-and-ohm-s-law",
+    "physics-v10-concept-mapping-lab-resistance-and-ohm-s-law",
+    "physics-v10-trace-lab-voltage-current-resistance",
+    "physics-v10-transfer-challenge-ohm-law",
+    "physics-v10-worked-walkthrough-ohm-law"
+   ]
+  },
+  {
+   "url": "https://opentelemetry.io/docs/concepts/signals/",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "cloud-observability-signals",
+    "cloud-v07-observability-logs"
+   ]
+  },
+  {
+   "url": "https://opentelemetry.io/docs/concepts/signals/traces/",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "cloud-v07-observability-traces"
+   ]
+  },
+  {
+   "url": "https://prometheus.io/docs/concepts/data_model/",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "cloud-v07-prometheus-time-series"
+   ]
+  },
+  {
+   "url": "https://prometheus.io/docs/practices/naming/",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "cloud-v07-prometheus-time-series"
+   ]
+  },
+  {
+   "url": "https://prometheus.io/docs/prometheus/latest/querying/basics/",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "cloud-v07-promql-instant-vector"
+   ]
+  },
+  {
+   "url": "https://prometheus.io/docs/prometheus/latest/querying/functions/",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "cloud-v07-observability-metrics"
+   ]
+  },
+  {
+   "url": "https://quantum.cloud.ibm.com/learning/en/courses/basics-of-quantum-information/quantum-circuits/limitations-on-quantum-information",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "advanced-no-cloning"
+   ]
+  },
+  {
+   "url": "https://quantum.cloud.ibm.com/learning/en/courses/foundations-of-quantum-error-correction/correcting-quantum-errors/repetition-codes",
+   "status": "search-confirmed",
+   "note": "IBM Quantum Learning",
+   "citedBy": [
+    "advanced-quantum-error-correction"
+   ]
+  },
+  {
+   "url": "https://quantum.cloud.ibm.com/learning/en/courses/quantum-computing-in-practice/running-quantum-circuits",
+   "status": "search-confirmed",
+   "note": "IBM Quantum Learning",
+   "citedBy": [
+    "advanced-quantum-circuit-depth"
+   ]
+  },
+  {
+   "url": "https://quantum.cloud.ibm.com/learning/en/courses/utility-scale-quantum-computing/bits-gates-and-circuits",
+   "status": "search-confirmed",
+   "note": "IBM Quantum Learning",
+   "citedBy": [
+    "advanced-nisq",
+    "advanced-quantum-gates",
+    "advanced-v05-hadamard-gate",
+    "advanced-v05-pauli-x-gate",
+    "advanced-v07-pauli-z-gate"
+   ]
+  },
+  {
+   "url": "https://quantum.cloud.ibm.com/learning/en/modules/computer-science/quantum-teleportation",
+   "status": "search-confirmed",
+   "note": "IBM Quantum Learning module",
+   "citedBy": [
+    "advanced-quantum-teleportation",
+    "advanced-v05-controlled-not-gate"
+   ]
+  },
+  {
+   "url": "https://slurm.schedmd.com/man_index.html",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "advanced-slurm"
+   ]
+  },
+  {
+   "url": "https://sre.google/sre-book/addressing-cascading-failures/",
+   "status": "read",
+   "note": "chapter read; retries, load shedding and graceful degradation, latency and deadlines confirmed",
+   "citedBy": [
+    "leadership-v06-cascading-failure",
+    "leadership-v06-graceful-degradation"
+   ]
+  },
+  {
+   "url": "https://sre.google/sre-book/embracing-risk/",
+   "status": "read",
+   "note": "chapter read; error-budget, release and cost-of-reliability statements confirmed",
+   "citedBy": [
+    "leadership-v06-error-budget",
+    "leadership-v06-reliability-target-tradeoffs"
+   ]
+  },
+  {
+   "url": "https://sre.google/sre-book/managing-incidents/",
+   "status": "read",
+   "note": "chapter 14 read (roles, living incident document, freelancing); URL from the book table of contents",
+   "citedBy": [
+    "leadership-v06-incident-command",
+    "leadership-v06-incident-timeline"
+   ]
+  },
+  {
+   "url": "https://sre.google/sre-book/postmortem-culture/",
+   "status": "read",
+   "note": "URL from the book table of contents (chapter 15)",
+   "citedBy": [
+    "leadership-v06-blameless-postmortems"
+   ]
+  },
+  {
+   "url": "https://sre.google/sre-book/service-level-objectives/",
+   "status": "read",
+   "note": "URL from the book table of contents (chapter 4)",
+   "citedBy": [
+    "leadership-v06-service-level-indicator",
+    "leadership-v06-service-level-objective"
+   ]
+  },
+  {
+   "url": "https://sre.google/workbook/implementing-slos/",
+   "status": "search-confirmed",
+   "note": "SRE Workbook chapter 2",
+   "citedBy": [
+    "leadership-v06-error-budget"
+   ]
+  },
+  {
+   "url": "https://www.mpi-forum.org/docs/mpi-3.1/mpi31-report/node156.htm",
+   "status": "search-confirmed",
+   "note": "Communicator Constructors",
+   "citedBy": [
+    "advanced-v05-mpi-communicators"
+   ]
+  },
+  {
+   "url": "https://www.mpi-forum.org/docs/mpi-4.1/mpi41-report/",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "advanced-mpi",
+    "advanced-mpi-collectives",
+    "advanced-v05-mpi-ranks"
+   ]
+  },
+  {
+   "url": "https://www.mpi-forum.org/docs/mpi-4.1/mpi41-report/node53.htm",
+   "status": "search-confirmed",
+   "note": "4. Point-to-Point Communication",
+   "citedBy": [
+    "advanced-mpi-point-to-point"
+   ]
+  },
+  {
+   "url": "https://www.mpi-forum.org/docs/mpi-5.0/mpi50-report/node329.htm",
+   "status": "search-confirmed",
+   "note": "13.5 Synchronization Calls (one-sided communication)",
+   "citedBy": [
+    "advanced-mpi-rma"
+   ]
+  },
+  {
+   "url": "https://www.postgresql.org/docs/18/ddl-constraints.html",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "software-v08-deep-dive-sql-check-constraint",
+    "software-v08-deep-dive-sql-foreign-key",
+    "software-v08-deep-dive-sql-primary-key",
+    "software-v08-deep-dive-sql-unique-constraint",
+    "software-v08-evidence-lab-sql-check-constraint",
+    "software-v08-evidence-lab-sql-foreign-key",
+    "software-v08-evidence-lab-sql-primary-key",
+    "software-v08-evidence-lab-sql-unique-constraint"
+   ]
+  },
+  {
+   "url": "https://www.postgresql.org/docs/18/queries-table-expressions.html",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "software-v08-deep-dive-sql-cross-join",
+    "software-v08-deep-dive-sql-inner-join",
+    "software-v08-deep-dive-sql-left-outer-join",
+    "software-v08-evidence-lab-sql-cross-join",
+    "software-v08-evidence-lab-sql-inner-join",
+    "software-v08-evidence-lab-sql-left-outer-join"
+   ]
+  },
+  {
+   "url": "https://www.postgresql.org/docs/18/queries-with.html",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "software-v08-deep-dive-sql-with-query",
+    "software-v08-evidence-lab-sql-with-query"
+   ]
+  },
+  {
+   "url": "https://www.postgresql.org/docs/18/sql-select.html",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "software-v08-deep-dive-sql-aggregate-functions",
+    "software-v08-deep-dive-sql-group-by",
+    "software-v08-deep-dive-sql-having",
+    "software-v08-evidence-lab-sql-aggregate-functions",
+    "software-v08-evidence-lab-sql-group-by",
+    "software-v08-evidence-lab-sql-having"
+   ]
+  },
+  {
+   "url": "https://www.postgresql.org/docs/18/tutorial-window.html",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "software-v08-deep-dive-sql-window-functions",
+    "software-v08-evidence-lab-sql-window-functions"
+   ]
+  },
+  {
+   "url": "https://www.rfc-editor.org/rfc/rfc1034.html",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "cloud-dns-resolution"
+   ]
+  },
+  {
+   "url": "https://www.rfc-editor.org/rfc/rfc1812.html",
+   "status": "read",
+   "note": "RFC Editor inline-errata rendering read; section 2.2.5.2 requires the most specific (longest) matching prefix",
+   "citedBy": [
+    "cloud-routing-table"
+   ]
+  },
+  {
+   "url": "https://www.rfc-editor.org/rfc/rfc2131.html",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "cloud-dhcp"
+   ]
+  },
+  {
+   "url": "https://www.rfc-editor.org/rfc/rfc2132.html",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "cloud-dhcp"
+   ]
+  },
+  {
+   "url": "https://www.rfc-editor.org/rfc/rfc2308.html",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "cloud-dns-resolution"
+   ]
+  },
+  {
+   "url": "https://www.rfc-editor.org/rfc/rfc4511",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "cloud-v06-ldap-operations",
+    "cloud-v09-failure-analysis-lab-ldap-operations",
+    "cloud-v09-practical-lab-ldap-operations"
+   ]
+  },
+  {
+   "url": "https://www.rfc-editor.org/rfc/rfc5869.html",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "cyber-v09-quick-reference-tls-1-3-protected-application-data"
+   ]
+  },
+  {
+   "url": "https://www.rfc-editor.org/rfc/rfc7301.html",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "cyber-v09-design-review-what-tls-actually-protects"
+   ]
+  },
+  {
+   "url": "https://www.rfc-editor.org/rfc/rfc768.html",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "cloud-udp"
+   ]
+  },
+  {
+   "url": "https://www.rfc-editor.org/rfc/rfc826.html",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "cloud-arp"
+   ]
+  },
+  {
+   "url": "https://www.rfc-editor.org/rfc/rfc8446.html",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "cyber-v06-tls-1-3-protected-application-data",
+    "cyber-v09-scenario-analysis-tls-1-3-protected-application-data",
+    "cyber-v09-teach-back-lab-tls-1-3-protected-application-data",
+    "cyber-v09-teach-back-lab-tls-1-3-protected-application-data-2"
+   ]
+  },
+  {
+   "url": "https://www.rfc-editor.org/rfc/rfc9110.html#section-13.1.2",
+   "status": "read",
+   "note": "section number and title confirmed in the RFC Editor rendering of RFC 9110",
+   "citedBy": [
+    "software-v06-http-get-semantics",
+    "software-v08-deep-dive-http-get"
+   ]
+  },
+  {
+   "url": "https://www.rfc-editor.org/rfc/rfc9110.html#section-14.2",
+   "status": "read",
+   "note": "section number and title confirmed in the RFC Editor rendering of RFC 9110",
+   "citedBy": [
+    "software-v08-evidence-lab-http-get"
+   ]
+  },
+  {
+   "url": "https://www.rfc-editor.org/rfc/rfc9110.html#section-15",
+   "status": "read",
+   "note": "section number and title confirmed in the RFC Editor rendering of RFC 9110",
+   "citedBy": [
+    "lab-http-devtools",
+    "software-http-status",
+    "software-v06-http-status-code-classes"
+   ]
+  },
+  {
+   "url": "https://www.rfc-editor.org/rfc/rfc9110.html#section-15.5.2",
+   "status": "read",
+   "note": "section number and title confirmed in the RFC Editor rendering of RFC 9110",
+   "citedBy": [
+    "software-v09-practical-lab-an-http-api-request-from-client-to-handler"
+   ]
+  },
+  {
+   "url": "https://www.rfc-editor.org/rfc/rfc9110.html#section-15.5.21",
+   "status": "read",
+   "note": "section number and title confirmed in the RFC Editor rendering of RFC 9110",
+   "citedBy": [
+    "software-v08-evidence-lab-http-post"
+   ]
+  },
+  {
+   "url": "https://www.rfc-editor.org/rfc/rfc9110.html#section-3",
+   "status": "read",
+   "note": "section number and title confirmed in the RFC Editor rendering of RFC 9110",
+   "citedBy": [
+    "software-api-lifecycle"
+   ]
+  },
+  {
+   "url": "https://www.rfc-editor.org/rfc/rfc9110.html#section-8.6",
+   "status": "read",
+   "note": "section number and title confirmed in the RFC Editor rendering of RFC 9110",
+   "citedBy": [
+    "software-v08-deep-dive-http-head"
+   ]
+  },
+  {
+   "url": "https://www.rfc-editor.org/rfc/rfc9110.html#section-9.2.1",
+   "status": "read",
+   "note": "section number and title confirmed in the RFC Editor rendering of RFC 9110",
+   "citedBy": [
+    "software-http-semantics",
+    "software-v08-deep-dive-http-safe-methods",
+    "software-v08-evidence-lab-http-safe-methods"
+   ]
+  },
+  {
+   "url": "https://www.rfc-editor.org/rfc/rfc9110.html#section-9.2.2",
+   "status": "read",
+   "note": "section number and title confirmed in the RFC Editor rendering of RFC 9110",
+   "citedBy": [
+    "software-idempotency",
+    "software-v08-deep-dive-http-idempotent-methods"
+   ]
+  },
+  {
+   "url": "https://www.rfc-editor.org/rfc/rfc9110.html#section-9.3.2",
+   "status": "read",
+   "note": "section number and title confirmed in the RFC Editor rendering of RFC 9110",
+   "citedBy": [
+    "software-v06-http-head-semantics",
+    "software-v08-evidence-lab-http-head"
+   ]
+  },
+  {
+   "url": "https://www.rfc-editor.org/rfc/rfc9110.html#section-9.3.3",
+   "status": "read",
+   "note": "section number and title confirmed in the RFC Editor rendering of RFC 9110",
+   "citedBy": [
+    "software-v08-deep-dive-http-post"
+   ]
+  },
+  {
+   "url": "https://www.rfc-editor.org/rfc/rfc9110.html#section-9.3.4",
+   "status": "read",
+   "note": "section number and title confirmed in the RFC Editor rendering of RFC 9110",
+   "citedBy": [
+    "software-rest-idempotent",
+    "software-v06-http-put-semantics"
+   ]
+  },
+  {
+   "url": "https://www.rfc-editor.org/rfc/rfc9110.html#section-9.3.5",
+   "status": "read",
+   "note": "section number and title confirmed in the RFC Editor rendering of RFC 9110",
+   "citedBy": [
+    "software-v06-http-delete-semantics",
+    "software-v08-evidence-lab-http-idempotent-methods"
+   ]
+  },
+  {
+   "url": "https://www.rfc-editor.org/rfc/rfc9111.html#section-4.2",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "software-v06-http-cache-freshness"
+   ]
+  },
+  {
+   "url": "https://www.rfc-editor.org/rfc/rfc9111.html#section-4.2.1",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "software-v09-misconception-clinic-http-cache-freshness"
+   ]
+  },
+  {
+   "url": "https://www.rfc-editor.org/rfc/rfc9293.html",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "cloud-tcp-handshake"
+   ]
+  },
+  {
+   "url": "https://www.rfc-editor.org/rfc/rfc9525.html",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "cyber-tls",
+    "cyber-v09-evidence-verificat-what-tls-actually-protects-2",
+    "cyber-v09-evidence-verification-la-what-tls-actually-protects",
+    "cyber-v09-worked-example-what-tls-actually-protects",
+    "cyber-v09-worked-example-what-tls-actually-protects-2"
+   ]
+  },
+  {
+   "url": "https://www.sqlite.org/lang_transaction.html",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "software-v09-decision-lab-testing-at-multiple-layers-8",
+    "software-v09-evidence-verificat-debug-by-reducing-the-search-space-8",
+    "software-v09-quick-reference-testing-at-multiple-layers-8",
+    "software-v09-recall-drill-debug-by-reducing-the-search-space-9"
+   ]
+  },
+  {
+   "url": "https://www.usenix.org/conference/atc14/technical-sessions/presentation/ongaro",
+   "status": "not individually checked",
+   "note": "canonical documentation path; not fetched or seen in results during this review",
+   "citedBy": [
+    "advanced-consensus",
+    "advanced-leader-election",
+    "advanced-quorum",
+    "advanced-replication",
+    "advanced-v05-raft-commit-rule",
+    "advanced-v05-raft-leaders",
+    "advanced-v05-raft-terms"
+   ]
+  }
+ ]
+}
