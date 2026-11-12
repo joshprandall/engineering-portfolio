@@ -61,7 +61,7 @@ test('Threshold tie at 0.3: inclusive versus exclusive comparison', () => {
   });
   assert.equal(Math.min(...expectedHigh),cost(.3,true,1,4));
   near(Math.min(...expectedLow),cost(.6,true,1,.1),'new global minimum at threshold .6');
-  // An interval between adjacent scores has the same decision set as its lower endpoint.
+  // Each between-score threshold yields the same predictions as an adjacent observed-score cutoff under p >= t.
   near(cost(.65,true),cost(.9,true),'cutoff in (.6,.9] for observed scores');
   near(cost(.5,true),cost(.55,true),'cutoff in (.4,.55] for observed scores');
   assert.equal(cost(.5,true,1,.1),1.1);
@@ -123,6 +123,18 @@ test('Stable binary logit loss at extreme positive and negative logits', () => {
   assert.equal(loss(1000,0),1000);
 });
 
+
+test('Extreme logits: binary64 underflow is not an exact mathematical zero', () => {
+  const stable=(z,y)=>Math.max(z,0)-z*y+Math.log1p(Math.exp(-Math.abs(z)));
+  assert.equal(Math.exp(-1000),0,'exp(-1000) underflows in binary64');
+  assert.equal(stable(-1000,0),0,'representable loss rounds to zero');
+  assert.equal(stable(-1000,1),1000);
+  assert.ok(stable(-700,0)>0,'the stable formula retains a positive subnormal-range loss');
+  assert.ok(stable(-700,0)<1e-300);
+  assert.equal(stable(1000,0),1000);
+  assert.match(records[key('stable-binary-logit-loss')].counterexample,/round/i);
+});
+
 test('Logistic gradient agrees with finite difference and descends for small step', () => {
   const sigmoid=z=>1/(1+Math.exp(-z));
   const loss=w=>Math.log1p(Math.exp(-2*w));
@@ -162,6 +174,30 @@ test('Lloyd update reduces squared inertia on the disclosed synthetic data', () 
   assert.equal(inertia(initial),2);
   near(inertia(means),answer('kmeans-one-lloyd-update'),'centroid inertia');
   assert.ok(inertia([.4,8.5])>inertia(means));
+});
+
+
+test('A stable Lloyd fixed point can be worse than another stable partition', () => {
+  const x=[0,1,5,6,10,12], local=[.5,8.25], better=[3,11];
+  const assign=centers=>x.map(value=>
+    Math.abs(value-centers[0])<=Math.abs(value-centers[1])?0:1);
+  const centroid=(assignment,group)=>{
+    const points=x.filter((_,i)=>assignment[i]===group);
+    return points.reduce((sum,value)=>sum+value,0)/points.length;
+  };
+  const sse=centers=>x.reduce((sum,value)=>
+    sum+Math.min((value-centers[0])**2,(value-centers[1])**2),0);
+  assert.deepEqual(assign(local),[0,0,1,1,1,1]);
+  assert.deepEqual(assign(better),[0,0,0,0,1,1]);
+  for(const centers of [local,better]){
+    const groups=assign(centers);
+    assert.deepEqual([centroid(groups,0),centroid(groups,1)],centers,
+      'both partitions are stationary under Lloyd centroid updates');
+  }
+  assert.equal(sse(local),33.25);
+  assert.equal(sse(better),28);
+  assert.ok(sse(better)<sse(local),'the first Lloyd fixed point is suboptimal');
+  assert.match(records[key('kmeans-one-lloyd-update')].counterexample,/33\.25/);
 });
 
 test('Prevalence shift changes positive predictive value with fixed rates', () => {
