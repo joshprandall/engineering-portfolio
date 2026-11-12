@@ -36,7 +36,7 @@ function calculate(model,p){
  default:throw new Error("unknown "+model);
  }
 }
-test("complete original 120-record immutable order and exactly 48 authorized teaching changes",()=>{
+test("complete original 120-record order and exactly 96 authorized changes in two independent 48-case sets",()=>{
  const names=Object.keys(authored);
  assert.equal(names.length,120);
  assert.equal(baseline.originalBlob,"a1cdc05bb25e6200f33317607a0d25bf9c5ee823");
@@ -57,8 +57,11 @@ test("complete original 120-record immutable order and exactly 48 authorized tea
      assert.equal(digest(after),before.fullSHA256,"record must be byte-semantically original "+k);
    }
  }
- assert.deepEqual(changed,names.slice(0,48));
- assert.deepEqual(fixture.map(f=>f.id),changed);
+ assert.deepEqual(changed,names.slice(0,96));
+ assert.deepEqual(fixture.map(f=>f.id),changed.slice(0,48));
+ const second=JSON.parse(fs.readFileSync(path.join(__dirname,"mechanics-next-48-model-evidence.fixtures.json"),"utf8"));
+ assert.equal(second.changedIds.length,48);
+ assert.deepEqual(second.changedIds,changed.slice(48,96));
 });
 test("original scientific cases have distinct questions and explicit external source, limits and falsification",()=>{
  assert.equal(new Set(fixture.map(f=>f.essentialQuestion)).size,48);

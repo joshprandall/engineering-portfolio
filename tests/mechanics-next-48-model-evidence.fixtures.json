@@ -1,0 +1,949 @@
+{
+  "provenance": "Synthetic numerical examples; official OpenStax University Physics Volume 1 section links. This file contains independently specified target answers; NO measured data or runtime changes.",
+  "baseCommit": "58290aca82faf57f4e1459883bf7ef3b3c67c61e",
+  "baseBlob": "3981cd4fd7252f4a0c4d941d2778264a36a99d78",
+  "lessonCount": 120,
+  "changedIds": [
+    "physics-v09-quick-reference-kinematics-describing-motion-before-explaining-it",
+    "physics-v09-design-review-momentum",
+    "physics-v09-misconception-clinic-newton-first-law",
+    "physics-v09-recall-drill-newton-first-law",
+    "physics-v09-scenario-analysis-newton-second-law",
+    "physics-v09-worked-example-newton-second-law",
+    "physics-v09-decision-lab-newton-third-law",
+    "physics-v09-failure-analysis-lab-newton-third-law",
+    "physics-v09-teach-back-lab-newtonian-gravity",
+    "physics-v09-evidence-verification-la-newton-s-first-law",
+    "physics-v09-troubleshooting-lab-newton-s-laws-as-a-model-of-motion",
+    "physics-v09-practical-lab-newton-s-third-law",
+    "physics-v09-quick-reference-predict-a-projectile-before-running-the-simulation",
+    "physics-v09-design-review-torque-the-rotational-effect-of-force",
+    "physics-v09-misconception-clinic-acceleration",
+    "physics-v09-recall-drill-acceleration",
+    "physics-v09-scenario-analysis-angular-momentum-2",
+    "physics-v09-worked-example-average-velocity",
+    "physics-v09-decision-lab-average-velocity",
+    "physics-v09-failure-analysis-lab-circular-motion-acceleration-without-changing-speed",
+    "physics-v09-teach-back-lab-constant-acceleration-kinematics",
+    "physics-v09-evidence-verification-la-dimensional-analysis-let-the-units-check-the-physics",
+    "physics-v09-troubleshooting-lab-displacement",
+    "physics-v09-practical-lab-displacement",
+    "physics-v10-explain-back-challenge-acceleration",
+    "physics-v10-counterexample-lab-acceleration",
+    "physics-v10-worked-walkthrough-angular-momentum",
+    "physics-v10-field-note-average-velocity",
+    "physics-v10-configuration-lab-average-velocity",
+    "physics-v10-prediction-lab-circular-motion-acceleration-without-changing-speed",
+    "physics-v10-exam-style-practice-constant-acceleration-kinematics",
+    "physics-v10-mistake-hunt-dimensional-analysis-let-the-units-check-the-physics",
+    "physics-v10-hypothesis-lab-displacement",
+    "physics-v10-scenario-brief-displacement",
+    "physics-v10-reasoning-check-displacement-velocity-and-acceleration",
+    "physics-v10-explain-back-challenge-free-body-diagram",
+    "physics-v10-concept-mapping-lab-free-body-diagram",
+    "physics-v10-worked-walkthrough-free-body-diagrams",
+    "physics-v10-field-note-friction-forces",
+    "physics-v10-recovery-lab-instantaneous-velocity",
+    "physics-v10-decision-matrix-lab-instantaneous-velocity",
+    "physics-v10-exam-style-practice-kinematics-describing-motion-before-explaining-it",
+    "physics-v10-mistake-hunt-momentum",
+    "physics-v10-verification-lab-newton-first-law",
+    "physics-v10-scenario-brief-newton-first-law",
+    "physics-v10-reasoning-check-newton-second-law",
+    "physics-v10-explain-back-challenge-newton-second-law",
+    "physics-v10-runbook-lab-newton-third-law"
+  ],
+  "cases": [
+    {
+      "id": "physics-v09-quick-reference-kinematics-describing-motion-before-explaining-it",
+      "model": "avgVel",
+      "inputs": [
+        10,
+        34,
+        6
+      ],
+      "expected": 4,
+      "unit": "m/s",
+      "source": "https://openstax.org/books/university-physics-volume-1/pages/3-1-position-displacement-and-average-velocity",
+      "independentFirstInput": 10,
+      "doubledExpected": 2.3333333333333335,
+      "plusOnePercentExpected": 3.983333333333333,
+      "question": "A rover moves from x=10 m to x=34 m in 6 s; what is its signed mean velocity?",
+      "lab": "Plot x at the two endpoints and insert an intermediate detour; recompute mean velocity",
+      "misconception": "Treating the 24 m endpoint displacement as total path length without checking reversals",
+      "boundary": "The 4 m/s mean does not imply constant instantaneous speed."
+    },
+    {
+      "id": "physics-v09-design-review-momentum",
+      "model": "momentum",
+      "inputs": [
+        3,
+        -5
+      ],
+      "expected": -15,
+      "unit": "kg·m/s",
+      "source": "https://openstax.org/books/university-physics-volume-1/pages/9-1-linear-momentum",
+      "independentFirstInput": 3,
+      "doubledExpected": -30,
+      "plusOnePercentExpected": -15.150000000000002,
+      "question": "A 3 kg puck moves west at 5 m/s (east positive); what signed linear momentum does it carry?",
+      "lab": "Reverse the puck's measured direction while retaining mass and compare signed impulses",
+      "misconception": "Dropping the negative direction when multiplying positive mass by velocity",
+      "boundary": "Mass is constant and speed is nonrelativistic; a vector axis must be specified."
+    },
+    {
+      "id": "physics-v09-misconception-clinic-newton-first-law",
+      "model": "balance",
+      "inputs": [
+        9,
+        -9
+      ],
+      "expected": 0,
+      "unit": "N",
+      "source": "https://openstax.org/books/university-physics-volume-1/pages/5-2-newtons-first-law",
+      "independentFirstInput": 9,
+      "doubledExpected": 9,
+      "plusOnePercentExpected": 0.08999999999999986,
+      "question": "Two horizontal pulls of +9 N and -9 N act on a cart; what resultant force disproves the claim that motion must stop?",
+      "lab": "Sketch two force arrows and test both an initially moving and an initially stationary cart",
+      "misconception": "A zero net force guarantees a zero velocity rather than zero acceleration",
+      "boundary": "Only a constant-mass inertial-frame model is claimed; actual drag may be nonzero."
+    },
+    {
+      "id": "physics-v09-recall-drill-newton-first-law",
+      "model": "uniformDist",
+      "inputs": [
+        2.5,
+        8
+      ],
+      "expected": 20,
+      "unit": "m",
+      "source": "https://openstax.org/books/university-physics-volume-1/pages/3-1-position-displacement-and-average-velocity",
+      "independentFirstInput": 2.5,
+      "doubledExpected": 40,
+      "plusOnePercentExpected": 20.2,
+      "question": "A frictionless glider initially travels at +2.5 m/s under zero net force for 8 s; what displacement follows?",
+      "lab": "Record equal-time position marks and compare their increments with a zero-force prediction",
+      "misconception": "A continuing force is required to sustain uniform translation",
+      "boundary": "Initial speed is assumed known; zero acceleration is a model assumption."
+    },
+    {
+      "id": "physics-v09-scenario-analysis-newton-second-law",
+      "model": "newton",
+      "inputs": [
+        36,
+        12
+      ],
+      "expected": 3,
+      "unit": "m/s²",
+      "source": "https://openstax.org/books/university-physics-volume-1/pages/5-3-newtons-second-law",
+      "independentFirstInput": 36,
+      "doubledExpected": 6,
+      "plusOnePercentExpected": 3.03,
+      "question": "A 12 kg test cart experiences a measured +36 N net push; what acceleration follows?",
+      "lab": "Balance an independent force table and reconstruct the 36 N from mass times acceleration",
+      "misconception": "Using an applied-force label when the 36 N is explicitly NET force",
+      "boundary": "Classical Newtonian translation, constant mass and inertial axes."
+    },
+    {
+      "id": "physics-v09-worked-example-newton-second-law",
+      "model": "newtonNet",
+      "inputs": [
+        50,
+        14,
+        9
+      ],
+      "expected": 4,
+      "unit": "m/s²",
+      "source": "https://openstax.org/books/university-physics-volume-1/pages/5-3-newtons-second-law",
+      "independentFirstInput": 50,
+      "doubledExpected": 9.555555555555555,
+      "plusOnePercentExpected": 4.055555555555555,
+      "question": "A 9 kg cart has +50 N drive and 14 N opposing resistance; what is its acceleration?",
+      "lab": "Draw both arrows; compute net force independently as 36 N before dividing by mass",
+      "misconception": "Subtracting the resisting force with the wrong sign or dividing drive alone by mass",
+      "boundary": "Resistance is constant only over the modeled interval."
+    },
+    {
+      "id": "physics-v09-decision-lab-newton-third-law",
+      "model": "third",
+      "inputs": [
+        28
+      ],
+      "expected": -28,
+      "unit": "N",
+      "source": "https://openstax.org/books/university-physics-volume-1/pages/5-5-newtons-third-law",
+      "independentFirstInput": 28,
+      "doubledExpected": -56,
+      "plusOnePercentExpected": -28.28,
+      "question": "A foot exerts +28 N on a force plate; what force does the plate exert on that foot?",
+      "lab": "Use paired contact-force readings and reverse the positive axis to test sign convention",
+      "misconception": "Putting equal-and-opposite contact forces on the same free-body diagram",
+      "boundary": "Third-law pair forces act on different bodies in the same interaction."
+    },
+    {
+      "id": "physics-v09-failure-analysis-lab-newton-third-law",
+      "model": "thirdAcc",
+      "inputs": [
+        48,
+        6,
+        12
+      ],
+      "expected": -4,
+      "unit": "m/s²",
+      "source": "https://openstax.org/books/university-physics-volume-1/pages/5-5-newtons-third-law",
+      "independentFirstInput": 48,
+      "doubledExpected": -8,
+      "plusOnePercentExpected": -4.04,
+      "question": "Two carts of 6 kg and 12 kg interact at 48 N; what acceleration of the heavier cart is opposite to the force on the lighter cart?",
+      "lab": "Compute lighter-cart acceleration +8 m/s² separately; compare force reconstructions",
+      "misconception": "Claiming equal third-law forces imply equal accelerations despite unequal masses",
+      "boundary": "Each cart has no other horizontal force during the chosen interval."
+    },
+    {
+      "id": "physics-v09-teach-back-lab-newtonian-gravity",
+      "model": "gravScale",
+      "inputs": [
+        80,
+        2
+      ],
+      "expected": 20,
+      "unit": "N",
+      "source": "https://openstax.org/books/university-physics-volume-1/pages/13-1-newtons-law-of-universal-gravitation",
+      "independentFirstInput": 80,
+      "doubledExpected": 40,
+      "plusOnePercentExpected": 20.2,
+      "question": "An ideal inverse-square gravitational attraction is 80 N at r; what is its magnitude at 2r?",
+      "lab": "Calculate F at r, 2r and 4r and graph F against 1/r²",
+      "misconception": "Doubling separation halves gravitational force, instead of quartering it",
+      "boundary": "Two point masses are fixed; ignore other bodies and finite-size effects."
+    },
+    {
+      "id": "physics-v09-evidence-verification-la-newton-s-first-law",
+      "model": "balance",
+      "inputs": [
+        15,
+        -15
+      ],
+      "expected": 0,
+      "unit": "N",
+      "source": "https://openstax.org/books/university-physics-volume-1/pages/5-2-newtons-first-law",
+      "independentFirstInput": 15,
+      "doubledExpected": 15,
+      "plusOnePercentExpected": 0.15000000000000036,
+      "question": "At a steady speed, a sled has +15 N propulsion and -15 N drag; what net force is compatible with Newton's first law?",
+      "lab": "Compare matched 15 N force arrows; introduce +1 N unbalanced thrust and predict response",
+      "misconception": "Treating the nonzero engine thrust as a nonzero net force",
+      "boundary": "Speed remains steady only if total forces, including unlisted forces, sum to zero."
+    },
+    {
+      "id": "physics-v09-troubleshooting-lab-newton-s-laws-as-a-model-of-motion",
+      "model": "newtonNet",
+      "inputs": [
+        46,
+        10,
+        9
+      ],
+      "expected": 4,
+      "unit": "m/s²",
+      "source": "https://openstax.org/books/university-physics-volume-1/pages/5-3-newtons-second-law",
+      "independentFirstInput": 46,
+      "doubledExpected": 9.11111111111111,
+      "plusOnePercentExpected": 4.051111111111111,
+      "question": "A moving 9 kg trolley feels 46 N traction and 10 N resistance; what acceleration tests a defective force sensor?",
+      "lab": "Predict acceleration using independent force/mass data; compute the force residual against 4 m/s²",
+      "misconception": "Accepting a 46/9 m/s² readout despite separately measured resistance",
+      "boundary": "The modeled resistance is treated as constant; report measurement tolerance separately."
+    },
+    {
+      "id": "physics-v09-practical-lab-newton-s-third-law",
+      "model": "impulse",
+      "inputs": [
+        120,
+        0.15
+      ],
+      "expected": 18,
+      "unit": "N·s",
+      "source": "https://openstax.org/books/university-physics-volume-1/pages/9-2-impulse-and-collisions",
+      "independentFirstInput": 120,
+      "doubledExpected": 36,
+      "plusOnePercentExpected": 18.18,
+      "question": "A force of +120 N acts for 0.15 s; what signed impulse is delivered to a pad?",
+      "lab": "Integrate a rectangular force-versus-time plot and compare the area with 18 N·s",
+      "misconception": "Confusing newtons with newton-seconds or interpreting impulse as final momentum without initial state",
+      "boundary": "Assumes force is constant in time; force sampling can reveal pulse shape."
+    },
+    {
+      "id": "physics-v09-quick-reference-predict-a-projectile-before-running-the-simulation",
+      "model": "projectileR",
+      "inputs": [
+        14,
+        9.8
+      ],
+      "expected": 28,
+      "unit": "m",
+      "source": "https://openstax.org/books/university-physics-volume-1/pages/4-3-projectile-motion",
+      "independentFirstInput": 14,
+      "doubledExpected": 56,
+      "plusOnePercentExpected": 28.279999999999998,
+      "question": "A projectile leaves level ground with v_x=14 m/s, v_y=9.8 m/s; what ideal level-ground range follows?",
+      "lab": "Predict flight time 2.0 s independently from vertical motion before computing horizontal range",
+      "misconception": "Using total launch speed as horizontal speed or omitting the return-to-height condition",
+      "boundary": "No aerodynamic drag, constant g=9.8 m/s², same launch and landing elevation."
+    },
+    {
+      "id": "physics-v09-design-review-torque-the-rotational-effect-of-force",
+      "model": "torque",
+      "inputs": [
+        0.4,
+        50,
+        0.5
+      ],
+      "expected": 10,
+      "unit": "N·m",
+      "source": "https://openstax.org/books/university-physics-volume-1/pages/10-6-torque",
+      "independentFirstInput": 0.4,
+      "doubledExpected": 20,
+      "plusOnePercentExpected": 10.100000000000001,
+      "question": "A 50 N push at a 0.40 m lever arm makes sin(theta)=0.5; what signed torque magnitude results?",
+      "lab": "Reconfigure the force to perpendicular and confirm the torque doubles to 20 N·m",
+      "misconception": "Using rF without the perpendicular-force factor sin(theta)",
+      "boundary": "Rigid lever and fixed pivot; sign needs an explicitly chosen rotation axis."
+    },
+    {
+      "id": "physics-v09-misconception-clinic-acceleration",
+      "model": "avgAcc",
+      "inputs": [
+        14,
+        2,
+        4
+      ],
+      "expected": -3,
+      "unit": "m/s²",
+      "source": "https://openstax.org/books/university-physics-volume-1/pages/3-3-average-and-instantaneous-acceleration",
+      "independentFirstInput": 14,
+      "doubledExpected": -6.5,
+      "plusOnePercentExpected": -3.035,
+      "question": "A train slows from +14 to +2 m/s in 4 s; what signed mean acceleration describes braking?",
+      "lab": "Plot v endpoints and compare slope with the time-integrated acceleration",
+      "misconception": "Replacing signed acceleration -3 m/s² with +3 because speed changed by 12",
+      "boundary": "Average acceleration is not a peak braking acceleration."
+    },
+    {
+      "id": "physics-v09-recall-drill-acceleration",
+      "model": "derivAccel",
+      "inputs": [
+        6,
+        -0.8,
+        5
+      ],
+      "expected": -2,
+      "unit": "m/s²",
+      "source": "https://openstax.org/books/university-physics-volume-1/pages/3-3-average-and-instantaneous-acceleration",
+      "independentFirstInput": 6,
+      "doubledExpected": 4,
+      "plusOnePercentExpected": -1.9399999999999995,
+      "question": "For synthetic v(t)=v0+6t-0.8t² (SI), what acceleration exists at t=5 s?",
+      "lab": "Compare central-difference slopes over ±0.1 s around t=5 against analytic -2 m/s²",
+      "misconception": "Substituting velocity itself for its time derivative",
+      "boundary": "Polynomial fits are not evidence of real-world acceleration outside calibrated domain."
+    },
+    {
+      "id": "physics-v09-scenario-analysis-angular-momentum-2",
+      "model": "angular",
+      "inputs": [
+        0.75,
+        8
+      ],
+      "expected": 6,
+      "unit": "kg·m²/s",
+      "source": "https://openstax.org/books/university-physics-volume-1/pages/11-2-angular-momentum",
+      "independentFirstInput": 0.75,
+      "doubledExpected": 12,
+      "plusOnePercentExpected": 6.0600000000000005,
+      "question": "A rotor has I=0.75 kg·m² and angular rate +8 rad/s; what axial angular momentum follows?",
+      "lab": "Reconstruct I from independently specified L and ω and check SI units",
+      "misconception": "Confusing L=Iω with kinetic energy ½Iω²",
+      "boundary": "Rigid rotation about a principal fixed axis; inertia is treated constant."
+    },
+    {
+      "id": "physics-v09-worked-example-average-velocity",
+      "model": "avgVel",
+      "inputs": [
+        4,
+        26,
+        11
+      ],
+      "expected": 2,
+      "unit": "m/s",
+      "source": "https://openstax.org/books/university-physics-volume-1/pages/3-1-position-displacement-and-average-velocity",
+      "independentFirstInput": 4,
+      "doubledExpected": 1.6363636363636365,
+      "plusOnePercentExpected": 1.9963636363636363,
+      "question": "A motion logger records x=4 m at t=0 and x=26 m at t=11 s; what average signed velocity is observed?",
+      "lab": "Construct a nonuniform two-interval motion path with the same endpoints and duration",
+      "misconception": "Claiming 2 m/s must also be the velocity at every intermediate time",
+      "boundary": "The time origin is irrelevant to the interval average; precision limited by logger."
+    },
+    {
+      "id": "physics-v09-decision-lab-average-velocity",
+      "model": "segmentedAvg",
+      "inputs": [
+        8,
+        -3,
+        5
+      ],
+      "expected": 1,
+      "unit": "m/s",
+      "source": "https://openstax.org/books/university-physics-volume-1/pages/3-1-position-displacement-and-average-velocity",
+      "independentFirstInput": 8,
+      "doubledExpected": 2.6,
+      "plusOnePercentExpected": 1.016,
+      "question": "A hiker walks +8 m then -3 m in a total of 5 s; what mean signed velocity follows?",
+      "lab": "Compute the 11 m average speed separately and contrast with +1 m/s velocity",
+      "misconception": "Dividing total traveled distance 11 m by time to claim signed velocity +2.2 m/s",
+      "boundary": "Segment durations are unspecified; only total mean velocity can be inferred."
+    },
+    {
+      "id": "physics-v09-failure-analysis-lab-circular-motion-acceleration-without-changing-speed",
+      "model": "cent",
+      "inputs": [
+        12,
+        18
+      ],
+      "expected": 8,
+      "unit": "m/s²",
+      "source": "https://openstax.org/books/university-physics-volume-1/pages/6-3-centripetal-force",
+      "independentFirstInput": 12,
+      "doubledExpected": 32,
+      "plusOnePercentExpected": 8.160800000000002,
+      "question": "A sensor travels at constant 12 m/s around a circular path of radius 18 m; what inward acceleration has nonzero magnitude?",
+      "lab": "Draw velocity tangents at quadrature positions; compare change in direction with inward acceleration",
+      "misconception": "Claiming no acceleration because the speed magnitude is unchanged",
+      "boundary": "Uniform circular motion is assumed; angular speed is v/r."
+    },
+    {
+      "id": "physics-v09-teach-back-lab-constant-acceleration-kinematics",
+      "model": "finalV",
+      "inputs": [
+        3,
+        2,
+        5
+      ],
+      "expected": 13,
+      "unit": "m/s",
+      "source": "https://openstax.org/books/university-physics-volume-1/pages/3-4-motion-with-constant-acceleration",
+      "independentFirstInput": 3,
+      "doubledExpected": 16,
+      "plusOnePercentExpected": 13.030000000000001,
+      "question": "A lift platform begins at +3 m/s and accelerates at +2 m/s² for 5 s; what final velocity follows?",
+      "lab": "Compare a velocity-time graph intercept and slope; read the endpoint at 5 s",
+      "misconception": "Replacing v_f=v_i+at by v_f=at and dropping initial motion",
+      "boundary": "Acceleration is constant only within the modeled time interval."
+    },
+    {
+      "id": "physics-v09-evidence-verification-la-dimensional-analysis-let-the-units-check-the-physics",
+      "model": "work",
+      "inputs": [
+        14,
+        3,
+        1
+      ],
+      "expected": 42,
+      "unit": "J",
+      "source": "https://openstax.org/books/university-physics-volume-1/pages/7-1-work",
+      "independentFirstInput": 14,
+      "doubledExpected": 84,
+      "plusOnePercentExpected": 42.42,
+      "question": "A constant 14 N force acts parallel to a 3 m displacement; how much mechanical work is done?",
+      "lab": "Calculate area under a constant force-versus-displacement graph, then change the angle to 90°",
+      "misconception": "Calculating 14/3 N/m and calling it joules",
+      "boundary": "Only the component of force parallel to displacement performs this work."
+    },
+    {
+      "id": "physics-v09-troubleshooting-lab-displacement",
+      "model": "disp",
+      "inputs": [
+        19,
+        -7
+      ],
+      "expected": -26,
+      "unit": "m",
+      "source": "https://openstax.org/books/university-physics-volume-1/pages/3-1-position-displacement-and-average-velocity",
+      "independentFirstInput": 19,
+      "doubledExpected": -45,
+      "plusOnePercentExpected": -26.19,
+      "question": "A lab cart moves from x=+19 m to x=-7 m; what displacement encodes direction of travel?",
+      "lab": "Mark the origin and signed endpoints on a number line; inspect path independence",
+      "misconception": "Taking |x_f|+|x_i| as a positive signed displacement",
+      "boundary": "Total distance traveled cannot be reconstructed from endpoints alone."
+    },
+    {
+      "id": "physics-v09-practical-lab-displacement",
+      "model": "sumDisp",
+      "inputs": [
+        5,
+        -12,
+        4
+      ],
+      "expected": -3,
+      "unit": "m",
+      "source": "https://openstax.org/books/university-physics-volume-1/pages/3-1-position-displacement-and-average-velocity",
+      "independentFirstInput": 5,
+      "doubledExpected": 2,
+      "plusOnePercentExpected": -2.95,
+      "question": "Three successive one-dimensional moves are +5 m, -12 m, and +4 m; what net displacement results?",
+      "lab": "Compare a three-arrow vector chain with an endpoint difference calculation",
+      "misconception": "Summing absolute segment distances 21 m as displacement",
+      "boundary": "Straight-line segments share a common coordinate axis; path length differs."
+    },
+    {
+      "id": "physics-v10-explain-back-challenge-acceleration",
+      "model": "avgAcc",
+      "inputs": [
+        -3,
+        9,
+        6
+      ],
+      "expected": 2,
+      "unit": "m/s²",
+      "source": "https://openstax.org/books/university-physics-volume-1/pages/3-3-average-and-instantaneous-acceleration",
+      "independentFirstInput": -3,
+      "doubledExpected": 2.5,
+      "plusOnePercentExpected": 2.0050000000000003,
+      "question": "Velocity changes from -3 m/s to +9 m/s over 6 s; what positive mean acceleration permits a turnaround?",
+      "lab": "Use the constant-acceleration special case to find the zero-velocity time 1.5 s",
+      "misconception": "Concluding positive acceleration means the object moved only east",
+      "boundary": "Endpoint velocities constrain an average, not the full velocity history."
+    },
+    {
+      "id": "physics-v10-counterexample-lab-acceleration",
+      "model": "avgAcc",
+      "inputs": [
+        16,
+        -4,
+        5
+      ],
+      "expected": -4,
+      "unit": "m/s²",
+      "source": "https://openstax.org/books/university-physics-volume-1/pages/3-3-average-and-instantaneous-acceleration",
+      "independentFirstInput": 16,
+      "doubledExpected": -7.2,
+      "plusOnePercentExpected": -4.032,
+      "question": "A moving body goes from +16 to -4 m/s in 5 s; what mean acceleration crosses zero velocity?",
+      "lab": "Graph the zero crossing at t=4 s for a constant -4 m/s² example",
+      "misconception": "Using speed change 12 m/s in place of vector velocity change -20 m/s",
+      "boundary": "A nonlinear real braking profile could share these endpoints."
+    },
+    {
+      "id": "physics-v10-worked-walkthrough-angular-momentum",
+      "model": "particleL",
+      "inputs": [
+        2,
+        6,
+        0.5
+      ],
+      "expected": 6,
+      "unit": "kg·m²/s",
+      "source": "https://openstax.org/books/university-physics-volume-1/pages/11-2-angular-momentum",
+      "independentFirstInput": 2,
+      "doubledExpected": 12,
+      "plusOnePercentExpected": 6.0600000000000005,
+      "question": "A 2 kg particle has tangential velocity 6 m/s at 0.5 m from the origin; what angular momentum magnitude follows?",
+      "lab": "Rotate the velocity vector toward the radius and confirm angular momentum trends to zero",
+      "misconception": "Using mvr when velocity is radial rather than perpendicular",
+      "boundary": "Velocity is perpendicular to radius for the numerical case; reference origin matters."
+    },
+    {
+      "id": "physics-v10-field-note-average-velocity",
+      "model": "avgVel",
+      "inputs": [
+        12,
+        3,
+        3
+      ],
+      "expected": -3,
+      "unit": "m/s",
+      "source": "https://openstax.org/books/university-physics-volume-1/pages/3-1-position-displacement-and-average-velocity",
+      "independentFirstInput": 12,
+      "doubledExpected": -7,
+      "plusOnePercentExpected": -3.0400000000000005,
+      "question": "A robot translates from x=12 m to x=3 m in 3 s; what signed average velocity should navigation report?",
+      "lab": "Check signed displacement -9 m and graph two distinct trajectories with same endpoints",
+      "misconception": "Reporting +3 m/s because speed cannot be negative",
+      "boundary": "Coordinates use right-positive axis; odometry bias is unmodeled."
+    },
+    {
+      "id": "physics-v10-configuration-lab-average-velocity",
+      "model": "segmentedAvg",
+      "inputs": [
+        7,
+        -1,
+        2
+      ],
+      "expected": 3,
+      "unit": "m/s",
+      "source": "https://openstax.org/books/university-physics-volume-1/pages/3-1-position-displacement-and-average-velocity",
+      "independentFirstInput": 7,
+      "doubledExpected": 6.5,
+      "plusOnePercentExpected": 3.035,
+      "question": "A buggy moves +7 m then -1 m in 2 s; what is its displacement-based average velocity?",
+      "lab": "Compute +6 m net displacement and compare to 8 m traveled",
+      "misconception": "Treating +7 and -1 as scalar distances and obtaining 4 m/s average speed",
+      "boundary": "No inference about peak speed follows from segment totals."
+    },
+    {
+      "id": "physics-v10-prediction-lab-circular-motion-acceleration-without-changing-speed",
+      "model": "cent",
+      "inputs": [
+        9,
+        3
+      ],
+      "expected": 27,
+      "unit": "m/s²",
+      "source": "https://openstax.org/books/university-physics-volume-1/pages/6-3-centripetal-force",
+      "independentFirstInput": 9,
+      "doubledExpected": 108,
+      "plusOnePercentExpected": 27.5427,
+      "question": "A rotating arm tip travels at 9 m/s at radius 3 m; what centripetal acceleration is required?",
+      "lab": "Calculate ω=3 rad/s independently, then a_c=ω²r",
+      "misconception": "Using v/r=3 s⁻¹ as centripetal acceleration instead of angular rate",
+      "boundary": "Rigid circular path and steady angular speed; acceleration points radially inward."
+    },
+    {
+      "id": "physics-v10-exam-style-practice-constant-acceleration-kinematics",
+      "model": "pos",
+      "inputs": [
+        5,
+        -2,
+        3
+      ],
+      "expected": 6,
+      "unit": "m",
+      "source": "https://openstax.org/books/university-physics-volume-1/pages/3-4-motion-with-constant-acceleration",
+      "independentFirstInput": 5,
+      "doubledExpected": 21,
+      "plusOnePercentExpected": 6.149999999999999,
+      "question": "A particle starts with v0=+5 m/s and a=-2 m/s²; how much signed displacement accumulates in 3 s?",
+      "lab": "Integrate the linear velocity graph (trapezoid area) and obtain +6 m",
+      "misconception": "Using v0t+at² instead of the ½at² correction",
+      "boundary": "Acceleration is constant; direction reverses after t=2.5 s."
+    },
+    {
+      "id": "physics-v10-mistake-hunt-dimensional-analysis-let-the-units-check-the-physics",
+      "model": "ke",
+      "inputs": [
+        4,
+        3
+      ],
+      "expected": 18,
+      "unit": "J",
+      "source": "https://openstax.org/books/university-physics-volume-1/pages/7-2-kinetic-energy",
+      "independentFirstInput": 4,
+      "doubledExpected": 36,
+      "plusOnePercentExpected": 18.18,
+      "question": "A 4 kg cart travels at 3 m/s; what kinetic energy in joules checks a units mistake?",
+      "lab": "Compute ½·4·9 and compare with momentum 12 kg·m/s",
+      "misconception": "Using mv (12 kg·m/s) as though it were kinetic energy in J",
+      "boundary": "Classical kinetic energy; speed relative to specified reference frame."
+    },
+    {
+      "id": "physics-v10-hypothesis-lab-displacement",
+      "model": "hyp",
+      "inputs": [
+        3,
+        4
+      ],
+      "expected": 5,
+      "unit": "m",
+      "source": "https://openstax.org/books/university-physics-volume-1/pages/2-2-coordinate-systems-and-components-of-a-vector",
+      "independentFirstInput": 3,
+      "doubledExpected": 7.211102550927979,
+      "plusOnePercentExpected": 5.018057393055604,
+      "question": "A route has orthogonal displacements +3 m east and +4 m north; what straight-line resultant magnitude follows?",
+      "lab": "Draw a scaled right triangle and verify 5 m using Pythagoras",
+      "misconception": "Adding orthogonal magnitudes to report 7 m net displacement",
+      "boundary": "Planar Euclidean geometry; vector magnitude discards direction quadrant."
+    },
+    {
+      "id": "physics-v10-scenario-brief-displacement",
+      "model": "disp",
+      "inputs": [
+        -8,
+        -19
+      ],
+      "expected": -11,
+      "unit": "m",
+      "source": "https://openstax.org/books/university-physics-volume-1/pages/3-1-position-displacement-and-average-velocity",
+      "independentFirstInput": -8,
+      "doubledExpected": -3,
+      "plusOnePercentExpected": -10.92,
+      "question": "A probe reads x=-8 m initially and x=-19 m finally; what signed change confirms further leftward motion?",
+      "lab": "Mark both negative coordinates and check Δx + x_i = x_f",
+      "misconception": "Subtracting magnitudes 19-8 and overlooking negative direction",
+      "boundary": "This is a coordinate displacement, not uncertainty in sensor calibration."
+    },
+    {
+      "id": "physics-v10-reasoning-check-displacement-velocity-and-acceleration",
+      "model": "instV",
+      "inputs": [
+        2,
+        -0.5,
+        3
+      ],
+      "expected": -1,
+      "unit": "m/s",
+      "source": "https://openstax.org/books/university-physics-volume-1/pages/3-2-instantaneous-velocity-and-speed",
+      "independentFirstInput": 2,
+      "doubledExpected": 1,
+      "plusOnePercentExpected": -0.98,
+      "question": "For x(t)=x0+2t-0.5t², what instantaneous velocity occurs at t=3 s?",
+      "lab": "Approximate a central secant with h=0.1 and 0.01 s around t=3 s",
+      "misconception": "Treating positive x(t)-x0 as proof velocity at 3 s remains positive",
+      "boundary": "Differentiability and SI coefficients required; noisy samples change numerical derivative."
+    },
+    {
+      "id": "physics-v10-explain-back-challenge-free-body-diagram",
+      "model": "newtonNet",
+      "inputs": [
+        27,
+        7,
+        5
+      ],
+      "expected": 4,
+      "unit": "m/s²",
+      "source": "https://openstax.org/books/university-physics-volume-1/pages/5-3-newtons-second-law",
+      "independentFirstInput": 27,
+      "doubledExpected": 9.4,
+      "plusOnePercentExpected": 4.054,
+      "question": "A 5 kg block receives +27 N and -7 N horizontal forces; what acceleration should its free-body diagram predict?",
+      "lab": "Sum horizontal arrows +20 N before using ΣF_x=ma_x",
+      "misconception": "Including the +27 N force twice after summing the arrows",
+      "boundary": "Vertical forces assumed balanced; block remains in inertial lab frame."
+    },
+    {
+      "id": "physics-v10-concept-mapping-lab-free-body-diagram",
+      "model": "incline",
+      "inputs": [
+        9.8,
+        0.6,
+        0.8,
+        0.25
+      ],
+      "expected": 3.92,
+      "unit": "m/s²",
+      "source": "https://openstax.org/books/university-physics-volume-1/pages/6-2-friction",
+      "independentFirstInput": 9.8,
+      "doubledExpected": 7.84,
+      "plusOnePercentExpected": 3.9592,
+      "question": "A block slides down an incline with sinθ=0.6, cosθ=0.8 and μk=0.25; what downhill acceleration follows?",
+      "lab": "Compute downslope g·0.6=5.88 and opposing frictional acceleration g·0.25·0.8=1.96",
+      "misconception": "Taking μmg rather than μmgcosθ on the incline",
+      "boundary": "Kinetic sliding assumed, no external applied force, constant g=9.8 m/s²."
+    },
+    {
+      "id": "physics-v10-worked-walkthrough-free-body-diagrams",
+      "model": "normal",
+      "inputs": [
+        6,
+        9.8,
+        9
+      ],
+      "expected": 49.8,
+      "unit": "N",
+      "source": "https://openstax.org/books/university-physics-volume-1/pages/5-4-mass-and-weight",
+      "independentFirstInput": 6,
+      "doubledExpected": 108.60000000000001,
+      "plusOnePercentExpected": 50.38800000000001,
+      "question": "A 6 kg box is pulled vertically upward by 9 N but stays on a horizontal floor; what normal reaction remains?",
+      "lab": "Check vertical equilibrium N+9−58.8=0 N independently",
+      "misconception": "Assuming N=mg even while another upward force acts",
+      "boundary": "Contact is maintained and vertical acceleration is zero."
+    },
+    {
+      "id": "physics-v10-field-note-friction-forces",
+      "model": "friction",
+      "inputs": [
+        0.35,
+        8,
+        9.8
+      ],
+      "expected": 27.44,
+      "unit": "N",
+      "source": "https://openstax.org/books/university-physics-volume-1/pages/6-2-friction",
+      "independentFirstInput": 0.35,
+      "doubledExpected": 54.88,
+      "plusOnePercentExpected": 27.7144,
+      "question": "An 8 kg crate slides horizontally with μk=0.35; what friction magnitude resists the motion?",
+      "lab": "Reconstruct N=78.4 N and multiply by 0.35; compare with force sensor",
+      "misconception": "Treating static-friction upper bound as equal to kinetic force in motion",
+      "boundary": "Kinetic friction coefficient constant; surface is level and speed nonzero."
+    },
+    {
+      "id": "physics-v10-recovery-lab-instantaneous-velocity",
+      "model": "instV",
+      "inputs": [
+        7,
+        -0.5,
+        4
+      ],
+      "expected": 3,
+      "unit": "m/s",
+      "source": "https://openstax.org/books/university-physics-volume-1/pages/3-2-instantaneous-velocity-and-speed",
+      "independentFirstInput": 7,
+      "doubledExpected": 10,
+      "plusOnePercentExpected": 3.0700000000000003,
+      "question": "A tracked vehicle follows x(t)=x0+7t−0.5t²; what instantaneous velocity is indicated at t=4 s?",
+      "lab": "Compute symmetric secants about 4 s, shrinking h while holding center fixed",
+      "misconception": "Using the finite interval displacement over 4 s as instantaneous velocity",
+      "boundary": "Smooth polynomial idealization; sensor time stamps need synchronization."
+    },
+    {
+      "id": "physics-v10-decision-matrix-lab-instantaneous-velocity",
+      "model": "instV",
+      "inputs": [
+        -2,
+        0.75,
+        4
+      ],
+      "expected": 4,
+      "unit": "m/s",
+      "source": "https://openstax.org/books/university-physics-volume-1/pages/3-2-instantaneous-velocity-and-speed",
+      "independentFirstInput": -2,
+      "doubledExpected": 2,
+      "plusOnePercentExpected": 3.98,
+      "question": "For x(t)=x0−2t+0.75t², what velocity at t=4 s distinguishes acceleration from speed?",
+      "lab": "Solve the turning time t=4/3 s and compare with +4 m/s at t=4 s",
+      "misconception": "Assuming initial negative velocity means velocity stays negative",
+      "boundary": "Quadratic model is local; coefficients have SI units m/s and m/s²."
+    },
+    {
+      "id": "physics-v10-exam-style-practice-kinematics-describing-motion-before-explaining-it",
+      "model": "stopTime",
+      "inputs": [
+        18,
+        3
+      ],
+      "expected": 6,
+      "unit": "s",
+      "source": "https://openstax.org/books/university-physics-volume-1/pages/3-4-motion-with-constant-acceleration",
+      "independentFirstInput": 18,
+      "doubledExpected": 12,
+      "plusOnePercentExpected": 6.06,
+      "question": "A vehicle at +18 m/s brakes with constant acceleration -3 m/s²; when does it first stop?",
+      "lab": "Predict the zero of v(t)=18−3t, then evaluate at t=5 and t=7 s",
+      "misconception": "Interpreting negative acceleration as an immediately negative velocity",
+      "boundary": "No reversal before stopping is assumed; braking magnitude is constant."
+    },
+    {
+      "id": "physics-v10-mistake-hunt-momentum",
+      "model": "collision",
+      "inputs": [
+        2,
+        6,
+        4,
+        -1
+      ],
+      "expected": 1.3333333333333333,
+      "unit": "m/s",
+      "source": "https://openstax.org/books/university-physics-volume-1/pages/9-3-conservation-of-linear-momentum",
+      "independentFirstInput": 2,
+      "doubledExpected": 2.5,
+      "plusOnePercentExpected": 1.3488372093023258,
+      "question": "A 2 kg cart at +6 m/s sticks to a 4 kg cart at -1 m/s; what shared final velocity satisfies momentum conservation?",
+      "lab": "Compute total initial momentum +8 kg·m/s then divide by total mass 6 kg",
+      "misconception": "Conserving kinetic energy during a perfectly inelastic collision",
+      "boundary": "Neglects external horizontal impulse; mechanical energy is not conserved."
+    },
+    {
+      "id": "physics-v10-verification-lab-newton-first-law",
+      "model": "uniformDist",
+      "inputs": [
+        -1.25,
+        12
+      ],
+      "expected": -15,
+      "unit": "m",
+      "source": "https://openstax.org/books/university-physics-volume-1/pages/3-1-position-displacement-and-average-velocity",
+      "independentFirstInput": -1.25,
+      "doubledExpected": -30,
+      "plusOnePercentExpected": -15.149999999999999,
+      "question": "A puck glides left at 1.25 m/s with negligible net force for 12 s; what signed displacement results?",
+      "lab": "Mark uniformly spaced negative displacements at 3 s intervals",
+      "misconception": "Inferring zero motion because net force equals zero",
+      "boundary": "Uniform-velocity approximation ignores friction and air drag."
+    },
+    {
+      "id": "physics-v10-scenario-brief-newton-first-law",
+      "model": "balance",
+      "inputs": [
+        11,
+        -11
+      ],
+      "expected": 0,
+      "unit": "N",
+      "source": "https://openstax.org/books/university-physics-volume-1/pages/5-2-newtons-first-law",
+      "independentFirstInput": 11,
+      "doubledExpected": 11,
+      "plusOnePercentExpected": 0.10999999999999943,
+      "question": "A test stage has +11 N drive and -11 N friction; what net force does the first-law prediction require?",
+      "lab": "Check vector arrows; perturb friction to 10 N and recompute residual",
+      "misconception": "Adding force magnitudes 22 N instead of signed components",
+      "boundary": "The 0 N result does not establish absence of individual forces."
+    },
+    {
+      "id": "physics-v10-reasoning-check-newton-second-law",
+      "model": "newton",
+      "inputs": [
+        63,
+        9
+      ],
+      "expected": 7,
+      "unit": "m/s²",
+      "source": "https://openstax.org/books/university-physics-volume-1/pages/5-3-newtons-second-law",
+      "independentFirstInput": 63,
+      "doubledExpected": 14,
+      "plusOnePercentExpected": 7.07,
+      "question": "A 9 kg robot platform has +63 N measured horizontal net force; what acceleration follows?",
+      "lab": "Estimate +7 m/s velocity change over 1 s if net force remains constant",
+      "misconception": "Confusing 63 N of force with 63 kg·m/s impulse",
+      "boundary": "No unmodeled rolling resistance beyond measured net force."
+    },
+    {
+      "id": "physics-v10-explain-back-challenge-newton-second-law",
+      "model": "force",
+      "inputs": [
+        7,
+        2.5
+      ],
+      "expected": 17.5,
+      "unit": "N",
+      "source": "https://openstax.org/books/university-physics-volume-1/pages/5-3-newtons-second-law",
+      "independentFirstInput": 7,
+      "doubledExpected": 35,
+      "plusOnePercentExpected": 17.675,
+      "question": "A 7 kg payload must accelerate at +2.5 m/s²; what required net force must the actuator deliver?",
+      "lab": "Compute +17.5 N as target net, then add a hypothetical +3 N resistance separately",
+      "misconception": "Calling the required net force the complete actuator specification without accounting for drag",
+      "boundary": "Ideal translational dynamics; actuator must also compensate any external resistance."
+    },
+    {
+      "id": "physics-v10-runbook-lab-newton-third-law",
+      "model": "impulse",
+      "inputs": [
+        150,
+        0.08
+      ],
+      "expected": 12,
+      "unit": "N·s",
+      "source": "https://openstax.org/books/university-physics-volume-1/pages/9-2-impulse-and-collisions",
+      "independentFirstInput": 150,
+      "doubledExpected": 24,
+      "plusOnePercentExpected": 12.120000000000001,
+      "question": "A hand applies +150 N to a ball for 0.08 s; what is the ball's impulse and the hand's opposite impulse?",
+      "lab": "Integrate the 0.08 s force pulse for each body with opposite signs",
+      "misconception": "Assigning +12 N·s to BOTH bodies despite third-law opposition",
+      "boundary": "Requires same contact interval and force magnitude; other impulses ignored."
+    }
+  ]
+}
