@@ -519,7 +519,7 @@
     "reasoningSteps": [
       "At logits z=[0,2,-2] and targets [1,1,0], losses are log 2≈.69314718056 and twice log(1+exp(-2))≈.12692801104; mean≈.3156677342153.",
       "BCE(z,y)=softplus(z)-y*z. Using softplus(z)=max(z,0)+log1p(exp(-abs(z))) eliminates exp of a large positive number while retaining the exact finite-logit objective for y in [0,1].",
-      "Naive sigmoid(z)=1/(1+exp(-z)) at z=-1000 can overflow the exponential, whereas stable softplus-style loss stays finite (loss=0 for y=0, approximately 1000 for y=1)."
+      "At z=-1000, a naive sigmoid followed by a logarithm can overflow exp(1000) or evaluate log(0). Stable softplus remains finite: the y=1 loss is 1000 in this numerical example, while the mathematically positive y=0 loss rounds to 0 because exp(-1000) underflows in binary64 floating-point."
     ],
     "memoryLadder": [
       "Explain the outcomes of z=-1000 for y=0 versus y=1 without exponentiating +1000.",
@@ -529,7 +529,7 @@
     "labPlan": [
       "Implement stable softplus and compare three sample losses to expected; evaluate z=-1000 with both y=0 and y=1 and check finiteness.",
       "Execute the offline Node.js assertion script in offlineLab.code; record expected and observed values.",
-      "Evaluate logits -1000 and +1000 under both y=0 and y=1; stable losses remain finite at approximately 0 or 1000. Contrast the result with the naive sigmoid-then-log expression without assuming a particular framework's clamping."
+      "Evaluate logits -1000 and +1000 with both binary labels; the stable formula is finite at approximately 0 or 1000. At -700, verify the correct-label loss is tiny but strictly positive in binary64. Contrast the results with naive sigmoid-then-log evaluation and its numerical limitations."
     ],
     "vocabulary": [
       {
@@ -553,10 +553,10 @@
       "units": "nats per observation (mean binary log loss)",
       "assumptions": "Unweighted binary targets, natural logarithms, sample mean reduction, logits dimensionless; this is a scalar pedagogical reproduction of a standard loss, not a PyTorch benchmark."
     },
-    "counterexample": "Naive sigmoid(z)=1/(1+exp(-z)) at z=-1000 can overflow the exponential, whereas stable softplus-style loss stays finite (loss=0 for y=0, approximately 1000 for y=1).",
+    "counterexample": "A naive implementation based on log(sigmoid(-1000)) can produce -Infinity because the computed sigmoid rounds to zero. The stable softplus formula yields finite loss 1000 for y=1 and a binary64-rounded zero for y=0; that rounded zero is not a claim that the mathematical loss is identically zero.",
     "offlineLab": {
       "runtime": "Node.js 18+ (no dependencies, no network)",
-      "code": "const a=require('node:assert/strict');const logits=[0,2,-2],y=[1,1,0];const loss=(z,t)=>Math.max(z,0)-z*t+Math.log1p(Math.exp(-Math.abs(z)));const m=logits.reduce((s,z,i)=>s+loss(z,y[i]),0)/3;a.ok(Math.abs(m-.31566773421529676)<1e-12);a.equal(loss(-1000,0),0);a.equal(loss(-1000,1),1000);"
+      "code": "const a=require('node:assert/strict');const logits=[0,2,-2],y=[1,1,0];const loss=(z,t)=>Math.max(z,0)-z*t+Math.log1p(Math.exp(-Math.abs(z)));const m=logits.reduce((s,z,i)=>s+loss(z,y[i]),0)/3;a.ok(Math.abs(m-.31566773421529676)<1e-12);a.equal(loss(-1000,0),0);a.equal(loss(-1000,1),1000);a.equal(Math.exp(-1000),0);a.ok(loss(-700,0)>0&&loss(-700,0)<1e-300);a.equal(loss(1000,0),1000);"
     },
     "evidence": [
       {
@@ -732,17 +732,18 @@
     "reasoningSteps": [
       "Data x=[0,1,8,9], centers initially [0,8] give nearest-cluster assignments [0,0,1,1], inertia 0+1+0+1=2. Updating centers to means [.5,8.5] gives inertia 4*(.5^2)=1.",
       "For n fixed assigned points, the derivative of sum_i(x_i-mu)^2 is 2n*mu-2sum_i x_i. The within-cluster minimizer is the mean, 0.5 for [0,1] and 8.5 for [8,9], lowering fixed-assignment inertia from 2 to 1.",
-      "Claiming one Lloyd iteration guarantees the global optimum on arbitrary data is false: k-means is initialization-sensitive and can converge to a local optimum."
+      "Lloyd updates are not global-optimum certificates. On x=[0,1,5,6,10,12] with k=2, centers [0.5,8.25] yield stable nearest-center groups [0,1] and [5,6,10,12], whose means remain [0.5,8.25] and whose total squared inertia is 33.25. A different stable grouping [0,1,5,6] and [10,12] has centers [3,11] and lower inertia 28."
     ],
     "memoryLadder": [
       "Verify the updated centers do not coincide with data points and that this is allowed.",
       "Derive the stated answer by hand without consulting the fixture.",
-      "Decreasing inertia for fixed assignments does not prove a global k-means optimum. Other initializations, ties and empty-cluster policies can alter the optimization path."
+      "The fixed-point witness [0,1,5,6,10,12] has two stable partitions with unequal inertias (33.25 versus 28). Stability of assignments and nonincreasing inertia within a run does not certify the global optimum; ties, initialization and empty-cluster policies remain material."
     ],
     "labPlan": [
       "Assign each 1D point to the nearest center, calculate both centroid means and old/new inertia; intentionally use one center and observe the different objective.",
       "Execute the offline Node.js assertion script in offlineLab.code; record expected and observed values.",
-      "Perturb the first updated center from 0.5 to 0.4, keeping its two assignments. Its cluster loss becomes 0.16+0.36=0.52 rather than 0.5, raising total inertia from 1 to 1.02."
+      "Perturb the first updated center from 0.5 to 0.4, keeping its two assignments. Its cluster loss becomes 0.16+0.36=0.52 rather than 0.5, raising total inertia from 1 to 1.02.",
+      "Independently calculate assignments and inertia for x=[0,1,5,6,10,12] using initial centers [0.5,8.25], then compare against alternative centers [3,11]. Confirm that the first is a stable Lloyd fixed point despite a strictly worse objective."
     ],
     "vocabulary": [
       {
@@ -766,10 +767,10 @@
       "units": "squared feature units (sum of squared distances)",
       "assumptions": "Euclidean one-dimensional data in arbitrary units; squared distance units; two nonempty clusters; no ties in this fixture, no stochastic restarts."
     },
-    "counterexample": "Claiming one Lloyd iteration guarantees the global optimum on arbitrary data is false: k-means is initialization-sensitive and can converge to a local optimum.",
+    "counterexample": "For x=[0,1,5,6,10,12] with k=2, Lloyd's algorithm started from centers [0.5,8.25] stops with inertia 33.25: each cluster mean is unchanged and each point remains nearest its center. The alternative centers [3,11] give valid assignments and inertia 28. Therefore a Lloyd fixed point need not minimize the global k-means objective.",
     "offlineLab": {
       "runtime": "Node.js 18+ (no dependencies, no network)",
-      "code": "const a=require('node:assert/strict');const x=[0,1,8,9],initial=[0,8];const assign=x.map(v=>Math.abs(v-initial[0])<=Math.abs(v-initial[1])?0:1);a.deepEqual(assign,[0,0,1,1]);const means=[0,1].map(k=>x.filter((v,i)=>assign[i]===k).reduce((s,v)=>s+v,0)/assign.filter(v=>v===k).length);a.deepEqual(means,[.5,8.5]);const inertia=centers=>x.reduce((s,v,i)=>s+(v-centers[assign[i]])**2,0);a.equal(inertia(initial),2);a.equal(inertia(means),1);"
+      "code": "const a=require('node:assert/strict');const x=[0,1,8,9],initial=[0,8];const assign=x.map(v=>Math.abs(v-initial[0])<=Math.abs(v-initial[1])?0:1);a.deepEqual(assign,[0,0,1,1]);const means=[0,1].map(k=>x.filter((v,i)=>assign[i]===k).reduce((s,v)=>s+v,0)/assign.filter(v=>v===k).length);a.deepEqual(means,[.5,8.5]);const inertia=centers=>x.reduce((s,v,i)=>s+(v-centers[assign[i]])**2,0);a.equal(inertia(initial),2);a.equal(inertia(means),1);const trap=[0,1,5,6,10,12],local=[.5,8.25],better=[3,11];const partition=c=>trap.map(v=>Math.abs(v-c[0])<=Math.abs(v-c[1])?0:1);const objective=c=>trap.reduce((s,v)=>s+Math.min((v-c[0])**2,(v-c[1])**2),0);a.deepEqual(partition(local),[0,0,1,1,1,1]);a.deepEqual(partition(better),[0,0,0,0,1,1]);a.equal(objective(local),33.25);a.equal(objective(better),28);a.deepEqual([trap.slice(0,2).reduce((s,v)=>s+v,0)/2,trap.slice(2).reduce((s,v)=>s+v,0)/4],local);a.ok(objective(better)<objective(local));"
     },
     "evidence": [
       {
