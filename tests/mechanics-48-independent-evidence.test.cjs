@@ -45,8 +45,7 @@ test("complete original 120-record immutable order and exactly 48 authorized tea
   if(diff.length){changed.push(k);assert.deepEqual(diff.sort(),["essentialQuestion","labPlan","reasoningSteps"]); }
  }
  // The mechanics chunk also carries the next 48 authored lessons (covered by mechanics-next-48-model-evidence); this suite owns the first 48.
- assert.deepEqual(changed.slice(0,48),names.slice(0,48));
- assert.equal(changed.length,96);
+ assert.deepEqual(changed,names.slice(0,96)); // exactly the first 96 records changed; the last 24 are untouched
  assert.deepEqual(fixture.map(f=>f.id),changed.slice(0,48));
 });
 test("original scientific cases have distinct questions and explicit external source, limits and falsification",()=>{
