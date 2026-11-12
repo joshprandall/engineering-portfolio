@@ -217,5 +217,374 @@
       ],
       "capstone": "Design a bounded physics investigation with prediction, model, measurement or simulation, uncertainty discussion, and evidence-backed conclusion."
     }
+  ],
+  "aiResearchPath": {
+  "version": "2026-11-11-open-research-1",
+  "title": "AI and Machine Learning: Evidence-First Research Path",
+  "statement": "Original independent self-study pathway connecting verifiable open courses and books to reproducible, falsifiable engineering exercises. External resources remain owned and hosted by their institutions; this portfolio does not claim affiliation, credit or certification.",
+  "assessment": "Learners self-record completion in their own browser; a checkbox is not external grading, academic credit, or verified mastery.",
+  "resources": [
+    {
+      "id": "mit-python",
+      "title": "MIT 6.100L: Introduction to CS and Programming using Python",
+      "provider": "MIT OpenCourseWare",
+      "type": "course",
+      "url": "https://ocw.mit.edu/courses/6-100l-introduction-to-cs-and-programming-using-python-fall-2022/"
+    },
+    {
+      "id": "harvard-python",
+      "title": "CS50's Introduction to Programming with Python",
+      "provider": "Harvard CS50",
+      "type": "course",
+      "url": "https://cs50.harvard.edu/python/"
+    },
+    {
+      "id": "mit-linear",
+      "title": "MIT 18.06: Linear Algebra (Gilbert Strang)",
+      "provider": "MIT OpenCourseWare",
+      "type": "course",
+      "url": "https://ocw.mit.edu/courses/18-06-linear-algebra-spring-2010/"
+    },
+    {
+      "id": "mit-matrix",
+      "title": "MIT 18.065: Matrix Methods in Data Analysis, Signal Processing, and ML",
+      "provider": "MIT OpenCourseWare",
+      "type": "course",
+      "url": "https://ocw.mit.edu/courses/18-065-matrix-methods-in-data-analysis-signal-processing-and-machine-learning-spring-2018/"
+    },
+    {
+      "id": "mit-algorithms",
+      "title": "MIT 6.006: Introduction to Algorithms",
+      "provider": "MIT OpenCourseWare",
+      "type": "course",
+      "url": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/"
+    },
+    {
+      "id": "algorithms-books",
+      "title": "Algorithms for Optimization, Decision Making, and Validation",
+      "provider": "Kochenderfer and coauthors",
+      "type": "open-textbook-hub",
+      "url": "https://algorithmsbook.com/"
+    },
+    {
+      "id": "mit-classic-ai",
+      "title": "MIT 6.034: Artificial Intelligence",
+      "provider": "MIT OpenCourseWare",
+      "type": "course",
+      "url": "https://ocw.mit.edu/courses/6-034-artificial-intelligence-fall-2010/"
+    },
+    {
+      "id": "harvard-ai",
+      "title": "CS50's Introduction to Artificial Intelligence with Python",
+      "provider": "Harvard CS50",
+      "type": "course",
+      "url": "https://cs50.harvard.edu/ai/"
+    },
+    {
+      "id": "harvard-ai-lecture",
+      "title": "CS50x: Artificial Intelligence lecture and materials",
+      "provider": "Harvard CS50",
+      "type": "lecture",
+      "url": "https://cs50.harvard.edu/x/weeks/ai/"
+    },
+    {
+      "id": "mohri",
+      "title": "Foundations of Machine Learning, second edition",
+      "provider": "Mohri, Rostamizadeh and Talwalkar",
+      "type": "open-textbook",
+      "url": "https://cs.nyu.edu/~mohri/mlbook/"
+    },
+    {
+      "id": "bach",
+      "title": "Learning Theory from First Principles",
+      "provider": "Francis Bach / MIT Press",
+      "type": "open-access-textbook",
+      "url": "https://www.di.ens.fr/~fbach/ltfp/"
+    },
+    {
+      "id": "goodfellow",
+      "title": "Deep Learning",
+      "provider": "Goodfellow, Bengio and Courville",
+      "type": "free-online-textbook",
+      "url": "https://www.deeplearningbook.org/"
+    },
+    {
+      "id": "prince",
+      "title": "Understanding Deep Learning",
+      "provider": "Simon J. D. Prince",
+      "type": "free-online-textbook",
+      "url": "https://udlbook.github.io/udlbook/"
+    },
+    {
+      "id": "mit-deep",
+      "title": "MIT 6.7960: Deep Learning (Fall 2024)",
+      "provider": "MIT OpenCourseWare",
+      "type": "course",
+      "url": "https://ocw.mit.edu/courses/6-7960-deep-learning-fall-2024/"
+    },
+    {
+      "id": "mit-hands",
+      "title": "MIT 15.773: Hands-On Deep Learning (Spring 2024)",
+      "provider": "MIT OpenCourseWare",
+      "type": "course",
+      "url": "https://ocw.mit.edu/courses/15-773-hands-on-deep-learning-spring-2024/"
+    },
+    {
+      "id": "sutton",
+      "title": "Reinforcement Learning: An Introduction, second edition",
+      "provider": "Sutton and Barto / MIT Press",
+      "type": "textbook",
+      "url": "https://mitpress.mit.edu/9780262039246/reinforcement-learning/"
+    },
+    {
+      "id": "distributional",
+      "title": "Distributional Reinforcement Learning",
+      "provider": "Bellemare, Dabney and Rowland",
+      "type": "open-book",
+      "url": "https://www.distributional-rl.org/"
+    },
+    {
+      "id": "marl",
+      "title": "Multi-Agent Reinforcement Learning: Foundations and Modern Approaches",
+      "provider": "Albrecht, Christianos and Schäfer",
+      "type": "open-book",
+      "url": "https://marl-book.com/"
+    }
+  ],
+  "stages": [
+    {
+      "id": "python-reproducibility",
+      "title": "01 / Python, experiments and reproducibility",
+      "level": "Foundation",
+      "hours": 8,
+      "prerequisites": [
+        "No programming background is assumed"
+      ],
+      "question": "How can another learner prove that your code produces the stated result?",
+      "practice": "Implement a seeded Python experiment that estimates a Bernoulli probability from 100, 1,000 and 10,000 trials; write unit tests for invalid inputs and replay the same result with an identical seed.",
+      "deliverable": "Source, instructions, deterministic tests, and a concise uncertainty interpretation.",
+      "acceptance": [
+        "A fresh run succeeds from documented installation steps",
+        "Repeated seeded runs produce identical counts",
+        "Input validation fails predictably on invalid samples",
+        "Convergence is discussed without claiming every individual run improves"
+      ],
+      "resources": [
+        "mit-python",
+        "harvard-python"
+      ],
+      "onsite": "learn-browse.html?domain=software"
+    },
+    {
+      "id": "linear-algebra",
+      "title": "02 / Linear algebra, numerical stability and geometry",
+      "level": "Foundation to Intermediate",
+      "hours": 12,
+      "prerequisites": [
+        "Python functions, vectors, algebra"
+      ],
+      "question": "When does a numerical solution look plausible but become unreliable?",
+      "practice": "Derive a two-feature least-squares problem by hand; solve using QR and normal equations in Python; perturb a nearly collinear column to expose conditioning.",
+      "deliverable": "Hand derivation, matrix script, residual norms, condition estimates and an explicit counterexample.",
+      "acceptance": [
+        "Matrix shapes and units are stated",
+        "QR and normal-equation residuals are compared on well-conditioned input",
+        "Ill-conditioning is demonstrated, not merely asserted",
+        "Interpret results with tolerance and machine precision"
+      ],
+      "resources": [
+        "mit-linear",
+        "mit-matrix"
+      ],
+      "onsite": "learn-browse.html?domain=math"
+    },
+    {
+      "id": "algorithms-validation",
+      "title": "03 / Algorithms, complexity and decision tradeoffs",
+      "level": "Intermediate",
+      "hours": 12,
+      "prerequisites": [
+        "Python, discrete math, basic probability"
+      ],
+      "question": "How do you justify an algorithm before trusting its output?",
+      "practice": "Implement Dijkstra's algorithm and A* on a small weighted graph; derive a lower bound heuristic, then create an inadmissible heuristic that breaks optimality.",
+      "deliverable": "Reference graph, oracle results, runtime scaling measurements, and documented failure case.",
+      "acceptance": [
+        "Nonnegative-edge assumption is enforced",
+        "Both methods agree with reference optimum under valid assumptions",
+        "Complexity discussion separates theory from timing",
+        "An invalid heuristic produces an explained counterexample"
+      ],
+      "resources": [
+        "mit-algorithms",
+        "algorithms-books"
+      ],
+      "onsite": "learn-browse.html?domain=software"
+    },
+    {
+      "id": "symbolic-ai",
+      "title": "04 / Search, probabilistic inference and classical AI",
+      "level": "Intermediate",
+      "hours": 12,
+      "prerequisites": [
+        "Algorithms, probability"
+      ],
+      "question": "When does a symbolic model make a decision that a learned model cannot explain?",
+      "practice": "Build a small Bayesian diagnostic network and search-based decision policy; show the posterior calculation, compare decisions under two priors, and identify hidden assumptions.",
+      "deliverable": "Explicit state graph, probability table, runnable inference and assumption audit.",
+      "acceptance": [
+        "Posterior values are independently calculated",
+        "Probabilities normalize to one",
+        "Changing a prior changes or preserves the decision for an explained reason",
+        "An unsupported inference is rejected"
+      ],
+      "resources": [
+        "mit-classic-ai",
+        "harvard-ai"
+      ],
+      "onsite": "learn-browse.html?domain=advanced"
+    },
+    {
+      "id": "learning-theory",
+      "title": "05 / Statistical learning and generalization",
+      "level": "Intermediate to Advanced",
+      "hours": 16,
+      "prerequisites": [
+        "Probability, linear algebra, algorithms"
+      ],
+      "question": "Which evidence supports a claim that a model generalizes beyond its training set?",
+      "practice": "Compare a linear baseline against a more flexible classifier on synthetic data; evaluate held-out accuracy over 20 seeds, leak a feature deliberately and quantify the inflated score.",
+      "deliverable": "Data-generating process, frozen splits, uncertainty intervals, model card and leakage counterexample.",
+      "acceptance": [
+        "Held-out data are never used for model selection",
+        "Variance across seeds is reported",
+        "Leakage impact is quantified and labeled invalid",
+        "Claim scope stays within evaluated distribution"
+      ],
+      "resources": [
+        "mohri",
+        "bach"
+      ],
+      "onsite": "ai-machine-learning.html"
+    },
+    {
+      "id": "backpropagation",
+      "title": "06 / Deep networks, optimization and gradient checks",
+      "level": "Advanced",
+      "hours": 16,
+      "prerequisites": [
+        "Calculus, linear algebra, statistical learning"
+      ],
+      "question": "Can you verify a neural network's training signal without trusting a library?",
+      "practice": "Implement a two-layer network and analytic backpropagation on a tiny dataset; compare each gradient against a centered finite-difference estimate and measure sensitivity to learning rate.",
+      "deliverable": "Fully specified loss, gradient table, controlled training curves and a failure analysis.",
+      "acceptance": [
+        "All parameters have explicit shapes",
+        "Finite-difference checks meet stated numerical tolerance",
+        "Training and validation losses remain separate",
+        "At least one unstable setting is reproduced and explained"
+      ],
+      "resources": [
+        "goodfellow",
+        "prince",
+        "mit-deep"
+      ],
+      "onsite": "ai-deep-learning.html"
+    },
+    {
+      "id": "transformers",
+      "title": "07 / Attention, transformers and language modeling",
+      "level": "Advanced",
+      "hours": 18,
+      "prerequisites": [
+        "Backpropagation, matrix multiplication, probability"
+      ],
+      "question": "What can a causal transformer attend to, and how can you demonstrate a leak?",
+      "practice": "Implement scaled dot-product attention on a three-token toy example; show row-softmax normalization, causal masking, attention weights, and a controlled mask-off counterexample.",
+      "deliverable": "Computed tensors, shape tests, mask invariance proof, and a documented leaking failure.",
+      "acceptance": [
+        "Attention matrices have predicted shapes",
+        "Valid attention probabilities sum to one",
+        "Future-token changes cannot affect masked earlier positions",
+        "Removing the mask yields an independently reproduced leak"
+      ],
+      "resources": [
+        "mit-deep",
+        "mit-hands",
+        "prince"
+      ],
+      "onsite": "ai-llm.html"
+    },
+    {
+      "id": "rag-evaluation",
+      "title": "08 / Retrieval, RAG and evidence-grounded generation",
+      "level": "Advanced",
+      "hours": 18,
+      "prerequisites": [
+        "Transformers, text processing, information retrieval basics"
+      ],
+      "question": "When should an assistant answer, cite evidence or abstain?",
+      "practice": "Construct a 30-document synthetic source corpus with a labeled query set; measure recall-at-k, precision of citations, unsupported answers and abstention under missing evidence.",
+      "deliverable": "Synthetic corpus, fixed query labels, retrieval baseline, error taxonomy, and before/after evaluation.",
+      "acceptance": [
+        "Train and evaluation queries are separated",
+        "Every reported citation maps to an actual source span",
+        "Unanswerable questions trigger tested abstentions",
+        "Reported improvements include raw confusion counts"
+      ],
+      "resources": [
+        "mit-hands",
+        "harvard-ai-lecture"
+      ],
+      "onsite": "ai-memory.html"
+    },
+    {
+      "id": "reinforcement-learning",
+      "title": "09 / Reinforcement learning and distributional risk",
+      "level": "Advanced",
+      "hours": 18,
+      "prerequisites": [
+        "Probability, optimization, Markov chains"
+      ],
+      "question": "Why can two policies with equal mean reward carry very different risks?",
+      "practice": "Implement tabular Q-learning and an exact dynamic-programming reference in a small MDP; estimate a policy return distribution over 100 independent seeds and compare lower-tail outcomes.",
+      "deliverable": "MDP specification, Bellman checks, learning curves and return quantiles with uncertainty.",
+      "acceptance": [
+        "State/action/reward/termination rules are explicit",
+        "Bellman baseline is reproduced independently",
+        "Mean and lower-tail outcomes are both reported",
+        "Seeds and evaluation protocol make the comparison repeatable"
+      ],
+      "resources": [
+        "sutton",
+        "distributional"
+      ],
+      "onsite": "ai-reinforcement-learning.html"
+    },
+    {
+      "id": "multiagent-capstone",
+      "title": "10 / Multi-agent AI, safety and research-grade capstone",
+      "level": "Research Bridge",
+      "hours": 24,
+      "prerequisites": [
+        "All prior stages or documented equivalent evidence"
+      ],
+      "question": "Can an AI system remain reliable when agents, tools and environments change?",
+      "practice": "Build an isolated two-agent decision benchmark with nonstationary partner behavior; compare fixed-policy and adaptive baselines, run ablation tests and introduce a tool failure with a safe fallback.",
+      "deliverable": "Public reproducibility package: assumptions, synthetic data, code, tests, result tables, failure cases, limitations, and primary-source citations.",
+      "acceptance": [
+        "No production systems or other people's data are tested",
+        "Baselines, ablations and uncertainty are reported",
+        "At least one failed hypothesis is retained",
+        "Conclusions separate observed results from general claims"
+      ],
+      "resources": [
+        "marl",
+        "algorithms-books",
+        "harvard-ai"
+      ],
+      "onsite": "ai-multi-agent.html"
+    }
   ]
+}
 }
