@@ -9,7 +9,9 @@ Run from repository root:
     python -m unittest discover -s tests -p software_http_conditional_request_matrix_test.py -v
 
 References:
+https://www.rfc-editor.org/rfc/rfc9110.html#section-13.1.1
 https://www.rfc-editor.org/rfc/rfc9110.html#section-13.1.2
+https://www.rfc-editor.org/rfc/rfc9110.html#section-13.2.2
 https://www.rfc-editor.org/rfc/rfc9110.html#section-8.8.1
 """
 import http.server
@@ -93,9 +95,9 @@ class ConditionalRequestMatrix(unittest.TestCase):
         self.assertEqual({"x": 1, "y": 2}, json.loads(body))
 
 
-    # This fictional origin's failure policy returns 412 when a conditional
-    # unsafe method is rejected. RFC 9110 requires no mutation on a failed
-    # If-Match, and requires 412 for a failed If-None-Match on PUT.
+    # I specify 412 as this fictional origin's failure response when an
+    # unsafe conditional write is rejected. RFC 9110 requires no mutation on
+    # a failed If-Match and 412 for a failed If-None-Match on PUT.
     def test_if_match_stale_tag_rejects_put_and_preserves_state(self):
         status, _, _ = self.send(
             "PUT", body={"x": 4}, headers={"If-Match": '"stale"'}
