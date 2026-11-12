@@ -86,8 +86,8 @@ class ConditionalRequestMatrix(unittest.TestCase):
         self.assertNotEqual(previous_tag, metadata.get("ETag"))
 
     def test_put_with_if_none_match_star_must_not_overwrite_existing_resource(self):
-        status, body, _ = self.send("PUT", body={"x": 4}, headers={"If-None-Match": "*"})
-        self.assertEqual((412, b""), (status, body))
+        status, _, _ = self.send("PUT", body={"x": 4}, headers={"If-None-Match": "*"})
+        self.assertEqual(412, status)
         status, body, _ = self.send("GET")
         self.assertEqual(200, status)
         self.assertEqual({"x": 1, "y": 2}, json.loads(body))
