@@ -346,7 +346,7 @@
     "labPlan": [
       "Write an event reducer over integer-ms timestamps and states READY/STOP_LATCHED; assert READY at t=100 and STOP_LATCHED at t=120 after last heartbeat t=20.",
       "At t=120 ms latch STOP. Inject post-latch heartbeat at t=140 and attempt reset at t=141 without clearance: assert STOP_LATCHED. Declare faults cleared at t=142, then explicitly reset at t=143; assert READY and a false abstract stop flag. Treat this as an offline state-machine model, never a physical stop verification.",
-      "Reject unknown event types, non-integer/negative timestamps and non-monotonic timestamps before changing any state or time marker; prove the snapshot is unchanged after each rejection. Also assert that clearance without a post-latch heartbeat, and reset after heartbeat freshness expires, both retain STOP_LATCHED."
+      "Reject unknown event types, non-integer/negative timestamps and non-monotonic event timestamps before changing any state or time marker; prove the snapshot is unchanged after each rejection. Also assert that clearance without a post-latch heartbeat, and reset after heartbeat freshness expires, both retain STOP_LATCHED."
     ],
     "vocabulary": [
       {
