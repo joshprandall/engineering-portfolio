@@ -20,7 +20,7 @@
       "Sum vectors: x=0.400000 m, y=0.300000 m; Euclidean reach sqrt(x^2+y^2)=0.500000 m, within [|L1-L2|,L1+L2]=[0.10,0.70] m.",
       "Independent inverse check: subtract the first-link endpoint (0.40,0.00) m from the tip to recover the second vector (0,0.30) m and its 90 degree heading.",
       "Falsifiable claim: treating theta2 as an absolute world angle works for theta1=0 but fails at theta1=pi/2, theta2=pi/2, where the correct tip is (-0.30,+0.40) m, not (+0.00,+0.70) m.",
-      "Controlled lab: change theta1 to pi/2 and recompute with the relative-angle sum; cite Modern Robotics inverse/forward kinematics coverage (specific inverse overview): https://modernrobotics.northwestern.edu/nu-gm-book-resource/inverse-kinematics-of-open-chains/"
+      "Controlled lab: change theta1 to pi/2 and recompute with relative theta1+theta2; explicit planar 2R derivation and Jacobian from Introduction to Open-Source Robotics: https://www.osrobotics.org/osr/kinematics/forward_kinematics.html"
     ],
     "memoryLadder": [
       "State the mathematical mapping used in planar 2r forward kinematics without notes.",
@@ -29,9 +29,9 @@
       "Explain exactly which real-world uncertainties the synthetic assumptions omit."
     ],
     "labPlan": [
-      "Implement fk(L1,L2,t1,t2) with Math.cos/Math.sin; compare (0.4,0.3) within 1e-9 m.",
-      "Vary theta1 alone to pi/2; assert (-0.3,0.4) m.",
-      "Check tip radius does not exceed L1+L2 and document link-flex/encoder error excluded."
+      "Implement fk(L1,L2,t1,t2) for two revolute links; assert (x,y)=(0.40,0.30) m at (theta1,theta2)=(0,pi/2) rad within 1e-9 m.",
+      "With both angles pi/2 rad, assert (-0.30,+0.40) m; deliberately omit theta1 from the second-link heading and show that the wrong formula instead gives (0,+0.70) m.",
+      "Sweep theta1 over {0,pi/2,pi} with theta2=pi/2: assert a 0.50 m tip radius in every case; explain why a reach-only test cannot establish collisions or joint limits."
     ],
     "vocabulary": [
       {
@@ -74,9 +74,9 @@
       "Explain exactly which real-world uncertainties the synthetic assumptions omit."
     ],
     "labPlan": [
-      "Solve both elbow branches using atan2 and acos for the original target.",
-      "Round-trip FK for each branch at tolerance 1e-9 m.",
-      "Reject the unreachable 0.80 m target before acos; log the reach inequality."
+      "Compute both elbow configurations for target (0.40,0.30) m, including theta2=+/-pi/2 and theta1=0 or approximately 1.287002218 rad.",
+      "Round-trip both joint solutions through forward kinematics; assert each tip coordinate matches within 1e-9 m.",
+      "Reject target (0.80,0) m *before* acos because its reach exceeds 0.70 m; at boundary (0.70,0) m, assert both elbow branches coincide at theta2=0."
     ],
     "vocabulary": [
       {
@@ -119,9 +119,9 @@
       "Explain exactly which real-world uncertainties the synthetic assumptions omit."
     ],
     "labPlan": [
-      "Compute Jacobian entries analytically for the specified posture.",
-      "Compare J*qdot to forward-kinematics finite differences at h=1e-6 s.",
-      "Set theta2=0 and assert determinant magnitude <1e-10."
+      "Compute the full 2x2 Jacobian for lengths 0.40 and 0.30 m at (0,pi/2) rad; assert J*qdot=(-0.090,+0.080) m/s for joint rates (0.20,0.10) rad/s.",
+      "Finite-difference the exact FK with time step 1e-6 s and require a componentwise agreement with J*qdot within 1e-6 m/s.",
+      "Set theta2=0: assert determinant magnitude <1e-10, show J has rank one for positive link lengths and reject any claim of independent instantaneous x/y control."
     ],
     "vocabulary": [
       {
@@ -164,9 +164,9 @@
       "Explain exactly which real-world uncertainties the synthetic assumptions omit."
     ],
     "labPlan": [
-      "Write a 2D function transform(point,translation,yaw) with meters/radians.",
-      "Compute the forward and inverse results and assert round-trip tolerance 1e-9 m.",
-      "Deliberately reverse composition order to reproduce the counterexample."
+      "Implement worldPoint=R(yaw)*basePoint+t using t=(1.00,2.00) m, yaw=pi/2 and basePoint=(0.20,0.10) m; assert worldPoint=(0.90,2.20) m.",
+      "Apply the inverse p_base=R(-yaw)*(p_world-t) and assert the recovered base coordinates are within 1e-9 m.",
+      "Deliberately apply rotation after translation: confirm the incorrect result (-2.10,1.20) m, then state why frame labels and transform order are essential."
     ],
     "vocabulary": [
       {
@@ -209,9 +209,9 @@
       "Explain exactly which real-world uncertainties the synthetic assumptions omit."
     ],
     "labPlan": [
-      "Compute wheel speeds for b=.5 m, v=.6 m/s, omega=.4 rad/s.",
-      "Round-trip speed and yaw reconstruction within 1e-12.",
-      "Vary track width to 1.0 m with the same wheel readings and interpret changed yaw."
+      "With track b=0.50 m, center speed v=0.60 m/s and yaw omega=0.40 rad/s, assert wheel speeds left=0.50 and right=0.70 m/s.",
+      "Reconstruct v=(left+right)/2 and omega=(right-left)/b; require errors below 1e-12 in SI units.",
+      "Keep the same 0.50/0.70 m/s readings but change b to 1.00 m: assert omega=0.20 rad/s; use equal wheel speeds to assert zero yaw, not a finite turn radius."
     ],
     "vocabulary": [
       {
@@ -245,7 +245,7 @@
       "Turn radius R=ds/dtheta=1.25 m; exact arc integration gives dx=0.248336663 m, dy=0.024916778 m, heading=+0.20 rad.",
       "Independent geometry check: chord distance sqrt(dx²+dy²)=2*R*sin(dtheta/2)=0.249583542 m, slightly shorter than arc length 0.25 m.",
       "Counterexample: naive straight projection dx=ds=0.25,dy=0 misplaces the robot in a turn; midpoint projection is approximate rather than exact.",
-      "In the limit dtheta tends to zero, use dx=ds,dy=0 to avoid division by zero; use observed wheel path only, not true pose under slip. Source: https://docs.wpilib.org/en/stable/docs/software/kinematics-and-odometry/differential-drive-kinematics.html"
+      "At dtheta=0 use the continuous straight-motion limit dx=ds,dy=0; exact wheel-based SE(2) pose propagation and unavoidable slip/drift limitations are treated in Modern Robotics 13.4: https://modernrobotics.northwestern.edu/nu-gm-book-resource/13-4-odometry/"
     ],
     "memoryLadder": [
       "State the mathematical mapping used in exact constant-curvature wheel odometry without notes.",
@@ -254,9 +254,9 @@
       "Explain exactly which real-world uncertainties the synthetic assumptions omit."
     ],
     "labPlan": [
-      "Integrate the wheel increments with the exact sine/cosine arc formulas.",
-      "Validate the chord-length identity and signed heading increment.",
-      "Try equal wheel increments and handle the straight-path limit."
+      "Integrate dL=0.20 m, dR=0.30 m, b=0.50 m with exact constant-curvature formulas; assert (dx,dy,dtheta)=(0.24833666349,0.02491677770,0.20) in m,m,rad.",
+      "Independently calculate 2R*sin(dtheta/2)=0.2495835416 m and compare with hypot(dx,dy), using R=1.25 m.",
+      "Set dL=dR=0.25 m and use the explicit straight-line limit dx=0.25 m, dy=0, dtheta=0; never divide by zero or confuse wheel-derived odometry with true pose under slip."
     ],
     "vocabulary": [
       {
@@ -299,9 +299,9 @@
       "Explain exactly which real-world uncertainties the synthetic assumptions omit."
     ],
     "labPlan": [
-      "Implement countToMeters(counts,r,N) and verify half and full revolutions.",
-      "Derive meters/count and half-count quantization bound independently.",
-      "Double r keeping counts fixed; confirm inferred travel doubles."
+      "Implement countToMeters(c,r,N)=c*2*pi*r/N and assert 1024 counts of a 2048-count wheel revolution at r=0.050 m equal pi*0.050 m.",
+      "Derive a single count of 0.000153398079 m and ideal nearest-count half-step bound of 0.000076699039 m, excluding slip and encoder bias.",
+      "At 2048 counts assert 0.314159265 m; deliberately misinterpret the effective resolution as 1024 counts/revolution and verify that the inferred travel erroneously doubles."
     ],
     "vocabulary": [
       {
@@ -335,7 +335,7 @@
       "For new sensor reading y=2.12 m, corrected distance x=(2.12-0.02)/1.05=2.000000 m.",
       "Independent check: reconstruct readings from references: 1.05*1+0.02=1.07 m and 1.05*3+0.02=3.17 m.",
       "Counterexample: subtracting offset only yields 2.10 m, a 0.10 m error, because the 5% gain error remains.",
-      "Validity boundary: two-point calibration cannot validate nonlinear range response, temperature drift, uncertainty or extrapolation; general sensor observer context: https://docs.wpilib.org/en/latest/docs/software/advanced-controls/state-space/state-space-observers.html"
+      "Validity boundary: exactly two noiseless references cannot establish linearity, extrapolation accuracy, drift or a credible uncertainty budget; NIST Engineering Statistics Handbook calibration guidance: https://itl.nist.gov/div898/handbook/mpc/section3/mpc3.htm"
     ],
     "memoryLadder": [
       "State the mathematical mapping used in two-point affine range-sensor calibration without notes.",
@@ -344,9 +344,9 @@
       "Explain exactly which real-world uncertainties the synthetic assumptions omit."
     ],
     "labPlan": [
-      "Solve gain/offset with two points and reconstruct both measurements.",
-      "Correct the 2.12 m reading; assert 2.000000 m.",
-      "Try nearly identical x reference points; explain noisy/ill-conditioned gain estimates."
+      "Fit gain and offset from (x1,y1)=(1.00,1.07) m and (x2,y2)=(3.00,3.17) m; assert gain=1.05 and offset=0.02 m.",
+      "Correct y=2.12 m to x=2.00 m, reconstruct both calibration references, and demonstrate that offset-only correction falsely reports 2.10 m.",
+      "Show conditioning: with references x1=1 m and x2=1.000001 m, a +0.001 m error in the second synthetic reading changes the estimated gain from 1.05 to 1001.05; refuse a zero reference separation."
     ],
     "vocabulary": [
       {
@@ -389,9 +389,9 @@
       "Explain exactly which real-world uncertainties the synthetic assumptions omit."
     ],
     "labPlan": [
-      "Simulate 3 steps at Kp=4 and compare with 0.6^k analytical expression.",
-      "Change Kp to 25 and calculate at least 2 steps to show divergence.",
-      "Test Kp at boundary 20: pole -1 causes undamped oscillation, not asymptotic convergence."
+      "Simulate x[k+1]=x[k]+0.10*Kp*(1-x[k]) from x0=0, Kp=4 s^-1; assert x1=0.4, x2=0.64 and x3=0.784.",
+      "Independently compute e3=(1-0.10*4)^3=0.216, and verify the exact criterion 0<dt*Kp<2 for this specific ideal plant.",
+      "For Kp=25 s^-1 assert x1=2.5 and x2=-1.25 (divergence); for Kp=20 assert x1=2,x2=0 (undamped two-cycle), not convergence."
     ],
     "vocabulary": [
       {
@@ -425,7 +425,7 @@
       "Naive integration updates I[k+1]=I[k]+e*dt; after 10 identical errors I10=2, and computed raw command is 4+1*2=6, while actuator still applies only +1.",
       "Conditional anti-windup freezes I=0 for each step when the raw output is above +1 and the positive error would increase saturation; raw output stays 4, applied +1.",
       "Independent check: summation of ten error rectangles gives 10*(2)*(0.1)=2; bounded integral remains 0 under the stated policy.",
-      "Counterexample: simply clamping actuator output does not erase accumulated internal integral state; when error changes sign, that stored state can delay recovery. Source: https://docs.wpilib.org/en/stable/docs/software/advanced-controls/controllers/pidcontroller.html"
+      "Counterexample with stored I=2: at subsequent error e=-0.25, raw output is 2*(-0.25)+1*2=+1.50 and clips +1, whereas conditional I=0 gives raw -0.50; output saturation alone does not erase the accumulated integral state. Context: https://docs.wpilib.org/en/latest/docs/software/advanced-controls/controllers/pidcontroller.html"
     ],
     "memoryLadder": [
       "State the mathematical mapping used in conditional integration under output saturation without notes.",
@@ -434,9 +434,9 @@
       "Explain exactly which real-world uncertainties the synthetic assumptions omit."
     ],
     "labPlan": [
-      "Simulate ten fixed-error steps with and without conditional integration.",
-      "Verify I10=2 without guard and I10=0 with guard.",
-      "Reverse error sign and inspect the two raw command states; discuss controller-state dependence."
+      "Simulate ten fixed-error samples with Kp=2, Ki=1 s^-1, e=2, dt=0.10 s and output limit +/-1, using both naive and saturation-aware conditional integrators.",
+      "Assert naive integral I10=2 and raw command 6, while conditional integration retains I10=0 and raw command 4; both applied commands clip to +1.",
+      "Now set a one-step test error e=-0.25 without first updating I: assert naive raw command +1.50 (still clips positive) versus guarded raw command -0.50 (negative), exposing wrong-direction windup recovery."
     ],
     "vocabulary": [
       {
@@ -479,9 +479,9 @@
       "Explain exactly which real-world uncertainties the synthetic assumptions omit."
     ],
     "labPlan": [
-      "Compute gain, mean and posterior variance with independent precision-weighted equation.",
-      "Raise R from .09 to .36 and compare changes.",
-      "Test that posterior variance is positive and less than prior variance for R>0."
+      "For prior x=2.00 m, P=0.25 m^2 and independent z=2.60 m, R=0.09 m^2, assert K=0.735294118, posterior x=2.441176471 m and P_post=0.066176471 m^2.",
+      "Independently compute posterior mean by normalized precision weighting and require agreement with the Kalman expression within 1e-10 m.",
+      "Raise R to 0.36 m^2 and assert K=0.409836066 and updated x=2.245901639 m; reject the equal-weight mean of 2.30 m as an uncertainty-ignorant counterexample."
     ],
     "vocabulary": [
       {
@@ -524,9 +524,9 @@
       "Explain exactly which real-world uncertainties the synthetic assumptions omit."
     ],
     "labPlan": [
-      "Compute the 2.00 m trapezoidal duration and area with units.",
-      "Recompute D=0.40 m and assert triangular peak speed and duration.",
-      "Check both cases start and end at zero velocity and respect v_max/a limits."
+      "For distance D=2.00 m, acceleration a=1.00 m/s^2 and vmax=1.00 m/s, calculate t_acc=1.00 s, cruise=1.00 s, total=3.00 s and area under velocity=2.00 m.",
+      "For D=0.40 m independently assert triangular peak speed sqrt(0.40)=0.632455532 m/s and total time 2*sqrt(0.40)=1.264911064 s.",
+      "Test the regime boundary D=vmax^2/a=1.00 m: acceleration and deceleration consume all distance, cruise time is zero and total time is 2.00 s; never claim these ideal profiles prove obstacle safety."
     ],
     "vocabulary": [
       {
