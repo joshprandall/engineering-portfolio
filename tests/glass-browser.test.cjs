@@ -51,7 +51,7 @@ async function inspect(page, label) {
     const intentionallySolid = e => {
       if(e.id==='primary-nav') return true;
       if(e.matches('a.skip,a.button.primary,a.vnext-capstone-link')) return true;
-      if(e.matches('button,input,select,textarea,header')) return true;
+      if(e.matches('button,input,select,textarea,header,dialog')) return true;
       if(e.matches('span.launch-button,span.battle-launch-cta')) return true;
       if(e.matches('.pioneer-logo-mark,.education-wordmark,.controls,.stage,.quantum-stage,.guide-card,.callout,.state-visual,.track,.section.experiment,#toast.show,.note-card')) return true;
       // The protected qubit preview uses unnamed solid experiment readout cells.
