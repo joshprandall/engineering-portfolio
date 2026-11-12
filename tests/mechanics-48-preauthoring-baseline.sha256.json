@@ -1,0 +1,2650 @@
+{
+  "description": "Portable fail-closed verified original Git blob comparison, no fetched Git history needed",
+  "sourceCommit": "b4a3bdafd6af67454cc640cf585b0cf153a817e4",
+  "originalBlob": "a1cdc05bb25e6200f33317607a0d25bf9c5ee823",
+  "path": "deep-learning/physics/mechanics.json",
+  "ids": [
+    "physics-newton",
+    "physics-momentum",
+    "physics-kinematics",
+    "physics-dimensions",
+    "physics-circular-motion",
+    "physics-torque",
+    "physics-lab-projectile",
+    "physics-freebody",
+    "physics-gravity",
+    "physics-angular-momentum",
+    "physics-v06-displacement-velocity-and-acceleration",
+    "physics-v06-constant-acceleration-kinematics",
+    "physics-v06-newton-s-first-law",
+    "physics-v06-newton-s-third-law",
+    "physics-v06-friction-forces",
+    "physics-v08-deep-dive-displacement",
+    "physics-v08-evidence-lab-displacement",
+    "physics-v08-deep-dive-average-velocity",
+    "physics-v08-evidence-lab-average-velocity",
+    "physics-v08-deep-dive-instantaneous-velocity",
+    "physics-v08-evidence-lab-instantaneous-velocity",
+    "physics-v08-deep-dive-acceleration",
+    "physics-v08-evidence-lab-acceleration",
+    "physics-v08-deep-dive-newton-first-law",
+    "physics-v08-evidence-lab-newton-first-law",
+    "physics-v08-deep-dive-newton-second-law",
+    "physics-v08-evidence-lab-newton-second-law",
+    "physics-v08-deep-dive-newton-third-law",
+    "physics-v08-evidence-lab-newton-third-law",
+    "physics-v08-deep-dive-free-body-diagram",
+    "physics-v08-evidence-lab-free-body-diagram",
+    "physics-v09-failure-analysis-lab-acceleration",
+    "physics-v09-teach-back-lab-acceleration",
+    "physics-v09-evidence-verification-la-angular-momentum",
+    "physics-v09-troubleshooting-lab-average-velocity",
+    "physics-v09-practical-lab-average-velocity",
+    "physics-v09-quick-reference-circular-motion-acceleration-without-changing-speed",
+    "physics-v09-design-review-constant-acceleration-kinematics",
+    "physics-v09-misconception-clinic-dimensional-analysis-let-the-units-check-the-physics",
+    "physics-v09-recall-drill-displacement",
+    "physics-v09-scenario-analysis-displacement",
+    "physics-v09-worked-example-displacement-velocity-and-acceleration",
+    "physics-v09-decision-lab-free-body-diagram",
+    "physics-v09-failure-analysis-lab-free-body-diagram",
+    "physics-v09-teach-back-lab-free-body-diagrams",
+    "physics-v09-evidence-verification-la-friction-forces",
+    "physics-v09-troubleshooting-lab-instantaneous-velocity",
+    "physics-v09-practical-lab-instantaneous-velocity",
+    "physics-v09-quick-reference-kinematics-describing-motion-before-explaining-it",
+    "physics-v09-design-review-momentum",
+    "physics-v09-misconception-clinic-newton-first-law",
+    "physics-v09-recall-drill-newton-first-law",
+    "physics-v09-scenario-analysis-newton-second-law",
+    "physics-v09-worked-example-newton-second-law",
+    "physics-v09-decision-lab-newton-third-law",
+    "physics-v09-failure-analysis-lab-newton-third-law",
+    "physics-v09-teach-back-lab-newtonian-gravity",
+    "physics-v09-evidence-verification-la-newton-s-first-law",
+    "physics-v09-troubleshooting-lab-newton-s-laws-as-a-model-of-motion",
+    "physics-v09-practical-lab-newton-s-third-law",
+    "physics-v09-quick-reference-predict-a-projectile-before-running-the-simulation",
+    "physics-v09-design-review-torque-the-rotational-effect-of-force",
+    "physics-v09-misconception-clinic-acceleration",
+    "physics-v09-recall-drill-acceleration",
+    "physics-v09-scenario-analysis-angular-momentum-2",
+    "physics-v09-worked-example-average-velocity",
+    "physics-v09-decision-lab-average-velocity",
+    "physics-v09-failure-analysis-lab-circular-motion-acceleration-without-changing-speed",
+    "physics-v09-teach-back-lab-constant-acceleration-kinematics",
+    "physics-v09-evidence-verification-la-dimensional-analysis-let-the-units-check-the-physics",
+    "physics-v09-troubleshooting-lab-displacement",
+    "physics-v09-practical-lab-displacement",
+    "physics-v10-explain-back-challenge-acceleration",
+    "physics-v10-counterexample-lab-acceleration",
+    "physics-v10-worked-walkthrough-angular-momentum",
+    "physics-v10-field-note-average-velocity",
+    "physics-v10-configuration-lab-average-velocity",
+    "physics-v10-prediction-lab-circular-motion-acceleration-without-changing-speed",
+    "physics-v10-exam-style-practice-constant-acceleration-kinematics",
+    "physics-v10-mistake-hunt-dimensional-analysis-let-the-units-check-the-physics",
+    "physics-v10-hypothesis-lab-displacement",
+    "physics-v10-scenario-brief-displacement",
+    "physics-v10-reasoning-check-displacement-velocity-and-acceleration",
+    "physics-v10-explain-back-challenge-free-body-diagram",
+    "physics-v10-concept-mapping-lab-free-body-diagram",
+    "physics-v10-worked-walkthrough-free-body-diagrams",
+    "physics-v10-field-note-friction-forces",
+    "physics-v10-recovery-lab-instantaneous-velocity",
+    "physics-v10-decision-matrix-lab-instantaneous-velocity",
+    "physics-v10-exam-style-practice-kinematics-describing-motion-before-explaining-it",
+    "physics-v10-mistake-hunt-momentum",
+    "physics-v10-verification-lab-newton-first-law",
+    "physics-v10-scenario-brief-newton-first-law",
+    "physics-v10-reasoning-check-newton-second-law",
+    "physics-v10-explain-back-challenge-newton-second-law",
+    "physics-v10-runbook-lab-newton-third-law",
+    "physics-v10-worked-walkthrough-newton-third-law",
+    "physics-v10-field-note-newtonian-gravity",
+    "physics-v10-trace-lab-newton-s-first-law",
+    "physics-v10-measurement-lab-newton-s-laws-as-a-model-of-motion",
+    "physics-v10-exam-style-practice-newton-s-third-law",
+    "physics-v10-mistake-hunt-predict-a-projectile-before-running-the-simulation",
+    "physics-v10-diagnostic-lab-torque-the-rotational-effect-of-force",
+    "physics-v10-scenario-brief-acceleration",
+    "physics-v10-reasoning-check-acceleration",
+    "physics-v10-explain-back-chall-angular-momentum-2",
+    "physics-v10-configuration-lab-average-velocity-2",
+    "physics-v10-worked-walkthrough-average-velocity",
+    "physics-v10-field-note-circular-motion-acceleration-without-changing-speed",
+    "physics-v10-confidence-calibration-constant-acceleration-kinematics",
+    "physics-v10-hypothesis-lab-dimensional-analysis-let-the-units-check-the-physics",
+    "physics-v10-exam-style-practice-displacement",
+    "physics-v10-mistake-hunt-displacement",
+    "physics-v10-boundary-condition-lab-displacement-velocity-and-acceleration",
+    "physics-v10-scenario-brief-free-body-diagram",
+    "physics-v10-reasoning-check-free-body-diagram",
+    "physics-v10-explain-back-challenge-free-body-diagrams",
+    "physics-v10-recovery-lab-friction-forces",
+    "physics-v10-worked-walkthrough-instantaneous-velocity",
+    "physics-v10-field-note-instantaneous-velocity"
+  ],
+  "records": {
+    "physics-newton": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "0ddf9f7d46a834d5179be90b01d6c995b118a464c972818099c53f80c7b6715f",
+      "nonTeachingSHA256": "fc64d614bb966b719a78675ff75a4193b54d195018a9deb2bf7927d7e5db20cc",
+      "teachingSHA256": {
+        "essentialQuestion": "2703d1943517c38b06e228f450de528d13a586ee1bc142a79f6ccd90cb066a0a",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-momentum": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "9095cf9ee6f10331ecf98e6888e4fb4f3b2a84a278f38f831c71854619db2fc8",
+      "nonTeachingSHA256": "161e34f22980676532347392cbe5a078eeaed4c5bc547e8b11f20052aed8ffad",
+      "teachingSHA256": {
+        "essentialQuestion": "5fb5929e2f0bfb29662b2ff93c38b4fcb7c7a306344b8740ba58e36077ba8355",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-kinematics": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "e833017522d12902d8d70b1a1f52234d69c9c7a811b37dddc38b7b6993a6440e",
+      "nonTeachingSHA256": "12ca3bb6e89fc517e9d2985e33419aec53d9a5d3f592dd3a985d988bb9500424",
+      "teachingSHA256": {
+        "essentialQuestion": "940d000580a2db111795409cbc1b70805988bbb24c211de6db7fc00504bcaeb0",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-dimensions": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "5e4af3691d72dd86b64b08d50f14493b76ceefdaf4dbc76da38db2b763c8098b",
+      "nonTeachingSHA256": "caf7d56c2d3c3090c6c435da2f6a8121dc57ec460a087c771cf9be89ec75c3d1",
+      "teachingSHA256": {
+        "essentialQuestion": "9fef6c240de2100de220d12a6a0827b1100b236a533179523b2522feb5bb25ab",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-circular-motion": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "54f4d07d8b48e04581c09aceb5a2a4b31bafbd658e56ca96ac089bfae4029b02",
+      "nonTeachingSHA256": "3afccf9504fcb74f5f21a0d184e39c5aa18bd538bd9b20f14c8e32c7f3a095e8",
+      "teachingSHA256": {
+        "essentialQuestion": "48b998de181a702bd56e49e17461b8ae23142d6e7618dcdf152080c56f7c337f",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-torque": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "0d3f19b8333b5e0401bf6191e9805748d80025da2608da911f4904aa87ca3e35",
+      "nonTeachingSHA256": "2889ea2050fdfa19c7ed2dedb56623463341a209d864bb6a74bd8834b683d97b",
+      "teachingSHA256": {
+        "essentialQuestion": "7e05653bd5de5ee1dc01bea39edf03387fbbaa70baed83a511b1d3a4cad00ded",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-lab-projectile": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "69560f0c22a18c0d33df7c436865328b53479e8cd5a31b1c674cd599272e5b7f",
+      "nonTeachingSHA256": "bb9b9f851c8e8c94c64a63c1ff3b70f92525a1338ae689104d1ee0b86c246931",
+      "teachingSHA256": {
+        "essentialQuestion": "911687b840a6e6ed4bbbe00de312fdcf83a43ed70d40b453c77c95e771a00e94",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-freebody": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "842d35673883ed60ea8c8aca656863f887a82d821d706c747a773958078a910c",
+      "nonTeachingSHA256": "c932650f1ae9bae6bdeaee4baf864dc05577ac7f76cc4748d331ffb7baa96e05",
+      "teachingSHA256": {
+        "essentialQuestion": "ed8907ec2ef3d2faf3e595a91e4cbb6a74dd23fe5c7ff6a8d1768b4ff96b01de",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-gravity": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "4048ca7a0769dcab6251c91cce2726e77c188e6b4c92e9cc5e75c9a1d593d6bc",
+      "nonTeachingSHA256": "66528b940b0d8b9d3904182fd03748c12bfd627e8dcca2532baa364492d5d304",
+      "teachingSHA256": {
+        "essentialQuestion": "7b47cefe360dfc9b2f2f93d482bfcb0851fbe4121861a443cbc8d76eb54752ab",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-angular-momentum": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "2189cf9ef34251d0a05e91b2e311d9779f02dec297d27b4a752c1d89e1559965",
+      "nonTeachingSHA256": "daca2d488a30ac43434066e88f32b27a8c25f7dca000f25e92c9f66298a264de",
+      "teachingSHA256": {
+        "essentialQuestion": "b2f882dabfdc56b934f79b1e89a4f0a6a69d767c4abb39e38abac3e95dad7985",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v06-displacement-velocity-and-acceleration": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "bc270682e7045db12041d1bce25e21dee508bb8438e7e7574478d8bdbeb82a48",
+      "nonTeachingSHA256": "6c7e069104480750bf774795368506ef19e007fb4769e293c161b1f736cb18d2",
+      "teachingSHA256": {
+        "essentialQuestion": "630724da6c3bf4cda6f146fd9ff9511f7022f68067ad0e5edb568bca2061ebdf",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v06-constant-acceleration-kinematics": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "2ed3c270f916970b099c5a01b2f579198a6479925393a2cd0eb7a1e6806f347e",
+      "nonTeachingSHA256": "bcca5222fc11526604fbd212b0f94abb456d751f9df82b6f2c965e778236138a",
+      "teachingSHA256": {
+        "essentialQuestion": "8ee7f4f42dd45fbd004fdeef6f005f19655bdb2ea35e85c2359bef9ae7cf644c",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v06-newton-s-first-law": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "a6e5c7e1e92713263faf5b4499a5f60ab84c110a98bd9ae24ecdaf655d444109",
+      "nonTeachingSHA256": "cef0cf4fd4e4784cc14f7969297be2b372edbde84e1ea10751e53ee9b027df35",
+      "teachingSHA256": {
+        "essentialQuestion": "9f01f4ffed4a8f381f586f6ca0001a194f2dc2ffe11d88f2487cb37370b43e95",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v06-newton-s-third-law": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "2d8847e8e5981fbe9b5c758344bd674471a16a2cf709c3c706a5caa718d9ad33",
+      "nonTeachingSHA256": "cbaf6dcc02b5fa9b078041da26a6390789fd50c7fb579fb799867f72bd8ce007",
+      "teachingSHA256": {
+        "essentialQuestion": "db45bead4f8c4adc7aaa3f0a0ca5d4bb28de78cebf6e083015c64feba23bb203",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v06-friction-forces": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "36b2c577e970142bf038fcf36c7ffbbeda5c5313db833b5fb05e31b99edcecfd",
+      "nonTeachingSHA256": "9aa60dd6982e22cbd42a392fe5917c7a890c1b771c6e71d20de159f33e1c8a87",
+      "teachingSHA256": {
+        "essentialQuestion": "b4f66545e86c567a7fcd4405cfc0297c8afaea7634e23cbf8cc22abf5fd23e67",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v08-deep-dive-displacement": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "378a06d31c2cdb49be49ee5d91a07efe8cdbf88a57341ca4e593dddbe9dd40f5",
+      "nonTeachingSHA256": "44e08b690532ef0cc42552aef8a4b21fcf56041f421fb2874c3f0a17d408dc1a",
+      "teachingSHA256": {
+        "essentialQuestion": "0e4bfe5355f735888217b5522d52e77a7f7d45650dddb45d029b2c1358375092",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v08-evidence-lab-displacement": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "48de80b45540d0dd0544ee03ea4c72f3c9b8ea68091ebb2af91b0888835a5bb2",
+      "nonTeachingSHA256": "06de0f2f56646cd878621f697c53b07d7a0a955c42ac71cd54109f39b4a74f5c",
+      "teachingSHA256": {
+        "essentialQuestion": "14e98d10551da9865512e78152f8492c3de833ad4b8705d6bc61feb879d5fe7b",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v08-deep-dive-average-velocity": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "8dc31e37c70a5879d3bb29c9f37e3683a9ca00d724c7e27fab560f0ac3e478a2",
+      "nonTeachingSHA256": "3b930d1f36564a05317eac5ed1182727e1978cd75676af08083e70f297b33f90",
+      "teachingSHA256": {
+        "essentialQuestion": "cacb46eea124964c5ee0aeb0e1ebcced715430235e883ecc8d11a09491b5b214",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v08-evidence-lab-average-velocity": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "6d9b732966bb8124d6b1eca402a1f1ee24859cbe431f31eb03b9462f0bf663ea",
+      "nonTeachingSHA256": "5bbf3fc41bdee3733f22d7b3f2a840d83e7615c60da47521cf61a4853d8e6479",
+      "teachingSHA256": {
+        "essentialQuestion": "bfb17c32af798d7059e231443870c0edd5e95f861878f90ed9fc625b0e32b350",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v08-deep-dive-instantaneous-velocity": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "f7f5ff27bbfd17d688f750aa058307065950ea61fb36845da6846498ccb4cc40",
+      "nonTeachingSHA256": "4200fa59fbcb3a4ff67203acf323adbe1e0aa2a6612d992bd42f80a1e077e91c",
+      "teachingSHA256": {
+        "essentialQuestion": "c98d9e155a4cfbe8f84923a28a2fe300ae4ecb9898cd77abf2e060398f8b8579",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v08-evidence-lab-instantaneous-velocity": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "b3bdde53f34e9df31530144191e8f07e61b6122ba2d240a072dd51f1d757de5f",
+      "nonTeachingSHA256": "56fb6eb985ff7bd40c21d5aef9489a15c8b06967b334a4ba961aa621dd702121",
+      "teachingSHA256": {
+        "essentialQuestion": "e4d5b64fcb2df18d8c6b904267dce07a6d0849922450eba57d832c3a626edfa1",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v08-deep-dive-acceleration": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "b821d9241d839dd4c6a4c8954d682e25982645e0d9cbcb744d29cbc81adc8230",
+      "nonTeachingSHA256": "5c56ce3a5d8bee57c0b47b230502d3da9907537a973eac66fa9aceb64e7bcb97",
+      "teachingSHA256": {
+        "essentialQuestion": "6576daa221320726949bf52368864f84ecf6b27d741f8afbcddc200d1c8fd7f5",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v08-evidence-lab-acceleration": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "66445f3dedc99249ab2c76ba5312af83fe5ec4477e3774cfa47d535a9e1dfa16",
+      "nonTeachingSHA256": "0381d5ad35d8a892fa0973368a27d74a0780f2920c84fb94dbe6b1ca456b1c0f",
+      "teachingSHA256": {
+        "essentialQuestion": "f083c7b8bbf36311bff0f3973be6e29b3639e8eb976431fe229e60bfde515386",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v08-deep-dive-newton-first-law": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "b7ec769691c918b90a6d74835e286ca2c9434532599844b02aa7666ddb41b1d4",
+      "nonTeachingSHA256": "d358c4258c855eb65e2792dd808bf70758d3a46995165f4d2ea02e46610975dd",
+      "teachingSHA256": {
+        "essentialQuestion": "1102c7cf6fe6507ee0bcf0bf510d817c7dbaa06e10ad13dcc93743e228320b74",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v08-evidence-lab-newton-first-law": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "7cac6a6429f3d6773bb5d737eb715345c94b34e56ebe4d84a30ddea876922b6e",
+      "nonTeachingSHA256": "063041c39faab1059bb32356cfa6307d0693a15c4f3fecd4596be3e43b77a8c4",
+      "teachingSHA256": {
+        "essentialQuestion": "6b34c4a50807918db0b53669ac45df72321eaecb13a0101857fcab4101ea3108",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v08-deep-dive-newton-second-law": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "a81af9a7751c108b390f318d0ab549c676c1270d9cd8e017eaacbae128899851",
+      "nonTeachingSHA256": "019253a44440e6f1f0d0d28187998a4f10703c72402223896411de31c8a0dbf3",
+      "teachingSHA256": {
+        "essentialQuestion": "7ed35423285642c4418010960267174cf9a7db901fe9a12bcdafb2bfc842cb8c",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v08-evidence-lab-newton-second-law": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "b9d53112e86b88dcb951180bab1c8238fb4763c0b855365921ad0f1c74b974b7",
+      "nonTeachingSHA256": "9a71b76d9648af8d9ed4f52350c24c112bc40f9a464047aa9c9d55ec4e47e756",
+      "teachingSHA256": {
+        "essentialQuestion": "4ba6f89d3b1dccbce0549ea9196af9dd4846a14647e18f93b6521cd02534d2c6",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v08-deep-dive-newton-third-law": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "530d3b822b1cad27512e54ff7cdb0e2848b866a75a00df63930f379e7a355293",
+      "nonTeachingSHA256": "ed33fc86082387564ecb414fd4cd259302199fda85da761f687b04f5f6531e8f",
+      "teachingSHA256": {
+        "essentialQuestion": "f9ff89b731664ef23720cc0e076c7237b50d38b7c62249157058ad11a57fcf87",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v08-evidence-lab-newton-third-law": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "69c3b7234e5a0600dbd183f4de80eb13b04a442bf4814fd0729162d4fb442a2c",
+      "nonTeachingSHA256": "8debb06641d0aa3d9f0bf2ca74470f66c5546cffd41de34995dd01893feeb428",
+      "teachingSHA256": {
+        "essentialQuestion": "72984389c81e839e7e23713d436ebdb59c34437ed33d0b14ae8c49f2458bf9b9",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v08-deep-dive-free-body-diagram": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "74689cc9a1dd0095ca3f648a5f470db22a4771ff2535dac88d3b2a5a5dc51c82",
+      "nonTeachingSHA256": "cbe1af31913cce8613cd18cbe7ea5144b2bd16104d06f02ea39661e866f16e70",
+      "teachingSHA256": {
+        "essentialQuestion": "e326116c17e430cec7ca67ddd7dcefbc99eb6aa055cb1a3a7b0416414ae67702",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v08-evidence-lab-free-body-diagram": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "7e6f843e59e9839d24c0658d05a0b7c9235364bc8ec82d2468b5f7971643abda",
+      "nonTeachingSHA256": "fe2831d3208e038a000dd6531b4d689990d56131440336424e34d17cd93e2ddb",
+      "teachingSHA256": {
+        "essentialQuestion": "f1a53bd61e11d1a349ded000523e29c874ae657001b1705741f4cbfa6a725c8e",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v09-failure-analysis-lab-acceleration": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "9c5ac2e485f51df823beb49876588bc35cc80c8ffcc7022317f698de06da1c2b",
+      "nonTeachingSHA256": "ac0de727fae44d6d374570e3bac3eb317e5d6877e5139b1548b9780e645803f8",
+      "teachingSHA256": {
+        "essentialQuestion": "c6f7102b1fec0be87c468fc25ff3bc8245d601ddf4472cbe2b93c4579e98eadd",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v09-teach-back-lab-acceleration": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "bc06203f696f021394aff02cc0520c044cb9b16946c52aa297034a35308a35ab",
+      "nonTeachingSHA256": "48eca2d4d06e1e9d801e6b6a7a68909d2d803b0ca100d0e6a4eaa26bed982583",
+      "teachingSHA256": {
+        "essentialQuestion": "356e0a83766be6e4983f6b9ae87e0dbd62b43379be3aaaed3c5ea1b46099fb15",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v09-evidence-verification-la-angular-momentum": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "6d945e77d5b3255e0195d65f3818c7dbe30959cf373550592fa9b9c67ed04800",
+      "nonTeachingSHA256": "1d45f11f28bf5c7a5161aa8787fbe71c661bc97d0e59b6ab337280e02d23d81e",
+      "teachingSHA256": {
+        "essentialQuestion": "004d3fecc4fcd71550759e12a77c0f880bd44d67cff0b5af64a8f5bb496c7ea2",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v09-troubleshooting-lab-average-velocity": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "69a9be6153fe15678fdfe6d7c2eaf3affbb614cedb72d3287a4f5105cd2c0828",
+      "nonTeachingSHA256": "7028131d3f5839ba8d3b5167acab89ee5a4f1db3789a86c658ddd57d45b5a2b8",
+      "teachingSHA256": {
+        "essentialQuestion": "6cebe842abbeb5acaedb17df199648d33c262a344e7cc92e199b70063e247e40",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v09-practical-lab-average-velocity": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "d1f95bff47bf360fd387a2f3d42b1f5e6e91cb55b67cdea0e4447a6a5d9202f6",
+      "nonTeachingSHA256": "4bc8f22fda9186bdbb38234df5fa4af9db29c9c3698c0ce35ba6e111a34e42fd",
+      "teachingSHA256": {
+        "essentialQuestion": "b22fb4f2e3014b4c8fa068f2d20e2316b28c229f96e2ae7e8458c55c6e6c22b3",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v09-quick-reference-circular-motion-acceleration-without-changing-speed": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "5ab4e26d5cc6649e2c1228174f50c0db4ed41ed3798193c0ddd51531419afaae",
+      "nonTeachingSHA256": "e5f3c02d49d98ba8fc667ee7735016c35d3faa32442b7e892094b5d283b08b1c",
+      "teachingSHA256": {
+        "essentialQuestion": "b57f00520b90bd97516609506a674d224d82b2c8324f4a41f2ffca0c207773d4",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v09-design-review-constant-acceleration-kinematics": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "274145e636f66d3f19a09c1bcfa1ace9b381b3983624ee04d725abd8082ba187",
+      "nonTeachingSHA256": "c9a7c7fb9b459cfa17fd70d2814d6f8441de965061db75b88bffd1dcbe43bc4c",
+      "teachingSHA256": {
+        "essentialQuestion": "940204b15ff6dfbd111f38ab18f732ac4a6964217014f6320b10f9b8fa8be3bc",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v09-misconception-clinic-dimensional-analysis-let-the-units-check-the-physics": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "d9c3bed61223b343a769c2b7d03c784dd6addf094f3cbb4d614160562dbb0c13",
+      "nonTeachingSHA256": "17eea9adff9d4d49b9da2ee38896cf77a7718a18c5d2b531da80287ce9550b7b",
+      "teachingSHA256": {
+        "essentialQuestion": "a96ab61fa84916374644a3e795f20bd44bc7dfcf91dce8b895ac3444248fe5a2",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v09-recall-drill-displacement": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "a87f36cc2458f6e7dfbe0fa621a9c579805ec9f01921d7be401661797657491b",
+      "nonTeachingSHA256": "4ba2a027c46f8d4be0fdbf6e0e77b57e9e1d84e6edb8a7359bf277ef3da54ac1",
+      "teachingSHA256": {
+        "essentialQuestion": "532ddb707bbea902cc4fca55e612b890baf5cc782039d8719d627f32d7c83af6",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v09-scenario-analysis-displacement": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "73ee9c59b96575bbdaf27e6797226c2cb052cdb20e8bac7e169f37454c75ad82",
+      "nonTeachingSHA256": "09fd5698965e95b9d0298a607ae91fa4707f3c23edfb7af74907e0f22cbdf933",
+      "teachingSHA256": {
+        "essentialQuestion": "9e15dd9ebb9a6dbf23853ab07be4b3a6cf1ab86d3fc9ff9f440d6b7c28474303",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v09-worked-example-displacement-velocity-and-acceleration": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "e741042c833469d28ebe5947d4c38cb612279876f389e5e8ca7b1615fda9dc60",
+      "nonTeachingSHA256": "58f1dd79b77519d1d7e0b76b927056aa9a054793e17da1da3dad18eb9b413035",
+      "teachingSHA256": {
+        "essentialQuestion": "f86c71e98ff37d30164d681fe34d13a54f9d112113951c5cc77bd990bbb58740",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v09-decision-lab-free-body-diagram": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "85238e69bc0d5b69018c1a1e57820ec0276341135bb8a77be3c70435781726b8",
+      "nonTeachingSHA256": "ea78615d18d6216fa85b581e1559bf9ff9be601ff5439d57ba46b2d6d02e5b12",
+      "teachingSHA256": {
+        "essentialQuestion": "7085963631c1b2935245e29ac29662df73357a5aeb13db7cecee77a70a1f55ab",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v09-failure-analysis-lab-free-body-diagram": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "ed32f71176a83abff7a6bc7abf131452d59504cf89d07424fb40da52b5ed9088",
+      "nonTeachingSHA256": "3fa206f0a50a9184cb95d3baf055cfef870661dce0db236e7be4be988cfd18f4",
+      "teachingSHA256": {
+        "essentialQuestion": "2dc068084b83c804222402eec48682596366bd747697f761b2381d3152304b3c",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v09-teach-back-lab-free-body-diagrams": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "e6f5686a4d99e91f376187ad5b3ee22e5c7c4ed43eb28c20e334b0bf46d0a148",
+      "nonTeachingSHA256": "3bd3c6f3d0249ca77b3564a35eb59c763fabad1ad85bf40299bff437d64f2cad",
+      "teachingSHA256": {
+        "essentialQuestion": "8364a984d40fa01d2c1974d24aed916834383b8b447b7d68fd218f3dd8a5e75a",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v09-evidence-verification-la-friction-forces": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "4c76fd4f59814209307540642388f9d8bcded0c1fb64477699157f978dd13698",
+      "nonTeachingSHA256": "01f327779f3bd349d373f125d3a25abf2ca9fdbf9df383b88b2b8860e859ac5a",
+      "teachingSHA256": {
+        "essentialQuestion": "b46092b049687ea14fa63fbd3a7a2b6869e9f87b58cebf2e6859d767c9a38bf3",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v09-troubleshooting-lab-instantaneous-velocity": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "5f8c021c502933332535c4a1db2473210c6dd82f570303990650656ea2864227",
+      "nonTeachingSHA256": "99dc60a3cc068230beec534d31e6e6c98b64763cd48cdcc8d5d33831382faa0a",
+      "teachingSHA256": {
+        "essentialQuestion": "2b43203cb96eaf8a589a29e11af831d83c177bc29c77c0fb4da7468af827a844",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v09-practical-lab-instantaneous-velocity": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "1e0b9f4ef083d36d406ab3cf8cf1c288e45e5e83b17a559b4e6502921b165f33",
+      "nonTeachingSHA256": "cf34fe5d415e077f5494cfa863a89b30478c01eb369639af3abb7ebda67958ee",
+      "teachingSHA256": {
+        "essentialQuestion": "2abdc2f0c8be56251b38d23e2fe3f169102f1739e203b5d2e5ab8c2ecaf3714c",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v09-quick-reference-kinematics-describing-motion-before-explaining-it": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "c67e63fc39d8ca10206df1eeea7f93e01bb1c7764f2bc727bcb330ca95eda145",
+      "nonTeachingSHA256": "2b6ff13585f7e1dea55a381267f0836ae06213692bec046684d6917f210f4027",
+      "teachingSHA256": {
+        "essentialQuestion": "d91054822c0115230ab6e976fc2073e4a037e1e6be117ab680302b7a08b9b0db",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v09-design-review-momentum": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "f7859e61019e7eca6dce9a348ba1a66a382694805e43fffc8adabc3dbe41caaa",
+      "nonTeachingSHA256": "c9886ea18f97d08b68dff14d3230be7f616e28f08615fcf7338b372ec03aa018",
+      "teachingSHA256": {
+        "essentialQuestion": "6d63c8d9c9272b8ef7bfc45744dc519a50d0aa9ad7828b2da2f86a2a3f57cfad",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v09-misconception-clinic-newton-first-law": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "7727c42139e747517580e745cd6632fc782170232f53116b4699869558413916",
+      "nonTeachingSHA256": "1574eab1b754da64723e260235610f95320c1f920ca18ea3817e567607c68c2a",
+      "teachingSHA256": {
+        "essentialQuestion": "ad4d40a74737d81acb23abd50689a5803c7073810bf18369a671022451114fe7",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v09-recall-drill-newton-first-law": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "86bb2885d946df1b66cc34dc110be87915e65aa0eb94bcffdd323d86ee09141e",
+      "nonTeachingSHA256": "3aa570f11b7c50e6397f5d255230390e512e0a600db199c027cf23a74bf70018",
+      "teachingSHA256": {
+        "essentialQuestion": "8cf93d63feafb9ff5be513fb520736fcfb728a52ac57fb2b252a23100dec0f49",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v09-scenario-analysis-newton-second-law": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "dd85f2d66d92cbc51eb0a203fae31deaf7811ebab13c60fca0f6c11d3da724ce",
+      "nonTeachingSHA256": "321ce399689774b39758d9badc8e200017d91d615b3b21c8accc086904556a2a",
+      "teachingSHA256": {
+        "essentialQuestion": "9a20c2cb51d3f220cb372018791c20aa8d6328aa4c8487caa71df54ae3eac68f",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v09-worked-example-newton-second-law": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "5dbf25131f6f29d235344278cc02fd85eabe39720adf05b41557db5dffc0a09b",
+      "nonTeachingSHA256": "b21618cd6a6aefe0e232685caf41d52ef9ca00fe88d546ffe768ef8aac3f069c",
+      "teachingSHA256": {
+        "essentialQuestion": "64713f58da76238a51c7b0c4fefeee5ee62d1611fc52e89ca1360360883438bc",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v09-decision-lab-newton-third-law": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "9e29e4b3331a05f2b54c39c61ee802bea2a3e960c59502eb0bf837cf78218254",
+      "nonTeachingSHA256": "76de087323720113c3fc477897c3e128981aa3de296492aca38c7e306c1932ae",
+      "teachingSHA256": {
+        "essentialQuestion": "f4c4dc28cc092e8331931773f0e758b834a0e6e34106c95781bb3990b2b3ce7f",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v09-failure-analysis-lab-newton-third-law": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "1d6a4cad564a707e2adf076354a7eca588c783fcffc8c88348c1d0e4894a9024",
+      "nonTeachingSHA256": "495c09fc68c2eb490d0abdd58ae880c4ede7ac4520f9ea1ae084f1a2455866e7",
+      "teachingSHA256": {
+        "essentialQuestion": "c8c53830871175d7d8daf5100ad7984ec3f51bf996dc121f1c8e3f590e1448e2",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v09-teach-back-lab-newtonian-gravity": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "3b57b008e4c2a1a1cbf0c165c8cae01cfc6d1e3c6b5f7d99f3d7c9060387f073",
+      "nonTeachingSHA256": "4bd1364b340922567ef06db1aa61a3d1383611d5e1ee6f6cd2bd443eefe966f0",
+      "teachingSHA256": {
+        "essentialQuestion": "cb7eb0a18ced47c983525d2725894acd698f040dd64a4c699464b4c5ea0a06f2",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v09-evidence-verification-la-newton-s-first-law": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "3e0066646f354b12a46e2fba44d77857f759cb450a16593bb5596dbd741d7aae",
+      "nonTeachingSHA256": "ed3df9ae5dd2788c4892a9b3279600f942166ec8cc24a1c0690a550f606d6dec",
+      "teachingSHA256": {
+        "essentialQuestion": "4ea5aca33590265a0c246119a45944759c3e68f7599729ca3d0530dfd9c745f5",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v09-troubleshooting-lab-newton-s-laws-as-a-model-of-motion": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "b62d02334785dd8fe57f5a1d001f5e73c92b42d6f05f21ba63021f94adc15411",
+      "nonTeachingSHA256": "591f6e8aa9488e89d93fc1c18018f76caf39fee08f0fc7d3ee9c2cadaf88b2ee",
+      "teachingSHA256": {
+        "essentialQuestion": "c5fec0f3aad57fed7f02590f00732860ce76991caa498c530ef52f48b158f685",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v09-practical-lab-newton-s-third-law": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "a1f778bd0e1d9b6cf9b8abd7ab196fdf306255d7b1c70a065bdd6bc7ca0beaa8",
+      "nonTeachingSHA256": "362791bdd4447791fca160a74433f3fda5bc9b75fbf7d165632bf2e6fc80b86b",
+      "teachingSHA256": {
+        "essentialQuestion": "5042ce2ce9bc71ecfa38da52a3bdd163edd55c59c83a8c7c262a3902fc08881d",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v09-quick-reference-predict-a-projectile-before-running-the-simulation": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "554e1ec00419a041646a823b4d18edb16c0cbb84835f7ab1049803de0d1f1214",
+      "nonTeachingSHA256": "54b1087e7791e72c905cbf58dfee45b086438e89cf101b042b19b19aec805f16",
+      "teachingSHA256": {
+        "essentialQuestion": "f2961265cbaf582b122baf6af5a668d2ff30aca04263f6410e92402b9c06ca57",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v09-design-review-torque-the-rotational-effect-of-force": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "20a907a54ed57e5a0c2abd2c47d66d898c0829b45020cc4185a747a0c123951b",
+      "nonTeachingSHA256": "10e3b7174b3ded795280a0e7cb248d899b0fa9eda39e99e20ffa5239bf66dfb2",
+      "teachingSHA256": {
+        "essentialQuestion": "82df56cc3d5648c951380c1b31d42ec2e06ad1c3b1195a64eef17fd19d2e9be4",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v09-misconception-clinic-acceleration": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "7cbbf86cd1d1830668dab79d8d7cbc2cc7734c0004e256ee050849ae90b95795",
+      "nonTeachingSHA256": "2572cb24b966ab994ead9e300d7121b30b5bd0e776d7835c1e3796a15b0c6a3b",
+      "teachingSHA256": {
+        "essentialQuestion": "d197b5b3f4517fbb909425c6a49aa238b7fb91af3323474db4495c5d50ca53db",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v09-recall-drill-acceleration": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "81a279e9092541db19fd6608acf46de7f2ce425dafd46a32ff81cefbf880c599",
+      "nonTeachingSHA256": "f38f8668abc4349fa94e3696c77008f177a0435fae04f58ff00f2f0ac2ca50f1",
+      "teachingSHA256": {
+        "essentialQuestion": "354123e72f39716ccf32c4008b5dee0f2ef073a03a3c62a9b5deb0971acbcce7",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v09-scenario-analysis-angular-momentum-2": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "7b4cf545d14babfb3eeede0e4e932c599a54f8f568fb72525095d2220372d5ce",
+      "nonTeachingSHA256": "8709cb785dfa1672c478d10fe9208daa7cdfb2f2bfdbafa17be22b348ae9e079",
+      "teachingSHA256": {
+        "essentialQuestion": "fe8d614aa44a1efdc91571bbb5e8f9c4c153fbca2e902b909ad4894f9dcbe79e",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v09-worked-example-average-velocity": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "a42df12fcd3841ba66e78742a836c01699a5233a3e7e4f0b7e6a366527a09d19",
+      "nonTeachingSHA256": "3ab077eb58671cc8d98bb2c1c87e035fd6ac3d38e9ee657968f1e2d510ffaa7f",
+      "teachingSHA256": {
+        "essentialQuestion": "9a3e7fe1664e532378ce1979528c8d60a582e6b79f6278a73ba9b5b115aab037",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v09-decision-lab-average-velocity": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "f4389f646e006ee75ce12957ece432742fdf197801b1c7ebc0c3f01330e32f2c",
+      "nonTeachingSHA256": "0b66ec794cfcfcabaaaaf8ff0161c220db449ed816ca30d1c4d37e4f56032e02",
+      "teachingSHA256": {
+        "essentialQuestion": "3a7d4f65ec3b49654b76a92cf800d62c820850a3768eed4926b758e0ccbd2b18",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v09-failure-analysis-lab-circular-motion-acceleration-without-changing-speed": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "925e2be5c07cfc4df9824a77fc89b6dae1d7efd14c7285be852797130083374f",
+      "nonTeachingSHA256": "12c7b3d3b4e59289370adb010f86560946920d33756531b215d6d8255e23a16d",
+      "teachingSHA256": {
+        "essentialQuestion": "3775da3b35b2ab1932379ea0cead6e4c0df36ca54d327bf969fd3edb1d65fcd7",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v09-teach-back-lab-constant-acceleration-kinematics": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "6114af9acb7e8d83965b0c8915b9a5085f827f5b21d7aaeead2e35bf0ccf6ba2",
+      "nonTeachingSHA256": "c2cc88a45f3b0ca5258bd72daed98948b63d7f88756a14370eeee770341a6095",
+      "teachingSHA256": {
+        "essentialQuestion": "8ae626bb61ce3744529c178de166ff18d6c9e4ca21e4efcbebb985d740dcbc2e",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v09-evidence-verification-la-dimensional-analysis-let-the-units-check-the-physics": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "47c47d9b6ec1dfbeb2ee9073b7c929058d1539a0d0adc30383707b605279bf00",
+      "nonTeachingSHA256": "b21d43bb19393e2bbfc8a20351067142e7b4ec7658092c0309f341156a3ec6fe",
+      "teachingSHA256": {
+        "essentialQuestion": "ca72dc68136e0fa821addb4c0b3bde820731dbaaab0f7adf99340ae2200eb5cf",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v09-troubleshooting-lab-displacement": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "7ea617f4ac828bf48f65636cbfcd7d30bde50e4cad9c054e68eb6c99ead85fbe",
+      "nonTeachingSHA256": "151b1cdc16fc9761b5c509a3e88dcc540be6663129c0e2e0ab1ea50472a873a8",
+      "teachingSHA256": {
+        "essentialQuestion": "17d98a3d9f1dfa44b68175a816e9b5e27b259feabd1f40f4f1fd66d115762727",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v09-practical-lab-displacement": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "57ca93b59e91236016294144c05ba57721503933975ae2321262af8c782a29ce",
+      "nonTeachingSHA256": "93ce7c28deccfc8351852a8e45a876110b9ae46ab093c37b070251746b7a11cd",
+      "teachingSHA256": {
+        "essentialQuestion": "a18d550f43a3aa36dff3346aac78851f15026be871c695371fb344ce45aae545",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v10-explain-back-challenge-acceleration": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "e1ede12500e8fed67d65b09060a18ee5615a6efe2078ad72f12952b1a4ec9e8f",
+      "nonTeachingSHA256": "9fe02f83e09d4822660d145540ccae903ebf5dff36df0be4fd2450e4fe0d914d",
+      "teachingSHA256": {
+        "essentialQuestion": "30e55feff6186cb11c9b3f1e2b74388fb200410975a93bfb77f2b4ec312bdd0b",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v10-counterexample-lab-acceleration": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "25e4242c354095658af8814770f0df69fe9696223a30a7d85104f020cdf82b34",
+      "nonTeachingSHA256": "2ac63ee32436fa85350d03aa7c080daa66d1d39669157c95a667b30198813ff9",
+      "teachingSHA256": {
+        "essentialQuestion": "2039bb982339a9381b6ba647f0f553913a217dc283cfd8b90e8cfd9943b5ccb3",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v10-worked-walkthrough-angular-momentum": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "2ac6d1c56e78c169e05108e4fde370f096b1dbf25bac719e3dc2192df75529dc",
+      "nonTeachingSHA256": "2447b2438cee6845a613030e54a4ed807486377dd805016e3344bb08f12a78ee",
+      "teachingSHA256": {
+        "essentialQuestion": "021c0435d4c5c0d29fa724554de0ad935fee54e27239b8529639d89e2b1f354b",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v10-field-note-average-velocity": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "7fd9f5a50e1d36ceb13e26ee50196b1f8acd17f4f45cbd9608c3d1ca197432b2",
+      "nonTeachingSHA256": "92c0aa2086735aa4aa417863e5e332d9f4f3a675880917417c073efc563899fa",
+      "teachingSHA256": {
+        "essentialQuestion": "f87508ee4e662fcdeb82997b4fa33123a3c083f00596ebc0dcfbaed4dcb31511",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v10-configuration-lab-average-velocity": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "53c601020bf2f04f2415d95f0a10284e98ab7a64bee7f8d75b42a1235f1635ef",
+      "nonTeachingSHA256": "0ae7bfeaf328d97c993d5ac62c9c0ef02cf72cd9c5eabbd10ebfb7705bc02a77",
+      "teachingSHA256": {
+        "essentialQuestion": "fcba7f0cd86d99d82fcc2a2cce1822a137e38d13a51ad1a11a3612f010fcf9c0",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v10-prediction-lab-circular-motion-acceleration-without-changing-speed": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "690b890a1971baf88198aec8f742ec9237f92246861733a98a13fffc0fcec4fe",
+      "nonTeachingSHA256": "e84f5a4f1c911af45117816b1e0b6ef60e444237a23bab4535f13b5d49742aff",
+      "teachingSHA256": {
+        "essentialQuestion": "9ae7b7145098238a89f083fbb0b25826da60e42212b2ad191ec13099783c49a4",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v10-exam-style-practice-constant-acceleration-kinematics": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "3b88d0c2aad70ccc0d073db6769758cc8da90e357c944c7a765bd4e60c1926b3",
+      "nonTeachingSHA256": "23ba8c65cb9be7233aadb444decc1ec7af825a729720ff9d2848ca96c49ac8c8",
+      "teachingSHA256": {
+        "essentialQuestion": "e38e630c02db3a2802a88b68539b73e4d4a312119bd867c624381473f4c6fd90",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v10-mistake-hunt-dimensional-analysis-let-the-units-check-the-physics": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "0a1337bf2bb75830ec71db795c910b9c8fe190d924ee0c99f25dbdf2e8966ec6",
+      "nonTeachingSHA256": "02cd05207f35d56dac8837677f645fcceb90354ff9ea3b407fca33ff45fce512",
+      "teachingSHA256": {
+        "essentialQuestion": "2690968a9e84011501e2cbb7bdc8d3bfdb90d77da986e7562cff3f1e61a0f2fc",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v10-hypothesis-lab-displacement": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "6e3d3fc1759427c460c1db534fe8d6200d7896f37fb7e6ed4cd8a85eec613adc",
+      "nonTeachingSHA256": "1b94d60c5d72d009aca7f2eadffa9264616dfacc4e123c77ba8a2dd92174a95e",
+      "teachingSHA256": {
+        "essentialQuestion": "4295739bb075a2e222a3759c4e1e538ead79095b2cb75564e447b89cce589833",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v10-scenario-brief-displacement": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "9727ee1788e710fce27fbc18f5fe24b8cfb90d582cf24dfbd03bf9c2897a657f",
+      "nonTeachingSHA256": "528036ad8b88ea73aac4a37918320e879a5e1b324d59d259151f0f9662e76860",
+      "teachingSHA256": {
+        "essentialQuestion": "623ff2fddc158ff967f5a9ca500faf512a0848ef7912876a1829ebeed25e7508",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v10-reasoning-check-displacement-velocity-and-acceleration": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "9b98a6ca91380378ab5598ca75f95be88504749efd78c37d664579ae93cde457",
+      "nonTeachingSHA256": "cde12faa74c327de3db8c26a00c63cf8cd2b78cc2b1b8ec9b861330ac3183305",
+      "teachingSHA256": {
+        "essentialQuestion": "1e1a0f9aba692e81f68e14790fb2ab150b246cf7460cfc79874afa7c3c743594",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v10-explain-back-challenge-free-body-diagram": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "afc1a4cd663828dcd0df1190a96bf9de8550b999217a82fb8e0977d0fc16d3f3",
+      "nonTeachingSHA256": "04e7b2aef714878c6b7b693b333886784b83e26f5fed77154438a8fe627a55ac",
+      "teachingSHA256": {
+        "essentialQuestion": "690af2da3b0e5862dda376034b79317a6ca1e00bdb9b0a1ed2dc2923a0b97340",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v10-concept-mapping-lab-free-body-diagram": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "db0e146d9fc98e5fcb15febae6c4a684131888fa69f073ab7a68f4be93488e87",
+      "nonTeachingSHA256": "9718e1924d89a7c7335bab7292f67818f58cd6813752f73d8ea257fbc93d6fec",
+      "teachingSHA256": {
+        "essentialQuestion": "7eaf4973a238dd1636577e6e2730c5b46383374d8bd0b192135c4c81e5e137e6",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v10-worked-walkthrough-free-body-diagrams": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "2b501c0817ef3a80df3fa5557b6e6d52d49d2a1e117bc101061198bfdcddfed1",
+      "nonTeachingSHA256": "830869cf1a8e336d9d7746cdf3fefaba9434de660f93d1af29db67ed5c8da6a3",
+      "teachingSHA256": {
+        "essentialQuestion": "907f59717a24eb67143a6baf33d6dd9c38ec443f2151541c4029208e53cbf298",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v10-field-note-friction-forces": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "81135b9744ff0d8031544be0bafa6a04643d006a63d237fec1884db684d615c5",
+      "nonTeachingSHA256": "d88e1b84f93a2b01865afffd1b72f1dba1a543f71044b95eac6da4a3d2c0667b",
+      "teachingSHA256": {
+        "essentialQuestion": "1dfdbe56f1f240fcbd361a79883568c59e50b10b13a5d94a17c83a817ca46317",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v10-recovery-lab-instantaneous-velocity": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "51b487697421d8044e4ae52caaab3065839a1f40cd4beb4d6ab36896fb103092",
+      "nonTeachingSHA256": "29c0a87bc803e9b483685a97d1d95548c153bbcc55e05e50b00fd094849e38bc",
+      "teachingSHA256": {
+        "essentialQuestion": "9787ebc674263154a591ac43e9dc7cad8115b716eb70a293ff63a9be0288a76f",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v10-decision-matrix-lab-instantaneous-velocity": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "12b0d8ed14699284f0c640d9e71522a2a62e61a27ff56a5cf32965765c1f8942",
+      "nonTeachingSHA256": "79021743a4b8433e7a3d60ad79b4e1ec362ac3c78c35fec719e94eba6a214689",
+      "teachingSHA256": {
+        "essentialQuestion": "797d424f68ebb2fced98a758533361ae47e37caeac6fc334f6a792498e120914",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v10-exam-style-practice-kinematics-describing-motion-before-explaining-it": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "f1a269665ea28a669ce2edde5bba31699efe317ab848c867f061ee8383faa4a9",
+      "nonTeachingSHA256": "29e2bbe10cf5d572601f974abb9dd95f8bbecf9f2d4426cb471753a5e4899225",
+      "teachingSHA256": {
+        "essentialQuestion": "a80695d6a07fbe097a450ba853a538af2a96fddd0093b7060b92e60ea9d61811",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v10-mistake-hunt-momentum": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "1d3df89146d9e181512cc6ff3dc0068ae755f09a879bc8593308a418fd73b75c",
+      "nonTeachingSHA256": "396dd0ad2953a6f1796349da6f218c0730aea3981625fd058ac9be663ab8fcd5",
+      "teachingSHA256": {
+        "essentialQuestion": "eb5cf0e1e097408f68f7e1e3138e210321c6ae3d81faa0bb73cdb731b76e9c98",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v10-verification-lab-newton-first-law": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "d75335a100c36d94e1fe377bceb0c2b95edffe603b962d789c6632d5de46b907",
+      "nonTeachingSHA256": "7b695f33bea3837466e2c80a5fc77fe84f9bca2ccf05a8673ef530205beca613",
+      "teachingSHA256": {
+        "essentialQuestion": "3241794f53a9481fee0285d9ba725783ccadf1f169e2cec11d34418abb160d16",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v10-scenario-brief-newton-first-law": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "a02c4637ca0a85272760bf672c23420d2224bc85f08c3bd01221f089595f488d",
+      "nonTeachingSHA256": "1de4c03b80fc05b294669a6db8edaa796d69547257f588768bc7a3ea4acf6f44",
+      "teachingSHA256": {
+        "essentialQuestion": "614af95321ef446291150ef72591f48643da7b7413bcbb4835f8a7156237b44f",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v10-reasoning-check-newton-second-law": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "07954251371862677973c8aea41beadc9b708955b063df3fb17fc3fa5e9b0cff",
+      "nonTeachingSHA256": "cd756011b7ce2f4d13aab95743662f2a51e0659e2ca84279f7038974bfd357cb",
+      "teachingSHA256": {
+        "essentialQuestion": "48183f04daf1de1283751d03eb9c81e927c405ee52ccdf64668e4ab3710ca720",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v10-explain-back-challenge-newton-second-law": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "1f3d0f842eb22f5720acecf1fc245858ad9ff2f571f10f9a4ccb09e562b461f0",
+      "nonTeachingSHA256": "701e556537eb3f269eb61d14f22b998b7f44433d664505d8113ee9f5df2fe410",
+      "teachingSHA256": {
+        "essentialQuestion": "2fdf4546a0f78825f901ca38f25fd0d954bb0bc6d0cc89e51153943788ae9f0f",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v10-runbook-lab-newton-third-law": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "e80409e48ab0393eca7de5f632e927f3c2f1d75052f7e35ea1b3dbe10d5b6571",
+      "nonTeachingSHA256": "bbca8a58df6fc7486c54da3b7b74d753c92586a37e299c68510a548de8adb577",
+      "teachingSHA256": {
+        "essentialQuestion": "6be4f03972fef366111f8579a0f678dbd8f2592d10e76d15e6eb28fb6ddeb329",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v10-worked-walkthrough-newton-third-law": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "89fafc16703dd12749728dd59cb109082e8f3cddaa17298961d018f348dd82fe",
+      "nonTeachingSHA256": "ad7816d333a6278f1b708ac5938728e4f5f809fc03c0fbb7026c44a3cfdf6bb4",
+      "teachingSHA256": {
+        "essentialQuestion": "d5b3857cf0d8c1d1e145a0aa0bf0c74bf694ad1285e24e75b14fa33a31a65ca0",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v10-field-note-newtonian-gravity": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "1e233f5e85642f34051ee895f3f67cded506e2c61e5901acac398d714b2e2cd5",
+      "nonTeachingSHA256": "8b4163fe7a0260458a666d641feadc35f4f2b148f3565543ebec93da991fe5ac",
+      "teachingSHA256": {
+        "essentialQuestion": "ea032fe3f41c32681c3de3e76d4ef5bcf5cd361d1ce567c9f6b94e999008b134",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v10-trace-lab-newton-s-first-law": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "ad9a5c40cbf4132a1581a5e8f08bd5495771cbf80a036d18102ef0402d77d2c3",
+      "nonTeachingSHA256": "2654d5fb5e542ccab22b42d88cbf39e54f69ab5ce9245582bf789b0e55b942b5",
+      "teachingSHA256": {
+        "essentialQuestion": "f1c66808928a8d8d487f1ec46cd7733e8e36ead7a2d7044a217b00904e82d5d1",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v10-measurement-lab-newton-s-laws-as-a-model-of-motion": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "fadf6abe0b235c3067b43f20e11d6252b5a1c8d3997140deb829c879d6f9a080",
+      "nonTeachingSHA256": "2f0abb8dc18722695b6f870c1df5bae47d24a1d8a0b2bcf6556b42a0867359ec",
+      "teachingSHA256": {
+        "essentialQuestion": "6dd7f3dedda43ab04d4409cf7d860e172adf0afda7aa7b3b7f20f2c421580421",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v10-exam-style-practice-newton-s-third-law": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "846665feaf94969e27aa45e99f596f8f85a6add9209ce533d5abf1c7439d686d",
+      "nonTeachingSHA256": "2c5dd23012cfb0a246d2342f4c55366606b7bcde7ad1a0a8500f731a170a8ebf",
+      "teachingSHA256": {
+        "essentialQuestion": "daa3c8b62bba7809abd6dd3021c35ed8f4c228345ec03e2d1dcbadf69f4b1ea4",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v10-mistake-hunt-predict-a-projectile-before-running-the-simulation": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "5a9c5be85f360514ad853aa6aa992e6431e05a44b0192b473c7a448090c3063c",
+      "nonTeachingSHA256": "4939bc83d969d0eef5e6f164a75ca866a9e3489dc0e59b4d74af496c103b4712",
+      "teachingSHA256": {
+        "essentialQuestion": "c97cc4fc58fb8e2f54620ce6c72c0b0943f57611d09bcb822b3cb7a7084b9f09",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v10-diagnostic-lab-torque-the-rotational-effect-of-force": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "182f477913484fa6d9b7f253ce4506a4f45df35c8e3d1fe92caaac1b0ce1a34b",
+      "nonTeachingSHA256": "444a09a78dded468676bd8fca7015e0cce13a9cf0015442d7e03ce2223070254",
+      "teachingSHA256": {
+        "essentialQuestion": "f2fa891b6e9511ccd656c108bec146af405a5b60edfb2a2551baa736d122abf5",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v10-scenario-brief-acceleration": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "64c68824eb0e76c8aa428ffe935de26c2560d322185b1b9ed3edd17a92265202",
+      "nonTeachingSHA256": "323ead7031d2df00ed657f9e0d06e5b36bfb183a786d988ad5a5c7b7843a8ef0",
+      "teachingSHA256": {
+        "essentialQuestion": "e6bd9513668e0ca82d1166ed9175106a94781e00572b5186d6156213e845938d",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v10-reasoning-check-acceleration": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "3295602e3e58435705d17bf7df43a35dd49e3a6d88c67344013335568bb87f51",
+      "nonTeachingSHA256": "2d0da8d3813fb1fbc41defeb086d6986851c839cccadf5e0bc45d4bdcac23fdd",
+      "teachingSHA256": {
+        "essentialQuestion": "5f00a4264ef43e72ccae1478842b8b09e6343e83c97f91af0b0a9ef9049e5537",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v10-explain-back-chall-angular-momentum-2": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "9c3cd27ac7db949f28b3dbb0d4fa88fb11b2e0dfa5b790a42926ba4856c318fb",
+      "nonTeachingSHA256": "bf7b420f50bdecc6ddff7f51191814d43d456326a9eaff475e4111623453d943",
+      "teachingSHA256": {
+        "essentialQuestion": "a4b746dbe47a1fad687ea2a9c9ae6333688519c996f6a2d02150d9f8d8dbf8a4",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v10-configuration-lab-average-velocity-2": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "5f0c1f73b95e3f30de9f6342fa784a23431d002cc19ce852173f358a36581715",
+      "nonTeachingSHA256": "059fdb5c4bc50b53b276c04f8890eed63777eeadd8c15410f43dd565d8648b03",
+      "teachingSHA256": {
+        "essentialQuestion": "e91f0d1067fc58371d0009734ca46988b5a1a69099d39959b73e03b070b622c2",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v10-worked-walkthrough-average-velocity": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "71c48dd5c2cbdeea9ad13626d75049a07bdfeec504cef6017561e2ff34d39611",
+      "nonTeachingSHA256": "7ae90aa1cee58494654c2de225df53f05302882ce03e58dc1dbfd9796fe5b7df",
+      "teachingSHA256": {
+        "essentialQuestion": "b761857840db30f15c2f9c2516e91de679a7bbe104ae0e2ca4efab5f6cdcda38",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v10-field-note-circular-motion-acceleration-without-changing-speed": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "8cfc1d14f7d9b579db41d4f82d8781a707b367be0f29556d8cd04ae36c328e20",
+      "nonTeachingSHA256": "ac862ac254298aec5c465d1492dc80dd8d1669c52fbd449a7e42e6015afeffb9",
+      "teachingSHA256": {
+        "essentialQuestion": "e0a2c3d1271d0afb2635e4357676c0faeed159ae6c8dd107a6a26901d5978104",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v10-confidence-calibration-constant-acceleration-kinematics": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "af6d19d1c5797dce21c93522fc5f3634b8204575d812b2d55010e41bfab5ef0c",
+      "nonTeachingSHA256": "81f8242f07a35567063879862acd599a0038627fab5752add5b45eb931840715",
+      "teachingSHA256": {
+        "essentialQuestion": "83f5504d2a75aa827cb4d667aed37e9d41b60f6d2783de782b80578632c088e9",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v10-hypothesis-lab-dimensional-analysis-let-the-units-check-the-physics": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "25e8a69c5bef1d9fa0dc1e44f01f51f3ef47a7b6f5b83183e1fb7946644986b1",
+      "nonTeachingSHA256": "a6b0d10d6ad54f5d5ed7450f65d69dbfbd82b1f5a86e757d1c167583b31e2969",
+      "teachingSHA256": {
+        "essentialQuestion": "e9dc7a08a80eee888ef9ada7387d6e51a7c8da5bf4e18ec6169ce6935d7ac711",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v10-exam-style-practice-displacement": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "2b1fcbb6824e073de85dc1cabc1a5113e3ed5045dfc22e06e3754f474d6efeed",
+      "nonTeachingSHA256": "1b69381967f4dedb116256fab4c2eb6ab94b483d71b0520a866b07f7d89268cd",
+      "teachingSHA256": {
+        "essentialQuestion": "1e2b1aac3c99a4c4affc3fef2d29e6a857c8284ba1b129751cf86cccab1486a9",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v10-mistake-hunt-displacement": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "187f7c4f6d9173f30105e22cee76e6c05c885bd352ae26a934e82c78d45c8d0e",
+      "nonTeachingSHA256": "62dd4144616bce0f4e960ceecf101960637c055a3667dfe621ce682f6f2a93e8",
+      "teachingSHA256": {
+        "essentialQuestion": "f91c202a2264b5aec6cda645b719e47e7222a5f9f5436f62fc0b4736ddc1bb4b",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v10-boundary-condition-lab-displacement-velocity-and-acceleration": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "c9e6bddc1ab2ecc69a2386e5e49ac2e3cca1b1196fb7b3dba4734adac5690d09",
+      "nonTeachingSHA256": "596e744ef7ca6b5fed92c010775a8105c588933ee66c843c17d26f174785ac83",
+      "teachingSHA256": {
+        "essentialQuestion": "682ae825aee108c7e50bc798a28a29c57d4e7945f69a638a8a44aa8e9e7bb04f",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v10-scenario-brief-free-body-diagram": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "a80c21cff0e3ed6d07abe53d1e0a56fad51bf61c77f555044f6672e4345f4be3",
+      "nonTeachingSHA256": "dc97db8bb240ea94bd4b1ae9e34f970e1a0fd60db8f65a3d95569bd7c8369641",
+      "teachingSHA256": {
+        "essentialQuestion": "0a3abf999a76bf0a60c3b35472bbd8d35b1f9173867942c8a45c3403b79f65da",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v10-reasoning-check-free-body-diagram": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "8c22010fbb2a9fbe22d82d1308674aeea7cca07ae1d42147752208213bb76f50",
+      "nonTeachingSHA256": "365ddad83c3cf315637ad46135d45de5b998abc3275391f737c8376447dce480",
+      "teachingSHA256": {
+        "essentialQuestion": "cf6a4b3d5a5cf6c371a4fc7393899de28f07ac90c21008d4267100424fe3557e",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v10-explain-back-challenge-free-body-diagrams": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "ada1dc38ebfcb624c75ae737e387f53c95c93c7fe66d8fff95e582c61c1620bb",
+      "nonTeachingSHA256": "18f568a7320bd0de2d7a448da8580198f5592fb47edce3c76bafad3dcc1dd9ce",
+      "teachingSHA256": {
+        "essentialQuestion": "edcfcae84195f2dd3ca041bd72a8853b6f1a1e41d0a7514a8e3f698736a50188",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v10-recovery-lab-friction-forces": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "e7502b84c7901591c672e1e157b2837888982c988560b70ee1822401d4e8c6a5",
+      "nonTeachingSHA256": "68c2909f0fe1a0f22b4c36e29f14905bd2ad990c25972310ebc03e6e1781e767",
+      "teachingSHA256": {
+        "essentialQuestion": "c774f8e2e49cf67f5811e3cb7a0341d8e2ba7a27a09c02e34ff73b9952761b7a",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v10-worked-walkthrough-instantaneous-velocity": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "9cd85b8e9c0f06620f92e33ae7a8ff343aa8ad278c22714b8071f8b6d12911d6",
+      "nonTeachingSHA256": "f4951af21de744f962ff5c7b3e7e9f965303373f3ac8eab54002f2a1dde0ab80",
+      "teachingSHA256": {
+        "essentialQuestion": "75374a8d19339b2032aa6a3838326e23d111a9b9282ce4b97961f8b87b458055",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    },
+    "physics-v10-field-note-instantaneous-velocity": {
+      "fieldOrder": [
+        "essentialQuestion",
+        "verifiedBoundary",
+        "analogy",
+        "starter",
+        "technical",
+        "reasoningSteps",
+        "memoryLadder",
+        "labPlan",
+        "vocabulary",
+        "video"
+      ],
+      "fullSHA256": "b373543aaa8eb0404a8bcd566975410c622ea5769475860afa69ce0649824ba1",
+      "nonTeachingSHA256": "8555dc77ccaa2a3fc7e59c20edfe4809433ac3ea9a16fc05a6094df463403291",
+      "teachingSHA256": {
+        "essentialQuestion": "c54bad55a489d54d45dabf053bced560a81efbffbe95032c1d2087a996aa12e9",
+        "labPlan": "b9a3d2a5401c23bc90c7fab009f6d422977f8b1d3970d58e45af11f97705a4d8",
+        "reasoningSteps": "9ba2b3396080f4f735db2d2e388de5878c2bf80155bf2d9edc81a80d18d101c8"
+      }
+    }
+  }
+}
