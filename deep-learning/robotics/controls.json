@@ -109,7 +109,7 @@
       "Multiply by joint-rate vector (0.20,0.10) rad/s: tip velocity v=(-0.090,+0.080) m/s.",
       "Independent cross-check: finite-difference the forward kinematics with h=1e-6 s and joint angles advanced by rate*h; recovered velocity matches within about 1e-6 m/s.",
       "det J=(-0.30)(0)-(-0.30)(0.40)=+0.120 m²/rad²; rank is two at this posture.",
-      "At theta2=0 rad, determinant is zero: infinitesimal horizontal tip velocity cannot be independently commanded at the straight-arm posture. A pseudoinverse cannot restore missing physical directions.",
+      "At theta1=0 and theta2=0 rad, det J=0 and instantaneous horizontal tip velocity is impossible. Near this posture, theta2=0.01 rad and desired tip velocity (+0.010,0.000) m/s require joint rates (qdot1,qdot2)=(+2.49991667,-5.83330556) rad/s; at theta2=0.001 rad, the rates grow to (+24.99999167,-58.33333056) rad/s. These are mathematical inverse-velocity demands, not safe actuator commands; no inverse can recover the missing direction at exact singularity.",
       "Falsifiable statement: a 2R arm always has two independent Cartesian velocity directions is false at theta2=0. Source: https://modernrobotics.northwestern.edu/nu-gm-book-resource/5-3-singularities/"
     ],
     "memoryLadder": [
@@ -121,7 +121,8 @@
     "labPlan": [
       "Compute the full 2x2 Jacobian for lengths 0.40 and 0.30 m at (0,pi/2) rad; assert J*qdot=(-0.090,+0.080) m/s for joint rates (0.20,0.10) rad/s.",
       "Finite-difference the exact FK with time step 1e-6 s and require a componentwise agreement with J*qdot within 1e-6 m/s.",
-      "Set theta2=0: assert determinant magnitude <1e-10, show J has rank one for positive link lengths and reject any claim of independent instantaneous x/y control."
+      "Set theta2=0: assert determinant magnitude <1e-10, show J has rank one for positive link lengths and reject any claim of independent instantaneous x/y control.",
+      "At theta1=0, solve J*qdot=(+0.010,0.000) m/s for theta2=0.01 and 0.001 rad. Verify qdot=(+2.49991667,-5.83330556) and (+24.99999167,-58.33333056) rad/s within 1e-7, reconstruct J*qdot within 1e-12 m/s, and reject a finite inverse at theta2=0. Real actuators have joint-velocity limits."
     ],
     "vocabulary": [
       {
