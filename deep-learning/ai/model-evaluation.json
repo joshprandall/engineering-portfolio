@@ -19,7 +19,7 @@
     },
     "reasoningSteps": [
       "Labels [1,1,0,0,1,0,0,0,1,0] and decisions [1,1,1,0,1,0,0,0,0,0] give TP=3, FP=1, FN=1, TN=5, precision=3/4=0.75, recall=3/4=0.75, accuracy=8/10=0.8.",
-      "Identify the exact denominator, score ordering or optimization convention before drawing a conclusion.",
+      "Precision conditions on the four predicted positives at indices 0,1,2,4, of which three are correct. Recall conditions on the four actual positives at indices 0,1,4,8, of which three were detected. Equal 3/4 ratios here conceal different denominators.",
       "Predicting no positives makes TP+FP=0: precision is undefined mathematically, not proof of zero false-positive risk; software APIs may assign a configured zero."
     ],
     "memoryLadder": [
@@ -90,7 +90,7 @@
     },
     "reasoningSteps": [
       "Construct 95 negative and 5 positive labels, then always predict negative: TN=95, FN=5, TP=FP=0; accuracy=95/100=0.95, sensitivity=0/5=0, specificity=95/95=1, balanced accuracy=(0+1)/2=0.5.",
-      "Identify the exact denominator, score ordering or optimization convention before drawing a conclusion.",
+      "Accuracy=0.95*negative_recall+0.05*positive_recall=0.95*1+0.05*0=0.95; balanced accuracy weights both class recalls equally, (1+0)/2=0.5. The first result depends on sample class prevalence.",
       "Claiming 0.95 accuracy means 95% detection is false: none of the five actual positives was flagged."
     ],
     "memoryLadder": [
@@ -234,7 +234,7 @@
     },
     "reasoningSteps": [
       "Sort scores [.9,.8,.7,.1] with labels [1,0,1,0]. The positives occur at ranks 1 and 3; their precisions are 1/1 and 2/3, hence AP=(1+2/3)/2=5/6≈0.833333.",
-      "Identify the exact denominator, score ordering or optimization convention before drawing a conclusion.",
+      "AP=sum_k precision(k)*DeltaRecall(k). With two positives, each positive produces a recall increment 1/2, so the score equals (1/1)*(1/2)+(2/3)*(1/2)=5/6. Negatives contribute no recall increment.",
       "Treating AP as trapezoidal area under a linearly interpolated PR curve is not generally equivalent; the stepwise precision weighting here is explicit."
     ],
     "memoryLadder": [
@@ -305,7 +305,7 @@
     },
     "reasoningSteps": [
       "For p=[.8,.7,.6,.1] and y=[1,0,1,0], squared errors are [.04,.49,.16,.01]; total 0.70 and mean 0.175.",
-      "Identify the exact denominator, score ordering or optimization convention before drawing a conclusion.",
+      "Under Bernoulli truth Y with probability q, E[(p-Y)^2]=(p-q)^2+q(1-q); its expected minimum is at p=q. The toy sample score 0.175 is a realized mean error, not a claim that four predictions prove calibration.",
       "Accuracy at threshold .5 sees only one false positive, but cannot distinguish a wrong .7 from a wrong .99: those probabilities have different Brier penalties."
     ],
     "memoryLadder": [
@@ -376,7 +376,7 @@
     },
     "reasoningSteps": [
       "With probabilities [.1,.4,.6,.9], labels [0,1,0,1], bins [0,.5) and [.5,1], low-bin mean p=.25, outcome rate=.5; high-bin mean p=.75, outcome rate=.5; ECE=.5*.25+.5*.25=.25.",
-      "Identify the exact denominator, score ordering or optimization convention before drawing a conclusion.",
+      "Calculate low-bin |mean(p)-mean(y)|=|0.25-0.5|=0.25 and high-bin |0.75-0.5|=0.25. Weight each by two of four observations to obtain ECE=0.25; this depends on the chosen bin edges.",
       "The sentence 'ECE=0 implies the model is calibrated at every probability' fails because opposite within-bin errors can cancel; finite-sample and binning effects remain."
     ],
     "memoryLadder": [
@@ -447,7 +447,7 @@
     },
     "reasoningSteps": [
       "Train x=[0,2] has centering mean 1, so held-out x=10 transforms to 10-1=9. Illegally fitting the mean on [0,2,10] yields mean 4 and transformed test 10-4=6.",
-      "Identify the exact denominator, score ordering or optimization convention before drawing a conclusion.",
+      "The training-only mean is (0+2)/2=1, while the forbidden pooled mean is (0+2+10)/3=4. Fitting the second statistic depends on test features, so it leaks across the holdout boundary even if test labels remain unknown.",
       "Claiming the test labels are never read so leakage is impossible fails: using test features in fitted statistics is still test-set leakage in this workflow."
     ],
     "memoryLadder": [
@@ -518,7 +518,7 @@
     },
     "reasoningSteps": [
       "At logits z=[0,2,-2] and targets [1,1,0], losses are log 2≈.69314718056 and twice log(1+exp(-2))≈.12692801104; mean≈.3156677342153.",
-      "Identify the exact denominator, score ordering or optimization convention before drawing a conclusion.",
+      "BCE(z,y)=softplus(z)-y*z. Using softplus(z)=max(z,0)+log1p(exp(-abs(z))) eliminates exp of a large positive number while retaining the exact finite-logit objective for y in [0,1].",
       "Naive sigmoid(z)=1/(1+exp(-z)) at z=-1000 can overflow the exponential, whereas stable softplus-style loss stays finite (loss=0 for y=0, approximately 1000 for y=1)."
     ],
     "memoryLadder": [
@@ -589,7 +589,7 @@
     },
     "reasoningSteps": [
       "At x=2, y=1, w=0: p=.5, gradient=(.5-1)*2=-1. With learning rate alpha=.1, w_new=.1 and p_new=sigmoid(.2)≈.5498339973; loss falls from log 2 to log(1+exp(-.2))≈.5981388694.",
-      "Identify the exact denominator, score ordering or optimization convention before drawing a conclusion.",
+      "With x=2,y=1, L(w)=log1p(exp(-2w)), whose derivative is 2(sigmoid(2w)-1). At w=0 this is -1, so gradient descent with alpha=0.1 gives w_new=0.1 and predicted probability sigmoid(0.2).",
       "Using +alpha*gradient instead yields w=-.1 and increases loss on this example; descent direction must be checked rather than assumed."
     ],
     "memoryLadder": [
@@ -660,7 +660,7 @@
     },
     "reasoningSteps": [
       "Set lambda=1, so 2(w-3)+2w=0 gives w*=1.5. J(1.5)=2.25+2.25=4.5; J(3)=0+9=9; unpenalized lambda=0 would choose w=3.",
-      "Identify the exact denominator, score ordering or optimization convention before drawing a conclusion.",
+      "J'(w)=2(w-3)+2lambda*w and J''(w)=2(1+lambda)>0 for lambda>=0. Setting J'=0 therefore yields a unique global minimizer w*=3/(1+lambda), or 1.5 at lambda=1.",
       "'L2 always produces a sparse zero weight' is false here: lambda=1 gives 1.5 rather than zero; sparsity is not the mechanism of L2 shrinkage."
     ],
     "memoryLadder": [
@@ -731,7 +731,7 @@
     },
     "reasoningSteps": [
       "Data x=[0,1,8,9], centers initially [0,8] give nearest-cluster assignments [0,0,1,1], inertia 0+1+0+1=2. Updating centers to means [.5,8.5] gives inertia 4*(.5^2)=1.",
-      "Identify the exact denominator, score ordering or optimization convention before drawing a conclusion.",
+      "For n fixed assigned points, the derivative of sum_i(x_i-mu)^2 is 2n*mu-2sum_i x_i. The within-cluster minimizer is the mean, 0.5 for [0,1] and 8.5 for [8,9], lowering fixed-assignment inertia from 2 to 1.",
       "Claiming one Lloyd iteration guarantees the global optimum on arbitrary data is false: k-means is initialization-sensitive and can converge to a local optimum."
     ],
     "memoryLadder": [
@@ -802,7 +802,7 @@
     },
     "reasoningSteps": [
       "At TPR=.8 and FPR=.1, prevalence pi=.1 gives PPV=.08/(.08+.09)=8/17≈.470588; prevalence pi=.5 gives PPV=.4/(.4+.05)=8/9≈.888889.",
-      "Identify the exact denominator, score ordering or optimization convention before drawing a conclusion.",
+      "Bayes' rule yields PPV=TPR*pi/[TPR*pi+FPR*(1-pi)]. For pi=0.1, true-positive alerts occupy 0.8*0.1=0.08 of the population and false-positive alerts occupy 0.1*0.9=0.09; PPV=8/17.",
       "'Precision is an intrinsic constant of the classifier across deployment populations' is false under a prevalence shift with otherwise fixed rates."
     ],
     "memoryLadder": [
