@@ -10,7 +10,7 @@ module.exports = async ({ browser, base, output, failures }) => {
   page.setDefaultTimeout(8000);
   page.on('pageerror', e => failures.push('Appearance: ' + (e.stack || e.message)));
   page.on('response', r => { if (r.url().startsWith(base) && r.status() >= 400 && !/games\/evil-wizard/.test(r.url())) failures.push('Appearance HTTP: ' + r.url()); });
-  const theme = async () => { await page.waitForFunction(() => document.documentElement.hasAttribute('data-theme'), null, { timeout: 5000 }).catch(() => {}); return page.locator('html').getAttribute('data-theme'); }; // the shared theme script applies the attribute after domcontentloaded
+  const theme = () => page.locator('html').getAttribute('data-theme');
   const open = async route => { await page.goto(base + '/' + route, { waitUntil: 'domcontentloaded' }); };
   const toggle = () => page.locator('[data-theme-toggle]').click();
   const pixels = () => page.locator('.scene-canvas').evaluate(c => c.toDataURL());
