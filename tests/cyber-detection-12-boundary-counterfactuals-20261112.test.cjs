@@ -81,3 +81,65 @@ scenario("cyber-v09-evidence-verification-la-csf-detect-function",()=>{
 },[[3,/raw count becomes seven while unique count remains two/],[4,/unique count increases to three/]]);
 assert.equal(scenarios,12);
 console.log("PASS: 12 independent synthetic counterfactual families with lesson-text anchors.");
+
+// Immutable field and primary-source boundary checks for the twelve reviewed cases.
+// These protect original lesson metadata without freezing unrelated curriculum records.
+const reviewedIds=[
+  "cyber-siem",
+  "cyber-lab-log-triage",
+  "cyber-incident-response",
+  "cyber-v06-incident-response-preparation",
+  "cyber-v06-incident-triage",
+  "cyber-v08-deep-dive-csf-detect-function",
+  "cyber-v08-evidence-lab-csf-detect-function",
+  "cyber-v08-deep-dive-csf-respond-function",
+  "cyber-v08-evidence-lab-csf-respond-function",
+  "cyber-v08-deep-dive-incident-response-integration",
+  "cyber-v08-evidence-lab-incident-response-integration",
+  "cyber-v09-evidence-verification-la-csf-detect-function"
+];
+const expectedDoi=[
+ "https://doi.org/10.6028/NIST.SP.800-92",
+ "https://doi.org/10.6028/NIST.SP.800-61r3",
+ "https://doi.org/10.6028/NIST.SP.800-61r3",
+ "https://doi.org/10.6028/NIST.SP.800-61r3",
+ "https://doi.org/10.6028/NIST.SP.800-61r3",
+ "https://doi.org/10.6028/NIST.CSWP.29",
+ "https://doi.org/10.6028/NIST.SP.800-92",
+ "https://doi.org/10.6028/NIST.CSWP.29",
+ "https://doi.org/10.6028/NIST.SP.800-61r3",
+ "https://doi.org/10.6028/NIST.SP.800-61r3",
+ "https://doi.org/10.6028/NIST.SP.800-61r3",
+ "https://doi.org/10.6028/NIST.SP.800-92"
+];
+// An independently captured pre-edit baseline fingerprint of original non-teaching
+// fields. The FNV-1a/UTF-16 calculation is a regression checksum, not a cryptographic proof.
+function fnv64(value){
+ let h=14695981039346656037n;
+ for(let i=0;i<value.length;i++){
+  h^=BigInt(value.charCodeAt(i));
+  h=(h*1099511628211n)&((1n<<64n)-1n);
+ }
+ return h.toString(16).padStart(16,"0");
+}
+const teachingFields=new Set(["essentialQuestion","reasoningSteps","labPlan"]);
+const preserved=reviewedIds.map(id=>[
+ id,Object.fromEntries(Object.entries(L[id]).filter(([key])=>!teachingFields.has(key)))
+]);
+const expectedPreservedFingerprint="b942e8944d70601e";
+assert.equal(fnv64(JSON.stringify(preserved)),expectedPreservedFingerprint,
+ "Original non-teaching record metadata must remain unchanged in all twelve reviewed lessons");
+for(let i=0;i<reviewedIds.length;i++){
+ const record=L[reviewedIds[i]];
+ assert.ok(record && Array.isArray(record.reasoningSteps));
+ const links=record.reasoningSteps.join(" ").match(/https:\/\/doi\.org\/10\.6028\/NIST\.[^\s]+/g)||[];
+ assert.deepEqual(links,[expectedDoi[i]],"Authoritative source drift: "+reviewedIds[i]);
+ assert.equal(record.reasoningSteps.length,6,"Worked reasoning incomplete: "+reviewedIds[i]);
+ assert.equal(record.labPlan.length,6,"Offline reproducibility incomplete: "+reviewedIds[i]);
+}
+// Deliberately corrupt a preserved boundary; the checksum must detect that mutation.
+const changed=JSON.parse(JSON.stringify(preserved));
+changed[0][1].verifiedBoundary+=" [deliberately corrupted]";
+assert.notEqual(fnv64(JSON.stringify(changed)),expectedPreservedFingerprint,
+ "Mutation fixture failed to detect non-teaching record drift");
+console.log("PASS: 12 preserved-field fingerprints, 12 authoritative DOI anchors and one corruption test.");
