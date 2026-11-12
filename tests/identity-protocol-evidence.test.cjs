@@ -4,7 +4,7 @@ const lessons=JSON.parse(fs.readFileSync(path.resolve(__dirname,'..','deep-learn
 const selected=['cloud-v06-kerberos-key-distribution-center','cloud-v06-ldap-operations','cloud-v09-design-review-kerberos-key-distribution-center','cloud-v09-practical-lab-ldap-operations','cloud-v09-worked-example-kerberos-key-distribution-center','cloud-v09-failure-analysis-lab-ldap-operations'];
 const markers={
  [selected[0]]:['AS-REQ','AS-REP','TGS-REQ','TGS-REP','AP-REQ','authorization'],
- [selected[1]]:['oneLevel','compareTrue','insufficientAccessRights','uid=beau'],
+ [selected[1]]:['singleLevel','compareTrue','insufficientAccessRights','uid=beau'],
  [selected[2]]:['240','360','300','KRB_AP_ERR_SKEW','KRB_AP_ERR_REPEAT'],
  [selected[3]]:['singleLevel','wholeSubtree','uid=ada','uid=lin','uid=beau'],
  [selected[4]]:['09:00','17:00','09:10','10:10','10:20','600 seconds'],

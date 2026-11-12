@@ -2,9 +2,8 @@
   "baselineCommit": "22975fcd4528b4e8a4686df6cca9e270c35d234f",
   "baselineBlob": "9f9afdca7984380f018d14d9623f4352baf0173b",
   "provenance": [
-    "https://openstax.org/books/precalculus-2e/pages/11-1-sequences-and-their-notations",
-    "https://openstax.org/books/precalculus-2e/pages/11-4-series-and-their-notations",
-    "https://openstax.org/books/intermediate-algebra-2e/pages/12-key-concepts"
+    "https://openstax.org/books/intermediate-algebra-2e/pages/12-2-arithmetic-sequences",
+    "https://openstax.org/books/intermediate-algebra-2e/pages/12-3-geometric-sequences-and-series"
   ],
   "cases": [
     {
