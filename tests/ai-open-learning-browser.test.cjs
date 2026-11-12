@@ -44,6 +44,7 @@ const server=http.createServer((req,res)=>{
    await page.locator('#ai-research-roadmap').screenshot({path:path.join(out,kind+'-ai-research-path.png'),animations:'disabled',timeout:30000});
    await page.goto(base+'/learn.html',{waitUntil:'domcontentloaded',timeout:25000});
    await page.locator('[data-ai-path-teaser] a[href="learn-paths.html#ai-research-roadmap"]').waitFor({timeout:25000});
+   assert.equal(await page.locator('.academy-overview .academy-program-card').count(),7,kind+': original seven program cards remain separate from the research pathway teaser');
    assert.equal(errors.length,0,kind+': JS page errors '+errors.join(' | '));
    const preExistingSparseMedia=httpFailures.filter(x=>/\/assets\/(scenes|audio)\//.test(x));
    const newFeatureFailures=httpFailures.filter(x=>!/\/assets\/(scenes|audio)\//.test(x));

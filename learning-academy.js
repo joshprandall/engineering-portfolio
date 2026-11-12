@@ -85,7 +85,7 @@ Promise.all([
      const grid=document.querySelector('.academy-overview .academy-program-grid');
      if(grid&&!grid.querySelector('[data-ai-path-teaser]')){
        const card=document.createElement('article');
-       card.className='academy-program-card';
+       card.className='academy-contract-card';
        card.dataset.aiPathTeaser='1';
        card.innerHTML='<p class="eyebrow">INDEPENDENT / RESEARCH BRIDGE</p><h3>'+esc(track.title)+'</h3><p>Ten progressive stages, direct MIT/Harvard/open-book references, original falsifiable labs, and evidence checklists that you control.</p><div class="academy-program-meta"><span class="academy-pill">'+track.stages.length+' assessment gates</span><span class="academy-pill">'+track.resources.length+' primary learning resources</span></div><a class="button primary" href="learn-paths.html#ai-research-roadmap">Open AI research learning path</a>';
        grid.append(card);
