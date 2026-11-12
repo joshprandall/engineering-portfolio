@@ -84,11 +84,11 @@
   {
     "id": "software-v08-deep-dive-sql-left-outer-join",
     "question": "Which customer survives a LEFT JOIN when three parents include one without any order?",
-    "mechanism": "The left input supplies all parents even if no matching right row is found; unmatched right columns are SQL NULL.",
+    "mechanism": "LEFT JOIN preserves each parent, NULL-extending child columns for unmatched rows. For an equality join ON c.id=o.customer_id, a matched row necessarily has non-NULL o.customer_id, whereas o.id may legitimately be NULL.",
     "arithmetic": "Parent 2 has no order, producing the row (2,NULL) alongside (1,5) and (3,15).",
-    "check": "Count distinct parent IDs (three) and manually mark the missing child for ID 2.",
-    "wrong": "An INNER JOIN would erase customer 2, so it cannot answer an all-customers reporting question.",
-    "variation": "Filtering for unmatched orders with WHERE o.id IS NULL isolates only customer 2.",
+    "check": "Verify three parent IDs and missing child for parent 2. Then add a real matching child with NULL o.id; the o.id IS NULL predicate creates a false positive for parent 1, while o.customer_id IS NULL does not.",
+    "wrong": "Incorrect anti-join shortcut: WHERE o.id IS NULL. A matched order may have NULL id, so it can be misclassified as unmatched; the right-side join key (o.customer_id) is a sound witness under this equality join.",
+    "variation": "Filter unmatched children using WHERE o.customer_id IS NULL, yielding only customer 2 even when a matched child has NULL o.id.",
     "setup": [
       "CREATE TABLE c(id INTEGER PRIMARY KEY)",
       "CREATE TABLE o(id INTEGER,customer_id INTEGER,amount INTEGER)",
@@ -110,7 +110,7 @@
         15
       ]
     ],
-    "alternate": "SELECT c.id FROM c LEFT JOIN o ON c.id=o.customer_id WHERE o.id IS NULL",
+    "alternate": "SELECT c.id FROM c LEFT JOIN o ON c.id=o.customer_id WHERE o.customer_id IS NULL",
     "altExpected": [
       [
         2
