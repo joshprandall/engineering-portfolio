@@ -33,3 +33,60 @@ test('AI/ML curriculum: exact 12 proposed, isolated records',()=>{
 for(const [id,record] of Object.entries(lessons))test('Synthetic offline falsification: '+id,()=>{
  assert.doesNotThrow(()=>vm.runInNewContext(record.offlineLab.code,{require},{timeout:1200,filename:id+'.js'}));
 });
+
+const measuredUnits={
+  "ai-ml-evidence-confusion-matrix": "dimensionless precision proportion",
+  "ai-ml-evidence-majority-class-baseline": "dimensionless balanced-accuracy proportion",
+  "ai-ml-evidence-threshold-cost-selection": "total cost units across six observations",
+  "ai-ml-evidence-average-precision-ranking": "dimensionless average-precision score",
+  "ai-ml-evidence-brier-probability-score": "dimensionless mean squared probability error",
+  "ai-ml-evidence-calibration-bin-ece": "dimensionless absolute probability gap",
+  "ai-ml-evidence-preprocessing-leakage": "feature units (centered held-out value)",
+  "ai-ml-evidence-stable-binary-logit-loss": "nats per observation (mean binary log loss)",
+  "ai-ml-evidence-logistic-gradient-update": "dimensionless predicted positive-class probability",
+  "ai-ml-evidence-ridge-regularized-parameter": "scalar parameter units (same units as target in this toy objective)",
+  "ai-ml-evidence-kmeans-one-lloyd-update": "squared feature units (sum of squared distances)",
+  "ai-ml-evidence-prevalence-and-precision-shift": "dimensionless positive predictive probability"
+};
+const independentOracles=[
+ ()=>{const y=[1,1,0,0,1,0,0,0,1,0],h=[1,1,1,0,1,0,0,0,0,0];return y.filter((v,i)=>v===1&&h[i]===1).length/h.filter(Boolean).length;},
+ ()=>(0/5+95/95)/2,
+ ()=>{const y=[1,1,0,0,1,0],p=[.9,.6,.55,.4,.3,.2];return y.reduce((s,v,i)=>s+(p[i]>=.3?(v===0?1:0):(v===1?4:0)),0);},
+ ()=>{let n=0,s=0;[1,0,1,0].forEach((v,i)=>{if(v){n++;s+=n/(i+1);}});return s/n;},
+ ()=>{const p=[.8,.7,.6,.1],y=[1,0,1,0];return p.reduce((s,v,i)=>s+(v-y[i])**2,0)/4;},
+ ()=>{const p=[.1,.4,.6,.9],y=[0,1,0,1];return [[0,1],[2,3]].reduce((s,ix)=>s+ix.length/4*Math.abs(ix.reduce((t,i)=>t+p[i]-y[i],0)/ix.length),0);},
+ ()=>10-(0+2)/2,
+ ()=>{const z=[0,2,-2],y=[1,1,0];return z.reduce((s,v,i)=>s+Math.max(v,0)-v*y[i]+Math.log1p(Math.exp(-Math.abs(v))),0)/3;},
+ ()=>1/(1+Math.exp(-.2)),
+ ()=>3/2,
+ ()=>[0,1,8,9].reduce((s,v)=>s+Math.min((v-.5)**2,(v-8.5)**2),0),
+ ()=>.8*.1/(.8*.1+.1*.9)
+];
+test('Twelve independent worked-answer units',()=>{
+ assert.deepEqual(Object.keys(measuredUnits),Object.keys(lessons));
+ for(const id of Object.keys(lessons))assert.equal(lessons[id].workedExample.units,measuredUnits[id],id);
+});
+Object.keys(lessons).forEach((id,i)=>{
+ test('Independent numerical prediction: '+id,()=>{
+  const computed=independentOracles[i](),declared=lessons[id].workedExample.answer;
+  assert.ok(Number.isFinite(computed)&&Math.abs(declared-computed)<1e-11,id);
+  assert.ok(Math.abs((declared+.05)-computed)>.049,id+' deliberate corruption undetected');
+ });
+});
+test('Counterexample boundary checks',()=>{
+ assert.ok(Number.isNaN(0/0),'precision undefined with no positive predictions');
+ assert.equal(0/5,0,'always-negative recall');
+ const y=[1,1,0,0,1,0],p=[.9,.6,.55,.4,.3,.2];
+ const c=(t,fn)=>y.reduce((s,v,i)=>s+(p[i]>=t?(v?0:1):(v?fn:0)),0);
+ assert.ok(c(.5,.1)<c(.3,.1),'asymmetric costs reverse threshold ranking');
+ assert.ok((.5+2/3)/2<5/6,'moving positive rank reduces AP');
+ assert.ok((.04+.99**2+.16+.01)/4>independentOracles[4](),'wrong overconfidence increases Brier');
+ assert.equal((.2+.8)/2,(0+1)/2,'coarse calibration bins may hide within-bin deviations');
+ assert.equal(10-(0+2+10)/3,6,'pooled test feature leaks into center');
+ const stable=(z,t)=>Math.max(z,0)-z*t+Math.log1p(Math.exp(-Math.abs(z)));
+ assert.ok(Number.isFinite(stable(-1000,1))&&Number.isFinite(stable(-1000,0)));
+ assert.ok(Math.log1p(Math.exp(.2))>Math.log(2),'wrong-sign gradient step worsens loss');
+ assert.notEqual(independentOracles[9](),0,'L2 solution need not be sparse');
+ assert.ok(independentOracles[10]()<2,'inertia drops in Lloyd fixture');
+ const ppv=pi=>(.8*pi)/(.8*pi+.1*(1-pi));assert.ok(ppv(.5)>ppv(.1));
+});

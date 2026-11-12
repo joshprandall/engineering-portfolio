@@ -51,7 +51,7 @@
     "workedExample": {
       "derivation": "Labels [1,1,0,0,1,0,0,0,1,0] and decisions [1,1,1,0,1,0,0,0,0,0] give TP=3, FP=1, FN=1, TN=5, precision=3/4=0.75, recall=3/4=0.75, accuracy=8/10=0.8.",
       "answer": 0.75,
-      "units": "dimensionless unless scope explicitly states squared feature units",
+      "units": "dimensionless precision proportion",
       "assumptions": "Only binary labels 0/1, equal-weight observations, declared positive class 1, one decision threshold; ratios are dimensionless."
     },
     "counterexample": "Predicting no positives makes TP+FP=0: precision is undefined mathematically, not proof of zero false-positive risk; software APIs may assign a configured zero.",
@@ -122,7 +122,7 @@
     "workedExample": {
       "derivation": "Construct 95 negative and 5 positive labels, then always predict negative: TN=95, FN=5, TP=FP=0; accuracy=95/100=0.95, sensitivity=0/5=0, specificity=95/95=1, balanced accuracy=(0+1)/2=0.5.",
       "answer": 0.5,
-      "units": "dimensionless unless scope explicitly states squared feature units",
+      "units": "dimensionless balanced-accuracy proportion",
       "assumptions": "100 fixed synthetic observations, binary labels, no probability ranking, equal weights, and a nonzero population of each class."
     },
     "counterexample": "Claiming 0.95 accuracy means 95% detection is false: none of the five actual positives was flagged.",
@@ -193,7 +193,7 @@
     "workedExample": {
       "derivation": "For y=[1,1,0,0,1,0], p=[.9,.6,.55,.4,.3,.2], define decision p>=t, C_FP=1, C_FN=4. At t=.5, FP=1,FN=1,cost=5; at t=.3, FP=2,FN=0,cost=2.",
       "answer": 2,
-      "units": "dimensionless unless scope explicitly states squared feature units",
+      "units": "total cost units across six observations",
       "assumptions": "Illustrative validation-set cost only, equal units per error, fixed scores with no ties at the chosen thresholds; threshold selection on test labels would contaminate evaluation."
     },
     "counterexample": "A blanket claim that increasing threshold always reduces total cost fails: raising .3 to .5 reduces FP by 1 but raises FN by 1 and cost by 3.",
@@ -264,7 +264,7 @@
     "workedExample": {
       "derivation": "Sort scores [.9,.8,.7,.1] with labels [1,0,1,0]. The positives occur at ranks 1 and 3; their precisions are 1/1 and 2/3, hence AP=(1+2/3)/2=5/6≈0.833333.",
       "answer": 0.8333333333333334,
-      "units": "dimensionless unless scope explicitly states squared feature units",
+      "units": "dimensionless average-precision score",
       "assumptions": "Two positives, descending distinct scores, no sample weights or ties; AP is dimensionless and prevalence-sensitive."
     },
     "counterexample": "Treating AP as trapezoidal area under a linearly interpolated PR curve is not generally equivalent; the stepwise precision weighting here is explicit.",
@@ -335,7 +335,7 @@
     "workedExample": {
       "derivation": "For p=[.8,.7,.6,.1] and y=[1,0,1,0], squared errors are [.04,.49,.16,.01]; total 0.70 and mean 0.175.",
       "answer": 0.175,
-      "units": "dimensionless unless scope explicitly states squared feature units",
+      "units": "dimensionless mean squared probability error",
       "assumptions": "Four illustrative independent-looking outcomes (not a statistical inference), equal weighting, correctly interpreted positive-class probabilities, dimensionless squared score."
     },
     "counterexample": "Accuracy at threshold .5 sees only one false positive, but cannot distinguish a wrong .7 from a wrong .99: those probabilities have different Brier penalties.",
@@ -406,7 +406,7 @@
     "workedExample": {
       "derivation": "With probabilities [.1,.4,.6,.9], labels [0,1,0,1], bins [0,.5) and [.5,1], low-bin mean p=.25, outcome rate=.5; high-bin mean p=.75, outcome rate=.5; ECE=.5*.25+.5*.25=.25.",
       "answer": 0.25,
-      "units": "dimensionless unless scope explicitly states squared feature units",
+      "units": "dimensionless absolute probability gap",
       "assumptions": "Binary probabilities, fixed 2-bin partition left-closed right-open except final edge, equal weights, rates not classification correctness; ECE dimensionless."
     },
     "counterexample": "The sentence 'ECE=0 implies the model is calibrated at every probability' fails because opposite within-bin errors can cancel; finite-sample and binning effects remain.",
@@ -477,7 +477,7 @@
     "workedExample": {
       "derivation": "Train x=[0,2] has centering mean 1, so held-out x=10 transforms to 10-1=9. Illegally fitting the mean on [0,2,10] yields mean 4 and transformed test 10-4=6.",
       "answer": 9,
-      "units": "dimensionless unless scope explicitly states squared feature units",
+      "units": "feature units (centered held-out value)",
       "assumptions": "One-dimensional synthetic data in arbitrary feature units; simple mean centering, not standard deviation scaling; a pedagogical leakage witness not a measured model-accuracy estimate."
     },
     "counterexample": "Claiming the test labels are never read so leakage is impossible fails: using test features in fitted statistics is still test-set leakage in this workflow.",
@@ -548,7 +548,7 @@
     "workedExample": {
       "derivation": "At logits z=[0,2,-2] and targets [1,1,0], losses are log 2≈.69314718056 and twice log(1+exp(-2))≈.12692801104; mean≈.3156677342153.",
       "answer": 0.31566773421529676,
-      "units": "dimensionless unless scope explicitly states squared feature units",
+      "units": "nats per observation (mean binary log loss)",
       "assumptions": "Unweighted binary targets, natural logarithms, sample mean reduction, logits dimensionless; this is a scalar pedagogical reproduction of a standard loss, not a PyTorch benchmark."
     },
     "counterexample": "Naive sigmoid(z)=1/(1+exp(-z)) at z=-1000 can overflow the exponential, whereas stable softplus-style loss stays finite (loss=0 for y=0, approximately 1000 for y=1).",
@@ -619,7 +619,7 @@
     "workedExample": {
       "derivation": "At x=2, y=1, w=0: p=.5, gradient=(.5-1)*2=-1. With learning rate alpha=.1, w_new=.1 and p_new=sigmoid(.2)≈.5498339973; loss falls from log 2 to log(1+exp(-.2))≈.5981388694.",
       "answer": 0.549833997312478,
-      "units": "dimensionless unless scope explicitly states squared feature units",
+      "units": "dimensionless predicted positive-class probability",
       "assumptions": "One synthetic observation, full-batch single-step update, no regularization/intercept, natural-log loss and dimensionless feature; no general convergence guarantee."
     },
     "counterexample": "Using +alpha*gradient instead yields w=-.1 and increases loss on this example; descent direction must be checked rather than assumed.",
@@ -690,7 +690,7 @@
     "workedExample": {
       "derivation": "Set lambda=1, so 2(w-3)+2w=0 gives w*=1.5. J(1.5)=2.25+2.25=4.5; J(3)=0+9=9; unpenalized lambda=0 would choose w=3.",
       "answer": 1.5,
-      "units": "dimensionless unless scope explicitly states squared feature units",
+      "units": "scalar parameter units (same units as target in this toy objective)",
       "assumptions": "Scalar toy regression, explicitly stated penalty convention (no 1/2 factor), lambda=1 dimensionless; not the exact scaling convention of any particular library."
     },
     "counterexample": "'L2 always produces a sparse zero weight' is false here: lambda=1 gives 1.5 rather than zero; sparsity is not the mechanism of L2 shrinkage.",
@@ -761,7 +761,7 @@
     "workedExample": {
       "derivation": "Data x=[0,1,8,9], centers initially [0,8] give nearest-cluster assignments [0,0,1,1], inertia 0+1+0+1=2. Updating centers to means [.5,8.5] gives inertia 4*(.5^2)=1.",
       "answer": 1,
-      "units": "dimensionless unless scope explicitly states squared feature units",
+      "units": "squared feature units (sum of squared distances)",
       "assumptions": "Euclidean one-dimensional data in arbitrary units; squared distance units; two nonempty clusters; no ties in this fixture, no stochastic restarts."
     },
     "counterexample": "Claiming one Lloyd iteration guarantees the global optimum on arbitrary data is false: k-means is initialization-sensitive and can converge to a local optimum.",
@@ -832,7 +832,7 @@
     "workedExample": {
       "derivation": "At TPR=.8 and FPR=.1, prevalence pi=.1 gives PPV=.08/(.08+.09)=8/17≈.470588; prevalence pi=.5 gives PPV=.4/(.4+.05)=8/9≈.888889.",
       "answer": 0.47058823529411764,
-      "units": "dimensionless unless scope explicitly states squared feature units",
+      "units": "dimensionless positive predictive probability",
       "assumptions": "Population-level probabilities, binary conditionals held fixed for the thought experiment, no distribution shift in class-conditional score distributions; model probabilities need not be calibrated."
     },
     "counterexample": "'Precision is an intrinsic constant of the classifier across deployment populations' is false under a prevalence shift with otherwise fixed rates.",
