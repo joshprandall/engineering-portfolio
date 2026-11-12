@@ -1,15 +1,15 @@
 {
   "schemaVersion": 2,
-  "sourceCommit": "c6a1ef06bc278dc45003b815b9dd3d4130ce2de8",
+  "sourceCommit": "8e820bd83622deceaa6fc8881924c8da07116948",
   "bytePolicy": "Exact Git blobs; artifacts verified against committed SHA-256 and size.",
   "files": [
     {
       "path": "about.html",
-      "size": 22122,
-      "sha256": "f42e54cb13e4b758ad9c5637da7c1fc3c2dd0729e06baa05e9f12f72bf2259e8",
+      "size": 34320,
+      "sha256": "87d325788265e5d3a89ed3013da51d410f8b5e92ef408979619b5b7f5722798d",
       "source": {
         "kind": "git-blob",
-        "blob": "49926b84728c6d8380975b1fe2df0f9259a439e9"
+        "blob": "354111fd30711f7e3d7b41ca9a2418d83113cc1c"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -191,6 +191,28 @@
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
+      "path": "ai-mastery.css",
+      "size": 2667,
+      "sha256": "fb3b219cc9fd6d6f2aedc5d01fd38c3ebe9eb85f29756ef40e406b9186a0fa0c",
+      "source": {
+        "kind": "git-blob",
+        "blob": "01cba18e65daa98f2a9a4a2646a16a779e618963"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "ai-mastery.js",
+      "size": 5802,
+      "sha256": "64020aab72e245f54b64bd616269e4799bbbd95bfd3baf67d99f170e316fc14b",
+      "source": {
+        "kind": "git-blob",
+        "blob": "21a67a3081e93684c9234dc0e872757e24f1c114"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
       "path": "ai-memory.html",
       "size": 12243,
       "sha256": "1b71a83782d24fccdf19e16550bf0e968489fea7e2aa6d5b93ebadd617b6af8d",
@@ -313,12 +335,45 @@
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
+      "path": "assets/ai-build-mastery.json",
+      "size": 35426,
+      "sha256": "653021c09b19fa763045566d673c3dcf4d7137dc8de9a3b5e4bfa733b3e17f61",
+      "source": {
+        "kind": "git-blob",
+        "blob": "c2407d142330aed488f5c6ae127cf4e452121b24"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
       "path": "assets/audio/CREDITS.md",
       "size": 1432,
       "sha256": "8d8762b31d5384db1d46901493b244d82ef50d4037237f349d2471d90fa4d30f",
       "source": {
         "kind": "git-blob",
         "blob": "ea90dbb82ed0df692c4037d8a1e7f17b0bfd16eb"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "assets/audio/dark-theme-user-v32.mp3",
+      "size": 470985,
+      "sha256": "da15f46e84a2a59b09b66bfc210046d7544da31ee614b2e35c9db4fceb193ae1",
+      "source": {
+        "kind": "git-blob",
+        "blob": "9d5cfc355687960d06cde64d1ba9ef18bae3099b"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "assets/audio/dark-theme-user-v32.wav",
+      "size": 3897388,
+      "sha256": "3da693485d095d03d4f91516849303cd67b0b4fe2c6bf26525b995821214e294",
+      "source": {
+        "kind": "git-blob",
+        "blob": "f92ff376505b51e662240a314e2cdcf0cbafb93a"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -588,12 +643,34 @@
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
+      "path": "assets/learning-academy.json",
+      "size": 9363,
+      "sha256": "92a41381570ae41201554765f0a0553bf73ce13e18864a0c93d1443e62633008",
+      "source": {
+        "kind": "git-blob",
+        "blob": "a5bfa5ae2df346bdeb04f3a3a1bf202fd0bcb124"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
       "path": "assets/osu-logo.png",
       "size": 10683,
       "sha256": "c3fa4511073c80ddd4b10a567719b4860cacfd98a462080e6792b8050f47279f",
       "source": {
         "kind": "git-blob",
         "blob": "9ed5bb41a22cabed2b9c976c394383006e514ec7"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "assets/project-evaluation.json",
+      "size": 58059,
+      "sha256": "1217d7615351151f45b123868d2f2e6caa641dc640f00bf9c1ae6eb016f5cbee",
+      "source": {
+        "kind": "git-blob",
+        "blob": "ac098ef5882a72082418adaeb585f3cce9295250"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -729,6 +806,17 @@
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
+      "path": "assets/security-toolkit.json",
+      "size": 21338,
+      "sha256": "943bef6c184bf01efa582f3987c0c9070bdc9d2ef6578cecab209a605a37fe65",
+      "source": {
+        "kind": "git-blob",
+        "blob": "180de1c578bb3d88e26592c169577b0b29314ffe"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
       "path": "assets/site-navigation.json",
       "size": 3214,
       "sha256": "636c4837f7ae0fe23b03c72637d1357d82a9479be58a2559724626bb3eb0f5d6",
@@ -774,33 +862,33 @@
     },
     {
       "path": "deep-learning/advanced/architecture.json",
-      "size": 663461,
-      "sha256": "491328eab8ee81fd86e0cc2c214879dcb8172ff9712fd7aa34eb45c013436732",
+      "size": 699267,
+      "sha256": "379cc2d8a5ca17c3bd63e46e381a3dd17b3df1ed733e8312b754b63b5cc52530",
       "source": {
         "kind": "git-blob",
-        "blob": "a4e764e6c7b798b1eb843a135914c9f90b1301c1"
+        "blob": "cbe7ac4603d88b4c08a18185fa5a919d9c542589"
       },
       "owningComponent": "deep-learning",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "deep-learning/advanced/distributed-systems.json",
-      "size": 485228,
-      "sha256": "3b4d38de89a29bdd9eab3d1a972e9c906040176c4566056b59251c4be706c6cb",
+      "size": 510414,
+      "sha256": "0eee9dd3e3a6ef367db48f1545101de43ad6468c50191ff9f1fba9a68cd7be59",
       "source": {
         "kind": "git-blob",
-        "blob": "779c03d9dc5cb7c79cbae330ebefca71cabd9f49"
+        "blob": "973aad7426236b10939fbcbdfcacd31256dc843a"
       },
       "owningComponent": "deep-learning",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "deep-learning/advanced/gpu-computing.json",
-      "size": 587364,
-      "sha256": "5c3c642d8869fded4130bf6307608acb1f1f23954de1c9e11a3a8a93495d958b",
+      "size": 609846,
+      "sha256": "e9369a44c6bce3da0a5ceacdcaff06eb85bf0fc705a07eea92aa7af8339822d9",
       "source": {
         "kind": "git-blob",
-        "blob": "455e1e32a3f6cc5f021c01cc00b04fca6fafc550"
+        "blob": "66b3be26398174b8040ed68db1fcf819586078fd"
       },
       "owningComponent": "deep-learning",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -818,11 +906,11 @@
     },
     {
       "path": "deep-learning/advanced/hpc.json",
-      "size": 607486,
-      "sha256": "b4a417b055d60a3c49df8d293cb279bc2224baf3f1a41ddb8e378dd3196cb819",
+      "size": 616097,
+      "sha256": "8eabf367085ee1124adf62a3af5a7d94b86b0bdaa59b49f05e47d29419cc1906",
       "source": {
         "kind": "git-blob",
-        "blob": "49b0767fbf8086645d7ad726f33a77d1fd381dae"
+        "blob": "5d33b93abbe106a86d45fe1884fb3cd6a94fec18"
       },
       "owningComponent": "deep-learning",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -851,11 +939,11 @@
     },
     {
       "path": "deep-learning/advanced/operating-systems.json",
-      "size": 471515,
-      "sha256": "91822f287c29c01a321f533a74320fe356a63be10e0ef879b9a5c0531dc218fb",
+      "size": 482544,
+      "sha256": "ece151ee9c9856581c73f52fcd9424bab886baed82f1c405f33889b342a9794c",
       "source": {
         "kind": "git-blob",
-        "blob": "e5392eefcec420e0125f883901835c79c2412bf0"
+        "blob": "cd94df15c74ccec23abcdf19e61695f01b9e6f0a"
       },
       "owningComponent": "deep-learning",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -873,11 +961,11 @@
     },
     {
       "path": "deep-learning/advanced/quantum.json",
-      "size": 510082,
-      "sha256": "bec35092b9e2a44f8525ff25c89ee40864c2832268900bce0d4940a8d487f282",
+      "size": 517243,
+      "sha256": "46761414ef4dbec0d75dd682c6d7aaac444d22a645fad7d8a0444955fba9b4d7",
       "source": {
         "kind": "git-blob",
-        "blob": "91671f9a07be998fb97ef316f7bf779190c85354"
+        "blob": "01a6de5f5bff1419988321b83f205591f868a8fa"
       },
       "owningComponent": "deep-learning",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -906,22 +994,22 @@
     },
     {
       "path": "deep-learning/cloud/identity.json",
-      "size": 413129,
-      "sha256": "68756cbec6008c95c1531b1628efcb213ce96a13733eabeeb16f4abc07aa22a9",
+      "size": 420018,
+      "sha256": "343511ee6557b2e0cad3006fe1526b1720ed18c30fa1acce05b0fc136cc7ecb8",
       "source": {
         "kind": "git-blob",
-        "blob": "cb71d683c52d4f39161ed41a9bde7bd64d61f382"
+        "blob": "75a7b88d144b8cd6527ae395d9ddca788170e60a"
       },
       "owningComponent": "deep-learning",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "deep-learning/cloud/kubernetes.json",
-      "size": 424010,
-      "sha256": "a20580d9e0253958364d66b14464b620d3f5ea036eaa8156bec60eb73779ad81",
+      "size": 440635,
+      "sha256": "3d2fa52adcbe64bd72029331e98840884f1f052c117ec65047822b0c611040ba",
       "source": {
         "kind": "git-blob",
-        "blob": "3f31d226e92f9707c40f87e3c9f2383facba0f89"
+        "blob": "362a8a71be6c266fa15db20a77894861d5a73403"
       },
       "owningComponent": "deep-learning",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -950,22 +1038,22 @@
     },
     {
       "path": "deep-learning/cloud/networking.json",
-      "size": 808140,
-      "sha256": "6626f12b256368bdf2ac7e12d141fca646cb4d440f2d19bf21f7cd7c7c591c81",
+      "size": 810937,
+      "sha256": "47ea76d5ce9a7802f9ae95d662c6ff2a22b081333bf8c688ec1827b6a3e0cbc0",
       "source": {
         "kind": "git-blob",
-        "blob": "f33f03b078286b8641db000f47795f00a0a962cd"
+        "blob": "818c35d55f6e4b9f95bb8bd726a8447e7508917d"
       },
       "owningComponent": "deep-learning",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "deep-learning/cloud/observability.json",
-      "size": 439586,
-      "sha256": "683701477b97ba675a72c4d12718dae6922b06ff63f38834732e9ac6af4759ff",
+      "size": 445995,
+      "sha256": "0befd2a9eff1545d6159ff1e2fdd2e77fe3bf34168f010a3464d84573f746a9b",
       "source": {
         "kind": "git-blob",
-        "blob": "7aeb482a0e8a3c9b2c6886b86caef9c98adcbe0b"
+        "blob": "bbf73a899f822017792558fb3548c86814b8de8f"
       },
       "owningComponent": "deep-learning",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -994,11 +1082,11 @@
     },
     {
       "path": "deep-learning/cyber/application-security.json",
-      "size": 496613,
-      "sha256": "bb18b19b5dc2fdbbe8525b9e8c945c9a67dd5fc01da8531f4202e677a2f03cae",
+      "size": 514663,
+      "sha256": "d5e3e47a5623498e62baee64599f1b1b3cdf197ad10d97c23855dc0e6f741484",
       "source": {
         "kind": "git-blob",
-        "blob": "c380c543136fbea27450c3fa6fa96efa38f13d87"
+        "blob": "d0ea7c995981fd2275eed7281cc1c61bce0494d8"
       },
       "owningComponent": "deep-learning",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -1016,11 +1104,11 @@
     },
     {
       "path": "deep-learning/cyber/detection.json",
-      "size": 452516,
-      "sha256": "06f3c0e3556101e706f9d0c453ae2a60f7c210b732b22eedc0572aff191aec7a",
+      "size": 460802,
+      "sha256": "2d6899e1f4914655961201d0e4adef9489c090590eb91927ef6d7e501766c576",
       "source": {
         "kind": "git-blob",
-        "blob": "787450170279fc77d625f7e4534e2879fe7b2ab7"
+        "blob": "e6e0eb8d6e4a15560bc3b90cc035b7e48d630677"
       },
       "owningComponent": "deep-learning",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -1082,11 +1170,11 @@
     },
     {
       "path": "deep-learning/cyber/network-security.json",
-      "size": 431281,
-      "sha256": "af45d2da7ce33ff90cf02463985aeefdcb34c85ce031c997568a814af9ca7192",
+      "size": 456300,
+      "sha256": "661860cb9ef0090118f3cf1d2a211689847b57995554fea9295c0f69f86f86c8",
       "source": {
         "kind": "git-blob",
-        "blob": "52a0eceb2577be2df283d00d7d57f6c074ca100a"
+        "blob": "3cecd7a1e3af770b3f62dbc898265ac25b82d5d6"
       },
       "owningComponent": "deep-learning",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -1159,11 +1247,11 @@
     },
     {
       "path": "deep-learning/leadership/incidents.json",
-      "size": 355705,
-      "sha256": "1c8446e1d1bf834e093e56f40b3d68afebc4835efddc86c98b8eab1232f2146b",
+      "size": 360314,
+      "sha256": "57bf1ba38b2c20ac436a0c4c75251756f70ec3aab400ef698ae9712f67925279",
       "source": {
         "kind": "git-blob",
-        "blob": "96ad54deb89633eac7e512097cbc9ed5a5c08741"
+        "blob": "c5b6107d61559a735324bcf36e3c79b84104ce79"
       },
       "owningComponent": "deep-learning",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -1225,22 +1313,22 @@
     },
     {
       "path": "deep-learning/leadership/recovery.json",
-      "size": 329857,
-      "sha256": "1efe47bbf2378dc545e5bf63d7a97dea272511b3c7b9272fcd3ff6c73ccd156d",
+      "size": 333879,
+      "sha256": "680c233c46fb59c822e1171fe7f2c5e8bbd1d98f5af6b34b317cbb0ba5bcb4e7",
       "source": {
         "kind": "git-blob",
-        "blob": "80a1c632fbc8edbb22ae87e4eb51a4adbc257a68"
+        "blob": "d43ac967f51f42a220cb9d1943f71929bd4db581"
       },
       "owningComponent": "deep-learning",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "deep-learning/leadership/reliability.json",
-      "size": 419342,
-      "sha256": "c456ed84d12933bf55e67afeff2b85ea19c2ed0d6f374092764fda0fac129ae1",
+      "size": 428758,
+      "sha256": "5bcab624a509c02f407d38a837018367c5aa42c16f5584d481179d34bf8ba428",
       "source": {
         "kind": "git-blob",
-        "blob": "495fdfa2088d717e178ed716102b35dbe160bad8"
+        "blob": "b92a30ca26062763bfa2bba18f0b7c90ec6dd05c"
       },
       "owningComponent": "deep-learning",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -1291,22 +1379,22 @@
     },
     {
       "path": "deep-learning/math/algebra.json",
-      "size": 436510,
-      "sha256": "3b04dcdb82702b8d5bb188f335c5852f247000b8482b9fc4fb513477ab94b7eb",
+      "size": 458482,
+      "sha256": "4554e0723ab1f70ccac7cdcb900d7b7a4e82594b5c3cff7a26e418602b2606aa",
       "source": {
         "kind": "git-blob",
-        "blob": "05a0c0032dd93dc3417e2ce39386864e9897fbbe"
+        "blob": "c0713b96e9d91aa4c799ce3d48495140e0d79192"
       },
       "owningComponent": "deep-learning",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "deep-learning/math/calculus.json",
-      "size": 537994,
-      "sha256": "9e1534b5dbe700347026c4632db173259c5537dc07055e60f8fd71e50ef5c453",
+      "size": 543881,
+      "sha256": "d7ad1fab421540121c326318fdea9bea6d85c572e41aee28253a1bc68190c935",
       "source": {
         "kind": "git-blob",
-        "blob": "5a1983eb991d436e74b7e600c65e56a9e48b8f22"
+        "blob": "e00335ceed0c1bd131cc5c5b53c7cc70be8031c0"
       },
       "owningComponent": "deep-learning",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -1346,44 +1434,44 @@
     },
     {
       "path": "deep-learning/math/linear-algebra.json",
-      "size": 489479,
-      "sha256": "cde60c793aabda97974d53fadc578ffef32e88a979bc19494b7cd7c262135254",
+      "size": 528318,
+      "sha256": "1a64c615d129c7dbce10474d8eb3c7c4e2631782f395312fe947784ffff82c54",
       "source": {
         "kind": "git-blob",
-        "blob": "aec380115de9eb557b1c5396fac9c33f24151c79"
+        "blob": "d34aa8258683ae10c7b1ca3f4496b75ddf700b61"
       },
       "owningComponent": "deep-learning",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "deep-learning/math/numerical-methods.json",
-      "size": 377458,
-      "sha256": "3daa918194c1b275e920fc62c68cad745c9d53a2abea3b7a5d29f3736ac0d4cf",
+      "size": 385187,
+      "sha256": "d008fa8186d5513d97223a69f62ecf994af0925dfffdea74f620af4e17b4d091",
       "source": {
         "kind": "git-blob",
-        "blob": "39cb58a9cbba37fc81fb2d191b3086d8eca4b84a"
+        "blob": "4acf0d0ef13c2233a487d978a18aa328a2a1d86d"
       },
       "owningComponent": "deep-learning",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "deep-learning/math/probability.json",
-      "size": 435359,
-      "sha256": "6c58121da98fd469da772594a9c33e089083e40d5f34137e2307bce665356f2e",
+      "size": 442057,
+      "sha256": "8e0fd046d395453d080385fc147f0f48aa442d4b67db1a844824d0bdd226591e",
       "source": {
         "kind": "git-blob",
-        "blob": "95664d8982c357dc2b9935d7275f500e54e8587b"
+        "blob": "176dfb9e9723a634aa428ddbf11bf88b7944199a"
       },
       "owningComponent": "deep-learning",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "deep-learning/math/sequences.json",
-      "size": 372200,
-      "sha256": "fc78bd84e4e239e44a49b252275470dceb97e2de415037ecbb48a2a6e6161728",
+      "size": 370044,
+      "sha256": "ac2af903f79896aeab12719ee7616a9753b620c64208d3a1f74ddc316cc57c62",
       "source": {
         "kind": "git-blob",
-        "blob": "9f9afdca7984380f018d14d9623f4352baf0173b"
+        "blob": "3f462042662ce4b1a1f92f69387a308a65484cf7"
       },
       "owningComponent": "deep-learning",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -1401,22 +1489,22 @@
     },
     {
       "path": "deep-learning/physics/electricity.json",
-      "size": 440597,
-      "sha256": "eefb647e11dbfdd1695f51a64b22a5c5d6933d85cb90cc2c246b2ce4fc9cf9fc",
+      "size": 574163,
+      "sha256": "399c30dadb6810d8dc57006bb0531a6863a56a821304c553e0494e95d3226044",
       "source": {
         "kind": "git-blob",
-        "blob": "f4d7d14c4b9d785e4fefbd0b77768e0a7bfb5480"
+        "blob": "270905c3fd410d09273ee841e927d5aa777d7ed4"
       },
       "owningComponent": "deep-learning",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "deep-learning/physics/energy.json",
-      "size": 463902,
-      "sha256": "abc25702c14dc1d04dc084ab768a046e33259f496f04066387b6d6cdd5774be2",
+      "size": 501394,
+      "sha256": "c9c8d5d1eea76fda0f1bb1dd3e75d5b81bba993ed662be1c6a692d0cf0d028f8",
       "source": {
         "kind": "git-blob",
-        "blob": "123ac41fd9babdfdf81ed7e4a24669c9b1d4fc23"
+        "blob": "71b1c450057e82df1f31d86c480ef2e93c858188"
       },
       "owningComponent": "deep-learning",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -1434,22 +1522,22 @@
     },
     {
       "path": "deep-learning/physics/magnetism.json",
-      "size": 395017,
-      "sha256": "add6dd76fb79846f89c2b42c35e7f4109b32a564c768c94688f4471a2c29e635",
+      "size": 407296,
+      "sha256": "835f125923de59d2d8f09f5b3c3f876586ffdfddc97c6072d8f4d4dabf1af8ca",
       "source": {
         "kind": "git-blob",
-        "blob": "df64b8d0020899947b1ee76e3bbeacf3a92fbd7c"
+        "blob": "153a93e27f2da2fd7bcc2e061e185dec8f361dff"
       },
       "owningComponent": "deep-learning",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "deep-learning/physics/mechanics.json",
-      "size": 462808,
-      "sha256": "b49fc76019ae94c264f5b92e77268d03010c6a0aa4766077ae4f764c51357873",
+      "size": 728825,
+      "sha256": "43dae4246305addf2155061755e11f1d4d70fe680cec7bd222769a1903792407",
       "source": {
         "kind": "git-blob",
-        "blob": "a1cdc05bb25e6200f33317607a0d25bf9c5ee823"
+        "blob": "63e2bd548a7d78d4a0d4f6cd3e7e882b43d23a96"
       },
       "owningComponent": "deep-learning",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -1467,11 +1555,11 @@
     },
     {
       "path": "deep-learning/physics/momentum.json",
-      "size": 411651,
-      "sha256": "c35b96074d2fd4290280dabebbeace1be692bd1bf2388af1bb7e51c728ad1c2e",
+      "size": 629724,
+      "sha256": "ef3dffbffa294cb27491dc9b5eac686318025eeafb42fcbb9f761734a7619702",
       "source": {
         "kind": "git-blob",
-        "blob": "ed9aec6a6ed3fb6f4e30682576d9e5e0a0c1ffdf"
+        "blob": "bbb4b2f042ff34256461fc90e51d4f88180709fd"
       },
       "owningComponent": "deep-learning",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -1489,55 +1577,55 @@
     },
     {
       "path": "deep-learning/physics/rotation.json",
-      "size": 355351,
-      "sha256": "c029916c090b8569fdeed8330c00d80882bb3618381e6906b6b1b657ae4820e5",
+      "size": 480801,
+      "sha256": "7365425ce339471bc42f4341fb395dd8884b8e69b195344fa939062a915d2a99",
       "source": {
         "kind": "git-blob",
-        "blob": "b00e0bbf37aceecdea9075b71130fa9040439202"
+        "blob": "2119cc8a2b22a7415c6c449a7597eedde423d0be"
       },
       "owningComponent": "deep-learning",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "deep-learning/physics/thermodynamics.json",
-      "size": 383586,
-      "sha256": "1d2b5de62eb711f24007fc6739cdd0e442bb0c8f49ffd38288c2c8feec5e44a9",
+      "size": 479255,
+      "sha256": "55c269a53afdbc4ea89bbad0821060ae51cfbebcef9bb334a03805c1ea148666",
       "source": {
         "kind": "git-blob",
-        "blob": "3fb4a9ff1ab3051f4d6818e6a7981ca7089d7f87"
+        "blob": "0dd8f095d5fc525c06bd42a6b94e3f67815076f2"
       },
       "owningComponent": "deep-learning",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "deep-learning/physics/waves.json",
-      "size": 411962,
-      "sha256": "61b75219de97b8d90b7dabfd38aa31b058976f162184f1f331f59536d1bb6a08",
+      "size": 444100,
+      "sha256": "50a4edd086cffd05035ce2ff55d9c7ff6b4b2a3f764acb3cdef0c9c266abe5f5",
       "source": {
         "kind": "git-blob",
-        "blob": "6dc3a04b591f4cc240a9afda166355ba7563d6a8"
+        "blob": "95ae85408beb12657496350f43d6b5e4faa803fc"
       },
       "owningComponent": "deep-learning",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "deep-learning/software/algorithms.json",
-      "size": 425282,
-      "sha256": "740397218431c74e1eac568bca891dc80fd885a27d795af06194b966ff9f7038",
+      "size": 448478,
+      "sha256": "bde91976c6537ed211ad60b8ebd1dffe801fe0778c47401b889472dd9ccf0580",
       "source": {
         "kind": "git-blob",
-        "blob": "f7e2923ec900e28997265dd6be88f3e454bb4ec5"
+        "blob": "4444658064f5f2054f69da91c9deec8653ffe8f7"
       },
       "owningComponent": "deep-learning",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "deep-learning/software/apis.json",
-      "size": 536397,
-      "sha256": "18e2a0ef49272a047b271abb301f78fe5c6dae00d19c2dd810ddabcc0fe26de7",
+      "size": 574283,
+      "sha256": "e1e2afb1e3d9d6827322d460de9fb5c6109bce8c832fe74b13a6600f69b9fa5b",
       "source": {
         "kind": "git-blob",
-        "blob": "9d6256f8c5886bbda2939a2f1a410ee9ccaddd76"
+        "blob": "f62d41cfbcb4ac314d08b6ba02e2c22f73f9193a"
       },
       "owningComponent": "deep-learning",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -1566,11 +1654,11 @@
     },
     {
       "path": "deep-learning/software/databases.json",
-      "size": 627022,
-      "sha256": "f6f2518c5e467f47a49f9f26dafd05a5e93660f3cf36fbfb288ea5217a8d41a5",
+      "size": 652111,
+      "sha256": "e22c9d7752b1967841361cc439b7c1595064e2ad87f545c407fd3d7589e984dc",
       "source": {
         "kind": "git-blob",
-        "blob": "635a32e96c5c0c5191d5150f3294c44e2a6a6162"
+        "blob": "26e703366b21471d2926c07cfd57d33268f0f877"
       },
       "owningComponent": "deep-learning",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -1610,11 +1698,11 @@
     },
     {
       "path": "deep-learning/software/testing.json",
-      "size": 429928,
-      "sha256": "915a75a1c312692f6d65d1ff293c9746fa0c92acdf892d404a53b8b3bc2a3011",
+      "size": 525088,
+      "sha256": "9837c9ad6136506fc8fb7590c761b36c9ce288af3c65c5dd01252efa54a52d58",
       "source": {
         "kind": "git-blob",
-        "blob": "5c1dc5eb903c0dba0391d3354fb4f7a1f63924fc"
+        "blob": "ab71e65a71354b0c5f0935bc1efcdf234550006c"
       },
       "owningComponent": "deep-learning",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -1665,11 +1753,11 @@
     },
     {
       "path": "game-development.html",
-      "size": 8856,
-      "sha256": "024fc3f62d1758f8ccaac816e2f28ca0e928c2fc72d450accb476da437b4a572",
+      "size": 8911,
+      "sha256": "c2713347a3e3813616604d7fcff05d06ab7a31bd1ee3123e3bbf8737f743878b",
       "source": {
         "kind": "git-blob",
-        "blob": "d56d1775d9910757c38914f0320797098290b0d2"
+        "blob": "92450b6e01dcde423c2561a6b0556de4faf53d54"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -2385,11 +2473,11 @@
     },
     {
       "path": "index.html",
-      "size": 30533,
-      "sha256": "a8cb331fa7ca443ba9a037a9875921edb6176c3079cda0157e2c03b0d388dddd",
+      "size": 34166,
+      "sha256": "f16ad92727632a69eff84b1bcbe8442b6510cea5181db97159b75833340697a6",
       "source": {
         "kind": "git-blob",
-        "blob": "061d84a75db698b7eb8da915dc6099d542c13299"
+        "blob": "d2bebe2e686c3e4ed7215ad7342b2ac2abfeb390"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -2659,6 +2747,28 @@
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
+      "path": "learning-academy.css",
+      "size": 3438,
+      "sha256": "49eda74f1a325864bdf68ecf564d46ec0ea86cd4fa1c43ba9957e96566aa476e",
+      "source": {
+        "kind": "git-blob",
+        "blob": "af2c8f457b48050e01f67eee1c3c9cd074ac692d"
+      },
+      "owningComponent": "learning",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "learning-academy.js",
+      "size": 11071,
+      "sha256": "9e0e22aaab7dd303fcd72588ae912029f3bf519f8d6865fb2f8caa58b98930c5",
+      "source": {
+        "kind": "git-blob",
+        "blob": "87e241e7b12bc6a15d0bb0ecd6193fe73ebda89e"
+      },
+      "owningComponent": "learning",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
       "path": "learning-capstones.css",
       "size": 2740,
       "sha256": "e94b8be0c8b8c8f3facb9600481dd4c2dc7197c36e6fb3b0bacb886cb514fa3f",
@@ -2803,22 +2913,22 @@
     },
     {
       "path": "play-evil-wizard.html",
-      "size": 8867,
-      "sha256": "f91e91875e7911ae9d327c3f0170d27a3ef02900b621f55a575ba0264fe50190",
+      "size": 9073,
+      "sha256": "0b7ba63d995b2300794aad570cb583265962ef235f7d20d5923f2ec010ca528e",
       "source": {
         "kind": "git-blob",
-        "blob": "aa7e6b734d6fc4c4f8bb282bb48adbfefe34a64f"
+        "blob": "f4d0e1b5e09834c090391c6057f2aae0adae09ed"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "portfolio-home.css",
-      "size": 18248,
-      "sha256": "ba506ab39aa938901c59150ea7727e1187ba726f2e6b708a44e198962e88f349",
+      "size": 20556,
+      "sha256": "76b96dc9a37d900869eea2ec508c69ff1234a9548f8da8aced706cbf76d3faf1",
       "source": {
         "kind": "git-blob",
-        "blob": "4c45f54d988fb955ae785164c78635487b89d189"
+        "blob": "566b849b706b5c415656ee04e814b6767eca2eb0"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -2857,6 +2967,17 @@
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
+      "path": "project-api-contract-compatibility.html",
+      "size": 6506,
+      "sha256": "8b0bc1df09260d1b2bde902c63eacfa481a634f453fd812af8c7402a8605b999",
+      "source": {
+        "kind": "git-blob",
+        "blob": "8eefafa63dcf9813601a3c73f51b31cafccfbfec"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
       "path": "project-asset-inventory.html",
       "size": 6074,
       "sha256": "e2fc20b1a4ffedc41fc15c73e21f1c01f228678ce8d0c47a71cb938cb150b179",
@@ -2879,12 +3000,67 @@
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
+      "path": "project-cache-consistency-lab.html",
+      "size": 6489,
+      "sha256": "67b862acb178b7e6d79ac8fb7aa1ad8f68b5ddcca25c2c4ea06e0741f7846e1f",
+      "source": {
+        "kind": "git-blob",
+        "blob": "4cfbdc713920bd38c36424a519ad5735ebf5ae5f"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "project-concurrent-job-scheduler.html",
+      "size": 6533,
+      "sha256": "6a327f6ee504266f1ec80c64b730dd3cfb5b6020192cd68727344605cf8286a6",
+      "source": {
+        "kind": "git-blob",
+        "blob": "6a460c6bb7be1f1a087bdbabbd5320b63ae20466"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "project-database-migration-safety.html",
+      "size": 6523,
+      "sha256": "ff47153926fb66a8fc4a7d36049d88839d8dc319d6437eaaab85015f5bca532f",
+      "source": {
+        "kind": "git-blob",
+        "blob": "66a9cc32dc99946361de6d56054a88dad8b87556"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
       "path": "project-dependency.html",
       "size": 7498,
       "sha256": "89200df13b5214fdccd5e1f7e0d47e96b605fbd284d9ecb741c88c6cc19c8132",
       "source": {
         "kind": "git-blob",
         "blob": "161c1e49983f6f6f7796746ff58cbef8a87bccf9"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "project-distributed-chaos-recovery.html",
+      "size": 6223,
+      "sha256": "82b961f8fb46b901ba368221a209159a419e25d7a92700333d5bb9d4f2496204",
+      "source": {
+        "kind": "git-blob",
+        "blob": "0e083c56928641f6d030e3574f39865a0e3436a3"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "project-edge-5g-failover.html",
+      "size": 6221,
+      "sha256": "7863244dca0f8b43a8f87c777f5a93b66644a6c92d2c819dec39f52f040afc11",
+      "source": {
+        "kind": "git-blob",
+        "blob": "cf30c76f7a51901b0d93d2f6bdcc7721a9b7f5c6"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -2901,12 +3077,23 @@
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
-      "path": "project-fusion.html",
-      "size": 6410,
-      "sha256": "f2abd7b33e998a1397a87839b9acca8e650efb170ae5b68bcbef06fe2ab3ca61",
+      "path": "project-event-sourced-workflow-engine.html",
+      "size": 6535,
+      "sha256": "45c47a25b6f5eb3638f55f7abba927626a6e39240b5216da5db4b5c155a83077",
       "source": {
         "kind": "git-blob",
-        "blob": "f223894377313ce7323d2e35276347a37430b3be"
+        "blob": "ccfbd1b8cd50d012302e3b77f14aeb0be76b42f3"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "project-fusion.html",
+      "size": 6693,
+      "sha256": "ebb6caf375bb743d16f3a123df33c57bb6f6fbff1eaa390cee0ae4915cf70613",
+      "source": {
+        "kind": "git-blob",
+        "blob": "a6cf8cc7be00458bcbf53e607ebbf45d892fd376"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -2918,6 +3105,39 @@
       "source": {
         "kind": "git-blob",
         "blob": "0ce509963a63ec7b01633ac9fba332d01acc39ae"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "project-hpc-fabric-scheduler.html",
+      "size": 6195,
+      "sha256": "0f0b58e9def0b18c2a2d7c34d5e4dcd2afb00ec70d79eb7e42cc2cbdec59e362",
+      "source": {
+        "kind": "git-blob",
+        "blob": "228627f3fa7cbb6d95fb20e84c37178f4403569a"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "project-hybrid-quantum-orchestrator.html",
+      "size": 6303,
+      "sha256": "705481c34c3e4be93d4948770f00b8e562b014e216b6c99cc1fd40f707b51425",
+      "source": {
+        "kind": "git-blob",
+        "blob": "babfabb88bca6ee3bf7e778d3328e5fbf5195ffb"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "project-incident-evidence-graph.html",
+      "size": 6277,
+      "sha256": "b9adfba8d05ba2da8dde25b4d70b1ecebd2fde43de2bd234d879b9c19731a945",
+      "source": {
+        "kind": "git-blob",
+        "blob": "7f4bf126e48ca3247a883bfe97c122135f59166e"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -2956,6 +3176,28 @@
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
+      "path": "project-mastery.css",
+      "size": 4114,
+      "sha256": "1c159729e7656edb7908aa37eb5c1500eb0acf41353820ea91287f4c222bcd35",
+      "source": {
+        "kind": "git-blob",
+        "blob": "ce4992ae17469cd4b4db6b735ce0446d025a09a5"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "project-mastery.js",
+      "size": 8789,
+      "sha256": "f70a8acd5e4187c8b927f65077a30f97aa76e0746e096a8236775b0e45ac3f60",
+      "source": {
+        "kind": "git-blob",
+        "blob": "0e3c6379711487273e9cb2e5fecaf4749b96bd74"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
       "path": "project-mind.html",
       "size": 6629,
       "sha256": "0c397879cdeced1786c03559797e3cba45a0718ea5428153e3732908ef8a8671",
@@ -2967,12 +3209,45 @@
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
+      "path": "project-mini-compiler-static-analyzer.html",
+      "size": 6479,
+      "sha256": "a74d7d3736910553f0ac30b489361d79afddb4d893a6c99f824119e27f4ca4c5",
+      "source": {
+        "kind": "git-blob",
+        "blob": "9315d82842599bb5a0e7105038c6a78e2f4909d4"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "project-network-digital-twin.html",
+      "size": 6219,
+      "sha256": "8e4ff6ef5f417abcf1695c842b667364086d614c77aa58662ba2152576bf1dfc",
+      "source": {
+        "kind": "git-blob",
+        "blob": "37b1366fe328a5c80de9ab067c6157e5ff5567b5"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
       "path": "project-portfolio.html",
       "size": 6699,
       "sha256": "8f813db18ed1a86f3c9b6f9a16c1c4315d83735e2618789405c3ecb5ba948efc",
       "source": {
         "kind": "git-blob",
         "blob": "bd8f50e2c425dba72336c8a8f4ef3ff40bab10e6"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "project-progressive-delivery-control-plane.html",
+      "size": 6479,
+      "sha256": "56a2f32d0de158b654b05fced38003a4925aef69641d9524d201b49bf67a7719",
+      "source": {
+        "kind": "git-blob",
+        "blob": "1c6f3331281b4dbae22f85014d5604298326dad8"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -3011,12 +3286,89 @@
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
-      "path": "projects.html",
-      "size": 15330,
-      "sha256": "d1aa47504ecc65117ae8733bfead3caa8bb4ae370c2063bf7b317ba0d9e8967e",
+      "path": "project-reliable-message-processing.html",
+      "size": 6566,
+      "sha256": "5db2f0b7d5ef5dc7967baedf056bba3e739fd7e4f7d4c983e1b5078cfa9b7d68",
       "source": {
         "kind": "git-blob",
-        "blob": "25b4bbe083d5d87b0c58e689caaf51ba82986940"
+        "blob": "1948a876f7027574709dfa0f42e7357b803c07dc"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "project-routing-convergence-lab.html",
+      "size": 6204,
+      "sha256": "866c6cf2dc63d17578c481616fb8798bae302ecefe475dc0be799376561fcea5",
+      "source": {
+        "kind": "git-blob",
+        "blob": "10404e34fcb2a1873f07db72fb5c9712e4eadfc2"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "project-rust-flow-telemetry.html",
+      "size": 6443,
+      "sha256": "aab3594db066df1a8146ce32366e549f4cdbf59205a25a54e87af6bbcdd984aa",
+      "source": {
+        "kind": "git-blob",
+        "blob": "fb52c9f53ef5443b809fdc02dd13d97380f58e60"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "project-showcase.css",
+      "size": 3571,
+      "sha256": "74d78decd8e66d53c40d49b4d398a72a496e3085c1f7cd61d41897e263e4ba06",
+      "source": {
+        "kind": "git-blob",
+        "blob": "ab1cce7d9f57aa49ede3c7de5cfee0ea0743b176"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "project-showcase.js",
+      "size": 13799,
+      "sha256": "8509649b8b29f9ed5f0cd5d72f68a090a3d06508bf10d1d1bbe9928cf00c897b",
+      "source": {
+        "kind": "git-blob",
+        "blob": "1ae5f368f19d55f7606b31d8e07d1cb04f1634c2"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "project-wireless-roaming-correlator.html",
+      "size": 6216,
+      "sha256": "551cab9f74b170c553026b420c52533d616ffc07c95f1f80148a399f64aeb57e",
+      "source": {
+        "kind": "git-blob",
+        "blob": "a3b25541668d49addd1b16111aa1ecccd128e9e8"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "project-zero-trust-blast-radius.html",
+      "size": 6268,
+      "sha256": "7842be0b217ca44d57efb49e6ae4ed699093fee65878d69eaf13abadb0f6a83d",
+      "source": {
+        "kind": "git-blob",
+        "blob": "97ba18087b425d88d3f4b12c37cb4e32f44b7eb1"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "projects.html",
+      "size": 29086,
+      "sha256": "60a8e011e503846c90035e820a4ea1ecd89add3083979e5a92e264b7e15cc100",
+      "source": {
+        "kind": "git-blob",
+        "blob": "2616749f5dca6d335bcf6f2f7e6f74532443596b"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -3088,6 +3440,28 @@
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
+      "path": "rust-flow-telemetry-v22/Cargo.toml",
+      "size": 201,
+      "sha256": "b24de2be4665ea4097bd9105132945b954e19ca7954e6444e04ca431c46d7c8f",
+      "source": {
+        "kind": "git-blob",
+        "blob": "e9db5622712a16453f8bb05eaa9fc0c8caaf77c9"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "rust-flow-telemetry-v22/src/main.rs",
+      "size": 1755,
+      "sha256": "d99806807202ffeb72d7de51cf3f15d5d2aae66c835e0925aac4955480a0322e",
+      "source": {
+        "kind": "git-blob",
+        "blob": "03a38ce6e3ce703ef8cae50f96a78e5c0ee7d961"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
       "path": "science-experiments.css",
       "size": 8886,
       "sha256": "ad011d0f2b8dcd1070e673a38973f59884fd104695b851d0b41ae90f538e37ca",
@@ -3122,11 +3496,11 @@
     },
     {
       "path": "security-research.html",
-      "size": 18464,
-      "sha256": "88016a6570bcdefa1a57a1f0a476f615dae9225363867cba537bde9718c7e6a6",
+      "size": 18489,
+      "sha256": "d1cea84caa7d6a56d450d558dda437b2c22c8e4e8156d6d8813daadaf8bd4e48",
       "source": {
         "kind": "git-blob",
-        "blob": "0ed285b9466f8133437a759503dcc4e4abc9f270"
+        "blob": "2f4867fd8a867b6b82f964a0f76d0734437def69"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -3138,6 +3512,28 @@
       "source": {
         "kind": "git-blob",
         "blob": "5c6acf5a08cd32c47335f9a9f1fe149cdb4b12ef"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "security-toolkit.css",
+      "size": 2839,
+      "sha256": "a5484f05840b73f49c3e1ca004766fe53d596496d69b4ffc40f816aedbcde039",
+      "source": {
+        "kind": "git-blob",
+        "blob": "7021b406f726eb24ee16e3775902906e3b848dc7"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
+      "path": "security-toolkit.js",
+      "size": 23985,
+      "sha256": "07d0ba7fb7429d0bb9f724cc67683ac135dcf21c224a9fa98e039b8588f9e54c",
+      "source": {
+        "kind": "git-blob",
+        "blob": "43b66cdb48b9949a7a4b5a6e889ca5b9f9ba608b"
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -3155,11 +3551,11 @@
     },
     {
       "path": "site-navigation.js",
-      "size": 4269,
-      "sha256": "1139336bf948ecd1f95b035b4b645187e7d8efe8b50fbbf6b9596663ad078fc9",
+      "size": 6374,
+      "sha256": "147a1c422a4ef4490cfc10e092f2eec6f2b303ff84ab02c631667b2721ee2349",
       "source": {
         "kind": "git-blob",
-        "blob": "bfacb9b2750f48c7db5b7b619ef43bfa34d4d620"
+        "blob": "6ee59baae45fbd1c76484c03194712011c91d497"
       },
       "owningComponent": "site-navigation",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -3199,11 +3595,11 @@
     },
     {
       "path": "site-responsive.css",
-      "size": 44123,
-      "sha256": "484e6f7e696c852b2955bcc9ce4dc332d0d979bfda689632382e6afed11c25f3",
+      "size": 66074,
+      "sha256": "45c182f770e71037764e5bd0589e31a2f575ac6933b9d2a0e18df8e4dca6b71b",
       "source": {
         "kind": "git-blob",
-        "blob": "99051cc17bb0d54d5910ff9feb4d686b729fc6c7"
+        "blob": "30fbb562a40996c5516f62286edd69bb7cc5d092"
       },
       "owningComponent": "site-responsive",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -3286,6 +3682,17 @@
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
+      "path": "software-showcase.js",
+      "size": 12384,
+      "sha256": "c0bcf0ffa6fa14c8f9d219fff7108a5e17954d939aefbf7d57ad3ba1354f6465",
+      "source": {
+        "kind": "git-blob",
+        "blob": "615fb819b5bb180ddd79e95449686e23da277331"
+      },
+      "owningComponent": "portfolio",
+      "deploymentClassification": "KEEP_PRODUCTION"
+    },
+    {
       "path": "solar-navigation.js",
       "size": 17648,
       "sha256": "2c6de979fbffa812cab6899647627a2944f3aa43b46dd752d679ba62c2a7af79",
@@ -3306,408 +3713,8 @@
       },
       "owningComponent": "portfolio",
       "deploymentClassification": "KEEP_PRODUCTION"
-    },
-    {
-      "path": "project-concurrent-job-scheduler.html",
-      "size": 6533,
-      "sha256": "6a327f6ee504266f1ec80c64b730dd3cfb5b6020192cd68727344605cf8286a6",
-      "source": {
-        "kind": "candidate-worktree"
-      },
-      "owningComponent": "portfolio",
-      "deploymentClassification": "KEEP_PRODUCTION"
-    },
-    {
-      "path": "project-progressive-delivery-control-plane.html",
-      "size": 6479,
-      "sha256": "56a2f32d0de158b654b05fced38003a4925aef69641d9524d201b49bf67a7719",
-      "source": {
-        "kind": "candidate-worktree"
-      },
-      "owningComponent": "portfolio",
-      "deploymentClassification": "KEEP_PRODUCTION"
-    },
-    {
-      "path": "project-cache-consistency-lab.html",
-      "size": 6489,
-      "sha256": "67b862acb178b7e6d79ac8fb7aa1ad8f68b5ddcca25c2c4ea06e0741f7846e1f",
-      "source": {
-        "kind": "candidate-worktree"
-      },
-      "owningComponent": "portfolio",
-      "deploymentClassification": "KEEP_PRODUCTION"
-    },
-    {
-      "path": "project-mini-compiler-static-analyzer.html",
-      "size": 6479,
-      "sha256": "a74d7d3736910553f0ac30b489361d79afddb4d893a6c99f824119e27f4ca4c5",
-      "source": {
-        "kind": "candidate-worktree"
-      },
-      "owningComponent": "portfolio",
-      "deploymentClassification": "KEEP_PRODUCTION"
-    },
-    {
-      "path": "project-api-contract-compatibility.html",
-      "size": 6506,
-      "sha256": "8b0bc1df09260d1b2bde902c63eacfa481a634f453fd812af8c7402a8605b999",
-      "source": {
-        "kind": "candidate-worktree"
-      },
-      "owningComponent": "portfolio",
-      "deploymentClassification": "KEEP_PRODUCTION"
-    },
-    {
-      "path": "project-edge-5g-failover.html",
-      "size": 6221,
-      "sha256": "7863244dca0f8b43a8f87c777f5a93b66644a6c92d2c819dec39f52f040afc11",
-      "source": {
-        "kind": "candidate-worktree"
-      },
-      "owningComponent": "portfolio",
-      "deploymentClassification": "KEEP_PRODUCTION"
-    },
-    {
-      "path": "project-database-migration-safety.html",
-      "size": 6523,
-      "sha256": "ff47153926fb66a8fc4a7d36049d88839d8dc319d6437eaaab85015f5bca532f",
-      "source": {
-        "kind": "candidate-worktree"
-      },
-      "owningComponent": "portfolio",
-      "deploymentClassification": "KEEP_PRODUCTION"
-    },
-    {
-      "path": "project-network-digital-twin.html",
-      "size": 6219,
-      "sha256": "8e4ff6ef5f417abcf1695c842b667364086d614c77aa58662ba2152576bf1dfc",
-      "source": {
-        "kind": "candidate-worktree"
-      },
-      "owningComponent": "portfolio",
-      "deploymentClassification": "KEEP_PRODUCTION"
-    },
-    {
-      "path": "project-hybrid-quantum-orchestrator.html",
-      "size": 6303,
-      "sha256": "705481c34c3e4be93d4948770f00b8e562b014e216b6c99cc1fd40f707b51425",
-      "source": {
-        "kind": "candidate-worktree"
-      },
-      "owningComponent": "portfolio",
-      "deploymentClassification": "KEEP_PRODUCTION"
-    },
-    {
-      "path": "project-event-sourced-workflow-engine.html",
-      "size": 6535,
-      "sha256": "45c47a25b6f5eb3638f55f7abba927626a6e39240b5216da5db4b5c155a83077",
-      "source": {
-        "kind": "candidate-worktree"
-      },
-      "owningComponent": "portfolio",
-      "deploymentClassification": "KEEP_PRODUCTION"
-    },
-    {
-      "path": "project-distributed-chaos-recovery.html",
-      "size": 6223,
-      "sha256": "82b961f8fb46b901ba368221a209159a419e25d7a92700333d5bb9d4f2496204",
-      "source": {
-        "kind": "candidate-worktree"
-      },
-      "owningComponent": "portfolio",
-      "deploymentClassification": "KEEP_PRODUCTION"
-    },
-    {
-      "path": "project-routing-convergence-lab.html",
-      "size": 6204,
-      "sha256": "866c6cf2dc63d17578c481616fb8798bae302ecefe475dc0be799376561fcea5",
-      "source": {
-        "kind": "candidate-worktree"
-      },
-      "owningComponent": "portfolio",
-      "deploymentClassification": "KEEP_PRODUCTION"
-    },
-    {
-      "path": "project-rust-flow-telemetry.html",
-      "size": 6443,
-      "sha256": "aab3594db066df1a8146ce32366e549f4cdbf59205a25a54e87af6bbcdd984aa",
-      "source": {
-        "kind": "candidate-worktree"
-      },
-      "owningComponent": "portfolio",
-      "deploymentClassification": "KEEP_PRODUCTION"
-    },
-    {
-      "path": "project-hpc-fabric-scheduler.html",
-      "size": 6195,
-      "sha256": "0f0b58e9def0b18c2a2d7c34d5e4dcd2afb00ec70d79eb7e42cc2cbdec59e362",
-      "source": {
-        "kind": "candidate-worktree"
-      },
-      "owningComponent": "portfolio",
-      "deploymentClassification": "KEEP_PRODUCTION"
-    },
-    {
-      "path": "project-zero-trust-blast-radius.html",
-      "size": 6268,
-      "sha256": "7842be0b217ca44d57efb49e6ae4ed699093fee65878d69eaf13abadb0f6a83d",
-      "source": {
-        "kind": "candidate-worktree"
-      },
-      "owningComponent": "portfolio",
-      "deploymentClassification": "KEEP_PRODUCTION"
-    },
-    {
-      "path": "project-wireless-roaming-correlator.html",
-      "size": 6216,
-      "sha256": "551cab9f74b170c553026b420c52533d616ffc07c95f1f80148a399f64aeb57e",
-      "source": {
-        "kind": "candidate-worktree"
-      },
-      "owningComponent": "portfolio",
-      "deploymentClassification": "KEEP_PRODUCTION"
-    },
-    {
-      "path": "project-incident-evidence-graph.html",
-      "size": 6277,
-      "sha256": "b9adfba8d05ba2da8dde25b4d70b1ecebd2fde43de2bd234d879b9c19731a945",
-      "source": {
-        "kind": "candidate-worktree"
-      },
-      "owningComponent": "portfolio",
-      "deploymentClassification": "KEEP_PRODUCTION"
-    },
-    {
-      "path": "project-reliable-message-processing.html",
-      "size": 6566,
-      "sha256": "5db2f0b7d5ef5dc7967baedf056bba3e739fd7e4f7d4c983e1b5078cfa9b7d68",
-      "source": {
-        "kind": "candidate-worktree"
-      },
-      "owningComponent": "portfolio",
-      "deploymentClassification": "KEEP_PRODUCTION"
-    },
-    {
-      "path": "project-showcase.js",
-      "size": 13799,
-      "sha256": "8509649b8b29f9ed5f0cd5d72f68a090a3d06508bf10d1d1bbe9928cf00c897b",
-      "source": {
-        "kind": "candidate-worktree"
-      },
-      "owningComponent": "portfolio",
-      "deploymentClassification": "KEEP_PRODUCTION"
-    },
-    {
-      "path": "project-mastery.js",
-      "size": 8789,
-      "sha256": "f70a8acd5e4187c8b927f65077a30f97aa76e0746e096a8236775b0e45ac3f60",
-      "source": {
-        "kind": "candidate-worktree"
-      },
-      "owningComponent": "portfolio",
-      "deploymentClassification": "KEEP_PRODUCTION"
-    },
-    {
-      "path": "project-mastery.css",
-      "size": 4114,
-      "sha256": "1c159729e7656edb7908aa37eb5c1500eb0acf41353820ea91287f4c222bcd35",
-      "source": {
-        "kind": "candidate-worktree"
-      },
-      "owningComponent": "portfolio",
-      "deploymentClassification": "KEEP_PRODUCTION"
-    },
-    {
-      "path": "project-showcase.css",
-      "size": 3571,
-      "sha256": "74d78decd8e66d53c40d49b4d398a72a496e3085c1f7cd61d41897e263e4ba06",
-      "source": {
-        "kind": "candidate-worktree"
-      },
-      "owningComponent": "portfolio",
-      "deploymentClassification": "KEEP_PRODUCTION"
-    },
-    {
-      "path": "software-showcase.js",
-      "size": 12384,
-      "sha256": "c0bcf0ffa6fa14c8f9d219fff7108a5e17954d939aefbf7d57ad3ba1354f6465",
-      "source": {
-        "kind": "candidate-worktree"
-      },
-      "owningComponent": "portfolio",
-      "deploymentClassification": "KEEP_PRODUCTION"
-    },
-    {
-      "path": "assets/site-education.json",
-      "size": 841,
-      "sha256": "047994b48d49dac428e8abb449bac1c7e3103002da479ed01aae7c5282ba96b4",
-      "source": {
-        "kind": "candidate-worktree"
-      },
-      "owningComponent": "portfolio",
-      "deploymentClassification": "KEEP_PRODUCTION"
-    },
-    {
-      "path": "assets/project-evaluation.json",
-      "size": 58059,
-      "sha256": "1217d7615351151f45b123868d2f2e6caa641dc640f00bf9c1ae6eb016f5cbee",
-      "source": {
-        "kind": "candidate-worktree"
-      },
-      "owningComponent": "portfolio",
-      "deploymentClassification": "KEEP_PRODUCTION"
-    },
-    {
-      "path": "rust-flow-telemetry-v22/sample_flows.csv",
-      "size": 235,
-      "sha256": "25216fa82ad297b5f6c076964bfed68b06ef3e37ccf5098f87a1275e3293125d",
-      "source": {
-        "kind": "candidate-worktree"
-      },
-      "owningComponent": "portfolio",
-      "deploymentClassification": "KEEP_PRODUCTION"
-    },
-    {
-      "path": "rust-flow-telemetry-v22/Cargo.toml",
-      "size": 201,
-      "sha256": "b24de2be4665ea4097bd9105132945b954e19ca7954e6444e04ca431c46d7c8f",
-      "source": {
-        "kind": "candidate-worktree"
-      },
-      "owningComponent": "portfolio",
-      "deploymentClassification": "KEEP_PRODUCTION"
-    },
-    {
-      "path": "rust-flow-telemetry-v22/README.md",
-      "size": 643,
-      "sha256": "0289f2b497a77de78babf32cc9aefb060c99ca21fa51ca03b20dba999dffdf67",
-      "source": {
-        "kind": "candidate-worktree"
-      },
-      "owningComponent": "portfolio",
-      "deploymentClassification": "KEEP_PRODUCTION"
-    },
-    {
-      "path": "rust-flow-telemetry-v22/src/main.rs",
-      "size": 1755,
-      "sha256": "d99806807202ffeb72d7de51cf3f15d5d2aae66c835e0925aac4955480a0322e",
-      "source": {
-        "kind": "candidate-worktree"
-      },
-      "owningComponent": "portfolio",
-      "deploymentClassification": "KEEP_PRODUCTION"
-    },
-    {
-      "path": "ai-mastery.css",
-      "size": 2667,
-      "sha256": "fb3b219cc9fd6d6f2aedc5d01fd38c3ebe9eb85f29756ef40e406b9186a0fa0c",
-      "source": {
-        "kind": "candidate-worktree"
-      },
-      "owningComponent": "portfolio",
-      "deploymentClassification": "KEEP_PRODUCTION"
-    },
-    {
-      "path": "ai-mastery.js",
-      "size": 5802,
-      "sha256": "64020aab72e245f54b64bd616269e4799bbbd95bfd3baf67d99f170e316fc14b",
-      "source": {
-        "kind": "candidate-worktree"
-      },
-      "owningComponent": "portfolio",
-      "deploymentClassification": "KEEP_PRODUCTION"
-    },
-    {
-      "path": "assets/ai-build-mastery.json",
-      "size": 35426,
-      "sha256": "653021c09b19fa763045566d673c3dcf4d7137dc8de9a3b5e4bfa733b3e17f61",
-      "source": {
-        "kind": "candidate-worktree"
-      },
-      "owningComponent": "portfolio",
-      "deploymentClassification": "KEEP_PRODUCTION"
-    },
-    {
-      "path": "assets/audio/dark-theme-user-v32.mp3",
-      "size": 470985,
-      "sha256": "da15f46e84a2a59b09b66bfc210046d7544da31ee614b2e35c9db4fceb193ae1",
-      "source": {
-        "kind": "candidate-worktree"
-      },
-      "owningComponent": "portfolio",
-      "deploymentClassification": "KEEP_PRODUCTION"
-    },
-    {
-      "path": "assets/audio/dark-theme-user-v32.wav",
-      "size": 3897388,
-      "sha256": "3da693485d095d03d4f91516849303cd67b0b4fe2c6bf26525b995821214e294",
-      "source": {
-        "kind": "candidate-worktree"
-      },
-      "owningComponent": "portfolio",
-      "deploymentClassification": "KEEP_PRODUCTION"
-    },
-    {
-      "path": "assets/learning-academy.json",
-      "size": 9363,
-      "sha256": "92a41381570ae41201554765f0a0553bf73ce13e18864a0c93d1443e62633008",
-      "source": {
-        "kind": "candidate-worktree"
-      },
-      "owningComponent": "portfolio",
-      "deploymentClassification": "KEEP_PRODUCTION"
-    },
-    {
-      "path": "assets/security-toolkit.json",
-      "size": 21338,
-      "sha256": "943bef6c184bf01efa582f3987c0c9070bdc9d2ef6578cecab209a605a37fe65",
-      "source": {
-        "kind": "candidate-worktree"
-      },
-      "owningComponent": "portfolio",
-      "deploymentClassification": "KEEP_PRODUCTION"
-    },
-    {
-      "path": "learning-academy.css",
-      "size": 3438,
-      "sha256": "49eda74f1a325864bdf68ecf564d46ec0ea86cd4fa1c43ba9957e96566aa476e",
-      "source": {
-        "kind": "candidate-worktree"
-      },
-      "owningComponent": "portfolio",
-      "deploymentClassification": "KEEP_PRODUCTION"
-    },
-    {
-      "path": "learning-academy.js",
-      "size": 10992,
-      "sha256": "d5382d3decf6632a399d7cf551f7caa25179a6e3c6375b690cef7aa1940c1f83",
-      "source": {
-        "kind": "candidate-worktree"
-      },
-      "owningComponent": "portfolio",
-      "deploymentClassification": "KEEP_PRODUCTION"
-    },
-    {
-      "path": "security-toolkit.css",
-      "size": 2839,
-      "sha256": "a5484f05840b73f49c3e1ca004766fe53d596496d69b4ffc40f816aedbcde039",
-      "source": {
-        "kind": "candidate-worktree"
-      },
-      "owningComponent": "portfolio",
-      "deploymentClassification": "KEEP_PRODUCTION"
-    },
-    {
-      "path": "security-toolkit.js",
-      "size": 23985,
-      "sha256": "07d0ba7fb7429d0bb9f724cc67683ac135dcf21c224a9fa98e039b8588f9e54c",
-      "source": {
-        "kind": "candidate-worktree"
-      },
-      "owningComponent": "portfolio",
-      "deploymentClassification": "KEEP_PRODUCTION"
     }
   ],
-  "fileCount": 297,
-  "byteSize": 439764684
+  "fileCount": 334,
+  "byteSize": 445916238
 }
