@@ -273,8 +273,8 @@ test('rest-to-rest velocity profiles meet distance and speed constraints in both
 
 test('near-singular Jacobian inverse velocity demands increase as the elbow straightens', () => {
   const lesson = lessons[ids[2]];
-  assert.match(lesson.reasoningSteps[4], /theta2=0\\.01 rad/);
-  assert.match(lesson.labPlan.join(' '), /\\+24\\.99999167/);
+  assert.match(lesson.reasoningSteps[4], /theta2=0\.01 rad/);
+  assert.match(lesson.labPlan.join(' '), /\+24\.99999167/);
   const jointSpeeds = [];
   for (const [elbow, expect1, expect2] of [
     [0.01, 2.49991667, -5.83330556],
