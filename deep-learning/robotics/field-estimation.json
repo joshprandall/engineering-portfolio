@@ -1,0 +1,542 @@
+{
+  "robotics-controls-25-se2-composition-order": {
+    "essentialQuestion": "Why can two coordinate transforms have the same combined yaw but different world positions?",
+    "verifiedBoundary": "SE(2) transform composition requires rotating the downstream translation: (Ra,ta)∘(Rb,tb)=(RaRb,Ra tb+ta); swapping terms generally changes position.",
+    "analogy": "Engineering interpretation: why can two coordinate transforms have the same combined yaw but different world positions",
+    "starter": {
+      "plainStart": "SE(2) transform composition requires rotating the downstream translation: (Ra,ta)∘(Rb,tb)=(RaRb,Ra tb+ta); swapping terms generally changes position.",
+      "tryThis": "Implement compose(A,B) using rotation and translation; assert A∘B=(0.9,2.2,pi/3) within 1e-9.",
+      "helper": "Reverse A and B and assert (2.066025404,1.332050808,pi/3), rejecting the additive-only shortcut."
+    },
+    "technical": {
+      "scope": "Synthetic, offline educational case. Stationary planar world/base/sensor frames; meters, positive counterclockwise yaw; no uncertainty or motion. Reference: https://github.com/ros2/ros2_documentation/blob/rolling/source/ROS-Framework/client-libraries/Working-with-Client-Libraries/Tf2/Time-Travel-With-Tf2-Cpp.rst",
+      "versionCaution": "This mathematical case supplies no real-robot operational authorization or safety certification; source material supports background concepts, not verification of the invented synthetic measurements.",
+      "prerequisites": [],
+      "connections": []
+    },
+    "reasoningSteps": [
+      "Let world-from-base be yaw +90° and translation (1,2) m. Let base-from-sensor be yaw -30° and translation (0.2,0.1) m.",
+      "Rotate sensor translation by +90°: (0.2,0.1)→(-0.1,+0.2) m, then add (1,2): world sensor position (0.9,2.2) m.",
+      "Yaw adds to +60°; independent direct transformation of sensor origin (0,0) through base and then world also yields (0.9,2.2) m.",
+      "In reversed composition, rotate (1,2) m by -30° and add (0.2,0.1) m: position becomes (2.066025404,1.332050808) m, not (0.9,2.2) m.",
+      "Counterexample: raw addition of translations (1.2,2.1) m ignores the rotation and predicts neither composition correctly.",
+      "Two pure planar rotations about the same origin commute, but full translated poses generally do not; keep source/target frame labels ordered. Source: https://github.com/ros2/ros2_documentation/blob/rolling/source/ROS-Framework/client-libraries/Working-with-Client-Libraries/Tf2/Time-Travel-With-Tf2-Cpp.rst"
+    ],
+    "memoryLadder": [
+      "Reproduce the forward composition.",
+      "Account for the frame in which translation is written.",
+      "Disprove addition-only composition.",
+      "Distinguish static correctness from real-time synchronization."
+    ],
+    "labPlan": [
+      "Implement compose(A,B) using rotation and translation; assert A∘B=(0.9,2.2,pi/3) within 1e-9.",
+      "Reverse A and B and assert (2.066025404,1.332050808,pi/3), rejecting the additive-only shortcut.",
+      "Transform a synthetic sensor point to world and back by inverse composition, asserting local coordinates preserved."
+    ],
+    "vocabulary": [
+      {
+        "term": "pose composition",
+        "definition": "Frame-dependent rigid-body transforms combined in an ordered sequence."
+      },
+      {
+        "term": "noncommutativity",
+        "definition": "Composition whose outcome changes when operand order is swapped."
+      }
+    ]
+  },
+  "robotics-controls-26-timestamp-pose-skew": {
+    "essentialQuestion": "How large is the artificial position discrepancy when sensor poses have different acquisition times?",
+    "verifiedBoundary": "At constant signed speed v, samples separated by Δt differ by vΔt; alignment by linear interpolation is exact only for constant-velocity motion over that interval.",
+    "analogy": "Engineering interpretation: how large is the artificial position discrepancy when sensor poses have different acquisition times",
+    "starter": {
+      "plainStart": "At constant signed speed v, samples separated by Δt differ by vΔt; alignment by linear interpolation is exact only for constant-velocity motion over that interval.",
+      "tryThis": "Implement p(t)=0.5*(t-4) and check t=4,4.05,4.10 produce 0,0.025,0.05 m.",
+      "helper": "Assert unaligned endpoint mismatch 0.05 m; verify reversed speed gives -0.05 m."
+    },
+    "technical": {
+      "scope": "Synthetic, offline educational case. Synthetic one-dimensional constant-speed pose, common clock in seconds; acceleration counterexample separate. Reference: https://github.com/ros2/ros2_documentation/blob/rolling/source/ROS-Framework/client-libraries/Working-with-Client-Libraries/Tf2/Time-Travel-With-Tf2-Cpp.rst",
+      "versionCaution": "This mathematical case supplies no real-robot operational authorization or safety certification; source material supports background concepts, not verification of the invented synthetic measurements.",
+      "prerequisites": [],
+      "connections": []
+    },
+    "reasoningSteps": [
+      "At t=4.00 s, a synthetic robot position is 0 m; at constant +0.50 m/s the position is p(t)=0.50(t-4) m.",
+      "At t=4.10 s the true position is +0.050 m. Subtracting it from the t=4.00-s observation without timestamp alignment creates a spurious 0.050-m mismatch.",
+      "At common time t=4.05 s, interpolation between endpoints gives 0.025 m; evaluating the constant-speed equation independently gives 0.025 m.",
+      "Reversing speed to -0.50 m/s reverses the apparent difference to -0.050 m; an unsigned timestamp delta alone loses this direction.",
+      "Counterexample: accelerated displacement p(t)=t² m over [0,0.10] s gives true midpoint p(0.05)=0.0025 m while midpoint interpolation predicts 0.005 m.",
+      "Timed transforms can align timestamped observations under suitable models; they cannot infer unspecified acceleration or clock skew. Source: https://github.com/ros2/ros2_documentation/blob/rolling/source/ROS-Framework/client-libraries/Working-with-Client-Libraries/Tf2/Time-Travel-With-Tf2-Cpp.rst"
+    ],
+    "memoryLadder": [
+      "Calculate raw time-offset error.",
+      "Reconstruct the midpoint independently.",
+      "Produce an accelerating counterexample.",
+      "Identify limitations of time-aware transform lookup."
+    ],
+    "labPlan": [
+      "Implement p(t)=0.5*(t-4) and check t=4,4.05,4.10 produce 0,0.025,0.05 m.",
+      "Assert unaligned endpoint mismatch 0.05 m; verify reversed speed gives -0.05 m.",
+      "Falsify exact linear interpolation with p(t)=t² between 0 and 0.1 s; assert 0.0025-m midpoint error."
+    ],
+    "vocabulary": [
+      {
+        "term": "timestamp alignment",
+        "definition": "Comparing measurements at a common physical acquisition time."
+      },
+      {
+        "term": "interpolation model",
+        "definition": "Assumed behavior between known temporal samples."
+      }
+    ]
+  },
+  "robotics-controls-27-encoder-modulo-rollover": {
+    "essentialQuestion": "Why does a wrapped encoder reading not necessarily mean the wheel turned backward?",
+    "verifiedBoundary": "For modulus M, shortest signed count change is wrap(c1-c0) to [-M/2,M/2); it is unique only when actual sample-to-sample travel is strictly less than M/2 counts.",
+    "analogy": "Engineering interpretation: why does a wrapped encoder reading not necessarily mean the wheel turned backward",
+    "starter": {
+      "plainStart": "For modulus M, shortest signed count change is wrap(c1-c0) to [-M/2,M/2); it is unique only when actual sample-to-sample travel is strictly less than M/2 counts.",
+      "tryThis": "Implement modularSignedDelta(4090,6,4096) and assert +12 and +0.000920388473 m.",
+      "helper": "Reverse the readings and assert -12; test equivalent raw changes shifted by whole multiples of 4096."
+    },
+    "technical": {
+      "scope": "Synthetic, offline educational case. Unsigned modulo-4096 synthetic wheel-shaft counter; radius 0.050 m; one revolution 4096 transitions; no slip. Reference: https://docs.wpilib.org/en/latest/docs/software/kinematics-and-odometry/differential-drive-odometry.html",
+      "versionCaution": "This mathematical case supplies no real-robot operational authorization or safety certification; source material supports background concepts, not verification of the invented synthetic measurements.",
+      "prerequisites": [],
+      "connections": []
+    },
+    "reasoningSteps": [
+      "Read previous count 4090 and current count 6. The raw difference 6-4090=-4084 does not reflect the assumed short forward step.",
+      "Add modulus M=4096 and normalize into the centered interval: signed delta=+12 counts.",
+      "The inferred travel is 12*(2*pi*0.050 m)/4096=0.000920388473 m, with signed forward direction.",
+      "Unwrapped hidden counter 4090→4102 displays 4102 mod 4096=6, independently confirming the +12-count explanation.",
+      "Counterexample: an actual -4084-count movement also displays the same final value. Without a strict half-modulus motion bound, the observations are ambiguous.",
+      "Exactly 2048-count changes are direction-tied under shortest-path unwrapping and must be rejected or resolved using an external convention. Source: https://docs.wpilib.org/en/latest/docs/software/kinematics-and-odometry/differential-drive-odometry.html"
+    ],
+    "memoryLadder": [
+      "Recover the short forward increment.",
+      "Convert count increment using the stated shaft resolution.",
+      "Construct an aliased reverse movement.",
+      "State the half-range uniqueness assumption."
+    ],
+    "labPlan": [
+      "Implement modularSignedDelta(4090,6,4096) and assert +12 and +0.000920388473 m.",
+      "Reverse the readings and assert -12; test equivalent raw changes shifted by whole multiples of 4096.",
+      "Reject the ±2048-count tie and demonstrate both +12 and -4084 latent movements produce reading 6."
+    ],
+    "vocabulary": [
+      {
+        "term": "counter rollover",
+        "definition": "Stored integer count returning to zero after its maximum."
+      },
+      {
+        "term": "sampling alias",
+        "definition": "Different physical trajectories yielding identical observations."
+      }
+    ]
+  },
+  "robotics-controls-28-effective-track-calibration": {
+    "essentialQuestion": "How does an independent yaw reference constrain differential-drive track width?",
+    "verifiedBoundary": "Under ideal no-slip differential-drive motion, b=(dR-dL)/Δθ for nonzero yaw change; small denominators make single-sample estimates sensitive to error.",
+    "analogy": "Engineering interpretation: how does an independent yaw reference constrain differential-drive track width",
+    "starter": {
+      "plainStart": "Under ideal no-slip differential-drive motion, b=(dR-dL)/Δθ for nonzero yaw change; small denominators make single-sample estimates sensitive to error.",
+      "tryThis": "Compute estimateTrack(0.45,0.55,0.25) and assert 0.40 m.",
+      "helper": "Predict yaw at 0.40 and 0.50-m tracks; check +0.25 and +0.20 rad."
+    },
+    "technical": {
+      "scope": "Synthetic, offline educational case. Synthetic constant-curvature wheel increments in meters and independent gyro yaw in radians; no skidding. Reference: https://docs.wpilib.org/en/stable/docs/software/kinematics-and-odometry/differential-drive-kinematics.html",
+      "versionCaution": "This mathematical case supplies no real-robot operational authorization or safety certification; source material supports background concepts, not verification of the invented synthetic measurements.",
+      "prerequisites": [],
+      "connections": []
+    },
+    "reasoningSteps": [
+      "Set wheel increments left=0.45 m, right=0.55 m and independently supplied heading change +0.25 rad.",
+      "The wheel difference is 0.10 m, giving effective track b=0.10/0.25=0.40 m.",
+      "Reconstruct yaw using this track: (0.55-0.45)/0.40=+0.25 rad, matching the independent reference.",
+      "Substituting b=0.50 m gives predicted +0.20 rad: 0.05 rad smaller, or 20% below the 0.25-rad reference.",
+      "Counterexample: when measured Δθ=0 with nonzero wheel difference, division is undefined; it does not establish an infinite valid track width.",
+      "Effective kinematic track may differ from a ruler-measured separation; one noiseless synthetic turn is not field calibration. Source: https://docs.wpilib.org/en/stable/docs/software/kinematics-and-odometry/differential-drive-kinematics.html"
+    ],
+    "memoryLadder": [
+      "Rearrange the yaw/track relation.",
+      "Derive the 20% disagreement.",
+      "Explain zero-yaw ambiguity.",
+      "Distinguish empirical track from physical measurement."
+    ],
+    "labPlan": [
+      "Compute estimateTrack(0.45,0.55,0.25) and assert 0.40 m.",
+      "Predict yaw at 0.40 and 0.50-m tracks; check +0.25 and +0.20 rad.",
+      "Reject zero yaw denominator and test swapping wheels together with sign-reversing yaw."
+    ],
+    "vocabulary": [
+      {
+        "term": "effective track width",
+        "definition": "Track parameter inferred from differential motion under a specified model."
+      },
+      {
+        "term": "conditioning",
+        "definition": "Sensitivity of an inferred result to small input perturbations."
+      }
+    ]
+  },
+  "robotics-controls-29-angular-innovation-gating": {
+    "essentialQuestion": "How do prediction and measurement variances change a synthetic heading gate?",
+    "verifiedBoundary": "For independent heading errors, S=P+R and normalized angular innovation is |wrap(z-x)|/sqrt(S); a chosen 2-sigma gate is evidence of inconsistency, not a diagnosis.",
+    "analogy": "Engineering interpretation: how do prediction and measurement variances change a synthetic heading gate",
+    "starter": {
+      "plainStart": "For independent heading errors, S=P+R and normalized angular innovation is |wrap(z-x)|/sqrt(S); a chosen 2-sigma gate is evidence of inconsistency, not a diagnosis.",
+      "tryThis": "Implement wrapDeg and score; assert observation 24° scores 1.109400392 and is accepted at 2σ.",
+      "helper": "Assert observation 36° scores 4.437601570 and is flagged; reverse residual sign to check symmetry."
+    },
+    "technical": {
+      "scope": "Synthetic, offline educational case. Synthetic scalar yaw in degrees with independent prediction P=9 deg² and measurement R=4 deg²; chosen 2σ threshold. Reference: https://docs.wpilib.org/en/latest/docs/software/kinematics-and-odometry/differential-drive-odometry.html",
+      "versionCaution": "This mathematical case supplies no real-robot operational authorization or safety certification; source material supports background concepts, not verification of the invented synthetic measurements.",
+      "prerequisites": [],
+      "connections": []
+    },
+    "reasoningSteps": [
+      "Let predicted heading be +20°, observed heading +24°, prediction variance 9 deg² and observation variance 4 deg².",
+      "Wrapped difference is +4°; independent variance sum S=9+4=13 deg² and sigma=sqrt(13)=3.605551275°.",
+      "Normalized magnitude is 4/sqrt(13)=1.109400392, below the specified 2σ gate.",
+      "A +36° observation instead has residual +16°, magnitude 16/sqrt(13)=4.437601570, so it is flagged by that rule.",
+      "Counterexample: if prediction and measurement errors have covariance C=2 deg², residual variance becomes 9+4-2*2=9 deg², not 13 deg².",
+      "Wrap periodic heading differences before gating. Rejection is statistical model evidence, not proof of a broken gyro or physical safety risk. Source: https://docs.wpilib.org/en/latest/docs/software/kinematics-and-odometry/differential-drive-odometry.html"
+    ],
+    "memoryLadder": [
+      "Compute S and standard deviation.",
+      "Make both threshold decisions.",
+      "Disprove the independence shortcut with C≠0.",
+      "Explain why flagged data need further investigation."
+    ],
+    "labPlan": [
+      "Implement wrapDeg and score; assert observation 24° scores 1.109400392 and is accepted at 2σ.",
+      "Assert observation 36° scores 4.437601570 and is flagged; reverse residual sign to check symmetry.",
+      "Use covariance C=2 deg² to show residual sigma=3°, not sqrt(13)°."
+    ],
+    "vocabulary": [
+      {
+        "term": "innovation",
+        "definition": "Observed minus predicted quantity in compatible coordinates."
+      },
+      {
+        "term": "innovation covariance",
+        "definition": "Uncertainty of that difference under explicit correlation assumptions."
+      }
+    ]
+  },
+  "robotics-controls-30-delay-aware-stopping-bound": {
+    "essentialQuestion": "Why can a control delay invalidate a braking-distance-only robot plan?",
+    "verifiedBoundary": "Under ideal constant speed during delay τ followed by constant deceleration a>0, total modeled stop travel is vτ+v²/(2a); it is not a safety-certified physical stop distance.",
+    "analogy": "Engineering interpretation: why can a control delay invalidate a braking-distance-only robot plan",
+    "starter": {
+      "plainStart": "Under ideal constant speed during delay τ followed by constant deceleration a>0, total modeled stop travel is vτ+v²/(2a); it is not a safety-certified physical stop distance.",
+      "tryThis": "Compute stopTravel(1,0.1,2) and assert delay=0.10 m, braking=0.25 m, total=0.35 m.",
+      "helper": "Integrate the rectangular delay and triangular braking speed curves to recover the distance and 0.60-s time."
+    },
+    "technical": {
+      "scope": "Synthetic, offline educational case. Synthetic 1D stop scenario v=1.00 m/s, τ=0.10 s, a=2.00 m/s²; no real actuation. Reference: https://docs.wpilib.org/en/stable/docs/software/advanced-controls/controllers/trapezoidal-profiles.html",
+      "versionCaution": "This mathematical case supplies no real-robot operational authorization or safety certification; source material supports background concepts, not verification of the invented synthetic measurements.",
+      "prerequisites": [],
+      "connections": []
+    },
+    "reasoningSteps": [
+      "Choose initial speed 1.00 m/s, reaction latency 0.10 s and then ideal constant deceleration magnitude 2.00 m/s².",
+      "Travel during latency is 1.00*0.10=0.10 m, since speed remains constant until braking starts in this model.",
+      "Braking duration is v/a=0.50 s; subsequent braking travel v²/(2a)=0.25 m, totaling 0.35 m in 0.60 s.",
+      "Independent speed-area calculation uses a 0.10-m rectangle and a 0.25-m triangle to recover 0.35 m.",
+      "Counterexample: quoting only 0.25-m braking travel suggests a 0.30-m obstacle gap is sufficient even though modeled total travel is 0.35 m.",
+      "Model omits slope, traction, load, actuator failures, sensor uncertainty and system safety factors; do not use it to authorize a physical motion. Source: https://docs.wpilib.org/en/stable/docs/software/advanced-controls/controllers/trapezoidal-profiles.html"
+    ],
+    "memoryLadder": [
+      "Account for latency travel.",
+      "Reproduce the braking calculation using areas.",
+      "Find the failure of the 0.30-m assertion.",
+      "Identify physical limits omitted by this model."
+    ],
+    "labPlan": [
+      "Compute stopTravel(1,0.1,2) and assert delay=0.10 m, braking=0.25 m, total=0.35 m.",
+      "Integrate the rectangular delay and triangular braking speed curves to recover the distance and 0.60-s time.",
+      "Compare hypothetical obstacle separations 0.30 and 0.40 m against the model bound; reject a=0."
+    ],
+    "vocabulary": [
+      {
+        "term": "control latency",
+        "definition": "Elapsed time before effective braking command response."
+      },
+      {
+        "term": "stop envelope",
+        "definition": "Modeled travel before coming to rest under explicit assumptions."
+      }
+    ]
+  },
+  "robotics-controls-31-encoder-clock-jitter": {
+    "essentialQuestion": "How does measurement timestamp jitter corrupt a finite-difference wheel speed?",
+    "verifiedBoundary": "Average wheel speed Δs/Δt must use the actual positive acquisition interval; nominal controller periods can bias the estimate without any count error.",
+    "analogy": "Engineering interpretation: how does measurement timestamp jitter corrupt a finite-difference wheel speed",
+    "starter": {
+      "plainStart": "Average wheel speed Δs/Δt must use the actual positive acquisition interval; nominal controller periods can bias the estimate without any count error.",
+      "tryThis": "Implement velocity(delta,t0,t1); assert 0.25 m/s for (0.02,1.000,1.080).",
+      "helper": "Assert nominal estimate 0.20 m/s and inverse discrepancy 0.004 m."
+    },
+    "technical": {
+      "scope": "Synthetic, offline educational case. Synthetic displacement 0.020 m, timestamps 1.000 and 1.080 s, nominal period 0.100 s; no wheel slip. Reference: https://docs.wpilib.org/en/latest/docs/software/kinematics-and-odometry/differential-drive-odometry.html",
+      "versionCaution": "This mathematical case supplies no real-robot operational authorization or safety certification; source material supports background concepts, not verification of the invented synthetic measurements.",
+      "prerequisites": [],
+      "connections": []
+    },
+    "reasoningSteps": [
+      "Two synthetic encoder positions differ by +0.020 m; their acquisition timestamps are t0=1.000 s and t1=1.080 s.",
+      "True sample interval is 0.080 s, so the measured interval-average wheel speed is +0.020/0.080=+0.250 m/s.",
+      "Using nominal 0.100 s instead yields +0.200 m/s, 0.050 m/s or 20% below +0.250 m/s.",
+      "Independent inverse test multiplies speed by the actual interval: 0.250*0.080=0.020 m; nominal-speed reconstruction yields only 0.016 m.",
+      "Counterexample: with interval 0.120 s and same displacement, correct average is 0.166666667 m/s, below the nominal estimate rather than above it.",
+      "Reject coincident or out-of-order timestamps; an interval-average wheel speed need not be instantaneous robot velocity if slipping or accelerating. Source: https://docs.wpilib.org/en/latest/docs/software/kinematics-and-odometry/differential-drive-odometry.html"
+    ],
+    "memoryLadder": [
+      "Compute elapsed time from acquisition stamps.",
+      "Verify speed by inverse reconstruction.",
+      "Show opposite jitter-direction error.",
+      "Explain wheel slip and acceleration limitations."
+    ],
+    "labPlan": [
+      "Implement velocity(delta,t0,t1); assert 0.25 m/s for (0.02,1.000,1.080).",
+      "Assert nominal estimate 0.20 m/s and inverse discrepancy 0.004 m.",
+      "Use t1=1.120 for 1/6 m/s and reject t1<=t0."
+    ],
+    "vocabulary": [
+      {
+        "term": "acquisition time",
+        "definition": "Timestamp associated with the actual measurement event."
+      },
+      {
+        "term": "interval-average speed",
+        "definition": "Signed displacement divided by elapsed time."
+      }
+    ]
+  },
+  "robotics-controls-32-pi-backcalculation": {
+    "essentialQuestion": "How does saturation feedback change a discrete PI integrator without freezing it entirely?",
+    "verifiedBoundary": "Specified back-calculation update I_next=I+Ki e dt+Kaw(u_sat-u_raw)dt corrects the integrator toward the clipped command; its sign matters.",
+    "analogy": "Engineering interpretation: how does saturation feedback change a discrete pi integrator without freezing it entirely",
+    "starter": {
+      "plainStart": "Specified back-calculation update I_next=I+Ki e dt+Kaw(u_sat-u_raw)dt corrects the integrator toward the clipped command; its sign matters.",
+      "tryThis": "Implement backCalculation with pre-update u_raw and assert raw=2.5,saturated=1,I_next=0.3.",
+      "helper": "Compare gain Kaw=0 (I_next=0.6) and incorrect residual sign (I_next=0.9)."
+    },
+    "technical": {
+      "scope": "Synthetic, offline educational case. Synthetic normalized command limit ±1, Kp=2, Ki=1/s, Kaw=2/s, I=0.5, e=+1, dt=.1s; no real plant. Reference: https://docs.wpilib.org/en/latest/docs/software/advanced-controls/controllers/pidcontroller.html",
+      "versionCaution": "This mathematical case supplies no real-robot operational authorization or safety certification; source material supports background concepts, not verification of the invented synthetic measurements.",
+      "prerequisites": [],
+      "connections": []
+    },
+    "reasoningSteps": [
+      "Use pre-update PI signal u_raw=Kp*e+I=2*1+0.5=2.5 and positive saturation u_sat=+1.0.",
+      "Ordinary integral increment is Ki e dt=1*1*0.1=+0.1; saturation residual is 1.0-2.5=-1.5.",
+      "Back-calculation correction is Kaw*residual*dt=2*(-1.5)*0.1=-0.3, giving I_next=0.5+0.1-0.3=+0.3.",
+      "Independent difference against plain integration I_plain=0.6 is 0.3, matching the correction magnitude.",
+      "Counterexample: reversing residual sign would add +0.3, yielding I_next=+0.9 and worsening positive windup.",
+      "Negative symmetric case I=-0.5,e=-1 produces u_raw=-2.5,u_sat=-1 and I_next=-0.3; no physical control tuning is established. Source: https://docs.wpilib.org/en/latest/docs/software/advanced-controls/controllers/pidcontroller.html"
+    ],
+    "memoryLadder": [
+      "Calculate the pre-update PI signal.",
+      "Derive the signed correction.",
+      "Explain why residual reversal worsens windup.",
+      "Separate arithmetic correctness from feedback stability."
+    ],
+    "labPlan": [
+      "Implement backCalculation with pre-update u_raw and assert raw=2.5,saturated=1,I_next=0.3.",
+      "Compare gain Kaw=0 (I_next=0.6) and incorrect residual sign (I_next=0.9).",
+      "Reverse I and e and assert negative symmetric I_next=-0.3, checking units."
+    ],
+    "vocabulary": [
+      {
+        "term": "back-calculation",
+        "definition": "Anti-windup integration correction from the saturation residual."
+      },
+      {
+        "term": "saturation residual",
+        "definition": "Applied clipped command minus unbounded computed command."
+      }
+    ]
+  },
+  "robotics-controls-33-independent-yaw-consistency": {
+    "essentialQuestion": "When do a wheel-yaw estimate and gyro-yaw estimate violate a synthetic consistency gate?",
+    "verifiedBoundary": "For independent yaw-change errors, normalize wheel-minus-gyro yaw by sqrt(σwheel²+σgyro²); an inconsistency threshold does not identify whether gyro bias, slip or calibration caused it.",
+    "analogy": "Engineering interpretation: when do a wheel-yaw estimate and gyro-yaw estimate violate a synthetic consistency gate",
+    "starter": {
+      "plainStart": "For independent yaw-change errors, normalize wheel-minus-gyro yaw by sqrt(σwheel²+σgyro²); an inconsistency threshold does not identify whether gyro bias, slip or calibration caused it.",
+      "tryThis": "Assert wheel yaw=(.3-.2)/.5=+.20 rad and its difference from gyro +.10 is +.10 rad.",
+      "helper": "Assert combined sigma sqrt(.0018) and score 2.357022604 at the synthetic 2σ cutoff."
+    },
+    "technical": {
+      "scope": "Synthetic, offline educational case. Synthetic no-slip kinematic estimate from wheel dL=.2 m,dR=.3 m,b=.5 m; independent gyro measurement +.10 rad, each σ=.03 rad. Reference: https://modernrobotics.northwestern.edu/nu-gm-book-resource/13-4-odometry/",
+      "versionCaution": "This mathematical case supplies no real-robot operational authorization or safety certification; source material supports background concepts, not verification of the invented synthetic measurements.",
+      "prerequisites": [],
+      "connections": []
+    },
+    "reasoningSteps": [
+      "Wheel differences are dR-dL=0.10 m at track b=0.50 m, predicting +0.20 rad wheel-derived heading change.",
+      "Synchronized gyroscope instead reports +0.10 rad over the same interval, giving signed residual +0.10 rad.",
+      "Assume independent standard deviations σwheel=σgyro=0.030 rad; difference standard deviation is sqrt(0.03²+0.03²)=0.042426407 rad.",
+      "Normalized residual 0.10/0.042426407=2.357022604 exceeds an arbitrarily chosen 2σ flag threshold.",
+      "Counterexample: blaming wheel slip as a proven root cause is unsound; gyro offset, track calibration and unsynchronized times can also generate the mismatch.",
+      "If both sensors report +0.20 rad, their residual is zero yet a common systematic error could still make both wrong; agreement is not absolute validation. Source: https://modernrobotics.northwestern.edu/nu-gm-book-resource/13-4-odometry/"
+    ],
+    "memoryLadder": [
+      "Derive the wheel change in radians.",
+      "Calculate residual sigma and score.",
+      "List competing explanations for disagreement.",
+      "Demonstrate a hidden common-mode bias."
+    ],
+    "labPlan": [
+      "Assert wheel yaw=(.3-.2)/.5=+.20 rad and its difference from gyro +.10 is +.10 rad.",
+      "Assert combined sigma sqrt(.0018) and score 2.357022604 at the synthetic 2σ cutoff.",
+      "Use equal but deliberately biased synthetic outputs as counterexample to accuracy by agreement."
+    ],
+    "vocabulary": [
+      {
+        "term": "cross-sensor residual",
+        "definition": "Difference between two aligned estimates of the same quantity."
+      },
+      {
+        "term": "common-mode bias",
+        "definition": "Systematic error shared by multiple estimators."
+      }
+    ]
+  },
+  "robotics-controls-34-three-point-linear-calibration": {
+    "essentialQuestion": "How can a three-point calibration reveal that a perfectly fitting affine sensor model is false?",
+    "verifiedBoundary": "For equal-weight least squares y=gx+b, all-point residuals expose disagreement with an exact affine law; the residual root-mean-square is not automatically a statistically calibrated uncertainty.",
+    "analogy": "Engineering interpretation: how can a three-point calibration reveal that a perfectly fitting affine sensor model is false",
+    "starter": {
+      "plainStart": "For equal-weight least squares y=gx+b, all-point residuals expose disagreement with an exact affine law; the residual root-mean-square is not automatically a statistically calibrated uncertainty.",
+      "tryThis": "Fit three points and assert g=1,b=1/15 m.",
+      "helper": "Compute residuals [+1/30,-2/30,+1/30] m and assert SSE=1/150 m², RMS=sqrt(1/450) m."
+    },
+    "technical": {
+      "scope": "Synthetic, offline educational case. Three exact synthetic reference x positions [0,1,2] m with responses [0.1,1.0,2.1] m; least squares, equal weights. Reference: https://itl.nist.gov/div898/handbook/mpc/section3/mpc3.htm",
+      "versionCaution": "This mathematical case supplies no real-robot operational authorization or safety certification; source material supports background concepts, not verification of the invented synthetic measurements.",
+      "prerequisites": [],
+      "connections": []
+    },
+    "reasoningSteps": [
+      "Use reference/reading pairs (0,0.1),(1,1.0),(2,2.1) m, with exact references by assumption.",
+      "Means are xbar=1.0 and ybar=1.066666667 m; slope g=Σ(x-xbar)(y-ybar)/Σ(x-xbar)²=2/2=1.0.",
+      "Intercept b=ybar-g*xbar=0.066666667 m; predicted responses are 0.066666667,1.066666667,2.066666667 m.",
+      "Residuals are +0.033333333,-0.066666667,+0.033333333 m; sum zero, squared sum SSE=0.006666667 m² and RMS=sqrt(SSE/3)=0.047140452 m.",
+      "Counterexample: line through the two endpoints y=x+0.1 predicts middle 1.1 m but actual reading is 1.0 m, so no exact affine line fits all three.",
+      "Residual RMS is an in-sample fit summary; measurement uncertainty, extrapolation error and physical calibration validity require additional evidence. Source: https://itl.nist.gov/div898/handbook/mpc/section3/mpc3.htm"
+    ],
+    "memoryLadder": [
+      "Recover slope and offset from all three points.",
+      "Verify nonzero SSE.",
+      "Disprove the endpoint-only exact-fit claim.",
+      "Explain the limits of in-sample residual RMS."
+    ],
+    "labPlan": [
+      "Fit three points and assert g=1,b=1/15 m.",
+      "Compute residuals [+1/30,-2/30,+1/30] m and assert SSE=1/150 m², RMS=sqrt(1/450) m.",
+      "Fit only the endpoints and assert middle residual -0.10 m, refuting exact fit."
+    ],
+    "vocabulary": [
+      {
+        "term": "least squares",
+        "definition": "Parameters minimizing squared observed-minus-modeled deviations."
+      },
+      {
+        "term": "calibration residual",
+        "definition": "Observed sensor value minus predicted sensor value at a known reference."
+      }
+    ]
+  },
+  "robotics-controls-35-shortest-heading-interpolation": {
+    "essentialQuestion": "How should a robot interpolate yaw across the -180°/+180° representation boundary?",
+    "verifiedBoundary": "Shortest-arc yaw interpolation is wrap(θ0+f wrap(θ1-θ0)); exactly 180° separation leaves a tie between two equally short directions.",
+    "analogy": "Engineering interpretation: how should a robot interpolate yaw across the -180°/+180° representation boundary",
+    "starter": {
+      "plainStart": "Shortest-arc yaw interpolation is wrap(θ0+f wrap(θ1-θ0)); exactly 180° separation leaves a tie between two equally short directions.",
+      "tryThis": "Implement circularLerp(170,-170,0.25) and assert +175°.",
+      "helper": "Assert f=0.75 yields -175°; reject raw interpolation result +85°."
+    },
+    "technical": {
+      "scope": "Synthetic, offline educational case. Synthetic planar heading in degrees; f in [0,1], fixed angular rate along the chosen shortest arc. Reference: https://github.com/ros2/ros2_documentation/blob/rolling/source/ROS-Framework/client-libraries/Working-with-Client-Libraries/Tf2/Time-Travel-With-Tf2-Cpp.rst",
+      "versionCaution": "This mathematical case supplies no real-robot operational authorization or safety certification; source material supports background concepts, not verification of the invented synthetic measurements.",
+      "prerequisites": [],
+      "connections": []
+    },
+    "reasoningSteps": [
+      "Use θ0=+170° at t=0 s and θ1=-170° at t=1 s; raw arithmetic delta is -340°.",
+      "Wrapped shortest signed delta is +20°, so at f=0.25 the heading is wrap(170+5)=+175°.",
+      "At f=0.75 the unwrapped angle is 170+15=185°, equivalent to -175° under [-180°,180°) normalization.",
+      "Independent relative-angle check gives +5° and +15° quarter and three-quarter progress, consistent with +20° total rotation.",
+      "Counterexample: naive signed-number interpolation gives +85° at f=0.25, implying an unnecessary -85° movement.",
+      "At exact 180° endpoint separation both rotation directions are equally short; a convention or additional data is required. Source: https://github.com/ros2/ros2_documentation/blob/rolling/source/ROS-Framework/client-libraries/Working-with-Client-Libraries/Tf2/Time-Travel-With-Tf2-Cpp.rst"
+    ],
+    "memoryLadder": [
+      "Find the wrapped relative angle.",
+      "Evaluate quarter and three-quarter headings.",
+      "Show numerical interpolation failure.",
+      "Explain the antipodal tie."
+    ],
+    "labPlan": [
+      "Implement circularLerp(170,-170,0.25) and assert +175°.",
+      "Assert f=0.75 yields -175°; reject raw interpolation result +85°.",
+      "Demonstrate the 180° tie and explicitly select a sign convention for a reproducible offline calculation."
+    ],
+    "vocabulary": [
+      {
+        "term": "angular wrap",
+        "definition": "Mapping equivalent headings into a chosen 360-degree interval."
+      },
+      {
+        "term": "shortest-arc interpolation",
+        "definition": "Orientation interpolation along a minimum angular displacement."
+      }
+    ]
+  },
+  "robotics-controls-36-robust-pose-clearance": {
+    "essentialQuestion": "Can an estimated robot center alone establish obstacle clearance under bounded localization error?",
+    "verifiedBoundary": "For deterministic center uncertainty |x-xhat|≤ε and radius r, robust 1D clearance before obstacle boundary xo requires xhat+ε+r<xo; Gaussian sigma alone is not a deterministic limit.",
+    "analogy": "Engineering interpretation: can an estimated robot center alone establish obstacle clearance under bounded localization error",
+    "starter": {
+      "plainStart": "For deterministic center uncertainty |x-xhat|≤ε and radius r, robust 1D clearance before obstacle boundary xo requires xhat+ε+r<xo; Gaussian sigma alone is not a deterministic limit.",
+      "tryThis": "Implement clearance(xhat,epsilon,r,xo); assert -0.05 m at xhat=.70 and +0.05 m at xhat=.60.",
+      "helper": "Enumerate bound endpoints and show worst-case right edge 1.05 m in the first case."
+    },
+    "technical": {
+      "scope": "Synthetic, offline educational case. Synthetic obstacle half-plane x≥1.0 m; radius 0.20 m; hard bounded center uncertainty ±0.15 m; static geometry only. Reference: https://docs.wpilib.org/en/latest/docs/software/kinematics-and-odometry/differential-drive-odometry.html",
+      "versionCaution": "This mathematical case supplies no real-robot operational authorization or safety certification; source material supports background concepts, not verification of the invented synthetic measurements.",
+      "prerequisites": [],
+      "connections": []
+    },
+    "reasoningSteps": [
+      "Let obstacle begin at x=1.00 m, estimated center xhat=0.70 m, circular-footprint radius r=0.20 m and guaranteed location error |x-xhat|≤0.15 m.",
+      "Maximum possible right edge is 0.70+0.15+0.20=1.05 m, overlapping obstacle by 0.05 m.",
+      "At estimate xhat=0.60 m, worst right edge is 0.60+0.15+0.20=0.95 m, yielding 0.05 m positive geometric separation.",
+      "Independent interval construction gives possible centers [0.55,0.85] m at xhat=0.70; adding radius to upper endpoint returns x=1.05 m.",
+      "Counterexample: checking only xhat+r=0.90 m suggests 0.10 m free space, while a permitted actual location produces collision.",
+      "A 3σ interval is probabilistic, not a hard limit absent a validated confidence model; static clearance also omits stopping distance and control latency. Source: https://docs.wpilib.org/en/latest/docs/software/kinematics-and-odometry/differential-drive-odometry.html"
+    ],
+    "memoryLadder": [
+      "Form the allowable center interval.",
+      "Calculate signed clearance in both examples.",
+      "Falsify the center-only safety claim.",
+      "Distinguish deterministic and probabilistic uncertainty."
+    ],
+    "labPlan": [
+      "Implement clearance(xhat,epsilon,r,xo); assert -0.05 m at xhat=.70 and +0.05 m at xhat=.60.",
+      "Enumerate bound endpoints and show worst-case right edge 1.05 m in the first case.",
+      "Compare naive 0.10-m clearance with robust -0.05 m and reject conflating σ with a hard interval."
+    ],
+    "vocabulary": [
+      {
+        "term": "hard error bound",
+        "definition": "Guaranteed limit on location error under the stated synthetic assumptions."
+      },
+      {
+        "term": "robust clearance",
+        "definition": "Minimum geometric clearance over all allowed positions."
+      }
+    ]
+  }
+}
