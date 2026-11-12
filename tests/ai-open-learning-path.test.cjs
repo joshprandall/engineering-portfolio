@@ -73,13 +73,15 @@ test('ten rigorous formative checkpoints have independent numerical oracles and 
   assert(Math.abs(c.answer-expected)<=c.tolerance/10,'independently derived answer mismatch: '+s.id);
  }
 });
-test('browser rendering keeps protected presentation and saved progress scoped to self-report',()=>{
+test('owner freeze locks existing academy renderer, CSS and protected baseline byte for byte',()=>{
+ const crypto=require('node:crypto');
+ const blob=p=>{const b=fs.readFileSync(path.join(root,p));return crypto.createHash('sha1').update(Buffer.from('blob '+b.length)).update(Buffer.from([0])).update(b).digest('hex')};
+ assert.equal(blob('learning-academy.js'),'87e241e7b12bc6a15d0bb0ecd6193fe73ebda89e','original approved academy code only');
+ assert.equal(blob('styles.css'),'9ae861adae46c22260d30ecb0991af59605d6c2e','no CSS visual changes');
+ assert.equal(blob('manifests/protected-baseline-git-blobs.json'),'58941fe7cef2da06607e4f04a9b98c2f4b04e62e','baseline manifest cannot be rewritten to bless changes');
  const js=fs.readFileSync(path.join(root,'learning-academy.js'),'utf8');
- assert(js.includes("page!=='learn-paths.html'"));
- assert(js.includes("page==='learn.html'"));
- assert(js.includes("researchPath(academy);"));
- assert(js.includes("localStorage.setItem(key,JSON.stringify([...complete]))"));
- assert(js.includes('rel="noopener noreferrer"'));
- assert(js.includes("esc(s.practice)"));
- assert(!js.includes('document.write('));
+ assert(!js.includes('researchPath(academy);'),'research drafts remain data only');
+ assert(!js.includes('data-ai-path-teaser'),'no extra academy card');
+ assert(!js.includes('ai-research-roadmap'),'no new visual sections');
+ assert(!js.includes('data-ai-checkpoint'),'no new controls');
 });
