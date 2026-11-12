@@ -271,8 +271,8 @@ for(const sample of semanticAudits)test(sample.id+" independently recomputed cla
 });
 
 
-// Exercise the assertions against altered copies of actual lesson records.
-// Mutating reconstructed strings alone does not establish that a bad lesson fails.
+// I check the assertions against altered copies of the committed lesson records.
+// I reject altered records, not merely reconstructed strings.
 function teachingRecordHasEvidence(record, audit) {
   if (!record || !Array.isArray(record.reasoningSteps) || !Array.isArray(record.labPlan)) return false;
   if (record.reasoningSteps.length !== 6 || record.labPlan.length !== 6) return false;
@@ -303,8 +303,8 @@ test("all twelve lessons reject 24 independently mutated proof and lab records",
   assert.equal(rejected, 24);
 });
 
-// Exercise the general finite-series identities beyond the twelve worked examples.
-// Integer-valued inputs make direct recurrence and closed-form comparisons exact.
+// I verify finite-series identities beyond the twelve worked examples.
+// I use integer inputs to compare recurrence and closed-form results exactly.
 test("255 independent finite-sum edge cases include negative, zero and unit ratios", () => {
   let checked = 0;
   for (const first of [-5, 0, 4]) {
