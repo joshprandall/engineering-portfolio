@@ -1,0 +1,842 @@
+{
+  "ai-ml-evidence-confusion-matrix": {
+    "essentialQuestion": "What do binary confusion-matrix cells count, and when is precision undefined?",
+    "verifiedBoundary": "At a fixed threshold, TP, FP, FN, and TN partition every labeled binary observation; precision=TP/(TP+FP) and recall=TP/(TP+FN) when denominators are positive.",
+    "analogy": "A numerical model is a claim about decisions under assumptions. Count, calculate, and change one assumption before relying on its score.",
+    "starter": {
+      "plainStart": "At a fixed threshold, TP, FP, FN, and TN partition every labeled binary observation; precision=TP/(TP+FP) and recall=TP/(TP+FN) when denominators are positive.",
+      "tryThis": "Classify each row before calculating a ratio; change all decisions to zero and inspect the denominator.",
+      "helper": "Write the exact label, denominator, or objective before computing; a plausible score without defined semantics is not evidence."
+    },
+    "technical": {
+      "scope": "Only binary labels 0/1, equal-weight observations, declared positive class 1, one decision threshold; ratios are dimensionless.",
+      "versionCaution": "The mathematics in this fixture is version-independent; check the cited library documentation for evolving API behavior.",
+      "prerequisites": [
+        "Binary probability and basic arithmetic"
+      ],
+      "connections": []
+    },
+    "reasoningSteps": [
+      "Labels [1,1,0,0,1,0,0,0,1,0] and decisions [1,1,1,0,1,0,0,0,0,0] give TP=3, FP=1, FN=1, TN=5, precision=3/4=0.75, recall=3/4=0.75, accuracy=8/10=0.8.",
+      "Identify the exact denominator, score ordering or optimization convention before drawing a conclusion.",
+      "Predicting no positives makes TP+FP=0: precision is undefined mathematically, not proof of zero false-positive risk; software APIs may assign a configured zero."
+    ],
+    "memoryLadder": [
+      "Derive the stated answer by hand without consulting the fixture.",
+      "State the assumption that makes the following falsifier relevant: Predicting no positives makes TP+FP=0: precision is undefined mathematically, not proof of zero false-positive risk; software APIs may assign a configured zero.",
+      "Explain what the synthetic result cannot establish about data from a real deployment."
+    ],
+    "labPlan": [
+      "Classify each row before calculating a ratio; change all decisions to zero and inspect the denominator.",
+      "Execute the offline Node.js assertion script in offlineLab.code; record expected and observed values.",
+      "Change one input or modeling assumption, then decide whether the original conclusion remains valid."
+    ],
+    "vocabulary": [
+      {
+        "term": "Synthetic fixture",
+        "definition": "Artificial, declared data chosen for a deterministic instructional check; it is not evidence from production systems."
+      },
+      {
+        "term": "Falsification",
+        "definition": "A concrete input or assumption change that would refute an overgeneralized statement."
+      }
+    ],
+    "video": {
+      "title": "No external video required",
+      "url": "",
+      "why": "The original derivation and deterministic offline lab are self-contained.",
+      "searchQuery": ""
+    },
+    "workedExample": {
+      "derivation": "Labels [1,1,0,0,1,0,0,0,1,0] and decisions [1,1,1,0,1,0,0,0,0,0] give TP=3, FP=1, FN=1, TN=5, precision=3/4=0.75, recall=3/4=0.75, accuracy=8/10=0.8.",
+      "answer": 0.75,
+      "units": "dimensionless unless scope explicitly states squared feature units",
+      "assumptions": "Only binary labels 0/1, equal-weight observations, declared positive class 1, one decision threshold; ratios are dimensionless."
+    },
+    "counterexample": "Predicting no positives makes TP+FP=0: precision is undefined mathematically, not proof of zero false-positive risk; software APIs may assign a configured zero.",
+    "offlineLab": {
+      "runtime": "Node.js 18+ (no dependencies, no network)",
+      "code": "const a=require('node:assert/strict'); const y=[1,1,0,0,1,0,0,0,1,0],h=[1,1,1,0,1,0,0,0,0,0];let tp=0,fp=0,fn=0,tn=0; y.forEach((v,i)=>{if(v&&h[i])tp++;else if(!v&&h[i])fp++;else if(v)fn++;else tn++;});a.deepEqual([tp,fp,fn,tn],[3,1,1,5]);a.equal(tp/(tp+fp),.75);a.equal(tp/(tp+fn),.75);a.equal((tp+tn)/y.length,.8);a.equal(tp+fp,4);"
+    },
+    "evidence": [
+      {
+        "url": "https://scikit-learn.org/stable/modules/model_evaluation.html",
+        "role": "Authoritative reference for the concept; numerical toy fixture and its solution are original."
+      },
+      {
+        "url": "https://openlearninglibrary.mit.edu/courses/course-v1%3AMITx%2B6.036%2B1T2019/about",
+        "role": "MIT 6.036 reference for modeling, overfitting and generalization; no affiliation or reused lecture content."
+      }
+    ]
+  },
+  "ai-ml-evidence-majority-class-baseline": {
+    "essentialQuestion": "Why is 95% accuracy insufficient evidence for detecting a rare positive class?",
+    "verifiedBoundary": "A classifier that always predicts the majority class can have high accuracy while zero positive recall; balanced accuracy averages sensitivity and specificity.",
+    "analogy": "A numerical model is a claim about decisions under assumptions. Count, calculate, and change one assumption before relying on its score.",
+    "starter": {
+      "plainStart": "A classifier that always predicts the majority class can have high accuracy while zero positive recall; balanced accuracy averages sensitivity and specificity.",
+      "tryThis": "Compute all four cells for an always-negative model, then compare accuracy and balanced accuracy before selecting a metric.",
+      "helper": "Write the exact label, denominator, or objective before computing; a plausible score without defined semantics is not evidence."
+    },
+    "technical": {
+      "scope": "100 fixed synthetic observations, binary labels, no probability ranking, equal weights, and a nonzero population of each class.",
+      "versionCaution": "The mathematics in this fixture is version-independent; check the cited library documentation for evolving API behavior.",
+      "prerequisites": [
+        "Binary probability and basic arithmetic"
+      ],
+      "connections": []
+    },
+    "reasoningSteps": [
+      "Construct 95 negative and 5 positive labels, then always predict negative: TN=95, FN=5, TP=FP=0; accuracy=95/100=0.95, sensitivity=0/5=0, specificity=95/95=1, balanced accuracy=(0+1)/2=0.5.",
+      "Identify the exact denominator, score ordering or optimization convention before drawing a conclusion.",
+      "Claiming 0.95 accuracy means 95% detection is false: none of the five actual positives was flagged."
+    ],
+    "memoryLadder": [
+      "Derive the stated answer by hand without consulting the fixture.",
+      "State the assumption that makes the following falsifier relevant: Claiming 0.95 accuracy means 95% detection is false: none of the five actual positives was flagged.",
+      "Explain what the synthetic result cannot establish about data from a real deployment."
+    ],
+    "labPlan": [
+      "Compute all four cells for an always-negative model, then compare accuracy and balanced accuracy before selecting a metric.",
+      "Execute the offline Node.js assertion script in offlineLab.code; record expected and observed values.",
+      "Change one input or modeling assumption, then decide whether the original conclusion remains valid."
+    ],
+    "vocabulary": [
+      {
+        "term": "Synthetic fixture",
+        "definition": "Artificial, declared data chosen for a deterministic instructional check; it is not evidence from production systems."
+      },
+      {
+        "term": "Falsification",
+        "definition": "A concrete input or assumption change that would refute an overgeneralized statement."
+      }
+    ],
+    "video": {
+      "title": "No external video required",
+      "url": "",
+      "why": "The original derivation and deterministic offline lab are self-contained.",
+      "searchQuery": ""
+    },
+    "workedExample": {
+      "derivation": "Construct 95 negative and 5 positive labels, then always predict negative: TN=95, FN=5, TP=FP=0; accuracy=95/100=0.95, sensitivity=0/5=0, specificity=95/95=1, balanced accuracy=(0+1)/2=0.5.",
+      "answer": 0.5,
+      "units": "dimensionless unless scope explicitly states squared feature units",
+      "assumptions": "100 fixed synthetic observations, binary labels, no probability ranking, equal weights, and a nonzero population of each class."
+    },
+    "counterexample": "Claiming 0.95 accuracy means 95% detection is false: none of the five actual positives was flagged.",
+    "offlineLab": {
+      "runtime": "Node.js 18+ (no dependencies, no network)",
+      "code": "const a=require('node:assert/strict');const y=[...Array(95).fill(0),...Array(5).fill(1)];const pred=Array(100).fill(0);const tp=y.filter((v,i)=>v===1&&pred[i]===1).length,tn=y.filter((v,i)=>v===0&&pred[i]===0).length;const rec=tp/5,spec=tn/95;a.equal(tn/100,.95);a.equal(rec,0);a.equal((rec+spec)/2,.5);"
+    },
+    "evidence": [
+      {
+        "url": "https://scikit-learn.org/stable/modules/model_evaluation.html",
+        "role": "Authoritative reference for the concept; numerical toy fixture and its solution are original."
+      },
+      {
+        "url": "https://openlearninglibrary.mit.edu/courses/course-v1%3AMITx%2B6.036%2B1T2019/about",
+        "role": "MIT 6.036 reference for modeling, overfitting and generalization; no affiliation or reused lecture content."
+      }
+    ]
+  },
+  "ai-ml-evidence-threshold-cost-selection": {
+    "essentialQuestion": "How can an operating threshold minimize a declared asymmetric error cost?",
+    "verifiedBoundary": "Given fixed scores, labels and nonnegative false-positive and false-negative costs, empirical decision cost at threshold t is C_FP*FP(t)+C_FN*FN(t); threshold choice depends on costs, not accuracy alone.",
+    "analogy": "A numerical model is a claim about decisions under assumptions. Count, calculate, and change one assumption before relying on its score.",
+    "starter": {
+      "plainStart": "Given fixed scores, labels and nonnegative false-positive and false-negative costs, empirical decision cost at threshold t is C_FP*FP(t)+C_FN*FN(t); threshold choice depends on costs, not accuracy alone.",
+      "tryThis": "Enumerate both thresholds using a pure array loop; mutate C_FN from 4 to 0.1 and demonstrate why the preferred action may reverse.",
+      "helper": "Write the exact label, denominator, or objective before computing; a plausible score without defined semantics is not evidence."
+    },
+    "technical": {
+      "scope": "Illustrative validation-set cost only, equal units per error, fixed scores with no ties at the chosen thresholds; threshold selection on test labels would contaminate evaluation.",
+      "versionCaution": "The mathematics in this fixture is version-independent; check the cited library documentation for evolving API behavior.",
+      "prerequisites": [
+        "Binary probability and basic arithmetic"
+      ],
+      "connections": []
+    },
+    "reasoningSteps": [
+      "For y=[1,1,0,0,1,0], p=[.9,.6,.55,.4,.3,.2], define decision p>=t, C_FP=1, C_FN=4. At t=.5, FP=1,FN=1,cost=5; at t=.3, FP=2,FN=0,cost=2.",
+      "Identify the exact denominator, score ordering or optimization convention before drawing a conclusion.",
+      "A blanket claim that increasing threshold always reduces total cost fails: raising .3 to .5 reduces FP by 1 but raises FN by 1 and cost by 3."
+    ],
+    "memoryLadder": [
+      "Derive the stated answer by hand without consulting the fixture.",
+      "State the assumption that makes the following falsifier relevant: A blanket claim that increasing threshold always reduces total cost fails: raising .3 to .5 reduces FP by 1 but raises FN by 1 and cost by 3.",
+      "Explain what the synthetic result cannot establish about data from a real deployment."
+    ],
+    "labPlan": [
+      "Enumerate both thresholds using a pure array loop; mutate C_FN from 4 to 0.1 and demonstrate why the preferred action may reverse.",
+      "Execute the offline Node.js assertion script in offlineLab.code; record expected and observed values.",
+      "Change one input or modeling assumption, then decide whether the original conclusion remains valid."
+    ],
+    "vocabulary": [
+      {
+        "term": "Synthetic fixture",
+        "definition": "Artificial, declared data chosen for a deterministic instructional check; it is not evidence from production systems."
+      },
+      {
+        "term": "Falsification",
+        "definition": "A concrete input or assumption change that would refute an overgeneralized statement."
+      }
+    ],
+    "video": {
+      "title": "No external video required",
+      "url": "",
+      "why": "The original derivation and deterministic offline lab are self-contained.",
+      "searchQuery": ""
+    },
+    "workedExample": {
+      "derivation": "For y=[1,1,0,0,1,0], p=[.9,.6,.55,.4,.3,.2], define decision p>=t, C_FP=1, C_FN=4. At t=.5, FP=1,FN=1,cost=5; at t=.3, FP=2,FN=0,cost=2.",
+      "answer": 2,
+      "units": "dimensionless unless scope explicitly states squared feature units",
+      "assumptions": "Illustrative validation-set cost only, equal units per error, fixed scores with no ties at the chosen thresholds; threshold selection on test labels would contaminate evaluation."
+    },
+    "counterexample": "A blanket claim that increasing threshold always reduces total cost fails: raising .3 to .5 reduces FP by 1 but raises FN by 1 and cost by 3.",
+    "offlineLab": {
+      "runtime": "Node.js 18+ (no dependencies, no network)",
+      "code": "const a=require('node:assert/strict');const y=[1,1,0,0,1,0],p=[.9,.6,.55,.4,.3,.2];function cost(t,fpCost,fnCost){return y.reduce((s,v,i)=>s+(p[i]>=t?(v?0:fpCost):(v?fnCost:0)),0)}a.equal(cost(.5,1,4),5);a.equal(cost(.3,1,4),2);a.equal(cost(.5,1,.1),1.1);a.equal(cost(.3,1,.1),2);"
+    },
+    "evidence": [
+      {
+        "url": "https://scikit-learn.org/stable/modules/model_evaluation.html",
+        "role": "Authoritative reference for the concept; numerical toy fixture and its solution are original."
+      },
+      {
+        "url": "https://openlearninglibrary.mit.edu/courses/course-v1%3AMITx%2B6.036%2B1T2019/about",
+        "role": "MIT 6.036 reference for modeling, overfitting and generalization; no affiliation or reused lecture content."
+      }
+    ]
+  },
+  "ai-ml-evidence-average-precision-ranking": {
+    "essentialQuestion": "Why does non-interpolated average precision depend on the rank of positive examples?",
+    "verifiedBoundary": "For distinct descending scores, binary average precision equals the mean precision-at-rank taken at each positive item, i.e. sum over recall increases P_k*DeltaRecall_k.",
+    "analogy": "A numerical model is a claim about decisions under assumptions. Count, calculate, and change one assumption before relying on its score.",
+    "starter": {
+      "plainStart": "For distinct descending scores, binary average precision equals the mean precision-at-rank taken at each positive item, i.e. sum over recall increases P_k*DeltaRecall_k.",
+      "tryThis": "Enumerate sorted labels, track positives encountered, average only the precision values at positive ranks; swap ranks 2 and 3 and recompute.",
+      "helper": "Write the exact label, denominator, or objective before computing; a plausible score without defined semantics is not evidence."
+    },
+    "technical": {
+      "scope": "Two positives, descending distinct scores, no sample weights or ties; AP is dimensionless and prevalence-sensitive.",
+      "versionCaution": "The mathematics in this fixture is version-independent; check the cited library documentation for evolving API behavior.",
+      "prerequisites": [
+        "Binary probability and basic arithmetic"
+      ],
+      "connections": []
+    },
+    "reasoningSteps": [
+      "Sort scores [.9,.8,.7,.1] with labels [1,0,1,0]. The positives occur at ranks 1 and 3; their precisions are 1/1 and 2/3, hence AP=(1+2/3)/2=5/6≈0.833333.",
+      "Identify the exact denominator, score ordering or optimization convention before drawing a conclusion.",
+      "Treating AP as trapezoidal area under a linearly interpolated PR curve is not generally equivalent; the stepwise precision weighting here is explicit."
+    ],
+    "memoryLadder": [
+      "Derive the stated answer by hand without consulting the fixture.",
+      "State the assumption that makes the following falsifier relevant: Treating AP as trapezoidal area under a linearly interpolated PR curve is not generally equivalent; the stepwise precision weighting here is explicit.",
+      "Explain what the synthetic result cannot establish about data from a real deployment."
+    ],
+    "labPlan": [
+      "Enumerate sorted labels, track positives encountered, average only the precision values at positive ranks; swap ranks 2 and 3 and recompute.",
+      "Execute the offline Node.js assertion script in offlineLab.code; record expected and observed values.",
+      "Change one input or modeling assumption, then decide whether the original conclusion remains valid."
+    ],
+    "vocabulary": [
+      {
+        "term": "Synthetic fixture",
+        "definition": "Artificial, declared data chosen for a deterministic instructional check; it is not evidence from production systems."
+      },
+      {
+        "term": "Falsification",
+        "definition": "A concrete input or assumption change that would refute an overgeneralized statement."
+      }
+    ],
+    "video": {
+      "title": "No external video required",
+      "url": "",
+      "why": "The original derivation and deterministic offline lab are self-contained.",
+      "searchQuery": ""
+    },
+    "workedExample": {
+      "derivation": "Sort scores [.9,.8,.7,.1] with labels [1,0,1,0]. The positives occur at ranks 1 and 3; their precisions are 1/1 and 2/3, hence AP=(1+2/3)/2=5/6≈0.833333.",
+      "answer": 0.8333333333333334,
+      "units": "dimensionless unless scope explicitly states squared feature units",
+      "assumptions": "Two positives, descending distinct scores, no sample weights or ties; AP is dimensionless and prevalence-sensitive."
+    },
+    "counterexample": "Treating AP as trapezoidal area under a linearly interpolated PR curve is not generally equivalent; the stepwise precision weighting here is explicit.",
+    "offlineLab": {
+      "runtime": "Node.js 18+ (no dependencies, no network)",
+      "code": "const a=require('node:assert/strict');const ranked=[[.9,1],[.8,0],[.7,1],[.1,0]];let tp=0,sum=0;ranked.forEach(([s,y],i)=>{if(y){tp++;sum+=tp/(i+1)}});a.ok(Math.abs(sum/2-5/6)<1e-12);"
+    },
+    "evidence": [
+      {
+        "url": "https://scikit-learn.org/stable/modules/model_evaluation.html",
+        "role": "Authoritative reference for the concept; numerical toy fixture and its solution are original."
+      },
+      {
+        "url": "https://openlearninglibrary.mit.edu/courses/course-v1%3AMITx%2B6.036%2B1T2019/about",
+        "role": "MIT 6.036 reference for modeling, overfitting and generalization; no affiliation or reused lecture content."
+      }
+    ]
+  },
+  "ai-ml-evidence-brier-probability-score": {
+    "essentialQuestion": "How does a proper quadratic score penalize confident incorrect probabilities?",
+    "verifiedBoundary": "Binary Brier score is the arithmetic mean of (p_i-y_i)^2 for probability p in [0,1] and outcome y in {0,1}; lower is better, zero means exact predictions on the observations.",
+    "analogy": "A numerical model is a claim about decisions under assumptions. Count, calculate, and change one assumption before relying on its score.",
+    "starter": {
+      "plainStart": "Binary Brier score is the arithmetic mean of (p_i-y_i)^2 for probability p in [0,1] and outcome y in {0,1}; lower is better, zero means exact predictions on the observations.",
+      "tryThis": "Calculate each squared error without thresholding; replace the incorrect .7 with .99 and verify the score worsens.",
+      "helper": "Write the exact label, denominator, or objective before computing; a plausible score without defined semantics is not evidence."
+    },
+    "technical": {
+      "scope": "Four illustrative independent-looking outcomes (not a statistical inference), equal weighting, correctly interpreted positive-class probabilities, dimensionless squared score.",
+      "versionCaution": "The mathematics in this fixture is version-independent; check the cited library documentation for evolving API behavior.",
+      "prerequisites": [
+        "Binary probability and basic arithmetic"
+      ],
+      "connections": []
+    },
+    "reasoningSteps": [
+      "For p=[.8,.7,.6,.1] and y=[1,0,1,0], squared errors are [.04,.49,.16,.01]; total 0.70 and mean 0.175.",
+      "Identify the exact denominator, score ordering or optimization convention before drawing a conclusion.",
+      "Accuracy at threshold .5 sees only one false positive, but cannot distinguish a wrong .7 from a wrong .99: those probabilities have different Brier penalties."
+    ],
+    "memoryLadder": [
+      "Derive the stated answer by hand without consulting the fixture.",
+      "State the assumption that makes the following falsifier relevant: Accuracy at threshold .5 sees only one false positive, but cannot distinguish a wrong .7 from a wrong .99: those probabilities have different Brier penalties.",
+      "Explain what the synthetic result cannot establish about data from a real deployment."
+    ],
+    "labPlan": [
+      "Calculate each squared error without thresholding; replace the incorrect .7 with .99 and verify the score worsens.",
+      "Execute the offline Node.js assertion script in offlineLab.code; record expected and observed values.",
+      "Change one input or modeling assumption, then decide whether the original conclusion remains valid."
+    ],
+    "vocabulary": [
+      {
+        "term": "Synthetic fixture",
+        "definition": "Artificial, declared data chosen for a deterministic instructional check; it is not evidence from production systems."
+      },
+      {
+        "term": "Falsification",
+        "definition": "A concrete input or assumption change that would refute an overgeneralized statement."
+      }
+    ],
+    "video": {
+      "title": "No external video required",
+      "url": "",
+      "why": "The original derivation and deterministic offline lab are self-contained.",
+      "searchQuery": ""
+    },
+    "workedExample": {
+      "derivation": "For p=[.8,.7,.6,.1] and y=[1,0,1,0], squared errors are [.04,.49,.16,.01]; total 0.70 and mean 0.175.",
+      "answer": 0.175,
+      "units": "dimensionless unless scope explicitly states squared feature units",
+      "assumptions": "Four illustrative independent-looking outcomes (not a statistical inference), equal weighting, correctly interpreted positive-class probabilities, dimensionless squared score."
+    },
+    "counterexample": "Accuracy at threshold .5 sees only one false positive, but cannot distinguish a wrong .7 from a wrong .99: those probabilities have different Brier penalties.",
+    "offlineLab": {
+      "runtime": "Node.js 18+ (no dependencies, no network)",
+      "code": "const a=require('node:assert/strict');const y=[1,0,1,0],p=[.8,.7,.6,.1];const score=p.reduce((s,v,i)=>s+(v-y[i])**2,0)/p.length;a.ok(Math.abs(score-.175)<1e-12);const bad=p.slice();bad[1]=.99;a.ok(bad.reduce((s,v,i)=>s+(v-y[i])**2,0)/4>score);"
+    },
+    "evidence": [
+      {
+        "url": "https://scikit-learn.org/stable/modules/model_evaluation.html",
+        "role": "Authoritative reference for the concept; numerical toy fixture and its solution are original."
+      },
+      {
+        "url": "https://openlearninglibrary.mit.edu/courses/course-v1%3AMITx%2B6.036%2B1T2019/about",
+        "role": "MIT 6.036 reference for modeling, overfitting and generalization; no affiliation or reused lecture content."
+      }
+    ]
+  },
+  "ai-ml-evidence-calibration-bin-ece": {
+    "essentialQuestion": "How does bin-level expected calibration error differ from accuracy?",
+    "verifiedBoundary": "For predetermined confidence bins, ECE=sum_b (n_b/N)*abs(mean predicted positive probability in b - observed positive fraction in b); this is a descriptive bin estimator, not proof of groupwise calibration.",
+    "analogy": "A numerical model is a claim about decisions under assumptions. Count, calculate, and change one assumption before relying on its score.",
+    "starter": {
+      "plainStart": "For predetermined confidence bins, ECE=sum_b (n_b/N)*abs(mean predicted positive probability in b - observed positive fraction in b); this is a descriptive bin estimator, not proof of groupwise calibration.",
+      "tryThis": "Compute reliability bins with fixed edges and nonempty bins; modify the edge at .5 only after documenting the estimator definition.",
+      "helper": "Write the exact label, denominator, or objective before computing; a plausible score without defined semantics is not evidence."
+    },
+    "technical": {
+      "scope": "Binary probabilities, fixed 2-bin partition left-closed right-open except final edge, equal weights, rates not classification correctness; ECE dimensionless.",
+      "versionCaution": "The mathematics in this fixture is version-independent; check the cited library documentation for evolving API behavior.",
+      "prerequisites": [
+        "Binary probability and basic arithmetic"
+      ],
+      "connections": []
+    },
+    "reasoningSteps": [
+      "With probabilities [.1,.4,.6,.9], labels [0,1,0,1], bins [0,.5) and [.5,1], low-bin mean p=.25, outcome rate=.5; high-bin mean p=.75, outcome rate=.5; ECE=.5*.25+.5*.25=.25.",
+      "Identify the exact denominator, score ordering or optimization convention before drawing a conclusion.",
+      "The sentence 'ECE=0 implies the model is calibrated at every probability' fails because opposite within-bin errors can cancel; finite-sample and binning effects remain."
+    ],
+    "memoryLadder": [
+      "Derive the stated answer by hand without consulting the fixture.",
+      "State the assumption that makes the following falsifier relevant: The sentence 'ECE=0 implies the model is calibrated at every probability' fails because opposite within-bin errors can cancel; finite-sample and binning effects remain.",
+      "Explain what the synthetic result cannot establish about data from a real deployment."
+    ],
+    "labPlan": [
+      "Compute reliability bins with fixed edges and nonempty bins; modify the edge at .5 only after documenting the estimator definition.",
+      "Execute the offline Node.js assertion script in offlineLab.code; record expected and observed values.",
+      "Change one input or modeling assumption, then decide whether the original conclusion remains valid."
+    ],
+    "vocabulary": [
+      {
+        "term": "Synthetic fixture",
+        "definition": "Artificial, declared data chosen for a deterministic instructional check; it is not evidence from production systems."
+      },
+      {
+        "term": "Falsification",
+        "definition": "A concrete input or assumption change that would refute an overgeneralized statement."
+      }
+    ],
+    "video": {
+      "title": "No external video required",
+      "url": "",
+      "why": "The original derivation and deterministic offline lab are self-contained.",
+      "searchQuery": ""
+    },
+    "workedExample": {
+      "derivation": "With probabilities [.1,.4,.6,.9], labels [0,1,0,1], bins [0,.5) and [.5,1], low-bin mean p=.25, outcome rate=.5; high-bin mean p=.75, outcome rate=.5; ECE=.5*.25+.5*.25=.25.",
+      "answer": 0.25,
+      "units": "dimensionless unless scope explicitly states squared feature units",
+      "assumptions": "Binary probabilities, fixed 2-bin partition left-closed right-open except final edge, equal weights, rates not classification correctness; ECE dimensionless."
+    },
+    "counterexample": "The sentence 'ECE=0 implies the model is calibrated at every probability' fails because opposite within-bin errors can cancel; finite-sample and binning effects remain.",
+    "offlineLab": {
+      "runtime": "Node.js 18+ (no dependencies, no network)",
+      "code": "const a=require('node:assert/strict');const p=[.1,.4,.6,.9],y=[0,1,0,1];let ece=0;for(const ids of [[0,1],[2,3]]){const q=ids.reduce((s,i)=>s+p[i],0)/2;const r=ids.reduce((s,i)=>s+y[i],0)/2;ece+=(ids.length/p.length)*Math.abs(q-r)}a.ok(Math.abs(ece-.25)<1e-12);"
+    },
+    "evidence": [
+      {
+        "url": "https://scikit-learn.org/stable/modules/calibration.html",
+        "role": "Authoritative reference for the concept; numerical toy fixture and its solution are original."
+      },
+      {
+        "url": "https://openlearninglibrary.mit.edu/courses/course-v1%3AMITx%2B6.036%2B1T2019/about",
+        "role": "MIT 6.036 reference for modeling, overfitting and generalization; no affiliation or reused lecture content."
+      }
+    ]
+  },
+  "ai-ml-evidence-preprocessing-leakage": {
+    "essentialQuestion": "How can test-set features leak into a fitted preprocessing statistic?",
+    "verifiedBoundary": "A learned transform must fit only on training observations; including held-out test values changes the fitted statistic and can contaminate model-selection evidence.",
+    "analogy": "A numerical model is a claim about decisions under assumptions. Count, calculate, and change one assumption before relying on its score.",
+    "starter": {
+      "plainStart": "A learned transform must fit only on training observations; including held-out test values changes the fitted statistic and can contaminate model-selection evidence.",
+      "tryThis": "Compute the mean from training only and freeze it, then apply to held-out data; repeat using a pooled mean solely to falsify the unsafe method.",
+      "helper": "Write the exact label, denominator, or objective before computing; a plausible score without defined semantics is not evidence."
+    },
+    "technical": {
+      "scope": "One-dimensional synthetic data in arbitrary feature units; simple mean centering, not standard deviation scaling; a pedagogical leakage witness not a measured model-accuracy estimate.",
+      "versionCaution": "The mathematics in this fixture is version-independent; check the cited library documentation for evolving API behavior.",
+      "prerequisites": [
+        "Binary probability and basic arithmetic"
+      ],
+      "connections": []
+    },
+    "reasoningSteps": [
+      "Train x=[0,2] has centering mean 1, so held-out x=10 transforms to 10-1=9. Illegally fitting the mean on [0,2,10] yields mean 4 and transformed test 10-4=6.",
+      "Identify the exact denominator, score ordering or optimization convention before drawing a conclusion.",
+      "Claiming the test labels are never read so leakage is impossible fails: using test features in fitted statistics is still test-set leakage in this workflow."
+    ],
+    "memoryLadder": [
+      "Derive the stated answer by hand without consulting the fixture.",
+      "State the assumption that makes the following falsifier relevant: Claiming the test labels are never read so leakage is impossible fails: using test features in fitted statistics is still test-set leakage in this workflow.",
+      "Explain what the synthetic result cannot establish about data from a real deployment."
+    ],
+    "labPlan": [
+      "Compute the mean from training only and freeze it, then apply to held-out data; repeat using a pooled mean solely to falsify the unsafe method.",
+      "Execute the offline Node.js assertion script in offlineLab.code; record expected and observed values.",
+      "Change one input or modeling assumption, then decide whether the original conclusion remains valid."
+    ],
+    "vocabulary": [
+      {
+        "term": "Synthetic fixture",
+        "definition": "Artificial, declared data chosen for a deterministic instructional check; it is not evidence from production systems."
+      },
+      {
+        "term": "Falsification",
+        "definition": "A concrete input or assumption change that would refute an overgeneralized statement."
+      }
+    ],
+    "video": {
+      "title": "No external video required",
+      "url": "",
+      "why": "The original derivation and deterministic offline lab are self-contained.",
+      "searchQuery": ""
+    },
+    "workedExample": {
+      "derivation": "Train x=[0,2] has centering mean 1, so held-out x=10 transforms to 10-1=9. Illegally fitting the mean on [0,2,10] yields mean 4 and transformed test 10-4=6.",
+      "answer": 9,
+      "units": "dimensionless unless scope explicitly states squared feature units",
+      "assumptions": "One-dimensional synthetic data in arbitrary feature units; simple mean centering, not standard deviation scaling; a pedagogical leakage witness not a measured model-accuracy estimate."
+    },
+    "counterexample": "Claiming the test labels are never read so leakage is impossible fails: using test features in fitted statistics is still test-set leakage in this workflow.",
+    "offlineLab": {
+      "runtime": "Node.js 18+ (no dependencies, no network)",
+      "code": "const a=require('node:assert/strict');const train=[0,2],test=[10];const mean=x=>x.reduce((s,v)=>s+v,0)/x.length;a.equal(test[0]-mean(train),9);a.equal(test[0]-mean([...train,...test]),6);"
+    },
+    "evidence": [
+      {
+        "url": "https://scikit-learn.org/stable/common_pitfalls.html",
+        "role": "Authoritative reference for the concept; numerical toy fixture and its solution are original."
+      },
+      {
+        "url": "https://openlearninglibrary.mit.edu/courses/course-v1%3AMITx%2B6.036%2B1T2019/about",
+        "role": "MIT 6.036 reference for modeling, overfitting and generalization; no affiliation or reused lecture content."
+      }
+    ]
+  },
+  "ai-ml-evidence-stable-binary-logit-loss": {
+    "essentialQuestion": "Why is direct exp(-z) computation unsafe for extreme logits?",
+    "verifiedBoundary": "For binary target y in {0,1}, BCE-with-logits equals softplus(z)-y*z, with stable implementation max(z,0)-y*z+log(1+exp(-abs(z))); a sigmoid then log can overflow or underflow.",
+    "analogy": "A numerical model is a claim about decisions under assumptions. Count, calculate, and change one assumption before relying on its score.",
+    "starter": {
+      "plainStart": "For binary target y in {0,1}, BCE-with-logits equals softplus(z)-y*z, with stable implementation max(z,0)-y*z+log(1+exp(-abs(z))); a sigmoid then log can overflow or underflow.",
+      "tryThis": "Implement stable softplus and compare three sample losses to expected; evaluate z=-1000 with both y=0 and y=1 and check finiteness.",
+      "helper": "Write the exact label, denominator, or objective before computing; a plausible score without defined semantics is not evidence."
+    },
+    "technical": {
+      "scope": "Unweighted binary targets, natural logarithms, sample mean reduction, logits dimensionless; this is a scalar pedagogical reproduction of a standard loss, not a PyTorch benchmark.",
+      "versionCaution": "The mathematics in this fixture is version-independent; check the cited library documentation for evolving API behavior.",
+      "prerequisites": [
+        "Binary probability and basic arithmetic"
+      ],
+      "connections": []
+    },
+    "reasoningSteps": [
+      "At logits z=[0,2,-2] and targets [1,1,0], losses are log 2≈.69314718056 and twice log(1+exp(-2))≈.12692801104; mean≈.3156677342153.",
+      "Identify the exact denominator, score ordering or optimization convention before drawing a conclusion.",
+      "Naive sigmoid(z)=1/(1+exp(-z)) at z=-1000 can overflow the exponential, whereas stable softplus-style loss stays finite (loss=0 for y=0, approximately 1000 for y=1)."
+    ],
+    "memoryLadder": [
+      "Derive the stated answer by hand without consulting the fixture.",
+      "State the assumption that makes the following falsifier relevant: Naive sigmoid(z)=1/(1+exp(-z)) at z=-1000 can overflow the exponential, whereas stable softplus-style loss stays finite (loss=0 for y=0, approximately 1000 for y=1).",
+      "Explain what the synthetic result cannot establish about data from a real deployment."
+    ],
+    "labPlan": [
+      "Implement stable softplus and compare three sample losses to expected; evaluate z=-1000 with both y=0 and y=1 and check finiteness.",
+      "Execute the offline Node.js assertion script in offlineLab.code; record expected and observed values.",
+      "Change one input or modeling assumption, then decide whether the original conclusion remains valid."
+    ],
+    "vocabulary": [
+      {
+        "term": "Synthetic fixture",
+        "definition": "Artificial, declared data chosen for a deterministic instructional check; it is not evidence from production systems."
+      },
+      {
+        "term": "Falsification",
+        "definition": "A concrete input or assumption change that would refute an overgeneralized statement."
+      }
+    ],
+    "video": {
+      "title": "No external video required",
+      "url": "",
+      "why": "The original derivation and deterministic offline lab are self-contained.",
+      "searchQuery": ""
+    },
+    "workedExample": {
+      "derivation": "At logits z=[0,2,-2] and targets [1,1,0], losses are log 2≈.69314718056 and twice log(1+exp(-2))≈.12692801104; mean≈.3156677342153.",
+      "answer": 0.31566773421529676,
+      "units": "dimensionless unless scope explicitly states squared feature units",
+      "assumptions": "Unweighted binary targets, natural logarithms, sample mean reduction, logits dimensionless; this is a scalar pedagogical reproduction of a standard loss, not a PyTorch benchmark."
+    },
+    "counterexample": "Naive sigmoid(z)=1/(1+exp(-z)) at z=-1000 can overflow the exponential, whereas stable softplus-style loss stays finite (loss=0 for y=0, approximately 1000 for y=1).",
+    "offlineLab": {
+      "runtime": "Node.js 18+ (no dependencies, no network)",
+      "code": "const a=require('node:assert/strict');const logits=[0,2,-2],y=[1,1,0];const loss=(z,t)=>Math.max(z,0)-z*t+Math.log1p(Math.exp(-Math.abs(z)));const m=logits.reduce((s,z,i)=>s+loss(z,y[i]),0)/3;a.ok(Math.abs(m-.31566773421529676)<1e-12);a.equal(loss(-1000,0),0);a.equal(loss(-1000,1),1000);"
+    },
+    "evidence": [
+      {
+        "url": "https://docs.pytorch.org/docs/stable/generated/torch.nn.BCEWithLogitsLoss.html",
+        "role": "Authoritative reference for the concept; numerical toy fixture and its solution are original."
+      },
+      {
+        "url": "https://openlearninglibrary.mit.edu/courses/course-v1%3AMITx%2B6.036%2B1T2019/about",
+        "role": "MIT 6.036 reference for modeling, overfitting and generalization; no affiliation or reused lecture content."
+      }
+    ]
+  },
+  "ai-ml-evidence-logistic-gradient-update": {
+    "essentialQuestion": "How does one supervised logistic-loss gradient step change a model prediction?",
+    "verifiedBoundary": "For one feature x and scalar weight w with no intercept, p=sigmoid(w*x), d BCE/dw=(p-y)*x. Gradient descent takes w_new=w-alpha*dL/dw.",
+    "analogy": "A numerical model is a claim about decisions under assumptions. Count, calculate, and change one assumption before relying on its score.",
+    "starter": {
+      "plainStart": "For one feature x and scalar weight w with no intercept, p=sigmoid(w*x), d BCE/dw=(p-y)*x. Gradient descent takes w_new=w-alpha*dL/dw.",
+      "tryThis": "Compute the analytic gradient and independently approximate it using central differences with step 1e-6; compare loss before and after update.",
+      "helper": "Write the exact label, denominator, or objective before computing; a plausible score without defined semantics is not evidence."
+    },
+    "technical": {
+      "scope": "One synthetic observation, full-batch single-step update, no regularization/intercept, natural-log loss and dimensionless feature; no general convergence guarantee.",
+      "versionCaution": "The mathematics in this fixture is version-independent; check the cited library documentation for evolving API behavior.",
+      "prerequisites": [
+        "Binary probability and basic arithmetic"
+      ],
+      "connections": []
+    },
+    "reasoningSteps": [
+      "At x=2, y=1, w=0: p=.5, gradient=(.5-1)*2=-1. With learning rate alpha=.1, w_new=.1 and p_new=sigmoid(.2)≈.5498339973; loss falls from log 2 to log(1+exp(-.2))≈.5981388694.",
+      "Identify the exact denominator, score ordering or optimization convention before drawing a conclusion.",
+      "Using +alpha*gradient instead yields w=-.1 and increases loss on this example; descent direction must be checked rather than assumed."
+    ],
+    "memoryLadder": [
+      "Derive the stated answer by hand without consulting the fixture.",
+      "State the assumption that makes the following falsifier relevant: Using +alpha*gradient instead yields w=-.1 and increases loss on this example; descent direction must be checked rather than assumed.",
+      "Explain what the synthetic result cannot establish about data from a real deployment."
+    ],
+    "labPlan": [
+      "Compute the analytic gradient and independently approximate it using central differences with step 1e-6; compare loss before and after update.",
+      "Execute the offline Node.js assertion script in offlineLab.code; record expected and observed values.",
+      "Change one input or modeling assumption, then decide whether the original conclusion remains valid."
+    ],
+    "vocabulary": [
+      {
+        "term": "Synthetic fixture",
+        "definition": "Artificial, declared data chosen for a deterministic instructional check; it is not evidence from production systems."
+      },
+      {
+        "term": "Falsification",
+        "definition": "A concrete input or assumption change that would refute an overgeneralized statement."
+      }
+    ],
+    "video": {
+      "title": "No external video required",
+      "url": "",
+      "why": "The original derivation and deterministic offline lab are self-contained.",
+      "searchQuery": ""
+    },
+    "workedExample": {
+      "derivation": "At x=2, y=1, w=0: p=.5, gradient=(.5-1)*2=-1. With learning rate alpha=.1, w_new=.1 and p_new=sigmoid(.2)≈.5498339973; loss falls from log 2 to log(1+exp(-.2))≈.5981388694.",
+      "answer": 0.549833997312478,
+      "units": "dimensionless unless scope explicitly states squared feature units",
+      "assumptions": "One synthetic observation, full-batch single-step update, no regularization/intercept, natural-log loss and dimensionless feature; no general convergence guarantee."
+    },
+    "counterexample": "Using +alpha*gradient instead yields w=-.1 and increases loss on this example; descent direction must be checked rather than assumed.",
+    "offlineLab": {
+      "runtime": "Node.js 18+ (no dependencies, no network)",
+      "code": "const a=require('node:assert/strict');const sig=z=>1/(1+Math.exp(-z)),loss=w=>Math.log1p(Math.exp(-2*w));const p=sig(0),grad=(p-1)*2,w=.0-.1*grad;const finite=(loss(1e-6)-loss(-1e-6))/(2e-6);a.ok(Math.abs(grad-finite)<1e-9);a.ok(Math.abs(sig(2*w)-.549833997312478)<1e-12);a.ok(loss(w)<loss(0));"
+    },
+    "evidence": [
+      {
+        "url": "https://scikit-learn.org/stable/modules/linear_model.html",
+        "role": "Authoritative reference for the concept; numerical toy fixture and its solution are original."
+      },
+      {
+        "url": "https://openlearninglibrary.mit.edu/courses/course-v1%3AMITx%2B6.036%2B1T2019/about",
+        "role": "MIT 6.036 reference for modeling, overfitting and generalization; no affiliation or reused lecture content."
+      }
+    ]
+  },
+  "ai-ml-evidence-ridge-regularized-parameter": {
+    "essentialQuestion": "How does an L2 penalty move an optimum in a one-parameter regression objective?",
+    "verifiedBoundary": "For a toy objective J(w)=(w-3)^2+lambda*w^2 with lambda>=0, J'(w)=2(w-3)+2lambda*w; its unique minimizer is w*=3/(1+lambda) when lambda is finite.",
+    "analogy": "A numerical model is a claim about decisions under assumptions. Count, calculate, and change one assumption before relying on its score.",
+    "starter": {
+      "plainStart": "For a toy objective J(w)=(w-3)^2+lambda*w^2 with lambda>=0, J'(w)=2(w-3)+2lambda*w; its unique minimizer is w*=3/(1+lambda) when lambda is finite.",
+      "tryThis": "Implement J(w), compare the computed minimizer to two alternative weights and verify derivative near zero using central differences.",
+      "helper": "Write the exact label, denominator, or objective before computing; a plausible score without defined semantics is not evidence."
+    },
+    "technical": {
+      "scope": "Scalar toy regression, explicitly stated penalty convention (no 1/2 factor), lambda=1 dimensionless; not the exact scaling convention of any particular library.",
+      "versionCaution": "The mathematics in this fixture is version-independent; check the cited library documentation for evolving API behavior.",
+      "prerequisites": [
+        "Binary probability and basic arithmetic"
+      ],
+      "connections": []
+    },
+    "reasoningSteps": [
+      "Set lambda=1, so 2(w-3)+2w=0 gives w*=1.5. J(1.5)=2.25+2.25=4.5; J(3)=0+9=9; unpenalized lambda=0 would choose w=3.",
+      "Identify the exact denominator, score ordering or optimization convention before drawing a conclusion.",
+      "'L2 always produces a sparse zero weight' is false here: lambda=1 gives 1.5 rather than zero; sparsity is not the mechanism of L2 shrinkage."
+    ],
+    "memoryLadder": [
+      "Derive the stated answer by hand without consulting the fixture.",
+      "State the assumption that makes the following falsifier relevant: 'L2 always produces a sparse zero weight' is false here: lambda=1 gives 1.5 rather than zero; sparsity is not the mechanism of L2 shrinkage.",
+      "Explain what the synthetic result cannot establish about data from a real deployment."
+    ],
+    "labPlan": [
+      "Implement J(w), compare the computed minimizer to two alternative weights and verify derivative near zero using central differences.",
+      "Execute the offline Node.js assertion script in offlineLab.code; record expected and observed values.",
+      "Change one input or modeling assumption, then decide whether the original conclusion remains valid."
+    ],
+    "vocabulary": [
+      {
+        "term": "Synthetic fixture",
+        "definition": "Artificial, declared data chosen for a deterministic instructional check; it is not evidence from production systems."
+      },
+      {
+        "term": "Falsification",
+        "definition": "A concrete input or assumption change that would refute an overgeneralized statement."
+      }
+    ],
+    "video": {
+      "title": "No external video required",
+      "url": "",
+      "why": "The original derivation and deterministic offline lab are self-contained.",
+      "searchQuery": ""
+    },
+    "workedExample": {
+      "derivation": "Set lambda=1, so 2(w-3)+2w=0 gives w*=1.5. J(1.5)=2.25+2.25=4.5; J(3)=0+9=9; unpenalized lambda=0 would choose w=3.",
+      "answer": 1.5,
+      "units": "dimensionless unless scope explicitly states squared feature units",
+      "assumptions": "Scalar toy regression, explicitly stated penalty convention (no 1/2 factor), lambda=1 dimensionless; not the exact scaling convention of any particular library."
+    },
+    "counterexample": "'L2 always produces a sparse zero weight' is false here: lambda=1 gives 1.5 rather than zero; sparsity is not the mechanism of L2 shrinkage.",
+    "offlineLab": {
+      "runtime": "Node.js 18+ (no dependencies, no network)",
+      "code": "const a=require('node:assert/strict');const lam=1,J=w=>(w-3)**2+lam*w*w;const star=3/(1+lam);a.equal(star,1.5);a.equal(J(star),4.5);a.ok(J(star)<J(3));a.ok(Math.abs((J(star+1e-5)-J(star-1e-5))/(2e-5))<1e-8);"
+    },
+    "evidence": [
+      {
+        "url": "https://scikit-learn.org/stable/modules/linear_model.html",
+        "role": "Authoritative reference for the concept; numerical toy fixture and its solution are original."
+      },
+      {
+        "url": "https://openlearninglibrary.mit.edu/courses/course-v1%3AMITx%2B6.036%2B1T2019/about",
+        "role": "MIT 6.036 reference for modeling, overfitting and generalization; no affiliation or reused lecture content."
+      }
+    ]
+  },
+  "ai-ml-evidence-kmeans-one-lloyd-update": {
+    "essentialQuestion": "Why can an assignment-plus-centroid-update reduce k-means inertia?",
+    "verifiedBoundary": "For Euclidean 1D k-means with fixed assignments, each cluster's arithmetic mean minimizes its within-cluster squared error; Lloyd's assignment and update steps do not increase inertia under well-defined nonempty clusters.",
+    "analogy": "A numerical model is a claim about decisions under assumptions. Count, calculate, and change one assumption before relying on its score.",
+    "starter": {
+      "plainStart": "For Euclidean 1D k-means with fixed assignments, each cluster's arithmetic mean minimizes its within-cluster squared error; Lloyd's assignment and update steps do not increase inertia under well-defined nonempty clusters.",
+      "tryThis": "Assign each 1D point to the nearest center, calculate both centroid means and old/new inertia; intentionally use one center and observe the different objective.",
+      "helper": "Write the exact label, denominator, or objective before computing; a plausible score without defined semantics is not evidence."
+    },
+    "technical": {
+      "scope": "Euclidean one-dimensional data in arbitrary units; squared distance units; two nonempty clusters; no ties in this fixture, no stochastic restarts.",
+      "versionCaution": "The mathematics in this fixture is version-independent; check the cited library documentation for evolving API behavior.",
+      "prerequisites": [
+        "Binary probability and basic arithmetic"
+      ],
+      "connections": []
+    },
+    "reasoningSteps": [
+      "Data x=[0,1,8,9], centers initially [0,8] give nearest-cluster assignments [0,0,1,1], inertia 0+1+0+1=2. Updating centers to means [.5,8.5] gives inertia 4*(.5^2)=1.",
+      "Identify the exact denominator, score ordering or optimization convention before drawing a conclusion.",
+      "Claiming one Lloyd iteration guarantees the global optimum on arbitrary data is false: k-means is initialization-sensitive and can converge to a local optimum."
+    ],
+    "memoryLadder": [
+      "Derive the stated answer by hand without consulting the fixture.",
+      "State the assumption that makes the following falsifier relevant: Claiming one Lloyd iteration guarantees the global optimum on arbitrary data is false: k-means is initialization-sensitive and can converge to a local optimum.",
+      "Explain what the synthetic result cannot establish about data from a real deployment."
+    ],
+    "labPlan": [
+      "Assign each 1D point to the nearest center, calculate both centroid means and old/new inertia; intentionally use one center and observe the different objective.",
+      "Execute the offline Node.js assertion script in offlineLab.code; record expected and observed values.",
+      "Change one input or modeling assumption, then decide whether the original conclusion remains valid."
+    ],
+    "vocabulary": [
+      {
+        "term": "Synthetic fixture",
+        "definition": "Artificial, declared data chosen for a deterministic instructional check; it is not evidence from production systems."
+      },
+      {
+        "term": "Falsification",
+        "definition": "A concrete input or assumption change that would refute an overgeneralized statement."
+      }
+    ],
+    "video": {
+      "title": "No external video required",
+      "url": "",
+      "why": "The original derivation and deterministic offline lab are self-contained.",
+      "searchQuery": ""
+    },
+    "workedExample": {
+      "derivation": "Data x=[0,1,8,9], centers initially [0,8] give nearest-cluster assignments [0,0,1,1], inertia 0+1+0+1=2. Updating centers to means [.5,8.5] gives inertia 4*(.5^2)=1.",
+      "answer": 1,
+      "units": "dimensionless unless scope explicitly states squared feature units",
+      "assumptions": "Euclidean one-dimensional data in arbitrary units; squared distance units; two nonempty clusters; no ties in this fixture, no stochastic restarts."
+    },
+    "counterexample": "Claiming one Lloyd iteration guarantees the global optimum on arbitrary data is false: k-means is initialization-sensitive and can converge to a local optimum.",
+    "offlineLab": {
+      "runtime": "Node.js 18+ (no dependencies, no network)",
+      "code": "const a=require('node:assert/strict');const x=[0,1,8,9],initial=[0,8];const assign=x.map(v=>Math.abs(v-initial[0])<=Math.abs(v-initial[1])?0:1);a.deepEqual(assign,[0,0,1,1]);const means=[0,1].map(k=>x.filter((v,i)=>assign[i]===k).reduce((s,v)=>s+v,0)/assign.filter(v=>v===k).length);a.deepEqual(means,[.5,8.5]);const inertia=centers=>x.reduce((s,v,i)=>s+(v-centers[assign[i]])**2,0);a.equal(inertia(initial),2);a.equal(inertia(means),1);"
+    },
+    "evidence": [
+      {
+        "url": "https://scikit-learn.org/stable/modules/clustering.html",
+        "role": "Authoritative reference for the concept; numerical toy fixture and its solution are original."
+      },
+      {
+        "url": "https://openlearninglibrary.mit.edu/courses/course-v1%3AMITx%2B6.036%2B1T2019/about",
+        "role": "MIT 6.036 reference for modeling, overfitting and generalization; no affiliation or reused lecture content."
+      }
+    ]
+  },
+  "ai-ml-evidence-prevalence-and-precision-shift": {
+    "essentialQuestion": "Why can predictive precision change when class prevalence changes but sensitivity and specificity do not?",
+    "verifiedBoundary": "Bayes' rule gives PPV=(TPR*pi)/(TPR*pi+FPR*(1-pi)); changing positive prevalence pi alone changes precision even with fixed conditional true-positive and false-positive rates.",
+    "analogy": "A numerical model is a claim about decisions under assumptions. Count, calculate, and change one assumption before relying on its score.",
+    "starter": {
+      "plainStart": "Bayes' rule gives PPV=(TPR*pi)/(TPR*pi+FPR*(1-pi)); changing positive prevalence pi alone changes precision even with fixed conditional true-positive and false-positive rates.",
+      "tryThis": "Compute Bayes PPV for two prevalence values, then check the edge case pi=0 with FPR>0 (PPV zero, assuming positive predictions are possible).",
+      "helper": "Write the exact label, denominator, or objective before computing; a plausible score without defined semantics is not evidence."
+    },
+    "technical": {
+      "scope": "Population-level probabilities, binary conditionals held fixed for the thought experiment, no distribution shift in class-conditional score distributions; model probabilities need not be calibrated.",
+      "versionCaution": "The mathematics in this fixture is version-independent; check the cited library documentation for evolving API behavior.",
+      "prerequisites": [
+        "Binary probability and basic arithmetic"
+      ],
+      "connections": []
+    },
+    "reasoningSteps": [
+      "At TPR=.8 and FPR=.1, prevalence pi=.1 gives PPV=.08/(.08+.09)=8/17≈.470588; prevalence pi=.5 gives PPV=.4/(.4+.05)=8/9≈.888889.",
+      "Identify the exact denominator, score ordering or optimization convention before drawing a conclusion.",
+      "'Precision is an intrinsic constant of the classifier across deployment populations' is false under a prevalence shift with otherwise fixed rates."
+    ],
+    "memoryLadder": [
+      "Derive the stated answer by hand without consulting the fixture.",
+      "State the assumption that makes the following falsifier relevant: 'Precision is an intrinsic constant of the classifier across deployment populations' is false under a prevalence shift with otherwise fixed rates.",
+      "Explain what the synthetic result cannot establish about data from a real deployment."
+    ],
+    "labPlan": [
+      "Compute Bayes PPV for two prevalence values, then check the edge case pi=0 with FPR>0 (PPV zero, assuming positive predictions are possible).",
+      "Execute the offline Node.js assertion script in offlineLab.code; record expected and observed values.",
+      "Change one input or modeling assumption, then decide whether the original conclusion remains valid."
+    ],
+    "vocabulary": [
+      {
+        "term": "Synthetic fixture",
+        "definition": "Artificial, declared data chosen for a deterministic instructional check; it is not evidence from production systems."
+      },
+      {
+        "term": "Falsification",
+        "definition": "A concrete input or assumption change that would refute an overgeneralized statement."
+      }
+    ],
+    "video": {
+      "title": "No external video required",
+      "url": "",
+      "why": "The original derivation and deterministic offline lab are self-contained.",
+      "searchQuery": ""
+    },
+    "workedExample": {
+      "derivation": "At TPR=.8 and FPR=.1, prevalence pi=.1 gives PPV=.08/(.08+.09)=8/17≈.470588; prevalence pi=.5 gives PPV=.4/(.4+.05)=8/9≈.888889.",
+      "answer": 0.47058823529411764,
+      "units": "dimensionless unless scope explicitly states squared feature units",
+      "assumptions": "Population-level probabilities, binary conditionals held fixed for the thought experiment, no distribution shift in class-conditional score distributions; model probabilities need not be calibrated."
+    },
+    "counterexample": "'Precision is an intrinsic constant of the classifier across deployment populations' is false under a prevalence shift with otherwise fixed rates.",
+    "offlineLab": {
+      "runtime": "Node.js 18+ (no dependencies, no network)",
+      "code": "const a=require('node:assert/strict');const ppv=pi=>(.8*pi)/(.8*pi+.1*(1-pi));a.ok(Math.abs(ppv(.1)-8/17)<1e-12);a.ok(Math.abs(ppv(.5)-8/9)<1e-12);a.equal(ppv(0),0);"
+    },
+    "evidence": [
+      {
+        "url": "https://scikit-learn.org/stable/modules/model_evaluation.html",
+        "role": "Authoritative reference for the concept; numerical toy fixture and its solution are original."
+      },
+      {
+        "url": "https://openlearninglibrary.mit.edu/courses/course-v1%3AMITx%2B6.036%2B1T2019/about",
+        "role": "MIT 6.036 reference for modeling, overfitting and generalization; no affiliation or reused lecture content."
+      }
+    ]
+  }
+}
