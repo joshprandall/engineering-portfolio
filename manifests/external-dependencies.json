@@ -1099,6 +1099,10 @@
       "url": "https://csrc.nist.gov/pubs/sp/800/207/final",
       "consumers": [
         {
+          "source": "deep-learning/cyber/architecture.json",
+          "evidence": "current-runtime"
+        },
+        {
           "source": "deep-learning/cyber/network-security.json",
           "evidence": "current-runtime"
         },
