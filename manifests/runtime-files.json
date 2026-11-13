@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "sourceCommit": "80ec64d5e233d07e2aaf2c332fcda14fce5e764c",
+  "sourceCommit": "768fe7afae7758f846b2406725960e0511546918",
   "bytePolicy": "Exact Git blobs; artifacts verified against committed SHA-256 and size.",
   "files": [
     {
@@ -1445,11 +1445,11 @@
     },
     {
       "path": "deep-learning/math/numerical-methods.json",
-      "size": 385187,
-      "sha256": "d008fa8186d5513d97223a69f62ecf994af0925dfffdea74f620af4e17b4d091",
+      "size": 389602,
+      "sha256": "44c2b1bde55e0f78d7deb47882b7f89c3ffb68f0cd3ad4c716bb1fd1822164fd",
       "source": {
         "kind": "git-blob",
-        "blob": "4acf0d0ef13c2233a487d978a18aa328a2a1d86d"
+        "blob": "09ddb5ada8b745f14ae1d8f1815471ef7cd72948"
       },
       "owningComponent": "deep-learning",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -3716,5 +3716,5 @@
     }
   ],
   "fileCount": 334,
-  "byteSize": 446159431
+  "byteSize": 446163846
 }

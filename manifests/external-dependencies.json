@@ -1980,6 +1980,20 @@
       "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
     },
     {
+      "url": "https://docs.python.org/3/library/decimal.html",
+      "consumers": [
+        {
+          "source": "deep-learning/math/numerical-methods.json",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
       "url": "https://docs.python.org/3/library/exceptions.html",
       "consumers": [
         {
@@ -1988,6 +2002,20 @@
         },
         {
           "source": "verification-manifest.json",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
+      "url": "https://docs.python.org/3/library/functions.html#round",
+      "consumers": [
+        {
+          "source": "deep-learning/math/numerical-methods.json",
           "evidence": "current-runtime"
         }
       ],
@@ -2044,6 +2072,34 @@
       "consumers": [
         {
           "source": "knowledge-upgrades.js",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
+      "url": "https://docs.python.org/3/library/math.html#math.isclose",
+      "consumers": [
+        {
+          "source": "deep-learning/math/numerical-methods.json",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
+      "url": "https://docs.python.org/3/library/math.html#math.isnan",
+      "consumers": [
+        {
+          "source": "deep-learning/math/numerical-methods.json",
           "evidence": "current-runtime"
         }
       ],
