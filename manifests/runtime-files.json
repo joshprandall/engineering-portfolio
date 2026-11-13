@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "sourceCommit": "d6ba358ad4fe0da94fccbd9ccff09b4cd5109097",
+  "sourceCommit": "8a2e178a99b0bf1e156c15394e83ed28b8215fc7",
   "bytePolicy": "Exact Git blobs; artifacts verified against committed SHA-256 and size.",
   "files": [
     {
@@ -1511,11 +1511,11 @@
     },
     {
       "path": "deep-learning/physics/lab.json",
-      "size": 401345,
-      "sha256": "51ea06d3ff7f35eb5dfe24fc9e582d6438f5fb945f43016747616939f922dff0",
+      "size": 403448,
+      "sha256": "6da1d814c977e16bc79a37619c74410e84925477343fc8254568297e7040ce7a",
       "source": {
         "kind": "git-blob",
-        "blob": "b1e9293e20b76b436dc23b8f95a40d388d197638"
+        "blob": "2f1e6ee5bed568d09c8fa4c74d8cbe3663d2cddc"
       },
       "owningComponent": "deep-learning",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -3716,5 +3716,5 @@
     }
   ],
   "fileCount": 334,
-  "byteSize": 446278116
+  "byteSize": 446280219
 }
