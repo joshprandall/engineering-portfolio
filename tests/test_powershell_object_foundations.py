@@ -37,9 +37,11 @@ def evidence():
  return json.loads(p.stdout.decode('utf-8-sig'))
 class PowerShellObjectFoundations(unittest.TestCase):
  def test_scope(self):
-  self.assertEqual(list(B),list(D));self.assertEqual(len(D),98)
+  C=json.loads(gzip.decompress((R/'tests/baselines/plan-boundaries.json.gz').read_bytes()))
+  self.assertEqual(list(B),list(D));self.assertEqual(list(C),list(D));self.assertEqual(len(D),98)
+  for k in IDS:self.assertEqual(D[k],C[k],k)
   for k in B:
-   changed=sorted(f for f in set(B[k])|set(D[k]) if B[k].get(f)!=D[k].get(f))
+   changed=sorted(f for f in set(B[k])|set(C[k]) if B[k].get(f)!=C[k].get(f))
    self.assertEqual(changed,['essentialQuestion','labPlan','reasoningSteps'] if k in IDS else [],k)
  def test_sources(self):
   for k,url in zip(IDS,URLS):
