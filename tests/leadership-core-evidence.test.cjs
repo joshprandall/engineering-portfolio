@@ -960,9 +960,45 @@ add('reliability',"leadership-v09-troubleshooting-lab-four-golden-signals",[SOUR
 add('reliability',"leadership-v10-concept-connection-four-golden-signals",[SOURCES.monitoring],["40 x 0.25 = 10", "0.5 seconds", "population is 20", "p99"]);
 add('reliability',"leadership-v10-evidence-reading-four-golden-signals",[SOURCES.monitoring],["80%", "1%", "500 milliseconds", "invented thresholds"]);
 
+// Independent reliability tradeoff arithmetic; no target is operational authorization.
+{
+ assert.equal((10000-1000)/20,450);assert.equal((1000-100)/80,11.25);
+ close(.999*.98,.97902);close(.999*.99,.98901);close((.98-.97902)*100,.098);
+ close(499999/500000*100,99.9998);assert.equal(100-65,35);
+ assert.equal(200-120,80);assert.equal(120+100-200,20);
+ assert.equal(((1-30/43200)*100).toFixed(5),'99.93056');
+ close(.998*(1-.01*.01),.9979002);
+ assert.equal((Math.pow(.999,1000)*100).toFixed(2),'36.77');
+ assert.equal(((1-Math.pow(.05,1/1000))*100).toFixed(4),'0.2991');
+ assert.equal(28*24*60,40320);close(40320*.00001*60,24.192);
+ assert.equal(60+100-20,140);assert.equal(20000-140,19860);assert.equal(140-100,40);
+ assert.equal(40+30-60,10);assert.equal(800-300,500);
+ close((1-110/100000)*100,99.89);
+ assert.equal((12000-8000)/8000,.5);
+ assert.equal((9970/9980*100).toFixed(4),'99.8998');
+ close(1999/2000*100,99.95);close(1998/2000*100,99.9);
+ assert.equal((9891/9900*100).toFixed(4),'99.9091');
+ assert.equal(((90+9891/9900*100)/2).toFixed(4),'94.9545');close(9981/10000*100,99.81);
+}
+add('reliability',"leadership-v09-design-review-100-percent-reliability-tradeoff",[SOURCES.risk],["10,000", "1,000", "100", "9,000", "450", "11.25"]);
+add('reliability',"leadership-v09-troubleshooting-lab-100-percent-reliability-tradeoff",[SOURCES.risk],["97.902%", "98%", "0.098 percentage points", "98.901%", "0.999-percentage-point"]);
+add('reliability',"leadership-v09-failure-analysis-lab-availability-objective-tradeoff",[SOURCES.risk],["zero", "99.9998%", "100 failed", "35 remain"]);
+add('reliability',"leadership-v09-scenario-analysis-availability-objective-tradeoff",[SOURCES.risk],["80", "150 total", "220", "20", "170 total", "30 remaining"]);
+add('reliability',"leadership-v09-troubleshooting-lab-reliability-target-tradeoffs",[SOURCES.risk],["43,200", "99.93056%", "43.2 minutes", "thirty"]);
+add('reliability',"leadership-v09-design-review-100-percent-reliability-tradeoff-2",[SOURCES.risk],["0.0001", "99.99%", "0.9979002", "99.79002%"]);
+add('reliability',"leadership-v10-design-critique-100-percent-reliability-tradeoff",[SOURCES.risk],["100%", "36.77%", "0.2991%", "frequentist"]);
+add('reliability',"leadership-v10-retrieval-ladder-100-percent-reliability-tradeoff",[SOURCES.risk],["40,320", "40.32 minutes", "4.032 minutes", "0.4032 minutes", "24.192 seconds", "36.288", "3.6288"]);
+add('reliability',"leadership-v10-transfer-challenge-availability-objective-tradeoff",[SOURCES.risk],["140", "19,860", "99.3%", "100 bad", "40"]);
+add('reliability',"leadership-v10-scenario-brief-availability-objective-tradeoff",[SOURCES.risk],["70 days", "10", "20 days", "30", "500"]);
+add('reliability',"leadership-v10-confidence-calibration-reliability-target-tradeoffs",[SOURCES.risk],["100", "40 unused", "60", "110 failures", "99.89%", "uniform"]);
+add('reliability',"leadership-v10-decision-brief-100-percent-reliability-tradeoff",[SOURCES.risk],["4,000", "50%", "1,000 failures", "100", "900", "99.95%"]);
+add('reliability',"leadership-v10-design-critique-100-percent-reliability-tradeoff-2",[SOURCES.risk],["9,970", "99.7%", "9,980", "99.8998%", "30 minutes"]);
+add('reliability',"leadership-v10-retrieval-ladder-availability-objective-tradeoff",[SOURCES.risk],["99.95%", "99.9%", "one failure", "100.0%", "integer"]);
+add('reliability',"leadership-v10-diagnostic-lab-availability-objective-tradeoff",[SOURCES.risk],["90%", "99.9091%", "94.9545%", "99.81%", "10%"]);
+
 test('exactly the authored lessons changed, and only their question, reasoning and lab fields', () => {
   const authored = new Set(cases.map(c => c.id));
-  assert.equal(authored.size, 129);
+  assert.equal(authored.size, 144);
   for (const c of chunks) {
     assert.deepEqual(Object.keys(current[c]), Object.keys(baseline[c]), c + ': lesson IDs and order are unchanged');
     for (const id of Object.keys(baseline[c])) {

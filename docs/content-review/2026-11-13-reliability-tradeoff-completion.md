@@ -1,0 +1,6 @@
+# Reliability tradeoff reasoning completion
+Fifteen existing tradeoff lessons now have distinct worked reasoning and labs, replacing the remaining generic essential questions in the reliability chunk. This is limited to the three authorized fields, not a claim that all curriculum fields or subjects are complete.
+Primary source fetched and read: https://sre.google/sre-book/embracing-risk/; HTML SHA256 5849644147f54b7c96825fd2518fdbd1e4da359dd5f0ebdddd20224517d864a2. Risk tolerance, nonlinear resource/opportunity cost, indicator choice and user needs inform the exercises.
+Original models cover marginal investment, serial and redundant dependencies, zero allowances, uncertain change forecasts, outage duration, finite-sample evidence, time windows, batch outcomes, limited engineering capacity, forecast calibration, requirements, exclusions, rounding and volume weighting.
+The binomial bound and reliability-block products are original derivations with explicit independence/model assumptions, not formulas attributed to the chapter. Requirements remain constraints; examples do not authorize purchases, risk acceptance or production changes.
+Validation pending. No frozen UI, runtime, game, personal background or live changes; no merge/deploy.
