@@ -10186,6 +10186,90 @@
       "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
     },
     {
+      "url": "https://www.gnu.org/software/bash/manual/html_node/Command-Substitution.html",
+      "consumers": [
+        {
+          "source": "deep-learning/cloud/linux.json",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
+      "url": "https://www.gnu.org/software/bash/manual/html_node/Double-Quotes.html",
+      "consumers": [
+        {
+          "source": "deep-learning/cloud/linux.json",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
+      "url": "https://www.gnu.org/software/bash/manual/html_node/Exit-Status.html",
+      "consumers": [
+        {
+          "source": "deep-learning/cloud/linux.json",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
+      "url": "https://www.gnu.org/software/bash/manual/html_node/Lists.html",
+      "consumers": [
+        {
+          "source": "deep-learning/cloud/linux.json",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
+      "url": "https://www.gnu.org/software/bash/manual/html_node/Pipelines.html",
+      "consumers": [
+        {
+          "source": "deep-learning/cloud/linux.json",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
+      "url": "https://www.gnu.org/software/bash/manual/html_node/Redirections.html",
+      "consumers": [
+        {
+          "source": "deep-learning/cloud/linux.json",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
       "url": "https://www.gnu.org/software/coreutils/manual/coreutils.html",
       "consumers": [
         {
