@@ -1,0 +1,5 @@
+# Fixed-membership quorum labs
+
+Four original advanced labs cover majority intersection, count-only crash tolerance, two-way versus multiway partitions and site failure domains. Read official etcd3.6 FAQ. Its broad odd-member partition wording is deliberately narrowed: the independently verified 2/2/1 counterexample prevents claiming progress under arbitrary fragmentation. Models are combinatorial, not Raft simulations or deployment guidance; no infrastructure changes.
+
+Validation: six new scope/source/model tests pass. All 501 test_*.py cases ran: 499 passed and two pre-existing staged-package cases skipped. All 62 configured Python cases and site checks passed. Exact isolated QA bytes verified. All 90 advanced lab records retain their original IDs and fields except the three approved fields of four selected lessons. Combinatorial enumeration verifies fixed-membership examples, not a Raft implementation or production availability. No full package, full suite or physical-device validation is claimed. Hosted media failures remain unwaived. No merge, deployment, UI, live behavior, security settings or personal history changed.
