@@ -2024,6 +2024,20 @@
       "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
     },
     {
+      "url": "https://docs.python.org/3.13/library/stat.html",
+      "consumers": [
+        {
+          "source": "deep-learning/cloud/linux.json",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
       "url": "https://docs.python.org/3.13/library/unittest.html",
       "consumers": [
         {
@@ -5794,6 +5808,20 @@
       "consumers": [
         {
           "source": "deep-learning/advanced/operating-systems.json",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
+      "url": "https://man7.org/linux/man-pages/man2/umask.2.html",
+      "consumers": [
+        {
+          "source": "deep-learning/cloud/linux.json",
           "evidence": "current-runtime"
         }
       ],
@@ -11464,6 +11492,20 @@
         },
         {
           "source": "verification-manifest.json",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
+      "url": "https://www.gnu.org/software/coreutils/manual/html_node/Numeric-Modes.html",
+      "consumers": [
+        {
+          "source": "deep-learning/cloud/linux.json",
           "evidence": "current-runtime"
         }
       ],
