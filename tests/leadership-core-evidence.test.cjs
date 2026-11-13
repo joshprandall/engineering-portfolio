@@ -704,9 +704,47 @@ const usd = (x) => '$' + fmt(Math.round(x));
  ['90%','99%',String(mean)+' ms','at most '+(total*5/1000),fmt(fast+middle+50),'99.5%',fmt(fast+middle+49),'99.49%']);
 }
 
+
+{ // Recovery interval and full-window history.
+ const bad=100,total=10000,needed=bad*1000;
+ assert.equal(needed,100000);assert.equal(needed-total,90000);
+ assert.equal(bad*1000<=99999,false);
+ add('reliability','leadership-v10-recovery-lab-service-level-indicator',[SOURCES.workbook],
+ [fmt(total-bad),'99%','100%',fmt(needed),fmt(needed-total),'99,999']);
+}
+{ // Pipeline set accounting: missing is not conditionally correct.
+ const expected=10000,produced=9800,incorrect=98,stale=196,both=49;
+ const bad=incorrect+stale-both,good=produced-bad;
+ assert.equal(200+49+49+147+good,expected);
+ assert.equal(good,9555);
+ add('reliability','leadership-v10-concept-mapping-lab-service-level-indicator',[SOURCES.workbook],
+ [fmt(produced-incorrect),fmt(produced-stale),String(bad),fmt(good),pct(good/expected,2),(100*.98*.99*.98).toFixed(4)+'%','overlap must be known']);
+}
+{ // Equivalent duplicate observation rows do not change unique outcomes.
+ const good=980,unique=1000,duplicateBad=20;
+ assert.equal(good/unique,.98);
+ add('reliability','leadership-v10-fault-isolation-lab-service-level-indicator',[SOURCES.workbook],
+ [fmt(unique+duplicateBad),pct(good/(unique+duplicateBad),4),pct(1-20/(unique+duplicateBad),4),fmt(unique+30),pct((good+10)/(unique+30),4),'98%']);
+}
+{ // Aggregate success does not imply a critical subgroup passes.
+ const total=999000+1000,bad=400+100,checkout=1000,checkoutBad=100;
+ assert.equal(bad*1000<=total,true);
+ assert.equal(checkoutBad*1000<=checkout,false);
+ add('reliability','leadership-v10-scenario-brief-service-level-objective',[SOURCES.workbook],
+ [fmt(total),String(bad),pct(1-bad/total,2),'90%',fmt(100*checkoutBad/(checkout/1000))+'%',pct(1-bad/(total+1000000),3)]);
+}
+{ // Unknown overlap yields bounds, not an unsupported product.
+ const total=10000,failed=100,slow=100;
+ const good=overlap=>total-failed-slow+overlap;
+ assert.deepEqual([0,100].map(good),[9800,9900]);
+ assert.deepEqual([49,50].map(o=>good(o)*1000>=total*985),[false,true]);
+ add('reliability','leadership-v10-exam-style-practice-service-level-objective',[SOURCES.workbook],
+ [fmt(good(0)),fmt(good(100)),pct(.99*.99,2),fmt(good(49)),pct(good(49)/total,2),fmt(good(50)),'98.5%']);
+}
+
 test('exactly the authored lessons changed, and only their question, reasoning and lab fields', () => {
   const authored = new Set(cases.map(c => c.id));
-  assert.equal(authored.size, 81);
+  assert.equal(authored.size, 86);
   for (const c of chunks) {
     assert.deepEqual(Object.keys(current[c]), Object.keys(baseline[c]), c + ': lesson IDs and order are unchanged');
     for (const id of Object.keys(baseline[c])) {
