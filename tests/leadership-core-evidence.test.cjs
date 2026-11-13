@@ -1091,14 +1091,17 @@ const itsmFollowupIds = new Set(["leadership-v09-teach-back-lab-change-managemen
 const projectsCheckpoint = JSON.parse(zlib.gunzipSync(fs.readFileSync(path.join(__dirname, 'baselines', 'merge-boundaries.json.gz'))).toString('utf8'));
 const projectsFollowupIds = new Set(["leadership-v09-quick-reference-roadmaps-sequence-outcomes-not-wish-lists", "leadership-v09-decision-lab-roadmaps-sequence-outcomes-not-wish-lists", "leadership-v09-quick-reference-roadmaps-sequence-outcomes-not-wish-lists-2", "leadership-v09-decision-lab-roadmaps-sequence-outcomes-not-wish-lists-2"]);
 
+const vendorsCheckpoint = JSON.parse(zlib.gunzipSync(fs.readFileSync(path.join(__dirname, 'baselines', 'vendor-sensitivity.json.gz'))).toString('utf8'));
+const vendorsFollowupIds = new Set(["leadership-v09-evidence-verification-la-vendor-evaluation-beyond-the-demo", "leadership-v09-recall-drill-vendor-evaluation-beyond-the-demo", "leadership-v09-evidence-verificat-vendor-evaluation-beyond-the-demo-2", "leadership-v09-recall-drill-vendor-evaluation-beyond-the-demo-2"]);
+
 test('exactly the authored lessons changed, and only their question, reasoning and lab fields', () => {
   const authored = new Set(cases.map(c => c.id));
   assert.equal(authored.size, 174);
   for (const c of chunks) {
     assert.deepEqual(Object.keys(current[c]), Object.keys(baseline[c]), c + ': lesson IDs and order are unchanged');
     for (const id of Object.keys(baseline[c])) {
-      const before = baseline[c][id], after = c === 'capacity' ? capacityCheckpoint[id] : c === 'finance' ? financeCheckpoint[id] : c === 'governance' ? governanceCheckpoint[id] : c === 'itsm' ? itsmCheckpoint[id] : c === 'projects' ? projectsCheckpoint[id] : current[c][id];
-      if ((c === 'capacity' || c === 'finance' || c === 'governance' || c === 'itsm' || c === 'projects') && authored.has(id)) assert.deepEqual(current[c][id], after, id + ': original authored lesson remains exact');
+      const before = baseline[c][id], after = c === 'capacity' ? capacityCheckpoint[id] : c === 'finance' ? financeCheckpoint[id] : c === 'governance' ? governanceCheckpoint[id] : c === 'itsm' ? itsmCheckpoint[id] : c === 'projects' ? projectsCheckpoint[id] : c === 'vendors' ? vendorsCheckpoint[id] : current[c][id];
+      if ((c === 'capacity' || c === 'finance' || c === 'governance' || c === 'itsm' || c === 'projects' || c === 'vendors') && authored.has(id)) assert.deepEqual(current[c][id], after, id + ': original authored lesson remains exact');
       const diff = [...new Set([...Object.keys(before), ...Object.keys(after)])].filter(f => JSON.stringify(before[f]) !== JSON.stringify(after[f]));
       if (authored.has(id)) assert.deepEqual(diff.sort(), ['essentialQuestion', 'labPlan', 'reasoningSteps'], id);
       else assert.deepEqual(diff, [], id + ' must be untouched');
@@ -1183,6 +1186,22 @@ test('projects follow-up changes exactly four lessons and only approved fields',
     const before = projectsCheckpoint[id], after = current.projects[id];
     const diff = [...new Set([...Object.keys(before), ...Object.keys(after)])].filter(f => JSON.stringify(before[f]) !== JSON.stringify(after[f]));
     assert.deepEqual(diff.sort(), projectsFollowupIds.has(id) ? ['essentialQuestion', 'labPlan', 'reasoningSteps'] : [], id);
+  }
+});
+
+test('vendors follow-up changes exactly four lessons and only approved fields', () => {
+  assert.equal(vendorsFollowupIds.size, 4);
+  assert.equal(Object.keys(current.vendors).length, 66);
+  assert.deepEqual(Object.keys(current.vendors), Object.keys(vendorsCheckpoint));
+  const originalIds = new Set(cases.map(c => c.id));
+  for (const id of vendorsFollowupIds) {
+    assert.ok(Object.hasOwn(vendorsCheckpoint, id), id);
+    assert.ok(!originalIds.has(id), id + ': no original authored lesson replaced');
+  }
+  for (const id of Object.keys(vendorsCheckpoint)) {
+    const before = vendorsCheckpoint[id], after = current.vendors[id];
+    const diff = [...new Set([...Object.keys(before), ...Object.keys(after)])].filter(f => JSON.stringify(before[f]) !== JSON.stringify(after[f]));
+    assert.deepEqual(diff.sort(), vendorsFollowupIds.has(id) ? ['essentialQuestion', 'labPlan', 'reasoningSteps'] : [], id);
   }
 });
 
