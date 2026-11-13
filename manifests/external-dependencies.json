@@ -10078,6 +10078,20 @@
       "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
     },
     {
+      "url": "https://opentelemetry.io/docs/specs/otel/logs/data-model/",
+      "consumers": [
+        {
+          "source": "deep-learning/leadership/lab.json",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
       "url": "https://owasp.org/www-project-application-security-verification-standard/",
       "consumers": [
         {
