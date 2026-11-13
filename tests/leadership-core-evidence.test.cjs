@@ -996,9 +996,28 @@ add('reliability',"leadership-v10-design-critique-100-percent-reliability-tradeo
 add('reliability',"leadership-v10-retrieval-ladder-availability-objective-tradeoff",[SOURCES.risk],["99.95%", "99.9%", "one failure", "100.0%", "integer"]);
 add('reliability',"leadership-v10-diagnostic-lab-availability-objective-tradeoff",[SOURCES.risk],["90%", "99.9091%", "94.9545%", "99.81%", "10%"]);
 
+// Recovery timelines and queue arithmetic use explicit, independently checked boundaries.
+{
+ assert.equal(90+40,130);assert.equal(120-40,80);assert.equal(70+40,110);
+ assert.equal(5+10+Math.max(30,20)+15,60);assert.equal(5+10+30+20+15,80);assert.equal(5+10+40+15,70);
+ assert.equal(14*60-(13*60+48),12);assert.equal(12*25,300);
+ assert.equal(20-0,20);assert.equal(20-12,8);assert.equal(20-17,3);
+ assert.equal(27-20,7);assert.equal(27-10,17);
+ assert.equal(12*60-(11*60+30),30);assert.equal(12*60-(11*60+44),16);
+ assert.equal(50-45,5);assert.equal(30*120,3600);assert.equal(180-120,60);assert.equal(3600/60+30,90);
+}
+add('recovery',"leadership-v08-deep-dive-recovery-time-objective",[SOURCES.nist],["130", "10 minutes", "minute 80", "110 minutes"]);
+add('recovery',"leadership-v08-evidence-lab-recovery-time-objective",[SOURCES.nist],["60 minutes", "80 minutes", "45 minutes", "5 minutes", "70"]);
+add('recovery',"leadership-v08-deep-dive-recovery-point-objective",[SOURCES.nist],["12 minutes", "15-minute", "35 minutes", "47 minutes", "300 records"]);
+add('recovery',"leadership-v08-evidence-lab-recovery-point-objective",[SOURCES.nist],["20 minutes", "8 minutes", "5 minutes", "3 minutes"]);
+add('recovery',"leadership-v09-worked-example-recovery-point-objective",[SOURCES.nist],["7-minute", "below 10 minutes", "17-minute", "missed by 7"]);
+add('recovery',"leadership-v09-misconception-clinic-recovery-point-objective",[SOURCES.nist],["30-minute", "16 minutes", "15-minute", "1 minute"]);
+add('recovery',"leadership-v09-teach-back-lab-recovery-time-objective",[SOURCES.nist],["20 minutes", "35 minutes", "50 minutes", "5 minutes", "40-minute"]);
+add('recovery',"leadership-v09-worked-example-recovery-time-objective",[SOURCES.nist],["3,600", "60 items per minute", "60 additional minutes", "90 minutes", "20 minutes"]);
+
 test('exactly the authored lessons changed, and only their question, reasoning and lab fields', () => {
   const authored = new Set(cases.map(c => c.id));
-  assert.equal(authored.size, 144);
+  assert.equal(authored.size, 152);
   for (const c of chunks) {
     assert.deepEqual(Object.keys(current[c]), Object.keys(baseline[c]), c + ': lesson IDs and order are unchanged');
     for (const id of Object.keys(baseline[c])) {
