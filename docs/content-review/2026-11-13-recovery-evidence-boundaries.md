@@ -1,0 +1,5 @@
+# Recovery evidence boundaries
+
+Four original cyber recovery lessons cover shared backup failure dependencies, digest reference trust, application-level consistency and recovery prerequisites. Read CISA StopRansomware guide preparation section. Tests use inert records, hashlib and in-memory JSON only. No real backups, credentials, accounts or security settings accessed. These bounded models do not prove real recovery readiness.
+
+Validation: six new scope/source/model tests pass. All 471 test_*.py cases ran: 469 passed and two pre-existing staged-package cases skipped. All 62 configured Python cases and site checks passed. Exact isolated QA bytes verified. All 96 recovery records retain their original IDs and fields except the three approved fields of four selected lessons. Synthetic dependency, hash and JSON checks validate examples only, not production recovery readiness. No full package, full suite or physical-device validation is claimed. Hosted media failures remain unwaived. No merge, deployment, UI, live behavior, security settings or personal history changed.
