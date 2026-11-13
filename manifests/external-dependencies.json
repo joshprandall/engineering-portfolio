@@ -3035,6 +3035,10 @@
       "url": "https://git-scm.com/docs/git-branch",
       "consumers": [
         {
+          "source": "deep-learning/software/devops.json",
+          "evidence": "current-runtime"
+        },
+        {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
         },
@@ -3053,11 +3057,29 @@
       "url": "https://git-scm.com/docs/git-cherry-pick",
       "consumers": [
         {
+          "source": "deep-learning/software/devops.json",
+          "evidence": "current-runtime"
+        },
+        {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
         },
         {
           "source": "verification-manifest.json",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
+      "url": "https://git-scm.com/docs/git-commit",
+      "consumers": [
+        {
+          "source": "deep-learning/software/devops.json",
           "evidence": "current-runtime"
         }
       ],
@@ -3088,6 +3110,10 @@
     {
       "url": "https://git-scm.com/docs/git-merge",
       "consumers": [
+        {
+          "source": "deep-learning/software/devops.json",
+          "evidence": "current-runtime"
+        },
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
@@ -3197,6 +3223,10 @@
       "url": "https://git-scm.com/docs/git-revert",
       "consumers": [
         {
+          "source": "deep-learning/software/devops.json",
+          "evidence": "current-runtime"
+        },
+        {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
         },
@@ -3220,6 +3250,20 @@
         },
         {
           "source": "verification-manifest.json",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
+      "url": "https://git-scm.com/docs/git-symbolic-ref",
+      "consumers": [
+        {
+          "source": "deep-learning/software/devops.json",
           "evidence": "current-runtime"
         }
       ],
