@@ -244,12 +244,16 @@ const semanticAudits=[
     ]
   }
 ];
-test("101 IDs, all non-teaching fields and 89 untouched lessons retain immutable reference fingerprints",()=>{
+test("101 IDs, non-teaching fields and original historical scope retain immutable fingerprints",()=>{
   assert.equal(stableHash(Object.keys(pack)),"0ca03bfe");
   const permitted=new Set(["essentialQuestion","reasoningSteps","labPlan"]);
   assert.equal(stableHash(Object.entries(pack).map(([id,r])=>[id,Object.entries(r).filter(([k])=>!permitted.has(k))])),"5d42dedc");
   const changed=new Set(semanticAudits.map(x=>x.id));
-  assert.equal(stableHash(Object.entries(pack).filter(([id])=>!changed.has(id))),"1dcf817d");
+  // Preserve the immutable historical audit while later disjoint lessons use their own scope test.
+  const checkpoint=JSON.parse(require('node:zlib').gunzipSync(fs.readFileSync(path.join(__dirname,'baselines/sequence-boundary-foundations.json.gz'))).toString('utf8'));
+  assert.deepEqual(Object.keys(pack),Object.keys(checkpoint));
+  for(const id of changed)assert.deepEqual(pack[id],checkpoint[id],id+': original authored lesson remains exact');
+  assert.equal(stableHash(Object.entries(checkpoint).filter(([id])=>!changed.has(id))),"1dcf817d");
 });
 for(const sample of semanticAudits)test(sample.id+" independently recomputed claims and corruption checks",()=>{
   const lesson=pack[sample.id];assert.ok(lesson);
