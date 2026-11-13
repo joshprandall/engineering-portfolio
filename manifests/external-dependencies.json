@@ -11367,6 +11367,10 @@
       "url": "https://www.cisa.gov/stopransomware/ransomware-guide",
       "consumers": [
         {
+          "source": "deep-learning/cyber/recovery.json",
+          "evidence": "current-runtime"
+        },
+        {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
         },
