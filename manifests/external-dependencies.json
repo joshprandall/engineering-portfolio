@@ -4060,6 +4060,20 @@
       "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
     },
     {
+      "url": "https://kubernetes.io/docs/concepts/architecture/controller/",
+      "consumers": [
+        {
+          "source": "deep-learning/cloud/cloud.json",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
       "url": "https://kubernetes.io/docs/concepts/configuration/configmap/",
       "consumers": [
         {
@@ -4081,6 +4095,10 @@
       "url": "https://kubernetes.io/docs/concepts/configuration/liveness-readiness-startup-probes/",
       "consumers": [
         {
+          "source": "deep-learning/cloud/cloud.json",
+          "evidence": "current-runtime"
+        },
+        {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
         },
@@ -4098,6 +4116,10 @@
     {
       "url": "https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/",
       "consumers": [
+        {
+          "source": "deep-learning/cloud/cloud.json",
+          "evidence": "current-runtime"
+        },
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
@@ -4214,6 +4236,10 @@
     {
       "url": "https://kubernetes.io/docs/concepts/scheduling-eviction/kube-scheduler/",
       "consumers": [
+        {
+          "source": "deep-learning/cloud/cloud.json",
+          "evidence": "current-runtime"
+        },
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
@@ -4606,6 +4632,34 @@
       "consumers": [
         {
           "source": "learn-cloud.html",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
+      "url": "https://kubernetes.io/docs/tasks/run-application/configure-pdb/",
+      "consumers": [
+        {
+          "source": "deep-learning/cloud/cloud.json",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
+      "url": "https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/",
+      "consumers": [
+        {
+          "source": "deep-learning/cloud/cloud.json",
           "evidence": "current-runtime"
         }
       ],
