@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "sourceCommit": "4d64367c965b4b28cf6be7c052f24da3255c3fa7",
+  "sourceCommit": "d6ba358ad4fe0da94fccbd9ccff09b4cd5109097",
   "bytePolicy": "Exact Git blobs; artifacts verified against committed SHA-256 and size.",
   "files": [
     {
@@ -895,11 +895,11 @@
     },
     {
       "path": "deep-learning/advanced/gpu.json",
-      "size": 444924,
-      "sha256": "a92aba4fe144ef6904929338e667c686b619f743290b7a33d152346f5dcb0074",
+      "size": 446436,
+      "sha256": "58018c0dfb57ff6462f5a960ae3caf0734759de29b4085279152c661c8da38a7",
       "source": {
         "kind": "git-blob",
-        "blob": "b36e156afe0801d9da4f2112417c5b0ba2805df4"
+        "blob": "a346803814974710db71f88c90f9470298dc6bb7"
       },
       "owningComponent": "deep-learning",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -3716,5 +3716,5 @@
     }
   ],
   "fileCount": 334,
-  "byteSize": 446276604
+  "byteSize": 446278116
 }
