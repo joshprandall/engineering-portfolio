@@ -13,9 +13,11 @@ def run(code,cwd=None):
  return subprocess.run([BASH,'--noprofile','--norc','-c',"set +e; set +u; set +o pipefail; IFS=$' \\t\\n'; "+code],cwd=cwd,env=env,capture_output=True,timeout=10)
 class BashShellFoundations(unittest.TestCase):
  def test_scope(self):
-  self.assertEqual(list(B),list(D));self.assertEqual(len(D),147)
+  checkpoint=json.loads(gzip.decompress((R/'tests/baselines/bash-execution-boundaries.json.gz').read_bytes()))
+  self.assertEqual(list(B),list(checkpoint));self.assertEqual(list(checkpoint),list(D));self.assertEqual(len(D),147)
+  for k in IDS:self.assertEqual(D[k],checkpoint[k],k)
   for k in B:
-   changed=sorted(f for f in set(B[k])|set(D[k]) if B[k].get(f)!=D[k].get(f))
+   changed=sorted(f for f in set(B[k])|set(checkpoint[k]) if B[k].get(f)!=checkpoint[k].get(f))
    self.assertEqual(changed,['essentialQuestion','labPlan','reasoningSteps'] if k in IDS else [],k)
  def test_sources(self):
   for k,slug in zip(IDS,SLUGS):
