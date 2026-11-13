@@ -18,9 +18,11 @@ class CloudControlEvidence(unittest.TestCase):
   t=' '.join(D[IDS[i]]['reasoningSteps'])
   for v in values:self.assertIn(v,t)
  def test_scope(self):
+  checkpoint=json.loads(gzip.decompress((R/'tests/baselines/deployment-rollout-labs.json.gz').read_bytes()))
   self.assertEqual(list(B),list(D));self.assertEqual(len(D),178)
+  for key in IDS:self.assertEqual(D[key],checkpoint[key],key)
   for key in B:
-   fields=sorted(f for f in set(B[key])|set(D[key]) if B[key].get(f)!=D[key].get(f))
+   fields=sorted(f for f in set(B[key])|set(checkpoint[key]) if B[key].get(f)!=checkpoint[key].get(f))
    self.assertEqual(fields,['essentialQuestion','labPlan','reasoningSteps'] if key in IDS else [],key)
  def test_structure_sources(self):
   for i,key in enumerate(IDS):
