@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "sourceCommit": "866087a9806dea54fe792bd38d9c71bc6ac61f4c",
+  "sourceCommit": "82fc01b010bdca552f1a4521fc0128068dc5a61e",
   "bytePolicy": "Exact Git blobs; artifacts verified against committed SHA-256 and size.",
   "files": [
     {
@@ -1390,11 +1390,11 @@
     },
     {
       "path": "deep-learning/math/calculus.json",
-      "size": 545441,
-      "sha256": "1ecd702c24deaec99d92e5d378ea3eb6111ee9639465993154295c251e2da3f5",
+      "size": 549683,
+      "sha256": "361ea1b6db683000169fbd1221ad8c843b7991828c301e9ebe0d9cb9e312541c",
       "source": {
         "kind": "git-blob",
-        "blob": "0c7df5ed8ce1a43950008a286a4303bb61cbea41"
+        "blob": "ab4bafa1f552ec227fe04da80f04a280489b1528"
       },
       "owningComponent": "deep-learning",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -3716,5 +3716,5 @@
     }
   ],
   "fileCount": 334,
-  "byteSize": 446114574
+  "byteSize": 446118816
 }
