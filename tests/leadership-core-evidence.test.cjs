@@ -563,9 +563,80 @@ const usd = (x) => '$' + fmt(Math.round(x));
   }
 }
 
+// ---- Six distinct error-budget practice cases; no new records or routes.
+{
+  const regionalFailures = 10 + 50, regionalRequests = 1000 + 99000;
+  const globalSuccess = 100 * (1 - regionalFailures / regionalRequests);
+  const equalRegionMean = 100 * ((1 - 10 / 1000) + (1 - 50 / 99000)) / 2;
+  assert.notEqual(globalSuccess, equalRegionMean);
+  assert.equal((1000 - 10) + (99000 - 50), 99940);
+  const remixedFailures = 10 * 99 + 50, remixedRequests = 99000 * 2;
+  assert.ok(close(100 * (1 - remixedFailures / remixedRequests), equalRegionMean));
+  add('reliability', 'leadership-v09-scenario-analysis-error-budget', [SOURCES.workbook, SOURCES.alerts],
+    [globalSuccess.toFixed(2) + '%', fmt(regionalFailures) + ' failures',
+     'leaving ' + (regionalRequests / 1000 - regionalFailures), '60%',
+     equalRegionMean.toFixed(6), fmt(remixedFailures) + ' / ' + fmt(remixedRequests)]);
+}
+{
+  const period = 30 * 24, threshold = 14.4;
+  const above = (failures, requests) => failures * 10000 > 144 * requests;
+  assert.deepEqual([143, 144, 145].map(f => above(f, 10000)), [false, false, true]);
+  assert.equal(above(1800, 100000) && above(10, 10000), false);
+  assert.equal(above(1800, 100000) || above(10, 10000), true, 'OR is a wrong recovery-case implementation');
+  assert.equal(above(1800, 100000) && above(200, 10000), true);
+  add('reliability', 'leadership-v09-design-review-error-budget', [SOURCES.alerts],
+    [period + '-hour', String(threshold / period), '2%', 'burns are 18 and 1',
+     'short burn becomes 20', 'exactly 144 errors', 'strict greater-than']);
+}
+{
+  const initial = { valid: 100000, bad: 80 };
+  const after = { valid: initial.valid - 10000 + 10000, bad: initial.bad - 30 + 5 };
+  const goodCheck = initial.valid - initial.bad - (10000 - 30) + (10000 - 5);
+  assert.equal(goodCheck + after.bad, after.valid);
+  assert.equal(after.bad, 55);
+  assert.equal(after.valid / 1000 - after.bad, 45);
+  assert.equal((initial.valid - 20000) / 1000 - initial.bad, 0);
+  add('reliability', 'leadership-v09-troubleshooting-lab-error-budget', [SOURCES.workbook],
+    ['80 - 30 + 5 = ' + after.bad, 'budget rises to 45', fmt(goodCheck),
+     (100 * goodCheck / after.valid).toFixed(3) + '%', 'remaining budget becomes 0']);
+}
+{
+  const requests = 2000000, budget = requests / 1000;
+  const incidentTrigger = errors => errors * 5 > budget;
+  assert.deepEqual([400, 401].map(incidentTrigger), [false, true]);
+  assert.equal(1600 <= budget, true);
+  assert.equal(2100 <= budget, false);
+  add('reliability', 'leadership-v10-decision-brief-error-budget', [SOURCES.ebp],
+    ['allows ' + fmt(budget) + ' failures', '400 remain', '80%',
+     (100 * 450 / budget).toFixed(1) + '%', (100 * 450 / 400).toFixed(1) + '%',
+     String(budget - 2100), (100 * (requests - 2100) / requests).toFixed(3) + '%',
+     'exactly 400 failures', '401 does']);
+}
+{
+  const valid = 100000, failures = 120, good = valid - failures;
+  const trueSuccess = 100 * good / valid;
+  const polluted = 100 * (good + 20000) / (valid + 20000);
+  const morePolluted = 100 * (good + 100000) / (valid + 100000);
+  assert.equal(failures * 1000 <= valid, false);
+  assert.equal(failures * 1000 <= valid + 20000, true, 'probe contamination changes the decision');
+  add('reliability', 'leadership-v10-checklist-lab-error-budget', [SOURCES.workbook, SOURCES.ebp],
+    [trueSuccess.toFixed(2) + '%', polluted.toFixed(1) + '%', morePolluted.toFixed(2) + '%',
+     'balance is ' + (valid / 1000 - failures), fmt(good), 'allowance from 100 to 120']);
+}
+{
+  const burn = (bad, valid) => (bad / valid) / 0.001;
+  assert.deepEqual([0, 1, 2].map(n => burn(n, 20)), [0, 50, 100]);
+  assert.equal(burn(1, 200), 5);
+  assert.equal(10000 / 1000 - 3, 7);
+  add('reliability', 'leadership-v10-diagnostic-lab-error-budget', [SOURCES.alerts],
+    ['burn 0.05 / 0.001 = ' + burn(1, 20), 'consumption is 30%', 'leaving 7',
+     (30 / 50).toFixed(1) + ' days', (24 * 30 / 50).toFixed(1) + ' hours',
+     'burn falls to ' + burn(1, 200), 'not a forecast']);
+}
+
 test('exactly the authored lessons changed, and only their question, reasoning and lab fields', () => {
   const authored = new Set(cases.map(c => c.id));
-  assert.equal(authored.size, 68);
+  assert.equal(authored.size, 74);
   for (const c of chunks) {
     assert.deepEqual(Object.keys(current[c]), Object.keys(baseline[c]), c + ': lesson IDs and order are unchanged');
     for (const id of Object.keys(baseline[c])) {
