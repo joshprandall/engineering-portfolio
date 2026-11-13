@@ -3,8 +3,10 @@ R=pathlib.Path(__file__).resolve().parents[1]
 IDS=["software-v09-failure-analysis-lab-python-generator-expressions","software-v09-troubleshooting-lab-python-generator-expressions","software-v10-transfer-challenge-python-generator-expressions","software-v10-retrieval-ladder-python-generator-expressions"]
 class GeneratorEvaluationBoundaries(unittest.TestCase):
  def test_scope(self):
-  b=json.loads(gzip.decompress((R/'tests/baselines/generator-evaluation-boundaries.json.gz').read_bytes()));d=json.loads((R/'deep-learning/software/programming.json').read_bytes())
+  b=json.loads(gzip.decompress((R/'tests/baselines/generator-evaluation-boundaries.json.gz').read_bytes()));d=json.loads(gzip.decompress((R/'tests/baselines/exception-flow-labs.json.gz').read_bytes()))
   self.assertEqual(list(b),list(d));self.assertEqual(len(d),158)
+  current=json.loads((R/'deep-learning/software/programming.json').read_bytes())
+  for k in IDS:self.assertEqual(d[k],current[k],k)
   for k in b:
    fields={f for f in set(b[k])|set(d[k]) if b[k].get(f)!=d[k].get(f)}
    self.assertEqual(fields,{'essentialQuestion','reasoningSteps','labPlan'} if k in IDS else set(),k)
