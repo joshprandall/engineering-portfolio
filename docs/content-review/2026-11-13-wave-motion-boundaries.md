@@ -11,3 +11,5 @@ Five new official references and 18 route dependency arrays changed. Metadata to
 Read exact hosted logs at previous checkpoint 5d9ff1b: Site run 43418239787 failed WebKit phone job 131861433355 on forest-river background stall at media-playback line 82, and desktop job 131861433401 on ResizeObserver loop completed with undelivered notifications at unchanged page-error gate line 116. Validate, interface and Chromium passed; companion run 43418239808 passed. These failures remain unwaived and no runtime cause is claimed.
 
 No UI, live site, audio asset, game, credential or deployment changes. No assertion relaxation or fresh staged-package validation. Current hosted CI unchecked.
+
+Narrow runtime manifest: content commit 9736a95f4d2c0cee2d8690512d277d33527de702; only physics/waves.json updated, 448490 bytes, SHA256 d9839dbf757245ee0022f48b8a655f54eccbd8d17ff02541b9b2bc5da533db59. Inventory remains 334 files, 446199771 aggregate bytes. No fresh staged-package validation.

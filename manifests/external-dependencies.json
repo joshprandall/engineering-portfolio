@@ -7016,6 +7016,20 @@
       "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
     },
     {
+      "url": "https://openstax.org/books/university-physics-volume-1/pages/15-1-simple-harmonic-motion",
+      "consumers": [
+        {
+          "source": "deep-learning/physics/waves.json",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
       "url": "https://openstax.org/books/university-physics-volume-1/pages/15-1-simple-harmonic-motion.",
       "consumers": [
         {
@@ -7090,6 +7104,20 @@
       "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
     },
     {
+      "url": "https://openstax.org/books/university-physics-volume-1/pages/16-2-mathematics-of-waves",
+      "consumers": [
+        {
+          "source": "deep-learning/physics/waves.json",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
       "url": "https://openstax.org/books/university-physics-volume-1/pages/16-2-mathematics-of-waves.",
       "consumers": [
         {
@@ -7105,6 +7133,20 @@
     },
     {
       "url": "https://openstax.org/books/university-physics-volume-1/pages/16-2-mathematics-of-waves;",
+      "consumers": [
+        {
+          "source": "deep-learning/physics/waves.json",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
+      "url": "https://openstax.org/books/university-physics-volume-1/pages/16-5-interference-of-waves",
       "consumers": [
         {
           "source": "deep-learning/physics/waves.json",
@@ -7189,6 +7231,34 @@
     },
     {
       "url": "https://openstax.org/books/university-physics-volume-1/pages/17-2-speed-of-sound;",
+      "consumers": [
+        {
+          "source": "deep-learning/physics/waves.json",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
+      "url": "https://openstax.org/books/university-physics-volume-1/pages/17-6-beats",
+      "consumers": [
+        {
+          "source": "deep-learning/physics/waves.json",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
+      "url": "https://openstax.org/books/university-physics-volume-1/pages/17-7-the-doppler-effect",
       "consumers": [
         {
           "source": "deep-learning/physics/waves.json",
