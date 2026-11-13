@@ -1,0 +1,1969 @@
+{
+  "schemaVersion": 1,
+  "commit": "cc813a298d7cd3da3d69033b7e3330b99d82f7b6",
+  "baseUrl": "https://web.engr.oregonstate.edu/~randjosh/",
+  "startedAtUtc": "2026-11-13T05:38:35.990090+00:00",
+  "completedAtUtc": "2026-11-13T05:38:43.202015+00:00",
+  "readOnly": true,
+  "scope": "Manifest HTML/CSS/JS/MJS only; excludes binary media, JSON curriculum and host-only files. Not full production parity or deployment approval.",
+  "counts": {
+    "checked": 196,
+    "matches": 96,
+    "different": 98,
+    "errors": 2
+  },
+  "files": [
+    {
+      "path": "about.html",
+      "sourceSha256": "87d325788265e5d3a89ed3013da51d410f8b5e92ef408979619b5b7f5722798d",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/about.html",
+      "contentType": "text/html",
+      "liveBytes": 34317,
+      "liveSha256": "a6ade05948c6e0623c23e4e77e220c8509ae01dba54956b93d42a012cb63f3fd",
+      "matches": false
+    },
+    {
+      "path": "agent-workbench.html",
+      "sourceSha256": "3792494a011557d721faa35f1354ecb00e63703a96780ecc7362f71bd7e426ee",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/agent-workbench.html",
+      "contentType": "text/html",
+      "liveBytes": 6961,
+      "liveSha256": "537c7c07dc5926828f38d7a46da750454f3361416350c3c895a6a6ec84bf3b7e",
+      "matches": false
+    },
+    {
+      "path": "agent-workbench.js",
+      "sourceSha256": "0aed802fc4b539f1a5da8e76e97ef173125417bc04fd8d62ea03605fb6b353ff",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/agent-workbench.js",
+      "contentType": "application/javascript",
+      "liveBytes": 5663,
+      "liveSha256": "0aed802fc4b539f1a5da8e76e97ef173125417bc04fd8d62ea03605fb6b353ff",
+      "matches": true
+    },
+    {
+      "path": "ai-agentic.html",
+      "sourceSha256": "13b25fee2866319abda0ff602bee61659ccec6ba180ac00dab5f8b9f276dcf6c",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/ai-agentic.html",
+      "contentType": "text/html",
+      "liveBytes": 12274,
+      "liveSha256": "c7db4fe3cec39c6fcafafcd3e4dab04959ff1e975747432e549bcfe836677482",
+      "matches": false
+    },
+    {
+      "path": "ai-build-lab.css",
+      "sourceSha256": "da7e9e7c7a71bc3117d6e2a5e6240c45f5fb1a9cc87972fcc37565c339833935",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/ai-build-lab.css",
+      "contentType": "text/css",
+      "liveBytes": 2146,
+      "liveSha256": "da7e9e7c7a71bc3117d6e2a5e6240c45f5fb1a9cc87972fcc37565c339833935",
+      "matches": true
+    },
+    {
+      "path": "ai-build-lab.js",
+      "sourceSha256": "3df27e410c4e993a2f780cb908f7938882a92e23f051457482cf3ffa58f42252",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/ai-build-lab.js",
+      "contentType": "application/javascript",
+      "liveBytes": 21171,
+      "liveSha256": "3df27e410c4e993a2f780cb908f7938882a92e23f051457482cf3ffa58f42252",
+      "matches": true
+    },
+    {
+      "path": "ai-build-your-own.html",
+      "sourceSha256": "94f407a921017c0fd3056e0fbebbd3c8eaf64289f404668bcf073de8bdc70873",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/ai-build-your-own.html",
+      "contentType": "text/html",
+      "liveBytes": 11523,
+      "liveSha256": "b599d79e5f9f6468599a0ef44d9c3f87c872a7314c7fec18473d563a80b7081f",
+      "matches": false
+    },
+    {
+      "path": "ai-computer-vision.html",
+      "sourceSha256": "10bcacb30591fc602e51be0f99e3464ca05e9566bd0b6de753c13fabbb27d00b",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/ai-computer-vision.html",
+      "contentType": "text/html",
+      "liveBytes": 11913,
+      "liveSha256": "a443c319cead3d1f1e2f78afea8e2fc785f92f3b9f4384cdc048b5fc777bfe38",
+      "matches": false
+    },
+    {
+      "path": "ai-deep-learning.html",
+      "sourceSha256": "223a02609925a20f5392cdf284480bf579121d3b5eadcc5b032d30f346b2e46e",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/ai-deep-learning.html",
+      "contentType": "text/html",
+      "liveBytes": 12331,
+      "liveSha256": "9e72015a9dc065d36aad7bedda69112a2873595c8dc647170b325ca5e932a5db",
+      "matches": false
+    },
+    {
+      "path": "ai-development.html",
+      "sourceSha256": "7f3df5a9fef6c3a36cbe991e1ba38814b3f4e1385188cd8b65f57dd60bea9176",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/ai-development.html",
+      "contentType": "text/html",
+      "liveBytes": 11176,
+      "liveSha256": "e847d803d6c94065c692904c41afc042172555ae8f873f3a58d919057ae3dc8c",
+      "matches": false
+    },
+    {
+      "path": "ai-embodied.html",
+      "sourceSha256": "da5b9da468faead73dfe6a4dad9d1cfa8aa08f539abd25cc5b9432dfca86ca58",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/ai-embodied.html",
+      "contentType": "text/html",
+      "liveBytes": 11163,
+      "liveSha256": "cc24d1782228eedd296d0bcdb2d5d0b46bcc62a5e64025c1ca55ad2bf280b05b",
+      "matches": false
+    },
+    {
+      "path": "ai-game.html",
+      "sourceSha256": "6c02189a28d4d066670b6d574bd86489a0e8f69d2644752bb3d7f5c2d14194b7",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/ai-game.html",
+      "contentType": "text/html",
+      "liveBytes": 11028,
+      "liveSha256": "f9264d3446cb1ef3688dc572993c323f82d066f50e1f02ed5a5c4d72d4b96f0e",
+      "matches": false
+    },
+    {
+      "path": "ai-generative.html",
+      "sourceSha256": "92adb88d92d0ea82a139c7978b2f515f0a955acf3827a6a3a05a900d4a426ae9",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/ai-generative.html",
+      "contentType": "text/html",
+      "liveBytes": 11417,
+      "liveSha256": "0886f04c75ce6a0e8e049c830d8d1aea95d75f3be2aee6276e2713b5fa4f02f0",
+      "matches": false
+    },
+    {
+      "path": "ai-geometric.html",
+      "sourceSha256": "1aef135df46c35f0d36147a084316550751efadbab0d5d999308a906e2b590ea",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/ai-geometric.html",
+      "contentType": "text/html",
+      "liveBytes": 12309,
+      "liveSha256": "1a56f2d935d3c82c45f4439145a1677b2169496583121eaf2912311c73e3198f",
+      "matches": false
+    },
+    {
+      "path": "ai-graph-neural-networks.html",
+      "sourceSha256": "cfef680b43f1e4c941e70c4e39fd643df93e4b082192619a71c496d3ff6e9a5c",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/ai-graph-neural-networks.html",
+      "contentType": "text/html",
+      "liveBytes": 11405,
+      "liveSha256": "f4495b71932b2ecd174954138c16803a2a7b9b08f52a871f8a73cecced06078c",
+      "matches": false
+    },
+    {
+      "path": "ai-llm.html",
+      "sourceSha256": "f54b7a45ec70fb1c35f9e8079981c42140b2e5dae73d08f95026fd76926fc523",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/ai-llm.html",
+      "contentType": "text/html",
+      "liveBytes": 23837,
+      "liveSha256": "03de85f83a703feebfd05ebcb06d1b923bf3870a58869c290e7ee856e359aaa3",
+      "matches": false
+    },
+    {
+      "path": "ai-machine-learning.html",
+      "sourceSha256": "2c5b8f1638da0b408e05927a09d996373a00b88bab1050556434d362c60d78dd",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/ai-machine-learning.html",
+      "contentType": "text/html",
+      "liveBytes": 12394,
+      "liveSha256": "78349a86a63313a0d2c27cfad2511603d9545b913c6bba9e5152a6d0ca31ada4",
+      "matches": false
+    },
+    {
+      "path": "ai-mastery.css",
+      "sourceSha256": "fb3b219cc9fd6d6f2aedc5d01fd38c3ebe9eb85f29756ef40e406b9186a0fa0c",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/ai-mastery.css",
+      "contentType": "text/css",
+      "liveBytes": 2667,
+      "liveSha256": "fb3b219cc9fd6d6f2aedc5d01fd38c3ebe9eb85f29756ef40e406b9186a0fa0c",
+      "matches": true
+    },
+    {
+      "path": "ai-mastery.js",
+      "sourceSha256": "64020aab72e245f54b64bd616269e4799bbbd95bfd3baf67d99f170e316fc14b",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/ai-mastery.js",
+      "contentType": "application/javascript",
+      "liveBytes": 5802,
+      "liveSha256": "64020aab72e245f54b64bd616269e4799bbbd95bfd3baf67d99f170e316fc14b",
+      "matches": true
+    },
+    {
+      "path": "ai-memory.html",
+      "sourceSha256": "1b71a83782d24fccdf19e16550bf0e968489fea7e2aa6d5b93ebadd617b6af8d",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/ai-memory.html",
+      "contentType": "text/html",
+      "liveBytes": 12416,
+      "liveSha256": "7b9a5069d709e9781b42b2d058019ca0761c2d15ae6931d2d60264134bea3e56",
+      "matches": false
+    },
+    {
+      "path": "ai-multi-agent.html",
+      "sourceSha256": "35affb5d2740759cf70ce54df1e68d121a76249193c8a1b518dd67a6b909cdab",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/ai-multi-agent.html",
+      "contentType": "text/html",
+      "liveBytes": 7675,
+      "liveSha256": "28619c9f98f9d4aa4b54d3eb9fc2b87404e1708cf21860bb8b308674dc85e73e",
+      "matches": false
+    },
+    {
+      "path": "ai-multimodal.html",
+      "sourceSha256": "9a9a0fb8a12a3de8c146e9b2f79cd78fef7f31ef0ea3facb14f5a6d532193c77",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/ai-multimodal.html",
+      "contentType": "text/html",
+      "liveBytes": 11496,
+      "liveSha256": "aceed3dac1caa3815fb442e2b0336875f1245e5e32704e7ebcd6988f2a03f373",
+      "matches": false
+    },
+    {
+      "path": "ai-neuro-symbolic.html",
+      "sourceSha256": "6dca515e7f64cf42b27ba64d47194791f740b67651f1093eebec950655ae03c0",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/ai-neuro-symbolic.html",
+      "contentType": "text/html",
+      "liveBytes": 11668,
+      "liveSha256": "a48bc78a1229c0cc25f7cdb1cbe339ccad04591c40af6519cb4f7b77e94dc2d2",
+      "matches": false
+    },
+    {
+      "path": "ai-personal-agent.html",
+      "sourceSha256": "9df916e23d226238cb415b0fe506af66501131400453843e53667c62983591ac",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/ai-personal-agent.html",
+      "contentType": "text/html",
+      "liveBytes": 11440,
+      "liveSha256": "39a21768a1f916240c680421dea7853a1d8a613e83b49c9ea8707cd8da808fd9",
+      "matches": false
+    },
+    {
+      "path": "ai-project-mind.html",
+      "sourceSha256": "f54b8ed938d4914a3c6603449ab74a36a8ebf27f88ad3655131fef4452e6daa6",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/ai-project-mind.html",
+      "contentType": "text/html",
+      "liveBytes": 13217,
+      "liveSha256": "aea9bc040c57bb4650ba09ba469897d482fdf95a4160d45aaf45ad8b2135b56a",
+      "matches": false
+    },
+    {
+      "path": "ai-reinforcement-learning.html",
+      "sourceSha256": "a09f6ab0fdd3adbf095292bac442cf58374d959f0f7a633d9575ac426c4c5e71",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/ai-reinforcement-learning.html",
+      "contentType": "text/html",
+      "liveBytes": 12426,
+      "liveSha256": "fca6974670b4595281ceb18b6e5d12277ec93fd8c2cf3a54a339c8421de19b98",
+      "matches": false
+    },
+    {
+      "path": "ai-symbolic.html",
+      "sourceSha256": "e2318a8bdb9518e0f416394467021adec9f161ad8de92ded9aeba780dd12c342",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/ai-symbolic.html",
+      "contentType": "text/html",
+      "liveBytes": 7495,
+      "liveSha256": "b98f06fb032b5c5cdaa2cff11184da3b06cde4181a27ffae5fbdc2193919c4de",
+      "matches": false
+    },
+    {
+      "path": "app.js",
+      "sourceSha256": "d7ec4910610d90114e973acb83dd2ba4a2b34e6fab571b91c802bbdc41fde28f",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/app.js",
+      "contentType": "application/javascript",
+      "liveBytes": 12474,
+      "liveSha256": "d7ec4910610d90114e973acb83dd2ba4a2b34e6fab571b91c802bbdc41fde28f",
+      "matches": true
+    },
+    {
+      "path": "assets/fonts/fonts.css",
+      "sourceSha256": "588be790488200a6bab410e3900a7c8049cb0ea5a1b3623fd985348dd8ac6c88",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/assets/fonts/fonts.css",
+      "contentType": "text/css",
+      "liveBytes": 1377,
+      "liveSha256": "588be790488200a6bab410e3900a7c8049cb0ea5a1b3623fd985348dd8ac6c88",
+      "matches": true
+    },
+    {
+      "path": "direction.html",
+      "sourceSha256": "6c6313b784458298b0038a0f9ec89a7e4b4e00ffa0af9a0fdadb1dd37106a7ea",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/direction.html",
+      "contentType": "text/html",
+      "liveBytes": 2718,
+      "liveSha256": "fa28f3cd42b181b80ffde34e5adfaa269629d60d61bc59e3e192de95b7fe71e4",
+      "matches": false
+    },
+    {
+      "path": "engine-development.html",
+      "sourceSha256": "1db52e3734167fcca47adffcdbcbddba7c675b6b9ee1e7ee2b4aa2cb35abfdb6",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/engine-development.html",
+      "contentType": "text/html",
+      "liveBytes": 3867,
+      "liveSha256": "4ae7e350369bb65761a31043c38a776fa04defda9b006020b089da06592d5d52",
+      "matches": false
+    },
+    {
+      "path": "expertise-experience.html",
+      "sourceSha256": "7cb4466640edb184a55b37b1b027238ff564a8702492e02a5609663515b40980",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/expertise-experience.html",
+      "contentType": "text/html",
+      "liveBytes": 455,
+      "liveSha256": "7cb4466640edb184a55b37b1b027238ff564a8702492e02a5609663515b40980",
+      "matches": true
+    },
+    {
+      "path": "game-development.html",
+      "sourceSha256": "c2713347a3e3813616604d7fcff05d06ab7a31bd1ee3123e3bbf8737f743878b",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/game-development.html",
+      "contentType": "text/html",
+      "liveBytes": 9498,
+      "liveSha256": "5a060c4b3882e25417145203b3b0d520b0192554f90d5eb4eae08a175031ac28",
+      "matches": false
+    },
+    {
+      "path": "game-tools.css",
+      "sourceSha256": "7b71c43d02dfe6e5de2160c06fca327d1ff5a73cf631e2da8a80b474185d3b0f",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/game-tools.css",
+      "contentType": "text/css",
+      "liveBytes": 2257,
+      "liveSha256": "7b71c43d02dfe6e5de2160c06fca327d1ff5a73cf631e2da8a80b474185d3b0f",
+      "matches": true
+    },
+    {
+      "path": "game-tools.html",
+      "sourceSha256": "64c7225812681ac1e04fc1f9935caa1b0418eaa91fe23a302b518c0900d42ff3",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/game-tools.html",
+      "contentType": "text/html",
+      "liveBytes": 4943,
+      "liveSha256": "23607ea8da7d7d3ead900baa21cab13c5adfef652e26c71e015c592aafd4b525",
+      "matches": false
+    },
+    {
+      "path": "game-tools.js",
+      "sourceSha256": "deb6d71d8c4ee0c73c2bb8d44e052f7cbc244228445001bc804d54b0bc04a501",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/game-tools.js",
+      "contentType": "application/javascript",
+      "liveBytes": 20600,
+      "liveSha256": "deb6d71d8c4ee0c73c2bb8d44e052f7cbc244228445001bc804d54b0bc04a501",
+      "matches": true
+    },
+    {
+      "path": "games/3d-battle-chess/attacks.js",
+      "sourceSha256": "63ec73ff942260f056bb0ea6f78a5535543400ef5a83dbfeb051c6cc5c8f55fd",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/games/3d-battle-chess/attacks.js",
+      "contentType": "application/javascript",
+      "liveBytes": 5990,
+      "liveSha256": "63ec73ff942260f056bb0ea6f78a5535543400ef5a83dbfeb051c6cc5c8f55fd",
+      "matches": true
+    },
+    {
+      "path": "games/3d-battle-chess/audio.js",
+      "sourceSha256": "ac54d2b6cb32d066f0340fca0049cca811c90c632b6d110298a90a82a9817180",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/games/3d-battle-chess/audio.js",
+      "contentType": "application/javascript",
+      "liveBytes": 4684,
+      "liveSha256": "ac54d2b6cb32d066f0340fca0049cca811c90c632b6d110298a90a82a9817180",
+      "matches": true
+    },
+    {
+      "path": "games/3d-battle-chess/battle.js",
+      "sourceSha256": "559a06cb6fb958d0605778737bf2f34dca0a9712deb86321d70d38a691fd6738",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/games/3d-battle-chess/battle.js",
+      "contentType": "application/javascript",
+      "liveBytes": 13496,
+      "liveSha256": "af009465e44d68026c7e044d62cabe38ad1d53e1bf932d8725c36132e1307817",
+      "matches": false
+    },
+    {
+      "path": "games/3d-battle-chess/boot.js",
+      "sourceSha256": "bd7a8cd14d32171ca2a1f97e8dcc39f9d299b2926be9019c4d108201b5569a77",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/games/3d-battle-chess/boot.js",
+      "contentType": "application/javascript",
+      "liveBytes": 1245,
+      "liveSha256": "70b3780b4d0be533236a8a12b4a54ad4f68b6a89b91f0791766dae9d51e1dcf8",
+      "matches": false
+    },
+    {
+      "path": "games/3d-battle-chess/castle-controls.js",
+      "sourceSha256": "e206e836e9a90c8e31a4206e5d608b5b204c48a16beb8dd157f98d5371aff774",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/games/3d-battle-chess/castle-controls.js",
+      "contentType": "application/javascript",
+      "liveBytes": 1388,
+      "liveSha256": "e206e836e9a90c8e31a4206e5d608b5b204c48a16beb8dd157f98d5371aff774",
+      "matches": true
+    },
+    {
+      "path": "games/3d-battle-chess/characters.js",
+      "sourceSha256": "cb362d6e43bbc97b795e584fec3aa67c19af898f8ba50ca02ef395b4bdcf5163",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/games/3d-battle-chess/characters.js",
+      "contentType": "application/javascript",
+      "liveBytes": 4859,
+      "liveSha256": "cb362d6e43bbc97b795e584fec3aa67c19af898f8ba50ca02ef395b4bdcf5163",
+      "matches": true
+    },
+    {
+      "path": "games/3d-battle-chess/combat-physics.js",
+      "sourceSha256": "fe08a83b275b307c97da7af3ad79310fef4b66cea96663d42b95c53d0b88f56c",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/games/3d-battle-chess/combat-physics.js",
+      "contentType": "application/javascript",
+      "liveBytes": 3215,
+      "liveSha256": "fe08a83b275b307c97da7af3ad79310fef4b66cea96663d42b95c53d0b88f56c",
+      "matches": true
+    },
+    {
+      "path": "games/3d-battle-chess/combat-v8/animation-runtime.js",
+      "sourceSha256": "f50f06818c1cf06049c7e5f342fee3e9631b93f650a35fff54deb6f7d030ba0e",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/games/3d-battle-chess/combat-v8/animation-runtime.js",
+      "contentType": "application/javascript",
+      "liveBytes": 2287,
+      "liveSha256": "f50f06818c1cf06049c7e5f342fee3e9631b93f650a35fff54deb6f7d030ba0e",
+      "matches": true
+    },
+    {
+      "path": "games/3d-battle-chess/combat-v8/attack-executor.js",
+      "sourceSha256": "879dee6bb22cecf30dd5a2b1efe45caf576bdb5ea6a31741c89ad31074d0d287",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/games/3d-battle-chess/combat-v8/attack-executor.js",
+      "contentType": "application/javascript",
+      "liveBytes": 3501,
+      "liveSha256": "879dee6bb22cecf30dd5a2b1efe45caf576bdb5ea6a31741c89ad31074d0d287",
+      "matches": true
+    },
+    {
+      "path": "games/3d-battle-chess/combat-v8/attacks.js",
+      "sourceSha256": "7c26b5151852c149a91bc91a7097fab14a4a26d385a45741ddaf9a07cac28f35",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/games/3d-battle-chess/combat-v8/attacks.js",
+      "contentType": "application/javascript",
+      "liveBytes": 5672,
+      "liveSha256": "7c26b5151852c149a91bc91a7097fab14a4a26d385a45741ddaf9a07cac28f35",
+      "matches": true
+    },
+    {
+      "path": "games/3d-battle-chess/combat-v8/character-definitions.js",
+      "sourceSha256": "488885ee9d1b625316959738c95db3ed226981bedeb9ca2293654d0c1a817a8e",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/games/3d-battle-chess/combat-v8/character-definitions.js",
+      "contentType": "application/javascript",
+      "liveBytes": 5385,
+      "liveSha256": "488885ee9d1b625316959738c95db3ed226981bedeb9ca2293654d0c1a817a8e",
+      "matches": true
+    },
+    {
+      "path": "games/3d-battle-chess/combat-v8/character-factory.js",
+      "sourceSha256": "9a33a663ff1ece5bf2a73c4e151e20e00a2227d2541ce585b4b6e6b7df58e390",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/games/3d-battle-chess/combat-v8/character-factory.js",
+      "contentType": "application/javascript",
+      "liveBytes": 3640,
+      "liveSha256": "9a33a663ff1ece5bf2a73c4e151e20e00a2227d2541ce585b4b6e6b7df58e390",
+      "matches": true
+    },
+    {
+      "path": "games/3d-battle-chess/combat-v8/character-visuals.js",
+      "sourceSha256": "1575dd520ae9e4e0b436747bc5bb56a718e21ad60e3436aa08c111a9b5bc637a",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/games/3d-battle-chess/combat-v8/character-visuals.js",
+      "contentType": "application/javascript",
+      "liveBytes": 8879,
+      "liveSha256": "1575dd520ae9e4e0b436747bc5bb56a718e21ad60e3436aa08c111a9b5bc637a",
+      "matches": true
+    },
+    {
+      "path": "games/3d-battle-chess/combat-v8/choreography.js",
+      "sourceSha256": "156d981a3b7ff8c6a0fab0afbaa5679c2a3d0626d83b06f65bad81f9a1cce766",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/games/3d-battle-chess/combat-v8/choreography.js",
+      "contentType": "application/javascript",
+      "liveBytes": 5591,
+      "liveSha256": "156d981a3b7ff8c6a0fab0afbaa5679c2a3d0626d83b06f65bad81f9a1cce766",
+      "matches": true
+    },
+    {
+      "path": "games/3d-battle-chess/combat-v8/collision.js",
+      "sourceSha256": "61d2647eadfe979c987b999c45784c26bab835e3ef1a7a4185414d07d594068b",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/games/3d-battle-chess/combat-v8/collision.js",
+      "contentType": "application/javascript",
+      "liveBytes": 1084,
+      "liveSha256": "61d2647eadfe979c987b999c45784c26bab835e3ef1a7a4185414d07d594068b",
+      "matches": true
+    },
+    {
+      "path": "games/3d-battle-chess/combat-v8/combat-director.js",
+      "sourceSha256": "af4536764025a0cb361e8b70f9a794f8afcfc0cbf4cd0f6f3f32e37d46942c71",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/games/3d-battle-chess/combat-v8/combat-director.js",
+      "contentType": "application/javascript",
+      "liveBytes": 4152,
+      "liveSha256": "af4536764025a0cb361e8b70f9a794f8afcfc0cbf4cd0f6f3f32e37d46942c71",
+      "matches": true
+    },
+    {
+      "path": "games/3d-battle-chess/combat-v8/defeat-choreography.js",
+      "sourceSha256": "9d9d80ac948b996038346e9b1f2c266d86975c6326b0f5bdd2be7ba2f00fa1d2",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/games/3d-battle-chess/combat-v8/defeat-choreography.js",
+      "contentType": "application/javascript",
+      "liveBytes": 976,
+      "liveSha256": "9d9d80ac948b996038346e9b1f2c266d86975c6326b0f5bdd2be7ba2f00fa1d2",
+      "matches": true
+    },
+    {
+      "path": "games/3d-battle-chess/combat-v8/effects.js",
+      "sourceSha256": "7a84f001202a989ebd48090dede064d3a0b2073f49419b2670c22db292de7d05",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/games/3d-battle-chess/combat-v8/effects.js",
+      "contentType": "application/javascript",
+      "liveBytes": 9126,
+      "liveSha256": "7a84f001202a989ebd48090dede064d3a0b2073f49419b2670c22db292de7d05",
+      "matches": true
+    },
+    {
+      "path": "games/3d-battle-chess/combat-v8/physics.js",
+      "sourceSha256": "e0b2fdfba12b5cf6a964d3055816c1adda4cc2543505434e155a76b0c92fc2dd",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/games/3d-battle-chess/combat-v8/physics.js",
+      "contentType": "application/javascript",
+      "liveBytes": 765,
+      "liveSha256": "e0b2fdfba12b5cf6a964d3055816c1adda4cc2543505434e155a76b0c92fc2dd",
+      "matches": true
+    },
+    {
+      "path": "games/3d-battle-chess/combat-v8/reactions.js",
+      "sourceSha256": "31a3ec60002b2783a0e75ca1001e2bd9df767ba38d9e9e5c0eb5fb03f30e5038",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/games/3d-battle-chess/combat-v8/reactions.js",
+      "contentType": "application/javascript",
+      "liveBytes": 1492,
+      "liveSha256": "31a3ec60002b2783a0e75ca1001e2bd9df767ba38d9e9e5c0eb5fb03f30e5038",
+      "matches": true
+    },
+    {
+      "path": "games/3d-battle-chess/combat-v8/rig-types.js",
+      "sourceSha256": "495aaa6baa866f1cb360193579d2296ad6c34b20bfa5a47aff1c18b277d34f8e",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/games/3d-battle-chess/combat-v8/rig-types.js",
+      "contentType": "application/javascript",
+      "liveBytes": 8049,
+      "liveSha256": "495aaa6baa866f1cb360193579d2296ad6c34b20bfa5a47aff1c18b277d34f8e",
+      "matches": true
+    },
+    {
+      "path": "games/3d-battle-chess/combatants-v6.js",
+      "sourceSha256": "b44671056fbf3847afec4bce0426c4f0fbf0582e09fee8b03014fed4c7c7e1ab",
+      "status": 404,
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "path": "games/3d-battle-chess/combatants.js",
+      "sourceSha256": "33e7a11507d498c69059bf213174cb5c897dc6468bed4181bf7b93ebcfef7b3f",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/games/3d-battle-chess/combatants.js",
+      "contentType": "application/javascript",
+      "liveBytes": 4368,
+      "liveSha256": "33e7a11507d498c69059bf213174cb5c897dc6468bed4181bf7b93ebcfef7b3f",
+      "matches": true
+    },
+    {
+      "path": "games/3d-battle-chess/duels-physics.js",
+      "sourceSha256": "35a4b6f2572d0bd5ab5eef71ba3e17b8559040c389dfc9cc1316e565d9789eb6",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/games/3d-battle-chess/duels-physics.js",
+      "contentType": "application/javascript",
+      "liveBytes": 12085,
+      "liveSha256": "35a4b6f2572d0bd5ab5eef71ba3e17b8559040c389dfc9cc1316e565d9789eb6",
+      "matches": true
+    },
+    {
+      "path": "games/3d-battle-chess/duels-v6.js",
+      "sourceSha256": "ae974fbb7a8cbf06b15e26549c618211f79fc3a90a93bb57af124c87ce42d73f",
+      "status": 404,
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "path": "games/3d-battle-chess/duels-v8.js",
+      "sourceSha256": "b25c22386f831104329c30b1bec1ccc1a1485d9330d29a16589491a2996a5146",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/games/3d-battle-chess/duels-v8.js",
+      "contentType": "application/javascript",
+      "liveBytes": 5789,
+      "liveSha256": "b25c22386f831104329c30b1bec1ccc1a1485d9330d29a16589491a2996a5146",
+      "matches": true
+    },
+    {
+      "path": "games/3d-battle-chess/duels.js",
+      "sourceSha256": "0e805b78370823520184458e6b1e17d79d297e003e4b470ebe73e04bd4c89ece",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/games/3d-battle-chess/duels.js",
+      "contentType": "application/javascript",
+      "liveBytes": 139,
+      "liveSha256": "a5eb9c4925bdee0df7aa7c5c02c62f5d1431af95c2005111cda3d9ccbe0f8297",
+      "matches": false
+    },
+    {
+      "path": "games/3d-battle-chess/engine.js",
+      "sourceSha256": "27f719589e18853220c505f8b4acd98128adb4a30485648246ae74c227bf351e",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/games/3d-battle-chess/engine.js",
+      "contentType": "application/javascript",
+      "liveBytes": 8547,
+      "liveSha256": "a73d77517b67bc7ffcbfb4fa7f63c881d6d51e3055b70759116f240326636302",
+      "matches": false
+    },
+    {
+      "path": "games/3d-battle-chess/fallback-board.js",
+      "sourceSha256": "8f449d447093cc587dcb899a81fabcdc9f147ba1d4a886f467cae260f01879e4",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/games/3d-battle-chess/fallback-board.js",
+      "contentType": "application/javascript",
+      "liveBytes": 5159,
+      "liveSha256": "0744ec3a1821b40e5fd591ca2a95da2f6f005ca22938b42b5dacb62056a24223",
+      "matches": false
+    },
+    {
+      "path": "games/3d-battle-chess/fallback.css",
+      "sourceSha256": "dc97a7d3afc519cedb268cd524d0b39a3c71d5509512fb25866009afa01557c4",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/games/3d-battle-chess/fallback.css",
+      "contentType": "text/css",
+      "liveBytes": 2006,
+      "liveSha256": "dc97a7d3afc519cedb268cd524d0b39a3c71d5509512fb25866009afa01557c4",
+      "matches": true
+    },
+    {
+      "path": "games/3d-battle-chess/index.html",
+      "sourceSha256": "ff150ac84eeedf3a0d4f2b2ff5601fe72d20260cae29cdb486c90470f47b8314",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/games/3d-battle-chess/index.html",
+      "contentType": "text/html",
+      "liveBytes": 3496,
+      "liveSha256": "6417a64d082ff5db5e9b4b135f4f7ec4785dca6f51a62d3d12775ad1f3dd09c3",
+      "matches": false
+    },
+    {
+      "path": "games/3d-battle-chess/pieces.js",
+      "sourceSha256": "c85f824b464639b365644c0f183a2c7d976f71fea19b43d3f0de2d43dbd5a3cc",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/games/3d-battle-chess/pieces.js",
+      "contentType": "application/javascript",
+      "liveBytes": 7347,
+      "liveSha256": "c85f824b464639b365644c0f183a2c7d976f71fea19b43d3f0de2d43dbd5a3cc",
+      "matches": true
+    },
+    {
+      "path": "games/3d-battle-chess/shared-game.js",
+      "sourceSha256": "3c63c3b2dd45572dd99a70397b53785c3132522a0f8c3f0be85f649a2a61ca99",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/games/3d-battle-chess/shared-game.js",
+      "contentType": "application/javascript",
+      "liveBytes": 74,
+      "liveSha256": "3c63c3b2dd45572dd99a70397b53785c3132522a0f8c3f0be85f649a2a61ca99",
+      "matches": true
+    },
+    {
+      "path": "games/3d-battle-chess/styles.css",
+      "sourceSha256": "146aa2e1345f566e516fdd851987210196a71c9bfefb80384c4ae69b829cf821",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/games/3d-battle-chess/styles.css",
+      "contentType": "text/css",
+      "liveBytes": 4800,
+      "liveSha256": "995e85f9f4a902c0e8bfc3c7737b62be3ec6f114f9957429366e3d35d3befb14",
+      "matches": false
+    },
+    {
+      "path": "games/battle-chess/index.html",
+      "sourceSha256": "bb214b1fe46c37c5e35382452082128cd164907e6d35890e34f55b4208d17464",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/games/battle-chess/index.html",
+      "contentType": "text/html",
+      "liveBytes": 7092,
+      "liveSha256": "0f7ee4a31823f0d72390aaea4e32c71a3d6ff94fd3d3d1c151802fdc4d63a273",
+      "matches": false
+    },
+    {
+      "path": "games/evil-wizard/console-champions.js",
+      "sourceSha256": "b3fc5fba19f1ea579f5c3e59d9152cef38d8168ef0cc30d7d4ea8ba9b97d6138",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/games/evil-wizard/console-champions.js",
+      "contentType": "application/javascript",
+      "liveBytes": 3395,
+      "liveSha256": "32b797a6c32a02f07cabe087a95537127417c131871648f57ba0bf8a6cc2f082",
+      "matches": false
+    },
+    {
+      "path": "games/evil-wizard/console.html",
+      "sourceSha256": "3267ca05361444d359b150e88dcad5db6605a988e91bba50d876712099a5f359",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/games/evil-wizard/console.html",
+      "contentType": "text/html",
+      "liveBytes": 24854,
+      "liveSha256": "28da14a4722d12042a19b2fe0cd28faddf8588afcd170d9104121fcacb8b37b2",
+      "matches": false
+    },
+    {
+      "path": "games/evil-wizard/index.audio.position.worklet.js",
+      "sourceSha256": "be33985bc7160d6bf9646f259cd86b259cd67b02ccb297ee5c44f8ac84327bc8",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/games/evil-wizard/index.audio.position.worklet.js",
+      "contentType": "application/javascript",
+      "liveBytes": 2973,
+      "liveSha256": "be33985bc7160d6bf9646f259cd86b259cd67b02ccb297ee5c44f8ac84327bc8",
+      "matches": true
+    },
+    {
+      "path": "games/evil-wizard/index.audio.worklet.js",
+      "sourceSha256": "5b476a9c9ce642c0ee4256436d1bc31d9c38f868aca0f9a8e2a57c18d2dec2a3",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/games/evil-wizard/index.audio.worklet.js",
+      "contentType": "application/javascript",
+      "liveBytes": 7298,
+      "liveSha256": "5b476a9c9ce642c0ee4256436d1bc31d9c38f868aca0f9a8e2a57c18d2dec2a3",
+      "matches": true
+    },
+    {
+      "path": "games/evil-wizard/index.html",
+      "sourceSha256": "9cc6e2fdddf17e095751162ed1c41e1927f84ceb456cd69b2613441962b59906",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/games/evil-wizard/index.html",
+      "contentType": "text/html",
+      "liveBytes": 5553,
+      "liveSha256": "84ae98dc9477fda830cabbb9c94ca32781c015d89ba21f674dd98a63126760f0",
+      "matches": false
+    },
+    {
+      "path": "games/evil-wizard/index.js",
+      "sourceSha256": "33c94cb3175f3333b82e2a3be5e8e86f77986f0aa2042b1631f6367a4e5bb6ba",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/games/evil-wizard/index.js",
+      "contentType": "application/javascript",
+      "liveBytes": 279815,
+      "liveSha256": "33c94cb3175f3333b82e2a3be5e8e86f77986f0aa2042b1631f6367a4e5bb6ba",
+      "matches": true
+    },
+    {
+      "path": "games/evil-wizard/play.html",
+      "sourceSha256": "b59d7b932b4402c9ff17a6189355d5c7aa7ba5a4466684e3ace1d62c4bbbe5ed",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/games/evil-wizard/play.html",
+      "contentType": "text/html",
+      "liveBytes": 25331,
+      "liveSha256": "6550d21445280b971de4804bbc8c4f4dc94dfeb4f1b1898d7644026cb5813785",
+      "matches": false
+    },
+    {
+      "path": "geometric-lab/app.js",
+      "sourceSha256": "70d16437c136527b3069c34c62a8bcf40ee3b3d95d1b907805226fa44063ed3e",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/geometric-lab/app.js",
+      "contentType": "application/javascript",
+      "liveBytes": 40180,
+      "liveSha256": "70d16437c136527b3069c34c62a8bcf40ee3b3d95d1b907805226fa44063ed3e",
+      "matches": true
+    },
+    {
+      "path": "geometric-lab/benchmarks.js",
+      "sourceSha256": "43b50f155e41531c10409009c2db1de9f167d8e0df93de03e0a244801788920d",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/geometric-lab/benchmarks.js",
+      "contentType": "application/javascript",
+      "liveBytes": 604368,
+      "liveSha256": "43b50f155e41531c10409009c2db1de9f167d8e0df93de03e0a244801788920d",
+      "matches": true
+    },
+    {
+      "path": "geometric-lab/index.html",
+      "sourceSha256": "6a6eb8acca2aa338ff64549089e098f5d5208a96d6feb90aef48804bf3773081",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/geometric-lab/index.html",
+      "contentType": "text/html",
+      "liveBytes": 5109,
+      "liveSha256": "6a6eb8acca2aa338ff64549089e098f5d5208a96d6feb90aef48804bf3773081",
+      "matches": true
+    },
+    {
+      "path": "geometric-lab/math.js",
+      "sourceSha256": "21ac72d6ff6c98bd4f3f10e5d579b2e84365871f703787d8feb75c2256ba4fd5",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/geometric-lab/math.js",
+      "contentType": "application/javascript",
+      "liveBytes": 4644,
+      "liveSha256": "21ac72d6ff6c98bd4f3f10e5d579b2e84365871f703787d8feb75c2256ba4fd5",
+      "matches": true
+    },
+    {
+      "path": "geometric-lab/styles.css",
+      "sourceSha256": "1fd2b5c3c539a441400fa7ac418c5a8be296b353305748d6aa9544f884ccdf68",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/geometric-lab/styles.css",
+      "contentType": "text/css",
+      "liveBytes": 10805,
+      "liveSha256": "d6626a49ec0065499b16bc2f29988c45fc4f2932e903d9d5a4cf361d21a12f28",
+      "matches": false
+    },
+    {
+      "path": "geometric-lab/worker.js",
+      "sourceSha256": "52aabf440594d58bc31497e63fa811b1fd0368dd9fde39a587d17e9464318223",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/geometric-lab/worker.js",
+      "contentType": "application/javascript",
+      "liveBytes": 257,
+      "liveSha256": "52aabf440594d58bc31497e63fa811b1fd0368dd9fde39a587d17e9464318223",
+      "matches": true
+    },
+    {
+      "path": "handheld-experience.css",
+      "sourceSha256": "e2ec639ce18cca414ae9b816f24b0b3d6299d8d512935f3fddb396d2252a9918",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/handheld-experience.css",
+      "contentType": "text/css",
+      "liveBytes": 4397,
+      "liveSha256": "e2ec639ce18cca414ae9b816f24b0b3d6299d8d512935f3fddb396d2252a9918",
+      "matches": true
+    },
+    {
+      "path": "handheld-experience.js",
+      "sourceSha256": "9fc7f0a2db61707411df76672aabf4603ffc4501f3755ac64a706fef574fac4b",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/handheld-experience.js",
+      "contentType": "application/javascript",
+      "liveBytes": 1335,
+      "liveSha256": "9fc7f0a2db61707411df76672aabf4603ffc4501f3755ac64a706fef574fac4b",
+      "matches": true
+    },
+    {
+      "path": "index.html",
+      "sourceSha256": "f16ad92727632a69eff84b1bcbe8442b6510cea5181db97159b75833340697a6",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/index.html",
+      "contentType": "text/html",
+      "liveBytes": 34224,
+      "liveSha256": "c43093cbed6421a9d464d757d7d04df3c8652f1a2d70b4adc8c2b0d81906af5d",
+      "matches": false
+    },
+    {
+      "path": "knowledge-data.js",
+      "sourceSha256": "c3a321409828d6ede389fce7c6780771f32655804811ae843f9e8b1d07d37e72",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/knowledge-data.js",
+      "contentType": "application/javascript",
+      "liveBytes": 25408234,
+      "liveSha256": "6cdd12e86d396121eb6b0d643c919d0e6b48d974714d3511a535ceb3e10fb930",
+      "matches": false
+    },
+    {
+      "path": "knowledge-upgrades.js",
+      "sourceSha256": "55bb983dde487dd304693ccea1b50969cf23896e81a99efe5377da893eb03f1e",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/knowledge-upgrades.js",
+      "contentType": "application/javascript",
+      "liveBytes": 58975,
+      "liveSha256": "55bb983dde487dd304693ccea1b50969cf23896e81a99efe5377da893eb03f1e",
+      "matches": true
+    },
+    {
+      "path": "knowledge.css",
+      "sourceSha256": "7d24afa48a6f00f8694faca631eb76fb35d0ce3266ed538d9901482df45dc70c",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/knowledge.css",
+      "contentType": "text/css",
+      "liveBytes": 90857,
+      "liveSha256": "7d24afa48a6f00f8694faca631eb76fb35d0ce3266ed538d9901482df45dc70c",
+      "matches": true
+    },
+    {
+      "path": "knowledge.js",
+      "sourceSha256": "cb089b5c9ca5ef05e18ecdb60bdca9c6ebb3c22dae0b1e4b10f40055ae709cb6",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/knowledge.js",
+      "contentType": "application/javascript",
+      "liveBytes": 231267,
+      "liveSha256": "b522cd53e9994a05638b9658a3d7a9910dd02da57a0fa6818d0a27fb21a9cede",
+      "matches": false
+    },
+    {
+      "path": "labs.css",
+      "sourceSha256": "4aca264e74018890efbbdb4d6ea259d4b01ebb6d5eb4f819d9c6fdea8beeae05",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/labs.css",
+      "contentType": "text/css",
+      "liveBytes": 1205,
+      "liveSha256": "4aca264e74018890efbbdb4d6ea259d4b01ebb6d5eb4f819d9c6fdea8beeae05",
+      "matches": true
+    },
+    {
+      "path": "labs/emergent.js",
+      "sourceSha256": "d17428421d6e23f78d6851fb6a2e22a883b9403312da21c1efdf1e1a4fec891a",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/labs/emergent.js",
+      "contentType": "application/javascript",
+      "liveBytes": 4780,
+      "liveSha256": "d17428421d6e23f78d6851fb6a2e22a883b9403312da21c1efdf1e1a4fec891a",
+      "matches": true
+    },
+    {
+      "path": "labs/qpe.js",
+      "sourceSha256": "de25734c1354da2189ae4b9c5534b66ac37cb0e5b369ff1ef9570afbd355023d",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/labs/qpe.js",
+      "contentType": "application/javascript",
+      "liveBytes": 4118,
+      "liveSha256": "de25734c1354da2189ae4b9c5534b66ac37cb0e5b369ff1ef9570afbd355023d",
+      "matches": true
+    },
+    {
+      "path": "learn-advanced.html",
+      "sourceSha256": "237639c932ce43144cb7065011724e0493f8ccbd9064f4e8ac9359b95b875dbe",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/learn-advanced.html",
+      "contentType": "text/html",
+      "liveBytes": 53292,
+      "liveSha256": "3669897950fa7aab329415e1370bc68436938a0fe81939172d7222c41ce8dc59",
+      "matches": false
+    },
+    {
+      "path": "learn-browse.html",
+      "sourceSha256": "ee13782e314638865a1aca2fc2de7ded7923bfba16fae1d45410783588bf3e9b",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/learn-browse.html",
+      "contentType": "text/html",
+      "liveBytes": 22220,
+      "liveSha256": "05b08006ff5c85eca695aa26bb67f12e3b1d4d959fb25ffb31670fbd68e9d323",
+      "matches": false
+    },
+    {
+      "path": "learn-capstones.html",
+      "sourceSha256": "fc3e34ef7384b5edb71995cd14d1785d0aff1b86ef4ae1c848aaef999462e51a",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/learn-capstones.html",
+      "contentType": "text/html",
+      "liveBytes": 3193,
+      "liveSha256": "3493f6217703672c67276d6fde87e1216ab8f94aae6eefb6aaecc4cf149129c5",
+      "matches": false
+    },
+    {
+      "path": "learn-cloud.html",
+      "sourceSha256": "00024d8417a6757b29680dc9eeda7851e0dd8e4831e74092adfb591521a0c5ed",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/learn-cloud.html",
+      "contentType": "text/html",
+      "liveBytes": 9256,
+      "liveSha256": "0b9f845db0068a934f7c24ad53ddacc4c15018cce1b02e51385f5182c920b3ed",
+      "matches": false
+    },
+    {
+      "path": "learn-cyber.html",
+      "sourceSha256": "5f57ced63f457f279e435a02395887cc997b36fad2f4f8a89c02fb241bacc5f4",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/learn-cyber.html",
+      "contentType": "text/html",
+      "liveBytes": 4242,
+      "liveSha256": "c093356a5d57eb0425c6a94cf8818137e3d3349932ec21ccee0f3721732bb957",
+      "matches": false
+    },
+    {
+      "path": "learn-glossary.html",
+      "sourceSha256": "07370b7be287357d0e8508b6172889948f1c2910ceef95a228cd4f5eaa45a4d5",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/learn-glossary.html",
+      "contentType": "text/html",
+      "liveBytes": 22225,
+      "liveSha256": "dac32d9c2e2080292adece5c87bfd9fed3cec972aa68a800b783c7d56a7d9bfe",
+      "matches": false
+    },
+    {
+      "path": "learn-labs.html",
+      "sourceSha256": "ccea34601ff8026e5f50609d4efc7f907a5f45ccf5798c0a083fa85238135cf4",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/learn-labs.html",
+      "contentType": "text/html",
+      "liveBytes": 22219,
+      "liveSha256": "2ba4a3dc6f5fa2024be7aeba92934beb12ce76f1a583c41ea717eade183a2136",
+      "matches": false
+    },
+    {
+      "path": "learn-leadership.html",
+      "sourceSha256": "77834ca3b6ecfb99ff895e2ae0b03628f27397baeec95e9bb3f47bd05decf52e",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/learn-leadership.html",
+      "contentType": "text/html",
+      "liveBytes": 4300,
+      "liveSha256": "11ab5a57942133363ef3a0acc3a3c6253de4d39ed0f3a413ccda2a523f7f49d2",
+      "matches": false
+    },
+    {
+      "path": "learn-map.html",
+      "sourceSha256": "96488f23451b51fd6b8374835a4732757d2cfb70a74339619277372c84d1eceb",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/learn-map.html",
+      "contentType": "text/html",
+      "liveBytes": 22215,
+      "liveSha256": "1301b119fcd6b90b6ff363a85dcb9bc5689faac747fa3f0f3428b24607d60811",
+      "matches": false
+    },
+    {
+      "path": "learn-mastery.html",
+      "sourceSha256": "13dce535406f65a6a5be95d025aeef2adc675cfedd7dd4be7c21450beab7634b",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/learn-mastery.html",
+      "contentType": "text/html",
+      "liveBytes": 22214,
+      "liveSha256": "a6d22a23093bfc2f363614d1977807c990b1c742b0f80ee9bf8035d9e1b6f5ca",
+      "matches": false
+    },
+    {
+      "path": "learn-math.html",
+      "sourceSha256": "5204a1784aa386b1d962e8a1b2ff67ab9048495307c9c5aa40abf0a80648d5e0",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/learn-math.html",
+      "contentType": "text/html",
+      "liveBytes": 4228,
+      "liveSha256": "1925783a23532df58e0cd59f53670fdb66d20b3446edbb881abc0b023e624ab5",
+      "matches": false
+    },
+    {
+      "path": "learn-paths.html",
+      "sourceSha256": "462c0a6d5d3c29916ca8772e14a74f29d700ab3401f757ba8b0f61e9df95363a",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/learn-paths.html",
+      "contentType": "text/html",
+      "liveBytes": 24649,
+      "liveSha256": "35b61e1dbe2a7c56535bf38858147659ed5b9829e813b5780751d1467be4e675",
+      "matches": false
+    },
+    {
+      "path": "learn-physics.html",
+      "sourceSha256": "640ffd0a222e5a72a0c25d8fc3050b346bb3ba23bb3d6ea2332d111eb68fbf07",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/learn-physics.html",
+      "contentType": "text/html",
+      "liveBytes": 4239,
+      "liveSha256": "fa1510dd0d97b27d6a50ef5f731a8f24765729ef37e80d422de3ca2fd2ec9154",
+      "matches": false
+    },
+    {
+      "path": "learn-practice.html",
+      "sourceSha256": "91976f3dc9fce88aa2cd28d0032c596b0c9e431348e30acaa2aa99ad620e6edf",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/learn-practice.html",
+      "contentType": "text/html",
+      "liveBytes": 22215,
+      "liveSha256": "95f232f231f6a9d22780bce970b081e0bb6705ded4dd7f90aafd3e9b50925e3c",
+      "matches": false
+    },
+    {
+      "path": "learn-software.html",
+      "sourceSha256": "8bcbb741047377bc943dc10fd8ef26013dd905fdc57a007a30c19dc24a840ab5",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/learn-software.html",
+      "contentType": "text/html",
+      "liveBytes": 4273,
+      "liveSha256": "075fb77e5c63671750f2b454cc65169b40802c60e1aed5114307fdf29f4c5234",
+      "matches": false
+    },
+    {
+      "path": "learn-verify.html",
+      "sourceSha256": "bf3aeddc21945fb3d30822579745ea549d353d957bae4537898744b26c74d79d",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/learn-verify.html",
+      "contentType": "text/html",
+      "liveBytes": 22217,
+      "liveSha256": "ebb4988378c59a4628dc3a73c57918d1e6d70bd1f1f4fd3519bd9d4facccf6a9",
+      "matches": false
+    },
+    {
+      "path": "learn.html",
+      "sourceSha256": "3ab7324213e5a7676775832e9d697ebc88d48f30eab805d6ab219304e06cc22e",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/learn.html",
+      "contentType": "text/html",
+      "liveBytes": 25812,
+      "liveSha256": "71c05fcd749e05acda85c62ebb8f0701a998ed9a5a9ac22752e26e1842b9596a",
+      "matches": false
+    },
+    {
+      "path": "learning-academy.css",
+      "sourceSha256": "49eda74f1a325864bdf68ecf564d46ec0ea86cd4fa1c43ba9957e96566aa476e",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/learning-academy.css",
+      "contentType": "text/css",
+      "liveBytes": 3438,
+      "liveSha256": "49eda74f1a325864bdf68ecf564d46ec0ea86cd4fa1c43ba9957e96566aa476e",
+      "matches": true
+    },
+    {
+      "path": "learning-academy.js",
+      "sourceSha256": "9e0e22aaab7dd303fcd72588ae912029f3bf519f8d6865fb2f8caa58b98930c5",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/learning-academy.js",
+      "contentType": "application/javascript",
+      "liveBytes": 11071,
+      "liveSha256": "9e0e22aaab7dd303fcd72588ae912029f3bf519f8d6865fb2f8caa58b98930c5",
+      "matches": true
+    },
+    {
+      "path": "learning-capstones.css",
+      "sourceSha256": "e94b8be0c8b8c8f3facb9600481dd4c2dc7197c36e6fb3b0bacb886cb514fa3f",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/learning-capstones.css",
+      "contentType": "text/css",
+      "liveBytes": 2740,
+      "liveSha256": "e94b8be0c8b8c8f3facb9600481dd4c2dc7197c36e6fb3b0bacb886cb514fa3f",
+      "matches": true
+    },
+    {
+      "path": "learning-capstones.js",
+      "sourceSha256": "b760c0432ac545ab4021ad07dc1ab849b411baed932cf20a1a59c806c5e80e01",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/learning-capstones.js",
+      "contentType": "application/javascript",
+      "liveBytes": 4694,
+      "liveSha256": "b760c0432ac545ab4021ad07dc1ab849b411baed932cf20a1a59c806c5e80e01",
+      "matches": true
+    },
+    {
+      "path": "learning-depth.css",
+      "sourceSha256": "d29ce133361c5624201fbf297e169274b8ca42ac04dbb5f2e1f0b28488b21a29",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/learning-depth.css",
+      "contentType": "text/css",
+      "liveBytes": 5942,
+      "liveSha256": "d29ce133361c5624201fbf297e169274b8ca42ac04dbb5f2e1f0b28488b21a29",
+      "matches": true
+    },
+    {
+      "path": "learning-depth.js",
+      "sourceSha256": "39af667e5ef1bec43d8b587b1738435a32e1c4e72ed1ca0a802b1359e405941d",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/learning-depth.js",
+      "contentType": "application/javascript",
+      "liveBytes": 9405,
+      "liveSha256": "39af667e5ef1bec43d8b587b1738435a32e1c4e72ed1ca0a802b1359e405941d",
+      "matches": true
+    },
+    {
+      "path": "learning-experiments.css",
+      "sourceSha256": "6a49474ca46b64e5f6f7e3b1277dd6fd9fc26b891e2ac98646fe8ac8a53cd33c",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/learning-experiments.css",
+      "contentType": "text/css",
+      "liveBytes": 1564,
+      "liveSha256": "6a49474ca46b64e5f6f7e3b1277dd6fd9fc26b891e2ac98646fe8ac8a53cd33c",
+      "matches": true
+    },
+    {
+      "path": "learning-experiments.js",
+      "sourceSha256": "04e1a77eff342db1a074a7c42b31f5e9a89b2d1761eb17612feddc91c8f1075f",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/learning-experiments.js",
+      "contentType": "application/javascript",
+      "liveBytes": 16367,
+      "liveSha256": "04e1a77eff342db1a074a7c42b31f5e9a89b2d1761eb17612feddc91c8f1075f",
+      "matches": true
+    },
+    {
+      "path": "learning-next.css",
+      "sourceSha256": "e05d670aa437afe2faf73a567a64a11d7bf3413efb56419e4bc61683cddd23a2",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/learning-next.css",
+      "contentType": "text/css",
+      "liveBytes": 2781,
+      "liveSha256": "e05d670aa437afe2faf73a567a64a11d7bf3413efb56419e4bc61683cddd23a2",
+      "matches": true
+    },
+    {
+      "path": "learning-next.js",
+      "sourceSha256": "4022294b21e2c0308ea45ea839ddaf1ce81207a6f314d4737066c453c2a1a8ae",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/learning-next.js",
+      "contentType": "application/javascript",
+      "liveBytes": 7601,
+      "liveSha256": "4022294b21e2c0308ea45ea839ddaf1ce81207a6f314d4737066c453c2a1a8ae",
+      "matches": true
+    },
+    {
+      "path": "learning-progress.js",
+      "sourceSha256": "9f7c7a5e2b734e6c0a229d403e38306a2f78963ffb032fdeeda767b8b59b941f",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/learning-progress.js",
+      "contentType": "application/javascript",
+      "liveBytes": 2257,
+      "liveSha256": "9f7c7a5e2b734e6c0a229d403e38306a2f78963ffb032fdeeda767b8b59b941f",
+      "matches": true
+    },
+    {
+      "path": "learning-visuals.css",
+      "sourceSha256": "cc351557db755ababa4cdaa61010d094596d88e3a6a6cb04698d572371494ddf",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/learning-visuals.css",
+      "contentType": "text/css",
+      "liveBytes": 2353,
+      "liveSha256": "cc351557db755ababa4cdaa61010d094596d88e3a6a6cb04698d572371494ddf",
+      "matches": true
+    },
+    {
+      "path": "learning-visuals.js",
+      "sourceSha256": "31216c0c8a835a10ad986f7d0c2b98f85967c4737aec7e1b3a873773293cb93d",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/learning-visuals.js",
+      "contentType": "application/javascript",
+      "liveBytes": 25283,
+      "liveSha256": "31216c0c8a835a10ad986f7d0c2b98f85967c4737aec7e1b3a873773293cb93d",
+      "matches": true
+    },
+    {
+      "path": "lesson.html",
+      "sourceSha256": "2cc51e8097f476567fb6301cbf1ab3ec517f612b2200b17e865b95a4ef68ca0a",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/lesson.html",
+      "contentType": "text/html",
+      "liveBytes": 22541,
+      "liveSha256": "25b16588b2dd5f850e64ce05561527e498ee21c6ce4667c6a008d21b51048212",
+      "matches": false
+    },
+    {
+      "path": "play-evil-wizard.html",
+      "sourceSha256": "0b7ba63d995b2300794aad570cb583265962ef235f7d20d5923f2ec010ca528e",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/play-evil-wizard.html",
+      "contentType": "text/html",
+      "liveBytes": 9073,
+      "liveSha256": "0b7ba63d995b2300794aad570cb583265962ef235f7d20d5923f2ec010ca528e",
+      "matches": true
+    },
+    {
+      "path": "portfolio-home.css",
+      "sourceSha256": "76b96dc9a37d900869eea2ec508c69ff1234a9548f8da8aced706cbf76d3faf1",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/portfolio-home.css",
+      "contentType": "text/css",
+      "liveBytes": 20556,
+      "liveSha256": "76b96dc9a37d900869eea2ec508c69ff1234a9548f8da8aced706cbf76d3faf1",
+      "matches": true
+    },
+    {
+      "path": "portfolio-next.css",
+      "sourceSha256": "cc290c42821cb3e843de93020b1f43c1a890926b4f909532d266b9e380fbe173",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/portfolio-next.css",
+      "contentType": "text/css",
+      "liveBytes": 30009,
+      "liveSha256": "cc290c42821cb3e843de93020b1f43c1a890926b4f909532d266b9e380fbe173",
+      "matches": true
+    },
+    {
+      "path": "portfolio-next.js",
+      "sourceSha256": "266fc4d854df5b2ddc76fb760077e1057f29545923f6b25533259506e86ab160",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/portfolio-next.js",
+      "contentType": "application/javascript",
+      "liveBytes": 16707,
+      "liveSha256": "266fc4d854df5b2ddc76fb760077e1057f29545923f6b25533259506e86ab160",
+      "matches": true
+    },
+    {
+      "path": "project-advanced-computing.html",
+      "sourceSha256": "1f4489cfeb4381f5b9420b9db0d546a7c9313af3852ee5db3db317c9ff87db5a",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/project-advanced-computing.html",
+      "contentType": "text/html",
+      "liveBytes": 6300,
+      "liveSha256": "bcb9db92f26120b2c9ec04df3a5ae4921dbcff4ce494d349afec9428d5c17cf0",
+      "matches": false
+    },
+    {
+      "path": "project-api-contract-compatibility.html",
+      "sourceSha256": "b66465becb5df0609e2d490be4a45a12757f084a71e2057f74325a705ae6a65a",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/project-api-contract-compatibility.html",
+      "contentType": "text/html",
+      "liveBytes": 6506,
+      "liveSha256": "8b0bc1df09260d1b2bde902c63eacfa481a634f453fd812af8c7402a8605b999",
+      "matches": false
+    },
+    {
+      "path": "project-asset-inventory.html",
+      "sourceSha256": "e2fc20b1a4ffedc41fc15c73e21f1c01f228678ce8d0c47a71cb938cb150b179",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/project-asset-inventory.html",
+      "contentType": "text/html",
+      "liveBytes": 6070,
+      "liveSha256": "70c6134888e496acd6d66009f7c05e383f1dfe0bbda5ca05d44d59683873ed95",
+      "matches": false
+    },
+    {
+      "path": "project-battle-chess.html",
+      "sourceSha256": "0e578cf21da794cc1557d259b67b1945d4fe00d5db96362e8472897f8304fb5c",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/project-battle-chess.html",
+      "contentType": "text/html",
+      "liveBytes": 10182,
+      "liveSha256": "ea815aa0504a3d0907f22ad9aff3ea58101a0efe4207cf49810e78c4fff84caa",
+      "matches": false
+    },
+    {
+      "path": "project-cache-consistency-lab.html",
+      "sourceSha256": "189f85d6d4fce3774c07529302fe04ea02cdf327b7df249d09fa1405a8f91aa3",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/project-cache-consistency-lab.html",
+      "contentType": "text/html",
+      "liveBytes": 6489,
+      "liveSha256": "67b862acb178b7e6d79ac8fb7aa1ad8f68b5ddcca25c2c4ea06e0741f7846e1f",
+      "matches": false
+    },
+    {
+      "path": "project-concurrent-job-scheduler.html",
+      "sourceSha256": "d159858388fa6372463707a7f70a9b7cb5367fd1c541dcc9bc664616f1834b9c",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/project-concurrent-job-scheduler.html",
+      "contentType": "text/html",
+      "liveBytes": 6533,
+      "liveSha256": "6a327f6ee504266f1ec80c64b730dd3cfb5b6020192cd68727344605cf8286a6",
+      "matches": false
+    },
+    {
+      "path": "project-database-migration-safety.html",
+      "sourceSha256": "fb690c1b0edda3aa2c10d32e6e3af81e56f52ddbdcad184e76e8c7d4b3547f1f",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/project-database-migration-safety.html",
+      "contentType": "text/html",
+      "liveBytes": 6523,
+      "liveSha256": "ff47153926fb66a8fc4a7d36049d88839d8dc319d6437eaaab85015f5bca532f",
+      "matches": false
+    },
+    {
+      "path": "project-dependency.html",
+      "sourceSha256": "89200df13b5214fdccd5e1f7e0d47e96b605fbd284d9ecb741c88c6cc19c8132",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/project-dependency.html",
+      "contentType": "text/html",
+      "liveBytes": 7494,
+      "liveSha256": "609c02d89f296ec6962b2d2d168246db64dbf5f2433c12c3ee1a36feb3d17805",
+      "matches": false
+    },
+    {
+      "path": "project-distributed-chaos-recovery.html",
+      "sourceSha256": "a6e423f9f78350cd5dcba38561d356b7141e88d11450cf91a14d256691a11cc5",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/project-distributed-chaos-recovery.html",
+      "contentType": "text/html",
+      "liveBytes": 6223,
+      "liveSha256": "82b961f8fb46b901ba368221a209159a419e25d7a92700333d5bb9d4f2496204",
+      "matches": false
+    },
+    {
+      "path": "project-edge-5g-failover.html",
+      "sourceSha256": "58b245bfdc03ed338cfbbc44ecb37d6083f9bf4321dc3e0e6f2b620e82f606b7",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/project-edge-5g-failover.html",
+      "contentType": "text/html",
+      "liveBytes": 6221,
+      "liveSha256": "7863244dca0f8b43a8f87c777f5a93b66644a6c92d2c819dec39f52f040afc11",
+      "matches": false
+    },
+    {
+      "path": "project-emergent.html",
+      "sourceSha256": "885dcdabca74ce396edf53c4a21ecbf58e0e0d15b5f1d6c431a9890986cbd7b3",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/project-emergent.html",
+      "contentType": "text/html",
+      "liveBytes": 12002,
+      "liveSha256": "0f8728142847459fa9ff949dcb78c83119a31e9dae3bd2e90469c60d20e7e2f6",
+      "matches": false
+    },
+    {
+      "path": "project-event-sourced-workflow-engine.html",
+      "sourceSha256": "1e4a9a3133298eb9573d43112965531cd325f7fcbece5145357f70029de01f0f",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/project-event-sourced-workflow-engine.html",
+      "contentType": "text/html",
+      "liveBytes": 6535,
+      "liveSha256": "45c47a25b6f5eb3638f55f7abba927626a6e39240b5216da5db4b5c155a83077",
+      "matches": false
+    },
+    {
+      "path": "project-fusion.html",
+      "sourceSha256": "ebb6caf375bb743d16f3a123df33c57bb6f6fbff1eaa390cee0ae4915cf70613",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/project-fusion.html",
+      "contentType": "text/html",
+      "liveBytes": 6693,
+      "liveSha256": "ebb6caf375bb743d16f3a123df33c57bb6f6fbff1eaa390cee0ae4915cf70613",
+      "matches": true
+    },
+    {
+      "path": "project-geometric-ai.html",
+      "sourceSha256": "82bc01141fabe03c94d729ef8c7b3b6ad02ada878214d44a9af4fb2958af33d2",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/project-geometric-ai.html",
+      "contentType": "text/html",
+      "liveBytes": 19522,
+      "liveSha256": "0a72f0bc5514427bc871455cec0c431b4a67096a44e8531ee4ced926723f0cd4",
+      "matches": false
+    },
+    {
+      "path": "project-hpc-fabric-scheduler.html",
+      "sourceSha256": "dc3fee81f6cd9913ec80a0c92f31ae31f6e875090430690d9171af04a2f2ac47",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/project-hpc-fabric-scheduler.html",
+      "contentType": "text/html",
+      "liveBytes": 6195,
+      "liveSha256": "0f0b58e9def0b18c2a2d7c34d5e4dcd2afb00ec70d79eb7e42cc2cbdec59e362",
+      "matches": false
+    },
+    {
+      "path": "project-hybrid-quantum-orchestrator.html",
+      "sourceSha256": "5960117b8b5ea3c4f6e33cf84fd6d9333efe4dfd01a7c7deb355e28f4545ef6e",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/project-hybrid-quantum-orchestrator.html",
+      "contentType": "text/html",
+      "liveBytes": 6303,
+      "liveSha256": "705481c34c3e4be93d4948770f00b8e562b014e216b6c99cc1fd40f707b51425",
+      "matches": false
+    },
+    {
+      "path": "project-incident-evidence-graph.html",
+      "sourceSha256": "aad88e3236fbdf5a59f860b6909af8b650c94a6f0ee8f7b23b7e873c08a30e20",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/project-incident-evidence-graph.html",
+      "contentType": "text/html",
+      "liveBytes": 6277,
+      "liveSha256": "b9adfba8d05ba2da8dde25b4d70b1ecebd2fde43de2bd234d879b9c19731a945",
+      "matches": false
+    },
+    {
+      "path": "project-kubernetes-lab.html",
+      "sourceSha256": "4b9a09d1bf13b11863c5412b61059381391a35b3f443e8d9f254f4023416da4f",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/project-kubernetes-lab.html",
+      "contentType": "text/html",
+      "liveBytes": 5978,
+      "liveSha256": "e02b981975ce47c70a22b6a98624dfcba27e89ffc771f85548ba9b7b2b4ab6f3",
+      "matches": false
+    },
+    {
+      "path": "project-learning-library.html",
+      "sourceSha256": "2df1969c5cad213b8a10c0e5f8b63b6c372198263eba353a09e3610362d9ca99",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/project-learning-library.html",
+      "contentType": "text/html",
+      "liveBytes": 6856,
+      "liveSha256": "83ec7645f5916c14b74f4235e09b0362cc607f24f07ddb1a1bccb44ed420fc12",
+      "matches": false
+    },
+    {
+      "path": "project-lifecycle.html",
+      "sourceSha256": "55a05b5e549a16f66b037ed72904b680e7014691b9c9a9f8f200f69b95ca8cfd",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/project-lifecycle.html",
+      "contentType": "text/html",
+      "liveBytes": 7539,
+      "liveSha256": "33d1870752fd5da8cebc487560e85e97e469b14e39adbadeb6206a1ff0bdaa7b",
+      "matches": false
+    },
+    {
+      "path": "project-mastery.css",
+      "sourceSha256": "1c159729e7656edb7908aa37eb5c1500eb0acf41353820ea91287f4c222bcd35",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/project-mastery.css",
+      "contentType": "text/css",
+      "liveBytes": 4114,
+      "liveSha256": "1c159729e7656edb7908aa37eb5c1500eb0acf41353820ea91287f4c222bcd35",
+      "matches": true
+    },
+    {
+      "path": "project-mastery.js",
+      "sourceSha256": "f70a8acd5e4187c8b927f65077a30f97aa76e0746e096a8236775b0e45ac3f60",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/project-mastery.js",
+      "contentType": "application/javascript",
+      "liveBytes": 9916,
+      "liveSha256": "f811a1541e72d10945db6001e7720fe9c46632737b69031d458cbb5861648966",
+      "matches": false
+    },
+    {
+      "path": "project-mind.html",
+      "sourceSha256": "0c397879cdeced1786c03559797e3cba45a0718ea5428153e3732908ef8a8671",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/project-mind.html",
+      "contentType": "text/html",
+      "liveBytes": 6625,
+      "liveSha256": "64618df08c16590d7ea5a1a91911735c13844ea866678e7e4365d4d70cdaa85e",
+      "matches": false
+    },
+    {
+      "path": "project-mini-compiler-static-analyzer.html",
+      "sourceSha256": "6b2f258d03c0d02445fb7324b3e8ab9ce5cb96ff31fbf625a7903314364fe7ff",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/project-mini-compiler-static-analyzer.html",
+      "contentType": "text/html",
+      "liveBytes": 6479,
+      "liveSha256": "a74d7d3736910553f0ac30b489361d79afddb4d893a6c99f824119e27f4ca4c5",
+      "matches": false
+    },
+    {
+      "path": "project-network-digital-twin.html",
+      "sourceSha256": "b784b2ce425c61e35c251cbfabd5e9a14ea6a4ee9e139908db451dfa74fc545d",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/project-network-digital-twin.html",
+      "contentType": "text/html",
+      "liveBytes": 6219,
+      "liveSha256": "8e4ff6ef5f417abcf1695c842b667364086d614c77aa58662ba2152576bf1dfc",
+      "matches": false
+    },
+    {
+      "path": "project-portfolio.html",
+      "sourceSha256": "8f813db18ed1a86f3c9b6f9a16c1c4315d83735e2618789405c3ecb5ba948efc",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/project-portfolio.html",
+      "contentType": "text/html",
+      "liveBytes": 6695,
+      "liveSha256": "6b7227383f1d6a94dfc8fd742945b53f58f48161811a332eda028f1fe3e9ebd5",
+      "matches": false
+    },
+    {
+      "path": "project-progressive-delivery-control-plane.html",
+      "sourceSha256": "ee4dc684e0af836374f489b1d99927aa3ac4e1572aee426c72e4ca31b23550a1",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/project-progressive-delivery-control-plane.html",
+      "contentType": "text/html",
+      "liveBytes": 6479,
+      "liveSha256": "56a2f32d0de158b654b05fced38003a4925aef69641d9524d201b49bf67a7719",
+      "matches": false
+    },
+    {
+      "path": "project-qpe.html",
+      "sourceSha256": "ad69930a2d197c65a87dfbd440ea6285bf60a47b2fbc381e6fb72d13fc91f59a",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/project-qpe.html",
+      "contentType": "text/html",
+      "liveBytes": 20671,
+      "liveSha256": "6f7f8141377a3a407c5f9d1915b6c5eab66d5a60db58bb5737abc1691e3d22a0",
+      "matches": false
+    },
+    {
+      "path": "project-qubit.html",
+      "sourceSha256": "4e5d43d10bcfeaf853d5dc0e5112a18e56452af5ed37a7baeb9a6d0812879b23",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/project-qubit.html",
+      "contentType": "text/html",
+      "liveBytes": 11181,
+      "liveSha256": "8e52ccfb9065b723e30bc9a1daa66093ba90d4469b11fc3265ac57f67d18405e",
+      "matches": false
+    },
+    {
+      "path": "project-recovery.html",
+      "sourceSha256": "0cbfee4489d6762c266f5756233fa4d92c42927e82fc33949951c1fb4895c05c",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/project-recovery.html",
+      "contentType": "text/html",
+      "liveBytes": 7281,
+      "liveSha256": "4c1b694acd91542f29da3fcc7b96e33b0d3b5ab3a9746d723c03bd61c65c5087",
+      "matches": false
+    },
+    {
+      "path": "project-reliable-message-processing.html",
+      "sourceSha256": "74eecd23944f1622128684056f11236fa0fa526710b20b3b975a76f0b9093021",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/project-reliable-message-processing.html",
+      "contentType": "text/html",
+      "liveBytes": 6566,
+      "liveSha256": "5db2f0b7d5ef5dc7967baedf056bba3e739fd7e4f7d4c983e1b5078cfa9b7d68",
+      "matches": false
+    },
+    {
+      "path": "project-routing-convergence-lab.html",
+      "sourceSha256": "6ac6763326cde275d0e79bb1a8f27f8215e6067097f544933cd269069ebeaf11",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/project-routing-convergence-lab.html",
+      "contentType": "text/html",
+      "liveBytes": 6204,
+      "liveSha256": "866c6cf2dc63d17578c481616fb8798bae302ecefe475dc0be799376561fcea5",
+      "matches": false
+    },
+    {
+      "path": "project-rust-flow-telemetry.html",
+      "sourceSha256": "2e840d3708cca3c210cee428d2eb1ff9525ed07907013aaaa7d5ae208b6754b9",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/project-rust-flow-telemetry.html",
+      "contentType": "text/html",
+      "liveBytes": 6443,
+      "liveSha256": "aab3594db066df1a8146ce32366e549f4cdbf59205a25a54e87af6bbcdd984aa",
+      "matches": false
+    },
+    {
+      "path": "project-showcase.css",
+      "sourceSha256": "74d78decd8e66d53c40d49b4d398a72a496e3085c1f7cd61d41897e263e4ba06",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/project-showcase.css",
+      "contentType": "text/css",
+      "liveBytes": 3571,
+      "liveSha256": "74d78decd8e66d53c40d49b4d398a72a496e3085c1f7cd61d41897e263e4ba06",
+      "matches": true
+    },
+    {
+      "path": "project-showcase.js",
+      "sourceSha256": "8509649b8b29f9ed5f0cd5d72f68a090a3d06508bf10d1d1bbe9928cf00c897b",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/project-showcase.js",
+      "contentType": "application/javascript",
+      "liveBytes": 13799,
+      "liveSha256": "8509649b8b29f9ed5f0cd5d72f68a090a3d06508bf10d1d1bbe9928cf00c897b",
+      "matches": true
+    },
+    {
+      "path": "project-wireless-roaming-correlator.html",
+      "sourceSha256": "356dcc8e71d3b80f957ae43f1d3fe5119b5c175b5b7e4525860c3a777062e75b",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/project-wireless-roaming-correlator.html",
+      "contentType": "text/html",
+      "liveBytes": 6216,
+      "liveSha256": "551cab9f74b170c553026b420c52533d616ffc07c95f1f80148a399f64aeb57e",
+      "matches": false
+    },
+    {
+      "path": "project-zero-trust-blast-radius.html",
+      "sourceSha256": "c5fdf3825a465972aa6f6345acdda35710466316c7695d42310f16d71c9a505d",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/project-zero-trust-blast-radius.html",
+      "contentType": "text/html",
+      "liveBytes": 6268,
+      "liveSha256": "7842be0b217ca44d57efb49e6ae4ed699093fee65878d69eaf13abadb0f6a83d",
+      "matches": false
+    },
+    {
+      "path": "projects.html",
+      "sourceSha256": "60a8e011e503846c90035e820a4ea1ecd89add3083979e5a92e264b7e15cc100",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/projects.html",
+      "contentType": "text/html",
+      "liveBytes": 29086,
+      "liveSha256": "60a8e011e503846c90035e820a4ea1ecd89add3083979e5a92e264b7e15cc100",
+      "matches": true
+    },
+    {
+      "path": "quantum-cube.js",
+      "sourceSha256": "e841b335e77b7745d11cdf11963601681276aa750a8efc79da9ff3eefd776c16",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/quantum-cube.js",
+      "contentType": "application/javascript",
+      "liveBytes": 6470,
+      "liveSha256": "e841b335e77b7745d11cdf11963601681276aa750a8efc79da9ff3eefd776c16",
+      "matches": true
+    },
+    {
+      "path": "qubit-preview-20260921/app.js",
+      "sourceSha256": "37b11a6bcc9a8502b22cd48b71b97e9efec835d789e88d478fbf73df723852c4",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/qubit-preview-20260921/app.js",
+      "contentType": "application/javascript",
+      "liveBytes": 5578,
+      "liveSha256": "37b11a6bcc9a8502b22cd48b71b97e9efec835d789e88d478fbf73df723852c4",
+      "matches": true
+    },
+    {
+      "path": "qubit-preview-20260921/index.html",
+      "sourceSha256": "dd90c16aa565bb3ce7b4bf57c13acdb288144737e329ec5d8cf54ab3284197b2",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/qubit-preview-20260921/index.html",
+      "contentType": "text/html",
+      "liveBytes": 9164,
+      "liveSha256": "dd90c16aa565bb3ce7b4bf57c13acdb288144737e329ec5d8cf54ab3284197b2",
+      "matches": true
+    },
+    {
+      "path": "qubit-preview-20260921/qubit.js",
+      "sourceSha256": "747349bfd3735c247e603fe6646f635a533443c67f765cb78894d9be4229d993",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/qubit-preview-20260921/qubit.js",
+      "contentType": "application/javascript",
+      "liveBytes": 2987,
+      "liveSha256": "747349bfd3735c247e603fe6646f635a533443c67f765cb78894d9be4229d993",
+      "matches": true
+    },
+    {
+      "path": "qubit-preview-20260921/styles.css",
+      "sourceSha256": "7c0ed3f4c4af6cdb54c86ac65fbc1869f11c18772ccd5e7f7a9e7f442a5376fe",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/qubit-preview-20260921/styles.css",
+      "contentType": "text/css",
+      "liveBytes": 8849,
+      "liveSha256": "7c0ed3f4c4af6cdb54c86ac65fbc1869f11c18772ccd5e7f7a9e7f442a5376fe",
+      "matches": true
+    },
+    {
+      "path": "resume.html",
+      "sourceSha256": "e64f6835b288f6dd97726b21ad32557d569dc7fab5f7ebe66eeb30f9905e6960",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/resume.html",
+      "contentType": "text/html",
+      "liveBytes": 2709,
+      "liveSha256": "0c1d14df3278535ec54ae6b8b796229f6e0ff45aff4679d71b82932cfbaa82f5",
+      "matches": false
+    },
+    {
+      "path": "science-experiments.css",
+      "sourceSha256": "ad011d0f2b8dcd1070e673a38973f59884fd104695b851d0b41ae90f538e37ca",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/science-experiments.css",
+      "contentType": "text/css",
+      "liveBytes": 8886,
+      "liveSha256": "ad011d0f2b8dcd1070e673a38973f59884fd104695b851d0b41ae90f538e37ca",
+      "matches": true
+    },
+    {
+      "path": "science-experiments.js",
+      "sourceSha256": "832a3dc24864ac343f711dcab4d07b9b586577ee9fa5a45f24f47e9de054617a",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/science-experiments.js",
+      "contentType": "application/javascript",
+      "liveBytes": 15397,
+      "liveSha256": "832a3dc24864ac343f711dcab4d07b9b586577ee9fa5a45f24f47e9de054617a",
+      "matches": true
+    },
+    {
+      "path": "security-research.css",
+      "sourceSha256": "946d0ec673e0f9a5082e10fb03db65f2773409ca8603ed67db432916d130088d",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/security-research.css",
+      "contentType": "text/css",
+      "liveBytes": 5396,
+      "liveSha256": "946d0ec673e0f9a5082e10fb03db65f2773409ca8603ed67db432916d130088d",
+      "matches": true
+    },
+    {
+      "path": "security-research.html",
+      "sourceSha256": "d1cea84caa7d6a56d450d558dda437b2c22c8e4e8156d6d8813daadaf8bd4e48",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/security-research.html",
+      "contentType": "text/html",
+      "liveBytes": 18484,
+      "liveSha256": "1c69ba50476f632baea6acfdda47a480e40554ead9d16a09eab393c869ed5ba6",
+      "matches": false
+    },
+    {
+      "path": "security-research.js",
+      "sourceSha256": "1bcde47c5fdd5f6a32ba816068eb48a0aab25f67a887db4f23dfd9508c93efcd",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/security-research.js",
+      "contentType": "application/javascript",
+      "liveBytes": 22946,
+      "liveSha256": "1bcde47c5fdd5f6a32ba816068eb48a0aab25f67a887db4f23dfd9508c93efcd",
+      "matches": true
+    },
+    {
+      "path": "security-toolkit.css",
+      "sourceSha256": "a5484f05840b73f49c3e1ca004766fe53d596496d69b4ffc40f816aedbcde039",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/security-toolkit.css",
+      "contentType": "text/css",
+      "liveBytes": 2839,
+      "liveSha256": "a5484f05840b73f49c3e1ca004766fe53d596496d69b4ffc40f816aedbcde039",
+      "matches": true
+    },
+    {
+      "path": "security-toolkit.js",
+      "sourceSha256": "07d0ba7fb7429d0bb9f724cc67683ac135dcf21c224a9fa98e039b8588f9e54c",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/security-toolkit.js",
+      "contentType": "application/javascript",
+      "liveBytes": 23985,
+      "liveSha256": "07d0ba7fb7429d0bb9f724cc67683ac135dcf21c224a9fa98e039b8588f9e54c",
+      "matches": true
+    },
+    {
+      "path": "site-audio.js",
+      "sourceSha256": "b8120764f8181f43bd7cd0a8a311b81f5c11883e8eac9ad5cb6d34657fabf3e0",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/site-audio.js",
+      "contentType": "application/javascript",
+      "liveBytes": 46699,
+      "liveSha256": "bf02f1050fcdfec373be2374afc4fe64c581c2198fa0d1a0906197edd3c6ae2f",
+      "matches": false
+    },
+    {
+      "path": "site-navigation.js",
+      "sourceSha256": "147a1c422a4ef4490cfc10e092f2eec6f2b303ff84ab02c631667b2721ee2349",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/site-navigation.js",
+      "contentType": "application/javascript",
+      "liveBytes": 6374,
+      "liveSha256": "147a1c422a4ef4490cfc10e092f2eec6f2b303ff84ab02c631667b2721ee2349",
+      "matches": true
+    },
+    {
+      "path": "site-page-scroll.js",
+      "sourceSha256": "f2e1404100fbf773df3e4ea0813755126dc5aeed1d016907192928eccc299322",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/site-page-scroll.js",
+      "contentType": "application/javascript",
+      "liveBytes": 3979,
+      "liveSha256": "f2e1404100fbf773df3e4ea0813755126dc5aeed1d016907192928eccc299322",
+      "matches": true
+    },
+    {
+      "path": "site-resilience.css",
+      "sourceSha256": "a13990c6d41815d8e861fab1fefbe1ad3f98104fb09bdd4af03b60c8485dad39",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/site-resilience.css",
+      "contentType": "text/css",
+      "liveBytes": 6985,
+      "liveSha256": "a13990c6d41815d8e861fab1fefbe1ad3f98104fb09bdd4af03b60c8485dad39",
+      "matches": true
+    },
+    {
+      "path": "site-resilience.js",
+      "sourceSha256": "077816ae996d55dbaff4efbebc1487921d31e693230eeebd6afe484f8c3968d6",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/site-resilience.js",
+      "contentType": "application/javascript",
+      "liveBytes": 2942,
+      "liveSha256": "077816ae996d55dbaff4efbebc1487921d31e693230eeebd6afe484f8c3968d6",
+      "matches": true
+    },
+    {
+      "path": "site-responsive.css",
+      "sourceSha256": "45c182f770e71037764e5bd0589e31a2f575ac6933b9d2a0e18df8e4dca6b71b",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/site-responsive.css",
+      "contentType": "text/css",
+      "liveBytes": 66074,
+      "liveSha256": "45c182f770e71037764e5bd0589e31a2f575ac6933b9d2a0e18df8e4dca6b71b",
+      "matches": true
+    },
+    {
+      "path": "site-scenes.css",
+      "sourceSha256": "6a36bf42a458ef9d29ae8b134fb8f1f8bd969216958fc506651a20b687a01934",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/site-scenes.css",
+      "contentType": "text/css",
+      "liveBytes": 31269,
+      "liveSha256": "6a36bf42a458ef9d29ae8b134fb8f1f8bd969216958fc506651a20b687a01934",
+      "matches": true
+    },
+    {
+      "path": "site-scenes.js",
+      "sourceSha256": "01e7cacf4aaac3ba7eebaa02bb93da87cc192f25614ad3d6787c3ff60735eab1",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/site-scenes.js",
+      "contentType": "application/javascript",
+      "liveBytes": 35314,
+      "liveSha256": "01e7cacf4aaac3ba7eebaa02bb93da87cc192f25614ad3d6787c3ff60735eab1",
+      "matches": true
+    },
+    {
+      "path": "site-search.js",
+      "sourceSha256": "21be80d5274bb11927649ed0e479f81c1879bdce080dd29801a2b8b1e6793b6a",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/site-search.js",
+      "contentType": "application/javascript",
+      "liveBytes": 2362,
+      "liveSha256": "21be80d5274bb11927649ed0e479f81c1879bdce080dd29801a2b8b1e6793b6a",
+      "matches": true
+    },
+    {
+      "path": "site-sections.css",
+      "sourceSha256": "88ff08221e614def1f0a8fbaeeafe6f2d255bb643243b025c88ab0ec5eaa289a",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/site-sections.css",
+      "contentType": "text/css",
+      "liveBytes": 978,
+      "liveSha256": "88ff08221e614def1f0a8fbaeeafe6f2d255bb643243b025c88ab0ec5eaa289a",
+      "matches": true
+    },
+    {
+      "path": "site-sound-control.js",
+      "sourceSha256": "25b27f2e5127158a9c3d5b19ac302ab4f322aa01e8a439b3e6de224da390f778",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/site-sound-control.js",
+      "contentType": "application/javascript",
+      "liveBytes": 4364,
+      "liveSha256": "25b27f2e5127158a9c3d5b19ac302ab4f322aa01e8a439b3e6de224da390f778",
+      "matches": true
+    },
+    {
+      "path": "site-subject.js",
+      "sourceSha256": "427e8c31b0ebd5edb83a1f61e7dcb014ea110210a11e87b4b4828c147232812c",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/site-subject.js",
+      "contentType": "application/javascript",
+      "liveBytes": 4037,
+      "liveSha256": "427e8c31b0ebd5edb83a1f61e7dcb014ea110210a11e87b4b4828c147232812c",
+      "matches": true
+    },
+    {
+      "path": "site-theme.js",
+      "sourceSha256": "1b6b49ded441294c1e7833acb26f3d6ab7be81206a7a50a13811e0619628a21e",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/site-theme.js",
+      "contentType": "application/javascript",
+      "liveBytes": 8662,
+      "liveSha256": "d296ae70a306e78a901d2fdc024bcd799ce806d63d81f64ded4ce8290c2044c2",
+      "matches": false
+    },
+    {
+      "path": "software-showcase.js",
+      "sourceSha256": "c0bcf0ffa6fa14c8f9d219fff7108a5e17954d939aefbf7d57ad3ba1354f6465",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/software-showcase.js",
+      "contentType": "application/javascript",
+      "liveBytes": 12384,
+      "liveSha256": "c0bcf0ffa6fa14c8f9d219fff7108a5e17954d939aefbf7d57ad3ba1354f6465",
+      "matches": true
+    },
+    {
+      "path": "solar-navigation.js",
+      "sourceSha256": "2c6de979fbffa812cab6899647627a2944f3aa43b46dd752d679ba62c2a7af79",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/solar-navigation.js",
+      "contentType": "application/javascript",
+      "liveBytes": 19588,
+      "liveSha256": "75ad5cc27b17b9a2860fd1ec3ac041ef5dbfb124d67c9dc615132a8260feedcb",
+      "matches": false
+    },
+    {
+      "path": "styles.css",
+      "sourceSha256": "1302db176b50a2a48a0136a79fca499bfa6612c534d1eddeb84221cdc0f76100",
+      "status": 200,
+      "finalUrl": "https://web.engr.oregonstate.edu/~randjosh/styles.css",
+      "contentType": "text/css",
+      "liveBytes": 19530,
+      "liveSha256": "1302db176b50a2a48a0136a79fca499bfa6612c534d1eddeb84221cdc0f76100",
+      "matches": true
+    }
+  ]
+}
