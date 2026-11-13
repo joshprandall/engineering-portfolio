@@ -12600,6 +12600,20 @@
       "fallbackContract": "Video error retains poster; if remote poster also fails, site content and local CSS background must remain usable. Do not gate navigation on media."
     },
     {
+      "url": "https://www.postgresql.org/docs/18/datatype-json.html",
+      "consumers": [
+        {
+          "source": "deep-learning/software/databases.json",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
       "url": "https://www.postgresql.org/docs/18/ddl-constraints.html",
       "consumers": [
         {
