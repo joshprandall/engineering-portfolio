@@ -1,0 +1,5 @@
+# PKCE exchange boundary labs
+
+Four original cyber labs cover verifier syntax versus entropy, S256 digest-byte encoding, attempt-bound comparison and no downgrade. Read RFC7636 sections4.1,4.2,4.6,7.2 and AppendixB. Public interoperability vector only; no private credentials, account access or network requests. S256-only helpers are intentionally not full OAuth implementations or an authentication guarantee.
+
+Validation: six new scope/source/model tests pass. All 531 test_*.py cases ran: 529 passed and two pre-existing staged-package cases skipped. All 62 configured Python cases and site checks passed. Exact isolated QA bytes verified. All 93 cyber lab records retain their original IDs and fields except the three approved fields of four selected lessons. Actual SHA256/base64url validates the public RFC vector; synthetic attempt bindings and syntax/fallback cases do not implement a complete OAuth server. No full package, full suite or physical-device validation is claimed. Hosted media failures remain unwaived. No merge, deployment, UI, live behavior, security settings or personal history changed.
