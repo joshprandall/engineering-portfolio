@@ -1,0 +1,5 @@
+# Ideal series-circuit evidence
+
+Four physics labs cover current continuity versus voltage drop, power under different constraints, common resistance scaling and a loaded divider. OpenStax University Physics volume2 section10.2 read, including series power and parallel reduction. Exact paper-only ideal calculations, no wiring, measurements or component-rating advice. Earlier circular-motion records and oracles retained.
+
+Validation: six new scope/source/exact-circuit tests pass. All 677 discovery cases ran: 675 passed and two pre-existing staged-package skips. All 62 configured Python cases, site checks and 184 leadership Node cases passed. Exact isolated QA bytes checked. Only three approved fields in four of 92 physics lab records changed. Earlier circular-motion records and original oracles remain exact through an immutable checkpoint. Full source baseline 876a0b5 remains most recent. No physical circuit, hardware measurement, fresh package, hosted, live or device acceptance claimed. Historical media failures and 19 missing package assets remain unwaived. No UI or deployment changes.
