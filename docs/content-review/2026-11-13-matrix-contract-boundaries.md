@@ -11,3 +11,5 @@ The old cross-domain historical scope test initially rejected the newly authored
 Five new official source URLs and 18 route dependency arrays changed. Metadata totals: 90 routes, 811 external references, four export units, zero unresolved HTML references.
 
 No UI, live runtime, audio, game, credentials or deployment changes. The previous ed5c579 content had a full configured local suite pass; this batch used scoped verification. Known hosted media/audio failures remain unwaived. Current hosted CI unchecked; no fresh browser or staged-package validation claimed.
+
+Narrow runtime manifest: content commit 80b5e67abd79bd4567148f211e9d49d45330c2d8; only math/linear-algebra.json updated, 534656 bytes, SHA256 d8c1b192195a017918d886c555dec41c64c7755001433de7fe7a4e2428cb3aca. Inventory remains 334 files, 446203066 aggregate bytes. No fresh staged-package validation.

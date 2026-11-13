@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "sourceCommit": "9736a95f4d2c0cee2d8690512d277d33527de702",
+  "sourceCommit": "80b5e67abd79bd4567148f211e9d49d45330c2d8",
   "bytePolicy": "Exact Git blobs; artifacts verified against committed SHA-256 and size.",
   "files": [
     {
@@ -1434,11 +1434,11 @@
     },
     {
       "path": "deep-learning/math/linear-algebra.json",
-      "size": 531361,
-      "sha256": "0b37d04cef3e0d084694b377b209cfbd60008ee8199e694e6dcc74562d1dbd7b",
+      "size": 534656,
+      "sha256": "d8c1b192195a017918d886c555dec41c64c7755001433de7fe7a4e2428cb3aca",
       "source": {
         "kind": "git-blob",
-        "blob": "82e3d86041f93ee5d4f04382293a81fca28d6303"
+        "blob": "4a4db55edcfcfd69fc44a5e80068219e5eba3c09"
       },
       "owningComponent": "deep-learning",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -3716,5 +3716,5 @@
     }
   ],
   "fileCount": 334,
-  "byteSize": 446199771
+  "byteSize": 446203066
 }
