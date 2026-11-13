@@ -933,9 +933,36 @@ add('reliability',"leadership-v09-scenario-analysis-traffic-signal",[SOURCES.mon
 add('reliability',"leadership-v10-field-note-traffic-signal",[SOURCES.monitoring],["400 megabits per second", "50 megabytes per second", "1,000 megabits per second", "125 megabytes per second", "2.5", "500 sessions"]);
 add('reliability',"leadership-v10-explain-back-challenge-traffic-signal",[SOURCES.monitoring],["200 requests per second", "50 requests per second", "75%", "9,000", "25%", "15 of 60 seconds"]);
 
+// Independent error-set, denominator, timing and flow-accounting oracles.
+{
+ close(40/1000,0.04);assert.equal(1000-40-30,930);close(30/960,0.03125);
+ assert.equal(80+120-30,170);assert.equal(2000-170,1830);close(170/2000,0.085);
+ assert.equal(90+10,100);assert.equal(0+100,100);assert.equal(990-900,90);
+ assert.equal(100-70-20,10);assert.equal(100-70,30);
+ assert.equal(10000-200+6,9806);close(9806/10000,0.9806);close(6/10000,0.0006);
+ close(50/100,0.5);close(50/1000,0.05);close(50/10000,0.005);
+ assert.equal(6000/60,100);close(120/6000,0.02);assert.equal(6000-120,5880);
+ assert.equal((50*200+50*10)/100,105);close((200-105)/200,0.475);
+ assert.equal(20/(1000/1000),20);assert.equal(20*10,200);assert.equal((25-20)*10,50);
+ close((150-100)/100,0.5);assert.equal(700/200,3.5);assert.equal(4-1,3);
+ assert.equal(40*0.25,10);assert.equal(40*0.5,20);
+}
+add('reliability',"leadership-v08-deep-dive-error-signal",[SOURCES.monitoring],["4%", "70", "7%", "930", "93%", "3.125%"]);
+add('reliability',"leadership-v08-evidence-lab-error-signal",[SOURCES.monitoring],["170", "8.5%", "200", "10%", "1,830", "6%"]);
+add('reliability',"leadership-v09-failure-analysis-lab-error-signal",[SOURCES.monitoring],["1%", "10%", "990", "900", "90 outcomes"]);
+add('reliability',"leadership-v09-scenario-analysis-error-signal",[SOURCES.monitoring],["90 good", "10%", "70 good", "30%", "20-percentage-point"]);
+add('reliability',"leadership-v10-measurement-lab-error-signal",[SOURCES.monitoring],["3%", "9,806", "0.06%", "98.06%", "300 estimated"]);
+add('reliability',"leadership-v10-transfer-lab-error-signal",[SOURCES.monitoring],["0.5 failures per second", "5%", "0.5%", "10 attempts per second", "100", "0.1 and 1"]);
+add('reliability',"leadership-v08-deep-dive-four-golden-signals",[SOURCES.monitoring],["100 requests per second", "2%", "5,880", "800 milliseconds", "90%"]);
+add('reliability',"leadership-v08-evidence-lab-four-golden-signals",[SOURCES.monitoring],["200 milliseconds", "0%", "105 milliseconds", "50%", "47.5%"]);
+add('reliability',"leadership-v09-design-review-four-golden-signals",[SOURCES.monitoring],["1,000 milliseconds", "20 requests per second", "200 CPU-milliseconds", "20%", "5 requests per second", "50 additional"]);
+add('reliability',"leadership-v09-troubleshooting-lab-four-golden-signals",[SOURCES.monitoring],["50%", "3.5", "3 percentage points", "95%"]);
+add('reliability',"leadership-v10-concept-connection-four-golden-signals",[SOURCES.monitoring],["40 x 0.25 = 10", "0.5 seconds", "population is 20", "p99"]);
+add('reliability',"leadership-v10-evidence-reading-four-golden-signals",[SOURCES.monitoring],["80%", "1%", "500 milliseconds", "invented thresholds"]);
+
 test('exactly the authored lessons changed, and only their question, reasoning and lab fields', () => {
   const authored = new Set(cases.map(c => c.id));
-  assert.equal(authored.size, 117);
+  assert.equal(authored.size, 129);
   for (const c of chunks) {
     assert.deepEqual(Object.keys(current[c]), Object.keys(baseline[c]), c + ': lesson IDs and order are unchanged');
     for (const id of Object.keys(baseline[c])) {
