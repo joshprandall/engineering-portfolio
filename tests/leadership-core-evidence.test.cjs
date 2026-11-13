@@ -742,9 +742,48 @@ const usd = (x) => '$' + fmt(Math.round(x));
  [fmt(good(0)),fmt(good(100)),pct(.99*.99,2),fmt(good(49)),pct(good(49)/total,2),fmt(good(50)),'98.5%']);
 }
 
+
+{ // Multiplicative retry topology and aggregate budget.
+ const operations=100,attempts=[2,3,2].reduce((a,b)=>a*b,1),oneOwner=3;
+ assert.equal(attempts,12);assert.equal(operations*attempts>500,true);assert.equal(operations*oneOwner<=500,true);
+ add('reliability','leadership-v09-design-review-cascading-failure',[SOURCES.cascade],
+ [fmt(operations*attempts),'12 attempts',String(operations*oneOwner),'120','7 is wrong']);
+}
+{ // Fluid queue conservation, explicitly not stochastic steady state.
+ const arrival=1200,service=1000,cap=2000,growth=arrival-service,kib=64;
+ assert.equal(cap/growth,10);assert.equal(cap/service,2);assert.equal(cap/(service-800),10);
+ add('reliability','leadership-v09-troubleshooting-lab-cascading-failure',[SOURCES.cascade],
+ [String(growth)+' requests per second','10 seconds',fmt(cap*kib)+' KiB',String(cap*kib/1024)+' MiB','20 seconds','250 MiB','2 seconds']);
+}
+{ // Health-check ejection can consume spare capacity.
+ const load=1800,capacity=600;
+ assert.deepEqual([4,3,2].map(n=>load/n),[450,600,900]);
+ add('reliability','leadership-v09-failure-analysis-lab-cascading-failure',[SOURCES.cascade],
+ ['450','75%','600','100%','900','150%',fmt(2*capacity),'one third']);
+}
+{ // Cache fallback capacity boundary.
+ const demand=9000,db=1500;
+ assert.equal(demand-7499>db,true);assert.equal(demand-7500<=db,true);
+ add('reliability','leadership-v09-failure-analysis-lab-graceful-degradation',[SOURCES.cascade],
+ ['900 database','60%',fmt(demand*.3),'180%',fmt(demand-db),(100*(demand-db)/demand).toFixed(4)+'%','600%']);
+}
+{ // CPU-work budget, not response latency.
+ const budget=8000,n=1000,full=12,cheap=4,cost=x=>x*full+(n-x)*cheap;
+ assert.equal(cost(500),budget);assert.equal(cost(501),8008);assert.equal(cost(400),7200);
+ add('reliability','leadership-v10-worked-walkthrough-graceful-degradation',[SOURCES.cascade],
+ [fmt(n*full),'150%',fmt(n*cheap),'50%','x <= 500',fmt(cost(400)),'90%',fmt(cost(501))]);
+}
+{ // Attempt throughput and useful operation throughput.
+ const seconds=10,ops=1000,attempts=2500,useful=800,failed=1500,lateDuplicate=200;
+ assert.equal(failed+useful+lateDuplicate,attempts);
+ add('reliability','leadership-v10-measurement-lab-cascading-failure',[SOURCES.cascade],
+ [String(attempts/seconds)+' attempts per second',String(useful/seconds)+' operations per second',
+ pct((useful+lateDuplicate)/attempts,0),pct(useful/ops,0),String(attempts/ops)+' attempts',pct(useful/attempts,0),pct(1-useful/attempts,0),'120 per second']);
+}
+
 test('exactly the authored lessons changed, and only their question, reasoning and lab fields', () => {
   const authored = new Set(cases.map(c => c.id));
-  assert.equal(authored.size, 86);
+  assert.equal(authored.size, 92);
   for (const c of chunks) {
     assert.deepEqual(Object.keys(current[c]), Object.keys(baseline[c]), c + ': lesson IDs and order are unchanged');
     for (const id of Object.keys(baseline[c])) {
