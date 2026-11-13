@@ -26,9 +26,11 @@ class MemoryAddressEvidence(unittest.TestCase):
   t=' '.join(D[IDS[i]]['reasoningSteps'])
   for v in values:self.assertIn(v,t)
  def test_scope(self):
-  self.assertEqual(list(B),list(D));self.assertEqual(len(D),136)
+  C=json.loads(gzip.decompress((R/'tests/baselines/cache-boundaries.json.gz').read_bytes()))
+  self.assertEqual(list(B),list(D));self.assertEqual(list(C),list(D));self.assertEqual(len(D),136)
+  for k in IDS:self.assertEqual(D[k],C[k],k)
   for k in B:
-   fields=sorted(f for f in set(B[k])|set(D[k]) if B[k].get(f)!=D[k].get(f))
+   fields=sorted(f for f in set(B[k])|set(C[k]) if B[k].get(f)!=C[k].get(f))
    self.assertEqual(fields,['essentialQuestion','labPlan','reasoningSteps'] if k in IDS else [],k)
  def test_structure_and_sources(self):
   for i,k in enumerate(IDS):
