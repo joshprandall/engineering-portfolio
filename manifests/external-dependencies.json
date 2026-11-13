@@ -4008,6 +4008,20 @@
       "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
     },
     {
+      "url": "https://hpc.llnl.gov/documentation/tutorials/introduction-parallel-computing-tutorial",
+      "consumers": [
+        {
+          "source": "deep-learning/advanced/parallel-computing.json",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
       "url": "https://huggingface.co/docs/optimum/en/concept_guides/quantization",
       "consumers": [
         {
