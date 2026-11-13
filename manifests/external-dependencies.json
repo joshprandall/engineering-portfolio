@@ -9273,6 +9273,10 @@
       "url": "https://sre.google/sre-book/monitoring-distributed-systems/",
       "consumers": [
         {
+          "source": "deep-learning/leadership/reliability.json",
+          "evidence": "current-runtime"
+        },
+        {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
         },
