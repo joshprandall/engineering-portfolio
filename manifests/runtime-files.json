@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "sourceCommit": "c02b615a2787136fef3cfb3840188b411b46ca3c",
+  "sourceCommit": "a92509be1f49efa141a1d113dd8ba1c6eced8c71",
   "bytePolicy": "Exact Git blobs; artifacts verified against committed SHA-256 and size.",
   "files": [
     {
@@ -1225,11 +1225,11 @@
     },
     {
       "path": "deep-learning/leadership/finance.json",
-      "size": 315536,
-      "sha256": "f8b17c8478ccc9d0467a35398897e0853d0465bfa27df22ece692c03a09a9a61",
+      "size": 316745,
+      "sha256": "66783029ab273cb02f220eb5e98787645d91925e6ccf0eb3f68200b6412a31fd",
       "source": {
         "kind": "git-blob",
-        "blob": "cecfc6aaabc9c786a9ec7b4e7e2291a76b316c57"
+        "blob": "72d20e95d189d24fad30339fd066ab4031b5772d"
       },
       "owningComponent": "deep-learning",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -3716,5 +3716,5 @@
     }
   ],
   "fileCount": 334,
-  "byteSize": 446255337
+  "byteSize": 446256546
 }

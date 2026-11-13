@@ -3441,6 +3441,10 @@
       "url": "https://gaoinnovations.gov/cost-guide/types-of-cost-estimates.html",
       "consumers": [
         {
+          "source": "deep-learning/leadership/finance.json",
+          "evidence": "current-runtime"
+        },
+        {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
         },
