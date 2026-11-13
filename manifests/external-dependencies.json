@@ -4932,6 +4932,20 @@
       "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
     },
     {
+      "url": "https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/",
+      "consumers": [
+        {
+          "source": "deep-learning/cloud/kubernetes.json",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
       "url": "https://kubernetes.io/docs/tasks/run-application/configure-pdb/",
       "consumers": [
         {

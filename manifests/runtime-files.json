@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "sourceCommit": "bf953c92776bc73f9382811e7a8b89321e70e30d",
+  "sourceCommit": "25ffbedce12e739a0f8ccd44282504e7cf81dedc",
   "bytePolicy": "Exact Git blobs; artifacts verified against committed SHA-256 and size.",
   "files": [
     {
@@ -1005,11 +1005,11 @@
     },
     {
       "path": "deep-learning/cloud/kubernetes.json",
-      "size": 440635,
-      "sha256": "3d2fa52adcbe64bd72029331e98840884f1f052c117ec65047822b0c611040ba",
+      "size": 445350,
+      "sha256": "87925ea4255ed286dc0233ac6f6a4436057c0e20f5ce043d5274855d205bdd21",
       "source": {
         "kind": "git-blob",
-        "blob": "362a8a71be6c266fa15db20a77894861d5a73403"
+        "blob": "476636cf78bdb35026c4fd9165fea132d33e2d5e"
       },
       "owningComponent": "deep-learning",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -3716,5 +3716,5 @@
     }
   ],
   "fileCount": 334,
-  "byteSize": 446177191
+  "byteSize": 446181906
 }
