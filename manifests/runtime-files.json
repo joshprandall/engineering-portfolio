@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "sourceCommit": "764fcd69491ddda5c7f4384c0c5436982e49e3b9",
+  "sourceCommit": "4089620227c6117b60b85c4cfce20e6ad95e4f98",
   "bytePolicy": "Exact Git blobs; artifacts verified against committed SHA-256 and size.",
   "files": [
     {
@@ -1379,11 +1379,11 @@
     },
     {
       "path": "deep-learning/math/algebra.json",
-      "size": 461774,
-      "sha256": "a49ff6e387eab6458a6eece31e5d374e950eee82cfb91dcb36fc1bbce4da9576",
+      "size": 464019,
+      "sha256": "343876175d872ee9a3c816f9af8205a30956c4ec671a7126b5dc757d8a0cfe8e",
       "source": {
         "kind": "git-blob",
-        "blob": "c3929a6ea08bba145518bde913350c7fa596dc7d"
+        "blob": "bde92d4b19239caf2476ae8a4a5e10913aa712f1"
       },
       "owningComponent": "deep-learning",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -3716,5 +3716,5 @@
     }
   ],
   "fileCount": 334,
-  "byteSize": 446137780
+  "byteSize": 446140025
 }

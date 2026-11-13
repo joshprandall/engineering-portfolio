@@ -2,4 +2,8 @@
 
 Six existing evidence lessons now separate domain/range, quadratic forms, multiplicative growth, logarithmic inversion and linear-system classifications. OpenStax College Algebra 2e sections 3.2, 5.1, 6.1, 6.3 and 7.1 read directly. Only three authorized fields changed; universal claims use algebraic reasoning rather than treating finite sampling as proof.
 
-Validation pending. No UI/live/deploy changes.
+Validation: all 8 new tests pass, checking exact values, domain boundaries, polynomial coefficient expansion, inverse relationships and three linear-system cases. All 161 of 163 test_*.py cases pass; 2 existing staged-package cases explicitly skipped. All 62 *_test.py cases and site contract validation pass. A first assertion searched reasoningSteps for a phrase located in labPlan; corrected the field-specific assertion and reran the whole Python suite. No mathematical failure was waived.
+
+All 119 records retain their keys and all fields outside the six question/reasoning/lab triples remain equal to baseline. Final QA source/test/baseline/metadata bytes equal checkout. Metadata now has 90 routes, 761 external references and 0 unresolved HTML references. Exactly five new OpenStax source entries and 18 existing externalDependencies lists change, with no route structural changes. The narrow runtime manifest changes only math/algebra.json: 464,019 bytes, SHA256 343876175d872ee9a3c816f9af8205a30956c4ec671a7126b5dc757d8a0cfe8e; 334 paths retained, aggregate 446,140,025 bytes. No full package or full Node scan claimed.
+
+General domain/range and symmetry statements are justified algebraically in the lessons; finite test cases are regression evidence, not universal proofs. Growth is a fixed-rate synthetic sequence, not a forecast; logarithms are real-valued with explicit base/argument restrictions. Previously verified browser-media failures remain unwaived; exact latest hosted CI unchecked. No UI/live/deploy changes.
