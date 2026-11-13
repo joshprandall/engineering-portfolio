@@ -8,9 +8,11 @@ def evaluate(policies):
 class ConditionalAccessBoundaries(unittest.TestCase):
  def test_scope(self):
   b=json.loads(gzip.decompress((R/'tests/baselines/conditional-access-boundaries.json.gz').read_bytes()));d=json.loads((R/'deep-learning/cloud/windows-identity.json').read_bytes())
-  self.assertEqual(list(b),list(d));self.assertEqual(len(d),117)
+  c=json.loads(gzip.decompress((R/'tests/baselines/group-policy-boundaries.json.gz').read_bytes()))
+  self.assertEqual(list(b),list(d));self.assertEqual(list(c),list(d));self.assertEqual(len(d),117)
+  for k in IDS:self.assertEqual(d[k],c[k],k)
   for k in b:
-   fields={f for f in set(b[k])|set(d[k]) if b[k].get(f)!=d[k].get(f)}
+   fields={f for f in set(b[k])|set(c[k]) if b[k].get(f)!=c[k].get(f)}
    self.assertEqual(fields,{'essentialQuestion','reasoningSteps','labPlan'} if k in IDS else set(),k)
  def test_sources_and_boundaries(self):
   d=json.loads((R/'deep-learning/cloud/windows-identity.json').read_bytes())
