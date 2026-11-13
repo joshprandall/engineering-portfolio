@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "sourceCommit": "dcd5db576cb824c46343b0bdddefa0aa03558a7f",
+  "sourceCommit": "9098030f0295888bc218afaf691969b97c10de21",
   "bytePolicy": "Exact Git blobs; artifacts verified against committed SHA-256 and size.",
   "files": [
     {
@@ -1346,11 +1346,11 @@
     },
     {
       "path": "deep-learning/leadership/strategy.json",
-      "size": 297966,
-      "sha256": "4055da29b83c4594e999c1126a0552f1a7770dbca5aa553a059de21aa556109a",
+      "size": 299437,
+      "sha256": "5fd6c322aa482b776e09d84767d11af9bce21104352500cf4cfbb5b1fbb4ee21",
       "source": {
         "kind": "git-blob",
-        "blob": "002e7ac49258250ac2fa99261ccd1dffb9ce5300"
+        "blob": "ad2f21a37a0b2cf3a800a0bb6362563152dd3c7c"
       },
       "owningComponent": "deep-learning",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -3716,5 +3716,5 @@
     }
   ],
   "fileCount": 334,
-  "byteSize": 446269191
+  "byteSize": 446270662
 }

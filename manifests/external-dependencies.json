@@ -10769,6 +10769,10 @@
       "url": "https://sre.google/sre-book/eliminating-toil/",
       "consumers": [
         {
+          "source": "deep-learning/leadership/strategy.json",
+          "evidence": "current-runtime"
+        },
+        {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
         },
