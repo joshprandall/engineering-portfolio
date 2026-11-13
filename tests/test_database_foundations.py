@@ -14,9 +14,11 @@ class DatabaseFoundations(unittest.TestCase):
   t=' '.join(D[IDS[i]]['reasoningSteps'])
   for v in values:self.assertIn(v,t)
  def test_scope(self):
-  self.assertEqual(list(B),list(D));self.assertEqual(len(D),162)
+  checkpoint=json.loads(gzip.decompress((R/'tests/baselines/sql-fanout-boundaries.json.gz').read_bytes()))
+  self.assertEqual(list(B),list(checkpoint));self.assertEqual(list(checkpoint),list(D));self.assertEqual(len(D),162)
+  for k in IDS:self.assertEqual(D[k],checkpoint[k],k)
   for k in B:
-   diff=sorted(f for f in set(B[k])|set(D[k]) if B[k].get(f)!=D[k].get(f))
+   diff=sorted(f for f in set(B[k])|set(checkpoint[k]) if B[k].get(f)!=checkpoint[k].get(f))
    self.assertEqual(diff,['essentialQuestion','labPlan','reasoningSteps'] if k in IDS else [],k)
  def test_structure_and_engine_boundary(self):
   for i,k in enumerate(IDS):
