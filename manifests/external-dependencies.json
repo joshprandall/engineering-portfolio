@@ -11143,6 +11143,10 @@
       "url": "https://www.rfc-editor.org/rfc/rfc4632",
       "consumers": [
         {
+          "source": "deep-learning/cloud/networking.json",
+          "evidence": "current-runtime"
+        },
+        {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
         },
@@ -11210,6 +11214,10 @@
     {
       "url": "https://www.rfc-editor.org/rfc/rfc5737",
       "consumers": [
+        {
+          "source": "deep-learning/cloud/networking.json",
+          "evidence": "current-runtime"
+        },
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"

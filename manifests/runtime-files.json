@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "sourceCommit": "985410a422c89cab87c41bc386c3ebe363aeb886",
+  "sourceCommit": "e9645d34b975d1e931b1597ca77b6e9d66edbdb8",
   "bytePolicy": "Exact Git blobs; artifacts verified against committed SHA-256 and size.",
   "files": [
     {
@@ -1038,11 +1038,11 @@
     },
     {
       "path": "deep-learning/cloud/networking.json",
-      "size": 810937,
-      "sha256": "47ea76d5ce9a7802f9ae95d662c6ff2a22b081333bf8c688ec1827b6a3e0cbc0",
+      "size": 812836,
+      "sha256": "351284a3605fa7aacc302d48e63f59ee9c2d8ede79f39592a583260ab1cb5601",
       "source": {
         "kind": "git-blob",
-        "blob": "818c35d55f6e4b9f95bb8bd726a8447e7508917d"
+        "blob": "27ca4d6e2ae17a3dc5c004c78d68ab18e0aff419"
       },
       "owningComponent": "deep-learning",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -3716,5 +3716,5 @@
     }
   ],
   "fileCount": 334,
-  "byteSize": 446097095
+  "byteSize": 446098994
 }
