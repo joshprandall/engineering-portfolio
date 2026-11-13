@@ -634,9 +634,31 @@ const usd = (x) => '$' + fmt(Math.round(x));
      'burn falls to ' + burn(1, 200), 'not a forecast']);
 }
 
+
+{ // Joint SLI: disjoint cells, overlap and strict threshold.
+ const total=10000, failed=80, slow=150, overlap=30;
+ const bad=failed+slow-overlap, good=total-bad;
+ assert.equal(30+50+120+good,total);
+ assert.equal(good,9800);
+ assert.equal((1-failed/total)*(1-slow/total)*100,97.712);
+ assert.deepEqual([299,300,301].map(ms=>ms<300),[true,false,false]);
+ add('reliability','leadership-v09-design-review-service-level-indicator',[SOURCES.workbook],
+ ['80 + 150 - 30 = '+bad,fmt(good),'98%','97.7%','97.712%','99.2%','98.5%']);
+}
+{ // Observation point and honest missing-data bounds.
+ const total=10000,reached=9600,good=9504,missing=500,missingGood=490;
+ const observedGood=good-missingGood;
+ assert.equal(total-good,96+400);
+ assert.equal(observedGood,9014);
+ assert.ok(observedGood/total<=good/total && good/total<=(observedGood+missing)/total);
+ add('reliability','leadership-v09-troubleshooting-lab-service-level-indicator',[SOURCES.workbook],
+ ['99%',pct(good/total,2),'496',(100*400/496).toFixed(2)+'%',
+ pct(observedGood/(total-missing),2),pct(observedGood/total,2),pct((observedGood+missing)/total,2)]);
+}
+
 test('exactly the authored lessons changed, and only their question, reasoning and lab fields', () => {
   const authored = new Set(cases.map(c => c.id));
-  assert.equal(authored.size, 74);
+  assert.equal(authored.size, 76);
   for (const c of chunks) {
     assert.deepEqual(Object.keys(current[c]), Object.keys(baseline[c]), c + ': lesson IDs and order are unchanged');
     for (const id of Object.keys(baseline[c])) {
