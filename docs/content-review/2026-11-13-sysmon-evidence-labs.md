@@ -1,0 +1,5 @@
+# Sysmon evidence interpretation labs
+
+Four endpoint lessons distinguish process GUID correlation from PID reuse, disabled telemetry from absent activity, DNS event scope from resolution or connection claims, and deletion records from verified archived files. Microsoft Sysmon documentation read directly. Fictional records only; no installed service, event log, registry, network or archive access. Earlier Defender record-identity and timestamp oracles preserved.
+
+Validation: six new scope/source/synthetic-event tests pass. All 707 discovery cases ran: 705 passed and two existing staged-package skips. All 62 configured Python cases, site checks and 184 leadership Node cases passed. Exact QA bytes checked. Only three approved fields in four of 91 endpoint records changed. Earlier Defender identity and timestamp records and original oracles remain exact through an immutable checkpoint. Full source baseline 2abbc25 remains most recent. No Sysmon install, real logs, security changes, network calls, deletions, fresh package or live acceptance claimed. Historical media failures and 19 missing assets remain unwaived. No UI or deployment changes.
