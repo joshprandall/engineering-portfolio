@@ -5161,6 +5161,10 @@
       "url": "https://kubernetes.io/docs/concepts/workloads/controllers/deployment/",
       "consumers": [
         {
+          "source": "deep-learning/cloud/cloud.json",
+          "evidence": "current-runtime"
+        },
+        {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
         },
