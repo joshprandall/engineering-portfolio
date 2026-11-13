@@ -1015,9 +1015,28 @@ add('recovery',"leadership-v09-misconception-clinic-recovery-point-objective",[S
 add('recovery',"leadership-v09-teach-back-lab-recovery-time-objective",[SOURCES.nist],["20 minutes", "35 minutes", "50 minutes", "5 minutes", "40-minute"]);
 add('recovery',"leadership-v09-worked-example-recovery-time-objective",[SOURCES.nist],["3,600", "60 items per minute", "60 additional minutes", "90 minutes", "20 minutes"]);
 
+// Independent feasibility, throughput and recovery-sample oracles.
+{
+ assert.equal(60-58,2);assert.equal(60-52,8);assert.equal(8-5,3);
+ assert.equal(((1-40/43200)*100).toFixed(4),'99.9074');close(43200*.001,43.2);
+ assert.equal(5*10,50);assert.equal(5*400,2000);assert.equal(2000/50,40);assert.equal(2000-1800,200);
+ assert.equal((6-4)*600,1200);assert.equal(1200/6,200);assert.equal(1200/(10-6),300);
+ assert.equal(100-90,10);assert.equal(60-45,15);assert.equal(20-10,10);assert.equal(75-60,15);
+ const times=[20,25,30,35,90];assert.equal(times.reduce((a,b)=>a+b)/times.length,40);close(times.filter(t=>t<=45).length/times.length,.8);
+ assert.equal(240*1024,245760);assert.equal(245760/80,3072);close(3072/60,51.2);close(8+51.2+12,71.2);close(245760/(40*60),102.4);
+}
+add('recovery',"leadership-v09-practical-lab-recovery-point-objective",[SOURCES.nist],["2-minute", "8-minute", "5-minute", "3 minutes", "cannot be classified"]);
+add('recovery',"leadership-v09-misconception-clinic-recovery-time-objective",[SOURCES.nist],["43,200", "99.9074%", "43.2", "20 minutes", "different"]);
+add('recovery',"leadership-v09-misconception-clin-recovery-point-objective-2",[SOURCES.nist],["5-minute", "50 records", "2,000 records", "40", "200"]);
+add('recovery',"leadership-v09-practical-lab-recovery-point-objective-2",[SOURCES.nist],["2 MiB per second", "1,200 MiB", "200 seconds", "80 seconds", "300 seconds"]);
+add('recovery',"leadership-v09-teach-back-lab-recovery-point-objective",[SOURCES.nist],["90 acknowledged", "10 unacknowledged", "uncertain", "Zero loss"]);
+add('recovery',"leadership-v09-worked-example-recovery-time-objective-2",[SOURCES.nist],["15 minutes", "10 minutes", "5 minutes", "Neither option"]);
+add('recovery',"leadership-v09-misconception-clin-recovery-time-objective-2",[SOURCES.nist],["40 minutes", "45 minutes", "80%", "30 minutes", "90"]);
+add('recovery',"leadership-v09-practical-lab-recovery-time-objective",[SOURCES.nist],["245,760 MiB", "3,072 seconds", "51.2 minutes", "71.2 minutes", "11.2 minutes", "102.4 MiB"]);
+
 test('exactly the authored lessons changed, and only their question, reasoning and lab fields', () => {
   const authored = new Set(cases.map(c => c.id));
-  assert.equal(authored.size, 152);
+  assert.equal(authored.size, 160);
   for (const c of chunks) {
     assert.deepEqual(Object.keys(current[c]), Object.keys(baseline[c]), c + ': lesson IDs and order are unchanged');
     for (const id of Object.keys(baseline[c])) {
