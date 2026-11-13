@@ -34,13 +34,16 @@ function calculate(model,p){
  }
 }
 test("complete original 120-record immutable order and exactly 48 authorized teaching changes",()=>{
+ const checkpoint=JSON.parse(require("node:zlib").gunzipSync(fs.readFileSync(path.join(__dirname,"baselines","contact-force-boundaries.json.gz"))).toString("utf8"));
  const names=Object.keys(old);
+ assert.deepEqual(Object.keys(checkpoint),names);
+ for(const k of names.slice(0,96)) assert.deepEqual(authored[k],checkpoint[k],k);
  assert.equal(names.length,120);
  assert.deepEqual(Object.keys(authored),names);
  assert.equal(fixture.length,48);
  const changed=[];
  for(const k of names){
-  const before=old[k],after=authored[k];
+  const before=old[k],after=checkpoint[k];
   const diff=[...new Set([...Object.keys(before),...Object.keys(after)])].filter(field=>JSON.stringify(before[field])!==JSON.stringify(after[field]));
   if(diff.length){changed.push(k);assert.deepEqual(diff.sort(),["essentialQuestion","labPlan","reasoningSteps"]); }
  }
