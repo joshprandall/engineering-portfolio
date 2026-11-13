@@ -21,9 +21,11 @@ class FunctionContracts(unittest.TestCase):
   text=' '.join(D[IDS[i]]['reasoningSteps'])
   for word in words:self.assertIn(word,text)
  def test_scope(self):
-  self.assertEqual(list(D),list(B));self.assertEqual(len(D),98)
+  C=json.loads(gzip.decompress((R/'tests/baselines/inverse-boundaries.json.gz').read_bytes()))
+  self.assertEqual(list(B),list(D));self.assertEqual(list(C),list(D));self.assertEqual(len(D),98)
+  for k in IDS:self.assertEqual(D[k],C[k],k)
   for k in B:
-   self.assertEqual(sorted(f for f in set(B[k])|set(D[k]) if B[k].get(f)!=D[k].get(f)),['essentialQuestion','labPlan','reasoningSteps'] if k in IDS else [],k)
+   self.assertEqual(sorted(f for f in set(B[k])|set(C[k]) if B[k].get(f)!=C[k].get(f)),['essentialQuestion','labPlan','reasoningSteps'] if k in IDS else [],k)
  def test_sources(self):
   for k,src in zip(IDS,REFS):
    self.assertFalse(D[k]['essentialQuestion'].startswith('What does '))
