@@ -1,0 +1,5 @@
+# Endpoint evidence boundaries
+
+Four original endpoint lessons cover repeating report counters, service identity versus names, shared egress addresses and recorded versus ingested timestamps. Official Microsoft DeviceInfo schema and sample query read. Tests use fictional records and aware UTC dates; no tenant data, logs, addresses, credentials or settings accessed. Field semantics are specific to the cited table, not universal EDR claims.
+
+Validation: six new scope/source/model tests pass. All 507 test_*.py cases ran: 505 passed and two pre-existing staged-package cases skipped. All 62 configured Python cases and site checks passed. Exact isolated QA bytes verified. All 91 endpoint records retain their original IDs and fields except the three approved fields of four selected lessons. Synthetic record grouping and UTC ordering verify examples, not a real EDR pipeline or endpoint security. No full package, full suite or physical-device validation is claimed. Hosted media failures remain unwaived. No merge, deployment, UI, live behavior, security settings or personal history changed.
