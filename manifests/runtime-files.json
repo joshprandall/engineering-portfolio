@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "sourceCommit": "434aff51f50aa699d3ecb3ada24daef943e7f3d1",
+  "sourceCommit": "94dd1e3f360e6ac4afe087f13cc6d28b894f30ff",
   "bytePolicy": "Exact Git blobs; artifacts verified against committed SHA-256 and size.",
   "files": [
     {
@@ -1060,11 +1060,11 @@
     },
     {
       "path": "deep-learning/cloud/recovery.json",
-      "size": 423156,
-      "sha256": "765425b30ce80565420c32d28116641e6775f1f1d3442287a04a182c707aa715",
+      "size": 425499,
+      "sha256": "72f30470b4365deb78855ff439115e7a54ccc04d1533d87cbb6020f8c46c8976",
       "source": {
         "kind": "git-blob",
-        "blob": "98d49fbcd3baab23e95f36080f8fb3039663c15d"
+        "blob": "d71d465336ef325b46d40d9babdb24fabf407ef5"
       },
       "owningComponent": "deep-learning",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -3716,5 +3716,5 @@
     }
   ],
   "fileCount": 334,
-  "byteSize": 446306653
+  "byteSize": 446308996
 }
