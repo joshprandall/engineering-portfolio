@@ -1079,14 +1079,17 @@ const capacityFollowupIds = new Set([
   'leadership-v08-evidence-lab-graceful-degradation-under-overload'
 ]);
 
+const financeCheckpoint = JSON.parse(zlib.gunzipSync(fs.readFileSync(path.join(__dirname, 'baselines', 'tco-boundaries.json.gz'))).toString('utf8'));
+const financeFollowupIds = new Set(["leadership-v09-failure-analysis-lab-total-cost-of-ownership", "leadership-v09-design-review-total-cost-of-ownership", "leadership-v09-failure-analysis-l-total-cost-of-ownership-2", "leadership-v09-design-review-total-cost-of-ownership-2"]);
+
 test('exactly the authored lessons changed, and only their question, reasoning and lab fields', () => {
   const authored = new Set(cases.map(c => c.id));
   assert.equal(authored.size, 174);
   for (const c of chunks) {
     assert.deepEqual(Object.keys(current[c]), Object.keys(baseline[c]), c + ': lesson IDs and order are unchanged');
     for (const id of Object.keys(baseline[c])) {
-      const before = baseline[c][id], after = c === 'capacity' ? capacityCheckpoint[id] : current[c][id];
-      if (c === 'capacity' && authored.has(id)) assert.deepEqual(current[c][id], after, id + ': original authored lesson remains exact');
+      const before = baseline[c][id], after = c === 'capacity' ? capacityCheckpoint[id] : c === 'finance' ? financeCheckpoint[id] : current[c][id];
+      if ((c === 'capacity' || c === 'finance') && authored.has(id)) assert.deepEqual(current[c][id], after, id + ': original authored lesson remains exact');
       const diff = [...new Set([...Object.keys(before), ...Object.keys(after)])].filter(f => JSON.stringify(before[f]) !== JSON.stringify(after[f]));
       if (authored.has(id)) assert.deepEqual(diff.sort(), ['essentialQuestion', 'labPlan', 'reasoningSteps'], id);
       else assert.deepEqual(diff, [], id + ' must be untouched');
@@ -1107,6 +1110,22 @@ test('capacity follow-up changes exactly four lessons and only approved fields',
     const before = capacityCheckpoint[id], after = current.capacity[id];
     const diff = [...new Set([...Object.keys(before), ...Object.keys(after)])].filter(f => JSON.stringify(before[f]) !== JSON.stringify(after[f]));
     assert.deepEqual(diff.sort(), capacityFollowupIds.has(id) ? ['essentialQuestion', 'labPlan', 'reasoningSteps'] : [], id);
+  }
+});
+
+test('finance follow-up changes exactly four lessons and only approved fields', () => {
+  assert.equal(financeFollowupIds.size, 4);
+  assert.equal(Object.keys(current.finance).length, 66);
+  assert.deepEqual(Object.keys(current.finance), Object.keys(financeCheckpoint));
+  const originalIds = new Set(cases.map(c => c.id));
+  for (const id of financeFollowupIds) {
+    assert.ok(Object.hasOwn(financeCheckpoint, id), id);
+    assert.ok(!originalIds.has(id), id + ': no original authored lesson replaced');
+  }
+  for (const id of Object.keys(financeCheckpoint)) {
+    const before = financeCheckpoint[id], after = current.finance[id];
+    const diff = [...new Set([...Object.keys(before), ...Object.keys(after)])].filter(f => JSON.stringify(before[f]) !== JSON.stringify(after[f]));
+    assert.deepEqual(diff.sort(), financeFollowupIds.has(id) ? ['essentialQuestion', 'labPlan', 'reasoningSteps'] : [], id);
   }
 });
 
