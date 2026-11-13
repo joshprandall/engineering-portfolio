@@ -6165,6 +6165,10 @@
         {
           "source": "deep-learning/cyber/governance.json",
           "evidence": "current-runtime"
+        },
+        {
+          "source": "deep-learning/leadership/governance.json",
+          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
