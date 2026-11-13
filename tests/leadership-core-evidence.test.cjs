@@ -1051,9 +1051,27 @@ add('recovery',"leadership-v10-verification-lab-recovery-time-objective",[SOURCE
 add('recovery',"leadership-v10-decision-matrix-lab-recovery-time-objective",[SOURCES.nist],["55 minutes", "5 minutes", "75 minutes", "15", "65", "approved"]);
 add('recovery',"leadership-v10-trace-lab-recovery-time-objective",[SOURCES.nist],["50 minutes", "55", "5 minutes", "person-minutes", "unsynchronized"]);
 
+// Independent bounded-clock, sample, retention and transaction consistency calculations.
+{
+ assert.equal(719-716,3);assert.equal(721-714,7);assert.equal(720-715,5);
+ assert.equal(20-8,12);assert.equal(12-5,7);
+ const ages=[2,3,4,6,7,12];assert.equal((ages.reduce((a,b)=>a+b)/ages.length).toFixed(4),'5.6667');assert.equal((ages.filter(x=>x<=10).length/ages.length*100).toFixed(4),'83.3333');assert.equal(Math.max(...ages),12);
+ assert.equal(15*60+7,907);assert.equal(7-0,7);
+ assert.equal(500+300,800);assert.equal(400+400,800);assert.equal(400+300,700);assert.equal(500+400,900);
+ assert.equal(20-0,20);assert.equal(10000-9500,500);assert.equal(500/100,5);assert.equal(500/250,2);
+}
+add('recovery',"leadership-v10-reasoning-check-recovery-point-objective",[SOURCES.nist],["5 minutes", "3 minutes", "7 minutes", "3 to 7", "unresolved"]);
+add('recovery',"leadership-v10-mistake-hunt-recovery-point-objective",[SOURCES.nist],["transaction 108", "transaction 120", "12-minute", "7 minutes", "dependent"]);
+add('recovery',"leadership-v10-confidence-calibration-recovery-point-objective",[SOURCES.nist],["5.6667 minutes", "83.3333%", "12 minutes", "2", "unobserved"]);
+add('recovery',"leadership-v10-decision-brief-recovery-point-objective",[SOURCES.nist],["907 minutes", "7-minute", "15-minute", "older history"]);
+add('recovery',"leadership-v10-design-critique-recovery-point-objective",[SOURCES.nist],["combined 700", "instead of 800", "combined 900", "consistent cut"]);
+add('recovery',"leadership-v10-retrieval-ladder-recovery-point-objective",[SOURCES.nist],["20 minutes", "zero", "5 minutes", "no-loss"]);
+add('recovery',"leadership-v10-concept-connection-recovery-point-objective",[SOURCES.nist],["500 transactions", "5 minutes", "2 minutes", "contiguous suffix", "scattered"]);
+add('recovery',"leadership-v10-evidence-reading-recovery-point-objective",[SOURCES.nist],["tolerance or target", "3-minute achieved gap", "confuses RPO with RTO", "separate claims"]);
+
 test('exactly the authored lessons changed, and only their question, reasoning and lab fields', () => {
   const authored = new Set(cases.map(c => c.id));
-  assert.equal(authored.size, 166);
+  assert.equal(authored.size, 174);
   for (const c of chunks) {
     assert.deepEqual(Object.keys(current[c]), Object.keys(baseline[c]), c + ': lesson IDs and order are unchanged');
     for (const id of Object.keys(baseline[c])) {
