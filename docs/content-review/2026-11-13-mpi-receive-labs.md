@@ -1,0 +1,5 @@
+# MPI receive envelope and capacity labs
+
+Four advanced labs distinguish exact envelope matching, source/tag wildcard scope, shorter messages and separate capacity failure. Open MPI MPI_Recv reference read, including communicator context, maximum count, suffix preservation and error-handler limitations. CPU-only envelope/list models, no MPI runtime or network execution. Local preflight rejection explicitly not a real post-truncation buffer guarantee. Earlier quorum lessons and oracles preserved.
+
+Validation: six new scope/source/envelope-and-capacity tests pass. All 695 discovery cases ran: 693 passed and two existing staged-package skips. All 62 configured Python cases, site checks and 184 leadership Node cases passed. Exact QA bytes checked. Only three approved fields in four of 90 advanced lab records changed. Earlier quorum records and original oracles remain exact through an immutable checkpoint. Full source baseline 2abbc25 remains most recent. No MPI execution, messages, error-handler changes, fresh package or live acceptance claimed. Historical media failures and 19 missing assets remain unwaived. No UI or deployment changes.
