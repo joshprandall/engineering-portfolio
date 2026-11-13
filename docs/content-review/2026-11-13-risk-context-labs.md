@@ -1,0 +1,5 @@
+# Risk assessment context labs
+
+Four distinct risk-matrix labs develop time horizons versus event counts, partial-order comparisons, explicit category cutoffs and assessment-context compatibility. NIST SP800-30r1 sections2.3.2 and2.3.4 read. Invented scales and predicates explicitly distinguished from NIST prescriptions. Prior ordinal-recoding and expected-loss examples deliberately not repeated; earlier PKCE records and RFC oracles preserved.
+
+Validation: six new scope/source/computational tests pass, including exact enumeration of 4,096 month sequences. All 689 discovery cases ran: 687 passed and two existing staged-package skips. All 62 configured Python cases, site checks and 184 leadership Node cases passed. Exact QA bytes checked. Only three approved fields in four of 93 cyber lab records changed. Earlier PKCE records and RFC test-vector oracles remain exact through an immutable checkpoint. Full source baseline 2abbc25 passed before this batch. No real risk acceptance, controls, communications, fresh package or live acceptance claimed. Historical media failures and 19 missing assets remain unwaived. No UI or deployment changes.
