@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "sourceCommit": "876e3719fca15347a38446fdf85e18774fadc26e",
+  "sourceCommit": "9d5e647ad59664f2238e1bf78da485e471de751a",
   "bytePolicy": "Exact Git blobs; artifacts verified against committed SHA-256 and size.",
   "files": [
     {
@@ -1489,11 +1489,11 @@
     },
     {
       "path": "deep-learning/physics/electricity.json",
-      "size": 574163,
-      "sha256": "399c30dadb6810d8dc57006bb0531a6863a56a821304c553e0494e95d3226044",
+      "size": 577436,
+      "sha256": "057e9edec3fce6274f062ad3faf041f81c69733be3064aa9f9b4f364af6ee47a",
       "source": {
         "kind": "git-blob",
-        "blob": "270905c3fd410d09273ee841e927d5aa777d7ed4"
+        "blob": "f04506abda31eddaf4e456d74d3b5f1ba7f2f201"
       },
       "owningComponent": "deep-learning",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -3716,5 +3716,5 @@
     }
   ],
   "fileCount": 334,
-  "byteSize": 446208188
+  "byteSize": 446211461
 }
