@@ -1,0 +1,5 @@
+# Ideal qubit measurement boundaries
+
+Four original physics lessons cover complex amplitude magnitudes, global versus relative phase and conditional repeated measurement versus fresh preparation. Read Microsoft qubit concepts after the older IBM course URL proved unavailable. Correct normalized Hadamard definition is stated explicitly and checked through H-squared identity. Tests are mathematical ideal-state calculations, not hardware or service experiments.
+
+Validation: six new scope/source/model tests pass. All 525 test_*.py cases ran: 523 passed and two pre-existing staged-package cases skipped. All 62 configured Python cases and site checks passed. Exact isolated QA bytes verified. All 90 physics quantum records retain their original IDs and fields except the three approved fields of four selected lessons. Complex-vector calculations verify ideal measurement probabilities and phase distinctions with explicit tolerances, not noisy hardware outcomes. No full package, full suite or physical-device validation is claimed. Hosted media failures remain unwaived. No merge, deployment, UI, live behavior, security settings or personal history changed.
