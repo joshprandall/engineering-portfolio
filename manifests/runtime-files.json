@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "sourceCommit": "07f0d616006aff1e2bf77f52376396911fbb686a",
+  "sourceCommit": "e9e277c9abac1842a28c5753a7a51f65c587f6a9",
   "bytePolicy": "Exact Git blobs; artifacts verified against committed SHA-256 and size.",
   "files": [
     {
@@ -994,11 +994,11 @@
     },
     {
       "path": "deep-learning/cloud/identity.json",
-      "size": 420018,
-      "sha256": "343511ee6557b2e0cad3006fe1526b1720ed18c30fa1acce05b0fc136cc7ecb8",
+      "size": 421697,
+      "sha256": "21a712668ae2a2135c1e5c27ea22b274947f8d834c1198c38480374c4d0f92bd",
       "source": {
         "kind": "git-blob",
-        "blob": "75a7b88d144b8cd6527ae395d9ddca788170e60a"
+        "blob": "0f9d3c4684d6df40b6aae1a38eae7bb7c473c73b"
       },
       "owningComponent": "deep-learning",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -3716,5 +3716,5 @@
     }
   ],
   "fileCount": 334,
-  "byteSize": 446289754
+  "byteSize": 446291433
 }
