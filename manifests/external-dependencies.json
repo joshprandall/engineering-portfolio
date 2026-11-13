@@ -2104,6 +2104,20 @@
       "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
     },
     {
+      "url": "https://docs.python.org/3/library/stdtypes.html#set-types-set-frozenset",
+      "consumers": [
+        {
+          "source": "deep-learning/math/discrete-math.json",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
       "url": "https://docs.python.org/3/library/struct.html.",
       "consumers": [
         {
@@ -6322,6 +6336,20 @@
       "consumers": [
         {
           "source": "deep-learning/math/algebra.json",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
+      "url": "https://openstax.org/books/college-algebra-2e/pages/9-5-counting-principles",
+      "consumers": [
+        {
+          "source": "deep-learning/math/discrete-math.json",
           "evidence": "current-runtime"
         }
       ],
