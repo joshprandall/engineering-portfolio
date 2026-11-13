@@ -14,3 +14,7 @@ Only essentialQuestion, reasoningSteps and labPlan changed. Counts and policies 
 Primary source reread: https://sre.google/sre-book/addressing-cascading-failures/, particularly bimodal latency, retries, deadline propagation and cancellation propagation. The source snapshot hash is recorded in the adjacent cascade/degradation review. Numerical fixtures here are original rather than the source's examples.
 
 100 focused tests passed, including independent calculations, boundaries, counterexamples and exact field scope. Full aggregate results follow. Metadata refresh remains limited to the exact committed lesson blob; no redundant full package or deployment is claimed. The WebKit history-return failure is still unwaived.
+
+Previous checkpoint 49e1b85 completed both hosted workflows successfully, including all real-browser gates (Site validation run 43380547045). This is a passing observation, not proof that the previously observed intermittent history-return issue has been repaired: runtime bytes are unchanged. No prior failure was suppressed or waived.
+
+Full npm aggregate passed: 1,064 curriculum tests plus other Node and Python suites. All 12 existing cascading-failure lessons now have specific questions; this is not a claim that the entire curriculum is complete. Narrow exact-blob manifest refresh retains 334 paths and changes only reliability.json: 481,431 bytes, SHA-256 c771e176c9aa29585c8257bc4def971e56965cb97cbac3893570322abaef7ce2. Aggregate manifest size is 446,045,438 bytes. No new full-package build, runtime change, merge or deployment.
