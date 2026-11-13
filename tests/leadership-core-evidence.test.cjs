@@ -1199,7 +1199,9 @@ test('projects follow-up changes exactly four lessons and only approved fields',
     assert.ok(!originalIds.has(id), id + ': no original authored lesson replaced');
   }
   for (const id of Object.keys(projectsCheckpoint)) {
-    const before = projectsCheckpoint[id], after = current.projects[id];
+    const costCheckpoint = JSON.parse(zlib.gunzipSync(fs.readFileSync(path.join(__dirname, 'baselines', 'sprint-outcome-labs.json.gz'))).toString('utf8'));
+    const before = projectsCheckpoint[id], after = costCheckpoint[id];
+    if (projectsFollowupIds.has(id)) assert.deepEqual(current.projects[id], after, id + ': original merge follow-up remains exact');
     const diff = [...new Set([...Object.keys(before), ...Object.keys(after)])].filter(f => JSON.stringify(before[f]) !== JSON.stringify(after[f]));
     assert.deepEqual(diff.sort(), projectsFollowupIds.has(id) ? ['essentialQuestion', 'labPlan', 'reasoningSteps'] : [], id);
   }

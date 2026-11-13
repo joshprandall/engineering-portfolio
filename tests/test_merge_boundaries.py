@@ -5,8 +5,10 @@ IDS=["leadership-v09-quick-reference-roadmaps-sequence-outcomes-not-wish-lists",
 TABLES=[(F(9,25),F(6,25),F(6,25),F(4,25)),(F(3,5),F(0),F(0),F(2,5)),(F(1,5),F(2,5),F(2,5),F(0))]
 class MergeBoundaries(unittest.TestCase):
  def test_scope(self):
-  b=json.loads(gzip.decompress((R/'tests/baselines/merge-boundaries.json.gz').read_bytes()));d=json.loads((R/'deep-learning/leadership/projects.json').read_bytes())
+  b=json.loads(gzip.decompress((R/'tests/baselines/merge-boundaries.json.gz').read_bytes()));d=json.loads(gzip.decompress((R/'tests/baselines/sprint-outcome-labs.json.gz').read_bytes()))
   self.assertEqual(list(b),list(d));self.assertEqual(len(d),66)
+  current=json.loads((R/'deep-learning/leadership/projects.json').read_bytes())
+  for k in IDS:self.assertEqual(d[k],current[k],k)
   for k in b:
    changes={f for f in set(b[k])|set(d[k]) if b[k].get(f)!=d[k].get(f)}
    self.assertEqual(changes,{'essentialQuestion','reasoningSteps','labPlan'} if k in IDS else set(),k)
