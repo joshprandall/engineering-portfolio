@@ -1,0 +1,124 @@
+{
+  "sourceCommit": "dc17d95fc862e4e6469108c26f435a7fdb13c2a8",
+  "runId": 43393420363,
+  "jobId": 131778523712,
+  "capturedFrom": "GitHub Actions job log AUDIO_TRANSITION_EVIDENCE line",
+  "evidence": {
+    "schemaVersion": 1,
+    "transitions": {
+      "beach": {
+        "scene": "birds-water",
+        "key": "beach"
+      },
+      "silenced": {
+        "pending": "forest-waterfall",
+        "beach": [
+          {
+            "level": 0,
+            "muted": true,
+            "paused": true
+          },
+          {
+            "level": 0,
+            "muted": true,
+            "paused": true
+          },
+          {
+            "level": 0.05000000074505806,
+            "muted": true,
+            "paused": true
+          },
+          {
+            "level": 0,
+            "muted": true,
+            "paused": true
+          }
+        ],
+        "allOutputs": [
+          {
+            "level": 0,
+            "muted": true,
+            "paused": true
+          },
+          {
+            "level": 0,
+            "muted": true,
+            "paused": true
+          },
+          {
+            "level": 0,
+            "muted": true,
+            "paused": true
+          },
+          {
+            "level": 0.05000000074505806,
+            "muted": true,
+            "paused": true
+          },
+          {
+            "level": 0,
+            "muted": true,
+            "paused": true
+          }
+        ],
+        "mediaElements": [
+          {
+            "id": "jr-site-audio",
+            "paused": true,
+            "muted": true,
+            "volume": 1
+          },
+          {
+            "id": "jr-site-audio-dark-a",
+            "paused": true,
+            "muted": true,
+            "volume": 1
+          },
+          {
+            "id": "jr-site-audio-dark-b",
+            "paused": true,
+            "muted": true,
+            "volume": 1
+          },
+          {
+            "id": "jr-site-audio-beach-a",
+            "paused": true,
+            "muted": true,
+            "volume": 1
+          },
+          {
+            "id": "jr-site-audio-beach-b",
+            "paused": true,
+            "muted": true,
+            "volume": 1
+          }
+        ]
+      },
+      "waterfall": {
+        "scene": "forest-waterfall",
+        "pending": "",
+        "key": "waterfall"
+      }
+    },
+    "inspectedOutputIndices": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "violations": [
+      {
+        "outputIndex": 3,
+        "reasons": [
+          "level-not-exactly-zero"
+        ],
+        "observed": {
+          "level": 0.05000000074505806,
+          "muted": true,
+          "paused": true
+        }
+      }
+    ]
+  },
+  "interpretation": "Strict zero-gain predicate failed for beach-a while media was muted and paused; this does not establish audible playback or identify the writer of residual gain. No assertion changed or release waiver."
+}

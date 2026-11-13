@@ -73,10 +73,17 @@ class NullableJoinAntiMatchRegression(unittest.TestCase):
 class IntegrityAudit(unittest.TestCase):
     def test_only_three_allowed_fields_modified(self):
         baseline=json.loads(gzip.decompress((ROOT/"tests/baselines/software-databases.json.gz").read_bytes()).decode("utf-8"))
-        self.assertEqual(list(baseline),list(DATA))
+        # Chain the original 24-record audit through the immutable pre-foundations
+        # snapshot. The new suite independently permits exactly six core records;
+        # every original SQL case must still equal this snapshot byte-for-value.
+        checkpoint=json.loads(gzip.decompress((ROOT/"tests/baselines/database-foundations.json.gz").read_bytes()))
+        self.assertEqual(list(baseline),list(checkpoint))
+        self.assertEqual(list(checkpoint),list(DATA))
+        for case in CASES:
+            self.assertEqual(DATA[case["id"]],checkpoint[case["id"]])
         changed=[]
         for key in baseline:
-            a,b=baseline[key],DATA[key]
+            a,b=baseline[key],checkpoint[key]
             if a!=b:
                 changed.append(key)
                 self.assertEqual({k for k in a if a[k]!=b[k]}, {"essentialQuestion","reasoningSteps","labPlan"},msg=key)
