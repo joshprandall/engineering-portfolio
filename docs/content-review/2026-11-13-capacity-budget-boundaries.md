@@ -1,0 +1,5 @@
+# Overload capacity accounting boundaries
+
+Four original leadership lessons cover unequal request costs, bounded admission conservation, multi-resource degradation and success denominators. Read Google SRE Handling Overload on cost and graceful degradation. Tests verify explicitly ordered toy queues, exact ratios and separate resource budgets; no load test or production control changes. Existing two developed capacity lessons remain unchanged.
+
+Validation: six new scope/source/model tests pass. All 519 test_*.py cases ran: 517 passed and two pre-existing staged-package cases skipped. All 62 configured Python cases and site checks passed. Exact isolated QA bytes verified. All 73 capacity records retain their original IDs and fields except the three approved fields of four selected lessons. Exact accounting checks cover synthetic workload costs, exhaustive small queue states, resource vectors and denominator boundaries. Not a production load test. No full package, full suite or physical-device validation is claimed. Hosted media failures remain unwaived. No merge, deployment, UI, live behavior, security settings or personal history changed.
