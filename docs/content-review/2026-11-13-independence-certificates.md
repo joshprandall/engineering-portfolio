@@ -1,0 +1,5 @@
+# Exact linear-independence certificates
+
+Four mathematics labs replace generic prompts with nontrivial dependence certificates, a pairwise-independence counterexample, removable-column limits and exact rational perturbations. Georgia Tech Interactive Linear Algebra section2.5 read, including pivot criteria and the warning that not every vector in a dependent collection is redundant. Small exact examples only, not a numerical-rank tolerance policy. Earlier quadrature examples and oracles preserved.
+
+Validation: six new scope/source/exact-algebra tests pass. All 665 discovery cases ran: 663 passed and two pre-existing staged-package skips. All 62 configured Python cases, site checks and 184 leadership Node cases passed. Exact isolated QA bytes checked. Only three approved fields in four of 100 math lab records changed. Earlier quadrature records and rational numerical-integration oracles remain exact through an immutable scope checkpoint. Full source baseline 876a0b5 remains most recent; no fresh package, hosted, live or physical-device acceptance claimed. Historical media failures and 19 missing package assets remain unwaived. No UI or deployment changes.
