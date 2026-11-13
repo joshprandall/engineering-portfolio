@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "sourceCommit": "0f79eaf9a216c7c810cbfd9a93e7bb8d357e44c8",
+  "sourceCommit": "1a5352c5707096c01de0d826b2b463c0c0d16801",
   "bytePolicy": "Exact Git blobs; artifacts verified against committed SHA-256 and size.",
   "files": [
     {
@@ -1225,11 +1225,11 @@
     },
     {
       "path": "deep-learning/leadership/finance.json",
-      "size": 311678,
-      "sha256": "8c380731f088677e67d646c0f0b51b30d58622130938d5390a92422c795fa5f0",
+      "size": 315536,
+      "sha256": "f8b17c8478ccc9d0467a35398897e0853d0465bfa27df22ece692c03a09a9a61",
       "source": {
         "kind": "git-blob",
-        "blob": "c3ff43d696d692537bf4180f09931ab553a4b681"
+        "blob": "cecfc6aaabc9c786a9ec7b4e7e2291a76b316c57"
       },
       "owningComponent": "deep-learning",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -1247,22 +1247,22 @@
     },
     {
       "path": "deep-learning/leadership/incidents.json",
-      "size": 361951,
-      "sha256": "06c561608afd50cb6f1a08a69596c02521bed8e6b1613742a2f0be21788490b2",
+      "size": 371587,
+      "sha256": "a181a3757a70e729aad69ce28c76b0ea328989e1913c704bcdaf96312f2f7eb2",
       "source": {
         "kind": "git-blob",
-        "blob": "cdc8dd8fe3f809173b6b88a4d3143bfafbd167e9"
+        "blob": "f95185a83c98e606e0cd30144fdb0f9457757467"
       },
       "owningComponent": "deep-learning",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "deep-learning/leadership/itsm.json",
-      "size": 319050,
-      "sha256": "b10b7d46402a3dc9e9829436758f43e60f71810b167cd043583f39af15b4acfa",
+      "size": 320904,
+      "sha256": "3576597823577d0f02c72a0f8744fd3eefa8a3fc4c69b944fc74e1ee5ef51af8",
       "source": {
         "kind": "git-blob",
-        "blob": "ab9227fd483852238dcf65a4db2a2008dbf490f0"
+        "blob": "2421bf7f731b931e0befff470d7108541996e20b"
       },
       "owningComponent": "deep-learning",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -1280,33 +1280,33 @@
     },
     {
       "path": "deep-learning/leadership/leadership.json",
-      "size": 307025,
-      "sha256": "099defed73f004db5c713b948e7fa1b8b92bb6eea5eb3f729c6226a3e054c156",
+      "size": 313464,
+      "sha256": "37f8b1fe25ce112d8523d41a140eb7862c8a8f33ff254f6b5b86a6f091c9ae8b",
       "source": {
         "kind": "git-blob",
-        "blob": "43cb5766f83acefda21050260c4b817a6cd77e19"
+        "blob": "dfffa60852b5a21fa0398f98ab2d9414f7468c18"
       },
       "owningComponent": "deep-learning",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "deep-learning/leadership/operations.json",
-      "size": 417782,
-      "sha256": "703a5d0a86e8416b24fc205d486b2e2726c8bc67bc413169c36bf36ea5aee3ea",
+      "size": 434266,
+      "sha256": "645f36e4448ff228b38d3c83fccd589a53d01f1ec00eef073eb6b041a64669c7",
       "source": {
         "kind": "git-blob",
-        "blob": "f162b30d266d941bf52642f621ad47285f7e3030"
+        "blob": "e5eae2e1245347d2f4c2eed66b42bca7e8bc1fc8"
       },
       "owningComponent": "deep-learning",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "deep-learning/leadership/projects.json",
-      "size": 269760,
-      "sha256": "b69d6a54fa78e1822712de25b2ea1f8ff15f17becb57499a22b48d987b2ff941",
+      "size": 272805,
+      "sha256": "cc2c5a3dc02313e7712a56f43942be4268f35a1e4c9c090ba4b0a075669c8ea2",
       "source": {
         "kind": "git-blob",
-        "blob": "a5db71da4542ec4cc0a1920920c2eded283f7ace"
+        "blob": "c9247b9195fd4d48c7768a3696630b1aba187b04"
       },
       "owningComponent": "deep-learning",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -1346,33 +1346,33 @@
     },
     {
       "path": "deep-learning/leadership/strategy.json",
-      "size": 295015,
-      "sha256": "3586186b2a8afd29f9c2e9fb67d44bb8091cfc5568e19178b6ae00486eb8b27f",
+      "size": 297966,
+      "sha256": "4055da29b83c4594e999c1126a0552f1a7770dbca5aa553a059de21aa556109a",
       "source": {
         "kind": "git-blob",
-        "blob": "fb3c1dcd888f12473de22e6bf755b03da35e092f"
+        "blob": "002e7ac49258250ac2fa99261ccd1dffb9ce5300"
       },
       "owningComponent": "deep-learning",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "deep-learning/leadership/teams.json",
-      "size": 281926,
-      "sha256": "0ad19762c4df011328b22bcc6573e6ea2a1fd2183c64ad75e26a5fe2f057b843",
+      "size": 284801,
+      "sha256": "c3e123fc6f2ce78fa6c59816746d9e4511d3c6906b5dd20059c842206ea8161b",
       "source": {
         "kind": "git-blob",
-        "blob": "a60f15467078503292abcff065cb9e2d4721c844"
+        "blob": "e89bb6b3c5b8361963b2f8e3c23198fee2dbfc8a"
       },
       "owningComponent": "deep-learning",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "deep-learning/leadership/vendors.json",
-      "size": 320103,
-      "sha256": "bc96aa21bea291450f8b54180b9ff75ac67b0d241321a3990ad7a88f050e9f7d",
+      "size": 323172,
+      "sha256": "d5e1f81ac7d90763409760f97f9b14c6d75315ae4c4e530a0897d1cf9b26e827",
       "source": {
         "kind": "git-blob",
-        "blob": "3fec1c7c85f401ed1066155cf3a478ccbce59825"
+        "blob": "55cdf0c1aa6f0d6a256d492c8b44c5daff4f4b5f"
       },
       "owningComponent": "deep-learning",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -3716,5 +3716,5 @@
     }
   ],
   "fileCount": 334,
-  "byteSize": 445946530
+  "byteSize": 445996741
 }
