@@ -7422,6 +7422,20 @@
       "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
     },
     {
+      "url": "https://openstax.org/books/precalculus-2e/pages/8-1-non-right-triangles-law-of-sines",
+      "consumers": [
+        {
+          "source": "deep-learning/math/trigonometry.json",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
       "url": "https://openstax.org/books/university-physics-volume-1/pages/1-4-dimensional-analysis.",
       "consumers": [
         {
