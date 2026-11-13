@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "sourceCommit": "4506f4273b862e3afbf40b769118ace6793e211b",
+  "sourceCommit": "a59c15cb05cdb1801ab4e72cbbb883f21852ea5b",
   "bytePolicy": "Exact Git blobs; artifacts verified against committed SHA-256 and size.",
   "files": [
     {
@@ -1258,11 +1258,11 @@
     },
     {
       "path": "deep-learning/leadership/itsm.json",
-      "size": 320904,
-      "sha256": "3576597823577d0f02c72a0f8744fd3eefa8a3fc4c69b944fc74e1ee5ef51af8",
+      "size": 322231,
+      "sha256": "81ff762cd9c1669b40c0503dbd98e14a7e805601198f2b692478e300f7919203",
       "source": {
         "kind": "git-blob",
-        "blob": "2421bf7f731b931e0befff470d7108541996e20b"
+        "blob": "2293d35dacc499d329603db9b892af71b877c10f"
       },
       "owningComponent": "deep-learning",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -3716,5 +3716,5 @@
     }
   ],
   "fileCount": 334,
-  "byteSize": 446258666
+  "byteSize": 446259993
 }
