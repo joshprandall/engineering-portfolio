@@ -76,18 +76,24 @@ class ProtocolEvidence(unittest.TestCase):
     def test_immutable_base_scope_and_permitted_fields(self):
         base=gzip.decompress((ROOT/"tests/baselines/software-apis.json.gz").read_bytes())
         old=json.loads(base.decode("utf-8"))
-        self.assertEqual(list(old),list(LESSONS))
-        changed=[k for k in old if old[k]!=LESSONS[k]]
+        # Later disjoint records have a separate full-record scope audit.
+        checkpoint=json.loads(gzip.decompress((ROOT/"tests/baselines/http-conditional-boundaries.json.gz").read_bytes()))
+        self.assertEqual(list(checkpoint),list(LESSONS))
+        for case in CASES:
+            self.assertEqual(LESSONS[case["id"]],checkpoint[case["id"]])
+        scoped=checkpoint
+        self.assertEqual(list(old),list(scoped))
+        changed=[k for k in old if old[k]!=scoped[k]]
         self.assertEqual({x["id"] for x in CASES},set(changed))
         allowed={"essentialQuestion","reasoningSteps","labPlan"}
         count=0
         for k in changed:
-            self.assertEqual(set(old[k]),set(LESSONS[k]))
+            self.assertEqual(set(old[k]),set(scoped[k]))
             for field in old[k]:
                 if field not in allowed:
-                    self.assertEqual(old[k][field],LESSONS[k][field],(k,field))
+                    self.assertEqual(old[k][field],scoped[k][field],(k,field))
                 else:
-                    self.assertNotEqual(old[k][field],LESSONS[k][field],(k,field))
+                    self.assertNotEqual(old[k][field],scoped[k][field],(k,field))
                     count+=1
         self.assertEqual(72,count)
 
