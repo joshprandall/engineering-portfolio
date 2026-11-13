@@ -1,0 +1,5 @@
+# Organizational-profile evidence boundaries
+
+Four original governance lessons separate mappings from evidence, partial achievement from unknown status, profile scope and plans from completed outcomes. Read official NIST CSF2.0 section3.1 from final CSWP29, not the obsolete 404 learning page. Synthetic local outcome labels and set bookkeeping are explicitly not official subcategory IDs, a compliance assessment or a risk score. No organizational data or external assignments used.
+
+Validation: six new scope/source/model tests pass. All 513 test_*.py cases ran: 511 passed and two pre-existing staged-package cases skipped. All 62 configured Python cases and site checks passed. Exact isolated QA bytes verified. All 113 governance records retain their original IDs and fields except the three approved fields of four selected lessons. Synthetic scope/status bookkeeping verifies examples, not CSF compliance, security effectiveness or risk prioritization. No full package, full suite or physical-device validation is claimed. Hosted media failures remain unwaived. No merge, deployment, UI, live behavior, security settings or personal history changed.
