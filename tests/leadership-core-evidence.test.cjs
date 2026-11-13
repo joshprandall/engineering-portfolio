@@ -1,8 +1,7 @@
 'use strict';
-// Core Leadership lessons (reliability, recovery, incidents, capacity, governance, labs,
-// operations, strategy): every number a lesson states is recomputed here from first principles,
-// the lesson scope is pinned against stored pre-change snapshots, and each lesson must cite a
-// verified primary source.
+// Authored Leadership lessons in every chunk this test lists: every number a lesson states is
+// recomputed here from first principles, the lesson scope is pinned against stored pre-change
+// snapshots, and each lesson must cite a source whose content was checked before it was cited.
 const test = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
@@ -10,7 +9,7 @@ const path = require('node:path');
 const zlib = require('node:zlib');
 
 const root = path.resolve(__dirname, '..');
-const chunks = ['reliability', 'recovery', 'incidents', 'capacity', 'governance', 'lab', 'operations', 'strategy'];
+const chunks = ['reliability', 'recovery', 'incidents', 'capacity', 'governance', 'lab', 'operations', 'strategy', 'finance', 'itsm', 'leadership', 'projects', 'teams', 'vendors'];
 const current = {};
 const baseline = {};
 for (const c of chunks) {
@@ -33,7 +32,25 @@ const SOURCES = {
   overload: 'https://sre.google/sre-book/handling-overload/',
   alerts: 'https://sre.google/workbook/alerting-on-slos/',
   nistIR: 'https://doi.org/10.6028/NIST.SP.800-61r3',
-  little: 'https://doi.org/10.1287/opre.9.3.383'
+  little: 'https://doi.org/10.1287/opre.9.3.383',
+  ebp: 'https://sre.google/workbook/error-budget-policy/',
+  gao: 'https://gaoinnovations.gov/cost-guide/types-of-cost-estimates.html',
+  ias16: 'https://www.ifrs.org/content/dam/ifrs/publications/html-standards/english/2024/issued/ias16.html',
+  sp80084: 'https://doi.org/10.6028/NIST.SP.800-84',
+  csfExamples: 'https://www.nist.gov/system/files/documents/2024/02/21/CSF%202.0%20Implementation%20Examples.pdf',
+  dora: 'https://dora.dev/capabilities/streamlining-change-approval/',
+  yukl: 'https://core.ac.uk/download/205208894.pdf',
+  flinchum: 'https://ninercommons.charlotte.edu/record/2294/files/Flinchum_uncc_0694D_13278.pdf',
+  kluger: 'https://doi.org/10.1037/0033-2909.119.2.254',
+  plain: 'https://digital.gov/guides/plain-language/principles/organize',
+  vogels: 'https://queue.acm.org/detail.cfm?id=1142065',
+  raci: 'https://towardszero.nsw.gov.au/sites/default/files/2021-05/RACI%20matrix.pdf',
+  roadmap: 'https://www.gov.uk/service-manual/agile-delivery/developing-a-roadmap',
+  cunningham: 'https://c2.com/doc/oopsla92.html',
+  edmondson: 'https://doi.org/10.2307/2666999',
+  siop: 'https://www.siop.org/tip-article/is-cognitive-ability-the-best-predictor-of-job-performance',
+  scrm: 'https://doi.org/10.6028/NIST.SP.800-161r1-upd1',
+  dataAct: 'https://eur-lex.europa.eu/eli/reg/2023/2854/oj'
 };
 
 const fmt = (x, digits = 0) => x.toLocaleString('en-US', { minimumFractionDigits: digits, maximumFractionDigits: digits });
@@ -246,9 +263,242 @@ const add = (chunk, id, sources, expectations) => cases.push({ chunk, id, source
     ['≈ ' + a + ' risky', 'about ' + b, a + ' releases × 5 minutes = ' + a * perRelease + ' minutes', '≈ ' + c + ' risky releases']);
 }
 
+// ---- Third batch: the original core lessons in every Leadership chunk.
+const usd = (x) => '$' + fmt(Math.round(x));
+{ // total cost of ownership
+  const a = 30000 + 10000 + 5 * (40000 + 15000) + 10000;
+  const b = 80000 + 10000 + 5 * (12000 + 60000) + 20000;
+  const aYear1 = 30000 + 10000 + 40000 + 15000, bYear1 = 80000 + 10000 + 12000 + 60000;
+  assert.equal(aYear1 + 4 * 55000 + 10000, a);
+  assert.equal(bYear1 + 4 * 72000 + 20000, b);
+  const b2 = 80000 + 10000 + 5 * (12000 + 30000) + 20000;
+  assert.ok(b2 < a, 'halving the administrator time flips the ranking');
+  add('finance', 'leadership-tco', [SOURCES.gao], [usd(a), usd(b), usd(5 * 40000), usd(b - a), usd(aYear1), usd(bYear1), usd(b2)]);
+}
+{ // capital versus operating spending
+  const cost = 240000, life = 4, maintenance = 12000, rent = 7000 * 12;
+  const dep = cost / life;
+  assert.equal(life * dep, cost);
+  assert.equal(life * (dep + maintenance), cost + life * maintenance, 'expense and cash agree over the whole life');
+  add('finance', 'leadership-budget-capex-opex', [SOURCES.ias16],
+    [usd(dep), usd(cost + maintenance), usd(dep + maintenance), usd(rent), usd(life * (dep + maintenance)), usd(life * rent), usd(cost / 3), usd(cost / 3 + maintenance)]);
+}
+{ // incident command timeline
+  const detect = minutes('14:05'), declare = minutes('14:20'), rollback = minutes('14:50'), normal = minutes('14:58');
+  const parts = [declare - detect, rollback - declare, normal - rollback];
+  assert.equal(parts.reduce((x, y) => x + y), normal - detect);
+  add('incidents', 'leadership-incident-command', [SOURCES.incidents],
+    [(normal - detect) + ' minutes', parts[0] + ' minutes from first error', parts[1] + ' minutes from declaration', parts[2] + ' minutes of recovery']);
+}
+{ // tabletop exercise
+  const total = 2 + 3 * 4 + 6, rate = 300, lag = 6, rpo = 5;
+  assert.equal(total, 20);
+  add('incidents', 'lab-incident-tabletop', [SOURCES.sp80084],
+    [total + ' minutes', fmt(lag * rate) + ' orders', fmt(rpo * rate), (lag - rpo) * rate + ' orders', fmt(3 * rate) + ' orders']);
+}
+{ // severity rubric
+  const level = (t) => t >= 8 ? 'SEV1' : t >= 5 ? 'SEV2' : 'SEV3';
+  const dash = [1, 1, 1], pay = [3, 3, 3], dashDeadline = [1, 1, 3];
+  const sum = (v) => v.reduce((x, y) => x + y);
+  assert.equal(level(sum(dash)), 'SEV3');
+  assert.equal(level(sum(pay)), 'SEV1');
+  assert.equal(level(sum(dashDeadline)), 'SEV2');
+  add('incidents', 'leadership-severity', [SOURCES.csfExamples],
+    [dash.join(' + ') + ' = ' + sum(dash) + ', which is SEV3', pay.join(' + ') + ' = ' + sum(pay) + ', which is SEV1',
+     fmt(20000 * 0.03) + ' failed payments', dashDeadline.join(' + ') + ' = ' + sum(dashDeadline) + ' and the incident becomes SEV2']);
+}
+{ // one-page postmortem lab
+  const rate = 1200, share = 0.4;
+  const start = minutes('10:04'), alert = minutes('10:19'), back = minutes('10:31'), ok = minutes('10:36');
+  const dur = ok - start, failed = Math.round(rate * dur * share);
+  const parts = [alert - start, back - alert, ok - back];
+  assert.equal(parts.reduce((x, y) => x + y), dur);
+  const faster = dur - (alert - start) + 5, failedFaster = Math.round(rate * faster * share);
+  add('incidents', 'leadership-lab-postmortem', [SOURCES.postmortem],
+    [dur + ' minutes', fmt(failed), parts.join(' + ') + ' = ' + dur, 'about ' + faster + ' minutes', fmt(failedFaster), fmt(failed - failedFaster) + ' fewer']);
+}
+{ // postmortem criteria applied to four events
+  const events = [{ degraded: 3 }, { dataLoss: true }, { degraded: 6, rollback: true }, { monitoringFailure: true }];
+  const needs = (e, threshold) => (e.degraded || 0) > threshold || !!e.dataLoss || !!e.rollback || (e.resolution || 0) > 60 || !!e.monitoringFailure;
+  const at10 = events.filter(e => needs(e, 10)).length, at2 = events.filter(e => needs(e, 2)).length;
+  assert.equal(at10, 3);
+  assert.equal(at2, 4);
+  add('incidents', 'leadership-postmortem-practice', [SOURCES.postmortem], [at10 + ' of the 4 events', at2 + ' of 4 events']);
+}
+{ // incident roles and interruptions
+  const length = 90, ask = 15, people = 6, cost = 3;
+  const asks = length / ask, interruptions = people * asks;
+  const faster = people * (length / 10);
+  add('incidents', 'leadership-incident-roles', [SOURCES.incidents],
+    [length + ' / ' + ask + ' = ' + asks, people + ' × ' + asks + ' = ' + interruptions, interruptions * cost + ' minutes', length / 30 + ' scheduled updates', people + ' × ' + length / 10 + ' = ' + faster]);
+}
+{ // change management
+  const users = 200000, detect = 10, canary = users * 0.01;
+  let rounds = 0; while (2 ** rounds < 40) rounds++;
+  assert.ok(2 ** 5 < 40 && 40 <= 2 ** 6 && rounds === 6);
+  add('itsm', 'leadership-change', [SOURCES.intro, SOURCES.dora],
+    [fmt(users * detect) + ' user-minutes', fmt(canary * detect) + ' user-minutes', 'up to ' + rounds + ' rounds', '70%', fmt(users * 2) + ' user-minutes', fmt(canary * 2)]);
+}
+{ // delegation
+  const each = 30, total = 30, under = 26, reviews = 3;
+  const taskHours = total * each / 60, outcomeHours = (total - under) * each / 60 + reviews;
+  const lower = (total - 18) * each / 60 + reviews;
+  add('leadership', 'leadership-delegation', [SOURCES.yukl],
+    [taskHours + ' hours in total', outcomeHours + ' hours a quarter', taskHours + ' − ' + outcomeHours + ' = ' + (taskHours - outcomeHours) + ' hours',
+     under + ' / ' + total + ' ≈ ' + Math.round(100 * under / total) + '%', (total - 18) * each / 60 + ' hours, plus', 'for ' + lower + ' hours']);
+}
+{ // one-on-ones
+  const reports = 8, length = 30, weeksPerMonth = 52 / 12;
+  const weekly = reports * length;
+  add('leadership', 'leadership-one-on-one', [SOURCES.flinchum],
+    [reports + ' × ' + length + ' = ' + weekly + ' minutes', weekly / 60 + ' hours a week', weekly / 120 + ' hours a week', 'about ' + Math.round(weekly / weeksPerMonth) + ' minutes a week',
+     '52 / 12 ≈ ' + weeksPerMonth.toFixed(2), 12 * length / 60 + ' hours a week', '303 participants']);
+}
+{ // feedback meta-analysis
+  const d = 0.41;
+  add('leadership', 'leadership-feedback', [SOURCES.kluger],
+    ['607 effect sizes', '23,663 observations', 'd = 0.41', 'about ' + (d * 10).toFixed(1) + ' points', 'about ' + (d * 6).toFixed(2) + ' points', 'more than ' + 30 / 3]);
+}
+{ // executive communication
+  const p = 0.25, cost = 60000, years = 3, upfront = 48000, yearly = 6000;
+  const without = p * 4 * cost, residual = Math.round(p * (10 / 60) * cost);
+  const withTotal = upfront + years * (yearly + residual);
+  const p2 = 0.1, without2 = p2 * 4 * cost * years, with2 = upfront + years * (yearly + Math.round(p2 * (10 / 60) * cost));
+  add('leadership', 'leadership-exec-communication', [SOURCES.plain],
+    [usd(without) + ' a year', usd(years * without) + ' over three years', usd(residual) + ' a year', usd(withTotal), usd(years * without - withTotal),
+     usd(without2), usd(with2), usd(without2 - with2)]);
+}
+{ // blameless postmortem with accountability
+  add('operations', 'leadership-postmortem', [SOURCES.postmortem],
+    ['120 × 0.02 = ' + (120 * 0.02).toFixed(1), '120 × 0.001 = ' + (120 * 0.001).toFixed(2), '20 × 0.001 = ' + (20 * 0.001).toFixed(2)]);
+}
+{ // quarterly error budget
+  const quarter = 90 * 24 * 60, budget = quarter * 0.0005, used = 22 + 18;
+  assert.ok(close(quarter - quarter * 0.9995, budget, 1e-6));
+  add('operations', 'leadership-error-budget', [SOURCES.risk],
+    [fmt(quarter) + ' minutes', budget.toFixed(1) + ' minutes', budget.toFixed(1) + ' − ' + used + ' = ' + (budget - used).toFixed(1), 'about ' + Math.round(100 * (budget - used) / budget) + '%',
+     fmt(quarter * 0.9995, 1), (quarter * 0.001).toFixed(1) + ' minutes', (quarter * 0.001 - used).toFixed(1) + ' remain']);
+}
+{ // runbook checks
+  const p = 0.01, q = 0.001;
+  add('operations', 'leadership-runbook', [SOURCES.intro],
+    ['0.99^12 ≈ ' + ((1 - p) ** 12).toFixed(3), 'about ' + pct(1 - (1 - p) ** 12, 1), '0.999^12 ≈ ' + ((1 - q) ** 12).toFixed(3), 'about ' + pct(1 - (1 - q) ** 12, 2),
+     'about ' + pct(1 - (1 - p) ** 24, 1), 'about ' + pct(1 - (1 - q) ** 24, 2), '3x']);
+}
+{ // service ownership
+  add('operations', 'leadership-service-owner', [SOURCES.vogels], ['10 × 25 = ' + 10 * 25 + ' minutes', '4 × 25 = ' + 4 * 25 + ' minutes', 'you build it, you run it']);
+}
+{ // capacity planning
+  const months = []; let x = 6000;
+  for (let i = 0; i < 6; i++) { x *= 1.04; months.push(fmt(x, 1)); }
+  const forecast = 6000 * 1.04 ** 6, peak = forecast + 1500;
+  assert.ok(close(x, forecast, 1e-9));
+  const servers = Math.ceil(peak / 800), slower = Math.ceil(peak / 650);
+  add('operations', 'leadership-capacity', [SOURCES.intro],
+    ['≈ ' + fmt(forecast, 1) + ' rps', 'about ' + fmt(peak, 1) + ' rps', (peak / 800).toFixed(2) + ', so ' + servers + ' servers', 'for ' + (servers + 2),
+     months.slice(0, 5).join(', ') + ' and ' + months[5], (peak / 650).toFixed(2) + ', so ' + slower + ' servers, and ' + (slower + 2)]);
+}
+{ // escalation path
+  const saved = 12 * (45 - 10);
+  add('operations', 'leadership-escalation', [SOURCES.ebp, SOURCES.csfExamples], ['09:30', '11:00', '12 × 35 = ' + saved + ' minutes, or ' + saved / 60 + ' hours']);
+}
+{ // metrics that resist gaming
+  const sample = (fast, slow) => [...Array(980).fill(fast), ...Array(20).fill(slow)].sort((p, q) => p - q);
+  const mean = (v) => v.reduce((p, q) => p + q) / v.length;
+  const rank = (v, f) => v[Math.ceil(f * v.length) - 1];
+  const base = sample(100, 5000), fastOnly = sample(80, 5000), slowFixed = sample(100, 400);
+  assert.equal(rank(base, 0.5), 100);
+  assert.equal(rank(fastOnly, 0.99), 5000);
+  add('operations', 'leadership-metrics', [SOURCES.slo],
+    ['= ' + mean(base) + ' ms', 'The median is ' + rank(base, 0.5) + ' ms', 'The 99th percentile is ' + fmt(rank(base, 0.99)) + ' ms', '= ' + mean(fastOnly) + ' ms',
+     '= ' + mean(slowFixed) + ' ms and the 99th percentile becomes ' + rank(slowFixed, 0.99) + ' ms']);
+}
+{ // where an SLI is measured
+  const server = 48600 / 50000, user = 48600 / 51000;
+  add('operations', 'leadership-sli-definition', [SOURCES.slo],
+    ['= ' + pct(server, 1), '≈ ' + pct(user, 2), 'about ' + (100 * (server - user)).toFixed(1) + ' percentage points', 'becomes ' + pct(49700 / 50000, 1)]);
+}
+{ // error-budget policy
+  const window = 28 * 24 * 60, budget = window * 0.001, gate = 0.2 * budget;
+  assert.ok(9 > gate && 6 < gate);
+  const loose = window * 0.005;
+  add('operations', 'leadership-error-budget-policy', [SOURCES.ebp],
+    [fmt(window) + ' minutes', budget.toFixed(2) + ' minutes', '≈ ' + pct(9 / budget, 1), 'about ' + pct(6 / budget, 1), gate.toFixed(3) + ' minutes',
+     'about ' + pct(15 / budget, 1), (45 - budget).toFixed(2) + ' minutes', loose.toFixed(1) + ' minutes', 'about ' + pct(45 / loose, 1)]);
+}
+{ // toil that grows with customers
+  const team = 4 * 160, other = 280, now = 40 * 45 / 60, doubled = 2 * now, automation = 80;
+  add('operations', 'leadership-toil', [SOURCES.toil],
+    ['40 × 45 / 60 = ' + now + ' hours', doubled + ' hours at double', (other + now) + ' hours, which is ' + pct((other + now) / team, 1), 'about ' + Math.round(100 * (other + doubled) / team) + '%',
+     '80 / 30 ≈ ' + (automation / now).toFixed(1) + ' months', '80 / 60 ≈ ' + (automation / doubled).toFixed(1) + ' months', 40 * 15 / 60 + ' hours a month', automation / (40 * 15 / 60) + ' months']);
+}
+{ // SLI, SLO and SLA
+  const month = 31 * 24 * 60;
+  add('operations', 'leadership-service-levels', [SOURCES.slo],
+    [fmt(month) + ' minutes', (month * 0.0005).toFixed(2) + ' minutes', (month * 0.001).toFixed(2) + ' minutes', '≈ ' + pct(1 - 30 / month, 3), 'about ' + pct(1 - 50 / month, 3), usd(20000 * 0.1)]);
+}
+{ // RACI chart checks
+  const chart = {
+    plan: { 'platform lead': 'A', 'database team': 'R', security: 'C', 'application teams': 'C', support: 'I' },
+    'migrate data': { 'platform lead': 'A', 'database team': 'R', security: 'C', support: 'I' },
+    'test rollback': { 'platform lead': 'A', 'database team': 'C', 'application teams': 'C' },
+    'approve cutover': { 'platform lead': 'A', 'product director': 'A', 'application teams': 'R', security: 'C' },
+    'notify users': { 'product director': 'A', support: 'R', 'application teams': 'I' }
+  };
+  const rows = Object.values(chart);
+  const bad = rows.filter(r => Object.values(r).filter(x => x === 'A').length !== 1 || !Object.values(r).includes('R')).length;
+  const aTotal = rows.reduce((n, r) => n + Object.values(r).filter(x => x === 'A').length, 0);
+  const leadA = rows.filter(r => r['platform lead'] === 'A').length, dbR = rows.filter(r => r['database team'] === 'R').length;
+  assert.equal(new Set(rows.flatMap(r => Object.keys(r))).size, 6, 'six roles');
+  add('projects', 'leadership-raci', [SOURCES.raci], [bad + ' of the 5 rows', leadA + " of the chart's " + aTotal + " A's", dbR + " R's"]);
+}
+{ // roadmap arithmetic
+  const rate = 3 * 0.75, quarters = 12 / rate, better = 3 * 0.9;
+  add('projects', 'leadership-roadmap', [SOURCES.roadmap],
+    ['3 × 0.75 = ' + rate, '≈ ' + quarters.toFixed(2) + ' quarters, or ' + Math.round(quarters * 3) + ' months', 'finishes ' + 4 * rate + ' features, so ' + (12 - 4 * rate) + ' of the 12', 'rises to ' + better.toFixed(1), 'about ' + (12 / better).toFixed(2) + ' quarters, roughly ' + (12 / better * 3).toFixed(1) + ' months']);
+}
+{ // technical debt as a portfolio
+  const debts = [[6, 10, 120], [10, 1, 200], [1, 80, 160]].map(([extra, n, fix]) => ({ interest: extra * n, fix }));
+  const total = debts.reduce((s, d) => s + d.interest, 0);
+  add('strategy', 'leadership-tech-debt', [SOURCES.cunningham],
+    ['6 × 10 = ' + debts[0].interest + ' hours', '10 × 1 = ' + debts[1].interest + ' hours', '1 × 80 = ' + debts[2].interest + ' hours', total + ' hours in all',
+     debts.map(d => d.fix + ' / ' + d.interest + ' = ' + d.fix / d.interest + ' quarters').join(', ').replace(/, ([^,]*)$/, ' and $1'), 'drops to ' + 6 * 2 + ' hours', 'grows to ' + 120 / (6 * 2) + ' quarters']);
+}
+{ // prioritization
+  const r1 = Math.round(1e6 * 0.0009), r2 = Math.round(0.005 * 20e6), r3 = Math.round(0.4 * 250000);
+  const r1big = Math.round(100e6 * 0.0009);
+  add('strategy', 'leadership-prioritization', [SOURCES.risk],
+    ['$1M × 0.0009 = ' + usd(r1), '0.005 × $20M = ' + usd(r2), '0.4 × $250,000 = ' + usd(r3), 'about ' + usd(r1 / 3) + ' for R1, ' + usd(r2 / 2) + ' for R2 and ' + usd(r3 / 4) + ' for R3',
+     usd(r1big) + ' a year, or ' + usd(r1big / 3) + ' per week']);
+}
+{ // psychological safety reports
+  add('teams', 'leadership-psych-safety', [SOURCES.edmondson], ['2 / 12 ≈ ' + pct(2 / 12, 1), '9 / 12 = ' + pct(9 / 12, 0), 'drops to ' + pct(3 / 12, 0), '51 work teams']);
+}
+{ // structured interviews
+  add('teams', 'leadership-hiring', [SOURCES.siop],
+    ['r² ≈ ' + (0.42 ** 2).toFixed(3), 'about ' + pct(0.42 ** 2, 1), '.42 × .42 = .' + Math.round(0.42 ** 2 * 1e4), 'account for ' + pct(0.2 ** 2, 0), 'about ' + pct(0.25 ** 2, 2)]);
+}
+{ // weighted vendor evaluation
+  const weights = [0.25, 0.15, 0.20, 0.15, 0.10, 0.10, 0.05];
+  const score = (w, s) => Number(w.reduce((t, wi, i) => t + wi * s[i], 0).toFixed(2));
+  const x = [9, 5, 4, 6, 7, 6, 3], y = [7, 8, 8, 8, 7, 7, 7];
+  assert.ok(close(weights.reduce((p, q) => p + q), 1));
+  const shifted = [0.40, 0.15, 0.05, 0.15, 0.10, 0.10, 0.05];
+  assert.ok(close(shifted.reduce((p, q) => p + q), 1));
+  add('vendors', 'leadership-vendor', [SOURCES.scrm],
+    ['= ' + score(weights, x), 'giving ' + score(weights, y), 'Y leads ' + score(weights, y) + ' to ' + score(weights, x), 'X rises to ' + score(shifted, x) + ' and Y falls to ' + score(shifted, y)]);
+}
+{ // exit cost and switching charges
+  const gb = 400 * 1000, egress = gb * 0.05, fee = 30000, internal = 90000 + 10000 + 50000;
+  const total = egress + fee + internal, big = 2000 * 1000 * 0.05, totalBig = big + fee + internal;
+  add('vendors', 'leadership-vendor-lockin', [SOURCES.dataAct],
+    [fmt(gb) + ' GB', fmt(gb) + ' × $0.05 = ' + usd(egress), '= ' + usd(total), usd(internal) + ', or ' + pct(internal / total, 0), usd(big) + ', the total becomes ' + usd(totalBig),
+     'about ' + pct(internal / totalBig, 0), '12 January 2027']);
+}
+
 test('exactly the authored lessons changed, and only their question, reasoning and lab fields', () => {
   const authored = new Set(cases.map(c => c.id));
-  assert.equal(authored.size, 26);
+  assert.equal(authored.size, 58);
   for (const c of chunks) {
     assert.deepEqual(Object.keys(current[c]), Object.keys(baseline[c]), c + ': lesson IDs and order are unchanged');
     for (const id of Object.keys(baseline[c])) {
