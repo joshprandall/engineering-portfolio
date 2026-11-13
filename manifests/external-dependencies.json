@@ -4982,6 +4982,20 @@
       "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
     },
     {
+      "url": "https://modernrobotics.northwestern.edu/nu-gm-book-resource/5-3-singularities/.",
+      "consumers": [
+        {
+          "source": "deep-learning/math/linear-algebra.json",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
       "url": "https://ninercommons.charlotte.edu/record/2294/files/Flinchum_uncc_0694D_13278.pdf.",
       "consumers": [
         {
@@ -5462,6 +5476,20 @@
         },
         {
           "source": "ai-multi-agent.html",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
+      "url": "https://openstax.org/books/algebra-and-trigonometry/pages/7-3-unit-circle.",
+      "consumers": [
+        {
+          "source": "deep-learning/math/algebra.json",
           "evidence": "current-runtime"
         }
       ],
@@ -6212,6 +6240,20 @@
       "consumers": [
         {
           "source": "deep-learning/physics/waves.json",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
+      "url": "https://openstax.org/books/university-physics-volume-1/pages/2-1-scalars-and-vectors.",
+      "consumers": [
+        {
+          "source": "deep-learning/math/linear-algebra.json",
           "evidence": "current-runtime"
         }
       ],
@@ -8636,6 +8678,20 @@
       "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
     },
     {
+      "url": "https://scikit-learn.org/1.7/modules/grid_search.html.",
+      "consumers": [
+        {
+          "source": "deep-learning/math/discrete-math.json",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
       "url": "https://scikit-learn.org/stable/common_pitfalls.html#data-leakage",
       "consumers": [
         {
@@ -8650,10 +8706,42 @@
       "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
     },
     {
+      "url": "https://scikit-learn.org/stable/modules/linear_model.html.",
+      "consumers": [
+        {
+          "source": "deep-learning/math/functions.json",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
       "url": "https://scikit-learn.org/stable/modules/model_evaluation.html",
       "consumers": [
         {
           "source": "ai-build-your-own.html",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
+      "url": "https://scikit-learn.org/stable/modules/model_evaluation.html.",
+      "consumers": [
+        {
+          "source": "deep-learning/math/algebra.json",
+          "evidence": "current-runtime"
+        },
+        {
+          "source": "deep-learning/math/discrete-math.json",
           "evidence": "current-runtime"
         }
       ],
