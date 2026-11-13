@@ -3639,6 +3639,10 @@
       "url": "https://git-scm.com/docs/git-rebase",
       "consumers": [
         {
+          "source": "deep-learning/software/devops.json",
+          "evidence": "current-runtime"
+        },
+        {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
         },
