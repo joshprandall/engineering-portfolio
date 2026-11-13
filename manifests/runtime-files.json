@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "sourceCommit": "0a22cff2574934f0168385a58730070cb1e93053",
+  "sourceCommit": "be28b4cba1332b956141c71293395aa607b8c12f",
   "bytePolicy": "Exact Git blobs; artifacts verified against committed SHA-256 and size.",
   "files": [
     {
@@ -961,11 +961,11 @@
     },
     {
       "path": "deep-learning/advanced/quantum.json",
-      "size": 517243,
-      "sha256": "46761414ef4dbec0d75dd682c6d7aaac444d22a645fad7d8a0444955fba9b4d7",
+      "size": 521629,
+      "sha256": "c5c73c3844ecce2e38f79cc07a714569eae6eb20fb33660259b7a92ecbc22333",
       "source": {
         "kind": "git-blob",
-        "blob": "01a6de5f5bff1419988321b83f205591f868a8fa"
+        "blob": "37f7450f2410245f964197b939768afd29c61fe2"
       },
       "owningComponent": "deep-learning",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -3716,5 +3716,5 @@
     }
   ],
   "fileCount": 334,
-  "byteSize": 446186402
+  "byteSize": 446190788
 }

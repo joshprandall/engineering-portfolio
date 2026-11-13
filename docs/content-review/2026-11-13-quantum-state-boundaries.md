@@ -11,3 +11,5 @@ Two new clean official reference URLs and 18 route external-dependency arrays ch
 The CNOT example explicitly establishes only a counterexample to CNOT as universal cloning, not a complete general no-cloning proof. Single-basis correlations are explicitly not an entanglement certification, and the amplitude determinant check is limited to pure two-qubit states.
 
 No live UI, game, media runtime, credentials or deployment changes. Known hosted media/audio failures remain unwaived. No full browser or staged-package validation is claimed for this batch; current hosted CI unchecked.
+
+Narrow runtime manifest: content commit be28b4cba1332b956141c71293395aa607b8c12f; only advanced/quantum.json updated, 521629 bytes, SHA256 c5c73c3844ecce2e38f79cc07a714569eae6eb20fb33660259b7a92ecbc22333. Inventory remains 334 files, 446190788 aggregate bytes. No fresh staged-package validation.
