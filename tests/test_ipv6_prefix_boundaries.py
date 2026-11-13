@@ -4,8 +4,10 @@ IDS=["cloud-ipv6-basics","cloud-v07-ipv6-128-bit-addresses","cloud-v10-worked-wa
 A=ip.IPv6Address;N=ip.IPv6Network
 class IPv6PrefixBoundaries(unittest.TestCase):
  def test_scope(self):
-  b=json.loads(gzip.decompress((R/'tests/baselines/ipv6-prefix-boundaries.json.gz').read_bytes()));d=json.loads((R/'deep-learning/cloud/networking.json').read_bytes())
+  b=json.loads(gzip.decompress((R/'tests/baselines/ipv6-prefix-boundaries.json.gz').read_bytes()));d=json.loads(gzip.decompress((R/'tests/baselines/dns-negative-labs.json.gz').read_bytes()))
   self.assertEqual(list(b),list(d));self.assertEqual(len(d),199)
+  current=json.loads((R/'deep-learning/cloud/networking.json').read_bytes())
+  for k in IDS:self.assertEqual(d[k],current[k],k)
   for k in b:
    fields={f for f in set(b[k])|set(d[k]) if b[k].get(f)!=d[k].get(f)}
    self.assertEqual(fields,{'essentialQuestion','reasoningSteps','labPlan'} if k in IDS else set(),k)
