@@ -6241,6 +6241,10 @@
       "url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-30r1.pdf",
       "consumers": [
         {
+          "source": "deep-learning/cyber/lab.json",
+          "evidence": "current-runtime"
+        },
+        {
           "source": "deep-learning/leadership/risk.json",
           "evidence": "current-runtime"
         }
