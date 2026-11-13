@@ -5359,6 +5359,10 @@
         {
           "source": "deep-learning/advanced/quantum.json",
           "evidence": "current-runtime"
+        },
+        {
+          "source": "deep-learning/physics/quantum.json",
+          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
