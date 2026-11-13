@@ -12,9 +12,11 @@ def frame(table,vlan,ingress,src,dst,drop_unknown=False):
 class SwitchLabBoundaries(unittest.TestCase):
  def test_scope(self):
   b=json.loads(gzip.decompress((R/'tests/baselines/switch-lab-boundaries.json.gz').read_bytes()));d=json.loads((R/'deep-learning/cloud/lab.json').read_bytes())
-  self.assertEqual(list(b),list(d));self.assertEqual(len(d),90)
+  c=json.loads(gzip.decompress((R/'tests/baselines/node-affinity-labs.json.gz').read_bytes()))
+  self.assertEqual(list(b),list(d));self.assertEqual(list(c),list(d));self.assertEqual(len(d),90)
+  for k in IDS:self.assertEqual(d[k],c[k],k)
   for k in b:
-   changed={f for f in set(b[k])|set(d[k]) if b[k].get(f)!=d[k].get(f)}
+   changed={f for f in set(b[k])|set(c[k]) if b[k].get(f)!=c[k].get(f)}
    self.assertEqual(changed,{'essentialQuestion','reasoningSteps','labPlan'} if k in IDS else set(),k)
  def test_sources(self):
   d=json.loads((R/'deep-learning/cloud/lab.json').read_bytes())

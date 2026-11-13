@@ -1,0 +1,5 @@
+# Kubernetes node-affinity labs
+
+Four cloud labs develop same-node selector conjunction, ORed terms with ANDed expressions, hard constraints before preference scores, and scheduling-time versus existing-assignment semantics. Official Kubernetes Assigning Pods to Nodes documentation read. Restricted local Boolean models, not a complete selector parser, scheduler or cluster lifecycle test. Earlier switch-learning lessons and oracles retained.
+
+Validation: six new scope/source/Boolean-model tests pass. All 701 discovery cases ran: 699 passed and two existing staged-package skips. All 62 configured Python cases, site checks and 184 leadership Node cases passed. Exact QA bytes checked. Only three approved fields in four of 90 cloud lab records changed. Earlier switch-learning records and original oracles remain exact through an immutable checkpoint. Full source baseline 2abbc25 remains most recent. No cluster queries, scheduling, label changes, fresh package or live acceptance claimed. Historical media failures and 19 missing assets remain unwaived. No UI or deployment changes.
