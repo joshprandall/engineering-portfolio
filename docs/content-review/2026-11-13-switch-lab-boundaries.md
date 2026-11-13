@@ -1,0 +1,5 @@
+# Switch-learning lab boundaries
+
+Four original cloud labs cover source learning, unknown-to-known forwarding, explicitly independent VLAN learning and drop-with-source-learning behavior. Read official Juniper unknown-unicast guide, including platform limitations. Tests exercise an inert simplified state machine, not a switch implementation. No packets, network access, captured addresses or security-setting changes.
+
+Validation: six new scope/source/model tests pass. All 495 test_*.py cases ran: 493 passed and two pre-existing staged-package cases skipped. All 62 configured Python cases and site checks passed. Exact isolated QA bytes verified. All 90 cloud lab records retain their original IDs and fields except the three approved fields of four selected lessons. Synthetic state-machine traces verify the declared model, not real switches, platform support or network security. No full package, full suite or physical-device validation is claimed. Hosted media failures remain unwaived. No merge, deployment, UI, live behavior, security settings or personal history changed.
