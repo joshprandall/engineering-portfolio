@@ -4,9 +4,11 @@ IDS=["software-v09-scenario-analysis-python-lists","software-v09-failure-analysi
 class CopyGraphBoundaries(unittest.TestCase):
  def test_scope(self):
   b=json.loads(gzip.decompress((R/'tests/baselines/copy-graph-boundaries.json.gz').read_bytes()));d=json.loads((R/'deep-learning/software/programming.json').read_bytes())
-  self.assertEqual(list(b),list(d));self.assertEqual(len(d),158)
+  checkpoint=json.loads(gzip.decompress((R/'tests/baselines/generator-evaluation-boundaries.json.gz').read_bytes()))
+  self.assertEqual(list(b),list(checkpoint));self.assertEqual(list(checkpoint),list(d));self.assertEqual(len(d),158)
+  for k in IDS:self.assertEqual(d[k],checkpoint[k],k)
   for k in b:
-   fields={f for f in set(b[k])|set(d[k]) if b[k].get(f)!=d[k].get(f)}
+   fields={f for f in set(b[k])|set(checkpoint[k]) if b[k].get(f)!=checkpoint[k].get(f)}
    self.assertEqual(fields,{'essentialQuestion','reasoningSteps','labPlan'} if k in IDS else set(),k)
  def test_sources(self):
   d=json.loads((R/'deep-learning/software/programming.json').read_bytes())
