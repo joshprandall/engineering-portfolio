@@ -1069,17 +1069,44 @@ add('recovery',"leadership-v10-retrieval-ladder-recovery-point-objective",[SOURC
 add('recovery',"leadership-v10-concept-connection-recovery-point-objective",[SOURCES.nist],["500 transactions", "5 minutes", "2 minutes", "contiguous suffix", "scattered"]);
 add('recovery',"leadership-v10-evidence-reading-recovery-point-objective",[SOURCES.nist],["tolerance or target", "3-minute achieved gap", "confuses RPO with RTO", "separate claims"]);
 
+// Preserve the original 174-lesson audit against the exact pre-capacity-batch snapshot.
+// The subsequent four lessons have their own immutable whole-chunk scope check below.
+const capacityCheckpoint = JSON.parse(zlib.gunzipSync(fs.readFileSync(path.join(__dirname, 'baselines', 'capacity-budget-boundaries.json.gz'))).toString('utf8'));
+const capacityFollowupIds = new Set([
+  'leadership-v08-deep-dive-overload-protection',
+  'leadership-v08-evidence-lab-overload-protection',
+  'leadership-v08-deep-dive-graceful-degradation-under-overload',
+  'leadership-v08-evidence-lab-graceful-degradation-under-overload'
+]);
+
 test('exactly the authored lessons changed, and only their question, reasoning and lab fields', () => {
   const authored = new Set(cases.map(c => c.id));
   assert.equal(authored.size, 174);
   for (const c of chunks) {
     assert.deepEqual(Object.keys(current[c]), Object.keys(baseline[c]), c + ': lesson IDs and order are unchanged');
     for (const id of Object.keys(baseline[c])) {
-      const before = baseline[c][id], after = current[c][id];
+      const before = baseline[c][id], after = c === 'capacity' ? capacityCheckpoint[id] : current[c][id];
+      if (c === 'capacity' && authored.has(id)) assert.deepEqual(current[c][id], after, id + ': original authored lesson remains exact');
       const diff = [...new Set([...Object.keys(before), ...Object.keys(after)])].filter(f => JSON.stringify(before[f]) !== JSON.stringify(after[f]));
       if (authored.has(id)) assert.deepEqual(diff.sort(), ['essentialQuestion', 'labPlan', 'reasoningSteps'], id);
       else assert.deepEqual(diff, [], id + ' must be untouched');
     }
+  }
+});
+
+test('capacity follow-up changes exactly four lessons and only approved fields', () => {
+  assert.equal(capacityFollowupIds.size, 4);
+  assert.equal(Object.keys(current.capacity).length, 73);
+  assert.deepEqual(Object.keys(current.capacity), Object.keys(capacityCheckpoint));
+  const originalIds = new Set(cases.map(c => c.id));
+  for (const id of capacityFollowupIds) {
+    assert.ok(Object.hasOwn(capacityCheckpoint, id), id);
+    assert.ok(!originalIds.has(id), id + ': no original authored lesson replaced');
+  }
+  for (const id of Object.keys(capacityCheckpoint)) {
+    const before = capacityCheckpoint[id], after = current.capacity[id];
+    const diff = [...new Set([...Object.keys(before), ...Object.keys(after)])].filter(f => JSON.stringify(before[f]) !== JSON.stringify(after[f]));
+    assert.deepEqual(diff.sort(), capacityFollowupIds.has(id) ? ['essentialQuestion', 'labPlan', 'reasoningSteps'] : [], id);
   }
 });
 
