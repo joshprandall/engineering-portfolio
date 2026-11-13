@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "sourceCommit": "accac42ccc5cd3e76667d4c9b4f7ab2a242f480f",
+  "sourceCommit": "6e1de1b5715d1b53b0aa62116b882282e1472e94",
   "bytePolicy": "Exact Git blobs; artifacts verified against committed SHA-256 and size.",
   "files": [
     {
@@ -2484,11 +2484,11 @@
     },
     {
       "path": "knowledge-data.js",
-      "size": 25408234,
-      "sha256": "6cdd12e86d396121eb6b0d643c919d0e6b48d974714d3511a535ceb3e10fb930",
+      "size": 25392224,
+      "sha256": "c3a321409828d6ede389fce7c6780771f32655804811ae843f9e8b1d07d37e72",
       "source": {
         "kind": "git-blob",
-        "blob": "490dde632480dba51e772a05d8246fd99ec23ef3"
+        "blob": "ba24063a116d9daceacf9a292c5e8ce1517d1dc5"
       },
       "owningComponent": "learning",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -3716,5 +3716,5 @@
     }
   ],
   "fileCount": 334,
-  "byteSize": 446008775
+  "byteSize": 445992765
 }
