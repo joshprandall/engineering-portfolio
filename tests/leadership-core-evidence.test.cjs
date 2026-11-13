@@ -876,9 +876,50 @@ const usd = (x) => '$' + fmt(Math.round(x));
  ['9.55','55%','95.5 ms','90 ms and 91 ms','9 of 10','90%']);
 }
 
+
+{ // Local saturation is not eliminated by a low average.
+ const cores=[100,...Array(7).fill(20)],two=[100,100,...Array(6).fill(20)];
+ const sum=x=>x.reduce((a,b)=>a+b),avg=x=>sum(x)/x.length;
+ assert.equal(avg(cores),30);assert.equal(avg(two),40);
+ add('reliability','leadership-v08-deep-dive-saturation-signal',[SOURCES.monitoring],
+ [avg(cores)+'%',String(sum(cores)/100)+' core-equivalents','5.6',avg(two)+'%','3.2 core-equivalents']);
+}
+{ // Temporal sampling can miss peaks and histograms lose ordering.
+ const trace=[...Array(6).fill(100),...Array(54).fill(20)],avg=x=>x.reduce((a,b)=>a+b)/x.length;
+ const late=[9,19,29,39,49,59].map(i=>trace[i]),early=[0,10,20,30,40,50].map(i=>trace[i]);
+ assert.equal(avg(trace),28);assert.equal(avg(late),20);assert.equal(trace.filter(x=>x===100).length,6);
+ add('reliability','leadership-v08-evidence-lab-saturation-signal',[SOURCES.monitoring],
+ [avg(trace)+'%','10%',avg(early).toFixed(4)+'%','6 samples','54']);
+}
+{ // Hard descriptor limit and chosen reserve are different boundaries.
+ const limit=1024,fixed=200,per=3,reserve=100,hard=Math.floor((limit-fixed)/per),safe=Math.floor((limit-fixed-reserve)/per);
+ assert.equal(hard,274);assert.equal(safe,241);assert.equal(fixed+(hard+1)*per,1025);
+ add('reliability','leadership-v09-failure-analysis-lab-saturation-signal',[SOURCES.monitoring,SOURCES.cascade],
+ [fmt(fixed+hard*per),fmt(fixed+(hard+1)*per),String(limit-fixed-reserve),String(safe),String(fixed+safe*per),'101 descriptors','926','98']);
+}
+{ // Multi-resource ceilings combine by a minimum in the declared model.
+ const caps=[1000,600,1200],demand=750;
+ assert.equal(Math.min(...caps),600);assert.equal(Math.min(2000,600,1200),600);assert.equal(Math.min(1000,900,1200),900);
+ add('reliability','leadership-v09-scenario-analysis-saturation-signal',[SOURCES.monitoring],
+ ['600 requests per second','75%','125%',pct(demand/1200,1),'2,000','900']);
+}
+{ // Binary units, integer admission and reserve accounting.
+ const total=8*1024,fixed=2*1024,reserve=1024,per=12,hard=(total-fixed)/per,safe=Math.floor((total-fixed-reserve)/per);
+ assert.equal(hard,512);assert.equal(safe,426);
+ add('reliability','leadership-v10-flash-review-saturation-signal',[SOURCES.monitoring],
+ [fmt(total),fmt(fixed),fmt(total-fixed),String(hard),fmt(total-fixed-reserve),String(safe),fmt(safe*per),fmt((safe+1)*per),fmt(fixed+safe*per),fmt(total-fixed-safe*per),'8,196','4 MiB']);
+}
+{ // Conditional time-to-fill with reserve and temporary allocation.
+ const capacity=250,used=210,growth=2,reserve=10,temporary=20;
+ assert.equal((capacity-used)/growth,20);assert.equal((capacity-used-reserve)/growth,15);
+ assert.equal((capacity-used-temporary-reserve)/growth,5);
+ add('reliability','leadership-v10-prediction-lab-saturation-signal',[SOURCES.monitoring],
+ ['40 GiB','20 hours','30 GiB','15 hours','230 GiB','10 hours','5 hours',String((capacity-used-reserve)/4)+' hours','zero or negative']);
+}
+
 test('exactly the authored lessons changed, and only their question, reasoning and lab fields', () => {
   const authored = new Set(cases.map(c => c.id));
-  assert.equal(authored.size, 105);
+  assert.equal(authored.size, 111);
   for (const c of chunks) {
     assert.deepEqual(Object.keys(current[c]), Object.keys(baseline[c]), c + ': lesson IDs and order are unchanged');
     for (const id of Object.keys(baseline[c])) {
