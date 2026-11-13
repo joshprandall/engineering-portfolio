@@ -12,9 +12,11 @@ class FloatingBoundaryFoundations(unittest.TestCase):
   s=' '.join(LESSONS[IDS[i]]['reasoningSteps'])
   for v in values:self.assertIn(v,s)
  def test_scope(self):
-  self.assertEqual(list(BASE),list(LESSONS));self.assertEqual(len(LESSONS),98)
+  checkpoint=json.loads(gzip.decompress((R/'tests/baselines/decimal-context-boundaries.json.gz').read_bytes()))
+  self.assertEqual(list(BASE),list(checkpoint));self.assertEqual(list(checkpoint),list(LESSONS));self.assertEqual(len(LESSONS),98)
+  for k in IDS:self.assertEqual(LESSONS[k],checkpoint[k],k)
   for k in BASE:
-   changed=sorted(f for f in set(BASE[k])|set(LESSONS[k]) if BASE[k].get(f)!=LESSONS[k].get(f))
+   changed=sorted(f for f in set(BASE[k])|set(checkpoint[k]) if BASE[k].get(f)!=checkpoint[k].get(f))
    self.assertEqual(changed,['essentialQuestion','labPlan','reasoningSteps'] if k in IDS else [],k)
  def test_sources(self):
   refs=['library/math.html#math.isclose','tutorial/floatingpoint.html','library/math.html#math.isnan','library/functions.html#round','library/decimal.html','tutorial/floatingpoint.html']
