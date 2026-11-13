@@ -1034,9 +1034,26 @@ add('recovery',"leadership-v09-worked-example-recovery-time-objective-2",[SOURCE
 add('recovery',"leadership-v09-misconception-clin-recovery-time-objective-2",[SOURCES.nist],["40 minutes", "45 minutes", "80%", "30 minutes", "90"]);
 add('recovery',"leadership-v09-practical-lab-recovery-time-objective",[SOURCES.nist],["245,760 MiB", "3,072 seconds", "51.2 minutes", "71.2 minutes", "11.2 minutes", "102.4 MiB"]);
 
+// Independent critical-path, compressed-transfer and interval accounting.
+{
+ assert.equal(10+Math.max(40,25)+10,60);assert.equal(10+Math.max(40,15)+10,60);assert.equal(10+Math.max(30,25)+10,50);assert.equal(10+Math.max(20,25)+10,45);
+ assert.equal(5+55+20,80);assert.equal(20+25+15,60);
+ assert.equal(40*1024/80,512);assert.equal(120*1024/160,768);assert.equal(512+768+600,1880);assert.equal((1880/60).toFixed(4),'31.3333');
+ assert.equal(256+768+600,1624);assert.equal((1624/60).toFixed(4),'27.0667');assert.equal(768+600,1368);
+ assert.equal(35+10+15+10,70);assert.equal(70-60,10);
+ assert.equal(10+30+15,55);assert.equal(10+20+30+15,75);assert.equal(Math.max(10,20)+30+15,65);
+ assert.equal((10-0)+(40-10)+(50-35),55);assert.equal(40-35,5);assert.equal(50-0,50);
+}
+add('recovery',"leadership-v10-flash-review-recovery-time-objective",[SOURCES.nist],["60 minutes", "50 minutes", "45 minutes", "critical"]);
+add('recovery',"leadership-v10-compare-contrast-recovery-time-objective",[SOURCES.nist],["80 minutes", "10 minutes", "60 minutes", "30 minutes", "not evidence"]);
+add('recovery',"leadership-v10-configuration-lab-recovery-time-objective",[SOURCES.nist],["512 seconds", "768 seconds", "1,880 seconds", "31.3333 minutes", "1,624 seconds", "27.0667 minutes", "1,368"]);
+add('recovery',"leadership-v10-verification-lab-recovery-time-objective",[SOURCES.nist],["minute 45", "minute 60", "minute 70", "70 minutes", "10"]);
+add('recovery',"leadership-v10-decision-matrix-lab-recovery-time-objective",[SOURCES.nist],["55 minutes", "5 minutes", "75 minutes", "15", "65", "approved"]);
+add('recovery',"leadership-v10-trace-lab-recovery-time-objective",[SOURCES.nist],["50 minutes", "55", "5 minutes", "person-minutes", "unsynchronized"]);
+
 test('exactly the authored lessons changed, and only their question, reasoning and lab fields', () => {
   const authored = new Set(cases.map(c => c.id));
-  assert.equal(authored.size, 160);
+  assert.equal(authored.size, 166);
   for (const c of chunks) {
     assert.deepEqual(Object.keys(current[c]), Object.keys(baseline[c]), c + ': lesson IDs and order are unchanged');
     for (const id of Object.keys(baseline[c])) {
