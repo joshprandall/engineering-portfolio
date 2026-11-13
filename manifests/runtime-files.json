@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "sourceCommit": "534a5a067d5b26cffdab45c82e301cfadba89023",
+  "sourceCommit": "78b656b8c8a46e07b1dc0ffbc0b7a0651c20eb30",
   "bytePolicy": "Exact Git blobs; artifacts verified against committed SHA-256 and size.",
   "files": [
     {
@@ -1467,11 +1467,11 @@
     },
     {
       "path": "deep-learning/math/sequences.json",
-      "size": 370044,
-      "sha256": "ac2af903f79896aeab12719ee7616a9753b620c64208d3a1f74ddc316cc57c62",
+      "size": 374091,
+      "sha256": "0d581e6bbed7dfcc9f3c945e2b0097e4bc243416e73019628118359424b6df70",
       "source": {
         "kind": "git-blob",
-        "blob": "3f462042662ce4b1a1f92f69387a308a65484cf7"
+        "blob": "c308fa793c1f72780da256ddeddc33a58d401c5d"
       },
       "owningComponent": "deep-learning",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -3716,5 +3716,5 @@
     }
   ],
   "fileCount": 334,
-  "byteSize": 446150225
+  "byteSize": 446154272
 }

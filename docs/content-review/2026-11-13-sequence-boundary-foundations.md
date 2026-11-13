@@ -9,3 +9,5 @@ Validation: all 8 new exact-arithmetic and scope tests pass, plus 30 existing se
 The historical fingerprint guard initially treated all later generic records as permanently untouched. Its original hash remains unchanged and is verified against the immutable pre-batch checkpoint; every original authored record is also asserted equal to that checkpoint. The current non-teaching field and ID fingerprints remain unchanged, and the new independent scope test checks all records with only the six declared triples permitted. No hash replacement, relaxed numerical assertion, or removal of original semantic tests.
 
 No live/UI changes, full package, merge or deployment. Prior intermittent browser-media failures remain unwaived.
+
+Narrow runtime manifest updates only math/sequences.json: 374,091 bytes, SHA256 0d581e6bbed7dfcc9f3c945e2b0097e4bc243416e73019628118359424b6df70, source commit 78b656b8c8a46e07b1dc0ffbc0b7a0651c20eb30. All 334 paths remain; aggregate 446,154,272 bytes. This checkpoint does not substitute for staged-package validation or deployment approval.
