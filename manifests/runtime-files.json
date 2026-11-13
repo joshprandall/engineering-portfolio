@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "sourceCommit": "b068a33718559ebf0eb5372b64b4a763aaff2cab",
+  "sourceCommit": "07c858693e49da91369281ab6929879ce0a1a580",
   "bytePolicy": "Exact Git blobs; artifacts verified against committed SHA-256 and size.",
   "files": [
     {
@@ -1544,11 +1544,11 @@
     },
     {
       "path": "deep-learning/physics/modern-physics.json",
-      "size": 390014,
-      "sha256": "06b58ed673fda17092d24214f70d2000e1b05b3c3b89957a46dd6fa34621ac04",
+      "size": 394646,
+      "sha256": "9ac3a52c0aa9c97950777bdfbc6ce9e9e7b4c31be1f5dcec62efbedaacbc742f",
       "source": {
         "kind": "git-blob",
-        "blob": "a1de22ad846f6d7a662bf8fdff4652ce9db739af"
+        "blob": "cac07fd1d64deb1060ae7f5795107b4eff4e3224"
       },
       "owningComponent": "deep-learning",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -3716,5 +3716,5 @@
     }
   ],
   "fileCount": 334,
-  "byteSize": 446123724
+  "byteSize": 446128356
 }
