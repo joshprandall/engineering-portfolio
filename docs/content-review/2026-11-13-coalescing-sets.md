@@ -1,0 +1,5 @@
+# Global-memory request footprints
+
+Four GPU lessons cover address permutations, active masks, duplicate-read byte accounting and cross-warp segment overlap. NVIDIA CUDA Best Practices sections10.2.1.1 through10.2.1.4 read. CPU-only set models for the stated compute-capability and word-size assumptions, not GPU tests or measured throughput. Earlier CUDA geometry and timing-limit oracles retained.
+
+Validation: six new scope/source/address-set tests pass. All 671 discovery cases ran: 669 passed and two pre-existing staged-package skips. All 62 configured Python cases, site checks and 184 leadership Node cases passed. Exact isolated QA bytes checked. Only three approved fields in four of 92 GPU records changed. Earlier CUDA geometry records and original oracles remain exact through an immutable checkpoint. Full source baseline 876a0b5 remains most recent. No GPU execution, benchmark, fresh package, hosted, live or physical-device acceptance claimed. Historical media failures and 19 missing package assets remain unwaived. No UI or deployment changes.
