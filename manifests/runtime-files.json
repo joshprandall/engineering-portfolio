@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "sourceCommit": "4b6069b5819b22c4c29025da547232e415bb2be7",
+  "sourceCommit": "876e3719fca15347a38446fdf85e18774fadc26e",
   "bytePolicy": "Exact Git blobs; artifacts verified against committed SHA-256 and size.",
   "files": [
     {
@@ -1478,11 +1478,11 @@
     },
     {
       "path": "deep-learning/math/trigonometry.json",
-      "size": 351053,
-      "sha256": "f963913aae01ecc70bafe8aa7e525eca94869c5a0f5154225de910000f6fbcfd",
+      "size": 352684,
+      "sha256": "14b689565197bbea0781a5f9d03d0b898b0c32deaf4529c89a412570d12042c7",
       "source": {
         "kind": "git-blob",
-        "blob": "4c3f4d9c85723b5f3c0f03cbb5264d5e442b6042"
+        "blob": "3454c4f120c09f6172afc68b6ed3e3b344c4f647"
       },
       "owningComponent": "deep-learning",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -3716,5 +3716,5 @@
     }
   ],
   "fileCount": 334,
-  "byteSize": 446206557
+  "byteSize": 446208188
 }
