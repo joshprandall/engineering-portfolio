@@ -675,9 +675,38 @@ const usd = (x) => '$' + fmt(Math.round(x));
  [fmt(month),String(month/1000),pct(1-outage/month,4),'1,440','100%',fmt(rolling),String(rolling/1000),pct(1-outage/rolling,4),String(31*24*60/1000)]);
 }
 
+
+{ // Attempts, operations and duplicate successes have different units.
+ const operations=1000,firstGood=900,retries=100,retryGood=90;
+ const attempts=operations+retries,good=firstGood+retryGood;
+ assert.equal(good/attempts,0.9);assert.equal(good/operations,0.99);
+ const extra=20;
+ add('reliability','leadership-v09-failure-analysis-lab-service-level-indicator',[SOURCES.workbook],
+ [fmt(attempts),String(good),String(attempts-good),'90%','99%',fmt(good+extra),fmt(attempts+extra),pct((good+extra)/(attempts+extra),4),pct((good+extra)/operations,0)]);
+}
+{ // Never decide exact objectives from rounded displays.
+ const meets=(bad,total)=>total>0 && bad*1000<=total;
+ assert.deepEqual([9,10,11].map(n=>meets(n,10000)),[true,true,false]);
+ assert.equal(pct(1-10/10000,1),pct(1-11/10000,1));
+ assert.deepEqual([999,1000].map(n=>meets(1,n)),[false,true]);
+ assert.equal(meets(0,0),false);
+ add('reliability','leadership-v09-troubleshooting-lab-service-level-objective',[SOURCES.workbook],
+ [fmt(9990),fmt(9989),pct(1-11/10000,2),'bad * 1,000 <= total',String(999/1000),'undefined ratio']);
+}
+{ // Multiple latency grades constrain different parts of a distribution.
+ const total=10000,fast=9000,middle=900,slow=100;
+ const mean=(fast*50+middle*500+slow*5000)/total;
+ assert.equal(mean,140);
+ assert.equal(fast*100>=total*90,true);
+ assert.equal((fast+middle)*1000>=total*995,false);
+ assert.deepEqual([49,50].map(n=>(fast+middle+n)*1000>=total*995),[false,true]);
+ add('reliability','leadership-v10-transfer-challenge-service-level-objective',[SOURCES.workbook],
+ ['90%','99%',String(mean)+' ms','at most '+(total*5/1000),fmt(fast+middle+50),'99.5%',fmt(fast+middle+49),'99.49%']);
+}
+
 test('exactly the authored lessons changed, and only their question, reasoning and lab fields', () => {
   const authored = new Set(cases.map(c => c.id));
-  assert.equal(authored.size, 78);
+  assert.equal(authored.size, 81);
   for (const c of chunks) {
     assert.deepEqual(Object.keys(current[c]), Object.keys(baseline[c]), c + ': lesson IDs and order are unchanged');
     for (const id of Object.keys(baseline[c])) {
