@@ -11754,6 +11754,20 @@
       "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
     },
     {
+      "url": "https://www.juniper.net/documentation/us/en/software/junos/vpn-l2/security-services/topics/topic-map/understanding-and-preventing-unknown-unicast-forwarding.html",
+      "consumers": [
+        {
+          "source": "deep-learning/cloud/lab.json",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
       "url": "https://www.linkedin.com/in/joshua-randall-9ba04338",
       "consumers": [
         {
