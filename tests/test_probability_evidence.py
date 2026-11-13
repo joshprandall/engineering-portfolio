@@ -19,9 +19,11 @@ class ProbabilityEvidence(unittest.TestCase):
   t=' '.join(D[IDS[i]]['reasoningSteps'])
   for c in claims:self.assertIn(c,t)
  def test_exact_scope(self):
-  self.assertEqual(list(B),list(D));self.assertEqual(len(D),112)
+  checkpoint=json.loads(gzip.decompress((ROOT/'tests/baselines/covariance-boundaries.json.gz').read_bytes()))
+  self.assertEqual(list(B),list(checkpoint));self.assertEqual(list(checkpoint),list(D));self.assertEqual(len(D),112)
+  for key in IDS:self.assertEqual(D[key],checkpoint[key],key)
   for key in B:
-   fields=sorted(k for k in set(B[key])|set(D[key]) if B[key].get(k)!=D[key].get(k))
+   fields=sorted(k for k in set(B[key])|set(checkpoint[key]) if B[key].get(k)!=checkpoint[key].get(k))
    self.assertEqual(fields,['essentialQuestion','labPlan','reasoningSteps'] if key in IDS else [],key)
  def test_structure_sources(self):
   for i,key in enumerate(IDS):
