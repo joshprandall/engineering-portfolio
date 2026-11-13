@@ -829,9 +829,56 @@ const usd = (x) => '$' + fmt(Math.round(x));
  ['130 to 210 ms','310 to 390 ms','590 ms','670 ms','two complete 80 ms attempts']);
 }
 
+
+{ // Explicit nearest-rank summaries, not an implicit library convention.
+ const xs=[...Array(90).fill(10),...Array(9).fill(100),1000];
+ const q=p=>xs[Math.ceil(p*xs.length)-1],mean=xs.reduce((a,b)=>a+b)/xs.length;
+ assert.deepEqual([q(.5),q(.9),q(.99),q(1)],[10,10,100,1000]);assert.equal(mean,28);
+ add('reliability','leadership-v08-deep-dive-latency-distribution',[SOURCES.monitoring],
+ [fmt(xs.reduce((a,b)=>a+b))+' ms',String(mean)+' ms','rank 99','99%',String((2800-1000+10000)/100)+' ms']);
+}
+{ // Coarse bins cannot uniquely identify the within-bin percentile.
+ const lo=[...Array(90).fill(10),...Array(9).fill(100),500];
+ const hi=[...Array(90).fill(10),...Array(9).fill(499),500];
+ assert.equal(lo[94],100);assert.equal(hi[94],499);
+ assert.deepEqual([lo,hi].map(x=>x.filter(v=>v<300).length),[99,90]);
+ add('reliability','leadership-v08-evidence-lab-latency-distribution',[SOURCES.monitoring],
+ ['rank 95','90, 99 and 100','100 ms versus 499 ms','99 versus 90','no finite upper bound']);
+}
+{ // Percentiles are not additive even for equal-size groups.
+ const a=[...Array(99).fill(10),1000],b=Array(100).fill(100),q=(xs,p)=>[...xs].sort((a,b)=>a-b)[Math.ceil(xs.length*p)-1];
+ assert.equal((q(a,.99)+q(b,.99))/2,55);assert.equal(q([...a,...b],.99),100);
+ a[99]=6000;assert.equal(q([...a,...b],.99),100);
+ add('reliability','leadership-v09-scenario-analysis-latency-distribution',[SOURCES.monitoring],
+ ['55 ms','rank 198','100 ms, not 55 ms','6,000 ms','sixfold']);
+}
+{ // Mixture changes are not conditional latency improvements.
+ const mean=(successes,failedMs)=>(successes*200+(100-successes)*failedMs)/100;
+ assert.equal(mean(90,5),180.5);assert.equal(mean(50,5),102.5);assert.equal(mean(90,500),230);
+ add('reliability','leadership-v09-design-review-latency-distribution',[SOURCES.monitoring],
+ [mean(90,5)+' ms',mean(50,5)+' ms',mean(90,500)+' ms','90%','50%','200 ms','5 ms']);
+}
+{ // Changing sample population shifts nearest-rank boundaries.
+ const first=[...Array(19).fill(10),300],next=[...Array(99).fill(10),300];
+ const q=xs=>xs[Math.ceil(.99*xs.length)-1],mean=xs=>xs.reduce((a,b)=>a+b)/xs.length;
+ assert.equal(q(first),300);assert.equal(q(next),10);
+ add('reliability','leadership-v10-reasoning-check-latency-distribution',[SOURCES.monitoring],
+ ['rank is 20','rank is 99','5%','1%',mean(first)+' ms',mean(next)+' ms']);
+}
+{ // Two declared sample quantile formulas disagree without a coding bug.
+ const x=Array.from({length:10},(_,i)=>(i+1)*10);
+ const nearest=p=>x[Math.ceil(p*x.length)-1];
+ const linear=p=>{const h=(x.length-1)*p,j=Math.floor(h);return x[j]+(h-j)*((x[j+1]??x[j])-x[j]);};
+ assert.equal(nearest(.95),100);assert.ok(close(linear(.95),95.5));
+ assert.equal(nearest(.9),90);assert.ok(close(linear(.9),91));
+ assert.equal(x.filter(v=>v<95).length,9);
+ add('reliability','leadership-v10-mistake-hunt-latency-distribution',[SOURCES.monitoring],
+ ['9.55','55%','95.5 ms','90 ms and 91 ms','9 of 10','90%']);
+}
+
 test('exactly the authored lessons changed, and only their question, reasoning and lab fields', () => {
   const authored = new Set(cases.map(c => c.id));
-  assert.equal(authored.size, 99);
+  assert.equal(authored.size, 105);
   for (const c of chunks) {
     assert.deepEqual(Object.keys(current[c]), Object.keys(baseline[c]), c + ': lesson IDs and order are unchanged');
     for (const id of Object.keys(baseline[c])) {
