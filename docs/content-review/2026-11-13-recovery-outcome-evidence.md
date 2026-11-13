@@ -1,0 +1,5 @@
+# Recovery outcome evidence
+
+Four cybersecurity lessons distinguish restoration-asset checks from restored-service evidence, unknown readiness from pass, service readiness from recovery closure, and internal evidence from approved public messaging. NIST CSF2 Recover outcomes read directly. Local schemas and predicates explicitly illustrative, not mandated controls, actual permissions or incident declarations. Earlier backup evidence and restore models retained.
+
+Validation: six new scope/source/evidence-model tests pass. All 683 discovery cases ran: 681 passed and two pre-existing staged-package skips. All 62 configured Python cases, site checks and 184 leadership Node cases passed. Exact isolated QA bytes checked. Only three approved fields in four of 96 recovery records changed. Earlier backup and restoration evidence records and original oracles remain exact through an immutable checkpoint. Full source baseline 876a0b5 remains most recent. No actual restoration, incident closure, communications, fresh package, hosted or live acceptance claimed. Historical media failures and 19 missing package assets remain unwaived. No UI or deployment changes.
