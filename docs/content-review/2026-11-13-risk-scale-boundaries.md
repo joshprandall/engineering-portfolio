@@ -1,0 +1,5 @@
+# Risk scale and uncertainty boundaries
+
+Four original leadership risk lessons cover ordinal recoding, equal expectations with different tails, uncertain ranking and overlapping mitigation benefits. Read NIST800-30r1 section2.3.2 on quantitative/qualitative/semiquantitative assessment and uncertainty. Original fictional numerical examples are independently tested, not prescribed NIST formulas, real forecasts or purchase recommendations.
+
+Validation: six new scope/source/model tests pass. All 537 test_*.py cases ran: 535 passed and two pre-existing staged-package cases skipped. All 62 configured Python cases and site checks passed. Exact isolated QA bytes verified. All 66 leadership risk records retain their original IDs and fields except the three approved fields of four selected lessons. Exact fractions, recoding counterexamples and set unions verify fictional risk calculations, not a real risk assessment or prescribed scoring policy. No full package, full suite or physical-device validation is claimed. Hosted media failures remain unwaived. No merge, deployment, UI, live behavior, security settings or personal history changed.
