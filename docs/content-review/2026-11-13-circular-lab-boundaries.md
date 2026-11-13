@@ -1,0 +1,5 @@
+# Circular-motion lab boundaries
+
+Four original physics labs cover controlled variables, velocity versus speed, rpm conversion and perpendicular acceleration components. Read OpenStax University Physics Volume1 section4.4, including nonuniform motion. Original numerical examples use Fraction/vector invariants and explicit floating tolerance for pi. Pure calculations only; no physical experiments, copied illustrations or hardware actions.
+
+Validation: six new scope/source/model tests pass. All 489 test_*.py cases ran: 487 passed and two pre-existing staged-package cases skipped. All 62 configured Python cases and site checks passed. Exact isolated QA bytes verified. All 92 physics lab records retain their original IDs and fields except the three approved fields of four selected lessons. Exact fractions and vector invariants verify original examples; pi calculations use explicit tolerance. No hardware experiment or force-design claim. No full package, full suite or physical-device validation is claimed. Hosted media failures remain unwaived. No merge, deployment, UI, live behavior, security settings or personal history changed.
