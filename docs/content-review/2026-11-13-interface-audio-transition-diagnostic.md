@@ -1,0 +1,6 @@
+# Interface transition evidence, no runtime change
+Repeated interface failures at browser.test.cjs:179 were opaque: the assertion printed no observed player state.
+Read-only source inspection identifies a useful distinction: SiteAudio.outputLevels is [general, darkA, darkB, beachA, beachB], but the existing variable called beach uses slice(1), so the assertion inspects both dark and beach players. hardSilenceDay explicitly stops general and beach playback; other theme/source paths handle dark state. This is an interpretation risk, not proof of the browser failure's cause.
+The diagnostic preserves the original strict predicate, including level===0 for paused/muted players. It captures all output levels and DOM audio IDs/state synchronously with the same event sequence, then writes/logs evidence before the original assertions. It does not change media methods, state, waits, event ordering, filters, acceptance criteria or failure handling.
+Four deterministic tests cover exact original indices, every predicate failure, nonmutation, and missing-level handling. Neither a muted nonzero-level result nor a real audible result is waived.
+Validation pending. No live/runtime/UI edits, merge or deployment. A real hosted failure with captured values is needed before assigning cause.

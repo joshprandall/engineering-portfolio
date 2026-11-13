@@ -169,10 +169,14 @@ async function run(){
     emit('portfolio:scene','birds-water');
     const beach={scene:SiteAudio.scene,key:SiteAudio.key};
     emit('portfolio:scene-will-change','forest-waterfall');
-    const silenced={pending:SiteAudio.pendingScene,beach:SiteAudio.outputLevels.slice(1)};
+    const silenced={pending:SiteAudio.pendingScene,beach:SiteAudio.outputLevels.slice(1),allOutputs:SiteAudio.outputLevels,mediaElements:[...document.querySelectorAll('audio')].map(p=>({id:p.id,paused:p.paused,muted:p.muted,volume:p.volume}))};
     emit('portfolio:scene','forest-waterfall');
     return {beach,silenced,waterfall:{scene:SiteAudio.scene,pending:SiteAudio.pendingScene,key:SiteAudio.key}};
   });
+  // Record already-captured values before any unchanged assertion can fail.
+  const transitionEvidence=require('./audio-transition-evidence.cjs').buildAudioTransitionEvidence(transitions);
+  console.log('AUDIO_TRANSITION_EVIDENCE '+JSON.stringify(transitionEvidence));
+  if(output)fs.writeFileSync(path.join(output,'audio-transition-evidence.json'),JSON.stringify(transitionEvidence,null,2)+'\n');
   assert.equal(transitions.beach.scene,'birds-water','Day audio tracks the committed beach scene');
   assert.equal(transitions.beach.key,'beach','Beach scene selects beach ambience');
   assert.equal(transitions.silenced.pending,'forest-waterfall','Audio records the pending visual scene');
