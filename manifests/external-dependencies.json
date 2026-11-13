@@ -13498,6 +13498,20 @@
       "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
     },
     {
+      "url": "https://www.sqlite.org/lang_aggfunc.html",
+      "consumers": [
+        {
+          "source": "deep-learning/software/databases.json",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
       "url": "https://www.sqlite.org/lang_altertable.html",
       "consumers": [
         {
@@ -13530,6 +13544,10 @@
       "consumers": [
         {
           "source": "deep-learning/cyber/application-security.json",
+          "evidence": "current-runtime"
+        },
+        {
+          "source": "deep-learning/software/databases.json",
           "evidence": "current-runtime"
         }
       ],
