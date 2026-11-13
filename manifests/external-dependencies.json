@@ -9472,6 +9472,20 @@
       "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
     },
     {
+      "url": "https://prometheus.io/docs/practices/histograms/",
+      "consumers": [
+        {
+          "source": "deep-learning/cloud/observability.json",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
       "url": "https://prometheus.io/docs/practices/naming/.",
       "consumers": [
         {
@@ -9498,6 +9512,20 @@
         },
         {
           "source": "verification-manifest.json",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
+      "url": "https://prometheus.io/docs/prometheus/latest/querying/functions/",
+      "consumers": [
+        {
+          "source": "deep-learning/cloud/observability.json",
           "evidence": "current-runtime"
         }
       ],

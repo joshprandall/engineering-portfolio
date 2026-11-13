@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "sourceCommit": "be28b4cba1332b956141c71293395aa607b8c12f",
+  "sourceCommit": "5cdf90d896fdbd65ce5772e4fe2e76b1d6385c94",
   "bytePolicy": "Exact Git blobs; artifacts verified against committed SHA-256 and size.",
   "files": [
     {
@@ -1049,11 +1049,11 @@
     },
     {
       "path": "deep-learning/cloud/observability.json",
-      "size": 445995,
-      "sha256": "0befd2a9eff1545d6159ff1e2fdd2e77fe3bf34168f010a3464d84573f746a9b",
+      "size": 450588,
+      "sha256": "c68aeb7908439ef92e976c3118b2310ed13e0cc30b726eb4d82cc8ddf8e8e65b",
       "source": {
         "kind": "git-blob",
-        "blob": "bbf73a899f822017792558fb3548c86814b8de8f"
+        "blob": "90660f27b00bbc78112aa9ad98e2e588270013c6"
       },
       "owningComponent": "deep-learning",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -3716,5 +3716,5 @@
     }
   ],
   "fileCount": 334,
-  "byteSize": 446190788
+  "byteSize": 446195381
 }
