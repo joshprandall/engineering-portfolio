@@ -1,0 +1,96 @@
+{
+  "commit": "1e3e07a0a1a03e061028e27a715de31c3fcc1ff5",
+  "runId": 43378940134,
+  "scope": "Selected evidence from hosted media-playback.json artifacts; not a live-site observation or complete artifact copy.",
+  "profiles": [
+    {
+      "profile": "chromium",
+      "artifactId": 14015656466,
+      "artifactDigest": "ad652e4231b07da390f6fa45115c3f88d9bca252424410f6dd7149cfbf99ab10",
+      "zipDigestIndependentlyVerified": false,
+      "passed": true,
+      "errors": [],
+      "diagnosticsDropped": 0,
+      "decodedMotionScenes": [
+        "forest-waterfall",
+        "forest-river",
+        "birds-water"
+      ],
+      "relevantDiagnostics": []
+    },
+    {
+      "profile": "webkit-desktop",
+      "artifactId": 14015871946,
+      "artifactDigest": "8f7731e99aac1b30306a2a2b6afd55ed9f620afc15eb1a3e4b9d553e1d5b15ef",
+      "zipDigestIndependentlyVerified": true,
+      "passed": false,
+      "errors": [
+        "ResizeObserver loop completed with undelivered notifications."
+      ],
+      "diagnosticsDropped": 0,
+      "decodedMotionScenes": [
+        "forest-waterfall",
+        "forest-river",
+        "birds-water"
+      ],
+      "relevantDiagnostics": [
+        {
+          "at": 1794551461605,
+          "phase": "preferences-navigation",
+          "kind": "local-requestfailed",
+          "page": "primary",
+          "pageUrl": "http://127.0.0.1:33833/projects.html",
+          "requestUrl": "http://127.0.0.1:33833/assets/project-evaluation.json?v=20261109-v1",
+          "resourceType": "fetch",
+          "failure": "Load request cancelled"
+        },
+        {
+          "at": 1794551461963,
+          "phase": "preferences-navigation",
+          "kind": "pageerror",
+          "page": "primary",
+          "pageUrl": "http://127.0.0.1:33833/index.html",
+          "message": "ResizeObserver loop completed with undelivered notifications.",
+          "stack": ""
+        }
+      ]
+    },
+    {
+      "profile": "webkit-phone",
+      "artifactId": 14015637318,
+      "artifactDigest": "c9f7fe16b614829fb2259dfc087eb1f34b0556c8bc232680805ffe39cde6aa67",
+      "zipDigestIndependentlyVerified": true,
+      "passed": false,
+      "errors": [
+        "ResizeObserver loop completed with undelivered notifications."
+      ],
+      "diagnosticsDropped": 0,
+      "decodedMotionScenes": [
+        "forest-waterfall",
+        "forest-river",
+        "birds-water"
+      ],
+      "relevantDiagnostics": [
+        {
+          "at": 1794551478158,
+          "phase": "preferences-navigation",
+          "kind": "local-requestfailed",
+          "page": "primary",
+          "pageUrl": "http://127.0.0.1:44577/projects.html",
+          "requestUrl": "http://127.0.0.1:44577/assets/project-evaluation.json?v=20261109-v1",
+          "resourceType": "fetch",
+          "failure": "Load request cancelled"
+        },
+        {
+          "at": 1794551478452,
+          "phase": "preferences-navigation",
+          "kind": "pageerror",
+          "page": "primary",
+          "pageUrl": "http://127.0.0.1:44577/index.html",
+          "message": "ResizeObserver loop completed with undelivered notifications.",
+          "stack": ""
+        }
+      ]
+    }
+  ]
+}
