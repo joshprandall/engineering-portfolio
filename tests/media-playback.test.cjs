@@ -1,6 +1,7 @@
 /* Real decoders, real media, no external runtime downloads; run in Chromium and WebKit CI. */
 const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict'),http=require('node:http');
 const {createMediaDiagnostics}=require('./media-diagnostics.cjs');
+const {observeFrameFailure}=require('./frame-predicate-diagnostics.cjs');
 const playwright=require('playwright'),engine=process.env.PORTFOLIO_BROWSER_ENGINE||'chromium';
 const root=path.resolve(process.env.PORTFOLIO_RUNTIME_ROOT||'.');
 const mediaKBps=Number(process.env.PORTFOLIO_MEDIA_KBPS||0),mobile=process.env.PORTFOLIO_MOBILE==='1';
@@ -107,7 +108,8 @@ const server=http.createServer((req,res)=>{
   }catch{}});
   await iphonePage.goto(base+'/index.html',{waitUntil:'domcontentloaded'});
   await iphonePage.evaluate(()=>PortfolioTheme.setTheme('light',false));
-  await iphonePage.waitForFunction(()=>{const v=document.querySelector('.scene-video.is-active'),f=document.querySelector('.scene-day-fallback');return v&&v.currentTime>.15&&!v.paused&&f?.classList.contains('video-ready')},{timeout:20000});
+   // Preserve the original call verbatim, including its existing effective timeout.
+   await observeFrameFailure(()=>iphonePage.waitForFunction(()=>{const v=document.querySelector('.scene-video.is-active'),f=document.querySelector('.scene-day-fallback');return v&&v.currentTime>.15&&!v.paused&&f?.classList.contains('video-ready')},{timeout:20000}),iphonePage,report);
   report.iphoneFrameCallbackStarvation=await iphonePage.evaluate(()=>{const v=document.querySelector('.scene-video.is-active');return {time:v.currentTime,paused:v.paused,readyState:v.readyState,posterHidden:document.querySelector('.scene-day-fallback').classList.contains('video-ready')}});
   await iphonePage.close();
  }
