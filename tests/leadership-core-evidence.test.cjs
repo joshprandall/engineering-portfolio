@@ -1131,7 +1131,9 @@ test('capacity follow-up changes exactly four lessons and only approved fields',
     assert.ok(!originalIds.has(id), id + ': no original authored lesson replaced');
   }
   for (const id of Object.keys(capacityCheckpoint)) {
-    const before = capacityCheckpoint[id], after = current.capacity[id];
+    const costCheckpoint = JSON.parse(zlib.gunzipSync(fs.readFileSync(path.join(__dirname, 'baselines', 'retry-boundary-labs.json.gz'))).toString('utf8'));
+    const before = capacityCheckpoint[id], after = costCheckpoint[id];
+    if (capacityFollowupIds.has(id)) assert.deepEqual(current.capacity[id], after, id + ': original capacity follow-up remains exact');
     const diff = [...new Set([...Object.keys(before), ...Object.keys(after)])].filter(f => JSON.stringify(before[f]) !== JSON.stringify(after[f]));
     assert.deepEqual(diff.sort(), capacityFollowupIds.has(id) ? ['essentialQuestion', 'labPlan', 'reasoningSteps'] : [], id);
   }

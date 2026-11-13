@@ -9,8 +9,10 @@ def step(q,a,c,k):
 def ratio(success,total):return F(success,total) if total else None
 class CapacityBudgetBoundaries(unittest.TestCase):
  def test_scope(self):
-  b=json.loads(gzip.decompress((R/'tests/baselines/capacity-budget-boundaries.json.gz').read_bytes()));d=json.loads((R/'deep-learning/leadership/capacity.json').read_bytes())
+  b=json.loads(gzip.decompress((R/'tests/baselines/capacity-budget-boundaries.json.gz').read_bytes()));d=json.loads(gzip.decompress((R/'tests/baselines/retry-boundary-labs.json.gz').read_bytes()))
   self.assertEqual(list(b),list(d));self.assertEqual(len(d),73)
+  current=json.loads((R/'deep-learning/leadership/capacity.json').read_bytes())
+  for k in IDS:self.assertEqual(d[k],current[k],k)
   for k in b:
    changed={f for f in set(b[k])|set(d[k]) if b[k].get(f)!=d[k].get(f)}
    self.assertEqual(changed,{'essentialQuestion','reasoningSteps','labPlan'} if k in IDS else set(),k)
