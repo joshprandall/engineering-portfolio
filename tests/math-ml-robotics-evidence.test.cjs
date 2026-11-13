@@ -117,13 +117,16 @@ const add = (chunk, id, sources, expectations) => cases.push({ chunk, id, source
      'd1 · d2 = 3 × 0 + 0 × 4 = 0', '(' + minus(drifted[0].toFixed(3)) + ', ' + drifted[1].toFixed(3) + ')', '(' + actual[0].toFixed(3) + ', ' + actual[1].toFixed(3) + ')', 'about ' + error.toFixed(3) + ' m']);
 }
 
-test('original eight lessons retain their exact scoped changes through the calculus checkpoint', () => {
-  // Preserve the original scope audit against its original baseline. New v06 changes
-  // are independently guarded by test_calculus_rule_foundations.py.
-  const checkpoint = JSON.parse(zlib.gunzipSync(fs.readFileSync(path.join(__dirname, 'baselines', 'calculus-rule-foundations.json.gz'))).toString('utf8'));
-  const scopeCurrent = {...current, calculus: checkpoint};
-  assert.deepEqual(Object.keys(current.calculus), Object.keys(checkpoint));
-  for (const c of cases) if(c.chunk === 'calculus') assert.deepEqual(current.calculus[c.id], checkpoint[c.id], c.id + ': original authored record preserved');
+test('original eight lessons retain exact scoped changes through later independent checkpoints', () => {
+  // Keep the original historical scope audit and original authored records exact.
+  // New disjoint records have their own baseline/scope/numeric tests.
+  const scopeCurrent = {...current};
+  for (const [chunk, file] of [['calculus', 'calculus-rule-foundations.json.gz'], ['algebra', 'algebra-function-foundations.json.gz'], ['discrete-math', 'discrete-set-counting-foundations.json.gz']]) {
+    const checkpoint = JSON.parse(zlib.gunzipSync(fs.readFileSync(path.join(__dirname, 'baselines', file))).toString('utf8'));
+    scopeCurrent[chunk] = checkpoint;
+    assert.deepEqual(Object.keys(current[chunk]), Object.keys(checkpoint));
+    for (const c of cases) if(c.chunk === chunk) assert.deepEqual(current[chunk][c.id], checkpoint[c.id], c.id + ': original authored record preserved');
+  }
   const authored = new Set(cases.map(c => c.id));
   assert.equal(authored.size, 8);
   for (const c of chunks) {
