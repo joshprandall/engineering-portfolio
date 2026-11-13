@@ -656,9 +656,28 @@ const usd = (x) => '$' + fmt(Math.round(x));
  pct(observedGood/(total-missing),2),pct(observedGood/total,2),pct((observedGood+missing)/total,2)]);
 }
 
+
+{ // Time and event denominators are not interchangeable.
+ const minutes=1440,down=10,total=600000,bad=60000;
+ assert.equal(down*100<=minutes,true);
+ assert.equal(bad*100<=total,false);
+ const time=1-down/minutes,requests=1-bad/total;
+ assert.notEqual(time,requests);
+ add('reliability','leadership-v09-scenario-analysis-service-level-objective',[SOURCES.workbook],
+ [pct(time,4),pct(requests,0),'14.4',fmt(total/100),(100*down/(minutes/100)).toFixed(2)+'%','1,000%',pct(1-60/total,2),'1%']);
+}
+{ // Completed, month-to-date and rolling windows retain distinct meaning.
+ const month=30*24*60,rolling=28*24*60,outage=50;
+ assert.equal(outage*1000<=month,false);
+ assert.equal(outage*1000<=rolling,false);
+ assert.equal(0*1000<=1440,true);
+ add('reliability','leadership-v09-design-review-service-level-objective',[SOURCES.workbook],
+ [fmt(month),String(month/1000),pct(1-outage/month,4),'1,440','100%',fmt(rolling),String(rolling/1000),pct(1-outage/rolling,4),String(31*24*60/1000)]);
+}
+
 test('exactly the authored lessons changed, and only their question, reasoning and lab fields', () => {
   const authored = new Set(cases.map(c => c.id));
-  assert.equal(authored.size, 76);
+  assert.equal(authored.size, 78);
   for (const c of chunks) {
     assert.deepEqual(Object.keys(current[c]), Object.keys(baseline[c]), c + ': lesson IDs and order are unchanged');
     for (const id of Object.keys(baseline[c])) {
