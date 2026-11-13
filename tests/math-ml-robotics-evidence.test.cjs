@@ -121,7 +121,7 @@ test('original eight lessons retain exact scoped changes through later independe
   // Keep the original historical scope audit and original authored records exact.
   // New disjoint records have their own baseline/scope/numeric tests.
   const scopeCurrent = {...current};
-  for (const [chunk, file] of [['calculus', 'calculus-rule-foundations.json.gz'], ['algebra', 'algebra-function-foundations.json.gz'], ['discrete-math', 'discrete-set-counting-foundations.json.gz'], ['linear-algebra', 'matrix-contract-boundaries.json.gz']]) {
+  for (const [chunk, file] of [['calculus', 'calculus-rule-foundations.json.gz'], ['algebra', 'algebra-function-foundations.json.gz'], ['discrete-math', 'discrete-set-counting-foundations.json.gz'], ['linear-algebra', 'matrix-contract-boundaries.json.gz'], ['functions', 'function-domain-contracts.json.gz']]) {
     const checkpoint = JSON.parse(zlib.gunzipSync(fs.readFileSync(path.join(__dirname, 'baselines', file))).toString('utf8'));
     scopeCurrent[chunk] = checkpoint;
     assert.deepEqual(Object.keys(current[chunk]), Object.keys(checkpoint));
