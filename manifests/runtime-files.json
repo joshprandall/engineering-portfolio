@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "sourceCommit": "9d5e647ad59664f2238e1bf78da485e471de751a",
+  "sourceCommit": "53247a787732dd2b56a0804e5e8492b3f46d6926",
   "bytePolicy": "Exact Git blobs; artifacts verified against committed SHA-256 and size.",
   "files": [
     {
@@ -1192,11 +1192,11 @@
     },
     {
       "path": "deep-learning/cyber/risk.json",
-      "size": 481320,
-      "sha256": "d1ad816d5f762e16aace290d1fda6dbb36ae33b0ce76fa4bae424b9474be76f4",
+      "size": 484262,
+      "sha256": "9f8b43a300db43d2a77db2729a8251852fc767f17d86dc34f493368dd43c62c7",
       "source": {
         "kind": "git-blob",
-        "blob": "5b4474ae63dd401931044e38b2e0d4efc0508e8d"
+        "blob": "05b47f6d793347fdea954c4102cfdba5d87bfda0"
       },
       "owningComponent": "deep-learning",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -3716,5 +3716,5 @@
     }
   ],
   "fileCount": 334,
-  "byteSize": 446211461
+  "byteSize": 446214403
 }
