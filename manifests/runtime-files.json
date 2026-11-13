@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "sourceCommit": "7e400d580af1da4c79ea42330d056bf36bd4c071",
+  "sourceCommit": "c94e845dcf219d8a9e7a1a77c57dc2f086bba8d8",
   "bytePolicy": "Exact Git blobs; artifacts verified against committed SHA-256 and size.",
   "files": [
     {
@@ -1533,11 +1533,11 @@
     },
     {
       "path": "deep-learning/physics/mechanics.json",
-      "size": 679384,
-      "sha256": "c7c396ede7ff1814fa37c9a0fd3f49c79286f922907169c0f0e5209965f6bbd5",
+      "size": 730197,
+      "sha256": "9089822afaedd040dcea57533f213d49b80fb4463eb1da405bb2020d4b8b23fc",
       "source": {
         "kind": "git-blob",
-        "blob": "d2a6f4a2a8933e7e00fb12ddf7b9c0c3ba5071cc"
+        "blob": "7e9631369026ce6bff499f8efe4692e7489aad4c"
       },
       "owningComponent": "deep-learning",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -3716,5 +3716,5 @@
     }
   ],
   "fileCount": 334,
-  "byteSize": 446176669
+  "byteSize": 446227482
 }
