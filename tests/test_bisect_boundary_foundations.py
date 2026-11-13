@@ -10,9 +10,11 @@ class BisectBoundaryFoundations(unittest.TestCase):
   text=' '.join(D[IDS[i]]['reasoningSteps'])
   for v in values:self.assertIn(v,text)
  def test_scope(self):
-  self.assertEqual(list(D),list(B));self.assertEqual(len(D),111)
+  checkpoint=json.loads(gzip.decompress((R/'tests/baselines/topology-protocol-boundaries.json.gz').read_bytes()))
+  self.assertEqual(list(B),list(checkpoint));self.assertEqual(list(checkpoint),list(D));self.assertEqual(len(D),111)
+  for k in IDS:self.assertEqual(D[k],checkpoint[k],k)
   for k in B:
-   changed=sorted(f for f in set(B[k])|set(D[k]) if B[k].get(f)!=D[k].get(f))
+   changed=sorted(f for f in set(B[k])|set(checkpoint[k]) if B[k].get(f)!=checkpoint[k].get(f))
    self.assertEqual(changed,['essentialQuestion','labPlan','reasoningSteps'] if k in IDS else [],k)
  def test_sources(self):
   for k in IDS:
