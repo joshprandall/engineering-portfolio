@@ -1,0 +1,5 @@
+# HTTP intended-effect boundaries
+
+Four software labs distinguish idempotent resource effects from responses/logs, repeated DELETE effects, uncertain POST retry outcomes and strict If-Match lost-update protection. RFC9110 sections9.2.2 and13.1.1 read, including permitted successful duplicate conditional responses. Offline state models only, not HTTP integration or complete parsers. Existing SQL join labs and oracles retained.
+
+Validation: six new scope/source/local-state tests pass. All659discovery cases ran:657passed and two pre-existing staged-package skips. All62configured Python cases, site checks and184leadership Node cases passed. Exact isolated QA bytes checked. Only three approved fields in four of110softwarelab records changed. Earlier four SQL join records and original SQLite/source oracles remain exact through immutable scope checkpoint. Full source baseline876a0b5 remains most recent; no network integration, fresh package, hosted, live or physical-device acceptance claimed. Historical media and19missing package assets remain unwaived. No UI, deployment or external data changes.
