@@ -15,6 +15,21 @@ class ArtifactByteBoundaries(unittest.TestCase):
   for k in IDS:
    self.assertIn('https://docs.python.org/3.13/library/hashlib.html',' '.join(d[k]['reasoningSteps']))
    self.assertFalse(d[k]['essentialQuestion'].startswith('What does '))
+ def test_displayed_json_examples_parse(self):
+  d=json.loads((R/'deep-learning/software/devops.json').read_bytes())
+  sentence=d[IDS[2]]['reasoningSteps'][0]
+  import re
+  examples=re.findall(r'\{[^}]+\}',sentence)
+  self.assertEqual(len(examples),2)
+  a,b=examples
+  self.assertEqual(json.loads(a),{'a':1,'b':2});self.assertEqual(json.loads(a),json.loads(b))
+  self.assertNotEqual(a.encode(),b.encode());self.assertNotEqual(digest(a.encode()),digest(b.encode()))
+ def test_claims_match_fixtures(self):
+  d=json.loads((R/'deep-learning/software/devops.json').read_bytes())
+  texts=[' '.join(d[k]['reasoningSteps']) for k in IDS]
+  self.assertIn('6, 7 and 5 bytes',texts[0])
+  self.assertIn(digest(b'abc'),texts[1])
+  self.assertIn('(ab,c) and (a,bc)',texts[3]);self.assertIn('four-byte big-endian',texts[3])
  def test_exact_bytes(self):
   payloads=[b'alpha\n',b'alpha\r\n',b'alpha']
   self.assertEqual(list(map(len,payloads)),[6,7,5]);self.assertEqual(len(set(map(digest,payloads))),3)
