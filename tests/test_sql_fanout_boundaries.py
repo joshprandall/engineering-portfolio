@@ -8,8 +8,10 @@ class SqlFanoutBoundaries(unittest.TestCase):
   self.db.executescript('CREATE TABLE customers(id INTEGER PRIMARY KEY); CREATE TABLE orders(id INTEGER PRIMARY KEY,customer_id INTEGER,amount INTEGER); CREATE TABLE tickets(id INTEGER PRIMARY KEY,customer_id INTEGER); INSERT INTO customers VALUES(1),(2); INSERT INTO orders VALUES(101,1,10),(102,1,10); INSERT INTO tickets VALUES(201,1),(202,1),(203,1);')
  def rows(self,sql):return self.db.execute(sql).fetchall()
  def test_scope(self):
-  b=json.loads(gzip.decompress((R/'tests/baselines/sql-fanout-boundaries.json.gz').read_bytes()));d=json.loads((R/'deep-learning/software/databases.json').read_bytes())
+  b=json.loads(gzip.decompress((R/'tests/baselines/sql-fanout-boundaries.json.gz').read_bytes()));d=json.loads(gzip.decompress((R/'tests/baselines/jsonb-boundary-labs.json.gz').read_bytes()))
   self.assertEqual(list(b),list(d));self.assertEqual(len(d),162)
+  current=json.loads((R/'deep-learning/software/databases.json').read_bytes())
+  for k in IDS:self.assertEqual(d[k],current[k],k)
   for k in b:
    fields={f for f in set(b[k])|set(d[k]) if b[k].get(f)!=d[k].get(f)}
    self.assertEqual(fields,{'essentialQuestion','reasoningSteps','labPlan'} if k in IDS else set(),k)
