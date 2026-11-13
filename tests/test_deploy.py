@@ -100,6 +100,29 @@ class DeploymentTest(unittest.TestCase):
         deploy.deploy(self.source, self.site)
         self.assertEqual((self.site / 'learning-academy.js').read_text(), 'host copy')
 
+    def test_missing_protected_dependency_is_rejected_even_if_source_contains_it(self):
+        # Protected source bytes are deliberately excluded from release_files.
+        # They cannot satisfy a dependency unless the retained host copy exists.
+        for name in ('games/evil-wizard/missing-runtime.wasm',
+                     'geometric-lab/missing-runtime.js'):
+            with self.subTest(name=name):
+                self.write(self.source / name, 'unshipped source bytes')
+                self.routes([{'path': 'index.html', 'runtimeDependencies': [name]}])
+                with self.assertRaisesRegex(RuntimeError, 'missing runtime dependencies'):
+                    deploy.deploy(self.source, self.site)
+                self.assertEqual(self.snapshot(), self.before)
+                self.assertEqual(list(self.root.glob('*.tar.gz')), [])
+
+    def test_missing_preserved_media_is_not_satisfied_by_unshipped_source(self):
+        name = 'assets/fusion-presentation.mp4'
+        (self.site / name).unlink()
+        self.before = self.snapshot()
+        self.write(self.source / name, 'unshipped source video')
+        self.routes([{'path': 'index.html', 'runtimeDependencies': [name]}])
+        with self.assertRaisesRegex(RuntimeError, 'missing runtime dependencies'):
+            deploy.deploy(self.source, self.site)
+        self.assertEqual(self.snapshot(), self.before)
+
     def test_release_without_route_metadata_changes_nothing(self):
         (self.source / 'manifests/site-routes.json').unlink()
         with self.assertRaisesRegex(RuntimeError, 'no manifests/site-routes.json'):
