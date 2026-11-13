@@ -1147,7 +1147,9 @@ test('finance follow-up changes exactly four lessons and only approved fields', 
     assert.ok(!originalIds.has(id), id + ': no original authored lesson replaced');
   }
   for (const id of Object.keys(financeCheckpoint)) {
-    const before = financeCheckpoint[id], after = current.finance[id];
+    const costCheckpoint = JSON.parse(zlib.gunzipSync(fs.readFileSync(path.join(__dirname, 'baselines', 'discounted-cost-labs.json.gz'))).toString('utf8'));
+    const before = financeCheckpoint[id], after = costCheckpoint[id];
+    if (financeFollowupIds.has(id)) assert.deepEqual(current.finance[id], after, id + ': original TCO follow-up remains exact');
     const diff = [...new Set([...Object.keys(before), ...Object.keys(after)])].filter(f => JSON.stringify(before[f]) !== JSON.stringify(after[f]));
     assert.deepEqual(diff.sort(), financeFollowupIds.has(id) ? ['essentialQuestion', 'labPlan', 'reasoningSteps'] : [], id);
   }

@@ -9,8 +9,10 @@ def reconcile(rows):
  return sum(amounts.values())
 class TcoBoundaries(unittest.TestCase):
  def test_scope(self):
-  b=json.loads(gzip.decompress((R/'tests/baselines/tco-boundaries.json.gz').read_bytes()));d=json.loads((R/'deep-learning/leadership/finance.json').read_bytes())
+  b=json.loads(gzip.decompress((R/'tests/baselines/tco-boundaries.json.gz').read_bytes()));d=json.loads(gzip.decompress((R/'tests/baselines/discounted-cost-labs.json.gz').read_bytes()))
   self.assertEqual(list(b),list(d));self.assertEqual(len(d),66)
+  current=json.loads((R/'deep-learning/leadership/finance.json').read_bytes())
+  for k in IDS:self.assertEqual(d[k],current[k],k)
   for key in b:
    changed={f for f in set(b[key])|set(d[key]) if b[key].get(f)!=d[key].get(f)}
    self.assertEqual(changed,{'essentialQuestion','reasoningSteps','labPlan'} if key in IDS else set(),key)
