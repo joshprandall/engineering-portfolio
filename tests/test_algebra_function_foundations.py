@@ -16,9 +16,11 @@ class AlgebraFunctionFoundations(unittest.TestCase):
   text=' '.join(D[IDS[i]]['reasoningSteps'])
   for value in values:self.assertIn(value,text)
  def test_scope(self):
-  self.assertEqual(list(B),list(D));self.assertEqual(len(D),119)
+  C=json.loads(gzip.decompress((R/'tests/baselines/log-domain-labs.json.gz').read_bytes()))
+  for k in IDS:self.assertEqual(C[k],D[k],k)
+  self.assertEqual(list(B),list(C));self.assertEqual(len(C),119)
   for k in B:
-   changed=sorted(f for f in set(B[k])|set(D[k]) if B[k].get(f)!=D[k].get(f))
+   changed=sorted(f for f in set(B[k])|set(C[k]) if B[k].get(f)!=C[k].get(f))
    self.assertEqual(changed,['essentialQuestion','labPlan','reasoningSteps'] if k in IDS else [],k)
  def test_sources(self):
   for k,slug in zip(IDS,SLUGS):
