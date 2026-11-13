@@ -1,0 +1,5 @@
+# Team reporting evidence
+
+Four lessons distinguish event frequency from reporting probability, completed response times from unanswered waits, acknowledgment from reviewed follow-up, and respondent rates from whole-team inference. OSHA3970 guidance read, including response-time, participation and survey examples. All counts and probability models synthetic; not validated psychological-safety measurements or personnel evaluations. Existing leadership oracles retained.
+
+Validation: six new scope/source/model tests pass. All623discovery cases ran:621passed and two pre-existing staged-package skips. All62configured Python cases and site checks passed. Leadership Node182/182passed;174original oracles and prior scope guards preserved. Exact isolated QA bytes checked. Only three approved fields in four of66team records changed. Full source suite last passed at a3d3869; no fresh package, hosted, live or physical-device acceptance claimed for this batch. Historical media and19missing package assets remain unwaived. No UI, deployment, actual worker data or personnel decisions.
