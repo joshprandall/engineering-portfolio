@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "sourceCommit": "82fc01b010bdca552f1a4521fc0128068dc5a61e",
+  "sourceCommit": "b068a33718559ebf0eb5372b64b4a763aaff2cab",
   "bytePolicy": "Exact Git blobs; artifacts verified against committed SHA-256 and size.",
   "files": [
     {
@@ -928,11 +928,11 @@
     },
     {
       "path": "deep-learning/advanced/memory.json",
-      "size": 601305,
-      "sha256": "d952e89df09ce7f9093eddaa16df6afa1f98aad18699ae93ac5bd73b9d3f2532",
+      "size": 606213,
+      "sha256": "b3cc89f0ef210d9e570bafa7a4f993272020719bc740b6856f8e8f88c70890c1",
       "source": {
         "kind": "git-blob",
-        "blob": "612f8403ff8ebf3a5f78759b25775d1476e3b3b0"
+        "blob": "1154ab2fef959eb1e8d5404dd734b3620ff25f1f"
       },
       "owningComponent": "deep-learning",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -3716,5 +3716,5 @@
     }
   ],
   "fileCount": 334,
-  "byteSize": 446118816
+  "byteSize": 446123724
 }
