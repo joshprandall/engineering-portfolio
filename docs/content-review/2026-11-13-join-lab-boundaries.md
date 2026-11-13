@@ -1,0 +1,5 @@
+# Executable join lab boundaries
+
+Four original software lab lessons cover outer-join predicate placement, projection multiplicity, NULL join keys and NATURAL JOIN schema coupling. Official SQLite SELECT documentation read. Tests execute actual SQL against temporary in-memory databases and assert exact rows, not a simulated SQL engine. No production data or database settings touched.
+
+Validation: six new scope/source/model tests pass. All 477 test_*.py cases ran: 475 passed and two pre-existing staged-package cases skipped. All 62 configured Python cases and site checks passed. Exact isolated QA bytes verified. All 110 software lab records retain their original IDs and fields except the three approved fields of four selected lessons. Actual SQLite queries verify exact result rows; no production data or optimizer performance claim. No full package, full suite or physical-device validation is claimed. Hosted media failures remain unwaived. No merge, deployment, UI, live behavior, security settings or personal history changed.
