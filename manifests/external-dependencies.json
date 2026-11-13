@@ -13725,6 +13725,10 @@
         {
           "source": "deep-learning/software/databases.json",
           "evidence": "current-runtime"
+        },
+        {
+          "source": "deep-learning/software/lab.json",
+          "evidence": "current-runtime"
         }
       ],
       "provider": "other",
