@@ -1,0 +1,5 @@
+# Toil-reduction investment boundaries
+
+Four strategy lessons cover hands-on versus elapsed effort, maintenance-adjusted payback, horizon-dependent project ranking and overlap in task savings. Google SRE Eliminating Toil chapter read. Fictional effort arithmetic is explicitly not a complete technical-debt valuation, cash saving, real commitment or individual productivity evaluation. Existing leadership oracles retained.
+
+Validation: six new scope/source/model tests pass. All641discovery cases ran:639passed and two pre-existing staged-package skips. All62configured Python cases and site checks passed. Leadership Node183/183passed;174original oracles and prior scope guards preserved. Exact isolated QA bytes checked. Only three approved fields in four of73strategy records changed. Full source suite last passed at a3d3869; no fresh package, hosted, live or physical-device acceptance claimed for this batch. Historical media and19missing package assets remain unwaived. No UI, deployment, real automation or personnel decisions.
