@@ -496,9 +496,76 @@ const usd = (x) => '$' + fmt(Math.round(x));
      'about ' + pct(internal / totalBig, 0), '12 January 2027']);
 }
 
+// ---- Deep dives and evidence labs on SLIs, SLOs, error budgets and reliability targets.
+{
+  const quarter = 90 * 24 * 60;
+  const mins = (fraction) => Math.round(fraction * quarter * 1e4) / 1e4;
+  { // aggregation hides bursts
+    const capacity = 150, busy = 30, peak = 200;
+    assert.equal(busy * peak, 100 * 60);
+    add('reliability', 'leadership-v08-deep-dive-service-level-indicator', [SOURCES.slo],
+      ['average is ' + (busy * peak) / 60 + ' rps', peak + ' − ' + capacity + ' = ' + (peak - capacity), busy + ' × ' + (peak - capacity) + ' = ' + fmt(busy * (peak - capacity)), fmt(busy * peak) + ' requests', 'That value is ' + peak + ' rps']);
+  }
+  { // the template's interval and frequency
+    const avg = (40 * 100 + 20 * 400) / 60, sampled = (4 * 100 + 2 * 400) / 6;
+    assert.equal(avg, sampled);
+    add('reliability', 'leadership-v08-evidence-lab-service-level-indicator', [SOURCES.slo],
+      ['6 samples a minute and ' + 6 * 60 + ' an hour', '(40 × 100 + 20 × 400) / 60 = ' + avg + ' ms', '(4 × 100 + 2 × 400) / 6 = ' + sampled + ' ms', 'reports 400 ms']);
+  }
+  { // choosing an objective from users, not luck
+    const last = mins(0.00007), strict = mins(0.0001), loose = mins(0.001);
+    add('reliability', 'leadership-v08-deep-dive-service-level-objective', [SOURCES.slo],
+      ['≈ ' + last.toFixed(2) + ' minutes', '= ' + strict + ' minutes', 'allows ' + loose + ' minutes', loose + ' − ' + strict + ' = ' + (Math.round((loose - strict) * 100) / 100) + ' minutes', '99.95% (' + mins(0.0005) + ' minutes)']);
+  }
+  { // auditing an SLO document
+    const month = 31 * 24 * 60;
+    add('reliability', 'leadership-v08-evidence-lab-service-level-objective', [SOURCES.slo, SOURCES.intro],
+      ['2 of the 7 stand', (month * 0.0005).toFixed(2) + ' minutes of internal allowance against ' + (month * 0.001).toFixed(2) + ' minutes']);
+  }
+  { // two teams, one budget
+    const budget = mins(0.001), usedA = Math.round(0.7 * budget * 100) / 100;
+    const left = Math.round((budget - usedA) * 100) / 100;
+    const afterB = Math.round((left - 20) * 100) / 100, both = Math.round((usedA + 20 + 25) * 100) / 100;
+    add('reliability', 'leadership-v08-deep-dive-error-budget', [SOURCES.intro, SOURCES.risk],
+      [budget + ' minutes', '≈ ' + usedA.toFixed(2) + ' minutes', 'about ' + left.toFixed(2) + ' minutes', 'leaving about ' + afterB.toFixed(2) + ' minutes',
+       usedA.toFixed(2) + ' + 20 = ' + (usedA + 20).toFixed(2), '= ' + both.toFixed(2) + ' minutes', 'about ' + (both - budget).toFixed(2) + ' minutes', usedA.toFixed(2) + ' + 20 + 5 = ' + (usedA + 25).toFixed(2)]);
+  }
+  { // the three steps, with monitoring data
+    const allowed = mins(0.001), used = mins(0.0005), over = mins(0.0012);
+    add('reliability', 'leadership-v08-evidence-lab-error-budget', [SOURCES.risk],
+      ['= ' + allowed + ' minutes', '= ' + used + ' minutes', allowed + ' − ' + used + ' = ' + (allowed - used) + ' minutes', 'used ' + over + ' minutes', 'by ' + (Math.round((over - allowed) * 100) / 100) + ' minutes']);
+  }
+  { // value of each nine
+    const revenue = 10e6;
+    const steps = [[0.99, 0.999], [0.999, 0.9999], [0.9999, 0.99999]].map(([a, b]) => Math.round(revenue * (b - a)));
+    assert.deepEqual(steps, [90000, 9000, 900]);
+    add('reliability', 'leadership-v08-deep-dive-availability-objective-tradeoff', [SOURCES.risk],
+      ['$10M × 0.009 = ' + usd(steps[0]), 'or ' + usd(steps[1]), 'or ' + usd(steps[2]), '$1M × 0.0009 = $900']);
+  }
+  { // the formula on a $4M service
+    const value = Math.round(4e6 * 0.0004), yearMinutes = 525600, avoided = 0.0004 * yearMinutes;
+    assert.ok(close(value / avoided, 4e6 / yearMinutes, 1e-9));
+    add('reliability', 'leadership-v08-evidence-lab-availability-objective-tradeoff', [SOURCES.risk],
+      ['$4M × 0.0004 = ' + usd(value), 'about ' + Math.round(avoided) + ' minutes', 'about $' + (value / avoided).toFixed(2) + ' per minute', 'about three times']);
+  }
+  { // planned outage within the objective
+    const allowed = mins(0.0001), left = Math.round((allowed - 2) * 100) / 100, after = 1 - 12 / quarter;
+    assert.ok(after > 0.9999);
+    add('reliability', 'leadership-v08-deep-dive-100-percent-reliability-tradeoff', [SOURCES.slo, SOURCES.intro],
+      ['= ' + allowed + ' minutes', allowed + ' − 2 = ' + left + ' minutes', '≈ ' + (100 * 12 / quarter).toFixed(4) + '%', 'about ' + (100 * after).toFixed(4) + '%', 'only ' + (Math.round((allowed - 12) * 100) / 100) + ' minutes']);
+  }
+  { // the path between user and service
+    const month = 30 * 24 * 60, path = 0.99, diff = path * 0.00001;
+    assert.ok(close(path * 1 - path * 0.99999, diff, 1e-15));
+    add('reliability', 'leadership-v08-evidence-lab-100-percent-reliability-tradeoff', [SOURCES.intro],
+      ['0.99 × 0.99999 = ' + (path * 0.99999).toFixed(7), 'is ' + diff.toFixed(7), 'about ' + (month * diff).toFixed(2) + ' minutes, roughly ' + Math.round(month * diff * 60) + ' seconds', 'about ' + Math.round(month * 0.01) + ' minutes',
+       '0.9999 × 0.00001 ≈ ' + (0.9999 * 0.00001).toFixed(10), (month * 0.0001).toFixed(2) + ' minutes of path downtime']);
+  }
+}
+
 test('exactly the authored lessons changed, and only their question, reasoning and lab fields', () => {
   const authored = new Set(cases.map(c => c.id));
-  assert.equal(authored.size, 58);
+  assert.equal(authored.size, 68);
   for (const c of chunks) {
     assert.deepEqual(Object.keys(current[c]), Object.keys(baseline[c]), c + ': lesson IDs and order are unchanged');
     for (const id of Object.keys(baseline[c])) {

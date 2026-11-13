@@ -72,7 +72,7 @@ correct. Robotics and machine-learning material was instead worked into existing
 | Missing source in substantive changes | all 952 lessons | 6 networking lessons had none; now cited |
 | Vocabulary definitions | all 61 distinct definitions (559 uses) | 1 imprecise (eigenvalue); corrected |
 | Expert recomputation | 90 lessons, 3 per chunk, seeded sample | no factual or arithmetic errors |
-| Full lesson review | 16 quantum, 12 sequences, 6 networking, 58 Leadership, 8 math | see sections 4 to 6 |
+| Full lesson review | 16 quantum, 12 sequences, 6 networking, 68 Leadership, 8 math | see sections 4 to 6 |
 | Citation fit | all cited URLs mapped to citing lessons | 4 corrections; Leadership Evidence references corrected (section 5) |
 | Source existence and content | 230 URLs | see `2026-11-12-source-ledger.json` |
 | Executable evidence | every substantively changed lesson | referenced by at least one evidence test or fixture |
@@ -132,7 +132,7 @@ Test changes made during review:
 ## 5. Leadership
 
 All 1,100 Leadership lessons carried the generic placeholder question, the same boilerplate
-reasoning and lab steps, and no sources in their study text. 58 have now been authored:
+reasoning and lab steps, and no sources in their study text. 68 have now been authored:
 
 - 26 v06 core lessons: reliability, recovery, incidents, capacity, governance, labs,
   operations and strategy (Google SRE book chapters 1, 3, 4, 5, 6, 11, 14, 15, 21 and 22; SRE
@@ -147,6 +147,9 @@ reasoning and lab steps, and no sources in their study text. 58 have now been au
   (Cunningham, 1992), prioritization (SRE book chapter 3), psychological safety (Edmondson,
   1999), structured interviews (Sackett et al., 2022, as reported by SIOP), vendor evaluation
   (NIST SP 800-161 Rev. 1) and lock-in (EU Data Act, Article 29).
+- 10 of the 80 deep dives and evidence labs: SLIs, SLOs, error budgets, availability-objective
+  trade-offs and the case against 100% (SRE book chapters 1, 3 and 4), each with a scenario
+  distinct from the core lesson on the same topic.
 
 Each lesson works a stated, invented scenario, checks it a second way, rejects a named
 misconception, changes one factor and states what its source does and does not establish.
@@ -164,7 +167,7 @@ and `verification.reviewed` only; the manifest's `sources` and `reviewed` to mat
 `tests/leadership-evidence-references.test.cjs` checks for all 8,000 lessons that manifest
 sources, source counts, review dates and inherited evidence agree.
 
-Still to do: the 1,041 generated Leadership practice records (80 deep dives and evidence labs,
+Still to do: 1,031 generated Leadership practice records (70 deep dives and evidence labs,
 436 v09 and 525 v10 practice formats) keep the generic study text. Many are numbered
 near-duplicates of the same format and topic, so authoring them one by one would produce
 repetitive content; deciding whether to consolidate them is a curriculum-structure question.
@@ -235,7 +238,7 @@ built package (section 9).
 
 ## 9. Tests
 
-- `npm test` passes: 1,023 tests in the curriculum suites plus the other Node suites (9 and 25
+- `npm test` passes: 1,033 tests in the curriculum suites plus the other Node suites (9 and 25
   tests), and 6, 22 and 62 Python tests. It leaves the worktree clean.
 - GitHub Actions on recent pushes: `validate`, `companions` and `ambience (chromium, desktop)`
   pass. The WebKit ambience jobs fail intermittently with "ResizeObserver loop completed with
@@ -264,8 +267,8 @@ built package (section 9).
 
 - Deployment is blocked until the remaining live files are compared with this branch; only the
   three files in section 1 are verified.
-- The 1,041 generated Leadership practice records and the remaining placeholder records in
-  other domains keep the generic study text.
+- 1,031 generated Leadership practice records and the remaining placeholder records in other
+  domains keep the generic study text.
 - 92 URLs from the integrated drafts were not individually checked; 58 more are confirmed to
   exist through the publisher's index but their content was not read.
 - Much of the drafted text follows rigid templates (for example "The ordered synthetic model

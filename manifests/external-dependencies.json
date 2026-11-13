@@ -9189,6 +9189,10 @@
       "url": "https://sre.google/sre-book/introduction/",
       "consumers": [
         {
+          "source": "deep-learning/leadership/reliability.json",
+          "evidence": "current-runtime"
+        },
+        {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
         },
@@ -9212,6 +9216,10 @@
         },
         {
           "source": "deep-learning/leadership/operations.json",
+          "evidence": "current-runtime"
+        },
+        {
+          "source": "deep-learning/leadership/reliability.json",
           "evidence": "current-runtime"
         }
       ],
@@ -9328,6 +9336,10 @@
     {
       "url": "https://sre.google/sre-book/service-level-objectives/",
       "consumers": [
+        {
+          "source": "deep-learning/leadership/reliability.json",
+          "evidence": "current-runtime"
+        },
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
