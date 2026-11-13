@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "sourceCommit": "80b5e67abd79bd4567148f211e9d49d45330c2d8",
+  "sourceCommit": "4b6069b5819b22c4c29025da547232e415bb2be7",
   "bytePolicy": "Exact Git blobs; artifacts verified against committed SHA-256 and size.",
   "files": [
     {
@@ -1687,11 +1687,11 @@
     },
     {
       "path": "deep-learning/software/programming.json",
-      "size": 611597,
-      "sha256": "49ec1bfcbdb367b8ec11b8baab0d23f7f755aa463bd3b2118c7a119c9a51c6be",
+      "size": 615088,
+      "sha256": "5265a39c05b16eeceb1920e5fa4ef345d19c2307952ed1195a8c1026d924a647",
       "source": {
         "kind": "git-blob",
-        "blob": "b1f127abc20c9f226262bb3968b8291c6387fdb0"
+        "blob": "ade1af46e816c89d1eb84543c68cfde82f70e6d1"
       },
       "owningComponent": "deep-learning",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -3716,5 +3716,5 @@
     }
   ],
   "fileCount": 334,
-  "byteSize": 446203066
+  "byteSize": 446206557
 }
