@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "sourceCommit": "a60c2bfe8d2d235082b31e325282e0a92e1017f7",
+  "sourceCommit": "8c1c0fe75a9860021796658cc2f7717a88bcdaab",
   "bytePolicy": "Exact Git blobs; artifacts verified against committed SHA-256 and size.",
   "files": [
     {
@@ -1071,11 +1071,11 @@
     },
     {
       "path": "deep-learning/cloud/windows-identity.json",
-      "size": 517172,
-      "sha256": "642996ce072161fc2529ba894f6c938b9dcb09bda2aead1ea08deedd077d7f21",
+      "size": 519312,
+      "sha256": "bf7976e3c03393735ab41b20047ed4ae7327562e029ba26ef556fae2af9ca1f4",
       "source": {
         "kind": "git-blob",
-        "blob": "ca6c4c891ea26278325793d804f9c3fdd64ca05a"
+        "blob": "a0e1f39f1733b65272e3fdbb3d6cfc10ab91255c"
       },
       "owningComponent": "deep-learning",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -3716,5 +3716,5 @@
     }
   ],
   "fileCount": 334,
-  "byteSize": 446265800
+  "byteSize": 446267940
 }
