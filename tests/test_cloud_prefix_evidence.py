@@ -11,9 +11,11 @@ class PrefixEvidence(unittest.TestCase):
   text=' '.join(CURRENT[IDS[i]]['reasoningSteps'])
   for v in values:self.assertIn(v,text)
  def test_exact_scope(self):
-  self.assertEqual(list(BASE),list(CURRENT));self.assertEqual(len(CURRENT),199)
+  checkpoint=json.loads(gzip.decompress((ROOT/'tests/baselines/ipv6-prefix-boundaries.json.gz').read_bytes()))
+  self.assertEqual(list(BASE),list(checkpoint));self.assertEqual(list(checkpoint),list(CURRENT));self.assertEqual(len(CURRENT),199)
+  for key in IDS:self.assertEqual(CURRENT[key],checkpoint[key],key)
   for key in BASE:
-   fields=sorted(k for k in set(BASE[key])|set(CURRENT[key]) if BASE[key].get(k)!=CURRENT[key].get(k))
+   fields=sorted(k for k in set(BASE[key])|set(checkpoint[key]) if BASE[key].get(k)!=checkpoint[key].get(k))
    self.assertEqual(fields,['essentialQuestion','labPlan','reasoningSteps'] if key in IDS else [],key)
  def test_structure_and_source(self):
   for i,key in enumerate(IDS):
