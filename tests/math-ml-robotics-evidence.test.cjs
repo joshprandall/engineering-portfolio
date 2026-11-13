@@ -117,13 +117,19 @@ const add = (chunk, id, sources, expectations) => cases.push({ chunk, id, source
      'd1 · d2 = 3 × 0 + 0 × 4 = 0', '(' + minus(drifted[0].toFixed(3)) + ', ' + drifted[1].toFixed(3) + ')', '(' + actual[0].toFixed(3) + ', ' + actual[1].toFixed(3) + ')', 'about ' + error.toFixed(3) + ' m']);
 }
 
-test('exactly the eight lessons changed, and only their question, reasoning and lab fields', () => {
+test('original eight lessons retain their exact scoped changes through the calculus checkpoint', () => {
+  // Preserve the original scope audit against its original baseline. New v06 changes
+  // are independently guarded by test_calculus_rule_foundations.py.
+  const checkpoint = JSON.parse(zlib.gunzipSync(fs.readFileSync(path.join(__dirname, 'baselines', 'calculus-rule-foundations.json.gz'))).toString('utf8'));
+  const scopeCurrent = {...current, calculus: checkpoint};
+  assert.deepEqual(Object.keys(current.calculus), Object.keys(checkpoint));
+  for (const c of cases) if(c.chunk === 'calculus') assert.deepEqual(current.calculus[c.id], checkpoint[c.id], c.id + ': original authored record preserved');
   const authored = new Set(cases.map(c => c.id));
   assert.equal(authored.size, 8);
   for (const c of chunks) {
-    assert.deepEqual(Object.keys(current[c]), Object.keys(baseline[c]), c + ': lesson IDs and order are unchanged');
+    assert.deepEqual(Object.keys(scopeCurrent[c]), Object.keys(baseline[c]), c + ': lesson IDs and order are unchanged');
     for (const id of Object.keys(baseline[c])) {
-      const before = baseline[c][id], after = current[c][id];
+      const before = baseline[c][id], after = scopeCurrent[c][id];
       const diff = [...new Set([...Object.keys(before), ...Object.keys(after)])].filter(f => JSON.stringify(before[f]) !== JSON.stringify(after[f]));
       if (authored.has(id)) assert.deepEqual(diff.sort(), ['essentialQuestion', 'labPlan', 'reasoningSteps'], id);
       else assert.deepEqual(diff, [], id + ' must be untouched');
