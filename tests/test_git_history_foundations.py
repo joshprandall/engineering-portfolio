@@ -23,9 +23,11 @@ def fixture():
   yield repo,g,commit,a
 class GitHistoryFoundations(unittest.TestCase):
  def test_scope(self):
-  self.assertEqual(list(B),list(D));self.assertEqual(len(D),145)
+  checkpoint=json.loads(gzip.decompress((R/'tests/baselines/artifact-byte-boundaries.json.gz').read_bytes()))
+  self.assertEqual(list(B),list(checkpoint));self.assertEqual(list(checkpoint),list(D));self.assertEqual(len(D),145)
+  for k in IDS:self.assertEqual(D[k],checkpoint[k],k)
   for k in B:
-   changed=sorted(f for f in set(B[k])|set(D[k]) if B[k].get(f)!=D[k].get(f))
+   changed=sorted(f for f in set(B[k])|set(checkpoint[k]) if B[k].get(f)!=checkpoint[k].get(f))
    self.assertEqual(changed,['essentialQuestion','labPlan','reasoningSteps'] if k in IDS else [],k)
  def test_sources(self):
   for k,slug in zip(IDS,SLUGS):
