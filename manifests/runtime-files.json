@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "sourceCommit": "586eb9bf7f7544d6b056d6a231e39f0e1e373a78",
+  "sourceCommit": "e99822d91931d7cda5ee31949c491811420faf3a",
   "bytePolicy": "Exact Git blobs; artifacts verified against committed SHA-256 and size.",
   "files": [
     {
@@ -950,11 +950,11 @@
     },
     {
       "path": "deep-learning/advanced/parallel-computing.json",
-      "size": 566501,
-      "sha256": "6cca97ec2e810812b88b3943d4b06ee39a8a2303893e3a8e96d8be0da885a48f",
+      "size": 567705,
+      "sha256": "deff6c2b80c50bda33eec0b0b37e12b7d88e390a3239a25b4a0104c160cdccd1",
       "source": {
         "kind": "git-blob",
-        "blob": "d5e757d58ad72dcf5428fa3c7a9f67da55659f79"
+        "blob": "74aa2cc6baa30a15e0978b1c6e8d14e49d824007"
       },
       "owningComponent": "deep-learning",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -3716,5 +3716,5 @@
     }
   ],
   "fileCount": 334,
-  "byteSize": 446246773
+  "byteSize": 446247977
 }
