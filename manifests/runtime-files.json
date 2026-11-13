@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "sourceCommit": "ac2090726f57e1d077c43544b5ddba4bb372478c",
+  "sourceCommit": "16c3f00a9ce27e5485e26398e1b449d66ed6fd43",
   "bytePolicy": "Exact Git blobs; artifacts verified against committed SHA-256 and size.",
   "files": [
     {
@@ -1324,11 +1324,11 @@
     },
     {
       "path": "deep-learning/leadership/reliability.json",
-      "size": 503474,
-      "sha256": "4f56a10beaea006c58fd3b884130858b40d893cf76994bf252a1f9b7d9fd949d",
+      "size": 511035,
+      "sha256": "1a513efd4f3b39092d78ebee6e2d0cb8a9f7722bed96691935d6da5248fc4311",
       "source": {
         "kind": "git-blob",
-        "blob": "030c0796598951cb0d8c1aa69aece503522e966c"
+        "blob": "d2612955766043db6c92a6185a22ddc842ffbd00"
       },
       "owningComponent": "deep-learning",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -3716,5 +3716,5 @@
     }
   ],
   "fileCount": 334,
-  "byteSize": 446067481
+  "byteSize": 446075042
 }
