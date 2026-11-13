@@ -1,0 +1,5 @@
+# Queue delivery and processing boundaries
+
+Four lessons exercise actual Python Queue, LifoQueue and PriorityQueue: retrieval versus completion, stale observations, waiting capacity versus acknowledgments, and explicit priority tie breaking. Python3.13 official queue reference read. Nonblocking local operations only, with no broker, threads, unbounded joins or external jobs. Existing four cache-reference lessons and oracles preserved.
+
+Validation: six new scope/source/actual-library tests pass. All635discovery cases ran:633passed and two pre-existing staged-package skips. All62configured Python cases, site checks and182leadership Node cases passed. Exact isolated QA bytes checked. Only three approved fields in four of111architecture records changed. Four earlier cache-reference records and all source/model oracles remain exact through immutable checkpoint chaining. Full source suite last passed at a3d3869. No fresh package, hosted, live or physical-device acceptance claimed. Historical media and19missing package assets remain unwaived. No UI, deployment or external broker changes.

@@ -5,9 +5,11 @@ IDS=["software-v09-evidence-verification-la-caching-faster-by-reusing-work","sof
 class CacheBoundaries(unittest.TestCase):
  def test_scope(self):
   before=json.loads(gzip.decompress((R/'tests/baselines/cache-reference-boundaries.json.gz').read_bytes()));after=json.loads((R/'deep-learning/software/architecture.json').read_bytes())
-  self.assertEqual(list(before),list(after));self.assertEqual(len(after),111)
+  checkpoint=json.loads(gzip.decompress((R/'tests/baselines/queue-boundaries.json.gz').read_bytes()))
+  self.assertEqual(list(before),list(after));self.assertEqual(list(checkpoint),list(after));self.assertEqual(len(after),111)
+  for key in IDS:self.assertEqual(after[key],checkpoint[key],key)
   for key in before:
-   changed={f for f in set(before[key])|set(after[key]) if before[key].get(f)!=after[key].get(f)}
+   changed={f for f in set(before[key])|set(checkpoint[key]) if before[key].get(f)!=checkpoint[key].get(f)}
    self.assertEqual(changed,{'essentialQuestion','reasoningSteps','labPlan'} if key in IDS else set(),key)
  def test_sources(self):
   data=json.loads((R/'deep-learning/software/architecture.json').read_bytes())
