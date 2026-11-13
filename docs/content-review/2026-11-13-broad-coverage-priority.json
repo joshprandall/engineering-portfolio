@@ -1,0 +1,42 @@
+{
+  "sourceCommit": "2947ea2e3659bc83af8c73c05a2fde3ac0a367db",
+  "scope": "deep-learning/*/*.json lesson dictionaries",
+  "caution": "Exact textual candidate counts, not scientific correctness or completeness grades. A different opening is not proof of authored quality.",
+  "domains": {
+    "advanced": {
+      "records": 1200,
+      "questionPrefixCandidates": 1107,
+      "cannedReasoningCandidates": 1106
+    },
+    "cloud": {
+      "records": 1200,
+      "questionPrefixCandidates": 1171,
+      "cannedReasoningCandidates": 1170
+    },
+    "cyber": {
+      "records": 1150,
+      "questionPrefixCandidates": 1102,
+      "cannedReasoningCandidates": 1102
+    },
+    "leadership": {
+      "records": 1100,
+      "questionPrefixCandidates": 925,
+      "cannedReasoningCandidates": 925
+    },
+    "math": {
+      "records": 1100,
+      "questionPrefixCandidates": 1054,
+      "cannedReasoningCandidates": 1054
+    },
+    "physics": {
+      "records": 1100,
+      "questionPrefixCandidates": 651,
+      "cannedReasoningCandidates": 651
+    },
+    "software": {
+      "records": 1150,
+      "questionPrefixCandidates": 1024,
+      "cannedReasoningCandidates": 1023
+    }
+  }
+}

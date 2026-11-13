@@ -1,0 +1,5 @@
+# Broader coverage review and Python foundations
+At source2947ea2, all seven domains contain8000 lesson records;7031 match the exact canned first reasoning step and7034 match the generic question prefix. These are candidate indicators, not a correctness grade or proof that all other records are fully authored. Per-domain evidence is preserved in the companion JSON.
+Software/programming had158/158 canned reasoning candidates. This batch authors six foundational existing records with actual executable Python semantics: shallow aliases, dictionary ordering/views, set hashability, exception precedence, context suppression and iterator exhaustion.
+Official sources read directly: https://docs.python.org/3/library/stdtypes.html and https://docs.python.org/3/reference/compound_stmts.html. Examples are original. Only three authorized fields change; the entire prior programming chunk is pinned in a compressed baseline for exact scope comparison.
+Validation pending. No runtime/UI/live changes, merge or deployment.
