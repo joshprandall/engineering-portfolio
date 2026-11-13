@@ -1100,14 +1100,17 @@ const teamsFollowupIds = new Set(["leadership-v09-troubleshooting-lab-psychologi
 const strategyCheckpoint = JSON.parse(zlib.gunzipSync(fs.readFileSync(path.join(__dirname, 'baselines', 'toil-investment.json.gz'))).toString('utf8'));
 const strategyFollowupIds = new Set(["leadership-v09-practical-lab-technical-debt-is-a-portfolio-not-a-single-number", "leadership-v09-teach-back-lab-technical-debt-is-a-portfolio-not-a-single-number", "leadership-v09-worked-example-technical-debt-is-a-portfolio-not-a-single-number", "leadership-v10-evidence-reading-technical-debt-is-a-portfolio-not-a-single-number"]);
 
+const labCheckpoint = JSON.parse(zlib.gunzipSync(fs.readFileSync(path.join(__dirname, 'baselines', 'timeline-evidence.json.gz'))).toString('utf8'));
+const labFollowupIds = new Set(["leadership-v09-recall-drill-reconstruct-an-incident-timeline", "leadership-v09-decision-lab-reconstruct-an-incident-timeline", "leadership-v09-evidence-verification-la-reconstruct-an-incident-timeline", "leadership-v09-quick-reference-reconstruct-an-incident-timeline"]);
+
 test('exactly the authored lessons changed, and only their question, reasoning and lab fields', () => {
   const authored = new Set(cases.map(c => c.id));
   assert.equal(authored.size, 174);
   for (const c of chunks) {
     assert.deepEqual(Object.keys(current[c]), Object.keys(baseline[c]), c + ': lesson IDs and order are unchanged');
     for (const id of Object.keys(baseline[c])) {
-      const before = baseline[c][id], after = c === 'capacity' ? capacityCheckpoint[id] : c === 'finance' ? financeCheckpoint[id] : c === 'governance' ? governanceCheckpoint[id] : c === 'itsm' ? itsmCheckpoint[id] : c === 'projects' ? projectsCheckpoint[id] : c === 'vendors' ? vendorsCheckpoint[id] : c === 'teams' ? teamsCheckpoint[id] : c === 'strategy' ? strategyCheckpoint[id] : current[c][id];
-      if ((c === 'capacity' || c === 'finance' || c === 'governance' || c === 'itsm' || c === 'projects' || c === 'vendors' || c === 'teams' || c === 'strategy') && authored.has(id)) assert.deepEqual(current[c][id], after, id + ': original authored lesson remains exact');
+      const before = baseline[c][id], after = c === 'capacity' ? capacityCheckpoint[id] : c === 'finance' ? financeCheckpoint[id] : c === 'governance' ? governanceCheckpoint[id] : c === 'itsm' ? itsmCheckpoint[id] : c === 'projects' ? projectsCheckpoint[id] : c === 'vendors' ? vendorsCheckpoint[id] : c === 'teams' ? teamsCheckpoint[id] : c === 'strategy' ? strategyCheckpoint[id] : c === 'lab' ? labCheckpoint[id] : current[c][id];
+      if ((c === 'capacity' || c === 'finance' || c === 'governance' || c === 'itsm' || c === 'projects' || c === 'vendors' || c === 'teams' || c === 'strategy' || c === 'lab') && authored.has(id)) assert.deepEqual(current[c][id], after, id + ': original authored lesson remains exact');
       const diff = [...new Set([...Object.keys(before), ...Object.keys(after)])].filter(f => JSON.stringify(before[f]) !== JSON.stringify(after[f]));
       if (authored.has(id)) assert.deepEqual(diff.sort(), ['essentialQuestion', 'labPlan', 'reasoningSteps'], id);
       else assert.deepEqual(diff, [], id + ' must be untouched');
@@ -1240,6 +1243,22 @@ test('strategy follow-up changes exactly four lessons and only approved fields',
     const before = strategyCheckpoint[id], after = current.strategy[id];
     const diff = [...new Set([...Object.keys(before), ...Object.keys(after)])].filter(f => JSON.stringify(before[f]) !== JSON.stringify(after[f]));
     assert.deepEqual(diff.sort(), strategyFollowupIds.has(id) ? ['essentialQuestion', 'labPlan', 'reasoningSteps'] : [], id);
+  }
+});
+
+test('lab follow-up changes exactly four lessons and only approved fields', () => {
+  assert.equal(labFollowupIds.size, 4);
+  assert.equal(Object.keys(current.lab).length, 67);
+  assert.deepEqual(Object.keys(current.lab), Object.keys(labCheckpoint));
+  const originalIds = new Set(cases.map(c => c.id));
+  for (const id of labFollowupIds) {
+    assert.ok(Object.hasOwn(labCheckpoint, id), id);
+    assert.ok(!originalIds.has(id), id + ': no original authored lesson replaced');
+  }
+  for (const id of Object.keys(labCheckpoint)) {
+    const before = labCheckpoint[id], after = current.lab[id];
+    const diff = [...new Set([...Object.keys(before), ...Object.keys(after)])].filter(f => JSON.stringify(before[f]) !== JSON.stringify(after[f]));
+    assert.deepEqual(diff.sort(), labFollowupIds.has(id) ? ['essentialQuestion', 'labPlan', 'reasoningSteps'] : [], id);
   }
 });
 

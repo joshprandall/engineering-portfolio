@@ -1,0 +1,5 @@
+# Incident timeline evidence boundaries
+
+Four lab lessons cover event versus collection order, documented signed clock offsets, uncertain event ordering and timestamp fallback provenance. OpenTelemetry stable Logs Data Model read. The offset/interval exercises are explicitly separate teaching models, not specification mandates or real incident conclusions. Existing leadership oracles retained.
+
+Validation: six new scope/source/model tests pass. All647discovery cases ran:645passed and two pre-existing staged-package skips. All62configured Python cases and site checks passed. Leadership Node184/184passed;174original oracles and prior scope guards preserved. Exact isolated QA bytes checked. Only three approved fields in four of67lab records changed. Full source suite last passed at a3d3869; no fresh package, hosted, live or physical-device acceptance claimed for this batch. Historical media and19missing package assets remain unwaived. No UI, deployment, actual logs or clock configuration changes.
