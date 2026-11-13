@@ -11796,6 +11796,20 @@
       "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
     },
     {
+      "url": "https://www.gov.uk/government/publications/green-book-supplementary-guidance-multi-criteria-decision-analysis/use-of-multi-criteria-decision-analysis-in-options-appraisal-of-economic-cases",
+      "consumers": [
+        {
+          "source": "deep-learning/leadership/vendors.json",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
       "url": "https://www.gov.uk/service-manual/agile-delivery/developing-a-roadmap",
       "consumers": [
         {
