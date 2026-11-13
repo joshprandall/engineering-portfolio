@@ -917,9 +917,25 @@ const usd = (x) => '$' + fmt(Math.round(x));
  ['40 GiB','20 hours','30 GiB','15 hours','230 GiB','10 hours','5 hours',String((capacity-used-reserve)/4)+' hours','zero or negative']);
 }
 
+// Original traffic examples: independently calculated unit, coverage and conservation checks.
+{
+ assert.equal(90+10*20,290);assert.equal(40+60*20,1240);assert.equal((1240/290).toFixed(4),'4.2759');
+ assert.equal(1200/60,20);assert.equal((60+12)/2,36);close((36-20)/20,0.8);
+ assert.equal((980-900)/10,8);assert.equal((30-980)/10,-95);
+ assert.equal(4000-3600,400);assert.equal(3420/10,342);close(180/3600,0.05);
+ assert.equal(200*2/8,50);assert.equal(200*5/8,125);assert.equal(500*0.8,400);
+ assert.equal(1-3000/12000,0.75);assert.equal(3000/12000,0.25);assert.equal(15*200,3000);
+}
+add('reliability',"leadership-v08-deep-dive-traffic-signal",[SOURCES.monitoring],["290 CPU-milliseconds", "1,240 CPU-milliseconds", "4.2759", "29%", "124%"]);
+add('reliability',"leadership-v08-evidence-lab-traffic-signal",[SOURCES.monitoring],["60 requests per second", "12 requests per second", "20 requests per second", "36 requests per second", "80%"]);
+add('reliability',"leadership-v09-failure-analysis-lab-traffic-signal",[SOURCES.monitoring],["80 observed increments", "8 requests per second", "-950", "-95 requests per second", "3 requests per second", "lower bound"]);
+add('reliability',"leadership-v09-scenario-analysis-traffic-signal",[SOURCES.monitoring],["500 requests per second", "400 requests per second", "100 requests per second", "360 requests per second", "342 requests per second", "20%", "5%"]);
+add('reliability',"leadership-v10-field-note-traffic-signal",[SOURCES.monitoring],["400 megabits per second", "50 megabytes per second", "1,000 megabits per second", "125 megabytes per second", "2.5", "500 sessions"]);
+add('reliability',"leadership-v10-explain-back-challenge-traffic-signal",[SOURCES.monitoring],["200 requests per second", "50 requests per second", "75%", "9,000", "25%", "15 of 60 seconds"]);
+
 test('exactly the authored lessons changed, and only their question, reasoning and lab fields', () => {
   const authored = new Set(cases.map(c => c.id));
-  assert.equal(authored.size, 111);
+  assert.equal(authored.size, 117);
   for (const c of chunks) {
     assert.deepEqual(Object.keys(current[c]), Object.keys(baseline[c]), c + ': lesson IDs and order are unchanged');
     for (const id of Object.keys(baseline[c])) {
