@@ -2,4 +2,8 @@
 
 Six existing lessons now distinguish FIFO/LIFO, bounded eviction versus insertion errors, equality versus hash collisions, dictionary order, min-heap invariants and push-pop versus replacement. Official Python collections, heapq, stdtypes and data-model pages read directly. Uses only long-standing APIs supported by the tested Python 3.13 runtime, not newer max-heap APIs present in the current docs. Only three authorized fields changed.
 
-Validation pending. No UI/live/deploy changes.
+Validation: all 8 new tests pass against actual Python containers: FIFO/LIFO removal, empty errors, bounded append eviction versus insert failure, immutable equal-hash unequal keys, dictionary order/update/reinsertion, heap invariants and duplicates, and push-pop/replacement boundary cases. All 169 of 171 test_*.py cases pass; 2 existing staged-package cases explicitly skipped. All 62 *_test.py cases and site validation pass. No full Node scan or release package claimed.
+
+All 113 records and every field outside six question/reasoning/lab triples retain baseline values. QA lesson/test/baseline/metadata bytes match checkout. Metadata gives 90 routes, 765 external references and 0 unresolved HTML references. Exactly four new source URLs and 18 existing externalDependencies lists change; no route structural changes. The narrow runtime manifest changes only software/data-structures.json: 483,341 bytes, SHA256 2f63bcb278b830ecc2757bf25a98a1b6621841c68327fcbe788b470df57f63ed; 334 paths retained, aggregate 446,141,893 bytes.
+
+No timing, cryptographic, fairness or multi-step concurrency guarantee is inferred from container semantics. Heap remaining values are compared as sorted multisets rather than relying on internal layout. CollisionKey is frozen and uses equality over its label; the intentionally constant hash is only a test fixture. Latest hosted CI unchecked and earlier browser-media failures remain unwaived. No UI/live/deploy changes.

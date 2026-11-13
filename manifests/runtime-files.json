@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "sourceCommit": "4089620227c6117b60b85c4cfce20e6ad95e4f98",
+  "sourceCommit": "c4cba17efbc7a22cf4f1debd8b3100358010a772",
   "bytePolicy": "Exact Git blobs; artifacts verified against committed SHA-256 and size.",
   "files": [
     {
@@ -1643,11 +1643,11 @@
     },
     {
       "path": "deep-learning/software/data-structures.json",
-      "size": 481473,
-      "sha256": "9ecb8a226511370e1cf68708cc5224625520c6be1d6330bc93abc4623a7d7086",
+      "size": 483341,
+      "sha256": "2f63bcb278b830ecc2757bf25a98a1b6621841c68327fcbe788b470df57f63ed",
       "source": {
         "kind": "git-blob",
-        "blob": "5e14bf1eacf5065f13a6ec3320fcc20ccda72c4c"
+        "blob": "dd5384652730a2976a889db9d1835784ad62c2d9"
       },
       "owningComponent": "deep-learning",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -3716,5 +3716,5 @@
     }
   ],
   "fileCount": 334,
-  "byteSize": 446140025
+  "byteSize": 446141893
 }

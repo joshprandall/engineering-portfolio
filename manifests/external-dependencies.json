@@ -1966,6 +1966,20 @@
       "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
     },
     {
+      "url": "https://docs.python.org/3/library/collections.html#collections.deque",
+      "consumers": [
+        {
+          "source": "deep-learning/software/data-structures.json",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
       "url": "https://docs.python.org/3/library/exceptions.html",
       "consumers": [
         {
@@ -1988,6 +2002,20 @@
       "consumers": [
         {
           "source": "deep-learning/cyber/foundations.json",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
+      "url": "https://docs.python.org/3/library/heapq.html",
+      "consumers": [
+        {
+          "source": "deep-learning/software/data-structures.json",
           "evidence": "current-runtime"
         }
       ],
@@ -2062,6 +2090,20 @@
       "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
     },
     {
+      "url": "https://docs.python.org/3/library/stdtypes.html#mapping-types-dict",
+      "consumers": [
+        {
+          "source": "deep-learning/software/data-structures.json",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
       "url": "https://docs.python.org/3/library/struct.html.",
       "consumers": [
         {
@@ -2122,6 +2164,20 @@
       "consumers": [
         {
           "source": "deep-learning/software/programming.json",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
+      "url": "https://docs.python.org/3/reference/datamodel.html#object.__hash__",
+      "consumers": [
+        {
+          "source": "deep-learning/software/data-structures.json",
           "evidence": "current-runtime"
         }
       ],
