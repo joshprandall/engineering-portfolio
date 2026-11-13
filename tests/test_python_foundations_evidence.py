@@ -11,9 +11,11 @@ class Foundations(unittest.TestCase):
   text=' '.join(CURRENT['software-v06-'+suffix]['reasoningSteps'])
   for v in values:self.assertIn(v,text)
  def test_exact_scope(self):
-  self.assertEqual(list(CURRENT),list(BASE));self.assertEqual(len(CURRENT),158)
+  checkpoint=json.loads(gzip.decompress((ROOT/'tests/baselines/context-lifecycle-boundaries.json.gz').read_bytes()))
+  self.assertEqual(list(CURRENT),list(checkpoint));self.assertEqual(list(checkpoint),list(BASE));self.assertEqual(len(CURRENT),158)
+  for key in IDS:self.assertEqual(CURRENT[key],checkpoint[key],key)
   for key in BASE:
-   fields=[k for k in set(BASE[key])|set(CURRENT[key]) if BASE[key].get(k)!=CURRENT[key].get(k)]
+   fields=[k for k in set(BASE[key])|set(checkpoint[key]) if BASE[key].get(k)!=checkpoint[key].get(k)]
    self.assertEqual(sorted(fields),['essentialQuestion','labPlan','reasoningSteps'] if key in IDS else [],key)
  def test_structure_sources(self):
   for key in IDS:
