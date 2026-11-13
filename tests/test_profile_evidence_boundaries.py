@@ -7,9 +7,11 @@ def gaps(current,target):
 class ProfileEvidenceBoundaries(unittest.TestCase):
  def test_scope(self):
   b=json.loads(gzip.decompress((R/'tests/baselines/profile-evidence-boundaries.json.gz').read_bytes()));d=json.loads((R/'deep-learning/cyber/governance.json').read_bytes())
-  self.assertEqual(list(b),list(d));self.assertEqual(len(d),113)
+  c=json.loads(gzip.decompress((R/'tests/baselines/impact-categories.json.gz').read_bytes()))
+  self.assertEqual(list(b),list(d));self.assertEqual(list(c),list(d));self.assertEqual(len(d),113)
+  for k in IDS:self.assertEqual(d[k],c[k],k)
   for k in b:
-   changed={f for f in set(b[k])|set(d[k]) if b[k].get(f)!=d[k].get(f)}
+   changed={f for f in set(b[k])|set(c[k]) if b[k].get(f)!=c[k].get(f)}
    self.assertEqual(changed,{'essentialQuestion','reasoningSteps','labPlan'} if k in IDS else set(),k)
  def test_sources(self):
   d=json.loads((R/'deep-learning/cyber/governance.json').read_bytes())
