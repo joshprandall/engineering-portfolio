@@ -781,9 +781,57 @@ const usd = (x) => '$' + fmt(Math.round(x));
  pct((useful+lateDuplicate)/attempts,0),pct(useful/ops,0),String(attempts/ops)+' attempts',pct(useful/attempts,0),pct(1-useful/attempts,0),'120 per second']);
 }
 
+
+{ // Offered worker demand is not feasible occupancy in a finite pool.
+ const rate=400,fast=rate*.95*.05,slow=rate*.05*10;
+ assert.equal(fast,19);assert.equal(slow,200);assert.ok(fast+slow>80);
+ add('reliability','leadership-v08-deep-dive-cascading-failure',[SOURCES.cascade],
+ [String(fast)+' workers',String(slow)+' workers',String(fast+slow),'0.5475',String(fast+rate*.05)+' workers']);
+}
+{ // Preserve one absolute deadline and a finishing reserve.
+ const deadline=500,first=120+30,last=first+80,reserve=40;
+ assert.equal(deadline-last-reserve,230);
+ add('reliability','leadership-v08-evidence-lab-cascading-failure',[SOURCES.cascade],
+ ['t = '+first+' ms',String(deadline-first)+' ms','t = '+last+' ms',String(deadline-last)+' ms','t = '+(deadline-reserve)+' ms','t = '+(last+500)+' ms']);
+}
+{ // Uneven allocation is not cured by averaging utilization.
+ const capacity=1000,load=[1500,600,600],redistributed=[1000,850,850];
+ assert.equal(load.reduce((a,b)=>a+b),redistributed.reduce((a,b)=>a+b));
+ assert.ok(load[0]>capacity);assert.ok(redistributed.every(n=>n<=capacity));
+ add('reliability','leadership-v10-exam-style-practice-cascading-failure',[SOURCES.cascade],
+ ['90%','150%','60%','1,000, 850 and 850','900 requests per second']);
+}
+{ // Per-process limits scale with holders, not with original demand.
+ const original=400,limit=550,holders=8,local=Math.floor((limit-original)/holders);
+ assert.equal(local,18);assert.equal(original+holders*25,600);
+ add('reliability','leadership-v10-field-note-cascading-failure',[SOURCES.cascade],
+ ['500 attempts','600',String(limit-original),String(local),String(local*holders),String(original+local*holders),'6 unused',fmt(holders*150)]);
+}
+{ // A finite trace of a deliberately uncapped retry recurrence.
+ let retry=0;const retries=[],offered=[],rejected=[];
+ for(let i=0;i<5;i++){retries.push(retry);offered.push(1050+retry);retry=1050+retry-1000;rejected.push(retry);}
+ assert.deepEqual(retries,[0,50,100,150,200]);assert.equal(rejected.reduce((a,b)=>a+b),750);
+ add('reliability','leadership-v10-explain-back-challenge-cascading-failure',[SOURCES.cascade],
+ [retries.slice(0,4).join(', ')+' and 200','1,250','750','1,150','R(n+1) = R(n) + 50']);
+}
+{ // Cancellation saves work but is not rollback.
+ const first=20,other=200,delay=10,noCancel=first+2*other,cancel=first+2*(first+delay);
+ assert.equal(noCancel,420);assert.equal(cancel,80);
+ add('reliability','leadership-v10-transfer-lab-cascading-failure',[SOURCES.cascade],
+ [String(noCancel)+' CPU-ms','30 ms',String(cancel)+' CPU-ms',String(noCancel-cancel)+' CPU-ms']);
+}
+{ // Deadlines constrain waits plus service, not just retry counts.
+ const waits=[0,50,100,200];let finish=0;const starts=[],ends=[];
+ for(const wait of waits){const start=finish+wait;starts.push(start);finish=start+80;ends.push(finish);}
+ assert.deepEqual(starts,[0,130,310,590]);assert.deepEqual(ends,[80,210,390,670]);
+ assert.equal(ends.filter(x=>x<=500).length,3);assert.equal(ends.filter(x=>x<=350).length,2);
+ add('reliability','leadership-v10-configuration-lab-cascading-failure',[SOURCES.cascade],
+ ['130 to 210 ms','310 to 390 ms','590 ms','670 ms','two complete 80 ms attempts']);
+}
+
 test('exactly the authored lessons changed, and only their question, reasoning and lab fields', () => {
   const authored = new Set(cases.map(c => c.id));
-  assert.equal(authored.size, 92);
+  assert.equal(authored.size, 99);
   for (const c of chunks) {
     assert.deepEqual(Object.keys(current[c]), Object.keys(baseline[c]), c + ': lesson IDs and order are unchanged');
     for (const id of Object.keys(baseline[c])) {
