@@ -1,0 +1,5 @@
+# Zero-trust decision boundaries
+
+Four original lessons introduce location-independent permission, explicit resource/action grants, reevaluation for new sessions, and distinct authentication/authorization gates. Official NIST SP800-207 abstract read. Synthetic model only, not an implementation or proof of deployed zero trust. No credentials or security settings touched.
+
+Validation: six new scope/source/model tests pass. All 465 test_*.py cases ran: 463 passed and two pre-existing staged-package cases skipped. All 62 configured Python cases and site checks passed. Exact isolated QA bytes verified. All 113 architecture records retain their original IDs and fields except the three approved fields of four selected lessons. Synthetic truth tables check the teaching policy only, not a deployed security system. No full package, full suite or physical-device validation is claimed. Hosted media failures remain unwaived. No merge, deployment, UI, live behavior, security settings or personal history changed.
