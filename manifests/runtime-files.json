@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "sourceCommit": "1a5352c5707096c01de0d826b2b463c0c0d16801",
+  "sourceCommit": "accac42ccc5cd3e76667d4c9b4f7ab2a242f480f",
   "bytePolicy": "Exact Git blobs; artifacts verified against committed SHA-256 and size.",
   "files": [
     {
@@ -1379,44 +1379,44 @@
     },
     {
       "path": "deep-learning/math/algebra.json",
-      "size": 458482,
-      "sha256": "4554e0723ab1f70ccac7cdcb900d7b7a4e82594b5c3cff7a26e418602b2606aa",
+      "size": 461774,
+      "sha256": "a49ff6e387eab6458a6eece31e5d374e950eee82cfb91dcb36fc1bbce4da9576",
       "source": {
         "kind": "git-blob",
-        "blob": "c0713b96e9d91aa4c799ce3d48495140e0d79192"
+        "blob": "c3929a6ea08bba145518bde913350c7fa596dc7d"
       },
       "owningComponent": "deep-learning",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "deep-learning/math/calculus.json",
-      "size": 543881,
-      "sha256": "d7ad1fab421540121c326318fdea9bea6d85c572e41aee28253a1bc68190c935",
+      "size": 545441,
+      "sha256": "1ecd702c24deaec99d92e5d378ea3eb6111ee9639465993154295c251e2da3f5",
       "source": {
         "kind": "git-blob",
-        "blob": "e00335ceed0c1bd131cc5c5b53c7cc70be8031c0"
+        "blob": "0c7df5ed8ce1a43950008a286a4303bb61cbea41"
       },
       "owningComponent": "deep-learning",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "deep-learning/math/discrete-math.json",
-      "size": 389585,
-      "sha256": "6b15f770f7d48311046aa46890c5794ab425542e58eff24b91d9298c17c225c3",
+      "size": 392426,
+      "sha256": "6ef9408008504f646c24c1370d1df72e36a31b7b2953f0551b3abb09cb9e24d9",
       "source": {
         "kind": "git-blob",
-        "blob": "23b0a831bfb696b17b35fd2ff6c5cce5dd8c66c9"
+        "blob": "a16d098a3a287f299d849f4977295335e3b5a346"
       },
       "owningComponent": "deep-learning",
       "deploymentClassification": "KEEP_PRODUCTION"
     },
     {
       "path": "deep-learning/math/functions.json",
-      "size": 431273,
-      "sha256": "4d2c20139db32135446cf164f4fcccb88770ec03146cb9a88d453637adaccc18",
+      "size": 432571,
+      "sha256": "c0049ca57ebb6c1ccf724d163c59c97a23e20a8c426fef924cdb5bfa868670c9",
       "source": {
         "kind": "git-blob",
-        "blob": "0f408bc220b4cc226cca3eaee70f40b6be3208c7"
+        "blob": "b67ab5b72b34b7a0440fd91c1d550ab6b0d97e35"
       },
       "owningComponent": "deep-learning",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -1434,11 +1434,11 @@
     },
     {
       "path": "deep-learning/math/linear-algebra.json",
-      "size": 528318,
-      "sha256": "1a64c615d129c7dbce10474d8eb3c7c4e2631782f395312fe947784ffff82c54",
+      "size": 531361,
+      "sha256": "0b37d04cef3e0d084694b377b209cfbd60008ee8199e694e6dcc74562d1dbd7b",
       "source": {
         "kind": "git-blob",
-        "blob": "d34aa8258683ae10c7b1ca3f4496b75ddf700b61"
+        "blob": "82e3d86041f93ee5d4f04382293a81fca28d6303"
       },
       "owningComponent": "deep-learning",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -3716,5 +3716,5 @@
     }
   ],
   "fileCount": 334,
-  "byteSize": 445996741
+  "byteSize": 446008775
 }
