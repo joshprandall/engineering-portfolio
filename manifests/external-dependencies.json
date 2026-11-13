@@ -482,6 +482,24 @@
       "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
     },
     {
+      "url": "https://c2.com/doc/oopsla92.html",
+      "consumers": [
+        {
+          "source": "knowledge-data.js",
+          "evidence": "current-runtime"
+        },
+        {
+          "source": "verification-manifest.json",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
       "url": "https://c2.com/doc/oopsla92.html.",
       "consumers": [
         {
@@ -944,6 +962,24 @@
       "fallbackContract": "Ambient failure must not block content, controls or navigation; silence is acceptable. No verified equivalence to similarly named local MP3 is inferred."
     },
     {
+      "url": "https://core.ac.uk/download/205208894.pdf",
+      "consumers": [
+        {
+          "source": "knowledge-data.js",
+          "evidence": "current-runtime"
+        },
+        {
+          "source": "verification-manifest.json",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
       "url": "https://core.ac.uk/download/205208894.pdf.",
       "consumers": [
         {
@@ -1244,6 +1280,24 @@
       "consumers": [
         {
           "source": "games/evil-wizard/index.js",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
+      "url": "https://digital.gov/guides/plain-language/principles/organize",
+      "consumers": [
+        {
+          "source": "knowledge-data.js",
+          "evidence": "current-runtime"
+        },
+        {
+          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -2282,6 +2336,24 @@
       "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
     },
     {
+      "url": "https://doi.org/10.1037/0033-2909.119.2.254",
+      "consumers": [
+        {
+          "source": "knowledge-data.js",
+          "evidence": "current-runtime"
+        },
+        {
+          "source": "verification-manifest.json",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
       "url": "https://doi.org/10.1037/0033-2909.119.2.254.",
       "consumers": [
         {
@@ -2440,6 +2512,24 @@
       "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
     },
     {
+      "url": "https://doi.org/10.2307/2666999",
+      "consumers": [
+        {
+          "source": "knowledge-data.js",
+          "evidence": "current-runtime"
+        },
+        {
+          "source": "verification-manifest.json",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
       "url": "https://doi.org/10.2307/2666999.",
       "consumers": [
         {
@@ -2458,6 +2548,24 @@
       "consumers": [
         {
           "source": "deep-learning/cyber/detection.json",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
+      "url": "https://doi.org/10.6028/NIST.SP.800-161r1-upd1",
+      "consumers": [
+        {
+          "source": "knowledge-data.js",
+          "evidence": "current-runtime"
+        },
+        {
+          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -2524,6 +2632,24 @@
       "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
     },
     {
+      "url": "https://doi.org/10.6028/NIST.SP.800-84",
+      "consumers": [
+        {
+          "source": "knowledge-data.js",
+          "evidence": "current-runtime"
+        },
+        {
+          "source": "verification-manifest.json",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
       "url": "https://doi.org/10.6028/NIST.SP.800-84.",
       "consumers": [
         {
@@ -2542,6 +2668,24 @@
       "consumers": [
         {
           "source": "deep-learning/cyber/detection.json",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
+      "url": "https://dora.dev/capabilities/streamlining-change-approval/",
+      "consumers": [
+        {
+          "source": "knowledge-data.js",
+          "evidence": "current-runtime"
+        },
+        {
+          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -2595,6 +2739,24 @@
     },
     {
       "url": "https://escholarship.org/uc/item/78h8v7mr",
+      "consumers": [
+        {
+          "source": "knowledge-data.js",
+          "evidence": "current-runtime"
+        },
+        {
+          "source": "verification-manifest.json",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
+      "url": "https://eur-lex.europa.eu/eli/reg/2023/2854/oj",
       "consumers": [
         {
           "source": "knowledge-data.js",
@@ -2676,6 +2838,24 @@
       "consumers": [
         {
           "source": "qubit-preview-20260921/styles.css",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
+      "url": "https://gaoinnovations.gov/cost-guide/types-of-cost-estimates.html",
+      "consumers": [
+        {
+          "source": "knowledge-data.js",
+          "evidence": "current-runtime"
+        },
+        {
+          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -4986,6 +5166,24 @@
       "consumers": [
         {
           "source": "deep-learning/math/linear-algebra.json",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
+      "url": "https://ninercommons.charlotte.edu/record/2294/files/Flinchum_uncc_0694D_13278.pdf",
+      "consumers": [
+        {
+          "source": "knowledge-data.js",
+          "evidence": "current-runtime"
+        },
+        {
+          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -8664,6 +8862,24 @@
       "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
     },
     {
+      "url": "https://queue.acm.org/detail.cfm?id=1142065",
+      "consumers": [
+        {
+          "source": "knowledge-data.js",
+          "evidence": "current-runtime"
+        },
+        {
+          "source": "verification-manifest.json",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
       "url": "https://queue.acm.org/detail.cfm?id=1142065.",
       "consumers": [
         {
@@ -8880,6 +9096,24 @@
       "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
     },
     {
+      "url": "https://sre.google/sre-book/embracing-risk/",
+      "consumers": [
+        {
+          "source": "knowledge-data.js",
+          "evidence": "current-runtime"
+        },
+        {
+          "source": "verification-manifest.json",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
       "url": "https://sre.google/sre-book/embracing-risk/,",
       "consumers": [
         {
@@ -8952,6 +9186,24 @@
       "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
     },
     {
+      "url": "https://sre.google/sre-book/introduction/",
+      "consumers": [
+        {
+          "source": "knowledge-data.js",
+          "evidence": "current-runtime"
+        },
+        {
+          "source": "verification-manifest.json",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
       "url": "https://sre.google/sre-book/introduction/.",
       "consumers": [
         {
@@ -8960,6 +9212,24 @@
         },
         {
           "source": "deep-learning/leadership/operations.json",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
+      "url": "https://sre.google/sre-book/managing-incidents/",
+      "consumers": [
+        {
+          "source": "knowledge-data.js",
+          "evidence": "current-runtime"
+        },
+        {
+          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
@@ -9120,6 +9390,24 @@
       "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
     },
     {
+      "url": "https://sre.google/workbook/error-budget-policy/",
+      "consumers": [
+        {
+          "source": "knowledge-data.js",
+          "evidence": "current-runtime"
+        },
+        {
+          "source": "verification-manifest.json",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
       "url": "https://sre.google/workbook/error-budget-policy/.",
       "consumers": [
         {
@@ -9185,6 +9473,24 @@
     },
     {
       "url": "https://systemd.io/",
+      "consumers": [
+        {
+          "source": "knowledge-data.js",
+          "evidence": "current-runtime"
+        },
+        {
+          "source": "verification-manifest.json",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
+      "url": "https://towardszero.nsw.gov.au/sites/default/files/2021-05/RACI%20matrix.pdf",
       "consumers": [
         {
           "source": "knowledge-data.js",
@@ -9520,6 +9826,24 @@
       "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
     },
     {
+      "url": "https://www.gov.uk/service-manual/agile-delivery/developing-a-roadmap",
+      "consumers": [
+        {
+          "source": "knowledge-data.js",
+          "evidence": "current-runtime"
+        },
+        {
+          "source": "verification-manifest.json",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
       "url": "https://www.gov.uk/service-manual/agile-delivery/developing-a-roadmap.",
       "consumers": [
         {
@@ -9535,6 +9859,24 @@
     },
     {
       "url": "https://www.iana.org/assignments/service-names-port-numbers/service-names-port-numbers.xhtml",
+      "consumers": [
+        {
+          "source": "knowledge-data.js",
+          "evidence": "current-runtime"
+        },
+        {
+          "source": "verification-manifest.json",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
+      "url": "https://www.ifrs.org/content/dam/ifrs/publications/html-standards/english/2024/issued/ias16.html",
       "consumers": [
         {
           "source": "knowledge-data.js",
@@ -9871,6 +10213,24 @@
     },
     {
       "url": "https://www.nist.gov/publications/nist-cybersecurity-framework-csf-20",
+      "consumers": [
+        {
+          "source": "knowledge-data.js",
+          "evidence": "current-runtime"
+        },
+        {
+          "source": "verification-manifest.json",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
+      "url": "https://www.nist.gov/system/files/documents/2024/02/21/CSF%202.0%20Implementation%20Examples.pdf",
       "consumers": [
         {
           "source": "knowledge-data.js",
@@ -11334,6 +11694,24 @@
       "consumers": [
         {
           "source": "deep-learning/cyber/network-security.json",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
+      "url": "https://www.siop.org/tip-article/is-cognitive-ability-the-best-predictor-of-job-performance",
+      "consumers": [
+        {
+          "source": "knowledge-data.js",
+          "evidence": "current-runtime"
+        },
+        {
+          "source": "verification-manifest.json",
           "evidence": "current-runtime"
         }
       ],
