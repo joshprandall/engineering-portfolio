@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "sourceCommit": "b5eaf5fe8081d4f5bc425eff39ad7f947af1a45e",
+  "sourceCommit": "bf953c92776bc73f9382811e7a8b89321e70e30d",
   "bytePolicy": "Exact Git blobs; artifacts verified against committed SHA-256 and size.",
   "files": [
     {
@@ -1588,11 +1588,11 @@
     },
     {
       "path": "deep-learning/physics/thermodynamics.json",
-      "size": 479255,
-      "sha256": "55c269a53afdbc4ea89bbad0821060ae51cfbebcef9bb334a03805c1ea148666",
+      "size": 484194,
+      "sha256": "cecbd68dc626e15f731472d7f124238562b22cf154057a90d567587eb71d8a53",
       "source": {
         "kind": "git-blob",
-        "blob": "0dd8f095d5fc525c06bd42a6b94e3f67815076f2"
+        "blob": "884a876f2fa7ad132dbc88c22606f4db1e72c01e"
       },
       "owningComponent": "deep-learning",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -3716,5 +3716,5 @@
     }
   ],
   "fileCount": 334,
-  "byteSize": 446172252
+  "byteSize": 446177191
 }

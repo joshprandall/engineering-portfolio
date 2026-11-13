@@ -8034,6 +8034,20 @@
       "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
     },
     {
+      "url": "https://openstax.org/books/university-physics-volume-2/pages/1-2-thermometers-and-temperature-scales",
+      "consumers": [
+        {
+          "source": "deep-learning/physics/thermodynamics.json",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
       "url": "https://openstax.org/books/university-physics-volume-2/pages/1-2-thermometers-and-temperature-scales,",
       "consumers": [
         {
@@ -8063,6 +8077,20 @@
     },
     {
       "url": "https://openstax.org/books/university-physics-volume-2/pages/1-2-thermometers-and-temperature-scales;",
+      "consumers": [
+        {
+          "source": "deep-learning/physics/thermodynamics.json",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
+      "url": "https://openstax.org/books/university-physics-volume-2/pages/1-4-heat-transfer-specific-heat-and-calorimetry",
       "consumers": [
         {
           "source": "deep-learning/physics/thermodynamics.json",
@@ -8456,6 +8484,20 @@
       "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
     },
     {
+      "url": "https://openstax.org/books/university-physics-volume-2/pages/2-1-molecular-model-of-an-ideal-gas",
+      "consumers": [
+        {
+          "source": "deep-learning/physics/thermodynamics.json",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
       "url": "https://openstax.org/books/university-physics-volume-2/pages/2-1-molecular-model-of-an-ideal-gas,",
       "consumers": [
         {
@@ -8500,6 +8542,10 @@
     {
       "url": "https://openstax.org/books/university-physics-volume-2/pages/3-3-first-law-of-thermodynamics",
       "consumers": [
+        {
+          "source": "deep-learning/physics/thermodynamics.json",
+          "evidence": "current-runtime"
+        },
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
@@ -8573,6 +8619,20 @@
     },
     {
       "url": "https://openstax.org/books/university-physics-volume-2/pages/4-2-heat-engines;",
+      "consumers": [
+        {
+          "source": "deep-learning/physics/thermodynamics.json",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
+      "url": "https://openstax.org/books/university-physics-volume-2/pages/4-6-entropy",
       "consumers": [
         {
           "source": "deep-learning/physics/thermodynamics.json",
