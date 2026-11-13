@@ -9377,6 +9377,10 @@
       "url": "https://sre.google/workbook/alerting-on-slos/",
       "consumers": [
         {
+          "source": "deep-learning/leadership/reliability.json",
+          "evidence": "current-runtime"
+        },
+        {
           "source": "knowledge-upgrades.js",
           "evidence": "current-runtime"
         }
@@ -9404,6 +9408,10 @@
     {
       "url": "https://sre.google/workbook/error-budget-policy/",
       "consumers": [
+        {
+          "source": "deep-learning/leadership/reliability.json",
+          "evidence": "current-runtime"
+        },
         {
           "source": "knowledge-data.js",
           "evidence": "current-runtime"
@@ -9436,6 +9444,10 @@
     {
       "url": "https://sre.google/workbook/implementing-slos/",
       "consumers": [
+        {
+          "source": "deep-learning/leadership/reliability.json",
+          "evidence": "current-runtime"
+        },
         {
           "source": "knowledge-upgrades.js",
           "evidence": "current-runtime"

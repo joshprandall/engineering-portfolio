@@ -280,3 +280,7 @@ built package (section 9).
   (for example `…/introduction/.`); the list is an inventory only and does not affect packaging.
 - Labs are guided exercises unless the lesson names an executable model. Labs that run
   repository tests require a clone of the public repository.
+
+## 11. November 13 follow-up: error-budget practice
+
+Six previously generic practice records in the existing reliability chunk now contain original, source-grounded error-budget scenarios. See `2026-11-13-error-budget-practice.md` for their IDs, source checks and validation. The Leadership scope test now explicitly covers 74 authored IDs. A fresh scan still finds 1,025 generic `What does ...` questions among the 1,100 Leadership records; this batch does not claim to finish the curriculum. The separate November 13 live-runtime inventory establishes substantial production drift, so the earlier three-file parity observation must not be read as permission for a full-site overlay.
