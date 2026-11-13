@@ -1,0 +1,5 @@
+# LDAP search-result evidence
+
+Four identity lessons develop three-valued filter logic, attribute-selection special cases, typesOnly versus entry count, and successful local completion with unexplored references. RFC4511 sections4.5.1.6 through4.5.3 read directly. Local truth/table/list models only, not schema matching or protocol conformance. Existing six identity-protocol lessons and their Node oracles remain unchanged.
+
+Validation: six new scope/source/LDAP-model tests pass. All 713 discovery cases ran: 711 passed and two existing staged-package skips. All 62 configured Python cases, site checks, 184 leadership Node cases and four identity-protocol Node cases passed. Exact QA bytes checked. Only three approved fields in four of 89 cloud identity records changed. Existing six protocol lessons, their test file and original Node oracles remain untouched. Full source baseline 2abbc25 remains most recent. No directory connections, referral following, credentials, account changes, fresh package or live acceptance claimed. Historical media failures and 19 missing assets remain unwaived. No UI or deployment changes.
