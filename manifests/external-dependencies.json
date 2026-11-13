@@ -1808,6 +1808,20 @@
       "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
     },
     {
+      "url": "https://docs.nvidia.com/cuda/archive/12.6.0/cuda-c-programming-guide/index.html",
+      "consumers": [
+        {
+          "source": "deep-learning/advanced/gpu.json",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
       "url": "https://docs.nvidia.com/cuda/cuda-c-best-practices-guide/",
       "consumers": [
         {
@@ -1848,6 +1862,20 @@
       "consumers": [
         {
           "source": "deep-learning/advanced/gpu-computing.json",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
+      "url": "https://docs.nvidia.com/cuda/cuda-c-best-practices-guide/index.html",
+      "consumers": [
+        {
+          "source": "deep-learning/advanced/gpu.json",
           "evidence": "current-runtime"
         }
       ],
