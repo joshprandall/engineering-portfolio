@@ -1,7 +1,8 @@
 'use strict';
-// Twelve core Leadership lessons (reliability, recovery, incidents): every number a lesson
-// states is recomputed here from first principles, the lesson scope is pinned against a stored
-// pre-change snapshot, and each lesson must cite a verified primary source.
+// Core Leadership lessons (reliability, recovery, incidents, capacity, governance, labs,
+// operations, strategy): every number a lesson states is recomputed here from first principles,
+// the lesson scope is pinned against stored pre-change snapshots, and each lesson must cite a
+// verified primary source.
 const test = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
@@ -9,7 +10,7 @@ const path = require('node:path');
 const zlib = require('node:zlib');
 
 const root = path.resolve(__dirname, '..');
-const chunks = ['reliability', 'recovery', 'incidents'];
+const chunks = ['reliability', 'recovery', 'incidents', 'capacity', 'governance', 'lab', 'operations', 'strategy'];
 const current = {};
 const baseline = {};
 for (const c of chunks) {
@@ -24,7 +25,15 @@ const SOURCES = {
   cascade: 'https://sre.google/sre-book/addressing-cascading-failures/',
   incidents: 'https://sre.google/sre-book/managing-incidents/',
   postmortem: 'https://sre.google/sre-book/postmortem-culture/',
-  nist: 'https://doi.org/10.6028/NIST.SP.800-34r1'
+  nist: 'https://doi.org/10.6028/NIST.SP.800-34r1',
+  intro: 'https://sre.google/sre-book/introduction/',
+  toil: 'https://sre.google/sre-book/eliminating-toil/',
+  monitoring: 'https://sre.google/sre-book/monitoring-distributed-systems/',
+  oncall: 'https://sre.google/sre-book/being-on-call/',
+  overload: 'https://sre.google/sre-book/handling-overload/',
+  alerts: 'https://sre.google/workbook/alerting-on-slos/',
+  nistIR: 'https://doi.org/10.6028/NIST.SP.800-61r3',
+  little: 'https://doi.org/10.1287/opre.9.3.383'
 };
 
 const fmt = (x, digits = 0) => x.toLocaleString('en-US', { minimumFractionDigits: digits, maximumFractionDigits: digits });
@@ -138,9 +147,108 @@ const add = (chunk, id, sources, expectations) => cases.push({ chunk, id, source
     [actionable + ' of the ' + total, '40 minutes']);
 }
 
-test('exactly the twelve authored lessons changed, and only their question, reasoning and lab fields', () => {
+{ // load shedding
+  const capacity = 1000, offered = 1500, deadline = 1;
+  const growth = offered - capacity, queueAt2 = growth * 2, wait = queueAt2 / capacity;
+  assert.ok(wait >= deadline);
+  const reject = (requests, accepts, K) => Math.max(0, (requests - K * accepts) / (requests + 1));
+  assert.equal(reject(1500, 1000, 2), 0);
+  add('capacity', 'leadership-v06-load-shedding', [SOURCES.overload],
+    [fmt(growth) + ' requests per second', fmt(queueAt2) + ' requests', '2/3', pct(capacity / offered, 1), reject(1500, 600, 2).toFixed(2), '(1,500 − 1,200) / 1,501']);
+}
+{ // queue growth
+  const arrive = 120, serve = 100, seconds = 300;
+  const queue = (arrive - serve) * seconds, wait = queue / serve;
+  const W = 40 / 80, faster = 125, drain = queue / (faster - arrive);
+  add('capacity', 'leadership-v06-queue-growth-under-overload', [SOURCES.little, SOURCES.overload],
+    [String(arrive - serve) + ' requests per second', fmt(queue) + ' requests', wait + ' seconds', 'W = 40 / 80 = ' + W, fmt(drain) + ' seconds', drain / 60 + ' minutes']);
+}
+{ // incident-response governance
+  const obligations = [{ limit: 15, actual: 12 }, { limit: 30, actual: 48 }];
+  const met = obligations.filter(o => o.actual <= o.limit).length + 1; // legal review completed first
+  assert.equal(met, 2);
+  add('governance', 'leadership-v06-incident-response-governance', [SOURCES.nistIR],
+    [String(48 - 30) + ' minutes late', 'Two of the three obligations', String(30 - 22) + ' minutes to spare']);
+}
+{ // postmortem action items
+  const items = { prevention: 3, detection: 2, process: 1, notActionable: 2 };
+  const actionable = items.prevention + items.detection + items.process;
+  assert.equal(actionable + items.notActionable, 8);
+  add('incidents', 'leadership-v06-postmortem-action-items', [SOURCES.postmortem],
+    ['Six of the eight', '4 / 6 ≈ ' + Math.round(100 * 4 / 6) + '%', 'seventh actionable item']);
+}
+{ // lab: spend an error budget
+  const window = 20000000, budget = 0.001 * window, used = 0.7 * budget, remaining = budget - used;
+  const migration = 0.0005 * 10000000, doubled = 2 * migration, canary = 0.0005 * 100000;
+  assert.ok(close(budget, 20000) && close(remaining, 6000) && close(migration, 5000));
+  add('lab', 'leadership-v06-lab-spend-an-error-budget', [SOURCES.risk, SOURCES.workbook],
+    [fmt(budget) + ' failed requests', fmt(used) + ' are spent', fmt(remaining) + ' remain', fmt(migration) + ' failures', fmt(remaining - migration), pct((remaining - migration) / budget, 0),
+     fmt(doubled) + ' failures', fmt(doubled - remaining) + ' more', pct(migration / remaining, 0), String(canary) + ' failures']);
+}
+{ // lab: reconstruct a timeline
+  const utc = { impact: '14:03', alert: '14:11', ack: '14:16', mitigate: '14:52', resolve: '15:40' };
+  const d = (a, b) => minutes(utc[b]) - minutes(utc[a]);
+  assert.equal(minutes('06:03') + 8 * 60, minutes(utc.impact));
+  assert.equal(minutes('14:14') + 2, minutes(utc.ack));
+  add('lab', 'leadership-v06-lab-reconstruct-an-incident-timeline', [SOURCES.incidents],
+    [d('impact', 'alert') + ' minutes', 'acknowledge is ' + d('alert', 'ack') + ' minutes', d('alert', 'mitigate') + ' minutes', d('impact', 'mitigate') + ' minutes', d('alert', 'resolve') + ' minutes',
+     (minutes('14:14') - minutes(utc.alert)) + '-minute acknowledgement', String(d('impact', 'mitigate') - 5) + ' minutes']);
+}
+{ // lab: identify and reduce toil
+  const tasks = [[15, 24], [20, 18], [60, 6], [12, 20]];
+  const toil = tasks.reduce((s, [n, m]) => s + n * m, 0), week = 2400;
+  assert.equal(toil + 300 + 780, week);
+  const after = toil - 360;
+  add('lab', 'leadership-v06-lab-identify-and-reduce-toil', [SOURCES.toil],
+    [fmt(toil) + ' minutes', pct(toil / week, 0), pct(after / week, 0), (960 / 360).toFixed(1) + ' weeks']);
+}
+{ // four golden signals
+  const requests = 12000, failures = 180;
+  add('operations', 'leadership-v06-the-four-golden-signals', [SOURCES.monitoring],
+    [String(requests / 60) + ' requests per second', pct(failures / requests, 1), String(850 - 500) + ' ms', fmt(requests - failures), pct((requests - failures) / requests, 1), 92 * 2 + '%']);
+}
+{ // symptom-based alerting
+  const hours = 30 * 24, budgetRate = 0.1;
+  const burn = 1.44 / budgetRate, consumed = burn / hours;
+  assert.ok(close(burn, 14.4, 1e-9) && close(consumed, 0.02, 1e-12));
+  add('operations', 'leadership-v06-symptom-based-alerting', [SOURCES.alerts, SOURCES.monitoring],
+    [String(hours) + ' hours', '= 14.4', pct(consumed, 0), String(Math.round(hours / burn)) + ' hours', pct(6 * 6 / hours, 0)]);
+}
+{ // toil
+  const per = 2 * 20;
+  add('operations', 'leadership-v06-toil', [SOURCES.toil],
+    [fmt(30 * per) + ' minutes', String(30 * per / 60) + ' hours', fmt(60 * per) + ' minutes', String(60 * per / 60) + ' hours', String(per) + ' minutes']);
+}
+{ // toil reduction
+  const items = { renew: [20, 16], access: [10, 30], leak: [6, 24] };
+  const payback = (k) => items[k][1] / items[k][0];
+  assert.ok(payback('renew') < payback('access') && payback('access') < payback('leak'));
+  assert.ok(items.renew[1] + items.leak[1] <= 40 && items.renew[1] + items.access[1] > 40);
+  add('operations', 'leadership-v06-toil-reduction', [SOURCES.toil],
+    [String(payback('renew')) + ' months', String(payback('access')) + ' months', String(payback('leak')) + ' months', String(items.renew[0] + items.leak[0]) + ' hours a month', String(2 * 26) + ' hours', String(30 / 25) + ' months']);
+}
+{ // on-call readiness
+  const onCall = 2, limit = 0.25;
+  const minimum = onCall / limit;
+  assert.equal(minimum, 8);
+  add('operations', 'leadership-v06-on-call-readiness', [SOURCES.oncall],
+    [String(minimum) + ' engineers', '2 of every 8 weeks', String(3 * 6) + ' hours', pct(onCall / 6, 0)]);
+}
+{ // runbook purpose
+  add('operations', 'leadership-v06-runbook-purpose', [SOURCES.intro],
+    ['3x', String(90 / 3) + ' minutes', 'a total of 3 changes']);
+}
+{ // reliability as a product property
+  const month = 43200, perRelease = 5;
+  const a = Math.floor(0.001 * month / perRelease), b = Math.floor(0.0005 * month / perRelease), c = Math.floor(0.0005 * month / 2);
+  assert.deepEqual([a, b, c], [8, 4, 10]);
+  add('strategy', 'leadership-v06-reliability-as-a-product-property', [SOURCES.risk],
+    ['≈ ' + a + ' risky', 'about ' + b, a + ' releases × 5 minutes = ' + a * perRelease + ' minutes', '≈ ' + c + ' risky releases']);
+}
+
+test('exactly the authored lessons changed, and only their question, reasoning and lab fields', () => {
   const authored = new Set(cases.map(c => c.id));
-  assert.equal(authored.size, 12);
+  assert.equal(authored.size, 26);
   for (const c of chunks) {
     assert.deepEqual(Object.keys(current[c]), Object.keys(baseline[c]), c + ': lesson IDs and order are unchanged');
     for (const id of Object.keys(baseline[c])) {

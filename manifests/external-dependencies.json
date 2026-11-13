@@ -2356,6 +2356,20 @@
       "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
     },
     {
+      "url": "https://doi.org/10.1287/opre.9.3.383.",
+      "consumers": [
+        {
+          "source": "deep-learning/leadership/capacity.json",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
       "url": "https://doi.org/10.17226/25196",
       "consumers": [
         {
@@ -2402,6 +2416,20 @@
       "consumers": [
         {
           "source": "deep-learning/cyber/detection.json",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
+      "url": "https://doi.org/10.6028/NIST.SP.800-61r3.",
+      "consumers": [
+        {
+          "source": "deep-learning/leadership/governance.json",
           "evidence": "current-runtime"
         }
       ],
@@ -8546,6 +8574,20 @@
       "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
     },
     {
+      "url": "https://sre.google/sre-book/being-on-call/.",
+      "consumers": [
+        {
+          "source": "deep-learning/leadership/operations.json",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
       "url": "https://sre.google/sre-book/eliminating-toil/",
       "consumers": [
         {
@@ -8564,8 +8606,30 @@
       "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
     },
     {
+      "url": "https://sre.google/sre-book/eliminating-toil/.",
+      "consumers": [
+        {
+          "source": "deep-learning/leadership/lab.json",
+          "evidence": "current-runtime"
+        },
+        {
+          "source": "deep-learning/leadership/operations.json",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
       "url": "https://sre.google/sre-book/embracing-risk/,",
       "consumers": [
+        {
+          "source": "deep-learning/leadership/lab.json",
+          "evidence": "current-runtime"
+        },
         {
           "source": "deep-learning/leadership/reliability.json",
           "evidence": "current-runtime"
@@ -8582,6 +8646,10 @@
       "consumers": [
         {
           "source": "deep-learning/leadership/reliability.json",
+          "evidence": "current-runtime"
+        },
+        {
+          "source": "deep-learning/leadership/strategy.json",
           "evidence": "current-runtime"
         }
       ],
@@ -8610,10 +8678,42 @@
       "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
     },
     {
+      "url": "https://sre.google/sre-book/handling-overload/.",
+      "consumers": [
+        {
+          "source": "deep-learning/leadership/capacity.json",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
+      "url": "https://sre.google/sre-book/introduction/.",
+      "consumers": [
+        {
+          "source": "deep-learning/leadership/operations.json",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
       "url": "https://sre.google/sre-book/managing-incidents/.",
       "consumers": [
         {
           "source": "deep-learning/leadership/incidents.json",
+          "evidence": "current-runtime"
+        },
+        {
+          "source": "deep-learning/leadership/lab.json",
           "evidence": "current-runtime"
         }
       ],
@@ -8632,6 +8732,20 @@
         },
         {
           "source": "verification-manifest.json",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
+      "url": "https://sre.google/sre-book/monitoring-distributed-systems/.",
+      "consumers": [
+        {
+          "source": "deep-learning/leadership/operations.json",
           "evidence": "current-runtime"
         }
       ],
@@ -8720,6 +8834,20 @@
       "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
     },
     {
+      "url": "https://sre.google/workbook/alerting-on-slos/;",
+      "consumers": [
+        {
+          "source": "deep-learning/leadership/operations.json",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
       "url": "https://sre.google/workbook/implementing-slos/",
       "consumers": [
         {
@@ -8736,6 +8864,10 @@
     {
       "url": "https://sre.google/workbook/implementing-slos/.",
       "consumers": [
+        {
+          "source": "deep-learning/leadership/lab.json",
+          "evidence": "current-runtime"
+        },
         {
           "source": "deep-learning/leadership/reliability.json",
           "evidence": "current-runtime"
