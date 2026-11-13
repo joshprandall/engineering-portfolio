@@ -17,8 +17,10 @@ def targets(elapsed,disruption,snapshot,rto,rpo):
  return elapsed<=rto,disruption-snapshot<=rpo
 class RecoveryGraphBoundaries(unittest.TestCase):
  def test_scope(self):
-  b=json.loads(gzip.decompress((R/'tests/baselines/recovery-graph-boundaries.json.gz').read_bytes()));d=json.loads((R/'deep-learning/cloud/recovery.json').read_bytes())
+  b=json.loads(gzip.decompress((R/'tests/baselines/recovery-graph-boundaries.json.gz').read_bytes()));d=json.loads(gzip.decompress((R/'tests/baselines/restore-validation-labs.json.gz').read_bytes()))
   self.assertEqual(list(b),list(d));self.assertEqual(len(d),93)
+  current=json.loads((R/'deep-learning/cloud/recovery.json').read_bytes())
+  for k in IDS:self.assertEqual(d[k],current[k],k)
   for key in b:
    changed={f for f in set(b[key])|set(d[key]) if b[key].get(f)!=d[key].get(f)}
    self.assertEqual(changed,{'essentialQuestion','reasoningSteps','labPlan'} if key in IDS else set(),key)
