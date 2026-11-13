@@ -4454,6 +4454,20 @@
       "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
     },
     {
+      "url": "https://guides.gaoinnovations.gov/schedule-guide/merge-bias-and-schedule-underestimation.html",
+      "consumers": [
+        {
+          "source": "deep-learning/leadership/projects.json",
+          "evidence": "current-runtime"
+        }
+      ],
+      "provider": "other",
+      "sha256": null,
+      "license": "Not independently verified; retain source credits and verify terms before mirroring.",
+      "preservation": "Remote reference only unless a local counterpart is explicitly recorded.",
+      "fallbackContract": "External links are not bundled. Embedded media must remain supplementary; each provider-specific outage contract needs acceptance before release."
+    },
+    {
       "url": "https://gymnasium.farama.org/",
       "consumers": [
         {
