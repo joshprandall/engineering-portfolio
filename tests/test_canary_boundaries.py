@@ -12,8 +12,10 @@ def review(ce,cn,be,bn):
 def within(t):return 30<=t<60
 class CanaryBoundaries(unittest.TestCase):
  def test_scope(self):
-  b=json.loads(gzip.decompress((R/'tests/baselines/canary-boundaries.json.gz').read_bytes()));d=json.loads((R/'deep-learning/leadership/itsm.json').read_bytes())
+  b=json.loads(gzip.decompress((R/'tests/baselines/canary-boundaries.json.gz').read_bytes()));d=json.loads(gzip.decompress((R/'tests/baselines/change-review-labs.json.gz').read_bytes()))
   self.assertEqual(list(b),list(d));self.assertEqual(len(d),65)
+  current=json.loads((R/'deep-learning/leadership/itsm.json').read_bytes())
+  for k in IDS:self.assertEqual(d[k],current[k],k)
   for k in b:
    changes={f for f in set(b[k])|set(d[k]) if b[k].get(f)!=d[k].get(f)}
    self.assertEqual(changes,{'essentialQuestion','reasoningSteps','labPlan'} if k in IDS else set(),k)

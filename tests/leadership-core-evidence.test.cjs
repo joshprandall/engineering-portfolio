@@ -1179,7 +1179,9 @@ test('itsm follow-up changes exactly four lessons and only approved fields', () 
     assert.ok(!originalIds.has(id), id + ': no original authored lesson replaced');
   }
   for (const id of Object.keys(itsmCheckpoint)) {
-    const before = itsmCheckpoint[id], after = current.itsm[id];
+    const postCheckpoint = JSON.parse(zlib.gunzipSync(fs.readFileSync(path.join(__dirname, 'baselines', 'change-review-labs.json.gz'))).toString('utf8'));
+    const before = itsmCheckpoint[id], after = postCheckpoint[id];
+    if (itsmFollowupIds.has(id)) assert.deepEqual(current.itsm[id], postCheckpoint[id], id);
     const diff = [...new Set([...Object.keys(before), ...Object.keys(after)])].filter(f => JSON.stringify(before[f]) !== JSON.stringify(after[f]));
     assert.deepEqual(diff.sort(), itsmFollowupIds.has(id) ? ['essentialQuestion', 'labPlan', 'reasoningSteps'] : [], id);
   }
