@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "sourceCommit": "64df3609789cd75fbd84bb90b2da86828bb59a3b",
+  "sourceCommit": "434aff51f50aa699d3ecb3ada24daef943e7f3d1",
   "bytePolicy": "Exact Git blobs; artifacts verified against committed SHA-256 and size.",
   "files": [
     {
@@ -1148,11 +1148,11 @@
     },
     {
       "path": "deep-learning/cyber/identity.json",
-      "size": 566063,
-      "sha256": "9c3e7a30d8ad100a725673e16708b12b45596b9f3420235a8b234715a48e051c",
+      "size": 568452,
+      "sha256": "1c1b3380c80267077a8c770a1f23fd99779b81b1aaf2439eaf4b37771e470432",
       "source": {
         "kind": "git-blob",
-        "blob": "d9c2acdad4cc34cb784354eefd605462f631ed74"
+        "blob": "5687b3122c510f2c63234197245fc016860bb616"
       },
       "owningComponent": "deep-learning",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -3716,5 +3716,5 @@
     }
   ],
   "fileCount": 334,
-  "byteSize": 446304264
+  "byteSize": 446306653
 }
