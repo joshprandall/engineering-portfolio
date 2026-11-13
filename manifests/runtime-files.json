@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "sourceCommit": "c83e2c8a5527489b7d30db14a1177f055ff33308",
+  "sourceCommit": "07f0d616006aff1e2bf77f52376396911fbb686a",
   "bytePolicy": "Exact Git blobs; artifacts verified against committed SHA-256 and size.",
   "files": [
     {
@@ -1115,11 +1115,11 @@
     },
     {
       "path": "deep-learning/cyber/endpoint.json",
-      "size": 393609,
-      "sha256": "a48a466918fce51a0b6eb9b5f9d2cf43848994888d9e54360f44e5a3ccbe77c9",
+      "size": 395479,
+      "sha256": "fba26e6d214da0cbd93aa94cb44f7b29e460057f9dc46c25db026a044c17b4ea",
       "source": {
         "kind": "git-blob",
-        "blob": "623adde9f5eafc959101ae96497346c6a7eeeaff"
+        "blob": "8480167c993c462f614fa96bbe52bac44f92ed00"
       },
       "owningComponent": "deep-learning",
       "deploymentClassification": "KEEP_PRODUCTION"
@@ -3716,5 +3716,5 @@
     }
   ],
   "fileCount": 334,
-  "byteSize": 446287884
+  "byteSize": 446289754
 }
