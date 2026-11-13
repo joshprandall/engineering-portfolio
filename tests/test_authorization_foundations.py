@@ -6,9 +6,11 @@ B=json.loads(gzip.decompress((R/'tests/baselines/authorization-foundations.json.
 IDS=["cyber-authn-authz","cyber-rbac","cyber-least-privilege","cyber-v08-evidence-lab-authorization-deny-by-default","cyber-v08-evidence-lab-authorization-every-request","cyber-v10-counterexample-lab-least-privilege-as-an-engineering-discipline"]
 class AuthorizationFoundations(unittest.TestCase):
  def test_scope(self):
+  checkpoint=json.loads(gzip.decompress((R/'tests/baselines/oidc-claim-labs.json.gz').read_bytes()))
   self.assertEqual(list(B),list(D));self.assertEqual(len(D),133)
+  for k in IDS:self.assertEqual(D[k],checkpoint[k],k)
   for k in B:
-   changed=sorted(f for f in set(B[k])|set(D[k]) if B[k].get(f)!=D[k].get(f))
+   changed=sorted(f for f in set(B[k])|set(checkpoint[k]) if B[k].get(f)!=checkpoint[k].get(f))
    self.assertEqual(changed,['essentialQuestion','labPlan','reasoningSteps'] if k in IDS else [],k)
  def test_sources_and_limits(self):
   for k in IDS:
