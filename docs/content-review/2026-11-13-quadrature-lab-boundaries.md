@@ -1,0 +1,5 @@
+# Exact-arithmetic quadrature labs
+
+Four original math labs cover trapezoidal error ratios, midpoint bracketing, Simpson exactness and a between-node counterexample. Read OpenStax Calculus Volume2 section3.6 rule definitions and error assumptions. Original examples use Fraction and independent polynomial antiderivatives; no artwork copied. Tests isolate discretization, not floating-point or performance behavior.
+
+Validation: six new scope/source/model tests pass. All 483 test_*.py cases ran: 481 passed and two pre-existing staged-package cases skipped. All 62 configured Python cases and site checks passed. Exact isolated QA bytes verified. All 100 math lab records retain their original IDs and fields except the three approved fields of four selected lessons. Exact Fraction checks verify independently integrated polynomials, including a coarse-grid agreement counterexample. No floating-point or performance claim. No full package, full suite or physical-device validation is claimed. Hosted media failures remain unwaived. No merge, deployment, UI, live behavior, security settings or personal history changed.
