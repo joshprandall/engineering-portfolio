@@ -9,3 +9,5 @@ Validation: all 8 new matrix/boundary/scope cases pass. The scoped QA tree passe
 The historical 24-lesson HTTP audit now uses the immutable pre-batch checkpoint for its original 72-field-change proof, while asserting every original authored record still equals the current record. The new scope test checks all 131 current records and permits exactly six new three-field changes. No original numerical exercise or normative claim test was removed.
 
 No real network requests are issued by tests, no resource/cache/security setting is altered, and no runtime/UI code is modified. No full package, merge or deployment. Previous intermittent browser-media failures remain unwaived.
+
+Narrow runtime manifest updates only software/apis.json: 579,442 bytes, SHA256 a6f5e49813226186d3f76d5365a40fc610287828b0c71bc081540477089f0f37, source commit 80ec64d5e233d07e2aaf2c332fcda14fce5e764c. All 334 runtime paths remain; aggregate 446,159,431 bytes. No staged-package or release-readiness claim.
