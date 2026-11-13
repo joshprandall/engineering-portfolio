@@ -34,8 +34,10 @@ class MatrixContractBoundaries(unittest.TestCase):
   text=' '.join(D[IDS[i]]['reasoningSteps'])
   for word in words:self.assertIn(word,text)
  def test_scope(self):
-  self.assertEqual(list(D),list(B));self.assertEqual(len(D),135)
-  for k in B:self.assertEqual(sorted(f for f in set(B[k])|set(D[k]) if B[k].get(f)!=D[k].get(f)),['essentialQuestion','labPlan','reasoningSteps'] if k in IDS else [],k)
+  checkpoint=json.loads(gzip.decompress((R/'tests/baselines/basis-coordinate-boundaries.json.gz').read_bytes()))
+  self.assertEqual(list(B),list(checkpoint));self.assertEqual(list(checkpoint),list(D));self.assertEqual(len(D),135)
+  for k in IDS:self.assertEqual(D[k],checkpoint[k],k)
+  for k in B:self.assertEqual(sorted(f for f in set(B[k])|set(checkpoint[k]) if B[k].get(f)!=checkpoint[k].get(f)),['essentialQuestion','labPlan','reasoningSteps'] if k in IDS else [],k)
  def test_sources(self):
   for k,src in zip(IDS,REFS):
    self.assertFalse(D[k]['essentialQuestion'].startswith('What does '))
